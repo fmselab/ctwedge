@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+   <extension-point id="ctwedgeGenerators" name="ctwedgeGenerators" schema="schema/generators.exsd" />
+   <extension-point id="ctwedgeExporters" name="ctwedgeExporters" schema="schema/TestSuiteExporters.exsd" />
+   
+</plugin>

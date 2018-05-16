@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:projects="http://www.soyatec.com/projects" xmi:id="_S8SLAQhgEeGl99GWhUGg4w" type="Projects" name="default.pdd" measurementUnit="Pixel">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_S8m7IAhgEeGl99GWhUGg4w" source="Diagram_Wire_Options">
+    <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_S8niMAhgEeGl99GWhUGg4w" key="Diagram_Wire_Options" value="15"/>
+  </eAnnotations>
+  <styles xmi:type="notation:PageStyle" xmi:id="_S8SLAghgEeGl99GWhUGg4w"/>
+  <styles xmi:type="notation:GuideStyle" xmi:id="_S8SLAwhgEeGl99GWhUGg4w"/>
+  <styles xmi:type="notation:DescriptionStyle" xmi:id="_S8SLBAhgEeGl99GWhUGg4w"/>
+  <element xmi:type="projects:Diagram" href="plugins#/"/>
+</notation:Diagram>

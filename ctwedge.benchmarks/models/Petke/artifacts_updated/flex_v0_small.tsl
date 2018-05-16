@@ -1,0 +1,142 @@
+# Test Specification for flex command
+#flex-2.4.3
+#modified by Amit Goel 8,August,2001
+# made output file : on from error to single
+
+Parameters:
+	
+	Input file name:
+		good file name.			
+		no file with this name.		[error]
+		
+	Backing up:			# -b
+		Backup_on.				[property BackUp][single]	
+		Backup_off.				[property NoBackUp]
+
+	Help:				# -h
+		Help_on.				[single]
+		Help_off.
+
+	Case-insensitive:		# -i
+		CaseInsen_on.				[single]
+		CaseInsen_off.
+
+	Default rule:			# -s
+		DefaultRule_on.				[single]
+		DefaultRule_off.
+
+	Standard output:		# -t
+		Stdout_on.				[single]
+		Stdout_off.
+
+	Statistics:			# -v
+		Statistics_on.				[single]
+		Statistics_off.
+
+	Warning message:		# -w
+		Warn_on.				[single]
+		Warn_off.
+
+	Batch scanner:			# -B
+		Batch_on.				[single]
+		Batch_off.
+
+	No #line directives:		# -L
+		No#line_on.				[single]
+		No#line_off.
+
+	Trace mode:			# -T
+		Trace_on.				[single]
+		Trace_off.
+
+	Print version number:		# -V
+		Version_on.				[single]
+		Version_off.
+	
+	7-bit scanner:			# -7
+		7bit_on.				[single]
+		7bit_off.
+
+	Prefix:				# -Pprefix 
+		Prefix_on.				[single]
+		Prefix_off.
+
+	Debug mode:			# -d
+0		Debug_on.
+1		Debug_off.
+
+	Bypass use:			# -Cr
+2		Bypass_on.				[property Bypass]
+3		Bypass_off.
+
+	Fast scanner:			# -f, -Cf
+4		FastScan.			[property FastScan]
+5		FullScan.			[if !Bypass][property FullScan]
+6		off.				[property f&Cfoff]
+
+	Fast scanner with table:	# -F, -CF
+7		FastScanTable.			[if f&Cfoff][property FastScanTable]
+8		Alternate fast.			[if f&Cfoff && !Bypass][property AltFast]		
+9		off.				[property F&CFoff]
+
+	Align:				# -Ca, -Cfa, -CFa
+10		Align.				[if !FullScan && !AltFast][property Align]
+#		AlignFullScan.			
+#		AlignAltFast.		
+11		off.
+
+	Equivalence classes:		# -Ce, -Cfe, -CFe
+12		EquiClass.			[if !FullScan && !AltFast][property EquiClass]
+#		EquiFullScan.			
+#		EquiAltFast.			
+13		off.
+	
+	Meta-equivalence classes:	# -Cm
+14		on.		[if f&Cfoff && F&CFoff][property MetaEq]
+15		off.
+
+#	Equi-meta-equivalance:		# -Cem
+#		on.		[if MetaEq && EquiClass][property EquiMeta]
+#		off.
+
+	8-bit scanner:			# -8
+		FullScanOn.			[if FullScan][single] # -Cf
+		AltFastOn.			[if AltFast][single]  # -CF
+		off.
+
+	Compatibility with AT&T lex:	# -l 
+16		on.			[if (F&CFoff && f&Cfoff)] 
+17		off.			
+
+        Output file:			# -ooutput
+		on.			[single]
+		off.
+
+	Performance report:		# -p
+		fast_FullScan.		[if NoBackUp && FullScan][single] # -Cf
+		fast_AltFast.		[if NoBackUp && AltFast][single]  # -CF
+		slow_BackUp.		[if BackUp][single]   # -b
+		slow_Compress.		[single] # -C
+		off.				
+
+Environments:
+
+	Format of input file:
+		General.
+		WithoutRule.			[single]
+
+	Definitions:
+		PatternIndented.		[error]
+		Match.
+		ErrInDef.			[error]
+
+	Rules:
+		Match.
+		ErrInRule.			[error]
+
+	Patterns:
+18		Character_Range.			#[single]
+19		Character_Expression.			#[single]
+20		Closure.			#[single]
+21		Expression.			#[single]
+22		All.	

@@ -1,0 +1,66 @@
+Model sed_v0_2_small
+
+Parameters:
+p1: Boolean
+p2: Boolean
+p3: Boolean
+p4: Boolean
+p5: { v1 v2 v3 v4 v5 v6 }
+p6: { v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 }
+p7: Boolean
+p8: { v1 v2 v3 v4 }
+p9: Boolean
+p10: Boolean
+p11: { v1 v2 v3 }
+
+Constraints:
+ # p3 or p2 #
+ # !p3 or !p2 #
+ # p4 or p2 #
+ # !p4 or !p2 #
+ # p5!=v2 or p2 #
+ # p5!=v6 or p2 #
+ # p6!=v1 or p2 #
+ # p6!=v2 or p2 #
+ # p6!=v3 or p2 #
+ # p6!=v4 or p2 #
+ # p6!=v5 or p2 #
+ # p6!=v6 or p2 #
+ # p6!=v7 or p2 #
+ # p6!=v8 or p2 #
+ # p6!=v9 or p2 #
+ # p6!=v10 or !p2 #
+ # p7 or p5==v3 or p5==v4 or p5==v5 #
+ # !p7 or p5!=v3 #
+ # !p7 or p5!=v4 #
+ # !p7 or p5!=v5 #
+ # p8!=v1 or !p1 #
+ # p8!=v1 or p5==v1 or p5==v2 or p5==v3 or p5==v4 or p5==v5 or p6==v1 or p6==v2 or p6==v3 or p6==v4 or p6==v5 #
+ # p8!=v2 or p2 #
+ # p8!=v2 or !p1 #
+ # p8!=v2 or p5==v1 or p5==v2 or p5==v3 or p5==v4 or p5==v5 or p6==v1 or p6==v2 or p6==v3 or p6==v4 or p6==v5 #
+ # p8!=v3 or p1 #
+ # p8!=v4 or !p1 #
+ # p8!=v4 or p1 or p5!=v1 #
+ # p8!=v4 or p1 or p5!=v2 #
+ # p8!=v4 or p1 or p5!=v3 #
+ # p8!=v4 or p1 or p5!=v4 #
+ # p8!=v4 or p1 or p5!=v5 #
+ # p8!=v4 or p1 or p6!=v1 #
+ # p8!=v4 or p1 or p6!=v2 #
+ # p8!=v4 or p1 or p6!=v3 #
+ # p8!=v4 or p1 or p6!=v4 #
+ # p8!=v4 or p1 or p6!=v5 #
+ # p9 or p5==v3 or p5==v4 or p5==v5 #
+ # p9 or p7 #
+ # !p9 or !p7 or p5!=v3 #
+ # !p9 or !p7 or p5!=v4 #
+ # !p9 or !p7 or p5!=v5 #
+ # p10 or p5==v3 or p5==v4 or p5==v5 #
+ # p10 or p6!=v7 #
+ # !p10 or p6==v7 or p5!=v3 #
+ # !p10 or p6==v7 or p5!=v4 #
+ # !p10 or p6==v7 or p5!=v5 #
+ # p11!=v1 or p2 #
+ # p11!=v2 or p2 #
+ # p11!=v3 or !p2 #

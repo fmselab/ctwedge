@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<System name="flex_v0">
+  <Parameters>
+    <Parameter id="0" name="p15" type="0">
+      <values>
+        <value>0</value>
+        <value>1</value>
+      </values>
+      <basechoices>
+        <basechoice />
+      </basechoices>
+    </Parameter>
+    <Parameter id="1" name="p16" type="0">
+      <values>
+        <value>2</value>
+        <value>3</value>
+      </values>
+      <basechoices>
+        <basechoice />
+      </basechoices>
+    </Parameter>
+    <Parameter id="2" name="p17" type="0">
+      <values>
+        <value>4</value>
+        <value>5</value>
+        <value>6</value>
+      </values>
+      <basechoices>
+        <basechoice />
+      </basechoices>
+    </Parameter>
+    <Parameter id="3" name="p18" type="0">
+      <values>
+        <value>7</value>
+        <value>8</value>
+        <value>9</value>
+      </values>
+      <basechoices>
+        <basechoice />
+      </basechoices>
+    </Parameter>
+    <Parameter id="4" name="p19" type="0">
+      <values>
+        <value>10</value>
+        <value>11</value>
+      </values>
+      <basechoices>
+        <basechoice />
+      </basechoices>
+    </Parameter>
+    <Parameter id="5" name="p20" type="0">
+      <values>
+        <value>12</value>
+        <value>13</value>
+      </values>
+      <basechoices>
+        <basechoice />
+      </basechoices>
+    </Parameter>
+    <Parameter id="6" name="p21" type="0">
+      <values>
+        <value>14</value>
+        <value>15</value>
+      </values>
+      <basechoices>
+        <basechoice />
+      </basechoices>
+    </Parameter>
+    <Parameter id="7" name="p23" type="0">
+      <values>
+        <value>16</value>
+        <value>17</value>
+      </values>
+      <basechoices>
+        <basechoice />
+      </basechoices>
+    </Parameter>
+    <Parameter id="8" name="p29" type="0">
+      <values>
+        <value>18</value>
+        <value>19</value>
+        <value>20</value>
+        <value>21</value>
+        <value>22</value>
+      </values>
+      <basechoices>
+        <basechoice />
+      </basechoices>
+    </Parameter>
+  </Parameters>
+  <OutputParameters />
+  <Relations />
+  <Constraints>
+    <Constraint text="(p16!=2)||(p17!=5)">
+      <Parameters>
+        <Parameter name="p16" />
+        <Parameter name="p17" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p17=6)||(p18!=7)">
+      <Parameters>
+        <Parameter name="p17" />
+        <Parameter name="p18" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p17=6)||(p18!=8)">
+      <Parameters>
+        <Parameter name="p17" />
+        <Parameter name="p18" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p16!=2)||(p18!=8)">
+      <Parameters>
+        <Parameter name="p16" />
+        <Parameter name="p18" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p17!=5)||(p19!=10)">
+      <Parameters>
+        <Parameter name="p17" />
+        <Parameter name="p19" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p18!=8)||(p19!=10)">
+      <Parameters>
+        <Parameter name="p18" />
+        <Parameter name="p19" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p17!=5)||(p20!=12)">
+      <Parameters>
+        <Parameter name="p17" />
+        <Parameter name="p20" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p18!=8)||(p20!=12)">
+      <Parameters>
+        <Parameter name="p18" />
+        <Parameter name="p20" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p17=6)||(p21!=14)">
+      <Parameters>
+        <Parameter name="p17" />
+        <Parameter name="p21" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p18=9)||(p21!=14)">
+      <Parameters>
+        <Parameter name="p18" />
+        <Parameter name="p21" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p17=6)||(p23!=16)">
+      <Parameters>
+        <Parameter name="p17" />
+        <Parameter name="p23" />
+      </Parameters>
+    </Constraint>
+    <Constraint text="(p18=9)||(p23!=16)">
+      <Parameters>
+        <Parameter name="p18" />
+        <Parameter name="p23" />
+      </Parameters>
+    </Constraint>
+  </Constraints>
+</System>
+

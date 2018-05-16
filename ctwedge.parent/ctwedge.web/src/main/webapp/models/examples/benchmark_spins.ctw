@@ -1,0 +1,36 @@
+Model benchmark_spins
+
+Parameters:
+p1: Boolean
+p2: Boolean
+p3: Boolean
+p4: Boolean
+p5: Boolean
+p6: Boolean
+p7: Boolean
+p8: Boolean
+p9: Boolean
+p10: Boolean
+p11: Boolean
+p12: Boolean
+p13: Boolean
+p14: { v1 v2 v3 v4 }
+p15: { v1 v2 v3 v4 }
+p16: { v1 v2 v3 v4 }
+p17: { v1 v2 v3 v4 }
+p18: { v1 v2 v3 v4 }
+
+Constraints:
+ # !p1 or !p2 #
+ # !p1 or !p3 #
+ # !p1 or p14!=v2 #
+ # !p1 or p15!=v2 #
+ # !p1 or p15!=v3 #
+ # !p1 or p15!=v4 #
+ # !p1 or p16!=v2 #
+ # !p1 or p16!=v3 #
+ # !p1 or p16!=v4 #
+ # !p13 or p16!=v2 #
+ # !p13 or p16!=v3 #
+ # !p13 or p16!=v4 #
+ # !p4 or p5 #

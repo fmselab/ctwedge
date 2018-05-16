@@ -1,0 +1,23 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model Concurrency
+
+Parameters:
+p1: { v1 v2 };
+p2: { v1 v2 };
+p3: { v1 v2 };
+p4: Boolean;
+p5: Boolean;
+
+Constraints:
+	# ( p3!=v1 OR p2!=v1 OR p5 OR p4 OR p1!=v1) #
+	# ( p1!=v2 OR p5!=true) #
+	# ( p2!=v1 OR p5 OR p4!=true OR p3!=v2 OR p1!=v1) #
+	# ( p5!=true OR p2!=v2) #
+	# ( p4 OR p3!=v2 OR p1!=v1) #
+	# ( p4!=true OR p1!=v2) #
+	# ( p3!=v1 OR p4!=true) #
+

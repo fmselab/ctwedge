@@ -1,0 +1,222 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model CommProtocol
+
+Parameters:
+p1: { v1 v2 };
+p2: { v1 v2 };
+p3: { v1 v2 };
+p4: { v1 v2 };
+p5: { v1 v2 };
+p6: { v1 v2 };
+p7: { v1 v2 };
+p8: Boolean;
+p9: Boolean;
+p10: Boolean;
+p11: { v1 v2 v3 v4 v5 v6 v7 };
+
+Constraints:
+	# ( p6!=v1 OR p3!=v2 OR p2!=v2 OR p11!=v4 OR p1!=v2 OR
+	p5!=v2) #
+	# ( p7!=v2 OR p3!=v2 OR p6!=v2 OR p11!=v1 OR p5!=v2) #
+	# ( p3!=v2 OR p2!=v2 OR p11!=v6 OR p1!=v2 OR p5!=v1) #
+	# ( p6!=v1 OR p1!=v1 OR p11!=v1 OR p5!=v2) #
+	# ( p7!=v2 OR p11!=v6 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR
+	p2!=v1 OR p5!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p5!=v1 OR p1!=v2 OR p11!=v3 OR
+	p8!=true) #
+	# ( p6!=v1 OR p3!=v2 OR p2!=v2 OR p11!=v6 OR p1!=v2 OR
+	p5!=v2) #
+	# ( p7!=v2 OR p11!=v7) #
+	# ( p1!=v1 OR p4!=v2 OR p8!=true) #
+	# ( p7!=v2 OR p3!=v2 OR p11!=v7 OR p6!=v2 OR p5!=v2) #
+	# ( p11!=v7 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p2!=v1 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p11!=v6 OR p1!=v2 OR p5!=v1 OR p2!=v1) #
+	# ( p7!=v2 OR p2!=v2 OR p3!=v1 OR p8 OR p6!=v2 OR
+	p1!=v2 OR p11!=v2 OR p5!=v2) #
+	# ( p3!=v2 OR p11!=v7 OR p6!=v2 OR p7!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p2!=v2 OR p11!=v7 OR p3!=v1 OR p1!=v2 OR
+	p8!=true OR p5!=v2) #
+	# ( p7!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v1 OR p11!=v1 OR
+	p5!=v2) #
+	# ( p3!=v2 OR p2!=v2 OR p11!=v4 OR p1!=v2 OR p5!=v1) #
+	# ( p2!=v2 OR p11!=v6 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p7!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p11!=v2 OR
+	p2!=v1 OR p5!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p5!=v1 OR p1!=v2 OR p11!=v5 OR
+	p8!=true) #
+	# ( p9!=true OR p1!=v1 OR p4!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p5!=v1 OR p1!=v2 OR p11!=v2 OR
+	p8!=true) #
+	# ( p6!=v1 OR p11!=v7 OR p1!=v2 OR p2!=v1 OR p5!=v2) #
+	# ( p1!=v2 OR p5!=v1 OR p11!=v5 OR p2!=v1) #
+	# ( p6!=v1 OR p11!=v7 OR p1!=v1 OR p5!=v2) #
+	# ( p11!=v6 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p2!=v1 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p2!=v2 OR p3!=v1 OR p1!=v2 OR p11!=v5 OR
+	p8!=true OR p5!=v2) #
+	# ( p7!=v2 OR p2!=v2 OR p3!=v1 OR p8 OR p6!=v2 OR
+	p1!=v2 OR p11!=v3 OR p5!=v2) #
+	# ( p9!=true OR p8!=true) #
+	# ( p2!=v2 OR p11!=v4 OR p3!=v1 OR p5!=v1 OR p1!=v2 OR
+	p8!=true) #
+	# ( p7!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v1 OR p11!=v2 OR
+	p5!=v2) #
+	# ( p6!=v1 OR p11!=v6 OR p1!=v1 OR p5!=v2) #
+	# ( p7!=v2 OR p2!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR
+	p11!=v2 OR p8!=true OR p5!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p11!=v3 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p11!=v4 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p2!=v1 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p7!=v2 OR p2!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR
+	p11!=v3 OR p8!=true OR p5!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p5!=v1 OR p1!=v2 OR p11!=v1 OR
+	p8!=true) #
+	# ( p7!=v2 OR p2!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR
+	p11!=v5 OR p8!=true OR p5!=v2) #
+	# ( p6!=v1 OR p11!=v4 OR p1!=v2 OR p2!=v1 OR p5!=v2) #
+	# ( p3!=v2 OR p6!=v2 OR p11!=v2 OR p7!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p3!=v2 OR p2!=v2 OR p1!=v2 OR p11!=v1 OR
+	p5!=v2) #
+	# ( p6!=v1 OR p11!=v4 OR p1!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p11!=v6 OR p1!=v2 OR p2!=v1 OR p5!=v2) #
+	# ( p7!=v2 OR p11!=v7 OR p3!=v1 OR p6!=v2 OR p1!=v1 OR
+	p5!=v2) #
+	# ( p3!=v1 OR p6!=v2 OR p1!=v2 OR p11!=v3 OR p2!=v1 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p2!=v2 OR p3!=v1 OR p1!=v2 OR p11!=v3 OR
+	p8!=true OR p5!=v2) #
+	# ( p6!=v1 OR p2!=v2 OR p3!=v1 OR p8 OR p1!=v2 OR
+	p11!=v2 OR p5!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p7!=v1 OR
+	p11!=v1 OR p5!=v2) #
+	# ( p3!=v2 OR p2!=v2 OR p1!=v2 OR p5!=v1 OR p11!=v5) #
+	# ( p3!=v2 OR p2!=v2 OR p1!=v2 OR p5!=v1 OR p11!=v3) #
+	# ( p3!=v1 OR p6!=v2 OR p1!=v1 OR p11!=v2 OR p7!=v1 OR
+	p5!=v2) #
+	# ( p3!=v2 OR p2!=v2 OR p1!=v2 OR p5!=v1 OR p11!=v1) #
+	# ( p3!=v2 OR p11!=v6 OR p6!=v2 OR p7!=v1 OR p5!=v2) #
+	# ( p1!=v2 OR p5!=v1 OR p11!=v3 OR p2!=v1) #
+	# ( p2!=v2 OR p11!=v4 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p7!=v2 OR p2!=v2 OR p3!=v1 OR p8 OR p6!=v2 OR
+	p1!=v2 OR p11!=v1 OR p5!=v2) #
+	# ( p1!=v2 OR p5!=v1 OR p2!=v1 OR p11!=v1) #
+	# ( p2!=v2 OR p11!=v7 OR p3!=v1 OR p8 OR p1!=v2 OR
+	p5!=v1) #
+	# ( p1!=v1 OR p5!=v1 OR p11!=v1) #
+	# ( p6!=v1 OR p11!=v7) #
+	# ( p7!=v2 OR p3!=v2 OR p6!=v2 OR p11!=v2 OR p5!=v2) #
+	# ( p1!=v1 OR p5!=v1 OR p11!=v5) #
+	# ( p9!=true OR p2!=v1 OR p4!=v2) #
+	# ( p11!=v4 OR p1!=v2 OR p5!=v1 OR p2!=v1) #
+	# ( p6!=v1 OR p2!=v2 OR p11!=v6 OR p3!=v1 OR p8 OR
+	p1!=v2 OR p5!=v2) #
+	# ( p1!=v1 OR p5!=v1 OR p11!=v3) #
+	# ( p7!=v2 OR p2!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR
+	p11!=v1 OR p8!=true OR p5!=v2) #
+	# ( p7!=v2 OR p2!=v2 OR p11!=v7 OR p3!=v1 OR p6!=v2 OR
+	p1!=v2 OR p8!=true OR p5!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p11!=v5 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p11!=v7 OR p3!=v1 OR p6!=v2 OR p1!=v1 OR p7!=v1 OR
+	p5!=v2) #
+	# ( p3!=v2 OR p11!=v4 OR p6!=v2 OR p7!=v1 OR p5!=v2) #
+	# ( p7!=v2 OR p2!=v2 OR p11!=v6 OR p3!=v1 OR p8 OR
+	p6!=v2 OR p1!=v2 OR p5!=v2) #
+	# ( p11!=v4 OR p1!=v1 OR p5!=v1) #
+	# ( p6!=v1 OR p2!=v2 OR p3!=v1 OR p8 OR p1!=v2 OR
+	p11!=v3 OR p5!=v2) #
+	# ( p7!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p2!=v1 OR
+	p11!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p2!=v2 OR p3!=v1 OR p8 OR p1!=v2 OR
+	p11!=v1 OR p5!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p8 OR p1!=v2 OR p5!=v1 OR
+	p11!=v3) #
+	# ( p3!=v1 OR p6!=v2 OR p1!=v1 OR p11!=v5 OR p7!=v1 OR
+	p5!=v2) #
+	# ( p11!=v7 OR p2!=v1) #
+	# ( p6!=v1 OR p3!=v2 OR p2!=v2 OR p11!=v7 OR p1!=v2 OR
+	p5!=v2) #
+	# ( p7!=v2 OR p3!=v2 OR p11!=v6 OR p6!=v2 OR p5!=v2) #
+	# ( p2!=v2 OR p11!=v6 OR p3!=v1 OR p8 OR p1!=v2 OR
+	p5!=v1) #
+	# ( p7!=v2 OR p3!=v2 OR p6!=v2 OR p11!=v5 OR p5!=v2) #
+	# ( p11!=v6 OR p1!=v1 OR p5!=v1) #
+	# ( p7!=v2 OR p3!=v2 OR p11!=v4 OR p6!=v2 OR p5!=v2) #
+	# ( p3!=v2 OR p2!=v2 OR p11!=v7 OR p1!=v2 OR p5!=v1) #
+	# ( p6!=v1 OR p1!=v1 OR p11!=v5 OR p5!=v2) #
+	# ( p11!=v7 OR p1!=v1) #
+	# ( p11!=v6 OR p3!=v1 OR p6!=v2 OR p1!=v1 OR p7!=v1 OR
+	p5!=v2) #
+	# ( p11!=v7 OR p1!=v1 OR p5!=v1) #
+	# ( p6!=v1 OR p3!=v2 OR p2!=v2 OR p1!=v2 OR p11!=v3 OR
+	p5!=v2) #
+	# ( p11!=v4 OR p3!=v1 OR p6!=v2 OR p1!=v1 OR p7!=v1 OR
+	p5!=v2) #
+	# ( p6!=v1 OR p2!=v2 OR p3!=v1 OR p1!=v2 OR p11!=v1 OR
+	p8!=true OR p5!=v2) #
+	# ( p3!=v1 OR p4!=v2 OR p8!=true) #
+	# ( p5!=v1 OR p4!=v2) #
+	# ( p6!=v1 OR p2!=v2 OR p11!=v4 OR p3!=v1 OR p8 OR
+	p1!=v2 OR p5!=v2) #
+	# ( p3!=v2 OR p11!=v7) #
+	# ( p11!=v7 OR p5!=v1) #
+	# ( p7!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p11!=v5 OR
+	p2!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p4!=v2) #
+	# ( p7!=v2 OR p11!=v6 OR p3!=v1 OR p6!=v2 OR p1!=v1 OR
+	p5!=v2) #
+	# ( p9!=true OR p10!=true) #
+	# ( p3!=v2 OR p6!=v2 OR p11!=v5 OR p7!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p1!=v1 OR p11!=v3 OR p5!=v2) #
+	# ( p6!=v1 OR p3!=v2 OR p2!=v2 OR p1!=v2 OR p11!=v5 OR
+	p5!=v2) #
+	# ( p6!=v1 OR p2!=v2 OR p11!=v7 OR p3!=v1 OR p8 OR
+	p1!=v2 OR p5!=v2) #
+	# ( p7!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v1 OR p11!=v5 OR
+	p5!=v2) #
+	# ( p3!=v2 OR p6!=v2 OR p11!=v3 OR p7!=v1 OR p5!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR p11!=v2 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p7!=v2 OR p11!=v4 OR p3!=v1 OR p6!=v2 OR p1!=v1 OR
+	p5!=v2) #
+	# ( p2!=v2 OR p11!=v7 OR p3!=v1 OR p5!=v1 OR p1!=v2 OR
+	p8!=true) #
+	# ( p6!=v1 OR p2!=v2 OR p3!=v1 OR p1!=v2 OR p11!=v2 OR
+	p8!=true OR p5!=v2) #
+	# ( p6!=v1 OR p2!=v2 OR p11!=v4 OR p3!=v1 OR p1!=v2 OR
+	p8!=true OR p5!=v2) #
+	# ( p2!=v2 OR p11!=v4 OR p3!=v1 OR p8 OR p1!=v2 OR
+	p5!=v1) #
+	# ( p3!=v1 OR p6!=v2 OR p1!=v2 OR p11!=v5 OR p2!=v1 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p11!=v7 OR p1!=v2 OR p5!=v1 OR p2!=v1) #
+	# ( p7!=v2 OR p2!=v2 OR p3!=v1 OR p8 OR p6!=v2 OR
+	p1!=v2 OR p11!=v5 OR p5!=v2) #
+	# ( p7!=v2 OR p2!=v2 OR p11!=v4 OR p3!=v1 OR p6!=v2 OR
+	p1!=v2 OR p8!=true OR p5!=v2) #
+	# ( p7!=v2 OR p11!=v4 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR
+	p2!=v1 OR p5!=v2) #
+	# ( p3!=v1 OR p6!=v2 OR p1!=v1 OR p11!=v3 OR p7!=v1 OR
+	p5!=v2) #
+	# ( p7!=v2 OR p11!=v7 OR p3!=v1 OR p6!=v2 OR p1!=v2 OR
+	p2!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p1!=v2 OR p11!=v3 OR p2!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p1!=v2 OR p11!=v5 OR p2!=v1 OR p5!=v2) #
+	# ( p6!=v1 OR p1!=v2 OR p2!=v1 OR p11!=v1 OR p5!=v2) #
+	# ( p3!=v1 OR p6!=v2 OR p1!=v2 OR p11!=v2 OR p2!=v1 OR
+	p7!=v1 OR p5!=v2) #
+	# ( p2!=v2 OR p3!=v1 OR p8 OR p1!=v2 OR p5!=v1 OR
+	p11!=v1) #
+	# ( p2!=v2 OR p3!=v1 OR p8 OR p1!=v2 OR p5!=v1 OR
+	p11!=v2) #
+	# ( p7!=v2 OR p2!=v2 OR p11!=v7 OR p3!=v1 OR p8 OR
+	p6!=v2 OR p1!=v2 OR p5!=v2) #
+

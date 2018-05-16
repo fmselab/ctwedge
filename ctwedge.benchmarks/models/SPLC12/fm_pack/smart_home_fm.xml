@@ -1,0 +1,54 @@
+<feature_model name="Smart Home">
+<meta>
+<data name="description">A feature model of a simple smart home product line</data>
+<data name="creator">Nathan Weston et. al</data>
+<data name="email"></data>
+<data name="date">Aug 2009</data>
+<data name="department"></data>
+<data name="organization">Lancaster University, UK</data>
+<data name="address"></data>
+<data name="phone"></data>
+<data name="website"></data>
+<data name="reference">Nathan Weston, Ruzanna Chitchyan, Awais Rashid, A Framework for Constructing Semantically Composable Feature Models
+from Natural Language Requirements, SPLC 2009, San Francisco, USA.</data>
+</meta>
+<feature_tree>
+:r Smart_Home
+	:m Environment_Control
+		:m Measurement_Units
+			:o_Celsius
+			:o_Fahrenheit
+		:m Temperature_Management
+			:m Heating_Management
+			:o Smart_Heating_Management
+		:m Windows_Management
+			:m Manual_Windows
+			:o Automatic_Windows
+	:m Light_Management
+		:o Smart_Light_Management
+		:o Pre_defined_Values
+		:m Simple_Control
+	:m GUI
+		:o Touch_Screen
+		:o Mobile
+		:o Internet
+	:m Presence_Simulator
+		:o Light_Simulation
+		:o Blind_Simulation
+		:o Music_Simulation
+	:m Fire_Control
+		:m First_Aid_Group
+			:o Fire_Department
+			:o Other_Group
+		:m Fire_Alarm
+			:o Siren
+			:o Bell
+			:o Light
+	:m Door_Lock
+		:o Keypad_Reader
+		:o Card_Reader
+		:o Fingerprint_Reader
+</feature_tree>
+<constraints>
+</constraints>
+</feature_model>

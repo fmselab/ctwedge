@@ -1,0 +1,42 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model Telecom
+
+Parameters:
+p1: { v1 v2 v3 v4 v5 };
+p2: { v1 v2 v3 v4 };
+p3: { v1 v2 };
+p4: { v1 v2 };
+p5: { v1 v2 };
+p6: Boolean;
+p7: { v1 v2 v3 v4 v5 v6 };
+p8: { v1 v2 };
+p9: { v1 v2 v3 v4 };
+p10: { v1 v2 v3 };
+
+Constraints:
+	# ( p2!=v4 OR p1!=v2) #
+	# ( p2!=v4 OR p1!=v3) #
+	# ( p2!=v4 OR p1!=v4) #
+	# ( p2!=v2 OR p1!=v1) #
+	# ( p2!=v3 OR p1!=v4) #
+	# ( p8!=v1 OR p6!=true OR p9!=v2 OR p7!=v1) #
+	# ( p2!=v2 OR p1!=v3) #
+	# ( p8!=v1 OR p6!=true OR p9!=v3 OR p7!=v1) #
+	# ( p2!=v1 OR p1!=v4) #
+	# ( p2!=v3 OR p1!=v1) #
+	# ( p2!=v2 OR p1!=v5) #
+	# ( p8!=v1 OR p7!=v3 OR p6!=true OR p9!=v1) #
+	# ( p8!=v1 OR p6!=true OR p7!=v4 OR p9!=v1) #
+	# ( p2!=v1 OR p1!=v1) #
+	# ( p8!=v1 OR p7!=v1 OR p9!=v1) #
+	# ( p1!=v5 OR p2!=v4) #
+	# ( p8!=v1 OR p6!=true OR p7!=v5 OR p9!=v1) #
+	# ( p9!=v4 OR p8!=v1 OR p6!=true OR p7!=v1) #
+	# ( p8!=v1 OR p6!=true OR p9!=v1 OR p7!=v6) #
+	# ( p8!=v1 OR p6!=true OR p7!=v2 OR p9!=v1) #
+	# ( p8!=v2 OR p6!=true OR p9!=v1 OR p7!=v1) #
+

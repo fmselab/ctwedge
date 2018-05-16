@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ctwedge.ide
+Bundle-SymbolicName: ctwedge.ide;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: ctwedge.ide.contentassist.antlr,
+ ctwedge.ide.contentassist.antlr.internal
+Require-Bundle: org.antlr.runtime
+

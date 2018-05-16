@@ -1,0 +1,59 @@
+<feature_model name="GPL">
+<feature_tree>
+:r GPL (gpl)
+	:m Driver (driver)
+		:m Benchmark (benchmark)
+	:m Gtp (gtp)
+		:g (G_Gtp) [1,1]
+			: Directed (directed)
+			: Undirected (undirected)
+	:o Weight (weight)
+		:g (G_Weight) [1,1]
+			: Weighted (weighted)
+			: Unweighted (unweighted)
+	:o Search (search)
+		:g (G_Search) [1,1]
+			: BFS (bfs)
+			: DFS (dfs)
+	:m Algorithms (algorithms)
+		:g (G_Algorithms) [1,*]
+			: Number (number)
+			: Connected (connected)
+			: StronglyC (stronglyc)
+			: Cycle (cycle)
+			: MSTPrim (mstprim)
+			: MSTKruskal (mstkruskal)
+			: Shortest (shortest)
+</feature_tree>
+<constraints>
+c1_a: ~number or bfs 
+c1_b: ~number or dfs
+c2_a: ~connected or undirected
+c2_b: ~connected or weighted
+c3_a: ~stronglyc or directed
+c3_b: ~stronglyc or dfs
+c4: ~cycle or dfs
+c5_a: ~mstkruskal or undirected
+c5_b: ~mstkruskal or unweighted
+c5_c: ~mstprim or undirected
+c5_d: ~mstprim or unweighted
+c6: ~mstkruskal or ~mstprim
+c7_a: ~shortest or directed
+c7_b: ~shortest or unweighted
+</constraints>
+</feature_model>
+<!--
+FEATURE MODEL GENERATION STATISTICS
+tree depth.: 3
+#root......: 1
+#opt.......: 5
+#man.......: 0
+#grp.......: 3
+#fgrp [1,1]: 1
+#fgrp [1,N]: 0
+#total-fgrp: 9
+#total.....: 10
+#constraints........: 0
+#vars in constraints: 0
+
+-->

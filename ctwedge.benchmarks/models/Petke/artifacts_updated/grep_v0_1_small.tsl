@@ -1,0 +1,127 @@
+#               grep_2.3 (test Regular expression)  NOTE---- Reverse inherit from v1 
+
+# Usage: target [OPTION]... PATTERN [FILE]...               
+# Search for pattern in each FILE or standard input.
+    
+#************************************************************************  
+#Function unit 1: test all kinds of regular expression
+
+Parameters:
+
+	Regexp selection and interpretation:
+0		-E.      				[property Extended, NonFixed]
+1		-F.         				[property Fixed]
+2		-G, no option. 				[property Basic, NonFixed]
+		     
+  
+	Quoting:
+3		pattern is single quoted.		[property SingleQuoted, Quoted]
+4		pattern is double quoted.		[property DoubleQuoted, Quoted]
+5		pattern is not quoted.			[property NotQuoted]
+		#pattern is improperly quoted.  		[error] #can't be successfully tested
+
+	Regular expressions that match one or several characters:
+		a letter.				 	[single]
+		a digit.					[single]
+		metacharacters quoted by preceding it with \.	[if Extended && Quoted] [single]
+		metacharacters quoted by preceding it with \.	[if Basic && Quoted] [single]
+		metacharacters quoted by itself.		[if Basic && Quoted] [single]
+		metacharacters quoted by itself.		[if Fixed && Quoted] [single]
+		letters, digits &&  metacharacters itself.      [if Fixed && Quoted] [single]
+		
+	#reduce test cases by different quote method	
+	A list of characters in RE enclosed by [ and ]:
+6		no hyphen no first '^' (not).		[if NonFixed && SingleQuoted] [property List]
+		have hyphen, no first '^'(not). 	[if NonFixed && Quoted] [single]
+		have hyphen, no first '^'(not). 	[if NonFixed && NotQuoted] [error]
+		have hyphen and first '^'(not).		[if NonFixed && Quoted] [single]
+7		literal ](first in the list).		[if NonFixed && DoubleQuoted] [property List] 	
+		literal ^(anywhere but first).		[if NonFixed && Quoted] [single]
+		literal - (last in the list).		[if NonFixed && Quoted] [single]
+		'[alnum]', '\w = [[alnum]]'.		[if NonFixed && Quoted] [single]
+8		'^[alnum]', '\W= [^[alnum]]'.		[if NonFixed && SingleQuoted] [property List]
+		'[alpha]'.				[if NonFixed && Quoted] [single]
+		'[cntrl]'.				[if NonFixed && Quoted] [single]
+		'[digit]'.				[if NonFixed && Quoted] [single]
+		'[graph]'.				[if NonFixed && Quoted] [single]
+		'[lower]'.				[if NonFixed && Quoted] [single]
+		'[print]'.				[if NonFixed && Quoted] [single]
+		'[punct]'.				[if NonFixed && Quoted] [single]
+		'[space]'.				[if NonFixed && Quoted] [single]
+		'[upper]'.				[if NonFixed && Quoted] [single]
+		'[xdigit]'.				[if NonFixed && Quoted] [single]
+		# since if.. [single] else [error] doesn't work.  
+		'[xdigit]'.				[if NonFixed && NotQuoted] [error]
+9		no list.                                [property NonList]
+		
+	miscellaneous (reduce test cases):
+10		'dot' (any single character).		[if NonFixed && (SingleQuoted && NonList)]
+		'dot' (any single character).		[if NonFixed && (NotQuoted && NonList)] [single]
+11		^ (empty string at begining of a line).	[if NonFixed && (DoubleQuoted && NonList)] 
+		$ (empty string at end of a line).	[if NonFixed && (SingleQuoted && NonList)] [single]
+12		\< (empty string at begining of a word).[if NonFixed && (DoubleQuoted && NonList)] 
+		\> (empty string at end of a word).	[if NonFixed && (SingleQuoted && NonList)] [single]
+13		\b (empty string at edge of a word).	[if NonFixed && (DoubleQuoted && NonList)] 
+		\B (empty string not edge of a word).	[if NonFixed && (SingleQuoted && NonList)] [single]
+	      	                                        # in order to reduce test cases
+14	      	no  miscellaneous.                      [if SingleQuoted]
+15 n/a
+	        	
+	       	Repetition operators:
+16		?.					[if Extended && (Quoted && NonList)] [property Repe]
+17		'\?'.					[if Basic && (NonList && Quoted)] [property Repe]
+		*.					[if NonFixed && (Quoted && NonList)] [single]
+		*.					[if NonFixed && (NotQuoted && NonList)] [error]
+18		+.					[if Extended && (Quoted && NonList)] [property Repe]
+19		'\+'.					[if Basic && (NonList && Quoted)] [property Repe]
+20		{N}.					[if Extended && (Quoted && NonList)] [property Repe]
+21		'\{N\}'.				[if Basic && (NonList && Quoted)] [property Repe]
+		{N,}.					[if Extended && (Quoted && NonList)] [single]
+		{,M}.					[if Extended && (Quoted && NonList)] [single]
+		{N,M}.					[if Extended && (Quoted && NonList)] [single]
+		                                        # in order to reduce test cases
+22		no repetition.                          [if SingleQuoted]   
+23 n/a
+		
+	leading character for repetition:
+24	 	metacharacters by preceding it with \. 	[if Extended && Repe]
+25	 	metacharacters itself. 			[if Basic && Repe]
+26	 	any letters or digits.			[if Repe]
+27 n/a
+ 		
+	Regular expression join |:
+28		have alternation |.   			[if Extended && Quoted] [property Alter]
+		#have alternation |.   			[if Extended && NotQuoted] [error]   #hard to test
+29		have alternation'\|'.			[if Basic && Quoted] [property Alter]
+30         	no alternation.                         
+	
+	Regular expression concatenated:
+31		have concatenation.			[if NonFixed && Quoted] [property Concat]
+		#have concatenation.			[if NonFixed && NotQuoted] [error]  #hard to test
+32		no concatenation.  
+		       
+	#reduce test cases by different Extended and Basic
+	test precedence ():
+33		1st- repetition over concatenation.	[if Concat && Repe]
+34		2nd- concatenation over alternation.	[if Alter && Concat]
+35		parentheses overide 1st rule with ().	[if Extended && (Concat && Repe)] [property paren]
+36		parentheses overide 2nd rule with \(\).	[if Basic && (Alter && Concat)] [property paren]
+37 n/a
+
+	backreference \N:
+		#have \N.				[if NonFixed && paren] [single]  #don't know how to test
+		no \N.
+		
+#	egrep RE special metacharacters:	
+#		'\{'.                                 
+				
+	File name:
+		several valid file names.
+  
+Environments:
+	Number of occurrence of pattern in file:
+		more than one.
+	
+	Pattern occurrence on target line:
+	# assumes line contains the pattern
+		one.

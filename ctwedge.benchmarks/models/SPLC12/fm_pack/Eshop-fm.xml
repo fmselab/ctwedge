@@ -1,0 +1,353 @@
+<feature_model name="eShop">
+<feature_tree>
+:r eShop (eShop)
+	:m Store_front (store_front)
+		:o Home_page (homepage)
+			:g [1,*]
+				: Static_content
+				: Dynamic_content
+					:m Content_type
+						:g [1,*]
+							: Welcome_message
+							: Special_offers (special_offers)
+					:m Variation_source
+						:g [1,*]
+							: Time_dependent
+							: Personalized
+		:o Registration (registration)
+			:m Registration_enforcement (registration_enforcement)
+				:g [1,*]
+					: Register_to_browse
+					: Register_to_buy (register_to_buy)
+					: None
+			:m Registration_information
+				:m Login_credentials
+				:o Shipping_address (shipping_address)
+					:o Multiple_shipping_addresses
+				:o Billing_address
+					:o Multiple_billing_addresses
+				:o Credit_card_information
+					:m Card_holder_name
+					:m Card_number
+					:m Expiry_date
+					:o Security_information
+				:o Demographics
+					:g [1,*]
+						: Age
+						: Income
+						: Education
+						: Custom_Demographic_field
+				:o Personal_Information
+				:o Preferences (preferences)
+					:g [1,*]
+						: Site_layout
+						: List_size
+						: Language
+				:o Reminders
+				:o Quick_checkout_profile (quick_checkout_profile)
+				:o Custom_fields
+			:o User_behaviour_tracking_information (user_behaviour_tracking_info)
+		:m Catalog (catalog)
+			:m Product_Information (product_information)
+				:m Product_type (product_type)
+					:g [1,*]
+						: Eletronic_goods (eletronic_goods)
+						: Physical_goods (physical_goods)
+						: Services (services)
+				:m Basic_information (basic_information)
+				:o Detailed_information (detailed_information)
+				:o Warranty_information (warranty_information)
+				:o Customer_reviews (customer_reviews)
+				:o Associated_assets (associated_assets)
+					:g [1,*]
+						: Documents
+						: Media_files
+							:g [1,*]
+								: Image
+									:g [1,*]
+										: Thumbnail
+										: 2D_image
+										: 3D_image
+										: 360_degrees_image
+										: Different_perspectives
+										: Gallery
+								: Video
+								: Sound
+				:o Product_variants (product_variants)
+					:o Complex_product_configuration
+				:o Size (size)
+				:o Weight (weight)
+				:o Availability (availability)
+				:o Custom_fields (custom_fields)
+			:o Categories (categories)
+				:m Catalog (categories_catalog)
+					:o Categories
+						:o Multi_level
+						:o Multiple_classification
+			:o Multiple_catalogs
+			:o Searching
+				:g [1,*]
+					: Basic_search
+					: Advanced_search
+			:o Browsing
+				:m Product_page
+				:o Category_page (category_page)
+				:o Index_page
+					:o Sorting_filters
+						:g [1,*]
+							: Price
+							: Quality
+							: Price_Quality_ratio
+							: Manufacturer_name
+							: Custom_filter
+			:o Custom_views
+				:o Seasonal_product_views
+				:o Personalized_views
+		:o Wish_list (wish_list)
+			:o Wish_list_save_after_session (wish_list_saved_after_session)
+			:o E_mail_wish_list (email_wish_list)
+			:o Multiple_wish_lists
+			:o Permissions (permissions)
+				:g [1,*]
+					: Public_access
+					: Restricted_access
+					: Private_access
+		:m Buy_paths (buy_paths)
+			:m Shopping_cart
+				:m Inventory_management_policy
+				:m Cart_content_page
+				:o Cart_summary_page
+				:o Cart_save_after_session
+			:m Checkout
+				:m Checkout_type
+					:g [1,*]
+						: Registered_checkout (registered_checkout)
+							:o Quick_checkout (quick_checkout)
+								:o Enable_profile_update_on_checkout
+						: Guest_checkout
+				:o Shipping_options (shipping_options)
+					:o Quality_of_service_selection
+					:o Carrier_selection
+					:o Gift_options
+					:o Multiple_shipments
+					:m Shipping_cost_calculation
+				:m Taxation_options
+					:g [1,*]
+						: Custom_taxation
+							:m Type
+								:g [1,*]
+									: Fixed_rate_taxation
+									: Rule_based_taxation
+										:m Tax_codes
+										:m Address
+											:m Shipping (shipping_2)
+											:o Billing
+										:o Resolution
+											:g [1,*]
+												: Country
+												: Region
+												: City
+							:m Ammount_specification
+								:g [1,*]
+									: Surcharge
+									: Percentage
+						: Tax_gateways
+							:g [1,*]
+								: CertiTAX
+								: CyberSource
+								: Custom_tax_gateway
+				:m Payment_options
+					:m Payment_types
+						:g [1,*]
+							: COD
+							: Credit_card
+							: Debit_card
+							: Eletronic_cheque
+							: Fax_mail_order
+							: Purchase_order
+							: Gift_certificate
+							: Phone_order
+							: Custom_payment_type
+					:o Fraud_detection
+					:o Payment_gateways
+						:g [1,*]
+							: Authorize_Net
+							: CyberSource
+							: LinkPoint
+							: Paradata
+							: SkipJack
+							: Verisign_Payflow_Pro
+							: Custom_payment_gateway
+			:m Order_confirmation
+				:g [1,*]
+					: Eletronic_page
+					: E_mail
+					: Phone
+					: Mail
+		:o Customer_service (customer_service)
+			:g [1,*]
+				: Question_and_feedback_forms
+					:o Question_and_feedback_tracking
+				: Product_returns
+				: Order_status_review
+					:m Filtering_criteria
+						:g [1,*]
+							: Order_number
+							: Order_date
+							: Order_status
+					:o Request_order_hardcopy
+				: Shipment_status_tracking_
+					:g [1,*]
+						: Internal_tracking
+						: Partner_tracking
+		:o User_behaviour_tracking (user_behaviour_tracking)
+			:m Behaviour_tracked
+				:g [1,*]
+					: Locally_visited_pages (locally_visited_pages)
+					: External_referring_pages (external_referring_pages)
+					: Previous_purchases (behaviour_tracked_previous_purchases)
+	:m Business_management (business_management)
+		:m Order_management
+			:m Fulfillment
+				:g [1,*]
+					: Physical_goods_fulfillment (physical_goods_fulfillment)
+						:m Warehouse_management (warehouse_management)
+						:m Shipping (shipping)
+							:g [1,*]
+								: Custom_shipping_method
+									:m Pricing
+										:m Flat_rate
+										:o Rate_factors
+											:g [1,*]
+												: Quantity_purchased
+												: Order_total
+												: Weight
+												: Product_classification
+								: Shipping_gateways
+									:g [1,*]
+										: FedEX
+										: UPS
+										: USPS
+										: Canada_Post
+										: Custom_shipping_gateway
+					: Eletronic_goods_fulfillment (eletronic_goods_fulfillment)
+						:m File_repository
+						:m License_management
+					: Services_fulfillment (services_fulfillment)
+						:o Appointment_scheduling
+						:o Resource_planning
+		:o Targeting
+			:m Targeting_criteria
+				:g [1,*]
+					: Customer_preferences (customer_preferences)
+					: Personal_information
+					: Demographics
+					: Previous_purchases (targeting_criteria_previous_purchases)
+					: Shopping_cart_content
+					: Wish_list_content (wish_list_content)
+					: Previously_visited_pages (previously_visited_pages)
+					: Date_and_time
+					: Custom_target_criteria
+			:m Targeting_mechanisms
+				:g [1,*]
+					: Advertisements
+						:m Advertisement_types
+							:g [1,*]
+								: Banner_ads
+								: Pop_up_ads
+						:m Advertisement_sources
+							:g [1,*]
+								: House_advertisements
+								: Paid_advertisements
+									:m Advertisement_management_interface
+						:o Advertisement_response_tracking
+						:o Context_sensitive_ads
+					: Discounts (discounts)
+						:m Discount_conditions
+							:m Product_and_quantity_scope
+							:m Time_scope
+							:o Purchase_value_scope
+						:m Award
+							:g [1,*]
+								: Percentage_discount
+								: Fixed_discount
+								: Free_item
+						:m Eligibility_requirements
+							:o Customer_segments
+							:o Shipping_address
+						:m Graduation_by
+							:g [1,*]
+								: Purchase_value
+								: Quantity
+						:o Coupons
+						:m Handling_multiple_discounts
+					: Sell_strategies
+						:g [1,*]
+							: Product_kitting
+							: Up_selling
+								:m Substitute_products
+							: Cross_selling
+								:m Past_customers_also_bought
+			:m Display_and_notification
+				:g [1,*]
+					: Assignment_to_page_types_for_display
+					: Product_flagging
+					: E_mails
+						:o Personalized (personalized_emails)
+						:o Response_tracking
+			:o Campaigns
+		:o Affiliates
+			:m Affiliate_registration
+			:m Commission_tracking
+		:o Inventory_tracking (inventory_tracking)
+			:o Allow_backorders
+		:o Procurement (procurement)
+			:m Stock_replenishment
+				:m Manual
+				:o Automatic (automatic)
+					:m Non_repudiation_service
+		:o Reporting_and_analysis (reporting_and_analysis)
+			:m Report_types
+			:m Report_formats_
+			:m Level_of_detail
+		:o External_systems_integration
+			:g [1,*]
+				: Fulfillment_system (fulfillment_system)
+				: Inventory_management_system
+				: Procurement_system (procurement_system)
+				: External_distributor_system
+		:m Administration
+			:m Content_management
+				:m Product_database_management
+				:m Presentation_options
+				:m General_layout_management
+				:o Content_approval
+			:m Store_administration
+				:m Site_search
+				:m Search_engine_registration
+				:m Domain_name_setup
+</feature_tree>
+<constraints>
+c1: ~special_offers or discounts
+c2a: ~registered_checkout or registration_enforcement
+c2b: ~registered_checkout or register_to_buy
+c3: ~customer_preferences or preferences
+c4: ~quick_checkout or quick_checkout_profile
+c5: ~user_behaviour_tracking_info or user_behaviour_tracking
+c6: ~eletronic_goods or eletronic_goods_fulfillment
+c7: ~physical_goods or physical_goods_fulfillment
+c8: ~services or services_fulfillment
+c9a: ~physical_goods or size
+c9b: ~eletronic_goods or size
+c10: ~physical_goods or weight
+c11: ~availability or inventory_tracking
+c12: ~category_page or categories	
+c13a: ~wish_list or wish_list_saved_after_session
+c13b: registration or wish_list_saved_after_session
+c14: ~email_wish_list or registration
+c15: ~permissions or registration
+c16: ~shipping_options or shipping
+c17: ~wish_list_content or wish_list
+c18: ~previously_visited_pages or locally_visited_pages or external_referring_pages
+</constraints>
+</feature_model>

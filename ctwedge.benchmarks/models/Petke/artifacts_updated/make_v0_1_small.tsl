@@ -1,0 +1,122 @@
+# Joseph Ruthruff, October 8, 2000
+# TSL for Make-3.78.1: v1.0
+
+# Parameters:
+    -C dir:
+        Flag not used.                                             
+        Single flag used; change to directory dir unsucessful.     [error]
+        Single flag used; change to directory dir successful.      [single]
+        Multiple flags used; directories do not exist.             [error]
+        Multiple flags used; specified directories exist.          [single]
+            
+    -d:
+0        Flag not used.
+1        Flag used.                                                 [property dFlag]
+    
+    -e:
+2        Flag not used.
+3        Flag used.                                                 
+    
+    -f file:
+        Flag not used.                                             [single]
+        Flag used; specified file does not exist.                  [error]
+        Flag used; specified file exists, file syntax is bad.      [error]
+        Flag used; specified file exists, file syntax is good.
+    
+    -i:
+4        Flag not used.                                             
+5        Flag used.                                                 [property iFlag]
+    
+    -I dir:
+        Flag not used.
+        Single flags used; specified directory does not exist.     [error]
+        Single flags used; specified directory exists.             [single]
+        Single flags used with -Idir syntax; directory exists.     [single]
+        Multiple flags used; One or more directories do not exist. [error]
+        Multiple flags used; specified directories exist.          [single]
+    
+    # -j jobs:
+        # Flag not used.
+        # Flag used without an argument.                           [single]
+        # Single flags used; invalid command given.                [error]
+        # Single flags used; valid command given.
+        # Multiple flags used; one or more invalid commands given. [error]
+        # Multiple flags used; valid commands given.               [single]
+            
+    -k:
+6        Flag not used.
+7        Flag used.                                                 [if !iFlag] [property kFlag]
+    
+    # -l load:
+        # Flag not used.
+        # Flag used w/o argument; load limit to be does not exist.  [error]
+        # Flag used w/o argument; load limit to be removed exists.
+        # Flag used w/argument; load is not a floating-point number.[error]
+        # Flag used w/argument; load is a floating-point number.
+    
+    -n:
+8        Flag not used.
+9        Flag used.                                                 [property nFlag]
+        Flag used with -W file flag.                               [single]
+    
+    -o file:
+        Flag not used.
+        Flag used; specified file does not exist.                  [error]
+        Flag used; specified file exists.                          [single]
+    
+    -p:
+10        Flag not used.
+11        Flag used.
+        Flag used with -f/dev/null.                                [single]
+    
+    -q:
+        Flag not used.
+        Flag used.                                                 [single]
+    
+    -r:
+        Flag not used.
+        Flag used.                                                 [single]
+    
+    -s:
+12        Flag not used.
+13        Flag used.
+    
+    -S:
+        Flag not used.
+        Flag used.                                                 [single]
+    
+    -t:
+        Flag not used.
+        Flag used.                                                 [single]
+    
+    -v:
+        Flag not used.
+        Flag used.                                                 [single]
+    
+    -w:
+14        Flag not used.
+15        Flag used.
+    
+    -W file:
+        Flag not used.
+        Flag used; specified file does not exist.                  [error]
+        Flag used; specified file exists.                          [single]
+
+# Environment:
+    c files changed:
+16        Zero c files changed.
+        One c file changed.                                        [single]
+17        Two or more c files changed.
+        All c files changed.                                       [single]
+
+    Lines in Makefile:
+18        Less than 100 lines.
+19        Either 100 lines or greater than 100 lines.
+
+    Syntax of Make:
+        Bad; syntax error somewhere within Makefile.               [error]
+        Good.
+
+    MAKEFLAGS USED:
+        No.
+        Yes.                                                       [single]

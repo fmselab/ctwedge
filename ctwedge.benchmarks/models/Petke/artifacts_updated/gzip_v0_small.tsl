@@ -1,0 +1,182 @@
+# TSL Spec for gzip v. 1.0.7
+# Usage: gzip -[cdfhLqrtvV19] <filename>
+
+
+Parameter:
+	Single frame:
+		h.				[single]
+		--help.				[single]
+		L.				[single]
+		--license.			[single]
+		V.				[single]
+		--version.			[single]
+		
+	Op c:
+		c.				[single] [property opt_c]
+		--stdout.			[single]
+		--to-stdout.			[single]
+		x.
+
+	Op d:
+		d.				[single] [property opt_d]
+		--decompress.			[single]
+		--uncompress.			[single]
+		x.
+
+	Op f:
+0		f.				[property Options, opt_f]
+		--force.			[single]
+1		x.
+
+	Op l:
+#		l.				[if opt_d && !opt_c] 
+#						 [property opt_l] [single]
+#						[else] [single]
+#		--list.				[single]
+		x.
+
+	Op N:
+#		N.				[if !OAF] 
+#						 [single] [property opt_N, Options]
+#		--name.				[single]
+		x.
+
+	Op n:
+#		n.				[if !opt_N && !OAF]
+#						 [single] [property Options]
+#		--no-name.			[single]
+		x.
+
+	Op q:
+2		q.				[property opt_q, Options]
+		--quiet.			[single]
+3		x.
+
+	Op r:
+4		r.				[property opt_r]
+		--recursive.			[single]
+5		x.
+
+	Op S:
+#		S.				[if !opt_c && !OAF] 
+#						 [single] [property opt_S, Options]
+#		--suffix.			[single]
+		x.
+
+	Op t:
+		t.				[single] [property opt_t]
+		--test.				[single]
+		x.
+
+	Op v:
+6		v.				[property Options, opt_v]
+		--versose.			[single]
+7		x.
+
+	Op 1:
+8		1.				[property Number, Options, opt_1]
+		--fast.				[single]
+9		x.
+
+	Op 2:
+10		2.				[if !Number] 
+						 [property Number, Options, opt_2]
+11		x.
+
+	Op 3:
+12		3.				[if !Number] 
+						 [property Number, Options, opt_3]
+13		x.
+
+	Op 4:
+14		4.				[if !Number] 
+						 [property Number, Options, opt_4]
+15		x.
+
+	Op 5:
+16		5.				[if !Number] 
+						 [property Number, Options, opt_5]
+17		x.
+
+	Op 6:
+18		6.				[if !Number] 
+						 [property Number, Options, opt_6]
+19		x.	
+
+	Op 7:
+20		7.				[if !Number] 
+						 [property Number, Options, opt_7]
+21		x.
+
+	Op 8:
+22		8.				[if !Number] 
+						 [property Number, Options, opt_8]
+23		x.
+
+	Op 9:
+24		9.				[if !Number] 
+						 [property Options, opt_9]
+		--best.				[single]
+25		x.
+
+#	Suffix:
+#		omitted.			[if !opt_S]
+#		properly quote.			[if opt_S] 
+# not yet tested
+#		improperly quote.		[error]
+
+	File name:
+		omitted.			[error]
+		good file name.	
+		file not found.			[error]
+		long file name.			[single]
+		file with lot of dot.		[single]
+
+Enviroment:
+	File size:
+		less than 2Gb.	
+		0 byte file.			[single]
+		greater than or equal to 2 Gb.	[single]
+
+	File type:
+26		ascii file.			[if !opt_r && !opt_d] 
+27		directory file.			[if opt_r && !opt_d]
+#		binary file with option l.	[if opt_l] [single]
+		corrupt.			[error]
+		compress gz file.		[if !opt_d] [single]
+28		decompress gz file.		[if opt_d]
+		decompress zip file.		[if opt_d] [single]
+		decompress compress file.	[if opt_d] [single]
+		decompress pkzip file.		[if opt_d] [single]
+		decompress pack file.		[if opt_d] [single]
+		decompress symbolic link file.	[if opt_d] [single]
+		compress binary file.		[single]
+		decompress binary file.		[if opt_d] [single]
+		compress encrypt file.		[single]
+		decompress error file.		[if opt_d] [single]
+		decompress SCO type file.	[if opt_d] [single]
+		exit while compressing.		[single]
+		decompress a tar file.		[if opt_d] [single]
+#		decompress a suffix file.	[single]
+		-c after file.			[if opt_c] [single]
+		-d after file.			[if opt_d] [single]
+		-f after file.			[if opt_f] [single]
+		-q after file.			[if opt_q] [single]
+		-r after file.			[if opt_r] [single]
+		-t after file.			[if opt_t] [single]
+		-v after file.			[if opt_v] [single]
+		-1 after file.			[if opt_1] [single]
+		-2 after file.			[if opt_2] [single]
+		-3 after file.			[if opt_3] [single]
+		-4 after file.			[if opt_4] [single]
+		-5 after file.			[if opt_5] [single]
+		-6 after file.			[if opt_6] [single]
+		-7 after file.			[if opt_7] [single]
+		-8 after file.			[if opt_8] [single]
+		-9 after file.			[if opt_9] [single]
+		kill compress in background.	[if opt_c] [single]
+	
+	Permission:
+		Owner.			
+		Not Owner.			[single]
+

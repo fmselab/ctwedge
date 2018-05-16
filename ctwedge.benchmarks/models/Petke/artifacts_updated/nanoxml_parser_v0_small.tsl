@@ -1,0 +1,106 @@
+Parameters:
+	Argument:
+		Empty.                   
+		
+Environment:
+        xml file content:
+        empty.                           [single]
+        non empty.                         
+        
+        Root Element:     
+        None.                            [error]
+        one.                             
+     
+	Element content_type:
+0        Mixed.    	                    
+1        Text.                               
+        empty.                              [single] 
+
+        Closing tag:
+        Proper tags.                    
+        tags without /.                  [error]
+        one or more less.                [error]
+
+        Case sesitive:
+        tag case sensitive.             
+        tag not case sensitive.          [error]
+        
+        Element Content:
+2        child elements.                 
+3        data.
+
+        Nested:
+        tags properly nested.          
+        tags not properly nested.        [error]
+
+        Element Name:
+        proper name.
+        improperly named.                [error]
+        
+        attribute number:
+        zero.                             [single]
+4        One.                         
+5        Many.                        
+  
+
+        attribute quote:
+        omitted.                         [error]
+6        properly double_quoted.         
+7        properly single_quoted.         
+        improperly quoted.               [error]
+
+        Comments start:
+        proper<!--.                 
+        <!---.                        [error]
+        not<!-- form.                 [error]
+ 
+        Comments End:
+        proper-->.
+        --->.                       [error]
+        not --> form.               [error]
+        
+        Within Comments:
+        anything.
+      
+
+
+        Attribute values:
+        One.                         
+        more than one.                [error]
+ 
+       DTD:
+       conform. 
+       Doesnt conform.                [error]
+      
+      
+ 
+       headInfo:
+8       empty.                         
+9       nonempty.                       [property head]
+
+       head dtd file:
+10       double quoted systemID.              [if head]  
+11       single quoted SystemID.              [if head]
+       not properly quoted systemID.        [error]
+12       fullpath of dtd file.                [if head]
+       no full path of dtd file.            [error]
+13 n/a
+ 
+      DOCTYPE:
+       processDOCTYPE.                     
+       not wellformed DOCTYPE.             [error]
+
+       ENTITY:
+14       processEntity.                      [if head]
+       not wellformed entity               [error]
+15 n/a
+
+       CDATA:
+       processCDATA.
+       erroneous CDATA.                  [error]
+
+
+
+
+
+
