@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/ctwedge.feature_1.0.0.qualifier.jar" id="ctwedge.feature" version="1.0.0.qualifier">
+   <feature url="features/ctwedge.feature_1.0.0.jar" id="ctwedge.feature" version="1.0.0">
       <category name="ctwedge"/>
    </feature>
    <category-def name="ctwedge" label="Combinatorial Testing Web Editor and GEnerator"/>

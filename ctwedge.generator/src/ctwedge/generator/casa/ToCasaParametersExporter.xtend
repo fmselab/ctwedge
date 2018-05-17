@@ -26,22 +26,22 @@ class ToCasaParametersExporter {
 
 	def toCasaCode(CitModel sm, int n) {
 		'''
-			Â«nÂ»
-			Â«sm.getParameters.sizeÂ»
-			Â«FOR param : sm.getParametersÂ»Â«param.getSizeÂ» Â«ENDFORÂ»
+			«n»
+			«sm.getParameters.size»
+			«FOR param : sm.getParameters»«param.getSize» «ENDFOR»
 		'''
 
 	}
 
 	def getSize(Parameter param) {
 		switch (param) {
-			Enumerative: '''Â«(param as Enumerative).elements.sizeÂ»'''
+			Enumerative: '''«(param as Enumerative).elements.size»'''
 			Bool: '''2'''
 			Range: {
 				if ((param as Range).step != 0) 
-				'''Â«(((param as Range).end-(param as Range).begin +1)/(param as Range).step as Integer).toStringÂ»''' 
+				'''«(((param as Range).end-(param as Range).begin +1)/(param as Range).step as Integer).toString»''' 
 				else 
-				'''Â«(((param as Range).end-(param as Range).begin +1) as Integer).toStringÂ»'''
+				'''«(((param as Range).end-(param as Range).begin +1) as Integer).toString»'''
 			}
 		}
 	}

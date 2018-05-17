@@ -4,7 +4,9 @@ import org.eclipse.xtext.xtext.generator.*
 import org.eclipse.xtext.xtext.generator.model.project.* 
  
 var rootPath = ".." 
- 
+var grammarURI = "classpath:/ctwedge/CTWedge.xtext"
+var fileExtensions = "ctw"
+
 Workflow { 
    
   component = XtextGenerator { 
@@ -12,11 +14,14 @@ Workflow {
       project = StandardProjectConfig { 
         baseName = "ctwedge" 
         rootPath = rootPath 
-                
+        
         genericIde = {
 			enabled = true
 		}
 		eclipsePlugin = {
+			enabled = true
+		}
+		eclipsePluginTest = {
 			enabled = true
 		}
 		createEclipseMetaData = true
@@ -28,7 +33,7 @@ Workflow {
         web = { 
           enabled = true 
         } 
-        mavenLayout = true 
+        //mavenLayout = true 
         
       } 
       code = { 

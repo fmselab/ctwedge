@@ -19,6 +19,6 @@ Require-Bundle: org.eclipse.compare,
  org.eclipse.xtext.ui,
  org.eclipse.xtext.ui.codetemplates.ui,
  org.eclipse.xtext.ui.shared,
- org.eclipse.xtext.xbase.lib
+ org.eclipse.xtext.xbase.lib;bundle-version="2.13.0"
 Import-Package: org.apache.log4j
 Bundle-Activator: ctwedge.ui.internal.CtwedgeActivator

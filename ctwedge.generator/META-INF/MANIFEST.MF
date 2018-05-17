@@ -2,24 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Generator
 Bundle-SymbolicName: ctwedge.generator;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.0
 Bundle-ClassPath: generator.jar,
  libs/acts_3.0.jar
 Export-Package: ctwedge.generator.acts,
  ctwedge.generator.casa,
- ctwedge.generator.util,
- edu.uta.cse.fireeye.action,
- edu.uta.cse.fireeye.common,
- edu.uta.cse.fireeye.console,
- edu.uta.cse.fireeye.data,
- edu.uta.cse.fireeye.gui,
- edu.uta.cse.fireeye.gui.controls,
- edu.uta.cse.fireeye.gui.model,
- edu.uta.cse.fireeye.service,
- edu.uta.cse.fireeye.service.constraint,
- edu.uta.cse.fireeye.service.engine,
- edu.uta.cse.fireeye.service.exception,
- edu.uta.cse.fireeye.util
+ ctwedge.generator.util
 Require-Bundle: org.eclipse.emf.mwe.core,
  org.eclipse.xtext,
  org.eclipse.xtext.xbase.lib,
