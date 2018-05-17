@@ -22,21 +22,23 @@ public class CTWedgeStandaloneSetupGenerated implements ISetup {
 
 	@Override
 	public Injector createInjectorAndDoEMFRegistration() {
+		// register default ePackages
+		if (!Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("ecore"))
+			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+				"ecore", new EcoreResourceFactoryImpl());
+		if (!Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("xmi"))
+			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+				"xmi", new XMIResourceFactoryImpl());
+		if (!Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("xtextbin"))
+			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+				"xtextbin", new BinaryGrammarResourceFactoryImpl());
+		if (!EPackage.Registry.INSTANCE.containsKey(XtextPackage.eNS_URI))
+			EPackage.Registry.INSTANCE.put(XtextPackage.eNS_URI, XtextPackage.eINSTANCE);
+
+		
 		TerminalsStandaloneSetup.doSetup();
 		
-		// register default ePackages
-				if (!Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("ecore"))
-					Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-						"ecore", new EcoreResourceFactoryImpl());
-				if (!Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("xmi"))
-					Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-						"xmi", new XMIResourceFactoryImpl());
-				if (!Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("xtextbin"))
-					Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-						"xtextbin", new BinaryGrammarResourceFactoryImpl());
-				if (!EPackage.Registry.INSTANCE.containsKey(XtextPackage.eNS_URI))
-					EPackage.Registry.INSTANCE.put(XtextPackage.eNS_URI, XtextPackage.eINSTANCE);
-
+		
 		Injector injector = createInjector();
 		register(injector);
 		return injector;
@@ -55,5 +57,19 @@ public class CTWedgeStandaloneSetupGenerated implements ISetup {
 		
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ctw", resourceFactory);
 		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("ctw", serviceProvider);
+		
+		// register default ePackages
+				if (!Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("ecore"))
+					Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+						"ecore", new EcoreResourceFactoryImpl());
+				if (!Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("xmi"))
+					Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+						"xmi", new XMIResourceFactoryImpl());
+				if (!Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().containsKey("xtextbin"))
+					Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+						"xtextbin", new BinaryGrammarResourceFactoryImpl());
+				if (!EPackage.Registry.INSTANCE.containsKey(XtextPackage.eNS_URI))
+					EPackage.Registry.INSTANCE.put(XtextPackage.eNS_URI, XtextPackage.eINSTANCE);
+
 	}
 }

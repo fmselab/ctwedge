@@ -300,7 +300,6 @@ version(s), and exceptions or additional permissions here}.&quot;
       <import plugin="org.eclipse.xtext.util"/>
       <import plugin="org.eclipse.xtext"/>
       <import plugin="org.eclipse.jface"/>
-      <import plugin="ctwedge.generator"/>
       <import plugin="org.eclipse.xtext.xbase.lib"/>
       <import plugin="org.eclipse.emf.edit.ui"/>
       <import plugin="org.eclipse.core.resources"/>
@@ -314,56 +313,45 @@ version(s), and exceptions or additional permissions here}.&quot;
       <import plugin="org.eclipse.debug.ui"/>
       <import plugin="org.eclipse.ui.workbench"/>
       <import plugin="org.eclipse.emf.mwe.core"/>
-      <import plugin="org.eclipse.xtext.xbase"/>
-      <import plugin="org.eclipse.xtext.xtext.generator"/>
-      <import plugin="org.eclipse.equinox.common" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.antlr.runtime"/>
-      <import plugin="org.eclipse.xtend.lib"/>
-      <import plugin="org.junit" version="4.12.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.builder" version="2.13.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.idea.generator" version="2.13.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.testing" version="2.13.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.13.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.ui"/>
-      <import plugin="org.eclipse.ui.editors" version="3.6.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.6.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.ui.shared"/>
-      <import plugin="org.eclipse.ui" version="3.6.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.builder"/>
-      <import plugin="org.eclipse.xtext.common.types.ui"/>
-      <import plugin="org.eclipse.xtext.ui.codetemplates.ui"/>
-      <import plugin="org.eclipse.compare" version="2.1.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.log4j"/>
-      <import plugin="org.eclipse.xtext.ide" version="2.13.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.ui.testing" version="2.13.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.xbase.junit" version="2.13.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.xbase.testing" version="2.13.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.xbase.ui.testing" version="2.13.0" match="greaterOrEqual"/>
+      <import plugin="org.junit" version="4.12.0" match="greaterOrEqual"/>
    </requires>
-
-   <plugin
-         id="ctwedge.eclipse"
-         download-size="0"
-         install-size="0"
-         version="1.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="ctwedge.eclipse.ui"
-         download-size="0"
-         install-size="0"
-         version="1.0.0"
-         unpack="false"/>
 
    <plugin
          id="ctwedge.generator"
          download-size="0"
          install-size="0"
-         version="1.0.0"/>
+         version="0.0.0"/>
+
+   <plugin
+         id="ctwedge.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="ctwedge"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="ctwedge.benchmarks"
+         id="ctwedge.eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="ctwedge.eclipse.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -373,14 +361,7 @@ version(s), and exceptions or additional permissions here}.&quot;
          id="ctwedge.ui"
          download-size="0"
          install-size="0"
-         version="1.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="ctwedge.ide"
-         download-size="0"
-         install-size="0"
-         version="1.0.0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
