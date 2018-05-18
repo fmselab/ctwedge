@@ -28,3 +28,7 @@ bin/
 
 # eclipse specific files
 .settings/
+
+#un-ignore update site
+!/ctwedge_update/*
+/ctwedge_update/*.zip
