@@ -30,5 +30,7 @@ bin/
 .settings/
 
 #un-ignore update site
+!*/ctwedge_update/*
+*/ctwedge_update/*.zip
 !/ctwedge_update/*
 /ctwedge_update/*.zip
