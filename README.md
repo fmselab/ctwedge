@@ -1,7 +1,11 @@
 # ctwedge
  Combinatorial Testing Web Editor and GEnerator
 
- 
+It comes into two flavors:
+
+- CTWedge for Eclipse: https://fmselab.github.io/ctwedge/ctwedge_update/ (from Eclipse, press Help -> Install New Software..., and add the link)
+- [CTWedge Web](http://foselab.unibg.it/ctwedge)
+
 ctwedge.benchmarks   => benchmarks
 					-d-> ctwedge & generator (why ?)
 
