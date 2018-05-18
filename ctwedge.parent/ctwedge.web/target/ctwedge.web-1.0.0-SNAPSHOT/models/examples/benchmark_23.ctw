@@ -1,0 +1,47 @@
+Model benchmark_23
+
+Parameters:
+p1: Boolean
+p2: Boolean
+p3: Boolean
+p4: Boolean
+p5: { v1 v2 v3 v4 v5 v6 }
+p6: Boolean
+p7: Boolean
+p8: Boolean
+p9: Boolean
+p10: Boolean
+p11: Boolean
+p12: Boolean
+p13: Boolean
+p14: Boolean
+p15: Boolean
+p16: Boolean
+p17: Boolean
+p18: { v1 v2 v3 }
+p19: Boolean
+p20: Boolean
+p21: Boolean
+p22: Boolean
+p23: Boolean
+p24: Boolean
+p25: Boolean
+p26: Boolean
+p27: Boolean
+
+Constraints:
+ # !p1 or p2 #
+ # p5!=v5 or !p6 #
+ # p5!=v6 or !p6 #
+ # !p1 or p2 #
+ # p4 or p5!=v5 #
+ # !p4 or p5!=v6 #
+ # p2 or p5!=v1 #
+ # !p1 or p4 #
+ # !p2 or p5!=v4 #
+ # !p2 or p3 #
+ # p4 or p6 #
+ # !p4 or p6 #
+ # p4 or p6 #
+ # p1 or p5!=v3 or !p6 #
+ # !p1 or p2 or !p4 #

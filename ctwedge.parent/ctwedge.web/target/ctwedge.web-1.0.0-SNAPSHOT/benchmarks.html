@@ -1,0 +1,149 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Language" content="en-us">
+	<title>CTWedge Benchmarks</title>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	
+	<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  	<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.min.js"></script>
+	
+	<script src="webjars/requirejs/2.3.2/require.min.js"></script>
+	
+	<script>
+	/**
+	 * Converts a CSV string to object with rows and header
+	 * @param   {String} sCSV    A CSV string
+	 * @param   {Object} options {
+	 *                         seperator: string "The CSV col selerator" [";"]
+	 *                         hasHeader: bool [true]
+	 *                         headerPrefix: string ["COL]  }
+	 * @returns {Object} {
+	 * headers: array of headers,
+	 * rows: array of rows (including header)
+	 *  }
+	 */
+	function convertToArray(sCSV, options) {
+			var result = {
+							headers: null,
+							rows: null
+					},
+					firstRowAt = 0,
+					tds,
+					first,
+					cols;
+			options = options || {};
+			options = $.extend(options, {
+					seperator: ";",
+					hasHeader: true,
+					headerPrefix: "COL"
+			});
+
+			// Create header
+			tds = sCSV.split("\x0a");
+			first = tds[0].split(options.seperator);
+			if (options.hasHeader) {
+					result.headers = first;
+					result.headers = result.headers.map(function(header) {
+							return header.replace(/\//g, "_");
+					});
+					firstRowAt = 1;
+			} else {
+					result.headers = first.map(function(header, i) {
+							return options.headerPrefix + i;
+					});
+			}
+
+			// Create rows
+			cols = result.headers.length;
+			result.rows = tds.map(function(row, i) {
+					return row.split(options.seperator);
+			});
+			return result;
+	}
+
+	function tag(element, value) {
+			return "<" + element + ">" + value + "</" + element + ">";
+	}
+
+	function toHTML(arr) {
+			var sTable = "<table class=\"table table-striped\"><thead>";
+			arr.map(function(row, i) {
+					var sRow = "";
+					row.map(function(cell, ii) {
+							var tagname = (i === 0) ? "th" : "td";
+							sRow += tag(tagname, cell);
+					});
+
+					sTable += tag("tr", sRow) + ((i === 0) ? "</thead><tbody>" : "");
+			});
+			return sTable + "</tbody></table>";
+	}
+
+	function csvToHtml(sCSV, $output, options) {
+					var result = convertToArray(sCSV, options || {});
+					$output.html(toHTML(result.rows));
+			}
+	</script>
+</head>
+<body>
+
+<div class="container">
+	<div class="header">
+		<h1>CTWedge Benchmark Collection</h1>
+	</div>
+	<img src="logo.png" style="width: 220px; position: absolute; top: 120px; left: 280px;"/>
+	
+	<div class="table" style="margin: 0px auto; position: absolute; width: 800px; top: 220px;">
+    		<h4 class="table-title">Benchmarks</h4>
+       <div class="table-header"></div>
+       <div class="table-body">
+         <!-- <p>Loading...</p> -->
+       </div>
+     </div>
+	
+	  <script type="text/javascript">
+		var csv = "";
+		
+		function waitForElement(){
+	    		$.ajax({
+	            url: "csvbenchmarks.csv",
+	            //async: false,
+	            success: function (data){
+	     	       	csv = ""; // csv=data;
+	     	       	
+	     	       	//TODO add button at each line
+	     	       	var a = data.split("\n"), i;
+					for (i = 0; i < a.length; i++) {
+					    csv += a[i];
+					    if (i>0 && i<a.length-1) csv+=";<a href='/ctwedge?modelname="+ a[i].split(";")[0]+".ctw'>Open Model</a>";
+					    csv+="\n";
+					}
+	     	       	
+	           		console.log('csvServer: '+csv);
+	            		csvToHtml(csv, $(".table-body"));
+	            }
+	        });
+		}
+		  
+		$(document).ready(function(){
+			  waitForElement();
+		  });
+		</script>
+	</div>
+
+</body>
+</html>

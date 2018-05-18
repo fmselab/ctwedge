@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='2'>
+  <unit id='201805181013.main.source' version='1.0.0.2--clG0vE7735I3C5I5359'>
+    <properties size='2'>
+      <property name='org.eclipse.equinox.p2.name' value='CTWEdge (Sources)'/>
+      <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+    </properties>
+    <provides size='1'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='201805181013.main.source' version='1.0.0.2--clG0vE7735I3C5I5359'/>
+    </provides>
+    <requires size='1'>
+      <required namespace='org.eclipse.equinox.p2.iu' name='ctwedge.feature.source.feature.group' range='[1.0.0.201805181013,1.0.0.201805181013]'/>
+    </requires>
+    <touchpoint id='null' version='0.0.0'/>
+  </unit>
+  <unit id='201805181013.main' version='1.0.0.2--clHCo-7735I3C5I5359'>
+    <properties size='2'>
+      <property name='org.eclipse.equinox.p2.name' value='CTWEdge'/>
+      <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+    </properties>
+    <provides size='1'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='201805181013.main' version='1.0.0.2--clHCo-7735I3C5I5359'/>
+    </provides>
+    <requires size='1'>
+      <required namespace='org.eclipse.equinox.p2.iu' name='ctwedge.feature.feature.group' range='[1.0.0.201805181013,1.0.0.201805181013]'/>
+    </requires>
+    <touchpoint id='null' version='0.0.0'/>
+  </unit>
+</units>

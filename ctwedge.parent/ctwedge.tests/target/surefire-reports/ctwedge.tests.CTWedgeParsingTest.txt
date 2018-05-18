@@ -1,0 +1,5 @@
+-------------------------------------------------------------------------------
+Test set: ctwedge.tests.CTWedgeParsingTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.891 sec - in ctwedge.tests.CTWedgeParsingTest
+loadModel(ctwedge.tests.CTWedgeParsingTest)  Time elapsed: 0.274 sec

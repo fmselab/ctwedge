@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature id="ctwedge.feature.source" version="1.0.0.201805181013" label="CTWEdge Feature  Developer Resources">
+  <includes id="ctwedge.feature" version="1.0.0.201805181013"/>
+</feature>

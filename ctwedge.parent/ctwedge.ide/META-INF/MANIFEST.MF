@@ -1,17 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: CTWedge IDE
-Bundle-SymbolicName: ctwedge.ide;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Name: ctwedge.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: ctwedge.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: ctwedge,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: ctwedge.ide.contentassist.antlr.internal,
  ctwedge.ide.contentassist.antlr
-Require-Bundle: ctwedge;bundle-version="1.0.0",
- org.eclipse.xtext.builder;bundle-version="2.13.0",
- org.eclipse.xtext.idea.generator;bundle-version="2.13.0",
- org.eclipse.xtext.testing;bundle-version="2.13.0",
- org.eclipse.xtext.ui.testing;bundle-version="2.13.0",
- org.eclipse.xtext.xbase.ui.testing;bundle-version="2.13.0",
- org.eclipse.xtend.ide;bundle-version="2.13.0",
- org.eclipse.xtend.standalone;bundle-version="2.13.0"
 

@@ -1,0 +1,85 @@
+Model benchmark_15
+
+Parameters:
+p1: Boolean
+p2: Boolean
+p3: Boolean
+p4: Boolean
+p5: Boolean
+p6: Boolean
+p7: Boolean
+p8: { v1 v2 v3 v4 v5 }
+p9: { v1 v2 v3 }
+p10: Boolean
+p11: { v1 v2 v3 }
+p12: Boolean
+p13: Boolean
+p14: Boolean
+p15: Boolean
+p16: { v1 v2 v3 }
+p17: Boolean
+p18: Boolean
+p19: Boolean
+p20: Boolean
+p21: { v1 v2 v3 v4 }
+p22: Boolean
+p23: { v1 v2 v3 }
+p24: Boolean
+p25: Boolean
+p26: Boolean
+p27: Boolean
+p28: Boolean
+p29: Boolean
+p30: { v1 v2 v3 v4 v5 }
+p31: Boolean
+p32: Boolean
+p33: Boolean
+p34: Boolean
+p35: Boolean
+p36: Boolean
+p37: { v1 v2 v3 v4 v5 v6 }
+p38: Boolean
+p39: Boolean
+p40: Boolean
+p41: Boolean
+p42: Boolean
+p43: Boolean
+p44: Boolean
+p45: Boolean
+p46: Boolean
+p47: Boolean
+p48: Boolean
+p49: Boolean
+p50: Boolean
+p51: Boolean
+p52: Boolean
+p53: Boolean
+p54: Boolean
+p55: Boolean
+p56: Boolean
+p57: Boolean
+p58: Boolean
+
+Constraints:
+ # !p3 or p11!=v2 #
+ # p9!=v3 or p10 #
+ # !p4 or p12 #
+ # p8!=v4 or p11!=v2 #
+ # p9!=v2 or !p10 #
+ # p2 or p9!=v1 #
+ # p11!=v2 or !p12 #
+ # p1 or p9!=v3 #
+ # p8!=v3 or p11!=v3 #
+ # p11!=v1 or p12 #
+ # p9!=v1 or p11!=v2 #
+ # p9!=v1 or p10 #
+ # p4 or p9!=v3 #
+ # p2 or p8!=v1 #
+ # !p3 or !p12 #
+ # p7 or p12 #
+ # !p3 or p11!=v3 #
+ # p6 or p9!=v1 #
+ # p7 or p8!=v4 #
+ # p9!=v3 or p11!=v1 #
+ # p5 or p10 or !p12 #
+ # !p2 or p11!=v3 or !p12 #

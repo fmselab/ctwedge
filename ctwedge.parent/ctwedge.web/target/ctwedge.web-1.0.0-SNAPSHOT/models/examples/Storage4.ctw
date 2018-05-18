@@ -1,0 +1,55 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model Storage4
+
+Parameters:
+p1: { v12 v3 v4 v5 v6 v7 v8 v9 v10 };
+p2: { v1 v2 v3 };
+p3: { v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 };
+p4: { v1 v2 v3 v4 v5 };
+p5: { v1 v2 };
+p6: { v1 v2 v3 };
+p7: { v1 v2 v3 };
+p8: { v1 v2 v3 v4 v5 v6 };
+p9: { v1 v2 v3 };
+p10: { v1 v2 v3 v4 v5 v6 v7 };
+p11: { v1 v2 };
+p12: { v1 v2 v3 };
+p13: { v1 v2 v3 v4 v5 v6 };
+p14: { v1 v2 };
+p15: { v1 v2 };
+p16: { v1 v2 v3 };
+p17: { v1 v2 v3 v4 };
+p18: { v1 v2 };
+p19: { v1 v2 v3 };
+p20: { v1 v2 v3 v4 v5 };
+
+Constraints:
+	# ( p4!=v4 OR p3!=v2) #
+	# ( p4!=v3 OR p3!=v8) #
+	# ( p4!=v4 OR p3!=v3) #
+	# ( p3!=v3 OR p4!=v5) #
+	# ( p4!=v2 OR p3!=v8) #
+	# ( p4!=v2 OR p3!=v9) #
+	# ( p4!=v3 OR p3!=v9) #
+	# ( p4!=v1 OR p3!=v8) #
+	# ( p3!=v11 OR p4!=v1) #
+	# ( p3!=v13 OR p4!=v1) #
+	# ( p4!=v2 OR p3!=v10) #
+	# ( p3!=v11 OR p4!=v2) #
+	# ( p4!=v1 OR p3!=v9) #
+	# ( p3!=v11 OR p4!=v3) #
+	# ( p4!=v3 OR p3!=v10) #
+	# ( p4!=v3 OR p3!=v12) #
+	# ( p3!=v2 OR p4!=v5) #
+	# ( p4!=v2 OR p3!=v12) #
+	# ( p4!=v4 OR p3!=v1) #
+	# ( p3!=v13 OR p4!=v3) #
+	# ( p3!=v13 OR p4!=v2) #
+	# ( p4!=v1 OR p3!=v12) #
+	# ( p3!=v1 OR p4!=v5) #
+	# ( p4!=v1 OR p3!=v10) #
+

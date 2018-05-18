@@ -1,0 +1,349 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Language" content="en-us">
+	<title>CTWedge</title>
+	<link rel="stylesheet" type="text/css" href="xtext/2.13.0/xtext-ace.css"/>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	
+	<!-- Added, in addition to editor -->
+	<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.min.js"></script>
+	
+	<!-- Previously there -->
+	<script src="webjars/requirejs/2.3.2/require.min.js"></script>
+	<script type="text/javascript">
+		var baseUrl = window.location.pathname;
+		var fileIndex = baseUrl.indexOf("index.html");
+		if (fileIndex > 0)
+			baseUrl = baseUrl.slice(0, fileIndex);
+		require.config({
+			baseUrl: baseUrl,
+			paths: {
+				"jquery": "webjars/jquery/2.2.4/jquery.min",
+				"ace/ext/language_tools": "webjars/ace/1.2.3/src/ext-language_tools",
+				"xtext/xtext-ace": "xtext/2.13.0/xtext-ace"
+			}
+		});
+		require(["webjars/ace/1.2.3/src/ace"], function() {
+			require(["xtext/xtext-ace"], function(xtext) {
+				xtext.createEditor({
+					baseUrl: baseUrl,
+					syntaxDefinition: "xtext-resources/generated/mode-ctw"
+				});
+			});
+		});
+	</script>
+		
+	<script>
+	/**
+	 * Converts a CSV string to object with rows and header
+	 * @param   {String} sCSV    A CSV string
+	 * @param   {Object} options {
+	 *                         seperator: string "The CSV col selerator" [";"]
+	 *                         hasHeader: bool [true]
+	 *                         headerPrefix: string ["COL]  }
+	 * @returns {Object} {
+	 * headers: array of headers,
+	 * rows: array of rows (including header)
+	 *  }
+	 */
+	function convertToArray(sCSV, options) {
+			var result = {
+							headers: null,
+							rows: null
+					},
+					firstRowAt = 0,
+					tds,
+					first,
+					cols;
+			options = options || {};
+			options = $.extend(options, {
+					seperator: ";",
+					hasHeader: true,
+					headerPrefix: "COL"
+			});
+
+			// Create header
+			tds = sCSV.split("\x0a");
+			first = tds[0].split(options.seperator);
+			if (options.hasHeader) {
+					result.headers = first;
+					result.headers = result.headers.map(function(header) {
+							return header.replace(/\//g, "_");
+					});
+					firstRowAt = 1;
+			} else {
+					result.headers = first.map(function(header, i) {
+							return options.headerPrefix + i;
+					});
+			}
+
+			// Create rows
+			cols = result.headers.length;
+			result.rows = tds.map(function(row, i) {
+					return row.split(options.seperator);
+			});
+			return result;
+	}
+
+	function tag(element, value) {
+			return "<" + element + ">" + value + "</" + element + ">";
+	}
+
+	function toHTML(arr) {
+			var sTable = "<table class=\"table table-striped\"><thead>";
+			arr.map(function(row, i) {
+					var sRow = "";
+					row.map(function(cell, ii) {
+							var tagname = (i === 0) ? "th" : "td";
+							sRow += tag(tagname, cell);
+					});
+
+					sTable += tag("tr", sRow) + ((i === 0) ? "</thead><tbody>" : "");
+			});
+			return sTable + "</tbody></table>";
+	}
+
+	function csvToHtml(sCSV, $output, options) {
+					var result = convertToArray(sCSV, options || {});
+					$output.html(toHTML(result.rows));
+			}
+	</script>
+</head>
+<body>
+
+<div class="container">
+	<div class="header">
+		<h1>CTWedge: Combinatorial Testing Web-based Editor and Generator</h1>
+	</div>
+	<img src="logo.png" style="width: 220px; position: absolute; top: 90px; left: 680px;"/>
+	<div class="content">
+		<div id="xtext-editor" data-editor-xtext-lang="ctw" style="top: 80px; height: 500px"></div>
+	</div>
+	
+	<!-- Start of added components -->
+	<div style="margin: 0px auto; position: absolute; left: 200px; width: 400px; top: 121px; height: 50px;" >
+		<label for="selectExample">Load Example</label>&nbsp;
+		<select class="selectpicker" id="selectExample">
+			<!-- <option selected>Load Examples</option> -->
+			<option value="phone">Phone</option>
+			<option value="SmartHome">SmartHome</option>
+			<option value="Banking1">Banking1</option>
+			<option value="Concurrency">Concurrency</option>
+			<option value="CommProtocol">CommProtocol</option>
+			<option value="Healthcare1">Healthcare1</option>
+			<option value="SystemMgmt">SystemMgmt</option>
+			<option value="Telecom">Telecom</option>
+		</select>
+	</div>
+
+	<div class="table" style="margin: 0px auto; position: absolute; width: 600px; top: 700px;">
+    		<h4 class="table-title">Generated Test Suite</h4>
+       <div class="table-header"></div>
+       <div class="table-body">
+         <!-- <p>Loading...</p> -->
+       </div>
+       <!--  <div class="table-footer">
+         <button type="button" class="btn btn-primary">Download CSV</button>
+       </div> -->
+     </div>
+
+	<div style="margin: 0px auto; position: absolute; left: 680px; width: 200px; top: 200px;" >
+	<form>
+		<label for="strength">Strength of Test Suite</label>
+		<input type="text" class="form-control bfh-number" id="strength" data-min="2" value="2">
+
+		<br/>
+
+		<label for="generator">Generator</label>
+		<!--<label class="custom-control custom-radio">
+		  <input id="radio1" name="generator" type="radio" class="custom-control-input" checked>
+		  <span class="custom-control-indicator"></span>
+		  <span class="custom-control-description">ACTS</span>
+		</label>
+		<label class="custom-control custom-radio">
+		  <input id="radio2" name="generator" type="radio" class="custom-control-input">
+		  <span class="custom-control-indicator"></span>
+		  <span class="custom-control-description">CASA</span>
+		</label>-->
+		<div class="custom-controls-stacked" id="generator">
+		  <label class="custom-control custom-radio">
+		    <input id="radioStacked3" name="generator" type="radio" class="custom-control-input" checked value="ACTS">
+		    <span class="custom-control-indicator"></span>
+		    <span class="custom-control-description">ACTS</span>
+		  </label>
+		  <label class="custom-control custom-radio">
+		    <input id="radioStacked4" name="generator" type="radio" class="custom-control-input" value="CASA">
+		    <span class="custom-control-indicator"></span>
+		    <span class="custom-control-description">CASA</span>
+		  </label>
+		</div>
+
+		<br/>
+
+		<label class="custom-control custom-checkbox">
+		  <input type="checkbox" class="custom-control-input" id="ignoreConstraints">
+		  <span class="custom-control-indicator"></span>
+		  <span class="custom-control-description">Ignore Constraints</span>
+		</label>
+
+		<br/>
+		<br/>
+
+		<!-- Modal's toggle button has data that's used to determine what content to use -->
+	 <!--  <button type="button" class="btn btn-lg btn-success" data-toggle="modal" data-target=".modal" data-paragraphs="10">Generate Test Suite</button> -->
+	 
+	 <!-- Button doesn't open a dialog -->
+	  <button type="button" class="btn btn-lg btn-success" data-paragraphs="10" id="btnGenerate">Generate Test Suite</button>
+</form>
+	
+	  <!-- Taken from Bootstrap's documentation -->
+	  <div class="modal fade">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	          <h4 class="modal-title">Generated Test Suite</h4>
+	        </div>
+	        <div class="modal-body">
+	          <p>Loading...</p>
+	        </div>
+	        <div class="modal-footer"> <!--  to be filled -->
+	        </div>
+	      </div>
+	      <!-- /.modal-content -->
+	    </div>
+	    <!-- /.modal-dialog -->
+	  </div>
+	  <!-- /.modal -->
+	
+	  <script type="text/javascript">
+		var $modal = $('.modal');
+		var csv = "";
+		
+		//editor.getSession().setMode("ace/mode/javascript");
+		  
+		var $select = $('#selectExample');
+
+		$select.on('changed.bs.select', function (e, clickedIndex, newValue, oldValue) {
+			var selected = $(e.currentTarget).val();
+			$.ajax({
+	            url: "models/selectedSamples/"+selected+".ctw",
+	            //async: false,
+	            success: function (data){
+	            		var editor = ace.edit("xtext-editor");
+	            		editor.setValue(data);
+	            }
+	        });
+		});
+		
+		// Show loader & then get content when modal is shown
+		//$modal.on('show.bs.modal', function(e) {
+		$('#btnGenerate').on('click', function(e) {
+		  var paragraphs = $(e.relatedTarget).data('paragraphs');
+		  var strengthV = $('#strength').val();
+		  var generatorV = $('#generator input:radio:checked').val();
+		  var ignoreConstraints = $('#ignoreConstraints').prop('checked');		  
+		  
+		  var editor = ace.edit("xtext-editor");
+		  //editor.setTheme("ace/theme/twilight");
+		  var code = editor.getValue();
+		  $('.table-body').html('<p>Loading...</p>');
+		  
+		  var formData = new FormData();
+	      formData.append('model', encodeURIComponent(code));
+	      formData.append('strength', strengthV);
+	      formData.append('generator', generatorV);
+	      formData.append('ignConstr', ignoreConstraints);
+	      
+		  
+		  $.ajax({
+	            url: '../ctwedge.generator/', //' ../ctwedge.generator?model='+encodeURIComponent(code)+'&strength='+strength+'&generator='+generator+'&ignConstr='+ignoreConstraints,
+	            type: "post",
+	            	data: {
+	            		model: code,
+	            		strength: strengthV,
+	            		generator: generatorV,
+	            		ignConstr: ignoreConstraints
+	            	},
+	            //async: false,
+	            success: function (data){
+	     	       	$('.table-header').html('<p>Generated using '+generatorV+' strength='+strengthV+' ignoringConstraints: '+ignoreConstraints+'</p> <button type="button" class="btn btn-primary">Download CSV</button> <label for="separator" style="display:inline">Separator:</label> ' +
+    '<select class="form-control" id="separator" width="css-width" style="width:200px; display: inline;"> '+
+		           	'<option value=";">Semicolon (;) - DEFAULT</option>'+
+		          	'<option value=",">Comma (,)</option>'+
+		          	'<option value="\t">TAB (\\t)</option>'+
+		          	'<option value=" ">Space ( )</option>'+
+		         '</select>');
+	           		csv = data;
+	           		console.log('csvServer: '+csv);
+	            		csvToHtml(data, $(".table-body"));
+	            		$('.btn-primary').on('click', function(e) {
+	            			console.log('csv'+csv);
+	            			var separator = $('#separator').val();
+	            			var hiddenElement = document.createElement('a');
+	            		    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv.replace(";",separator));
+	            		    hiddenElement.target = '_blank';
+	            		    hiddenElement.download = $select.val()+'.csv';
+	            		    hiddenElement.click();
+	            		});
+	            }
+	        });
+		  
+		  /*$(this)
+		    .addClass('modal-scrollfix')
+		    .find('.modal-body')
+		    .html('loading...'+strength+", "+generator+", "+ignoreConstraints)
+		    .load('../ctwedge.generator?model='+encodeURIComponent(code)+'&strength='+strength+'&generator='+generator+'&ignoreConstraints='+ignoreConstraints, function() {
+		    //.load('https://baconipsum.com/api/?type=meat-and-filler&paras=' + paragraphs, function() {
+			  // Use Bootstrap's built-in function to fix scrolling (to no avail)
+		      $modal
+		        .removeClass('modal-scrollfix')
+		        .modal('handleUpdate');
+		      csvToHtml(csv, $(".output"));
+		    });*/
+		});
+		  
+		function waitForElement(){
+		    if(typeof ace !== "undefined"){
+		    		var model = window.location.search.substr(1);
+		    		if (model==null || model=="" || model.indexOf("=") === -1) model = "models/selectedSamples/phone.ctw";
+		    		else model = "models/examples/"+model.split("=")[1];
+		    		$.ajax({
+		            url: model,
+		            //async: false,
+		            success: function (data){
+		            		var editor = ace.edit("xtext-editor");
+		            		editor.setValue(data);
+		            		editor.setAutoScrollEditorIntoView(true);
+		            }
+		        });
+		    }
+		    else{
+		        setTimeout(waitForElement, 250);
+		    }
+		}
+		  
+		$(document).ready(function(){
+			  waitForElement();
+		  });
+		</script>
+		</div>
+	</div>
+
+</body>
+</html>

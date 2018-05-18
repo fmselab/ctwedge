@@ -1,0 +1,29 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model Banking2
+
+Parameters:
+p1: { v1 v2 v3 v4 };
+p2: Boolean;
+p3: Boolean;
+p4: Boolean;
+p5: Boolean;
+p6: Boolean;
+p7: Boolean;
+p8: Boolean;
+p9: Boolean;
+p10: Boolean;
+p11: Boolean;
+p12: Boolean;
+p13: Boolean;
+p14: Boolean;
+p15: Boolean;
+
+Constraints:
+	# ( p1!=v3 OR p10!=true) #
+	# ( p10!=true OR p1!=v2) #
+	# ( p10!=true OR p1!=v4) #
+

@@ -62,10 +62,10 @@ import com.google.inject.Injector;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.util.CtWedgeAdapterFactory;
-import ctwedge.simplifier.Simplificator;
 import ctwedge.util.ext.CTWedgeException;
 import ctwedge.util.ext.ICTWedgeImporter;
 import ctwedge.util.ext.NotValidModelException;
+import ctwedge.util.simplifier.Simplificator;
 
 
 public class ImporterDialog extends Dialog {

@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.equinox.launcher.cocoa.macosx.x86_64;
+ singleton:=true
+Archiver-Version: Plexus Archiver
+Built-By: genie.releng
+Bundle-ManifestVersion: 2
+Eclipse-PlatformFilter: (& (osgi.ws=cocoa) (osgi.os=macosx) (osgi.arch
+ =x86_64) )
+Eclipse-SourceReferences: scm:git:git://git.eclipse.org/gitroot/equino
+ x/rt.equinox.framework.git;path="bundles/org.eclipse.equinox.launcher
+ .cocoa.macosx.x86_64";tag="I20170531-0800";commitId=4b92523affc9cf6cf
+ 76f42e138d7ee41bf316b35
+Bundle-Vendor: %providerName
+Fragment-Host: org.eclipse.equinox.launcher;bundle-version="[1.0.0,1.5
+ .0)"
+Bundle-Name: %pluginName
+Bundle-Version: 1.1.500.v20170531-1133
+Bundle-Localization: launcher.cocoa.macosx.x86_64
+Created-By: Apache Maven 3.3.3
+Build-Jdk: 1.8.0_121
+Eclipse-BundleShape: dir
+
+Name: about.html
+SHA-256-Digest: VPMitIIkEm99NLfkFf/bqCv7gqDh+SdCqyIrbu4QETQ=
+
+Name: eclipse_1624.so
+SHA-256-Digest: 9/ALXoLj0VaXWP/XvKsSznPRSq+4HUYyEaLY+FsLR7k=
+
+Name: launcher.cocoa.macosx.x86_64.properties
+SHA-256-Digest: UAhksvNlcS4z9HgKG1XywMKouyPIlVksHx/ozcqT2lw=
+

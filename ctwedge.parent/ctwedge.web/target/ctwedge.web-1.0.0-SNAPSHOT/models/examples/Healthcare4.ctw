@@ -1,0 +1,68 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model Healthcare4
+
+Parameters:
+p1: { v1 v2 };
+p2: { v1 v2 v3 v4 v5 };
+p3: { v1 v2 v3 };
+p4: { v1 v2 v3 };
+p5: { v1 v2 v3 v4 };
+p6: { v1 v2 v3 v4 };
+p7: { v1 v2 };
+p8: { v1 v2 v3 };
+p9: { v1 v2 v3 v4 v5 v6 };
+p10: { v1 v2 v3 v4 };
+p11: { v1 v2 v3 v4 v5 };
+p12: Boolean;
+p13: { v1 v2 v3 };
+p14: { v1 v2 v3 };
+p15: { v1 v2 v3 v4 };
+p16: { v1 v2 };
+p17: { v1 v2 };
+p18: { v1 v2 v3 v4 };
+p19: Boolean;
+p20: { v1 v2 v3 };
+p21: Boolean;
+p22: Boolean;
+p23: { v1 v2 v3 };
+p24: Boolean;
+p25: { v1 v2 v3 };
+p26: { v1 v2 };
+p27: { v1 v2 };
+p28: { v1 v2 v3 };
+p29: Boolean;
+p30: { v1 v2 v3 };
+p31: Boolean;
+p32: { v1 v2 v3 v4 };
+p33: { v1 v2 v3 };
+p34: { v1 v2 v3 v4 v5 v6 v7 };
+p35: { 0 1 2 };
+
+Constraints:
+	# ( p8!=v3 OR p10!=v4) #
+	# ( p10!=v3 OR p11!=v5) #
+	# ( p8!=v2 OR p10!=v4) #
+	# ( p8!=v1 OR p10!=v3) #
+	# ( p8!=v1 OR p10!=v2) #
+	# ( p8!=v1 OR p10!=v1) #
+	# ( p11!=v5 OR p10!=v1) #
+	# ( p32!=v2 OR p1!=v1) #
+	# ( p8!=v3 OR p1!=v1) #
+	# ( p10!=v2 OR p11!=v5) #
+	# ( p8!=v1 OR p9!=v6) #
+	# ( p8!=v1 OR p9!=v5) #
+	# ( p8!=v1 OR p9!=v1) #
+	# ( p1!=v1 OR p32!=v3) #
+	# ( p32!=v1 OR p33!=v3) #
+	# ( p11!=v1 OR p10!=v4) #
+	# ( p8!=v1 OR p9!=v4) #
+	# ( p32!=v1 OR p33!=v2) #
+	# ( p8!=v1 OR p9!=v3) #
+	# ( p11!=v2 OR p10!=v4) #
+	# ( p11!=v4 OR p10!=v4) #
+	# ( p11!=v3 OR p10!=v4) #
+

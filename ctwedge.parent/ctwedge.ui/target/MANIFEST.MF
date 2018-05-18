@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: ctwedge.ui; singleton:=true
+Export-Package: ctwedge.ui.contentassist,ctwedge.ui.quickfix,ctwedge.u
+ i.internal
+Bundle-Name: ctwedge.ui
+Bundle-Version: 1.0.0.201805181013
+Require-Bundle: ctwedge,ctwedge.ide,org.eclipse.xtext.ui,org.eclipse.x
+ text.ui.shared,org.eclipse.xtext.ui.codetemplates.ui,org.eclipse.ui.e
+ ditors;bundle-version="3.5.0",org.eclipse.ui.ide;bundle-version="3.5.
+ 0",org.eclipse.ui,org.eclipse.compare,org.eclipse.xtext.builder,org.e
+ clipse.xtend.lib;resolution:=optional,org.eclipse.xtext.xbase.lib;bun
+ dle-version="2.13.0"
+Bundle-ManifestVersion: 2
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Activator: ctwedge.ui.internal.CtwedgeActivator
+Bundle-Vendor: My Company
+Import-Package: org.apache.log4j
+

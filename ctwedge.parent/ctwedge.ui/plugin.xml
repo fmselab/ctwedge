@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="windows-1252"?>
 <?eclipse version="3.0"?>
 <plugin>
 	<extension
@@ -204,6 +204,15 @@
 			</activeWhen>
 		</handler>
 	</extension>
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="ctw"
+			id="ctwedge.CTWedge.contenttype"
+			name="CTWedge File"
+			priority="normal">
+		</content-type>
+	</extension>
 	<!-- adding resource factories -->
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -406,15 +415,5 @@
 			extension="ctw"
 			type="text">
 		</fileTypes>
-	</extension>
-	<extension
-		point="org.eclipse.ui.newWizards">
-		<wizard
-			category="org.eclipse.xtext.projectwiz"
-			class="ctwedge.ui.CTWedgeExecutableExtensionFactory:ctwedge.ui.wizard.CTWedgeNewProjectWizard"
-			id="ctwedge.ui.wizard.CTWedgeNewProjectWizard"
-			name="CTWedge Project"
-				project="true">
-		</wizard>
 	</extension>
 </plugin>
