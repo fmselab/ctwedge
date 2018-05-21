@@ -19,6 +19,8 @@ import ctwedge.util.TestSuite;
 
 public class Utility {
 	
+	public static final Utility INSTANCE = new Utility();
+	
 	public static TestSuite getTestSuite(String model, String generator, int t, boolean ignoreC) throws Exception {
 		TestSuite ts = null;
 		if (generator.equalsIgnoreCase("casa")) { // CASA
@@ -62,6 +64,10 @@ public class Utility {
 			sb.append(i + ";" + st[i] + "\n");
 		}
 		return sb.toString();
+	}
+	
+	public boolean isNumber(String s) {
+		return s.matches("(-|\\+)?[0-9]+(\\.[0-9]+)?"); 
 	}
 
 }

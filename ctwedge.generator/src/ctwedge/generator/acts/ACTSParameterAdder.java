@@ -18,6 +18,7 @@ import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.generator.util.ParameterElementsGetterAsStrings;
+import ctwedge.generator.util.Utility;
 import edu.uta.cse.fireeye.common.Parameter;
 import edu.uta.cse.fireeye.common.SUT;
 
@@ -38,11 +39,17 @@ public class ACTSParameterAdder extends CtWedgeSwitch<Parameter>{
 	@Override
 	public Parameter caseEnumerative(Enumerative enumerative) {
 		Parameter p = sut.addParam(enumerative.getName());
-		p.setType(Parameter.PARAM_TYPE_ENUM);
+		p.setType(isAllNumbers(enumerative) ? Parameter.PARAM_TYPE_INT : Parameter.PARAM_TYPE_ENUM);
 		ArrayList<String> arrayList = new ArrayList<String>(ParameterElementsGetterAsStrings.instance.caseEnumerative(enumerative));
 		System.out.println(arrayList);
 		p.setValues(arrayList);
 		return p;
+	}
+	
+	boolean isAllNumbers(Enumerative enumerative) {
+		ArrayList<String> arrayList = new ArrayList<String>(ParameterElementsGetterAsStrings.instance.caseEnumerative(enumerative));
+		for (String s : arrayList) if (!Utility.INSTANCE.isNumber(s)) return false;
+		return true;
 	}
 
 	@Override

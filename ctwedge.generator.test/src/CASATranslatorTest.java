@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import ctwedge.generator.casa.ConvertToAbstractID;
 import ctwedge.generator.casa.ToCasaParametersExporter;
+import ctwedge.generator.util.Utility;
 
 public class CASATranslatorTest {
 	

@@ -1,7 +1,8 @@
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import ctwedge.generator.casa.CASAConstraintException;
+import ctwedge.generator.util.Utility;
 
 public class CASATest {
 	@Test

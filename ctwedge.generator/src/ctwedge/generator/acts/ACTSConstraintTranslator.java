@@ -21,6 +21,7 @@ import ctwedge.ctWedge.PlusMinus;
 import ctwedge.ctWedge.PlusMinusOperators;
 import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
+import ctwedge.generator.util.Utility;
 
 /**
  * translates a constraints in the ACTS language
@@ -71,7 +72,7 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 	@Override
 	public String caseAtomicPredicate(AtomicPredicate x) {
 		System.out.println("Case AtomicPredicate: "+x);
-		return x.getName()!=null ? (elements.contains(x.getName()) ? "\""+x.getName()+"\"" : x.getName()) : (x.getBoolConst()!=null ? x.getBoolConst() : "");
+		return x.getName()!=null ? (elements.contains(x.getName()) && !Utility.INSTANCE.isNumber(x.getName()) ? "\""+x.getName()+"\"" : x.getName()) : (x.getBoolConst()!=null ? x.getBoolConst() : "");
 	}
 	
 	@Override
