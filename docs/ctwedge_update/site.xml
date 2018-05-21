@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/ctwedge.feature_1.0.0.201805211729.jar" id="ctwedge.feature" version="1.0.0.201805211729">
+   <feature url="features/ctwedge.feature_1.0.0.201805211750.jar" id="ctwedge.feature" version="1.0.0.201805211750">
       <category name="ctwedge"/>
    </feature>
    <category-def name="ctwedge" label="ctwedge"/>
