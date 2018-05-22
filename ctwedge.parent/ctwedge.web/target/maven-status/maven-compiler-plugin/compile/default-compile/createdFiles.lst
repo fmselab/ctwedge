@@ -1,0 +1,5 @@
+ctwedge\web\CTWedgeServlet.class
+ctwedge\web\AbstractCTWedgeWebModule.class
+ctwedge\web\CTWedgeWebModule.class
+ctwedge\web\CTWedgeWebSetup.class
+ctwedge\web\ServerLauncher.class

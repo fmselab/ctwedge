@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-SymbolicName: ctwedge.ui.tests; singleton:=true
 Export-Package: ctwedge.ui.tests;x-internal=true
 Bundle-Name: ctwedge.ui.tests
-Bundle-Version: 1.0.0.201805211542
+Bundle-Version: 1.0.0.201805211826
 Require-Bundle: ctwedge.ui,org.junit;bundle-version="4.12.0",org.eclip
  se.xtext.testing,org.eclipse.xtext.xbase.testing,org.eclipse.xtext.ju
  nit4,org.eclipse.xtext.xbase.junit,org.eclipse.core.runtime,org.eclip

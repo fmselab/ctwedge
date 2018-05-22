@@ -6,10 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: webapp.jar,
   libs/acts_3.0.jar,
   libs/com.google.guava_21.0.0.v20170206-1425.jar
-Export-Package: citlab.externaltool.casa,
- citwedge.generator.translator.casa,
- citwedge.translator.casa,
- ctwedge.generator,
- ctwedge.generator.ipapi,
- ctwedge.generator.translator.casa
-Require-Bundle: javax.servlet
+Require-Bundle: javax.servlet,
+ ctwedge;bundle-version="1.0.0",
+ ctwedge.generator;bundle-version="1.0.0"
+Automatic-Module-Name: ctwedge.generator.webapp
