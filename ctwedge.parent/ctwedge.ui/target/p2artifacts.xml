@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?artifactRepository version='1.1.0'?>
 <artifacts size='2'>
-  <artifact classifier='osgi.bundle' id='ctwedge.ui' version='1.0.0.201805211826'>
+  <artifact classifier='osgi.bundle' id='ctwedge.ui' version='1.0.0.201805220846'>
     <properties size='5'>
-      <property name='artifact.size' value='35369'/>
-      <property name='download.size' value='35369'/>
+      <property name='artifact.size' value='38854'/>
+      <property name='download.size' value='38854'/>
       <property name='maven-groupId' value='ctwedge'/>
       <property name='maven-artifactId' value='ctwedge.ui'/>
       <property name='maven-version' value='1.0.0-SNAPSHOT'/>
     </properties>
   </artifact>
-  <artifact classifier='osgi.bundle' id='ctwedge.ui.source' version='1.0.0.201805211826'>
+  <artifact classifier='osgi.bundle' id='ctwedge.ui.source' version='1.0.0.201805220846'>
     <properties size='6'>
-      <property name='artifact.size' value='32221'/>
-      <property name='download.size' value='32221'/>
+      <property name='artifact.size' value='32224'/>
+      <property name='download.size' value='32224'/>
       <property name='maven-groupId' value='ctwedge'/>
       <property name='maven-artifactId' value='ctwedge.ui'/>
       <property name='maven-version' value='1.0.0-SNAPSHOT'/>

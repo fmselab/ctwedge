@@ -3,7 +3,7 @@ Bundle-SymbolicName: ctwedge.ide; singleton:=true
 Export-Package: ctwedge.ide.contentassist.antlr.internal,ctwedge.ide.c
  ontentassist.antlr
 Bundle-Name: ctwedge.ide
-Bundle-Version: 1.0.0.201805211826
+Bundle-Version: 1.0.0.201805220846
 Require-Bundle: ctwedge,org.eclipse.xtext.ide,org.eclipse.xtext.xbase.
  ide,org.antlr.runtime
 Bundle-ManifestVersion: 2

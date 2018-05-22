@@ -57,30 +57,38 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 	 * 
 	 */
 	public SUT buildSUT(CitModel citModel, boolean ignoreConstraints, int nWise) {
-		// build a system configuration
 		SUT sut = new SUT(citModel.getName());
-		// it is recommended to create a new parameter from the SUT object
-		// doing so will assign the parameter with an ID automatically
-		ACTSParameterAdder paramBuilder = new ACTSParameterAdder(sut);
-		tanslateParameter(citModel, paramBuilder);
-
-		//
-		// create relation
-		Relation r = new Relation(nWise);
-		for (edu.uta.cse.fireeye.common.Parameter p : sut.getParameters()) {
-			r.addParam(p);
+		try {
+			System.out.println("Building SUT...");
+			// build a system configuration
+			System.out.println("Building SUT...");
+			// it is recommended to create a new parameter from the SUT object
+			// doing so will assign the parameter with an ID automatically
+			ACTSParameterAdder paramBuilder = new ACTSParameterAdder(sut);
+			tanslateParameter(citModel, paramBuilder);
+	
+			System.out.println("Building SUT...");
+			//
+			// create relation
+			Relation r = new Relation(nWise);
+			for (edu.uta.cse.fireeye.common.Parameter p : sut.getParameters()) {
+				r.addParam(p);
+			}
+			// add this relation into the sut
+			sut.addRelation(r);
+	
+			// add the default relation
+			// sut.addDefaultRelation(nWise);
+	
+			System.out.println("Building SUT...");
+			// create constraints
+			if (!ignoreConstraints) {
+				translateConstraints(citModel, sut);
+			}
+			//ConstraintManager  cm = new ConstraintManager(sut); 
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		// add this relation into the sut
-		sut.addRelation(r);
-
-		// add the default relation
-		// sut.addDefaultRelation(nWise);
-
-		// create constraints
-		if (!ignoreConstraints) {
-			translateConstraints(citModel, sut);
-		}
-		//ConstraintManager  cm = new ConstraintManager(sut); 
 		return sut;
 	}
 
@@ -123,25 +131,25 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 		String res = "";
 		System.out.println("ACTS sto chiamando ACTS...");
 		try {
-		SUT sut = buildSUT(model, ignoreConstraints, strength);
-		System.out.println("1. ACTS sto chiamando ACTS...");
-		// Create an IPO engine object
-		IpoEngine engine = new IpoEngine(sut);
-		System.out.println("2. ACTS sto chiamando ACTS...");
-		// build a test set
-		
+			SUT sut = buildSUT(model, ignoreConstraints, strength);
+			System.out.println("1. ACTS sto chiamando ACTS...");
+			// Create an IPO engine object
+			IpoEngine engine = new IpoEngine(sut);
+			System.out.println("2. ACTS sto chiamando ACTS...");
+			// build a test set
+			
 			System.out.println("3. ACTS sto chiamando ACTS...");
 			System.setOut(new PrintStream(new ByteArrayOutputStream()));
 			System.out.println("4. ACTS sto chiamando ACTS...");
 			engine.buildOnlyPT(Algorithm.ipog);
 			System.out.println("5. ACTS sto chiamando ACTS...");
 			//engine.buildSupportedNT(getAlgorithm());
-		
-		// get the resulting test set
-		System.out.println("6. ACTS sto chiamando ACTS...");
-		TestSet ts = engine.getTestSet();
-		System.out.println("7. ACTS sto chiamando ACTS...");
-		res = serializeTestSet(model, ts);
+			
+			// get the resulting test set
+			System.out.println("6. ACTS sto chiamando ACTS...");
+			TestSet ts = engine.getTestSet();
+			System.out.println("7. ACTS sto chiamando ACTS...");
+			res = serializeTestSet(model, ts);
 		} catch (Exception e) {
 			System.out.println("Error: "+e.getMessage());
 			e.printStackTrace();

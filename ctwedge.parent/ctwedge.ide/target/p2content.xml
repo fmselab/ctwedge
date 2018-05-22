@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <units size='2'>
-  <unit id='ctwedge.ide' version='1.0.0.201805211826'>
-    <update id='ctwedge.ide' range='[0.0.0,1.0.0.201805211826)' severity='0'/>
+  <unit id='ctwedge.ide' version='1.0.0.201805220846'>
+    <update id='ctwedge.ide' range='[0.0.0,1.0.0.201805220846)' severity='0'/>
     <properties size='5'>
       <property name='org.eclipse.equinox.p2.name' value='ctwedge.ide'/>
       <property name='org.eclipse.equinox.p2.provider' value='My Company'/>
@@ -10,8 +10,8 @@
       <property name='maven-version' value='1.0.0-SNAPSHOT'/>
     </properties>
     <provides size='5'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='ctwedge.ide' version='1.0.0.201805211826'/>
-      <provided namespace='osgi.bundle' name='ctwedge.ide' version='1.0.0.201805211826'/>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='ctwedge.ide' version='1.0.0.201805220846'/>
+      <provided namespace='osgi.bundle' name='ctwedge.ide' version='1.0.0.201805220846'/>
       <provided namespace='java.package' name='ctwedge.ide.contentassist.antlr.internal' version='0.0.0'/>
       <provided namespace='java.package' name='ctwedge.ide.contentassist.antlr' version='0.0.0'/>
       <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
@@ -23,19 +23,19 @@
       <required namespace='osgi.bundle' name='org.antlr.runtime' range='0.0.0'/>
     </requires>
     <artifacts size='1'>
-      <artifact classifier='osgi.bundle' id='ctwedge.ide' version='1.0.0.201805211826'/>
+      <artifact classifier='osgi.bundle' id='ctwedge.ide' version='1.0.0.201805220846'/>
     </artifacts>
     <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
     <touchpointData size='1'>
       <instructions size='1'>
         <instruction key='manifest'>
-          Bundle-SymbolicName: ctwedge.ide; singleton:=true&#xA;Bundle-Version: 1.0.0.201805211826&#xA;
+          Bundle-SymbolicName: ctwedge.ide; singleton:=true&#xA;Bundle-Version: 1.0.0.201805220846&#xA;
         </instruction>
       </instructions>
     </touchpointData>
   </unit>
-  <unit id='ctwedge.ide.source' version='1.0.0.201805211826' singleton='false'>
-    <update id='ctwedge.ide.source' range='[0.0.0,1.0.0.201805211826)' severity='0'/>
+  <unit id='ctwedge.ide.source' version='1.0.0.201805220846' singleton='false'>
+    <update id='ctwedge.ide.source' range='[0.0.0,1.0.0.201805220846)' severity='0'/>
     <properties size='9'>
       <property name='df_LT.bundleVendor' value='My Company'/>
       <property name='df_LT.bundleName' value='ctwedge.ide Source'/>
@@ -48,19 +48,19 @@
       <property name='maven-classifier' value='sources'/>
     </properties>
     <provides size='4'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='ctwedge.ide.source' version='1.0.0.201805211826'/>
-      <provided namespace='osgi.bundle' name='ctwedge.ide.source' version='1.0.0.201805211826'/>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='ctwedge.ide.source' version='1.0.0.201805220846'/>
+      <provided namespace='osgi.bundle' name='ctwedge.ide.source' version='1.0.0.201805220846'/>
       <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
       <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
     </provides>
     <artifacts size='1'>
-      <artifact classifier='osgi.bundle' id='ctwedge.ide.source' version='1.0.0.201805211826'/>
+      <artifact classifier='osgi.bundle' id='ctwedge.ide.source' version='1.0.0.201805220846'/>
     </artifacts>
     <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
     <touchpointData size='1'>
       <instructions size='1'>
         <instruction key='manifest'>
-          Bundle-SymbolicName: ctwedge.ide.source&#xA;Bundle-Version: 1.0.0.201805211826&#xA;
+          Bundle-SymbolicName: ctwedge.ide.source&#xA;Bundle-Version: 1.0.0.201805220846&#xA;
         </instruction>
       </instructions>
     </touchpointData>

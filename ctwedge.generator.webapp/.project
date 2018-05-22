@@ -3,8 +3,6 @@
 	<name>ctwedge.generator.webapp</name>
 	<comment></comment>
 	<projects>
-		<project>ctwedge</project>
-		<project>ctwedge.generator</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

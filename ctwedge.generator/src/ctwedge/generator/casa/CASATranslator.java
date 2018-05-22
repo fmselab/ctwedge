@@ -38,6 +38,7 @@ public class CASATranslator extends ICTWedgeTestGenerator {
 		super("CASA");
 		path = CASATranslator.class.getProtectionDomain().getCodeSource().getLocation().getPath()
 			.split("/target")[0] + "casa/"; // get the path of the current class
+		if (path.contains(":") && path.startsWith("/")) path = path.substring(1);
 	}
 	
 	public CASATranslator(String path) {
@@ -171,11 +172,11 @@ public class CASATranslator extends ICTWedgeTestGenerator {
 			perms.add(PosixFilePermission.OTHERS_EXECUTE);
 
 			Files.setPosixFilePermissions(Paths.get(path+execName), perms);
-			return path+execName;
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return execName;
+		System.out.println("Returning path: "+path+execName);
+		return path+execName;
 	}
 
 	private String parseResults(File output, ConvertToAbstractID exporter) throws FileNotFoundException {
