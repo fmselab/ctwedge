@@ -3,7 +3,7 @@
 
 It comes into two flavors:
 
-- CTWedge for Eclipse: https://fmselab.github.io/ctwedge/ctwedge_update/ (from Eclipse, press Help -> Install New Software..., and add the link)
+- CTWedge for Eclipse: https://fmselab.github.io/ctwedge/ctwedge_update/ (from Eclipse, press Help -> Install New Software..., and add the link. Obs: note that Xtext is required: if not present, please install it first, e.g., from Eclipse Marketplace)
 - [CTWedge Web](http://foselab.unibg.it/ctwedge)
 
 ctwedge.benchmarks   => benchmarks
