@@ -18,8 +18,8 @@
 		<module>ctwedge.ide</module>
 		<module>ctwedge.ui</module>
 		<module>ctwedge.web</module>
-		<module>ctwedge.target</module>
-		<!--  <module>ctwedge.feature</module>
+		<!--  <module>ctwedge.target</module>
+		<module>ctwedge.feature</module>
 		<module>ctwedge.repository</module> -->
 		<module>ctwedge.tests</module>
 		<module>ctwedge.ui.tests</module>

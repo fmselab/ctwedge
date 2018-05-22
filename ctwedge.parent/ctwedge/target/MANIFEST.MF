@@ -6,7 +6,7 @@ Export-Package: ctwedge,ctwedge.ctWedge,ctwedge.ctWedge.impl,ctwedge.c
  ge.util,ctwedge.util.ext,ctwedge.util.genprefs,ctwedge.util.simplifie
  r,ctwedge.validation
 Bundle-Name: ctwedge
-Bundle-Version: 1.0.0.201805220846
+Bundle-Version: 1.0.0.201805221140
 Require-Bundle: org.eclipse.xtext,org.eclipse.xtext.xbase,org.eclipse.
  equinox.common;bundle-version="3.5.0",org.eclipse.emf.ecore,org.eclip
  se.xtext.xbase.lib;bundle-version="2.13.0",org.antlr.runtime,org.ecli
