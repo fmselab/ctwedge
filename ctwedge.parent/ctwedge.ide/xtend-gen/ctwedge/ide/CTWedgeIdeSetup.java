@@ -15,6 +15,7 @@ import org.eclipse.xtext.util.Modules2;
  */
 @SuppressWarnings("all")
 public class CTWedgeIdeSetup extends CTWedgeStandaloneSetup {
+  @Override
   public Injector createInjector() {
     CTWedgeRuntimeModule _cTWedgeRuntimeModule = new CTWedgeRuntimeModule();
     CTWedgeIdeModule _cTWedgeIdeModule = new CTWedgeIdeModule();

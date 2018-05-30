@@ -41,6 +41,7 @@
       <import plugin="org.eclipse.emf.ecore" version="2.13.0" match="greaterOrEqual"/>
       <import plugin="com.google.guava" version="21.0.0" match="greaterOrEqual"/>
       <import plugin="com.google.inject" version="3.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.xbase.lib"/>
    </requires>
 
    <plugin
