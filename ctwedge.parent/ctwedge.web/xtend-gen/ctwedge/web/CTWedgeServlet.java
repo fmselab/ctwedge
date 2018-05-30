@@ -3,9 +3,12 @@
  */
 package ctwedge.web;
 
+import com.google.inject.Injector;
+import ctwedge.web.CTWedgeWebSetup;
 import javax.servlet.annotation.WebServlet;
 import org.eclipse.xtext.util.DisposableRegistry;
 import org.eclipse.xtext.web.servlet.XtextServlet;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 
 /**
  * Deploy this class into a servlet container to enable DSL-specific services.
@@ -15,12 +18,18 @@ import org.eclipse.xtext.web.servlet.XtextServlet;
 public class CTWedgeServlet extends XtextServlet {
   private DisposableRegistry disposableRegistry;
   
+  @Override
   public void init() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method createInjectorAndDoEMFRegistration() is undefined for the type CTWedgeWebSetup"
-      + "\ngetInstance cannot be resolved");
+    try {
+      super.init();
+      final Injector injector = new CTWedgeWebSetup().createInjectorAndDoEMFRegistration();
+      this.disposableRegistry = injector.<DisposableRegistry>getInstance(DisposableRegistry.class);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
   
+  @Override
   public void destroy() {
     if ((this.disposableRegistry != null)) {
       this.disposableRegistry.dispose();

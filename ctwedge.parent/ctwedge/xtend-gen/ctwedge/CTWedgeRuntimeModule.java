@@ -3,8 +3,11 @@
  */
 package ctwedge;
 
+import ctwedge.AbstractCTWedgeRuntimeModule;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
-public class CTWedgeRuntimeModule /* implements AbstractCTWedgeRuntimeModule  */{
+@SuppressWarnings("all")
+public class CTWedgeRuntimeModule extends AbstractCTWedgeRuntimeModule {
 }

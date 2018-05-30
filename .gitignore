@@ -37,3 +37,4 @@ bin/
 
 # 
 *.java._trace
+*._trace
