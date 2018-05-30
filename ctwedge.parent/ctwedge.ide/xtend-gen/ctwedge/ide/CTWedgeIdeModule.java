@@ -3,11 +3,8 @@
  */
 package ctwedge.ide;
 
-import ctwedge.ide.AbstractCTWedgeIdeModule;
-
 /**
  * Use this class to register ide components.
  */
-@SuppressWarnings("all")
-public class CTWedgeIdeModule extends AbstractCTWedgeIdeModule {
+public class CTWedgeIdeModule /* implements AbstractCTWedgeIdeModule  */{
 }

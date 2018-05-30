@@ -3,14 +3,12 @@
  */
 package ctwedge;
 
-import ctwedge.CTWedgeStandaloneSetupGenerated;
-
 /**
  * Initialization support for running Xtext languages without Equinox extension registry.
  */
-@SuppressWarnings("all")
-public class CTWedgeStandaloneSetup extends CTWedgeStandaloneSetupGenerated {
+public class CTWedgeStandaloneSetup /* implements CTWedgeStandaloneSetupGenerated  */{
   public static void doSetup() {
-    new CTWedgeStandaloneSetup().createInjectorAndDoEMFRegistration();
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method createInjectorAndDoEMFRegistration() is undefined for the type CTWedgeStandaloneSetup");
   }
 }

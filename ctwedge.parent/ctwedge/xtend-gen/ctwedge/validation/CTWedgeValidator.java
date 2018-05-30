@@ -10,6 +10,5 @@ import ctwedge.validation.AbstractCTWedgeValidator;
  * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
-@SuppressWarnings("all")
 public class CTWedgeValidator extends AbstractCTWedgeValidator {
 }

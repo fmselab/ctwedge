@@ -3,22 +3,15 @@
  */
 package ctwedge.ide;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import ctwedge.CTWedgeRuntimeModule;
 import ctwedge.CTWedgeStandaloneSetup;
-import ctwedge.ide.CTWedgeIdeModule;
-import org.eclipse.xtext.util.Modules2;
 
 /**
  * Initialization support for running Xtext languages as language servers.
  */
-@SuppressWarnings("all")
 public class CTWedgeIdeSetup extends CTWedgeStandaloneSetup {
-  @Override
-  public Injector createInjector() {
-    CTWedgeRuntimeModule _cTWedgeRuntimeModule = new CTWedgeRuntimeModule();
-    CTWedgeIdeModule _cTWedgeIdeModule = new CTWedgeIdeModule();
-    return Guice.createInjector(Modules2.mixin(_cTWedgeRuntimeModule, _cTWedgeIdeModule));
+  public Object createInjector() {
+    throw new Error("Unresolved compilation problems:"
+      + "\ncreateInjector cannot be resolved"
+      + "\nmixin cannot be resolved");
   }
 }
