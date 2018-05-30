@@ -66,5 +66,22 @@ public class ACTSTest {
 				"", "acts",
 				2, false));
 	}
+	
+	@Test
+	public void test7() throws Exception {
+		System.out.println(Utility.getTestSuite(
+				"Model Magazzino\r\n" + 
+				"\r\n" + 
+				"Parameters:\r\n" + 
+				"productIndex: {0, 3, 6}\r\n" + 
+				"addQuantity: {0, 1, 5, 10, 11}\r\n" + 
+				"returnedValue: Boolean\r\n" + 
+				"nproductsOld: {0, 50, 90, 95, 100}\r\n" + 
+				"\r\n" + 
+				"Constraints:\r\n" + 
+				"# returnedValue = (productIndex>0 and productIndex<6 and addQuantity>0 and addQuantity<11 and (nproductsOld + addQuantity <= 100)) #\r\n" + 
+				"", "acts",
+				2, false));
+	}
 
 }

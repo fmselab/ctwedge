@@ -1,4 +1,4 @@
-package ctwedge.generator;
+package ctwedge.generator.webapp;
 
 import java.io.IOException;
 
