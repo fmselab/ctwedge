@@ -12,4 +12,9 @@ public class Test {
 	public List<Assignment> getAssignments() {
 		return assignments;
 	}
+	
+	@Override
+	public String toString() {
+		return assignments.toString();
+	}
 }

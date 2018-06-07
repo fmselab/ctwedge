@@ -59,9 +59,9 @@ final class CombinationGenerator implements Iterator<int[]> {
 		this.n = n;
 		this.r = r;
 		a = new int[r];
-		BigInteger nFact = Utils.getFactorial(n);
-		BigInteger rFact = Utils.getFactorial(r);
-		BigInteger nminusrFact = Utils.getFactorial(n - r);
+		BigInteger nFact = ModelUtils.getFactorial(n);
+		BigInteger rFact = ModelUtils.getFactorial(r);
+		BigInteger nminusrFact = ModelUtils.getFactorial(n - r);
 		total = nFact.divide(rFact.multiply(nminusrFact));// total = n ! / (r !
 															// * (n -r ) !)
 		reset();

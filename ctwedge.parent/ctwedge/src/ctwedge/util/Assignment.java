@@ -24,4 +24,8 @@ public class Assignment {
 		this.value = value;
 	}
 	
+	public String toString() {
+		return parameter.getName()+":"+value;
+	}
+	
 }

@@ -25,7 +25,7 @@ import ctwedge.generator.casa.CNF.Clause;
 import ctwedge.generator.util.IndexOutOfBoundException;
 import ctwedge.generator.util.ParameterElementsGetterAsStrings;
 import ctwedge.generator.util.ParameterSize;
-import ctwedge.util.Utils;
+import ctwedge.util.ModelUtils;
 
 public class ConvertToAbstractID extends CtWedgeSwitch<List<String>> {
 
@@ -34,7 +34,7 @@ public class ConvertToAbstractID extends CtWedgeSwitch<List<String>> {
 	
 	final Map<String,Parameter> params;
 	
-	final Utils u;
+	final ModelUtils u;
 
 	public ConvertToAbstractID(CitModel citModel) {
 		params = new HashMap<>();
@@ -49,7 +49,7 @@ public class ConvertToAbstractID extends CtWedgeSwitch<List<String>> {
 			params.put(p.getName(), p);
 		}
 		
-		u = new Utils(citModel);
+		u = new ModelUtils(citModel);
 	}
 
 	// convert an integer to a couple parameter + its value

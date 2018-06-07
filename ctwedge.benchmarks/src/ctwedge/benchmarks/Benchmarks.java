@@ -1,3 +1,4 @@
+package ctwedge.benchmarks;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -72,7 +73,7 @@ public class Benchmarks {
 		XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
 		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 		// https://wiki.eclipse.org/Xtext/FAQ#How_do_I_load_my_model_in_a_standalone_Java_application.C2.A0.3F
-		Resource resource = resourceSet.createResource(URI.createURI("dummy:/example.citw"));
+		Resource resource = resourceSet.createResource(URI.createURI("dummy:/example.ctw"));
 		InputStream in = new ByteArrayInputStream(model.getBytes());
 		try {
 			resource.load(in, resourceSet.getLoadOptions());

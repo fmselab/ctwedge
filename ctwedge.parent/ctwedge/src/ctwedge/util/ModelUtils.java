@@ -29,7 +29,7 @@ import ctwedge.ctWedge.RelationalExpression;
 
 
 
-public class Utils {
+public class ModelUtils {
 		
 	public enum Type {UNKNOWN_TYPE,RANGE_TYPE, ENUMERATIVE_TYPE,ELEMENT_TYPE,BOOLEAN_TYPE,NUMBER_TYPE, ERROR}
 	
@@ -39,7 +39,7 @@ public class Utils {
 	public HashMap<String,int[]> ranges=new HashMap<>();
 	public Set<String> elems = new HashSet<>();
 	
-	public Utils(CitModel my) {
+	public ModelUtils(CitModel my) {
 		this.my=my;		
 		for (Parameter p : my.getParameters()) {
 			params.put(p.getName(), getType(p));
@@ -60,7 +60,7 @@ public class Utils {
 	public Type getType(Expression e) {
 		System.out.println("Expression "+e+" ... ");
 		if (e instanceof AtomicPredicate) {
-			if (isNumber(((AtomicPredicate) e).getName())) return Type.NUMBER_TYPE;
+			if (StaticUtils.INSTANCE.isNumber(((AtomicPredicate) e).getName())) return Type.NUMBER_TYPE;
 			if (((AtomicPredicate) e).getBoolConst()!=null) return Type.BOOLEAN_TYPE;
 			return getType(((AtomicPredicate) e).getName());
 		}
@@ -81,11 +81,6 @@ public class Utils {
 		for (EObject o : e.eContents()) if (o instanceof Expression) return getType((Expression)o);
 		return Type.ERROR;
 	}
-	
-	// check id str is a number (integer) possibly signed
-	public static boolean isNumber(String str) {
-		return str.matches("-?\\d+");
-	}
 
 	public Type getType(String variableName) {
 		for (Parameter p : my.getParameters()) {
@@ -94,7 +89,7 @@ public class Utils {
 			}
 		}
 		if (elems.contains(variableName)) return Type.ELEMENT_TYPE;
-		if (isNumber(variableName)) return Type.NUMBER_TYPE;
+		if (StaticUtils.INSTANCE.isNumber(variableName)) return Type.NUMBER_TYPE;
 		return Type.ERROR;
 	}
 	

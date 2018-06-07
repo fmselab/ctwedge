@@ -139,7 +139,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			// build a test set
 			
 			System.out.println("3. ACTS sto chiamando ACTS...");
-			System.setOut(new PrintStream(new ByteArrayOutputStream()));
+			//System.setOut(new PrintStream(new ByteArrayOutputStream()));
 			System.out.println("4. ACTS sto chiamando ACTS...");
 			engine.buildOnlyPT(Algorithm.ipog);
 			System.out.println("5. ACTS sto chiamando ACTS...");

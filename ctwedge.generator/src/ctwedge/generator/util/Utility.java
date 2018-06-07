@@ -65,9 +65,5 @@ public class Utility {
 		}
 		return sb.toString();
 	}
-	
-	public boolean isNumber(String s) {
-		return s.matches("(-|\\+)?[0-9]+(\\.[0-9]+)?"); 
-	}
 
 }

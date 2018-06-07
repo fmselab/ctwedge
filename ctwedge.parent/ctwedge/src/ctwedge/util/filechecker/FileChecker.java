@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.List; 
  
 import ctwedge.util.Pair; 
-import ctwedge.util.Utils; 
+import ctwedge.util.ModelUtils; 
  
  
 /** 
@@ -116,7 +116,7 @@ public class FileChecker {
       } 
       problem.add(vi); 
     } 
-    Iterator<List<Pair<Integer, Integer>>> requirements = Utils 
+    Iterator<List<Pair<Integer, Integer>>> requirements = ModelUtils 
         .getAllKWiseCombination(problem, t); 
     while (requirements.hasNext()) { 
       List<Pair<Integer, Integer>> req = requirements.next(); 
