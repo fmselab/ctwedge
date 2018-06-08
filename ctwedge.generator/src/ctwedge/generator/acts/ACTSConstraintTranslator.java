@@ -21,7 +21,6 @@ import ctwedge.ctWedge.PlusMinus;
 import ctwedge.ctWedge.PlusMinusOperators;
 import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.StaticUtils;
 
 /**

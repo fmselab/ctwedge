@@ -24,8 +24,16 @@ public class Assignment {
 		this.value = value;
 	}
 	
+	@Override
 	public String toString() {
 		return parameter.getName()+":"+value;
+	}
+	
+	/** It is very important to detect equal combinations */
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Assignment)) return false;
+		return toString().equals(obj.toString());
 	}
 	
 }
