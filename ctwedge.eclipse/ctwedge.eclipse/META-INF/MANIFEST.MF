@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CTWedge Eclipse Plugin
 Bundle-SymbolicName: ctwedge.eclipse;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.equinox.preferences,
  org.eclipse.emf.common,
