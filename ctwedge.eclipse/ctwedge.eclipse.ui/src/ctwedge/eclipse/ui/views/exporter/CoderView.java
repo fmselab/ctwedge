@@ -14,8 +14,6 @@ package ctwedge.eclipse.ui.views.exporter;
 import java.io.File;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -35,11 +33,9 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.osgi.framework.Bundle;
@@ -113,14 +109,13 @@ public class CoderView extends ViewPart {
 			Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
 
 			ImageDescriptor myImage = ImageDescriptor.createFromURL(FileLocator
-					.find(bundle, new Path("icons/logo.png"), null));
+					.find(bundle, new Path("icons/logo16.png"), null));
 
 			return myImage.createImage();
 		}
 	}
 
-	class NameSorter extends ViewerSorter {
-	}
+	//class NameSorter extends ViewerSorter {}
 
 	/**
 	 * The constructor.
@@ -138,7 +133,7 @@ public class CoderView extends ViewPart {
 				| SWT.V_SCROLL);
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
-		viewer.setSorter(new NameSorter());
+		//viewer.setSorter(new NameSorter());
 		viewer.setInput(getViewSite());
 
 		// Create the help context id for the viewer's control
@@ -152,7 +147,7 @@ public class CoderView extends ViewPart {
 	private void makeActions() {
 
 		doubleClickAction = new Action() {
-		    @Inject Shell shell;
+		    //@Inject Shell shell;
 			@Override
 			public void run() {
 				ISelection selection = viewer.getSelection();

@@ -33,7 +33,8 @@ public class Assignment {
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Assignment)) return false;
-		return toString().equals(obj.toString());
+//		System.out.print("C");
+		return toString().equals(((Assignment)obj).toString());
 	}
 	
 }

@@ -9,7 +9,7 @@
             allowMultiple="true"
             category="ctwedge.eclipse.ui.combinata"
             class="ctwedge.eclipse.ui.views.generator.CTWedgeView"
-            icon="icons/logo.png"
+            icon="icons/logo16.png"
             id="ctwedge.eclipse.ui.views.CTWedgeView"
             name="CTWedge view"
             restorable="false">
@@ -44,7 +44,7 @@
             allowMultiple="true"
             category="ctwedge.eclipse.ui.combinata"
             class="ctwedge.eclipse.ui.views.generator.TestSuiteView"
-            icon="icons/logo.gif"
+            icon="icons/logo16.png"
             id="ctwedge.eclipse.ui.output"
             name="Output view"
             restorable="false">

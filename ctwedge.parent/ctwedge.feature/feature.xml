@@ -2,7 +2,7 @@
 <feature
       id="ctwedge.feature"
       label="CTWEdge Feature "
-      version="1.0.0">
+      version="1.0.0.qualifier">
 
    <requires>
       <import plugin="org.eclipse.xtext"/>

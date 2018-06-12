@@ -36,7 +36,6 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -270,8 +269,7 @@ public class CTWedgeView extends ViewPart {
 		}
 		
 	}
-	class NameSorter extends ViewerSorter {
-	}
+	//class NameSorter extends ViewerSorter {}
 
 	/**
 	 * The constructor.
@@ -728,13 +726,13 @@ public class CTWedgeView extends ViewPart {
 
 		for (final IConfigurationElement e : EXimporter) {
 			if (e.getAttribute("Name").equals(obj.toString())) {
-				Object o = null;
+				/*Object o = null;
 				try {
 					o = e.createExecutableExtension("ImporterPrototype");
 				} catch (CoreException e1) {
 					e1.printStackTrace();
 				}
-				/* MR TODO if (o instanceof ICitLabImporter) {
+				 MR TODO if (o instanceof ICitLabImporter) {
 					ImporterDialog importerDialog = new ImporterDialog(viewer
 							.getControl().getShell(), e);
 					importerDialog.open();

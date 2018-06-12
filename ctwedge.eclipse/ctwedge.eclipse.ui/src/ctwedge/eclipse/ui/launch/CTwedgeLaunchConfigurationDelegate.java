@@ -19,24 +19,24 @@ import ctwedge.util.ext.ICTWedgeModelProcessor;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 public class CTwedgeLaunchConfigurationDelegate implements ILaunchConfigurationDelegate {
-	
+
 	@Override
 	public void launch(ILaunchConfiguration configuration, String arg1, ILaunch arg2, IProgressMonitor arg3) throws CoreException {
 		System.out.println(configuration + " " + arg1 + arg2);
-		System.out.println(configuration.getAttribute(CTWedgeTab.STRENGTH, 2) + " " + configuration.getAttribute(CTWedgeTab.GENERATOR2, "null") + " " + configuration.getAttribute(CTWedgeTab.IGNORE_CONSTRAINTS,false));
+		System.out.println(configuration.getAttribute(CTWedgeTab.STRENGTH, 2) + " " + configuration.getAttribute(CTWedgeTab.GENERATOR2, "null") + " " + configuration.getAttribute(CTWedgeTab.IGNORE_CONSTRAINTS,false) + " " +configuration.getAttribute(CTWedgeLaunchShortcut.ATTR_FILEPATH, ""));
 
 		String generatorName = configuration.getAttribute(CTWedgeTab.GENERATOR2, "null");
 		int nWise = configuration.getAttribute(CTWedgeTab.STRENGTH, 2);
 		boolean ignoreConstraints = configuration.getAttribute(CTWedgeTab.IGNORE_CONSTRAINTS,false);
 
 		String filePath = configuration.getAttribute(CTWedgeLaunchShortcut.ATTR_FILEPATH, "");
-		
+
 		//String filePath = configuration.getAttribute("file", "nullInputFile");
-		
+
 		//Cerco generatore con nome generatorName
 		IConfigurationElement[] eXgenerator = Platform.getExtensionRegistry()
 				.getConfigurationElementsFor(Constants.packagaName + ".ctwedgeGenerators");
-		
+
 		BusyIndicator.showWhile(Display.getCurrent(), new Runnable() {
 			private CitModel citModel;
 
@@ -52,6 +52,7 @@ public class CTwedgeLaunchConfigurationDelegate implements ILaunchConfigurationD
 							e1.printStackTrace();
 						}
 						if (o instanceof ICTWedgeTestGenerator) {
+							final ICTWedgeTestGenerator gen = (ICTWedgeTestGenerator)o;
 							runnable = new ISafeRunnable() {
 
 								@Override
@@ -62,18 +63,20 @@ public class CTwedgeLaunchConfigurationDelegate implements ILaunchConfigurationD
 								@Override
 								public void run() throws Exception {
 									citModel = ICTWedgeModelProcessor.getModel(filePath);
+									
+									if (citModel != null) {
+										Job generation = new SafeGeneratorRunnable("Generation of the test suite", nWise, citModel, ignoreConstraints, generatorName, gen);
+										generation.setPriority(Job.SHORT);
+										generation.setUser(true);
+										generation.schedule();
+									} else {
+										//MR: prima era "showMessage", ma non riesco a farlo perché non c'è il parent
+										System.out.println("The ComB CitModel is not valid");
+									}
 								}
 							};
 
 							SafeRunner.run(runnable);
-							if (citModel != null) {
-								Job generation = new SafeGeneratorRunnable("Generation of the test suite", nWise, citModel, ignoreConstraints, generatorName, (ICTWedgeTestGenerator)o);
-								generation.setPriority(Job.SHORT);
-								generation.setUser(true);
-								generation.schedule();
-							} else
-								//MR: prima era "showMessage", ma non riesco a farlo perché non c'è il parent
-								System.out.println("The ComB CitModel is not valid");
 							break;
 						}
 					}

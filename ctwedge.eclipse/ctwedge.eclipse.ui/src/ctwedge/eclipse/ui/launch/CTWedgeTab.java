@@ -2,8 +2,6 @@ package ctwedge.eclipse.ui.launch;
 
 import java.util.ArrayList;
 
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
@@ -13,24 +11,16 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Spinner;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.wb.swt.SWTResourceManager;
 
-import ctwedge.ctWedge.CitModel;
 import ctwedge.eclipse.util.Constants;
 
 public class CTWedgeTab extends AbstractLaunchConfigurationTab {
@@ -137,6 +127,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 		}
 		combo.setItems(extensionsNames.toArray(new String[0]));
 		combo.addSelectionListener(defaultSelectionListener);
+		combo.select(1);
 
 		Composite composite_uses = new Composite(composite, SWT.NONE);
 		composite_uses.setBounds(54, 86, 203, 99);

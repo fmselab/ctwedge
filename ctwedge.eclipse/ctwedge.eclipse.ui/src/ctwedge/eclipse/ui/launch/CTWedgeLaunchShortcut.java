@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.DebugPlugin;
-import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -115,8 +113,8 @@ public class CTWedgeLaunchShortcut implements ILaunchShortcut {
 				workingCopy.setAttribute(ATTR_FILEPATH, filepath);
 				// workingCopy.setMappedResources(new IResource[] { file });
 				configuration = workingCopy.doSave();
-				DebugUITools.launch(configuration, mode);
-				return;
+				//DebugUITools.launch(configuration, mode);
+				//return;
 			}
 			workingCopy = configuration.getWorkingCopy();
 			workingCopy.setAttribute(ATTR_FILEPATH, filepath);

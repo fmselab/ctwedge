@@ -46,7 +46,6 @@ import org.osgi.service.prefs.Preferences;
 
 import com.google.inject.Inject;
 
-import ctwedge.eclipse.ui.Activator;
 import ctwedge.eclipse.util.Constants;
 import ctwedge.util.Assignment;
 import ctwedge.util.Test;
@@ -62,7 +61,7 @@ public class TestSuiteView extends ViewPart {
 	Shell shell;
 	private Table table;
 	private TableViewer tableViewer;
-	private String secondaryId;
+	//private String secondaryId;
 	private Text text;
 	private Text text_1;
 	private Text text_2;
@@ -376,52 +375,56 @@ public class TestSuiteView extends ViewPart {
 
 	public void setTestsuite(final TestSuite inputlist) {
 		this.inputlist = inputlist;
-		TableColumn[] columnOfTheModel = new TableColumn[this.inputlist
-				.getTests().get(0).getAssignments().size() + 1];
-		TableViewerColumn[] tableViewerColumn = new TableViewerColumn[this.inputlist
-				.getTests().get(0).getAssignments().size() + 1];
-
-		columnOfTheModel[0] = new TableColumn(table, SWT.NONE);
-		columnOfTheModel[0].setText("Test");
-
-		int n = 1;
 		
-		for (Assignment i : this.inputlist.getTests().get(0).getAssignments()) {
-			tableViewerColumn[n] = new TableViewerColumn(tableViewer, SWT.NONE);
-
-			columnOfTheModel[n] = tableViewerColumn[n].getColumn();
-
-			columnOfTheModel[n].setText(i.getParameter().getName());
-			n++;
-		}
-		int testnumber = 0;
-		for (Test test : this.inputlist.getTests()) {
-			testnumber++;
-			TableItem item = new TableItem(table, SWT.NONE);
-			item.setText(0, Integer.toString(testnumber));
-			item.setForeground(0, SWTResourceManager.getColor(SWT.COLOR_RED));
-			int i = 1;
-			for (Assignment assignment : test.getAssignments()) {
-				item.setText(i, assignment.getValue());
-				i++;
-
+		if (inputlist.getTests().size()==0) {
+			text_2.setText("The generated test suite is empty. An error occurred or the specified model is infeasible.");
+		} else {
+			TableColumn[] columnOfTheModel = new TableColumn[this.inputlist
+					.getTests().get(0).getAssignments().size() + 1];
+			TableViewerColumn[] tableViewerColumn = new TableViewerColumn[this.inputlist
+					.getTests().get(0).getAssignments().size() + 1];
+	
+			columnOfTheModel[0] = new TableColumn(table, SWT.NONE);
+			columnOfTheModel[0].setText("Test");
+	
+			int n = 1;
+			
+			for (Assignment i : this.inputlist.getTests().get(0).getAssignments()) {
+				tableViewerColumn[n] = new TableViewerColumn(tableViewer, SWT.NONE);
+	
+				columnOfTheModel[n] = tableViewerColumn[n].getColumn();
+	
+				columnOfTheModel[n].setText(i.getParameter().getName());
+				n++;
 			}
+			int testnumber = 0;
+			for (Test test : this.inputlist.getTests()) {
+				testnumber++;
+				TableItem item = new TableItem(table, SWT.NONE);
+				item.setText(0, Integer.toString(testnumber));
+				item.setForeground(0, SWTResourceManager.getColor(SWT.COLOR_RED));
+				int i = 1;
+				for (Assignment assignment : test.getAssignments()) {
+					item.setText(i, assignment.getValue());
+					i++;
+	
+				}
+			}
+	
+			for (int i = 0, n1 = columnOfTheModel.length; i < n1; i++) {
+				columnOfTheModel[i].pack();//
+				layout.setColumnData(columnOfTheModel[i], new ColumnWeightData(10));
+	
+			}
+			table.setRedraw(true);
+			// table.pack();
+			table.redraw();
+			text_2.setText((String.valueOf(this.inputlist.getTests().size())));
+			text_1.setText((String.valueOf(this.inputlist.getGeneratorTime())));
+			text.setText(this.inputlist.getGeneratorName());
+	
+			styledText.setText(this.getPartName() + "\n" + "\n" + "N-WISE= "
+					+ inputlist.getStrength());
 		}
-
-		for (int i = 0, n1 = columnOfTheModel.length; i < n1; i++) {
-			columnOfTheModel[i].pack();//
-			layout.setColumnData(columnOfTheModel[i], new ColumnWeightData(10));
-
-		}
-		table.setRedraw(true);
-		// table.pack();
-		table.redraw();
-		text_2.setText((String.valueOf(this.inputlist.getTests().size())));
-		text_1.setText((String.valueOf(this.inputlist.getGeneratorTime())));
-		text.setText(this.inputlist.getGeneratorName());
-
-		styledText.setText(this.getPartName() + "\n" + "\n" + "N-WISE= "
-				+ inputlist.getStrength());
-
 	}
 }
