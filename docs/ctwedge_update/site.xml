@@ -3,7 +3,7 @@
    <description name="CTWEdge update site">
       CTWEdge update site
    </description>
-   <feature url="features/ctwedge.feature_1.0.0.201806121130.jar" id="ctwedge.feature" version="1.0.0.201806121130">
+   <feature url="features/ctwedge.feature_1.0.0.201806121137.jar" id="ctwedge.feature" version="1.0.0.201806121137">
       <category name="ctwedge"/>
    </feature>
    <category-def name="ctwedge" label="ctwedge"/>
