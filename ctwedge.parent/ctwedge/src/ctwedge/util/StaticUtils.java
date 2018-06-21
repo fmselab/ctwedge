@@ -13,4 +13,5 @@ public class StaticUtils {
 	public boolean isNumber(String s) {
 		return s.matches("(-|\\+)?[0-9]+(\\.[0-9]+)?"); 
 	}
+
 }

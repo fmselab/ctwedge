@@ -2,6 +2,7 @@ package ctwedge.util;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -34,15 +35,20 @@ public class ModelUtils {
 	public enum Type {UNKNOWN_TYPE,RANGE_TYPE, ENUMERATIVE_TYPE,ELEMENT_TYPE,BOOLEAN_TYPE,NUMBER_TYPE, ERROR}
 	
 	public CitModel my;
-	public HashMap<String,Type> params=new HashMap<>();
+	public HashMap<String,Type> paramTypes=new HashMap<>();
 	public HashMap<String,List<String>> enums=new HashMap<>();
 	public HashMap<String,int[]> ranges=new HashMap<>();
 	public Set<String> elems = new HashSet<>();
+	public HashMap<String,List<String>> paramValues = new HashMap<>();
+	public HashMap<String,Parameter> params = new HashMap<>();
+	public List<String> paramList = new ArrayList<>();
 	
 	public ModelUtils(CitModel my) {
-		this.my=my;		
+		this.my=my;
 		for (Parameter p : my.getParameters()) {
-			params.put(p.getName(), getType(p));
+			paramTypes.put(p.getName(), getType(p));
+			params.put(p.getName(), p);
+			paramList.add(p.getName());
 			if (p instanceof Enumerative) {
 				List<String> s = new ArrayList<String>();
 				for (Element e : ((Enumerative)p).getElements()) {
@@ -54,7 +60,14 @@ public class ModelUtils {
 			if (p instanceof Range) {
 				ranges.put(p.getName(), new int[] {((Range)p).getBegin(), ((Range)p).getEnd()});
 			}
+			paramValues.put(p.getName(), getType(p)==Type.BOOLEAN_TYPE ? Arrays.asList("true","false") : (p instanceof Enumerative ? enums.get(p.getName()) : getRangeList(ranges.get(p.getName()))));
 		}
+	}
+	
+	List<String> getRangeList(int[] extremes) {
+		List<String> st = new ArrayList<>();
+		for (int i=0; i<=extremes[1]-extremes[0]; i++) st.add(String.valueOf(extremes[0]+i));
+		return st;
 	}
 		
 	public Type getType(Expression e) {
@@ -203,6 +216,33 @@ public class ModelUtils {
 			problem.add(vi);
 		}
 		return getAllKWiseCombination(problem, k);
+	}
+	
+	/**
+	 * @return the size of the exhaustive test suite, ignoring constraints (otherwise, BDDs are needed)
+	 */
+	public double getUnconstrainedETSCount() {
+		double count = 1;
+		for (String p : paramTypes.keySet()) {
+			if (enums.containsKey(p)) count *= enums.get(p).size();
+			else if (ranges.containsKey(p)) count *= ranges.get(p).length;
+			else count *= 2;
+		}
+		return count;
+	}
+	
+	/**
+	 * @return the size of the exhaustive test suite, ignoring constraints (otherwise, BDDs are needed)
+	 * considering the ppassed parameter list as fixed
+	 */
+	public double getUnconstrainedCombsCount(List<String> fixed) {
+		double count = 1;
+		for (String p : paramTypes.keySet()) if (!fixed.contains(p)) {
+			if (enums.containsKey(p)) count *= enums.get(p).size();
+			else if (ranges.containsKey(p)) count *= ranges.get(p).length;
+			else count *= 2;
+		}
+		return count;
 	}
 	
 }

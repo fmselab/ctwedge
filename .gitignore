@@ -38,3 +38,5 @@ bin/
 # 
 *.java._trace
 *._trace
+
+ctwedge\.parent/ctwedge\.web/target/m2e-wtp/web-resources/META-INF/maven/ctwedge/ctwedge\.web/pom\.properties
