@@ -127,7 +127,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 	
 	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints) {
 		String res = "";
-		System.out.println("ACTS sto chiamando ACTS...");
+		System.out.println("ACTS sto chiamando ACTS... on "+model.getName()+" "+strength+" "+ignoreConstraints);
 		try {
 			SUT sut = buildSUT(model, ignoreConstraints, strength);
 			System.out.println("1. ACTS sto chiamando ACTS...");

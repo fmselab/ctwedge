@@ -1,8 +1,8 @@
-package ctwedge.generator.util;
+package ctwedge.generator.importer;
 
 public class CitLabImporter {
 	
-	@Deprecated
+	/*@Deprecated
 	private static boolean isNotIDChar(char c) {
 		return c==' ' || c=='>' || c=='<' || c=='=' || c=='+' || c=='-' || c=='*' || c=='/' || c=='%';
 	}
@@ -19,7 +19,7 @@ public class CitLabImporter {
 			}
 		}
 		return res;
-	}
+	}*/
 	
 	/** a simple importer (do not work for all models as it does not rely on the Xtext parser) */
 	public static String importFromCitlab(String citlabModel) {

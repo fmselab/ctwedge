@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 
 import org.junit.Test;
 
-import ctwedge.generator.util.CASAImporter;
+import ctwedge.generator.importer.CASAImporter;
 
 /** Imports CitLab models */
 public class ImportModels {
