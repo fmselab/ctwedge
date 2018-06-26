@@ -40,3 +40,5 @@ bin/
 *._trace
 
 ctwedge\.parent/ctwedge\.web/target/m2e-wtp/web-resources/META-INF/maven/ctwedge/ctwedge\.web/pom\.properties
+
+ctwedge\.parent/ctwedge\.web/target/
