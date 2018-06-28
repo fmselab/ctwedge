@@ -1,15 +1,16 @@
 package ctwedge.util;
 
-import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Test {
-	List<Assignment> assignments;
+	public final Map<String,String> assignments;
 	
-	public Test(List<Assignment> assignments) {
+	public Test(Map<String,String> assignments) {
 		this.assignments = assignments;
 	}
 
-	public List<Assignment> getAssignments() {
+	public Map<String,String> getAssignments() {
 		return assignments;
 	}
 	
@@ -26,7 +27,8 @@ public class Test {
 		if (!(o instanceof Test)) return false;
 		Test t = (Test)o;
 		if (t.assignments.size()!=assignments.size()) return false;
-		for (int i=0; i<assignments.size(); i++) if (! assignments.get(i).equals(t.assignments.get(i))) return false;
+		//for (int i=0; i<assignments.size(); i++) if (! assignments.get(i).equals(t.assignments.get(i))) return false;
+		for (Entry<String,String> a : assignments.entrySet()) if (!a.getValue().equals(t.assignments.get(a.getKey()))) return false;
 		return true;
 	}
 }

@@ -3,6 +3,8 @@
  */
 package ctwedge.eclipse.ui.views.generator;
 
+import java.util.Map.Entry;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -47,7 +49,6 @@ import org.osgi.service.prefs.Preferences;
 import com.google.inject.Inject;
 
 import ctwedge.eclipse.util.Constants;
-import ctwedge.util.Assignment;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestSuiteValidator;
@@ -389,12 +390,12 @@ public class TestSuiteView extends ViewPart {
 	
 			int n = 1;
 			
-			for (Assignment i : this.inputlist.getTests().get(0).getAssignments()) {
+			for (Entry<String,String> i : this.inputlist.getTests().get(0).getAssignments().entrySet()) {
 				tableViewerColumn[n] = new TableViewerColumn(tableViewer, SWT.NONE);
 	
 				columnOfTheModel[n] = tableViewerColumn[n].getColumn();
 	
-				columnOfTheModel[n].setText(i.getParameter().getName());
+				columnOfTheModel[n].setText(i.getKey());
 				n++;
 			}
 			int testnumber = 0;
@@ -404,7 +405,7 @@ public class TestSuiteView extends ViewPart {
 				item.setText(0, Integer.toString(testnumber));
 				item.setForeground(0, SWTResourceManager.getColor(SWT.COLOR_RED));
 				int i = 1;
-				for (Assignment assignment : test.getAssignments()) {
+				for (Entry<String,String> assignment : test.getAssignments().entrySet()) {
 					item.setText(i, assignment.getValue());
 					i++;
 	

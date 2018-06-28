@@ -1,5 +1,7 @@
 package ctwedge.generator.exporter;
 
+import java.util.Map.Entry;
+
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 
 import ctwedge.util.Assignment;
@@ -7,24 +9,30 @@ import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 
 public class ToCSV {
+	
 	void doGenerate(TestSuite input, String filename,IFileSystemAccess2 fsa){
 		fsa.generateFile(filename,toCSVcode(input));
 	}
+	
 	String toCSVcode(TestSuite input) {
 		String s = "";
-		for (Assignment assignment : input.getTests().get(0).getAssignments()) {
-			if (input.getTests().get(0).getAssignments().indexOf(assignment)!=0) {
-				s+=", "+assignment.getParameter().getName();
+		int i=0;
+		for (Entry<String,String> assignment : input.getTests().get(0).getAssignments().entrySet()) {
+			if (i>0) {
+				s+=", "+assignment.getKey();
 			} else {
-				s+=assignment.getParameter().getName();
+				s+=assignment.getKey();
 			}
+			i++;
 		}
-		for (Test test : input.getTests()) for (Assignment assignment: test.getAssignments()) {
-			if (test.getAssignments().indexOf(assignment)!=0) {
+		i=0;
+		for (Test test : input.getTests()) for (Entry<String,String> assignment: test.getAssignments().entrySet()) {
+			if (i>0) {
 				s+=", "+assignment.getValue();
 			} else {
 				s+=assignment.getValue();
 			}
+			i++;
 		}
 		return s;
 	}

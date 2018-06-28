@@ -14,6 +14,7 @@ package ctwedge.generator.exporter;
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Map.Entry;
 
 import ctwedge.util.Assignment;
 import ctwedge.util.Test;
@@ -68,11 +69,9 @@ public class XlsExporter extends ICTWedgeTestSuiteExporter {
 		// Lets automatically wrap the cells
 		timesBoldUnderline.setWrap(true);
 
-		for (Assignment assignment : testsuite.getTests().get(0)
-				.getAssignments()) {
-			XlsWriter.addCaption(sheet, testsuite.getTests().get(0)
-					.getAssignments().indexOf(assignment),0, assignment
-					.getParameter().getName(),timesBoldUnderline);
+		int i=0;
+		for (Entry<String,String> assignment : testsuite.getTests().get(0).getAssignments().entrySet()) {
+			XlsWriter.addCaption(sheet, i++,0, assignment.getKey(),timesBoldUnderline);
 		}
 
 	}
@@ -87,12 +86,11 @@ public class XlsExporter extends ICTWedgeTestSuiteExporter {
 			times.setWrap(true);
 
 		for (Test test : testSuite.getTests()) {
-
-			for (Assignment assignment : test.getAssignments())
+			int i=0;
+			for (Entry<String,String> assignment : test.getAssignments().entrySet())
 				XlsWriter.addLabel(sheet,
-						test.getAssignments().indexOf(assignment) ,
+						i++, //test.getAssignments().indexOf(assignment) ,
 						testSuite.getTests().indexOf(test)+1,
-
 						assignment.getValue(),times);
 		}
 	}

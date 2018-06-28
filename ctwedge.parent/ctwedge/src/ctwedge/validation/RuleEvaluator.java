@@ -28,7 +28,6 @@ import ctwedge.ctWedge.PlusMinus;
 import ctwedge.ctWedge.PlusMinusOperators;
 import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
-import ctwedge.util.Assignment;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.Test;
 
@@ -180,12 +179,13 @@ public class RuleEvaluator extends CtWedgeSwitch<String> {
 	private String getValueInSeed(AtomicPredicate element) {
 		if (element == null) 
 			return null;
-		for (Assignment a : seed.getAssignments()) {
-			if (a.getParameter().getName().equals(element.getName())) {
-				return a.getValue();
-			}
-		}
-		// it reach this point only when i'm typing my seed, when it is incomplete.
-		return null;
+		return seed.assignments.get(element.getName());
+//		for (Assignment a : seed.getAssignments()) {
+//			if (a.getParameter().getName().equals(element.getName())) {
+//				return a.getValue();
+//			}
+//		}
+//		// it reach this point only when i'm typing my seed, when it is incomplete.
+//		return null;
 	}
 }

@@ -1,7 +1,9 @@
 package ctwedge.util;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
@@ -75,8 +77,11 @@ public class TestSuite {
 			if (i==0) {
 				for (String p : ps) params.add(getParamFromName(model, p));
 			} else {
-				List<Assignment> as = new ArrayList<>();
-				for (int j=0; j<ps.length; j++) as.add(new Assignment(params.get(j), ps[j]));
+//				List<Assignment> as = new ArrayList<>();
+//				for (int j=0; j<ps.length; j++) as.add(new Assignment(params.get(j), ps[j]));
+//				tests.add(new Test(as));
+				Map<String,String> as = new LinkedHashMap<>();
+				for (int j=0; j<ps.length; j++) as.put(params.get(j).getName(), ps[j]);
 				tests.add(new Test(as));
 			}
 		}

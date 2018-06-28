@@ -2,6 +2,7 @@ package ctwedge.util;
 
 import ctwedge.ctWedge.Parameter;
 
+@Deprecated
 public class Assignment {
 	Parameter parameter;
 	String value;

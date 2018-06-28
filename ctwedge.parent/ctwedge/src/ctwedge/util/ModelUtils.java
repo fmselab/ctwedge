@@ -3,6 +3,7 @@ package ctwedge.util;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -233,9 +234,9 @@ public class ModelUtils {
 	
 	/**
 	 * @return the size of the exhaustive test suite, ignoring constraints (otherwise, BDDs are needed)
-	 * considering the ppassed parameter list as fixed
+	 * considering the passed parameter list as fixed
 	 */
-	public double getUnconstrainedCombsCount(List<String> fixed) {
+	public double getUnconstrainedCombsCount(Collection<String> fixed) {
 		double count = 1;
 		for (String p : paramTypes.keySet()) if (!fixed.contains(p)) {
 			if (enums.containsKey(p)) count *= enums.get(p).size();
