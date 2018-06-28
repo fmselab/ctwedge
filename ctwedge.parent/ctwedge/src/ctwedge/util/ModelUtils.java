@@ -4,11 +4,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
@@ -36,13 +37,14 @@ public class ModelUtils {
 	public enum Type {UNKNOWN_TYPE,RANGE_TYPE, ENUMERATIVE_TYPE,ELEMENT_TYPE,BOOLEAN_TYPE,NUMBER_TYPE, ERROR}
 	
 	public CitModel my;
-	public HashMap<String,Type> paramTypes=new HashMap<>();
-	public HashMap<String,List<String>> enums=new HashMap<>();
-	public HashMap<String,int[]> ranges=new HashMap<>();
+	public Map<String,Type> paramTypes=new LinkedHashMap<>();
+	public Map<String,List<String>> enums=new LinkedHashMap<>();
+	public Map<String,int[]> ranges=new LinkedHashMap<>();
 	public Set<String> elems = new HashSet<>();
-	public HashMap<String,List<String>> paramValues = new HashMap<>();
-	public HashMap<String,Parameter> params = new HashMap<>();
+	public Map<String,List<String>> paramValues = new LinkedHashMap<>();
+	public Map<String,Parameter> params = new LinkedHashMap<>();
 	public List<String> paramList = new ArrayList<>();
+	public Map<String,String> elemParams = new LinkedHashMap<>();
 	
 	public ModelUtils(CitModel my) {
 		this.my=my;
@@ -62,6 +64,12 @@ public class ModelUtils {
 				ranges.put(p.getName(), new int[] {((Range)p).getBegin(), ((Range)p).getEnd()});
 			}
 			paramValues.put(p.getName(), getType(p)==Type.BOOLEAN_TYPE ? Arrays.asList("true","false") : (p instanceof Enumerative ? enums.get(p.getName()) : getRangeList(ranges.get(p.getName()))));
+		}
+		
+		for (Entry<String, List<String>> a : paramValues.entrySet()) {
+			for (String e : a.getValue()) {
+				elemParams.put(e, a.getKey());
+			}
 		}
 	}
 	
