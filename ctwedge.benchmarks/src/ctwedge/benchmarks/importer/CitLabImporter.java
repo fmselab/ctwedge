@@ -1,4 +1,4 @@
-package ctwedge.generator.importer;
+package ctwedge.benchmarks.importer;
 
 public class CitLabImporter {
 	

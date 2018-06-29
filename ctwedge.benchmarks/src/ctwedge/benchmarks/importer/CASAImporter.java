@@ -1,4 +1,4 @@
-package ctwedge.generator.importer;
+package ctwedge.benchmarks.importer;
 
 import java.util.ArrayList;
 import java.util.List;

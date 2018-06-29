@@ -25,9 +25,5 @@ Export-Package: ctwedge,
  ctwedge.scoping,
  ctwedge.serializer,
  ctwedge.services,
- ctwedge.util,
- ctwedge.util.ext,
- ctwedge.util.genprefs,
- ctwedge.util.simplifier,
  ctwedge.validation
 Import-Package: org.apache.log4j

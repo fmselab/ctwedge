@@ -12,7 +12,7 @@
 /*
  * 
  */
-package ctwedge.validation;
+package ctwedge.util.validator;
 
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
@@ -179,7 +179,11 @@ public class RuleEvaluator extends CtWedgeSwitch<String> {
 	private String getValueInSeed(AtomicPredicate element) {
 		if (element == null) 
 			return null;
-		return seed.assignments.get(element.getName());
+		if (element.getBoolConst()!=null)
+			return element.getBoolConst();
+		if (seed.assignments.containsKey(element.getName()))
+			return seed.assignments.get(element.getName());
+		return element.getName();
 //		for (Assignment a : seed.getAssignments()) {
 //			if (a.getParameter().getName().equals(element.getName())) {
 //				return a.getValue();

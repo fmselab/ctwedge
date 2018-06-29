@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import ctwedge.generator.util.Utility;
+import ctwedge.util.TestSuite;
 
 public class ACTSTest {
 

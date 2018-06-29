@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.util,
  org.eclipse.xtext,
  org.eclipse.jface,
- ctwedge;bundle-version="1.0.0"
+ ctwedge;bundle-version="1.0.0",
+ ctwedge.util
 Export-Package: ctwedge.eclipse.util,
  org.eclipse.wb.swt
 Bundle-ClassPath: .

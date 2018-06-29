@@ -5,5 +5,6 @@ Bundle-SymbolicName: ctwedge.generator.test
 Bundle-Version: 1.0.0.qualifier
 Export-Package: .
 Require-Bundle: com.google.inject;bundle-version="3.0.0",
- org.eclipse.xtext
+ org.eclipse.xtext,
+ ctwedge.util
 Import-Package: ctwedge.generator.casa

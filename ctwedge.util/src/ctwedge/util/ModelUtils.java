@@ -63,7 +63,7 @@ public class ModelUtils {
 			if (p instanceof Range) {
 				ranges.put(p.getName(), new int[] {((Range)p).getBegin(), ((Range)p).getEnd()});
 			}
-			paramValues.put(p.getName(), getType(p)==Type.BOOLEAN_TYPE ? Arrays.asList("true","false") : (p instanceof Enumerative ? enums.get(p.getName()) : getRangeList(ranges.get(p.getName()))));
+			paramValues.put(p.getName(), getType(p)==Type.BOOLEAN_TYPE ? Arrays.asList("false","true") : (p instanceof Enumerative ? enums.get(p.getName()) : getRangeList(ranges.get(p.getName()))));
 		}
 		
 		for (Entry<String, List<String>> a : paramValues.entrySet()) {
