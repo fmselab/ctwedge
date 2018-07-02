@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Map.Entry;
 
-import ctwedge.util.Assignment;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestSuiteExporter;
@@ -70,7 +69,7 @@ public class XlsExporter extends ICTWedgeTestSuiteExporter {
 		timesBoldUnderline.setWrap(true);
 
 		int i=0;
-		for (Entry<String,String> assignment : testsuite.getTests().get(0).getAssignments().entrySet()) {
+		for (Entry<String,String> assignment : testsuite.getTests().get(0).entrySet()) {
 			XlsWriter.addCaption(sheet, i++,0, assignment.getKey(),timesBoldUnderline);
 		}
 
@@ -87,7 +86,7 @@ public class XlsExporter extends ICTWedgeTestSuiteExporter {
 
 		for (Test test : testSuite.getTests()) {
 			int i=0;
-			for (Entry<String,String> assignment : test.getAssignments().entrySet())
+			for (Entry<String,String> assignment : test.entrySet())
 				XlsWriter.addLabel(sheet,
 						i++, //test.getAssignments().indexOf(assignment) ,
 						testSuite.getTests().indexOf(test)+1,

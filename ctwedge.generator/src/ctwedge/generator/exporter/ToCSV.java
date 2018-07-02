@@ -4,7 +4,6 @@ import java.util.Map.Entry;
 
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 
-import ctwedge.util.Assignment;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 
@@ -17,7 +16,7 @@ public class ToCSV {
 	String toCSVcode(TestSuite input) {
 		String s = "";
 		int i=0;
-		for (Entry<String,String> assignment : input.getTests().get(0).getAssignments().entrySet()) {
+		for (Entry<String,String> assignment : input.getTests().get(0).entrySet()) {
 			if (i>0) {
 				s+=", "+assignment.getKey();
 			} else {
@@ -26,7 +25,7 @@ public class ToCSV {
 			i++;
 		}
 		i=0;
-		for (Test test : input.getTests()) for (Entry<String,String> assignment: test.getAssignments().entrySet()) {
+		for (Test test : input.getTests()) for (Entry<String,String> assignment: test.entrySet()) {
 			if (i>0) {
 				s+=", "+assignment.getValue();
 			} else {

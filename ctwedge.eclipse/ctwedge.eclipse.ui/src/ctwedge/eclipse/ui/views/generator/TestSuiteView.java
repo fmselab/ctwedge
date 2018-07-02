@@ -381,16 +381,16 @@ public class TestSuiteView extends ViewPart {
 			text_2.setText("The generated test suite is empty. An error occurred or the specified model is infeasible.");
 		} else {
 			TableColumn[] columnOfTheModel = new TableColumn[this.inputlist
-					.getTests().get(0).getAssignments().size() + 1];
+					.getTests().get(0).size() + 1];
 			TableViewerColumn[] tableViewerColumn = new TableViewerColumn[this.inputlist
-					.getTests().get(0).getAssignments().size() + 1];
+					.getTests().get(0).size() + 1];
 	
 			columnOfTheModel[0] = new TableColumn(table, SWT.NONE);
 			columnOfTheModel[0].setText("Test");
 	
 			int n = 1;
 			
-			for (Entry<String,String> i : this.inputlist.getTests().get(0).getAssignments().entrySet()) {
+			for (Entry<String,String> i : this.inputlist.getTests().get(0).entrySet()) {
 				tableViewerColumn[n] = new TableViewerColumn(tableViewer, SWT.NONE);
 	
 				columnOfTheModel[n] = tableViewerColumn[n].getColumn();
@@ -405,7 +405,7 @@ public class TestSuiteView extends ViewPart {
 				item.setText(0, Integer.toString(testnumber));
 				item.setForeground(0, SWTResourceManager.getColor(SWT.COLOR_RED));
 				int i = 1;
-				for (Entry<String,String> assignment : test.getAssignments().entrySet()) {
+				for (Entry<String,String> assignment : test.entrySet()) {
 					item.setText(i, assignment.getValue());
 					i++;
 	

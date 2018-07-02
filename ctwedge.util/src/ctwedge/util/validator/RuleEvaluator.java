@@ -181,8 +181,8 @@ public class RuleEvaluator extends CtWedgeSwitch<String> {
 			return null;
 		if (element.getBoolConst()!=null)
 			return element.getBoolConst();
-		if (seed.assignments.containsKey(element.getName()))
-			return seed.assignments.get(element.getName());
+		if (seed.containsKey(element.getName()))
+			return seed.get(element.getName());
 		return element.getName();
 //		for (Assignment a : seed.getAssignments()) {
 //			if (a.getParameter().getName().equals(element.getName())) {

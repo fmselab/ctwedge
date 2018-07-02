@@ -1,7 +1,7 @@
 package ctwedge.util;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,7 +80,7 @@ public class TestSuite {
 //				List<Assignment> as = new ArrayList<>();
 //				for (int j=0; j<ps.length; j++) as.add(new Assignment(params.get(j), ps[j]));
 //				tests.add(new Test(as));
-				Map<String,String> as = new LinkedHashMap<>();
+				Map<String,String> as = new HashMap<>();
 				for (int j=0; j<ps.length; j++) as.put(params.get(j).getName(), ps[j]);
 				tests.add(new Test(as));
 			}

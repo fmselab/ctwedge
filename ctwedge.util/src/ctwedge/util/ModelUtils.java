@@ -4,9 +4,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -36,15 +36,16 @@ public class ModelUtils {
 		
 	public enum Type {UNKNOWN_TYPE,RANGE_TYPE, ENUMERATIVE_TYPE,ELEMENT_TYPE,BOOLEAN_TYPE,NUMBER_TYPE, ERROR}
 	
-	public CitModel my;
-	public Map<String,Type> paramTypes=new LinkedHashMap<>();
-	public Map<String,List<String>> enums=new LinkedHashMap<>();
-	public Map<String,int[]> ranges=new LinkedHashMap<>();
-	public Set<String> elems = new HashSet<>();
-	public Map<String,List<String>> paramValues = new LinkedHashMap<>();
-	public Map<String,Parameter> params = new LinkedHashMap<>();
-	public List<String> paramList = new ArrayList<>();
-	public Map<String,String> elemParams = new LinkedHashMap<>();
+	public final CitModel my;
+	public final Map<String,Type> paramTypes=new HashMap<>();
+	public final Map<String,List<String>> enums=new HashMap<>();
+	public final Map<String,int[]> ranges=new HashMap<>();
+	public final Set<String> elems = new HashSet<>();
+	public final Map<String,List<String>> paramValues = new HashMap<>();
+	public final Map<String,Parameter> params = new HashMap<>();
+	public final List<String> paramList = new ArrayList<>();
+	public final Map<String,String> elemParams = new HashMap<>();
+	public final double etsCount;
 	
 	public ModelUtils(CitModel my) {
 		this.my=my;
@@ -71,6 +72,7 @@ public class ModelUtils {
 				elemParams.put(e, a.getKey());
 			}
 		}
+		etsCount = getUnconstrainedETSCount();
 	}
 	
 	List<String> getRangeList(int[] extremes) {
@@ -231,6 +233,7 @@ public class ModelUtils {
 	 * @return the size of the exhaustive test suite, ignoring constraints (otherwise, BDDs are needed)
 	 */
 	public double getUnconstrainedETSCount() {
+		if (etsCount!=0) return etsCount;
 		double count = 1;
 		for (String p : paramTypes.keySet()) {
 			if (enums.containsKey(p)) count *= enums.get(p).size();
