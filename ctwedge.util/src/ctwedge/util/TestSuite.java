@@ -19,7 +19,7 @@ public class TestSuite {
 	public TestSuite(String ts, CitModel model) {
 		this.ts = ts;
 		this.model = model;
-		populateTestSuite(model);
+		populateTestSuite();
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class TestSuite {
 		return generatorTime;
 	}
 	
-	public void populateTestSuite(CitModel model) {
+	public void populateTestSuite() {
 		setModel(model);
 		List<Parameter> params = new ArrayList<>();
 		List<Test> tests = new ArrayList<>();
