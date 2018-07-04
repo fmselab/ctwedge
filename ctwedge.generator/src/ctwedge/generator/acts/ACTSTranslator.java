@@ -25,6 +25,8 @@ import edu.uta.cse.fireeye.service.engine.IpoEngine;
 /** Exports to ACTS a citlab model, has a method to call ACTS, and returns its output into String **/
 public class ACTSTranslator extends ICTWedgeTestGenerator {
 
+	public static boolean PRINT=false;
+	
 	public ACTSTranslator() {
 		super("ACTS");
 	}
@@ -57,15 +59,15 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 	public SUT buildSUT(CitModel citModel, boolean ignoreConstraints, int nWise) {
 		SUT sut = new SUT(citModel.getName());
 		try {
-			System.out.println("Building SUT...");
+			if (PRINT) System.out.println("Building SUT...");
 			// build a system configuration
-			System.out.println("Building SUT...");
+			if (PRINT) System.out.println("Building SUT...");
 			// it is recommended to create a new parameter from the SUT object
 			// doing so will assign the parameter with an ID automatically
 			ACTSParameterAdder paramBuilder = new ACTSParameterAdder(sut);
 			tanslateParameter(citModel, paramBuilder);
 	
-			System.out.println("Building SUT...");
+			if (PRINT) System.out.println("Building SUT...");
 			//
 			// create relation
 			Relation r = new Relation(nWise);
@@ -78,7 +80,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			// add the default relation
 			// sut.addDefaultRelation(nWise);
 	
-			System.out.println("Building SUT...");
+			if (PRINT) System.out.println("Building SUT...");
 			// create constraints
 			if (!ignoreConstraints) {
 				translateConstraints(citModel, sut);
@@ -94,15 +96,15 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 		ACTSConstraintTranslator trans = new ACTSConstraintTranslator(citModel);
 		CtWedgeSwitch<ArrayList<edu.uta.cse.fireeye.common.Parameter>> parameterFinder = new CtWedgeSwitch<>();
 		
-		System.out.println(ACTSConstraintTranslator.dump(citModel, ""));
+		if (PRINT) System.out.println(ACTSConstraintTranslator.dump(citModel, ""));
 		for (Constraint c : citModel.getConstraints()) {
 			// to String
 			String casString = trans.doSwitch(c);
-			System.out.println("casString: "+casString);
+			if (PRINT) System.out.println("casString: "+casString);
 			assert casString != null;
 			// to list of parameters
 			ArrayList<edu.uta.cse.fireeye.common.Parameter> pInC = parameterFinder.doSwitch(c);
-			System.out.println(pInC);
+			if (PRINT) System.out.println(pInC);
 			// TODO for now, it is null and it works the same
 
 			edu.uta.cse.fireeye.common.Constraint constraint = new edu.uta.cse.fireeye.common.Constraint(casString, pInC);
@@ -127,33 +129,33 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 	
 	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints) {
 		String res = "";
-		System.out.println("ACTS sto chiamando ACTS... on "+model.getName()+" "+strength+" "+ignoreConstraints);
+		if (PRINT) System.out.println("ACTS sto chiamando ACTS... on "+model.getName()+" "+strength+" "+ignoreConstraints);
 		try {
 			SUT sut = buildSUT(model, ignoreConstraints, strength);
-			System.out.println("1. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("1. ACTS sto chiamando ACTS...");
 			// Create an IPO engine object
 			IpoEngine engine = new IpoEngine(sut);
-			System.out.println("2. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("2. ACTS sto chiamando ACTS...");
 			// build a test set
 			
-			System.out.println("3. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("3. ACTS sto chiamando ACTS...");
 			//System.setOut(new PrintStream(new ByteArrayOutputStream()));
-			System.out.println("4. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("4. ACTS sto chiamando ACTS...");
 			engine.buildOnlyPT(Algorithm.ipog);
-			System.out.println("5. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("5. ACTS sto chiamando ACTS...");
 			//engine.buildSupportedNT(getAlgorithm());
 			
 			// get the resulting test set
-			System.out.println("6. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("6. ACTS sto chiamando ACTS...");
 			TestSet ts = engine.getTestSet();
-			System.out.println("7. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("7. ACTS sto chiamando ACTS...");
 			res = serializeTestSet(model, ts);
 		} catch (Exception e) {
-			System.out.println("Error: "+e.getMessage());
+			if (PRINT) System.out.println("Error: "+e.getMessage());
 			e.printStackTrace();
 		}
 		
-		System.out.println("Obtained res: "+res);
+		if (PRINT) System.out.println("Obtained res: "+res);
 		
 		/*
 		CitModel m = ModelsFromStringsTester.loadModel(model);
@@ -315,7 +317,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 				}
 			}
 			p.println();
-			System.out.println("IGNORING TSs");
+			if (PRINT) System.out.println("IGNORING TSs");
 			
 			p.close();
 
@@ -328,10 +330,10 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 
 	@Override
 	public TestSuite call() throws Exception {
-		System.out.println("ACTS chiamato");
-		System.out.println("citModel: "+citModel+"  nWise: "+nWise+"  ignoreConstraints: "+ignoreConstraints);
+		if (PRINT) System.out.println("ACTS chiamato");
+		if (PRINT) System.out.println("citModel: "+citModel+"  nWise: "+nWise+"  ignoreConstraints: "+ignoreConstraints);
 		TestSuite ts = getTestSuite(citModel, nWise, ignoreConstraints);
-		System.out.println("ACTS test suite: "+ts);
+		if (PRINT) System.out.println("ACTS test suite: "+ts);
 		return ts;
 	}
 	

@@ -33,8 +33,8 @@ public class ParameterElementsGetterAsStrings extends CtWedgeSwitch<List<String>
 	@Override
 	public List<String> caseBool(Bool bool) {
 		ArrayList<String> boolValues = new ArrayList<String>();
-		boolValues.add("true");			
-		boolValues.add("false");
+		boolValues.add("false");			
+		boolValues.add("true");
 		return boolValues;
 	}
 
