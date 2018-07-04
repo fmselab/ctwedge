@@ -1,10 +1,20 @@
 package ctwedge.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import ctwedge.ctWedge.AndExpression;
+import ctwedge.ctWedge.AtomicPredicate;
+import ctwedge.ctWedge.CtWedgeFactory;
+import ctwedge.ctWedge.EqualExpression;
+import ctwedge.ctWedge.Expression;
+import ctwedge.ctWedge.Operators;
 
 /**
  * A class representing a tuple
@@ -12,6 +22,8 @@ import java.util.Set;
  *
  */
 public class Combination extends HashMap<String,String> {
+
+	private static final long serialVersionUID = 1L;
 
 	public Combination(Map<? extends String, ? extends String> assignments) {
 		super(assignments);
@@ -40,6 +52,51 @@ public class Combination extends HashMap<String,String> {
 		return containsKey(param);
 		//for (Assignment a : assignments) if (a.getParameter().getName().equals(param)) return true;
 		//return false;
+	}
+	
+	public List<Expression> comboModelConverter(){
+		ArrayList<Expression> alist = new ArrayList<>();
+		for (Entry<String,String> component : this.entrySet()) {
+			AtomicPredicate a = CtWedgeFactory.eINSTANCE.createAtomicPredicate();
+			a.setName(component.getKey());
+			
+			AtomicPredicate b = CtWedgeFactory.eINSTANCE.createAtomicPredicate();
+			if (component.getValue().equalsIgnoreCase("true") || component.getValue().equalsIgnoreCase("false")) {
+				b.setBoolConst(component.getValue());
+			} else {
+				b.setName(component.getValue());
+			}
+
+			EqualExpression e = CtWedgeFactory.eINSTANCE.createEqualExpression();
+			e.setLeft(a);
+			e.setOp(Operators.EQ);
+			e.setRight(b);
+
+			alist.add(e);
+		}
+
+		return alist;
+
+	}
+	
+	/** @return the conversion of the combination into a CTWedge expression.
+	 * It can be added e.g., as a constraint to a CTWedge model */
+	public Expression toExpression() {
+		List<Expression> a = comboModelConverter();
+		if (a.size() >= 2) {
+			AndExpression globalAnd = CtWedgeFactory.eINSTANCE.createAndExpression();
+			//globalAnd.setOp(AndOperators.AND);
+			globalAnd.setLeft(EcoreUtil.copy(a.get(0)));
+			globalAnd.setRight(EcoreUtil.copy(a.get(1)));
+			for (int n = 2; n < a.size(); n++) {
+				globalAnd.setLeft(EcoreUtil.copy(globalAnd));
+				globalAnd.setRight(EcoreUtil.copy(a.get(n)));
+			}
+			return globalAnd;
+		} else{
+			assert a.size() == 1;
+			return a.get(0);
+		}
 	}
 
 	/*@Override
