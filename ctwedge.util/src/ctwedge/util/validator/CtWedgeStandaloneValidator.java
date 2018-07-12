@@ -11,10 +11,10 @@ import ctwedge.util.Test;
 public class CtWedgeStandaloneValidator {
 	public static void main(String[] args) {
 		try {
-			File modelFile = new File(args[0]);
+			File modelFile = new File("model.ctw");
 			CitModel model = Benchmarks.loadModel(Benchmarks.readFromFile(modelFile));
 			Test test = new Test();
-			int i=1;
+			int i=0;
 			for (String p : (new ModelUtils(model)).paramValues.keySet()) test.put(p, args[i++]);
 			System.out.println(new RuleEvaluator(test).doSwitch(model));
 		} catch (Exception e) {
