@@ -12,8 +12,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.serializer.ISerializer;
+import org.eclipse.xtext.util.CancelIndicator;
+import org.eclipse.xtext.validation.CheckMode;
+import org.eclipse.xtext.validation.IResourceValidator;
+import org.eclipse.xtext.validation.Issue;
 
+import com.google.inject.Injector;
+
+import ctwedge.CTWedgeStandaloneSetup;
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.Bool;
@@ -255,6 +266,26 @@ public class ModelUtils {
 			else count *= 2;
 		}
 		return count;
+	}
+	
+	/** @return the CTWedge model as String */
+	public String serializeToString() {
+		CTWedgeStandaloneSetup citLStandaloneSetup = new CTWedgeStandaloneSetup();
+		Injector injector = citLStandaloneSetup.createInjectorAndDoEMFRegistration();
+		XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
+		// create temp resource
+		Resource resource = resourceSet.createResource(URI.createFileURI("temp.ctw"));
+		resource.getContents().add(my);
+		ISerializer SERIALIZER = injector.getInstance(ISerializer.class);
+		IResourceValidator validator = injector.getInstance(IResourceValidator.class);
+		List<Issue> list = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
+		if (!list.isEmpty()) {
+			for (Issue issue : list) {
+				System.err.println(issue);
+			}
+			return new String("error");
+		} else
+			return SERIALIZER.serialize(my);
 	}
 	
 }

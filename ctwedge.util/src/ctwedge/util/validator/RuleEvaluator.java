@@ -28,30 +28,32 @@ import ctwedge.ctWedge.PlusMinus;
 import ctwedge.ctWedge.PlusMinusOperators;
 import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
-import ctwedge.util.ModelUtils;
 import ctwedge.util.Test;
 
 /**
  * Evaluated if a rule makes a seed invalid, it generate a boolean output.
  * The output is a true/false string.
  * 
- * @author garganti vava
+ * @author garganti vava radavelli
  */
 public class RuleEvaluator extends CtWedgeSwitch<String> {
 
 	/** The seed. */
 	Test seed;
 	
-	ModelUtils utils;
-
-	public RuleEvaluator(CitModel m, Test s) {
-		this.seed = s;
-		this.utils = new ModelUtils(m);
+	public RuleEvaluator(Test t) {
+		this.seed = t;
 	}
 	
 	public String evaluateConstraint(Constraint r) {
 		assert seed != null;
 		return this.doSwitch(r);
+	}
+	
+	@Override
+	public String caseCitModel(CitModel m) {
+		for (Constraint c : m.getConstraints()) if (!this.doSwitch(c).equals("true")) return "false";
+		return "true";
 	}
 
 	@Override
