@@ -36,5 +36,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.ide"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.ui"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.util"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
