@@ -6,19 +6,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<artifactId>ctwedge.parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-  <artifactId>ctwedge.generator</artifactId>
+  <artifactId>ctwedge.util</artifactId>
   <packaging>jar</packaging>
   
   <build>
     <sourceDirectory>src</sourceDirectory>
-    <resources>
-      <resource>
-        <directory>xtend-gen</directory>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -42,11 +34,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 						</goals>
 						<configuration>
 							<sources>
-								<source>src-gen</source>
+								<source>src</source>
 							</sources>
 							<resources>
 								<resource>
-									<directory>src-gen</directory>
+									<directory>src</directory>
 									<excludes>
 										<exclude>**/*.java</exclude>
 									</excludes>
@@ -57,29 +49,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 				</executions>
 			</plugin>
 			
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-install-plugin</artifactId>
-			    <version>2.5.2</version>
-			    <executions>
-			        <execution>
-			            <id>install-external</id>
-			            <phase>clean</phase>
-			            <configuration>
-			                <file>${basedir}/libs/acts-3.0.jar</file>
-			                <repositoryLayout>default</repositoryLayout>
-			                <groupId>${project.groupId}</groupId>
-			                <artifactId>acts</artifactId>
-			                <version>3.0</version>
-			                <packaging>jar</packaging>
-			                <generatePom>true</generatePom>
-			            </configuration>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			        </execution>
-			    </executions>
-			</plugin>
+			
 		</plugins>
   </build>
   <dependencies>
@@ -119,10 +89,5 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<version>1.7.21</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>ctwedge.util</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-  </dependencies>
-</project>
+	</dependencies>
+  </project>

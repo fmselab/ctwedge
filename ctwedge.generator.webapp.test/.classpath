@@ -19,7 +19,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.generator.webapp"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.generator"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

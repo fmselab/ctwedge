@@ -21,18 +21,18 @@ public class Utility {
 	
 	public static final Utility INSTANCE = new Utility();
 	
-	public static TestSuite getTestSuite(String model, String generator, int t, boolean ignoreC) throws Exception {
+	public static TestSuite getTestSuite(String model, String generator, int t, boolean ignoreC, String executableFolderPath) throws Exception {
 		TestSuite ts = null;
 		if (generator.equalsIgnoreCase("casa")) { // CASA
-			ts = new CASATranslator("casa.exe").getTestSuite(loadModel(model), t, ignoreC);
+			ts = new CASATranslator(executableFolderPath).getTestSuite(loadModel(model), t, ignoreC);
 		} else { // ACTS
 			ts = new ACTSTranslator().getTestSuite(loadModel(model), t, ignoreC);
 		}
 		return ts;
 	}
 	
-	public static String getTestSuiteWithNumbers(String model, String generator, int t, boolean ignoreC) throws Exception {
-		String ts = getTestSuite(model, generator, t, ignoreC).toString();
+	public static String getTestSuiteWithNumbers(String model, String generator, int t, boolean ignoreC, String executableFolderPath) throws Exception {
+		String ts = getTestSuite(model, generator, t, ignoreC, executableFolderPath).toString();
 		ts = addNumbers(ts);
 		return ts;
 	}
