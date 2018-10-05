@@ -40,7 +40,7 @@ Most of the implementation work has been done by [Marco Radavelli](https://cs.un
 ## Paper
 If you use this tool for academic research, please cite:
 [*Migrating Combinatorial Interaction Test Modeling and Generation to the Web*](https://cs.unibg.it/gargantini/research/abstracts/iwct2018.html)
-(Gargantini, Angelo, and Vavassori, Paolo) in 7th International Workshop on Combinatorial Testing (IWCT 2018)
+(Gargantini, Angelo, and Radavelli, Paolo) in 7th International Workshop on Combinatorial Testing (IWCT 2018)
 ```
 @inproceedings{Gargantini2018, 
   author={A. Gargantini and M. Radavelli}, 
