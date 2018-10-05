@@ -11,10 +11,8 @@ It comes into two flavors:
 
 ## Dependencies
 It requires:
-- JavaCC
-- Xtext
-- Xtend
 - Eclipse JEE with PDT (Plugin Development Toolkit)
+- JavaCC, Xtext, and Xtend (can be installed from the Eclipse Marketplace)
 - `acts-3.0.jar` to be copied into `ctwedge.generator/libs` folder
 
 ## Setup
@@ -25,23 +23,24 @@ To compile source code:
 - run `mvn install` on the `ctwedge.parent` project, and in any other projects if necessary.
 - Finally, the `target` folder in the `ctwedge.web` project will contain the war file to deploy on the server. The `ctwedge.eclipse` folder contains the eclipse plugin and can be run as Eclipse Application to debug.
 
-In case of any problems regarding the setup, contact [Marco Radavelli](mailto://marco.radavelli@unibg.it)
+In case of any problems regarding the setup, contact [Marco Radavelli](mailto://marco.radavelli@unibg.it).
 
 ## Project structure
 - `ctwedge.parent`  language definitions
-	- `ctwedge`
+	- `ctwedge` contains the language definition, and the parser
 	- `ctwedge.ide`
-	- `ctwedge.web`  web editor and servlets for generation (depends on `ctwedge`, `ctwedge.generator`, `ctwedge.util`)
+	- `ctwedge.tests`
 	- `ctwedge.util` utlity functions (depends on `ctwedge`)
-- `ctwedge.generator` the generators (ACTS, CASA ...) 
-				depends on `ctwedge`, `ctwedge.util`
+	- `ctwedge.web`  web editor and servlets for generation (depends on `ctwedge`, `ctwedge.generator`, `ctwedge.util`)	
+- `ctwedge.generator` the generators (ACTS, CASA ...) common both to the eclipse plugin and the web version.
+				It depends on `ctwedge`, `ctwedge.util`
+- `ctwedge.generator.test` tests for the generator methods
+- `ctwedge.web.test`  tests for the web interface
 - `ctwedge.benchmarks` benchmarks (depends on `ctwedge`)
 - `ctwedge.eclipse`  eclipse plugins (depends on `ctwedge`, `ctwedge.generator`, `ctwedge.util`)
 	- `ctwedge.eclipse`  extension points and abstract classes (generator)
 	- `ctwedge.eclipse.feature` feature for update site
 	- `ctwedge.eclipse.ui` UI extensions for buttons and so on, view, tables ....
-	
-- `ctwedge.generator.test`
 
 ## People
 Most of the implementation work has been done by [Marco Radavelli](https://cs.unibg.it/radavelli/) and [Angelo Gargantini](http://cs.unibg.it/gargantini/). CTWedge extends the [CitLab](https://sourceforge.net/projects/citlab/) framework by [Paolo Vavassori](http://cs.unibg.it/vavassori/). For any problems, contact [Angelo Gargantini](mailto://angelo.gargantini@unibg.it)  
@@ -49,7 +48,7 @@ Most of the implementation work has been done by [Marco Radavelli](https://cs.un
 ## Paper
 If you use this tool for academic research, please cite:
 [*Migrating Combinatorial Interaction Test Modeling and Generation to the Web*](https://cs.unibg.it/gargantini/research/abstracts/iwct2018.html)
-(Gargantini, Angelo, and Radavelli, Paolo) in 7th International Workshop on Combinatorial Testing (IWCT 2018)
+(Gargantini, Angelo, and Radavelli, Marco) in 7th International Workshop on Combinatorial Testing (IWCT 2018)
 ```
 @inproceedings{Gargantini2018, 
   author={A. Gargantini and M. Radavelli}, 
