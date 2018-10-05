@@ -11,8 +11,7 @@ It requires:
 - JavaCC
 - Xtext
 - Xtend
-- CTWedge plugin itself installed in Eclipse, in order to find all the required libraries
-- It references some [CitLab](https://sourceforge.net/projects/citlab/) projects
+- `acts-3.0.jar` to be copied into `ctwedge.generator/libs` folder
 
 To compile source code, open all the projects in Eclipse. Run Maven install on the ctwedge.parent project, and in any other projects if necessary.
 The `target` folder in the `ctwedge.web` project will contain the war file to deploy on the server.
