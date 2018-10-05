@@ -25,6 +25,8 @@ To compile source code:
 - run `mvn install` on the `ctwedge.parent` project, and in any other projects if necessary.
 - Finally, the `target` folder in the `ctwedge.web` project will contain the war file to deploy on the server. The `ctwedge.eclipse` folder contains the eclipse plugin and can be run as Eclipse Application to debug.
 
+In case of any problems regarding the setup, contact [Marco Radavelli](mailto://marco.radavelli@unibg.it)
+
 ## Project structure
 - `ctwedge.parent`  language definitions
 	- `ctwedge`
