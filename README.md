@@ -1,5 +1,8 @@
 # CTWedge
- Combinatorial Testing Web EDitor and GEnerator
+<img src="https://raw.githubusercontent.com/fmselab/ctwedge/master/ctwedge.parent/ctwedge.web/WebRoot/logo.png" width="200" alt="CTWedge logo">
+
+#### **Combinatorial Testing Web EDitor and GEnerator**
+
 
 It comes into two flavors:
 
