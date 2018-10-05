@@ -78,7 +78,7 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
-				<configuration>
+				<!--  <configuration>
 					<target>
 						<artifact>
 							<groupId>ctwedge</groupId>
@@ -103,7 +103,7 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
-				</configuration>
+				</configuration> -->
 			</plugin>
 		</plugins>
 		<pluginManagement>
