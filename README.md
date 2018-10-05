@@ -9,16 +9,21 @@ It comes into two flavors:
 
 <img src="https://raw.githubusercontent.com/fmselab/ctwedge/master/ctwedge.parent/ctwedge.web/WebRoot/logo.png" width="200" alt="CTWedge logo">
 
-## Dependences
+## Dependencies
 It requires:
 - JavaCC
 - Xtext
 - Xtend
+- Eclipse JEE with PDT (Plugin Development Toolkit)
 - `acts-3.0.jar` to be copied into `ctwedge.generator/libs` folder
 
-To compile source code, open all the projects in Eclipse. Run Maven install on the ctwedge.parent project, and in any other projects if necessary.
-The `target` folder in the `ctwedge.web` project will contain the war file to deploy on the server.
-The `ctwedge.eclipse` folder contains the eclipse plugin and can be run as Eclipse Application to debug.
+## Setup
+To compile source code:
+- create a folder called local-maven-repo in the root of the repository.
+- make sure to have copied the `acts-3.0.jar` into `ctwedge.generator/libs` folder, and in the project root run the command `mvn deploy:deploy-file -DgroupId=ctwedge -DartifactId=acts -Dversion=3.0 -Durl=file:./local-maven-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile=ctwedge.generator/libs/acts-3.0.jar`
+- open all the projects in Eclipse 
+- run `mvn install` on the `ctwedge.parent` project, and in any other projects if necessary.
+- Finally, the `target` folder in the `ctwedge.web` project will contain the war file to deploy on the server. The `ctwedge.eclipse` folder contains the eclipse plugin and can be run as Eclipse Application to debug.
 
 ## Project structure
 - `ctwedge.parent`  language definitions
