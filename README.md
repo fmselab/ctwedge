@@ -3,8 +3,8 @@
 
 It comes into two flavors:
 
-- CTWedge for Eclipse: https://fmselab.github.io/ctwedge/ctwedge_update/ (from Eclipse, press Help -> Install New Software..., and add the link. Obs: note that Xtext is required: if not present, please install it first, e.g., from Eclipse Marketplace)
-- [CTWedge Web](http://foselab.unibg.it/ctwedge)
+- [CTWedge Web](http://foselab.unibg.it/ctwedge): http://<i></i>foselab.unibg.it<i></i>/ctwedge
+- [CTWedge for Eclipse](https://fmselab.github.io/ctwedge/): https://<i></i>fmselab.github.io<i></i>/ctwedge/ctwedge_update/ . From Eclipse, press `Help` -> `Install New Software...`, add the link, and follow the instructions to install. Obs.: note that Xtext is required: if not present, please install it first (it can be found also in the Eclipse Marketplace).
 
 ## Dependences
 It requires:
