@@ -416,4 +416,39 @@
 			type="text">
 		</fileTypes>
 	</extension>
+	
+	<!-- For new project wizard and files, etc... -->
+<extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="ctwedge.ui.CTWedgewizardCat"
+            class="ctwedge.ui.CTWedgeExecutableExtensionFactory:ctwedge.ui.wizard.CTWedgeNewProjectWizard"
+            descriptionImage="icons/logo16.png"
+            finalPerspective="org.eclipse.ui.resourcePerspective"
+            icon="icons/logo16.png"
+            id="ctwedge.ui.wizard.CTWedgeNewProjectWizard"
+            name="CTWedge Project"
+            preferredPerspectives="org.eclipse.ui.resourcePerspective"
+            project="true">
+      </wizard>
+      <category
+            id="ctwedge.ui.CTWedgewizardCat"
+            name="CTWedge">
+      </category>
+   </extension>
+   
+ <extension
+id="toolbar:org.eclipse.ui.workbench.file?after=newWizardDropDown"
+point="org.eclipse.ui.menus">
+<menuContribution
+locationURI="toolbar:org.eclipse.ui.workbench.file">
+<command
+commandId="org.eclipse.ui.newWizard">
+<parameter
+name="newWizardId"
+value="ctwedge.ui.wizard.CTWedgeNewProjectWizard">
+</parameter>
+</command>
+</menuContribution>
+</extension>
 </plugin>
