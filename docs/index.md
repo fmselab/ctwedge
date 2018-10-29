@@ -1,6 +1,7 @@
-# CTWEdge Eclipse Plugin usage
-
+# CTWedge Eclipse Plugin usage
 ### Combinatorial Testing Web EDitor and GEnerator
+<img src="https://raw.githubusercontent.com/fmselab/ctwedge/master/ctwedge.parent/ctwedge.web/WebRoot/logo.png" width="200" alt="CTWedge logo">
+
 This page provides a user guide to the usage of the Eclipse Plugin of [CTWedge](https://github.com/fmselab/ctwedge).
 
 1. First, install it, following the instructions in the [home page](https://github.com/fmselab/ctwedge).
