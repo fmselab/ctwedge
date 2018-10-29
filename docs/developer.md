@@ -1,9 +1,8 @@
-# CTWedge
+# CTWedge - Instructions to Compile the CTWedge Eclipse Plugin from Source, and to use its APIs
 
 ### **Combinatorial Testing Web EDitor and GEnerator**
 
-# Instructions to Compile the CTWedge Eclipse Plugin from Source, and to use its APIs
-The web version (no need for installation) and the Eclipse plugin links are availabe in the [home page of the project](https://github.com/fmselab/ctwedge).
+The web version (no need for installation) and the Eclipse plugin links are availabe in the [home page of the project](https://github.com/fmselab/ctwedge). The info below are only intended for developers who want to integrate CTWedge in a toolchain programmatically, or who want to change it by accessing the source code.
 
 ## Dependencies
 To compile the source code, you need:
