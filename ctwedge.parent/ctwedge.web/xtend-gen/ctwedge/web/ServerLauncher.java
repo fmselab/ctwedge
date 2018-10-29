@@ -3,20 +3,6 @@
  */
 package ctwedge.web;
 
-import java.net.InetSocketAddress;
-import java.net.URI;
-import org.eclipse.jetty.annotations.AnnotationConfiguration;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.util.log.Slf4jLog;
-import org.eclipse.jetty.webapp.Configuration;
-import org.eclipse.jetty.webapp.MetaInfConfiguration;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.eclipse.jetty.webapp.WebInfConfiguration;
-import org.eclipse.jetty.webapp.WebXmlConfiguration;
-import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-
 /**
  * This program starts an HTTP server for testing the web integration of your DSL.
  * Just execute it and point a web browser to http://localhost:8080/
@@ -24,58 +10,35 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 @SuppressWarnings("all")
 public class ServerLauncher {
   public static void main(final String[] args) {
-    InetSocketAddress _inetSocketAddress = new InetSocketAddress("localhost", 8080);
-    final Server server = new Server(_inetSocketAddress);
-    WebAppContext _webAppContext = new WebAppContext();
-    final Procedure1<WebAppContext> _function = new Procedure1<WebAppContext>() {
-      public void apply(final WebAppContext it) {
-        it.setResourceBase("WebRoot");
-        it.setWelcomeFiles(new String[] { "index.html" });
-        it.setContextPath("/");
-        AnnotationConfiguration _annotationConfiguration = new AnnotationConfiguration();
-        WebXmlConfiguration _webXmlConfiguration = new WebXmlConfiguration();
-        WebInfConfiguration _webInfConfiguration = new WebInfConfiguration();
-        MetaInfConfiguration _metaInfConfiguration = new MetaInfConfiguration();
-        it.setConfigurations(new Configuration[] { _annotationConfiguration, _webXmlConfiguration, _webInfConfiguration, _metaInfConfiguration });
-        it.setAttribute(WebInfConfiguration.CONTAINER_JAR_PATTERN, ".*/ctwedge\\.web/.*,.*\\.jar");
-        it.setInitParameter("org.mortbay.jetty.servlet.Default.useFileMappedBuffer", "false");
-      }
-    };
-    WebAppContext _doubleArrow = ObjectExtensions.<WebAppContext>operator_doubleArrow(_webAppContext, _function);
-    server.setHandler(_doubleArrow);
-    String _name = ServerLauncher.class.getName();
-    final Slf4jLog log = new Slf4jLog(_name);
-    try {
-      server.start();
-      URI _uRI = server.getURI();
-      String _plus = ("Server started " + _uRI);
-      String _plus_1 = (_plus + "...");
-      log.info(_plus_1);
-      final Runnable _function_1 = new Runnable() {
-        public void run() {
-          try {
-            log.info("Press enter to stop the server...");
-            final int key = System.in.read();
-            if ((key != (-1))) {
-              server.stop();
-            } else {
-              log.warn("Console input is not available. In order to stop the server, you need to cancel process manually.");
-            }
-          } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
-          }
-        }
-      };
-      new Thread(_function_1).start();
-      server.join();
-    } catch (final Throwable _t) {
-      if (_t instanceof Exception) {
-        final Exception exception = (Exception)_t;
-        log.warn(exception.getMessage());
-        System.exit(1);
-      } else {
-        throw Exceptions.sneakyThrow(_t);
-      }
-    }
+    throw new Error("Unresolved compilation problems:"
+      + "\nServer cannot be resolved."
+      + "\nWebAppContext cannot be resolved."
+      + "\nThe method resourceBase(String) is undefined"
+      + "\nThe method welcomeFiles(List<String>) is undefined"
+      + "\nThe method contextPath(String) is undefined"
+      + "\nThe method configurations(List<Object>) is undefined"
+      + "\nAnnotationConfiguration cannot be resolved."
+      + "\nWebXmlConfiguration cannot be resolved."
+      + "\nWebInfConfiguration cannot be resolved."
+      + "\nMetaInfConfiguration cannot be resolved."
+      + "\nThe method setAttribute(Object, String) is undefined"
+      + "\nThe method or field WebInfConfiguration is undefined"
+      + "\nThe method setInitParameter(String, String) is undefined"
+      + "\nSlf4jLog cannot be resolved."
+      + "\n+ cannot be resolved."
+      + "\n!= cannot be resolved."
+      + "\n- cannot be resolved."
+      + "\nhandler cannot be resolved"
+      + "\n=> cannot be resolved"
+      + "\nCONTAINER_JAR_PATTERN cannot be resolved"
+      + "\nstart cannot be resolved"
+      + "\ninfo cannot be resolved"
+      + "\ngetURI cannot be resolved"
+      + "\n+ cannot be resolved"
+      + "\ninfo cannot be resolved"
+      + "\nstop cannot be resolved"
+      + "\nwarn cannot be resolved"
+      + "\njoin cannot be resolved"
+      + "\nwarn cannot be resolved");
   }
 }

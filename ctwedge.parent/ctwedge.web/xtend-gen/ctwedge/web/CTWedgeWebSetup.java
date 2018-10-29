@@ -3,23 +3,19 @@
  */
 package ctwedge.web;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import ctwedge.CTWedgeRuntimeModule;
-import ctwedge.CTWedgeStandaloneSetup;
-import ctwedge.ide.CTWedgeIdeModule;
-import ctwedge.web.CTWedgeWebModule;
-import org.eclipse.xtext.util.Modules2;
-
 /**
  * Initialization support for running Xtext languages in web applications.
  */
 @SuppressWarnings("all")
-public class CTWedgeWebSetup extends CTWedgeStandaloneSetup {
-  public Injector createInjector() {
-    CTWedgeRuntimeModule _cTWedgeRuntimeModule = new CTWedgeRuntimeModule();
-    CTWedgeIdeModule _cTWedgeIdeModule = new CTWedgeIdeModule();
-    CTWedgeWebModule _cTWedgeWebModule = new CTWedgeWebModule();
-    return Guice.createInjector(Modules2.mixin(_cTWedgeRuntimeModule, _cTWedgeIdeModule, _cTWedgeWebModule));
+public class CTWedgeWebSetup /* implements CTWedgeStandaloneSetup  */{
+  @Override
+  public /* Injector */Object createInjector() {
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field Guice is undefined"
+      + "\nThe method or field Modules2 is undefined"
+      + "\nCTWedgeRuntimeModule cannot be resolved."
+      + "\nCTWedgeIdeModule cannot be resolved."
+      + "\ncreateInjector cannot be resolved"
+      + "\nmixin cannot be resolved");
   }
 }
