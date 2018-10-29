@@ -2,22 +2,14 @@
 
 ### **Combinatorial Testing Web EDitor and GEnerator**
 
-# Instructions to Compile the CTWedhe Eclipse Plugin from Source 
+# Instructions to Compile the CTWedge Eclipse Plugin from Source, and to use its APIs
+The web version (no need for installation) and the Eclipse plugin links are availabe in the [home page of the project](https://github.com/fmselab/ctwedge).
+
 ## Dependencies
-It requires:
-- Eclipse JEE with PDT (Plugin Development Toolkit)
+To compile the source code, you need:
+- Eclipse JEE (for the web part) with PDT (Plugin Development Toolkit)
 - JavaCC, Xtext, and Xtend (can be installed from the Eclipse Marketplace)
-- `acts-3.0.jar` to be copied into `ctwedge.generator/libs` folder
-
-## Compile
-To compile source code:
-- create a folder called local-maven-repo in the root of the repository.
-- make sure to have copied the `acts-3.0.jar` into `ctwedge.generator/libs` folder, and in the project root run the command `mvn deploy:deploy-file -DgroupId=ctwedge -DartifactId=acts -Dversion=3.0 -Durl=file:./local-maven-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile=ctwedge.generator/libs/acts-3.0.jar`
-- open all the projects in Eclipse 
-- run `mvn install` on the `ctwedge.parent` project, and in any other projects if necessary.
-- Finally, the `target` folder in the `ctwedge.web` project will contain the war file to deploy on the server. The `ctwedge.eclipse` folder contains the eclipse plugin and can be run as Eclipse Application to debug.
-
-In case of any problems regarding the setup, contact [Marco Radavelli](mailto://marco.radavelli@unibg.it).
+- `acts-3.0.jar` to be copied into `ctwedge.generator/libs` folder. This repository now does not contain this jar: you can find it online from NIST. Other versions of ACTS should work as well: rename the chosen version as `acts-3.0.jar` to be recognized by the current project configurations, or change some parts of the source code to refence that exact library version.
 
 ## Project structure
 - `ctwedge.parent`  language definitions
@@ -36,5 +28,17 @@ In case of any problems regarding the setup, contact [Marco Radavelli](mailto://
 	- `ctwedge.eclipse.feature` feature for update site
 	- `ctwedge.eclipse.ui` UI extensions for buttons and so on, view, tables ....
 
+To create a model and obtain a test suite programmatically, look at examples in the `ctwedge.generator.test` folder.
+
+## Compile from source
+CTWedge is accessible via any browser at http://foselab.unibg.it/ctwedge. However, this is the instruction to build the .war file from source, and install it to your own server:
+- make sure to have copied the `acts-3.0.jar` (not included in this repository) into `ctwedge.generator/libs` folder. 
+- create a folder called local-maven-repo under the root of the repository, and from the project root, run the command `mvn deploy:deploy-file -DgroupId=ctwedge -DartifactId=acts -Dversion=3.0 -Durl=file:./local-maven-repo/ -DrepositoryId=local-maven-repo -DupdateReleaseInfo=true -Dfile=ctwedge.generator/libs/acts-3.0.jar`
+- run `mvn install` on the `ctwedge.parent` project, and in any other projects if necessary.
+- Finally, the `target` folder in the `ctwedge.web` project will contain the war file to deploy on the server. The `ctwedge.eclipse` folder contains the eclipse plugin and can be run as Eclipse Application to debug.
+
+In case of any problems regarding the setup, contact [Marco Radavelli](mailto://marco.radavelli@unibg.it).
+
+
 ## Licence
-This software is released undert the Eclipse Public License - v 2.0
+This software is released under the Eclipse Public License - v 2.0
