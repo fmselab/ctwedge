@@ -38,6 +38,8 @@ CTWedge is accessible via any browser at http://foselab.unibg.it/ctwedge. Howeve
 
 In case of any problems regarding the setup, contact [Marco Radavelli](mailto://marco.radavelli@unibg.it).
 
+## FAQ
+- Doing Maven Install on ctwedge.web, I get this error: "No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?" Solution: under Java -> Installed JREs in Eclipse preferences, set a JDK path (instead of the JRE), and set this jdk also as execution environment of the ctwedge.web project (Project Properties -> Java Build Path -> Libraries -> Double click on "JRE System Library").
 
 ## Licence
 This software is released under the Eclipse Public License - v 2.0
