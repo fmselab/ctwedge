@@ -14,7 +14,7 @@ To compile the source code, you need:
 - `ctwedge.parent`  language definitions
 	- `ctwedge` contains the language definition, and the parser
 	- `ctwedge.ide`  created automatically by the Xtext web project wizard, and unsure about its purpose
-	- `ctwedge.tests`  not used by us
+	- `ctwedge.tests`  contains a sample model to parse to test for correct compilation
 	- `ctwedge.util` utlity functions (depends on `ctwedge`)
 	- `ctwedge.web`  web editor and servlets for generation (depends on `ctwedge`, `ctwedge.generator`, `ctwedge.util`)	
 	- `ctwedge.generator` the generators (ACTS, CASA ...) common both to the eclipse plugin and the web version.
@@ -30,7 +30,7 @@ To create a model and obtain a test suite programmatically, look at examples in 
 
 ## Compile from source
 CTWedge is accessible via any browser at http://foselab.unibg.it/ctwedge. However, this is the instruction to build the .war file from source, and install it to your own server:
-- from Eclipse, run `Maven Install` on the `ctwedge.parent` project, and in any other projects if necessary.
+- from Eclipse, open all the projects (check the flag `Search for nested projects`), run `Maven Install` on the `ctwedge.parent` project, and in any other projects if necessary.
 - Finally, the `target` folder in the `ctwedge.web` project will contain the war file to deploy on the server. The `ctwedge.ui` folder contains the eclipse plugin and can be run as Eclipse Application to debug.
 
 In case of any problems regarding the setup, contact [Marco Radavelli](mailto://marco.radavelli@unibg.it).
