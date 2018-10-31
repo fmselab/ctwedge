@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description name="CTWedge update site">
+   <description name="CTWedge update site" url="https://fmselab.github.io/ctwedge/ctwedge_update/">
       CTWedge for Eclipse Update Site
    </description>
-   <feature url="features/ctwedge.feature_1.0.0.201810311112.jar" id="ctwedge.feature" version="1.0.0.201810311112">
-      <category name="ctwedge"/>
+   <feature url="features/ctwedge.feature_1.0.0.201810311155.jar" id="ctwedge.feature" version="1.0.0.201810311155">
+      <category name="CTWedge"/>
    </feature>
-   <category-def name="ctwedge" label="ctwedge"/>
+   <category-def name="CTWedge" label="CTWedge"/>
 </site>
