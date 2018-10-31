@@ -14,7 +14,6 @@
       <import plugin="org.eclipse.xtext.util"/>
       <import plugin="org.eclipse.emf.common"/>
       <import plugin="org.eclipse.xtend.lib" version="2.14.0" match="greaterOrEqual"/>
-      <import plugin="org.antlr.runtime" version="3.2.0" match="perfect"/>
       <import plugin="org.apache.log4j"/>
       <import plugin="org.eclipse.xtext.ide"/>
       <import plugin="org.eclipse.xtext.xbase.ide"/>
