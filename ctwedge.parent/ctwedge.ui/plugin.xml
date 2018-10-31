@@ -9,6 +9,7 @@
 			default="true"
 			extensions="ctw"
 			id="ctwedge.CTWedge"
+			icon="icons/logo16.png"
 			name="CTWedge Editor">
 		</editor>
 	</extension>
@@ -249,6 +250,15 @@
 		<super type="org.eclipse.xtext.ui.check.expensive"/>
 		<persistent value="true"/>
 	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			category="ctwedge.CTWedge"
+			class="ctwedge.ui.CTWedgeExecutableExtensionFactory:org.eclipse.xtext.ui.validation.ValidatorPreferencePage"
+			id="ctwedge.CTWedge.validator.preferencePage"
+			name="Errors/Warnings">
+			<keywordReference id="ctwedge.ui.keyword_CTWedge"/>
+		</page>
+	</extension>
 	<extension point="org.eclipse.xtext.builder.participant">
 		<participant
 			class="ctwedge.ui.CTWedgeExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
@@ -397,12 +407,18 @@
 			class="ctwedge.ui.CTWedgeExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="ctw">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="ctwedge.CTWedge.contenttype"
+			contentViewerId="ctwedge.CTWedge.compare.contentViewers" />
 	</extension>
 	<extension point="org.eclipse.compare.contentMergeViewers">
 		<viewer id="ctwedge.CTWedge.compare.contentMergeViewers"
 			class="ctwedge.ui.CTWedgeExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="ctw" label="CTWedge Compare">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="ctwedge.CTWedge.contenttype"
+			contentMergeViewerId="ctwedge.CTWedge.compare.contentMergeViewers" />
 	</extension>
 	<extension point="org.eclipse.ui.editors.documentProviders">
 		<provider id="ctwedge.CTWedge.editors.documentProviders"
@@ -417,9 +433,16 @@
 		</fileTypes>
 	</extension>
 	
-	<!-- For new project wizard and files, etc... -->
-<extension
-         point="org.eclipse.ui.newWizards">
+	<!-- My extension points -->
+	<extension-point id="ctwedgeGenerators" name="ctwedgeGenerators" schema="schema/generators.exsd" />
+	<extension-point id="ctwedgeExporters" name="ctwedgeExporters" schema="schema/TestSuiteExporters.exsd" />
+	
+	<!-- For new project wizard -->
+	<extension point="org.eclipse.ui.newWizards">
+      <!-- <category
+            id="ctwedge.ui.CTWedgewizardCat"
+            name="CTWedge">
+      </category>
       <wizard
             category="ctwedge.ui.CTWedgewizardCat"
             class="ctwedge.ui.CTWedgeExecutableExtensionFactory:ctwedge.ui.wizard.CTWedgeNewProjectWizard"
@@ -430,25 +453,138 @@
             name="CTWedge Project"
             preferredPerspectives="org.eclipse.ui.resourcePerspective"
             project="true">
-      </wizard>
+      </wizard> -->
       <category
-            id="ctwedge.ui.CTWedgewizardCat"
-            name="CTWedge">
+            id="ctwedge.ui"
+            name="CTWedge Wizards">
       </category>
-   </extension>
+      <wizard
+            category="ctwedge.ui"
+            class="ctwedge.ui.wizards.CTWedgeNewFileWizard"
+            icon="icons/logo16.png"
+            id="ctwedge.ui.wizards.CTWedgeNewFileWizard"
+            name="CTWedge New File Wizard">
+      </wizard>
+    </extension>
    
- <extension
-id="toolbar:org.eclipse.ui.workbench.file?after=newWizardDropDown"
-point="org.eclipse.ui.menus">
-<menuContribution
-locationURI="toolbar:org.eclipse.ui.workbench.file">
-<command
-commandId="org.eclipse.ui.newWizard">
-<parameter
-name="newWizardId"
-value="ctwedge.ui.wizard.CTWedgeNewProjectWizard">
-</parameter>
-</command>
-</menuContribution>
+ 	<!-- <extension id="toolbar:org.eclipse.ui.workbench.file?after=newWizardDropDown"
+		point="org.eclipse.ui.menus">
+		<menuContribution
+			locationURI="toolbar:org.eclipse.ui.workbench.file">
+			<command
+				commandId="org.eclipse.ui.newWizard">
+				<parameter
+					name="newWizardId"
+					value="ctwedge.ui.wizard.CTWedgeNewProjectWizard">
+				</parameter>
+			</command>
+		</menuContribution>
+	</extension>-->
+
+<!-- Launch extensions -->
+<!-- to launch the plugin -->
+   <extension point="org.eclipse.debug.core.launchConfigurationTypes">
+    <launchConfigurationType
+    icon="icons/logo16.png"
+        name="CTwedge generator"
+        delegate="ctwedge.ui.launch.CTwedgeLaunchConfigurationDelegate"
+        modes="run, debug"               
+        id="CTwedge.generator">        
+    </launchConfigurationType>
 </extension>
+<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+    <launchConfigurationTypeImage
+        icon="icons/logo16.png"
+        configTypeID="CTwedge.generator"
+        id="org.eclipse.jdt.debug.ui.launchConfigurationTypeImage.CTwedgeGenerator">
+    </launchConfigurationTypeImage>
+</extension>
+<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    <launchConfigurationTabGroup
+        type="CTwedge.generator"
+        class="ctwedge.ui.launch.CTwedgeLaunchTabGroup"
+        id="org.eclipse.jdt.debug.ui.launchConfigurationTabGroup.CTwedgeGenerator">
+    </launchConfigurationTabGroup>
+</extension>
+<extension point="org.eclipse.debug.ui.launchShortcuts">
+<!--icon="icons/logo.png"-->
+    <shortcut
+    icon="icons/logo16.png"
+        id="org.eclipse.jdt.debug.ui.CTWedgeShortcut"
+        class="ctwedge.ui.launch.CTWedgeLaunchShortcut"
+        label="CTWedge"        
+        modes="run">
+        <contextualLaunch>
+            <enablement>
+                <with
+                    variable="selection">
+                    <count
+                        value="+">
+                    </count>
+                </with>
+            </enablement>
+        </contextualLaunch>
+    </shortcut>
+</extension>
+
+   <extension
+         name="OP2"
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="true"
+            category="ctwedge.ui.combinata"
+            class="ctwedge.ui.views.generator.CTWedgeView"
+            icon="icons/logo16.png"
+            id="ctwedge.ui.views.CTWedgeView"
+            name="CTWedge view"
+            restorable="false">
+      </view>
+      <!--
+      <view
+            allowMultiple="false"
+            category="citlab.core.ui.combinata"
+            class="citlab.core.ui.views.exporter.CoderView"
+            icon="icons/c.png"
+            id="citlab.core.ui.views.Coders"
+            name="CitLab Coders view"
+            restorable="true">
+      </view>
+      -->
+      <!--
+      <category
+            id="citlab.core.ui.combinata"
+            name="citlab_ext_viewer">
+      </category>
+      <view
+            allowMultiple="false"
+            category="citlab.core.ui.combinata"
+            class="citlab.core.ui.views.importer.ImporterView"
+            icon="icons/c.png"
+            id="citlab.core.ui.views.Importers"
+            name="CitLab Importers"
+            restorable="true">
+      </view>
+      -->
+      <view
+            allowMultiple="true"
+            category="ctwedge.ui.combinata"
+            class="ctwedge.ui.views.generator.TestSuiteView"
+            icon="icons/logo16.png"
+            id="ctwedge.ui.output"
+            name="Output view"
+            restorable="false">
+      </view>
+        <!--
+      <view
+            allowMultiple="true"
+            category="ctwedge.eclipse.ui.combinata"
+            class="ctwedge.eclipse.ui.views.validator.ModelValidationView"
+            icon="icons/i.gif"
+            id="ctwedge.eclipse.ui.modelvalidation"
+            name="CTWedge Model Validation"
+            restorable="false">
+      </view>
+      -->
+   </extension>
+
 </plugin>

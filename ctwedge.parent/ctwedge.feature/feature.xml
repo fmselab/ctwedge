@@ -1,70 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="ctwedge.feature"
-      label="CTWEdge Feature "
-      version="1.0.0.qualifier">
-
-   <requires>
-      <import plugin="org.eclipse.xtext"/>
-      <import plugin="org.eclipse.equinox.common" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.antlr.runtime"/>
-      <import plugin="org.eclipse.xtext.util"/>
-      <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.xtend.lib" version="2.13.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.log4j"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.equinox.preferences"/>
-      <import plugin="org.eclipse.jface"/>
-      <import plugin="ctwedge" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.edit.ui"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.ui.ide" version="3.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.databinding.beans"/>
-      <import plugin="org.eclipse.jface.databinding"/>
-      <import plugin="org.eclipse.core.databinding.property"/>
-      <import plugin="org.eclipse.emf.databinding"/>
-      <import plugin="ctwedge.eclipse" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.m2e.maven.runtime"/>
-      <import plugin="org.eclipse.debug.core"/>
-      <import plugin="org.eclipse.debug.ui"/>
-      <import plugin="org.eclipse.ui.workbench"/>
-      <import plugin="org.eclipse.xtext.ide"/>
-      <import plugin="org.eclipse.xtext.ui"/>
-      <import plugin="org.eclipse.xtext.ui.shared"/>
-      <import plugin="org.eclipse.xtext.ui.codetemplates.ui"/>
-      <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.compare"/>
-      <import plugin="org.eclipse.xtext.builder"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.13.0" match="greaterOrEqual"/>
-      <import plugin="com.google.guava" version="21.0.0" match="greaterOrEqual"/>
-      <import plugin="com.google.inject" version="3.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.xbase"/>
-      <import plugin="org.eclipse.xtext.xbase.lib"/>
-      <import plugin="org.eclipse.xtext.xbase.ide"/>
-   </requires>
+      label="CTWedge Feature "
+      version="1.0.0.qualifier"
+      provider-name="University of Bergamo">
 
    <plugin
          id="ctwedge"
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="ctwedge.eclipse"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="ctwedge.eclipse.ui"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
@@ -80,11 +25,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="ctwedge.generator"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
 </feature>

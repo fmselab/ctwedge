@@ -126,17 +126,19 @@
 </head>
 <body>
 
+<a href="https://github.com/fmselab/ctwedge"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+	
 <div class="container">
 	<div class="header">
 		<h1>CTWedge: Combinatorial Testing Web-based Editor and Generator</h1>
 	</div>
-	<img src="logo.png" style="width: 220px; position: absolute; top: 90px; left: 680px;"/>
+	<img src="logo.png" style="width: 220px; position: relative; top: 75px; left: 300px;"/>
 	<div class="content">
-		<div id="xtext-editor" data-editor-xtext-lang="ctw" style="top: 80px; height: 500px"></div>
+		<div id="xtext-editor" data-editor-xtext-lang="ctw" style="top: 60px; height: 380px; width: 640px"></div>
 	</div>
 	
 	<!-- Start of added components -->
-	<div style="margin: 0px auto; position: absolute; left: 200px; width: 400px; top: 121px; height: 50px;" >
+	<div style="margin: 0px auto; position: relative; left: -150px; width: 400px; top: 0px; height: 50px;" >
 		<label for="selectExample">Load Example</label>&nbsp;
 		<select class="selectpicker" id="selectExample">
 			<!-- <option selected>Load Examples</option> -->
@@ -151,7 +153,7 @@
 		</select>
 	</div>
 
-	<div class="table" style="margin: 0px auto; position: absolute; width: 600px; top: 700px;">
+	<div class="table" style="margin: 0px auto; position: relative; top: 400px;">
     		<h4 class="table-title">Generated Test Suite</h4>
        <div class="table-header"></div>
        <div class="table-body">
@@ -162,10 +164,10 @@
        </div> -->
      </div>
 
-	<div style="margin: 0px auto; position: absolute; left: 680px; width: 200px; top: 200px;" >
+	<div style="margin: 0px auto; position: relative; left: 300px; width: 200px; top: 0px;" >
 	<form>
 		<label for="strength">Strength of Test Suite</label>
-		<input type="text" class="form-control bfh-number" id="strength" data-min="2" value="2">
+		<input type="text" class="form-control bfh-number" id="strength" data-min="1" value="2">
 
 		<br/>
 
@@ -192,8 +194,6 @@
 		    <span class="custom-control-description">CASA</span>
 		  </label>
 		</div>
-
-		<br/>
 
 		<label class="custom-control custom-checkbox">
 		  <input type="checkbox" class="custom-control-input" id="ignoreConstraints">
@@ -284,8 +284,8 @@
 	            success: function (data){
 	     	       	$('.table-header').html('<p>Generated using '+generatorV+' strength='+strengthV+' ignoringConstraints: '+ignoreConstraints+'</p> <button type="button" class="btn btn-primary">Download CSV</button> <label for="separator" style="display:inline">Separator:</label> ' +
     '<select class="form-control" id="separator" width="css-width" style="width:200px; display: inline;"> '+
-		           	'<option value=";">Semicolon (;) - DEFAULT</option>'+
-		          	'<option value=",">Comma (,)</option>'+
+		           	'<option value=",">Comma (,) - Default</option>'+
+		          	'<option value=";">Semicolon (;)</option>'+
 		          	'<option value="\t">TAB (\\t)</option>'+
 		          	'<option value=" ">Space ( )</option>'+
 		         '</select>');
@@ -296,7 +296,7 @@
 	            			console.log('csv'+csv);
 	            			var separator = $('#separator').val();
 	            			var hiddenElement = document.createElement('a');
-	            		    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv.replace(";",separator));
+	            		    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv.split(";").join(separator));
 	            		    hiddenElement.target = '_blank';
 	            		    hiddenElement.download = $select.val()+'.csv';
 	            		    hiddenElement.click();
@@ -342,8 +342,14 @@
 			  waitForElement();
 		  });
 		</script>
+		<div class="footer">
+  			<p>CTWedge. Copyright 2018 by University of Bergamo, Italy. Home page of the project: <a href="https://www.github.com/fmselab/ctwedge">github.com/fmselab/ctwedge</a>.</p>
 		</div>
+		
+		</div>
+		
 	</div>
+	
 
 </body>
 </html>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
    <feature id="ctwedge.feature" version="0.0.0">
-      <category name="main"/>
+      <category name="ctwedge"/>
    </feature>
    <feature id="ctwedge.feature.source" version="0.0.0">
-      <category name="main.source"/>
+      <category name="ctwedge.source"/>
    </feature>
-   <category-def name="main" label="CTWEdge"/>
-   <category-def name="main.source" label="CTWEdge (Sources)"/>
+   <category-def name="ctwedge" label="CTWedge"/>
+   <category-def name="ctwedge.source" label="CTWedge (Sources)"/>
 </site>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="ACTS"
+         name="ACTSGenerator"
+         point="ctwedge.ui.ctwedgeGenerators"> 
+         
+      <Generator
+            Algorithm="ACTS Algorithm"
+            GeneratorPrototype="ctwedge.generator.acts.ACTSTranslator"
+            Name="ACTS"
+            support_constraints="true">
+      </Generator>
+   </extension>
+   
+   <extension
+         id="CASA"
+         name="CASAGenerator"
+         point="ctwedge.ui.ctwedgeGenerators"> 
+         
+      <Generator
+            Algorithm="CASA Algorithm"
+            GeneratorPrototype="ctwedge.generator.casa.CASATranslator"
+            Name="CASA"
+            support_constraints="true">
+      </Generator>
+   </extension>
+   
+      <extension
+      	id="CSV"
+         name="CSVExporter"
+         point="ctwedge.ui.ctwedgeExporters">
+      <TestSuiteExporter
+            ExporterName="CSV"
+            FileExtension="*.csv"
+            ITSPrototype="ctwedge.generator.exporter.CSVExporter">
+      </TestSuiteExporter>
+   </extension>
+   
+   <extension
+   		id="XLS"
+         name="ExcelExporter (.xls)"
+         point="ctwedge.ui.ctwedgeExporters">
+      <TestSuiteExporter
+            ExporterName="XLS"
+            FileExtension="*.xls"
+            ITSPrototype="ctwedge.generator.exporter.XlsExporter">
+      </TestSuiteExporter>
+   </extension>
+
+</plugin>

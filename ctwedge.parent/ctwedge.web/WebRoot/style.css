@@ -21,17 +21,29 @@ a:hover {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	margin: 20px;
+	margin: 15px;
+	text-align: center;
 }
 
 .header {
 	display: block;
-	position: absolute;
+	position: fixed;
 	background-color: #60b0f4; // #e8e8e8;
+	text-align: center;
+	font-style: bold;
+	font-family: Verdana, Arial;
 	top: 0;
 	left: 0;
 	right: 0;
-	padding: 10px;
+	padding: 5px;
+	z-index: 9;
+}
+
+.header h1 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 65px;
+	margin-right: 65px;
 }
 
 .table {
@@ -54,11 +66,25 @@ a:hover {
 
 #xtext-editor {
 	display: block;
-	position: absolute;
+	position: relative;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	padding: 4px;
-	border: 1px solid #aaa;
+	border: 1px solid #60b0f4;/*#aaa;*/
+}
+
+.footer {
+	display: block;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /*background-color: #60b0f4;*/
+    color: black;
+    text-align: center;
+    height: 14px;
+    font-size: 10px;
+    font-family: Arial, Sans Serif;
 }

@@ -1,14 +1,15 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: ctwedge.ide
 Bundle-ManifestVersion: 2
 Bundle-Name: ctwedge.ide
-Bundle-Vendor: University of Bergamo
+Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: ctwedge.ide; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: ctwedge,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide,
- org.antlr.runtime
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: ctwedge.ide.contentassist.antlr.internal,
  ctwedge.ide.contentassist.antlr
