@@ -45,3 +45,9 @@ ctwedge\.parent/ctwedge\.web/target/
 
 /local-maven-repo/
 /ctwedge.generator.webapp.test/target
+
+ctwedge\.parent/ctwedge/target/
+
+ctwedge\.parent/ctwedge\.ide/target/
+
+ctwedge\.parent/ctwedge\.ui/target/
