@@ -8,7 +8,7 @@ It comes as a Web interface, and as an Eclipse plugin:
 - [CTWedge Web](http://foselab.unibg.it/ctwedge): `http://foselab.unibg.it/ctwedge`
 - CTWedge for Eclipse: in Eclipse, press `Help` -> `Install New Software...`, add this link: **`https://fmselab.github.io/ctwedge/ctwedge_update/`** . Follow the instructions to install. Obs.: note that Xtext is required: if not present, please install it first (it can be found also in the Eclipse Marketplace). To use the plugin, check out our short user guide [here](https://fmselab.github.io/ctwedge).
 
-<img src="https://raw.githubusercontent.com/fmselab/ctwedge/master/ctwedge.parent/ctwedge.web/WebRoot/logo.png" width="200" alt="CTWedge logo">
+<a href="https://foselab.unibg.it/ctwedge"><img src="https://raw.githubusercontent.com/fmselab/ctwedge/master/ctwedge.parent/ctwedge.web/WebRoot/logo.png" width="200" alt="CTWedge logo"></a>
 
 For developers, to compile source see instructions [here](https://fmselab.github.io/ctwedge/developer).
 
