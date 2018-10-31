@@ -89,7 +89,7 @@ public enum Operators implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #GT
-   * @model literal="&gt;"
+   * @model literal=">"
    * @generated
    * @ordered
    */
@@ -104,7 +104,7 @@ public enum Operators implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #LT
-   * @model literal="&lt;"
+   * @model literal="<"
    * @generated
    * @ordered
    */
@@ -119,7 +119,7 @@ public enum Operators implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #GE
-   * @model literal="&gt;="
+   * @model literal=">="
    * @generated
    * @ordered
    */
@@ -134,7 +134,7 @@ public enum Operators implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #LE
-   * @model literal="&lt;="
+   * @model literal="<="
    * @generated
    * @ordered
    */

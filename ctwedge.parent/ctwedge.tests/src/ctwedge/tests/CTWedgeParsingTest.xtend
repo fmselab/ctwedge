@@ -21,7 +21,17 @@ class CTWedgeParsingTest {
 	@Test
 	def void loadModel() {
 		val result = parseHelper.parse('''
-			Hello Xtext!
+			/*
+									 * This is an example model
+									 */
+									Model Phone
+									 Parameters:
+									   emailViewer : Boolean
+									   textLines:  [ 25 .. 30 ]
+									   display : {16MC, 8MC, BW}
+									
+									 Constraints:
+									   # emailViewer => textLines > 28 #
 		''')
 		Assertions.assertNotNull(result)
 		val errors = result.eResource.errors

@@ -49,7 +49,7 @@ public enum ImpliesOperator implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #IMPL
-   * @model name="Impl" literal="=&gt;"
+   * @model name="Impl" literal="=>"
    * @generated
    * @ordered
    */
@@ -64,7 +64,7 @@ public enum ImpliesOperator implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #IFF
-   * @model name="Iff" literal="&lt;=&gt;"
+   * @model name="Iff" literal="<=>"
    * @generated
    * @ordered
    */

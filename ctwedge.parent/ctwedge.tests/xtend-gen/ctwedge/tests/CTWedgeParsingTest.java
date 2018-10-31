@@ -29,7 +29,36 @@ public class CTWedgeParsingTest {
   public void loadModel() {
     try {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("Hello Xtext!");
+      _builder.append("/*");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t ");
+      _builder.append("* This is an example model");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t ");
+      _builder.append("*/");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t");
+      _builder.append("Model Phone");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t ");
+      _builder.append("Parameters:");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t   ");
+      _builder.append("emailViewer : Boolean");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t   ");
+      _builder.append("textLines:  [ 25 .. 30 ]");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t   ");
+      _builder.append("display : {16MC, 8MC, BW}");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t ");
+      _builder.append("Constraints:");
+      _builder.newLine();
+      _builder.append("\t\t\t\t\t\t   ");
+      _builder.append("# emailViewer => textLines > 28 #");
       _builder.newLine();
       final CitModel result = this.parseHelper.parse(_builder);
       Assertions.assertNotNull(result);

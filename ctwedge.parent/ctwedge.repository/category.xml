@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
    <feature id="ctwedge.feature" version="0.0.0">
-      <category name="ctwedge"/>
+      <category name="CTWedge"/>
    </feature>
-   <category-def name="ctwedge" label="CTWedge"/>
+   <category-def name="CTWedge" label="CTWedge"/>
 </site>
