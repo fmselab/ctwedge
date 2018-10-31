@@ -1,16 +1,18 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: ctwedge.util
 Bundle-ManifestVersion: 2
-Bundle-Name: Util
-Bundle-SymbolicName: ctwedge.util
+Bundle-Name: ctwedge.util
+Bundle-Vendor: University of Bergamo, Italy
 Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: ctwedge.util; singleton:=true
+Require-Bundle: ctwedge,
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.util,
+ org.eclipse.xtext,
+ org.junit
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: ctwedge.util,
  ctwedge.util.ext,
  ctwedge.util.genprefs,
  ctwedge.util.simplifier,
  ctwedge.util.validator
-Require-Bundle: ctwedge,
- org.eclipse.emf.ecore,
- org.eclipse.xtext.util,
- org.eclipse.xtext,
- org.junit,
- ctwedge.benchmarks

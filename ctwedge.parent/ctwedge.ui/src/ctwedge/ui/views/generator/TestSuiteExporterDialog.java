@@ -41,7 +41,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-import ctwedge.ui.Activator;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestSuiteExporter;
 

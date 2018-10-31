@@ -17,5 +17,11 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ctwedge.util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	  </dependencies>
 </project>

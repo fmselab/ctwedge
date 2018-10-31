@@ -204,7 +204,7 @@ public class CTWedgeView extends ViewPart {
 
 					if (o instanceof ICTWedgeTestGenerator) {
 						myImage = ImageDescriptor.createFromURL(FileLocator
-								.find(bundle, new Path("icons/g.gif"), null));
+								.find(bundle, new Path("icons/logo16.png"), null));
 						break;
 						
 					}
@@ -223,7 +223,7 @@ public class CTWedgeView extends ViewPart {
 
 					if (o instanceof ICTWedgeExporter) {
 						myImage = ImageDescriptor.createFromURL(FileLocator
-								.find(bundle, new Path("icons/logo.png"), null));
+								.find(bundle, new Path("icons/logo16.png"), null));
 						break;
 						
 					}
@@ -242,7 +242,7 @@ public class CTWedgeView extends ViewPart {
 
 					if (o instanceof ICTWedgeImporter) {
 						myImage = ImageDescriptor.createFromURL(FileLocator
-								.find(bundle, new Path("icons/i.gif"), null));
+								.find(bundle, new Path("icons/logo16.png"), null));
 						break;
 						
 					}
@@ -258,7 +258,7 @@ public class CTWedgeView extends ViewPart {
 		public Image getColumnImage(Object element, int columnIndex) {
 			Bundle bundle = Platform.getBundle(Activator.PLUGIN_ID);
 			ImageDescriptor myImage = ImageDescriptor.createFromURL(FileLocator
-					.find(bundle, new Path("icons/g.gif"), null));
+					.find(bundle, new Path("icons/logo16.png"), null));
 			return myImage.createImage();
 		}
 
@@ -532,7 +532,7 @@ public class CTWedgeView extends ViewPart {
 		btnRunGen.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		btnRunGen.setForeground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		btnRunGen.setImage(ResourceManager.getPluginImage(Activator.PLUGIN_ID,
-				"icons/wizard.gif"));
+				"icons/logo16.png"));
 		btnRunGen.setText("Generate");
 
 		Label lblNwise = new Label(composite, SWT.NONE);
