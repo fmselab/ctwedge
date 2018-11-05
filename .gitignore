@@ -41,13 +41,9 @@ bin/
 
 ctwedge\.parent/ctwedge\.web/target/m2e-wtp/web-resources/META-INF/maven/ctwedge/ctwedge\.web/pom\.properties
 
-ctwedge\.parent/ctwedge\.web/target/
 
 /local-maven-repo/
-/ctwedge.generator.webapp.test/target
 
-ctwedge\.parent/ctwedge/target/
-
-ctwedge\.parent/ctwedge\.ide/target/
-
-ctwedge\.parent/ctwedge\.ui/target/
+# every target directory 
+# https://stackoverflow.com/questions/1470572/ignoring-any-bin-directory-on-a-git-project
+target/
