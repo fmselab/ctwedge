@@ -13,7 +13,7 @@ import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor;
 @FinalFieldsConstructor
 @SuppressWarnings("all")
 public class CTWedgeUiModule extends AbstractCTWedgeUiModule {
-  public CTWedgeUiModule(final AbstractUIPlugin arg0) {
-    super(arg0);
+  public CTWedgeUiModule(final AbstractUIPlugin plugin) {
+    super(plugin);
   }
 }
