@@ -49,3 +49,4 @@ ctwedge\.parent/ctwedge\.web/target/m2e-wtp/web-resources/META-INF/maven/ctwedge
 target/
 **/src-gen/*
 **/xtend-gen/*
+ctwedge.parent/ctwedge.generator/libs/acts-3.0.jar
