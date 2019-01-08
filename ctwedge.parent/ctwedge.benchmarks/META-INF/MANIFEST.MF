@@ -8,6 +8,5 @@ Export-Package: .,
  ctwedge.benchmarks.importer
 Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.13.0",
  org.eclipse.xtext,
- ctwedge.util,
- citlab.model
+ ctwedge.util
 Import-Package: ctwedge.util
