@@ -115,19 +115,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   </build>
   
   <dependencies>
-		<!-- <dependency>
+		<dependency>
 		    <groupId>${project.groupId}</groupId>
 		    <artifactId>acts</artifactId>
 		    <version>3.0</version>
 		    <systemPath>${project.basedir}/libs/acts-3.0.jar</systemPath>
 		    <scope>system</scope>
 		</dependency>
-		-->
-		<dependency>
+		
+		<!--  <dependency>
 		    <groupId>${project.groupId}</groupId>
 		    <artifactId>acts</artifactId>
 		    <version>3.0</version>
 		</dependency>
+		-->
 		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
