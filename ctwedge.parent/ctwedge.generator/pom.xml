@@ -9,12 +9,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   <artifactId>ctwedge.generator</artifactId>
   <packaging>eclipse-plugin</packaging>
   
-  <repositories>
+  <!-- <repositories>
     <repository>
         <id>acts-3.0</id>
         <url>file:${basedir}/libs/acts-3.0.jar</url>
     </repository>
-</repositories>
+  </repositories> -->
 
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -64,13 +64,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 				</executions>
 			</plugin>
 			
-			<!--  <plugin>
+			<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-install-plugin</artifactId>
 			    <version>2.5.2</version>
 			    <executions>
 			        <execution>
-			            <id>install-external</id>
+			            <!-- <id>install-external</id> -->
 			            <phase>clean</phase>
 			            <configuration>
 			                <file>${basedir}/libs/acts-3.0.jar</file>
@@ -79,7 +79,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			                <artifactId>acts</artifactId>
 			                <version>3.0</version>
 			                <packaging>jar</packaging>
-			                <generatePom>true</generatePom>
+			                <!-- <generatePom>true</generatePom> -->
 			            </configuration>
 			            <goals>
 			                <goal>install-file</goal>
@@ -88,7 +88,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			    </executions>
 			</plugin> 
 			
-			<plugin>
+			<!--  <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-install-plugin</artifactId>
             <executions>
@@ -115,20 +115,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   </build>
   
   <dependencies>
-		<dependency>
+		<!--  <dependency>
 		    <groupId>${project.groupId}</groupId>
 		    <artifactId>acts</artifactId>
 		    <version>3.0</version>
 		    <systemPath>${project.basedir}/libs/acts-3.0.jar</systemPath>
 		    <scope>system</scope>
-		</dependency>
+		</dependency> -->
 		
-		<!--  <dependency>
+		<dependency>
 		    <groupId>${project.groupId}</groupId>
 		    <artifactId>acts</artifactId>
 		    <version>3.0</version>
 		</dependency>
-		-->
+		
 		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
