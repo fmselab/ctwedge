@@ -16,10 +16,10 @@ This page provides a user guide to the usage of the Eclipse Plugin of [CTWedge](
 <img src="https://fmselab.github.io/ctwedge/images/export.png" width="350" alt="Export" />
 
 ### Possible Issues
-- If a view with the generated test suite does not appear, or an error is shown, right click again and press `Run As` -> `CTWedge`
+- If a view with the generated test suite does not appear, or an error is shown, perform the previous three steps again, in the order above. Note: if you right click and press `Run As` -> `CTWedge`, it works *only* if a run configuration already exists (step 1 above has been performed previously), and it re-executes that configuration.
 <img src="https://fmselab.github.io/ctwedge/images/runas.png" width="350" alt="Run As" />
 - If a popup window with a `NULL` error shows up, please make sure to have Xtext installed in Eclipse.
 
 For other problems, please contact [Marco Radavelli](mailto:marco.radavelli@unibg.it)
 
-Last Update 31.10.2018
+Last Update 21.05.2019
