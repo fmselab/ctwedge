@@ -26,5 +26,6 @@ Export-Package: ctwedge,
  ctwedge.ctWedge.util,
  ctwedge.parser.antlr.internal,
  ctwedge.parser.antlr,
- ctwedge.generator
+ ctwedge.generator,
+ ctwedge.formatting2
 Import-Package: org.apache.log4j

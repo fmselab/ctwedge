@@ -23,13 +23,14 @@ public class CTwedgeLaunchConfigurationDelegate implements ILaunchConfigurationD
 	@Override
 	public void launch(ILaunchConfiguration configuration, String arg1, ILaunch arg2, IProgressMonitor arg3) throws CoreException {
 		System.out.println(configuration + " " + arg1 + arg2);
-		System.out.println(configuration.getAttribute(CTWedgeTab.STRENGTH, 2) + " " + configuration.getAttribute(CTWedgeTab.GENERATOR2, "null") + " " + configuration.getAttribute(CTWedgeTab.IGNORE_CONSTRAINTS,false) + " " +configuration.getAttribute(CTWedgeLaunchShortcut.ATTR_FILEPATH, ""));
-
-		String generatorName = configuration.getAttribute(CTWedgeTab.GENERATOR2, "null");
+		// use ACTS by default with the constraints and the pairwise
+		String generatorName = configuration.getAttribute(CTWedgeTab.GENERATOR2, "ACTS");
 		int nWise = configuration.getAttribute(CTWedgeTab.STRENGTH, 2);
 		boolean ignoreConstraints = configuration.getAttribute(CTWedgeTab.IGNORE_CONSTRAINTS,false);
-
 		String filePath = configuration.getAttribute(CTWedgeLaunchShortcut.ATTR_FILEPATH, "");
+
+		System.out.println(nWise + " " + generatorName + " " + ignoreConstraints + " " + filePath);
+
 
 		//String filePath = configuration.getAttribute("file", "nullInputFile");
 

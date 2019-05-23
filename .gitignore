@@ -34,6 +34,8 @@ bin/
 */ctwedge_update/*.zip
 !/ctwedge_update/*
 /ctwedge_update/*.zip
+!*/ctwedge_update/features/*
+!*/ctwedge_update/plugins/*
 
 # 
 *.java._trace
