@@ -30,7 +30,9 @@ To create a model and obtain a test suite programmatically, look at examples in 
 
 ## Compile from source
 CTWedge is accessible via any browser at http://foselab.unibg.it/ctwedge. However, this is the instruction to build the .war file from source, and install it to your own server:
-- from Eclipse, open all the projects (check the flag `Search for nested projects`), run `Maven Install` on the `ctwedge.parent` project, and in any other projects if necessary.
+- from Eclipse, open all the projects (check the flag `Search for nested projects`)
+- right click on the the file 'ctwedge.GenerateCTWEdge.mwe2' in the 'ctwedge' project and 'Run as MWE2 Workflow' (if the menu entry is not present, please check that Xtext is installed - you can install it from the Marketplace)
+- run `Maven Install` on the `ctwedge.parent` project, and in any other projects if necessary.
 - Finally, the `target` folder in the `ctwedge.web` project will contain the war file to deploy on the server. The `ctwedge.ui` folder contains the eclipse plugin and can be run as Eclipse Application to debug.
 
 In case of any problems regarding the setup, contact [Marco Radavelli](mailto://marco.radavelli@unibg.it).
