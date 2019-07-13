@@ -135,7 +135,7 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ctwedge.generator</artifactId>
 			<version>${project.version}</version>
-			<!--  <scope>provided</scope> -->
+			<!-- <scope>provided</scope> -->
 		</dependency>
 	</dependencies>
 </project>

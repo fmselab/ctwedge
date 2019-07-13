@@ -5,7 +5,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -21,7 +23,7 @@ import ctwedge.ctWedge.Operators;
  * @author Marco
  *
  */
-public class Combination extends HashMap<String,String> {
+public class Combination extends TreeMap<String,String> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -141,7 +143,8 @@ public class Combination extends HashMap<String,String> {
 		return false;
 	}
 
-	/** if this combination is AB, and in the set there is A, I return true */
+	/** if this combination is AB, and in the set there is A, I return true 
+	 * */
 	public boolean isContainedInNoMatterTheSize(Collection<Combination> set) {
 		for (Combination a : set) if (this.contains(a)) return true;
 		return false;
