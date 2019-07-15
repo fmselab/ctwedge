@@ -30,6 +30,7 @@
 		<module>ctwedge.feature</module>
 		<module>ctwedge.repository</module>
 		<module>ctwedge.tests</module>
+		<module>ctwedge.batchgenerator</module>
 		<!-- <module>ctwedge.ui.tests</module> -->
 	</modules>
 	<build>
