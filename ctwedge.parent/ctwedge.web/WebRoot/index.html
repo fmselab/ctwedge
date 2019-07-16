@@ -282,7 +282,7 @@
 	            	},
 	            //async: false,
 	            success: function (data){
-	     	       	$('.table-header').html('<p>Generated using '+generatorV+' strength='+strengthV+' ignoringConstraints: '+ignoreConstraints+'</p> <button type="button" class="btn btn-primary">Download CSV</button> <label for="separator" style="display:inline">Separator:</label> ' +
+	     	       	/*$('.table-header').html('<p>Generated using '+generatorV+' strength='+strengthV+' ignoringConstraints: '+ignoreConstraints+'</p> <button type="button" class="btn btn-primary">Download CSV</button> <label for="separator" style="display:inline">Separator:</label> ' +
     '<select class="form-control" id="separator" width="css-width" style="width:200px; display: inline;"> '+
 		           	'<option value=",">Comma (,) - Default</option>'+
 		          	'<option value=";">Semicolon (;)</option>'+
@@ -300,7 +300,9 @@
 	            		    hiddenElement.target = '_blank';
 	            		    hiddenElement.download = $select.val()+'.csv';
 	            		    hiddenElement.click();
-	            		});
+	            		});*/
+	      		  $('.table-body').html('<a href="results/' + data + '"">' + data + '</a>');
+
 	            }
 	        });
 		  
