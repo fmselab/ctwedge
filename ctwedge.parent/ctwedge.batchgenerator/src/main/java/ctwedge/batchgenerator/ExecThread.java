@@ -50,7 +50,7 @@ public class ExecThread extends Thread{
 
 		String ts = "";
 		try {
-			ts = Utility.getTestSuite(model, generator, strength, ignoreCostraints, "").toString();
+			ts = Utility.getTestSuite(model, generator, strength, ignoreCostraints, "C:\\Users\\ivanc\\eclipse-workspace\\ctwedge\\ctwedge.parent\\ctwedge.generator\\casa\\").toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

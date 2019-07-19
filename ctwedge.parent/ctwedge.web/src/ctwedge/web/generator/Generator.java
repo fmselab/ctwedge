@@ -13,9 +13,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.emf.common.util.EList;
+
+import com.google.gson.JsonObject;
+
+import ctwedge.ctWedge.CitModel;
+import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.casa.CASAConstraintException;
 import ctwedge.generator.util.Utility;
 import ctwedge.web.generator.ipapi.Ipapi;
+
+
 
 /**
  * Servlet implementation class Generator It is the REST Service module of the
@@ -62,10 +70,14 @@ public class Generator extends HttpServlet {
 			}
 			String res = "Input parameters:\n" + model + "\n" + generator + "\n" + t + "\n" + ignoreC + "\n";
 			String ts ="";
+			JsonObject obj = new JsonObject();
 			
 			if (isSmall(model)) {
 				try {
+					
 					ts = Utility.getTestSuite(model, generator, t, ignoreC, context.getRealPath("/")).toString();
+					obj.addProperty("isSmall", true);
+					obj.addProperty("result", ts);
 				} catch (CASAConstraintException e) {
 					response.getWriter().append(
 							"Exception: arithmetic and relational expressions in constraints are not supported in CASA");
@@ -81,10 +93,13 @@ public class Generator extends HttpServlet {
 			todo.write(model);
 			todo.close();
 			ts = timestamp + ".csv";
+			
+			obj.addProperty("isSmall", false);
+			obj.addProperty("result", ts);
 			}
 			
 
-			res = ts;
+			res = obj.toString();
 			response.getWriter().append(res);
 		} catch (Exception e) {
 			response.getWriter().append("An error has happened: " + e.getMessage());
@@ -123,7 +138,19 @@ public class Generator extends HttpServlet {
 	
 	public boolean isSmall(String model) {
 		/* TODO: Controllo grandezza modello */
-		return false;
+		int size = 1;
+		CitModel citModel = Utility.loadModel(model);
+		EList<Parameter> parameters = citModel.getParameters(); // get parameter list
+		for (Parameter p : parameters) {
+			size = size * Utility.getSize(p); //TODO
+		}
+		
+		if (size > 100 )
+			return false;
+		else 
+			return true;
 	}
 
 }
+
+

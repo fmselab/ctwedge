@@ -257,7 +257,9 @@
 		  var paragraphs = $(e.relatedTarget).data('paragraphs');
 		  var strengthV = $('#strength').val();
 		  var generatorV = $('#generator input:radio:checked').val();
-		  var ignoreConstraints = $('#ignoreConstraints').prop('checked');		  
+		  var ignoreConstraints = $('#ignoreConstraints').prop('checked');
+		  
+		  var status = {status: "Executing..."};
 		  
 		  var editor = ace.edit("xtext-editor");
 		  //editor.setTheme("ace/theme/twilight");
@@ -270,7 +272,7 @@
 	      formData.append('generator', generatorV);
 	      formData.append('ignConstr', ignoreConstraints);
 	      
-		  
+	      
 		  $.ajax({
 	            url: './generator/', //' ../ctwedge.generator?model='+encodeURIComponent(code)+'&strength='+strength+'&generator='+generator+'&ignConstr='+ignoreConstraints,
 	            type: "post",
@@ -282,27 +284,34 @@
 	            	},
 	            //async: false,
 	            success: function (data){
-	     	       	/*$('.table-header').html('<p>Generated using '+generatorV+' strength='+strengthV+' ignoringConstraints: '+ignoreConstraints+'</p> <button type="button" class="btn btn-primary">Download CSV</button> <label for="separator" style="display:inline">Separator:</label> ' +
-    '<select class="form-control" id="separator" width="css-width" style="width:200px; display: inline;"> '+
-		           	'<option value=",">Comma (,) - Default</option>'+
-		          	'<option value=";">Semicolon (;)</option>'+
-		          	'<option value="\t">TAB (\\t)</option>'+
-		          	'<option value=" ">Space ( )</option>'+
-		         '</select>');
-	           		csv = data;
-	           		console.log('csvServer: '+csv);
-	            		csvToHtml(data, $(".table-body"));
-	            		$('.btn-primary').on('click', function(e) {
-	            			console.log('csv'+csv);
-	            			var separator = $('#separator').val();
-	            			var hiddenElement = document.createElement('a');
-	            		    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv.split(";").join(separator));
-	            		    hiddenElement.target = '_blank';
-	            		    hiddenElement.download = $select.val()+'.csv';
-	            		    hiddenElement.click();
-	            		});*/
-	      		  $('.table-body').html('<a href="results/' + data + '"">' + data + '</a>');
-
+	     	       	var obj = JSON.parse(data);
+	     	       	
+	     	       
+	     	       	if (obj.isSmall){
+	     	       	$('.table-header').html('<p>Generated using '+generatorV+' strength='+strengthV+' ignoringConstraints: '+ignoreConstraints+'</p> <button type="button" class="btn btn-primary">Download CSV</button> <label for="separator" style="display:inline">Separator:</label> ' +
+	     	           '<select class="form-control" id="separator" width="css-width" style="width:200px; display: inline;"> '+
+	     	       		           	'<option value=",">Comma (,) - Default</option>'+
+	     	       		          	'<option value=";">Semicolon (;)</option>'+
+	     	       		          	'<option value="\t">TAB (\\t)</option>'+
+	     	       		          	'<option value=" ">Space ( )</option>'+
+	     	       		         '</select>');
+	     	       	           		csv = obj.result;
+	     	       	           		console.log('csvServer: '+csv);
+	     	       	            		csvToHtml(obj.result, $(".table-body"));
+	     	       	            		$('.btn-primary').on('click', function(e) {
+	     	       	            			console.log('csv'+csv);
+	     	       	            			var separator = $('#separator').val();
+	     	       	            			var hiddenElement = document.createElement('a');
+	     	       	            		    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv.split(";").join(separator));
+	     	       	            		    hiddenElement.target = '_blank';
+	     	       	            		    hiddenElement.download = $select.val()+'.csv';
+	     	       	            		    hiddenElement.click();
+	     	       	            		});
+	     	       	} else {
+	     	       		
+	     	       		//getStatus(obj.result.substring(0, onj.result.length - 4), generatorV, strengthV, ignoreConstraints, status);
+	     	       		$('.table-body').html('<p> <a href="results/' + obj.result + '"">' + obj.result + '</a>' + status.status + "</p>");
+	     	       	}
 	            }
 	        });
 		  
@@ -319,6 +328,23 @@
 		      csvToHtml(csv, $(".output"));
 		    });*/
 		});
+		  
+		/* function getStatus(ts, type, str, ignC, st){
+	       		var nome = ts + '_' + type + '_' + str + '_' + ignC + '.ctw';
+	       		$.ajax({
+  	    		   url: './status/',
+  	    		   type: 'post',
+  	    		   data {
+  	    			  name : nome
+  	    		   },
+  	    		   success: function(data) {
+  	    			  st.status = data;
+  	    			 if(data =="Exectuing...")
+	      				   setTimeout(getStatus(ts, type, str, ignC, st), 1000);
+  	    			  
+  	    		   }
+  	    		});
+		} */
 		  
 		function waitForElement(){
 		    if(typeof ace !== "undefined"){
@@ -342,6 +368,7 @@
 		  
 		$(document).ready(function(){
 			  waitForElement();
+			  //getStatus();
 		  });
 		</script>
 		<div class="footer">

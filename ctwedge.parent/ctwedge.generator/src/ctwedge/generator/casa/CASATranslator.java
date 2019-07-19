@@ -152,26 +152,28 @@ public class CASATranslator extends ICTWedgeTestGenerator {
 			execName = "cover";
 		}
 		try {
-			// Bundle bundle = Platform.getBundle("ctwedge.generator");
-			// URL url = Paths.get(execName).toUri().toURL();
-			// FileLocator.resolve(FileLocator.find(bundle, new Path(execName),
-			// Collections.emptyMap()));
-			System.out.println(path+execName);
-			Set<PosixFilePermission> perms = new HashSet<PosixFilePermission>();
-			// add owners permission
-			perms.add(PosixFilePermission.OWNER_READ);
-			perms.add(PosixFilePermission.OWNER_WRITE);
-			perms.add(PosixFilePermission.OWNER_EXECUTE);
-			// add group permissions
-			perms.add(PosixFilePermission.GROUP_READ);
-			perms.add(PosixFilePermission.GROUP_WRITE);
-			perms.add(PosixFilePermission.GROUP_EXECUTE);
-			// add others permissions
-			perms.add(PosixFilePermission.OTHERS_READ);
-			perms.add(PosixFilePermission.OTHERS_WRITE);
-			perms.add(PosixFilePermission.OTHERS_EXECUTE);
-
-			Files.setPosixFilePermissions(Paths.get(path+execName), perms);
+			if (!System.getProperty("os.name").startsWith("Windows")) {
+				// Bundle bundle = Platform.getBundle("ctwedge.generator");
+				// URL url = Paths.get(execName).toUri().toURL();
+				// FileLocator.resolve(FileLocator.find(bundle, new Path(execName),
+				// Collections.emptyMap()));
+				System.out.println(path+execName);
+				Set<PosixFilePermission> perms = new HashSet<PosixFilePermission>();
+				// add owners permission
+				perms.add(PosixFilePermission.OWNER_READ);
+				perms.add(PosixFilePermission.OWNER_WRITE);
+				perms.add(PosixFilePermission.OWNER_EXECUTE);
+				// add group permissions
+				perms.add(PosixFilePermission.GROUP_READ);
+				perms.add(PosixFilePermission.GROUP_WRITE);
+				perms.add(PosixFilePermission.GROUP_EXECUTE);
+				// add others permissions
+				perms.add(PosixFilePermission.OTHERS_READ);
+				perms.add(PosixFilePermission.OTHERS_WRITE);
+				perms.add(PosixFilePermission.OTHERS_EXECUTE);
+	
+				Files.setPosixFilePermissions(Paths.get(path+execName), perms);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
