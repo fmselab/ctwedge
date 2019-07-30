@@ -56,7 +56,7 @@ public class Utility {
 			throw new RuntimeException();
 		}
 		CitModel res = (CitModel) resource.getContents().get(0);
-		System.out.println("Original model: " + ACTSConstraintTranslator.dump(res, ""));
+		//System.out.println("Original model: " + ACTSConstraintTranslator.dump(res, ""));
 		return res;
 	}
 

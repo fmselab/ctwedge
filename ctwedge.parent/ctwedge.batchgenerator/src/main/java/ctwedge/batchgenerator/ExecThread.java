@@ -8,18 +8,18 @@ import java.io.PrintWriter;
 
 import ctwedge.generator.util.Utility;
 
-public class ExecThread extends Thread{
+public class ExecThread extends Thread {
 	private final static String DIR_DONE = "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Done";
 	private final static String DIR_RESULTS = "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Results";
-	
+
 	File file;
 	int name;
-	
+
 	public ExecThread(File model, int i) {
 		this.file = model;
-		this.name = i;
+		this.name = i + 1;
 	}
-	
+
 	@Override
 	public void run() {
 		System.out.println("Sono il thread " + this.name);
@@ -31,7 +31,7 @@ public class ExecThread extends Thread{
 		String generator = name[1];
 		int strength = Integer.parseInt(name[2]);
 		boolean ignoreCostraints = Boolean.parseBoolean(name[3]);
-		//String nome = name[4].substring(0, name[4].length() - 4);
+		// String nome = name[4].substring(0, name[4].length() - 4);
 
 		FileInputStream fis = null;
 		try {
@@ -50,7 +50,10 @@ public class ExecThread extends Thread{
 
 		String ts = "";
 		try {
-			ts = Utility.getTestSuite(model, generator, strength, ignoreCostraints, "C:\\Users\\ivanc\\eclipse-workspace\\ctwedge\\ctwedge.parent\\ctwedge.generator\\casa\\").toString();
+			ts = Utility
+					.getTestSuite(model, generator, strength, ignoreCostraints,
+							"C:\\Users\\ivanc\\eclipse-workspace\\ctwedge\\ctwedge.parent\\ctwedge.generator\\casa\\")
+					.toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,7 +71,8 @@ public class ExecThread extends Thread{
 
 			this.file.delete();
 			BatchGenerator.doingList.remove(this.file);
-			
+			BatchGenerator.ActiveThread--;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

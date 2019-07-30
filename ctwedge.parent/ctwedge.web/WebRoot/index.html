@@ -309,8 +309,8 @@
 	     	       	            		});
 	     	       	} else {
 	     	       		
-	     	       		//getStatus(obj.result.substring(0, onj.result.length - 4), generatorV, strengthV, ignoreConstraints, status);
-	     	       		$('.table-body').html('<p> <a href="results/' + obj.result + '"">' + obj.result + '</a>' + status.status + "</p>");
+	     	       		//getStatus(obj.result.substring(0, obj.result.length - 4), generatorV, strengthV, ignoreConstraints, status);
+	     	       		$('.table-body').html('<p><a href="results/?name=' + obj.result + '"  target="_blank">' + obj.result + '</a></p>');
 	     	       	}
 	            }
 	        });
@@ -329,22 +329,22 @@
 		    });*/
 		});
 		  
-		/* function getStatus(ts, type, str, ignC, st){
+		function getStatus(ts, type, str, ignC, st){
 	       		var nome = ts + '_' + type + '_' + str + '_' + ignC + '.ctw';
 	       		$.ajax({
   	    		   url: './status/',
   	    		   type: 'post',
-  	    		   data {
+  	    		   data: {
   	    			  name : nome
   	    		   },
   	    		   success: function(data) {
   	    			  st.status = data;
-  	    			 if(data =="Exectuing...")
+  	    			 if(data =="Executing...")
 	      				   setTimeout(getStatus(ts, type, str, ignC, st), 1000);
   	    			  
   	    		   }
   	    		});
-		} */
+		}
 		  
 		function waitForElement(){
 		    if(typeof ace !== "undefined"){
@@ -368,7 +368,6 @@
 		  
 		$(document).ready(function(){
 			  waitForElement();
-			  //getStatus();
 		  });
 		</script>
 		<div class="footer">
