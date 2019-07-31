@@ -20,7 +20,7 @@ import ctwedge.generator.casa.CASAConstraintException;
 import ctwedge.generator.util.Utility;
 
 public class BatchGenerator {
-	private final static String DIR_TODO = "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Todo";
+	private final static String DIR_TODO = "/var/www/foselab_html/ctwedge/todo";
 	static Integer ActiveThread = 0;
 	// private final static String DIR_DOING =
 	// "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Doing";

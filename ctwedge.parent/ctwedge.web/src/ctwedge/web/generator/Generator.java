@@ -32,7 +32,7 @@ import ctwedge.web.generator.ipapi.Ipapi;
 @WebServlet("/generator/")
 public class Generator extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final static String DIR_TODO = "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Todo";
+	private final static String DIR_TODO = "/var/www/foselab_html/ctwedge/todo";
 	private File dir;
 	public static ServletContext context;
 

@@ -23,7 +23,7 @@ public class Result extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final static String DIR_RES = "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Results";
+	private final static String DIR_RES = "/var/www/foselab_html/ctwedge/results";
 	// private final static String DIR_=
 	// "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Todo";
 	// private File dir;

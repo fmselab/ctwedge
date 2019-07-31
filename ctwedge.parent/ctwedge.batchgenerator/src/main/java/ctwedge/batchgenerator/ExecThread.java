@@ -9,8 +9,8 @@ import java.io.PrintWriter;
 import ctwedge.generator.util.Utility;
 
 public class ExecThread extends Thread {
-	private final static String DIR_DONE = "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Done";
-	private final static String DIR_RESULTS = "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Results";
+	private final static String DIR_DONE = "/var/www/foselab_html/ctwedge/done";
+	private final static String DIR_RESULTS = "/var/www/foselab_html/ctwedge/results";
 
 	File file;
 	int name;
@@ -52,7 +52,7 @@ public class ExecThread extends Thread {
 		try {
 			ts = Utility
 					.getTestSuite(model, generator, strength, ignoreCostraints,
-							"C:\\Users\\ivanc\\eclipse-workspace\\ctwedge\\ctwedge.parent\\ctwedge.generator\\casa\\")
+							"./")
 					.toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
