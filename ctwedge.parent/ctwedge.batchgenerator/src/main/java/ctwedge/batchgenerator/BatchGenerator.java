@@ -19,7 +19,7 @@ import javax.swing.plaf.SliderUI;
 import ctwedge.generator.casa.CASAConstraintException;
 import ctwedge.generator.util.Utility;
 
-public class BatchGenerator extends Thread {
+public class BatchGenerator {
 	private final static String DIR_TODO = "C:\\Users\\ivanc\\Desktop\\Universita\\Tesi\\BatchGenerator\\Todo";
 	static Integer ActiveThread = 0;
 	// private final static String DIR_DOING =
@@ -33,6 +33,10 @@ public class BatchGenerator extends Thread {
 	public static ArrayList<File> doingList = new ArrayList<File>();
 
 	public void run() {
+		 // while()
+	}
+
+	public static void main(String[] args) {
 		File todo = new File(DIR_TODO);
 
 		while (true) {
@@ -48,14 +52,10 @@ public class BatchGenerator extends Thread {
 			} else {
 				System.out.println("DoingList: " + doingList.toString());
 			}
-		} // while()
+		}
 	}
 
-	public static void main(String[] args) {
-		(new BatchGenerator()).start();
-	}
-
-	private void createThread(File[] files) {
+	private static void createThread(File[] files) {
 		for (int i = 0; i < files.length; i++) {
 			if (!doingList.contains(files[i])) {
 				if (ActiveThread < 5) {
@@ -63,13 +63,7 @@ public class BatchGenerator extends Thread {
 					ActiveThread++;
 					new ExecThread(files[i], i).start();
 				} else {
-					try {
-						System.out.println("Sono il main, vado in attesa. Thread attivi: " + ActiveThread);
-						Thread.sleep(1500);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					System.out.println("Sono il main thread, vado in attesa. Thread attivi: " + ActiveThread);
 				}
 			}
 		}

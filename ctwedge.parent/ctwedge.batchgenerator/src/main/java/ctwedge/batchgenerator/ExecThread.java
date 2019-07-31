@@ -23,7 +23,7 @@ public class ExecThread extends Thread {
 	@Override
 	public void run() {
 		System.out.println("Sono il thread " + this.name);
-		System.out.println(BatchGenerator.doingList.toString());
+		//System.out.println(BatchGenerator.doingList.toString());
 		String model = "";
 		String[] name = this.file.getName().split("_");
 
