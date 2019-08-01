@@ -1,6 +1,5 @@
 package ctwedge.web.generator;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.emf.common.util.EList;
 
+import com.google.common.base.Throwables;
 import com.google.gson.JsonObject;
 
 import ctwedge.ctWedge.CitModel;
@@ -33,7 +33,6 @@ import ctwedge.web.generator.ipapi.Ipapi;
 public class Generator extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static String DIR_TODO = "/var/www/foselab_html/ctwedge/todo";
-	private File dir;
 	public static ServletContext context;
 
 	/**
@@ -41,7 +40,6 @@ public class Generator extends HttpServlet {
 	 */
 	public Generator() {
 		super();
-		dir = new File(DIR_TODO);
 	}
 
 	/**
@@ -57,16 +55,27 @@ public class Generator extends HttpServlet {
 			String generator = request.getParameter("generator");
 			String strength = request.getParameter("strength");
 			String ignoreConstraints = request.getParameter("ignConstr");
-			Ipapi.saveData("/var/www/html/3dcar/ctwedgelog/", generator + " " + strength + " " + model, getIP(request));
+			String modelName = "";
+			Ipapi.saveData("/var/www/foselab_html/ctwedge/", generator + " " + strength + " " + model, getIP(request));
+			try {
+				modelName = Utility.loadModel(model).getName();
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.getWriter().append(Throwables.getStackTraceAsString(e));				
+			}
 			int t = 2;
 			try {
 				t = Integer.parseInt(strength);
 			} catch (Exception e) {
+				e.printStackTrace();
+				response.getWriter().append(Throwables.getStackTraceAsString(e));
 			}
 			boolean ignoreC = false;
 			try {
 				ignoreC = Boolean.parseBoolean(ignoreConstraints);
 			} catch (Exception e) {
+				e.printStackTrace();
+				response.getWriter().append(Throwables.getStackTraceAsString(e));
 			}
 			String res = "Input parameters:\n" + model + "\n" + generator + "\n" + t + "\n" + ignoreC + "\n";
 			String ts ="";
@@ -74,7 +83,6 @@ public class Generator extends HttpServlet {
 			
 			if (isSmall(model)) {
 				try {
-					
 					ts = Utility.getTestSuite(model, generator, t, ignoreC, context.getRealPath("/")).toString();
 					obj.addProperty("isSmall", true);
 					obj.addProperty("result", ts);
@@ -83,22 +91,22 @@ public class Generator extends HttpServlet {
 							"Exception: arithmetic and relational expressions in constraints are not supported in CASA");
 				} catch (Exception e) {
 					e.printStackTrace();
+					response.getWriter().append(Throwables.getStackTraceAsString(e));
 				}
 			} else {
-			// response.getWriter().append(res);
-			String timestamp = new SimpleDateFormat("yyyyMMddkkmmssSSS")
-					.format(new Timestamp(System.currentTimeMillis()));
-			PrintWriter todo = new PrintWriter(
-					DIR_TODO + "/" + timestamp + "_" + generator + "_" + strength + "_" + ignoreConstraints + ".ctw");
-			todo.write(model);
-			todo.close();
-			ts = timestamp + ".csv";
-			
-			obj.addProperty("isSmall", false);
-			obj.addProperty("result", ts);
+				// response.getWriter().append(res);
+				String timestamp = new SimpleDateFormat("yyyyMMddkkmmssSSS")
+						.format(new Timestamp(System.currentTimeMillis()));
+				PrintWriter todo = new PrintWriter(
+						DIR_TODO + "/" + timestamp + "_" + generator + "_" + strength + "_" + ignoreConstraints + "_" + modelName +".ctw");
+				todo.write(model);
+				todo.close();
+				ts = timestamp + ".csv";
+				
+				obj.addProperty("isSmall", false);
+				obj.addProperty("result", ts);
 			}
 			
-
 			res = obj.toString();
 			response.getWriter().append(res);
 		} catch (Exception e) {
@@ -137,12 +145,11 @@ public class Generator extends HttpServlet {
 	}
 	
 	public boolean isSmall(String model) {
-		/* TODO: Controllo grandezza modello */
 		int size = 1;
 		CitModel citModel = Utility.loadModel(model);
 		EList<Parameter> parameters = citModel.getParameters(); // get parameter list
 		for (Parameter p : parameters) {
-			size = size * Utility.getSize(p); //TODO
+			size = size * Utility.getSize(p);
 		}
 		
 		if (size > 100 )

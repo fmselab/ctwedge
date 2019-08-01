@@ -70,9 +70,10 @@ public class ExecThread extends Thread {
 			results.close();
 
 			this.file.delete();
-			BatchGenerator.doingList.remove(this.file);
-			BatchGenerator.ActiveThread--;
-
+			synchronized (BatchGenerator.ActiveThread) {
+				BatchGenerator.doingList.remove(this.file);
+				BatchGenerator.ActiveThread--;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
