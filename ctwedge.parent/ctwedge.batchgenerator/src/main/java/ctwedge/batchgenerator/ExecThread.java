@@ -51,9 +51,8 @@ public class ExecThread extends Thread {
 		String ts = "";
 		try {
 			ts = Utility
-					.getTestSuite(model, generator, strength, ignoreCostraints,
-							"./")
-					.toString();
+					.getTestSuite(model, generator, strength, ignoreCostraints, "./")
+					.toString().replace(";", ",");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,9 +69,9 @@ public class ExecThread extends Thread {
 			results.close();
 
 			this.file.delete();
-			synchronized (BatchGenerator.ActiveThread) {
+			synchronized (BatchGenerator.activeThreads) {
 				BatchGenerator.doingList.remove(this.file);
-				BatchGenerator.ActiveThread--;
+				BatchGenerator.activeThreads--;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

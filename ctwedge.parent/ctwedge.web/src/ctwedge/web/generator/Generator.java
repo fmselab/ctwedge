@@ -61,7 +61,10 @@ public class Generator extends HttpServlet {
 				modelName = Utility.loadModel(model).getName();
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.getWriter().append(Throwables.getStackTraceAsString(e));				
+				response.getWriter().append(Throwables.getStackTraceAsString(e));
+			}
+			if (modelName==null || modelName.isEmpty()) {
+				response.getWriter().append("Syntax Error: missing model name");
 			}
 			int t = 2;
 			try {
@@ -84,6 +87,9 @@ public class Generator extends HttpServlet {
 			if (isSmall(model)) {
 				try {
 					ts = Utility.getTestSuite(model, generator, t, ignoreC, context.getRealPath("/")).toString();
+					if (ts == null || ts.isEmpty()) {
+						response.getWriter().append("Empty test suite. There may be a syntax error in the input model.");
+					}
 					obj.addProperty("isSmall", true);
 					obj.addProperty("result", ts);
 				} catch (CASAConstraintException e) {
@@ -102,7 +108,9 @@ public class Generator extends HttpServlet {
 				todo.write(model);
 				todo.close();
 				ts = timestamp + ".csv";
-				
+				if (ts == null || ts.isEmpty()) {
+					response.getWriter().append("Empty test suite. There may be a syntax error in the input model.");
+				}				
 				obj.addProperty("isSmall", false);
 				obj.addProperty("result", ts);
 			}

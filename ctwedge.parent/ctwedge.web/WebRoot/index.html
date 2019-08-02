@@ -3,7 +3,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="Content-Language" content="en-us">
 	<title>CTWedge</title>
-	<link rel="stylesheet" type="text/css" href="xtext/2.16.0/xtext-ace.css"/>
+	<link rel="stylesheet" type="text/css" href="xtext/2.18.0.M2/xtext-ace.css"/>
 	<link rel="stylesheet" type="text/css" href="style.css"/>
 	
 	<!-- Added, in addition to editor -->
@@ -35,7 +35,7 @@
 			paths: {
 				"jquery": "webjars/jquery/2.2.4/jquery.min",
 				"ace/ext/language_tools": "webjars/ace/1.2.3/src/ext-language_tools",
-				"xtext/xtext-ace": "xtext/2.16.0/xtext-ace"
+				"xtext/xtext-ace": "xtext/2.18.0.M2/xtext-ace"
 			}
 		});
 		require(["webjars/ace/1.2.3/src/ace"], function() {
@@ -284,12 +284,11 @@
 	            	},
 	            //async: false,
 	            success: function (data){
-	     	       	var obj = JSON.parse(data);
-	     	       	
-	     	       
-	     	       	if (obj.isSmall){
-	     	       	$('.table-header').html('<p>Generated using '+generatorV+' strength='+strengthV+' ignoringConstraints: '+ignoreConstraints+'</p> <button type="button" class="btn btn-primary">Download CSV</button> <label for="separator" style="display:inline">Separator:</label> ' +
-	     	           '<select class="form-control" id="separator" width="css-width" style="width:200px; display: inline;"> '+
+	     	       	try {
+	     	       		var obj = JSON.parse(data);
+	     	       		if (obj.isSmall){
+	     	       			$('.table-header').html('<p>Generated using '+generatorV+' strength='+strengthV+' ignoringConstraints: '+ignoreConstraints+'</p> <a class="btn btn-primary">Download CSV</a> <label for="separator" style="display:inline">Separator:</label> ' +
+	     	           			'<select class="form-control" id="separator" width="css-width" style="width:200px; display: inline;"> '+
 	     	       		           	'<option value=",">Comma (,) - Default</option>'+
 	     	       		          	'<option value=";">Semicolon (;)</option>'+
 	     	       		          	'<option value="\t">TAB (\\t)</option>'+
@@ -307,10 +306,14 @@
 	     	       	            		    hiddenElement.download = $select.val()+'.csv';
 	     	       	            		    hiddenElement.click();
 	     	       	            		});
-	     	       	} else {
-	     	       		
-	     	       		//getStatus(obj.result.substring(0, obj.result.length - 4), generatorV, strengthV, ignoreConstraints, status);
-	     	       		$('.table-body').html('<p><a href="results/?name=' + obj.result + '"  target="_blank">' + obj.result + '</a></p>');
+	     	       		} else {
+	     	       			$('.table-header').html('<p>Generated using '+generatorV+' strength='+strengthV+' ignoringConstraints: '+ignoreConstraints+'</p>');       		
+	     	       			//getStatus(obj.result.substring(0, obj.result.length - 4), generatorV, strengthV, ignoreConstraints, status);
+	     	       			$('.table-body').html('<p>Since the input model is not small, we adopted a batch queue on the server. The results are available for download here: <a href="results/?name=' + obj.result + '"  target="_blank">' + obj.result + '</a></p>');
+	     	       		}
+	     	       	} catch (err) {
+	     	       		$('.table-header').html('');
+	     	       		$('.table-body').html('<p>' + data + '</p>');
 	     	       	}
 	            }
 	        });
