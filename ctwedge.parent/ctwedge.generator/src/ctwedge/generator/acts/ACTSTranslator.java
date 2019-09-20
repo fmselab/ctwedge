@@ -1,7 +1,9 @@
 package ctwedge.generator.acts;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
@@ -25,7 +27,7 @@ import edu.uta.cse.fireeye.service.engine.IpoEngine;
 /** Exports to ACTS a citlab model, has a method to call ACTS, and returns its output into String **/
 public class ACTSTranslator extends ICTWedgeTestGenerator {
 
-	public static boolean PRINT=false;
+	public static boolean PRINT=true;
 	
 	public ACTSTranslator() {
 		super("ACTS");
@@ -139,7 +141,8 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			// build a test set
 			
 			if (PRINT) System.out.println("3. ACTS sto chiamando ACTS...");
-			//System.setOut(new PrintStream(new ByteArrayOutputStream()));
+			//if (PRINT) System.setOut(new PrintStream(new ByteArrayOutputStream()));
+			if (PRINT) System.out.println(sut.toString());
 			if (PRINT) System.out.println("4. ACTS sto chiamando ACTS...");
 			engine.buildOnlyPT(Algorithm.ipog);
 			if (PRINT) System.out.println("5. ACTS sto chiamando ACTS...");

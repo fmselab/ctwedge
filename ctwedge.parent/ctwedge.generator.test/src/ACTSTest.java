@@ -80,9 +80,23 @@ public class ACTSTest {
 				"nproductsOld: {0, 50, 90, 95, 100}\r\n" + 
 				"\r\n" + 
 				"Constraints:\r\n" + 
-				"# returnedValue = (productIndex>0 and productIndex<6 and addQuantity>0 and addQuantity<11 and (nproductsOld + addQuantity <= 100)) #\r\n" + 
+				"# returnedValue <=> (productIndex>0 and productIndex<6 and addQuantity>0 and addQuantity<11 and (nproductsOld + addQuantity <= 100)) #\r\n" + 
 				"", "acts",
 				2, false, null));
 	}
 
+	@Test
+	public void test8() throws Exception {
+		System.out.println(Utility.getTestSuite(
+				"Model Magazzino\r\n" + 
+				"\r\n" + 
+				"Parameters:\r\n" + 
+				"a: Boolean\r\n" + 
+				"b: Boolean\r\n" + 
+				"Constraints:\r\n" + 
+				"# a == b #\r\n", "acts",
+				2, false, null));
+	}
+
+	
 }

@@ -17,7 +17,7 @@ import org.junit.jupiter.api.^extension.ExtendWith
 class CTWedgeParsingTest {
 	@Inject
 	ParseHelper<CitModel> parseHelper
-	
+
 	@Test
 	def void loadModel() {
 		val result = parseHelper.parse('''
@@ -37,4 +37,34 @@ class CTWedgeParsingTest {
 		val errors = result.eResource.errors
 		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
 	}
+
+	@Test
+	def void loadModelBoolean() {
+		loadModelBooleanConstraint("A = B")
+		loadModelBooleanConstraint("A == B")
+		loadModelBooleanConstraint("A <=> B")
+	}
+
+	def void loadModelBooleanConstraint(String s){
+		val result = parseHelper.parse('''
+		/*
+								 * This is an example model
+								 */
+								Model Phone
+								 Parameters:
+								   A : Boolean
+								   B : Boolean
+								
+								 Constraints:
+								   # ''' + s + ''' #
+		''')
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+		val model = result as CitModel
+		Assertions.assertNotNull(model)
+		Assertions.assertEquals(1, model.constraints.size)
+		
+	}
+
 }
