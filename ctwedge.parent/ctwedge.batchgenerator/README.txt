@@ -31,25 +31,24 @@ WantedBy=multi-user.target
 * /var/www/foselab_html/ctwedge/batchgenerator.sh:
 #!/bin/sh
 sudo java -jar batchgenerator.jar
-sudo /usr/local/sbin/startTomcat.sh
-sleep 30
+sudo /usr/local/sbin/startTomcat.sh &
+sleep 60
 sudo /usr/local/sbin/restartAllApacheAndTomcat.sh
 
 * /usr/local/sbin/startTomcat.sh:
 #!/bin/bash
-/opt/tomcat/apache-tomcat-8.5.42/bin/shutdown.sh
-/opt/tomcat/apache-tomcat-8.5.42/bin/startup.sh
-/opt/tomcat/apache-tomcat-8.5.42b/bin/shutdown.sh
-/opt/tomcat/apache-tomcat-8.5.42b/bin/startup.sh
-service apache2 start
-service apache2@se4med start
-./restartAllApacheAndTomcat.sh
+sudo /opt/tomcat/apache-tomcat-8.5.42/bin/shutdown.sh
+sudo /opt/tomcat/apache-tomcat-8.5.42/bin/startup.sh
+sudo /opt/tomcat/apache-tomcat-8.5.42b/bin/shutdown.sh
+sudo /opt/tomcat/apache-tomcat-8.5.42b/bin/startup.sh
+sudo service apache2 start
+sudo service apache2@se4med start
 
 * /usr/local/sbin/restartAllApacheAndTomcat.sh:
 #!/bin/bash
-/opt/tomcat/apache-tomcat-8.5.42/bin/shutdown.sh
-/opt/tomcat/apache-tomcat-8.5.42/bin/startup.sh
-/opt/tomcat/apache-tomcat-8.5.42b/bin/shutdown.sh
-/opt/tomcat/apache-tomcat-8.5.42b/bin/startup.sh
-service apache2 restart
-service apache2@se4med restart
+sudo /opt/tomcat/apache-tomcat-8.5.42/bin/shutdown.sh
+sudo /opt/tomcat/apache-tomcat-8.5.42/bin/startup.sh
+sudo /opt/tomcat/apache-tomcat-8.5.42b/bin/shutdown.sh
+sudo /opt/tomcat/apache-tomcat-8.5.42b/bin/startup.sh
+sudo service apache2 restart
+sudo service apache2@se4med restart
