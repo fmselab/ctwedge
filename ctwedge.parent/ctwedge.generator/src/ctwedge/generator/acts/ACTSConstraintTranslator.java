@@ -104,9 +104,10 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 	}
 
 	private String parathesis(String leftVal, String op, String rightVal) {
-		// choco does not accept nagtive integers
-		if (rightVal.matches("-\\d+"))
-			throw new RuntimeException("choco does not accept constraints with negative numbers");
+		// choco does not accept negative integers
+		// commentato sembra funzionare. Forse nelle operazioni? AG
+		//if (rightVal.matches("-\\d+"))
+		//	throw new RuntimeException("choco does not accept constraints with negative numbers");
 		return "(" + leftVal + ")" + op + "(" + rightVal + ")";
 	}
 
