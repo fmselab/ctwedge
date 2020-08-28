@@ -20,6 +20,7 @@ import com.google.gson.JsonObject;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.casa.CASAConstraintException;
+import ctwedge.generator.util.ParameterSize;
 import ctwedge.generator.util.Utility;
 import ctwedge.web.generator.ipapi.Ipapi;
 
@@ -157,7 +158,7 @@ public class Generator extends HttpServlet {
 		CitModel citModel = Utility.loadModel(model);
 		EList<Parameter> parameters = citModel.getParameters(); // get parameter list
 		for (Parameter p : parameters) {
-			size = size * Utility.getSize(p);
+			size = size * ParameterSize.eInstance.doSwitch(p);
 		}
 		
 		if (size > 100 )

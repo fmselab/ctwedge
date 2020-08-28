@@ -22,8 +22,8 @@
 	</properties>
 	<modules>
 		<module>ctwedge</module>
-		<module>ctwedge.ide</module>
 		<module>ctwedge.util</module>
+		<module>ctwedge.ide</module>
 		<module>ctwedge.generator</module>
 		<module>ctwedge.ui</module>
 		<module>ctwedge.web</module>
@@ -167,7 +167,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
-					<version>2.5</version>
+					<version>3.1.0</version>
 					<configuration>
 						<filesets>
 							<fileset>

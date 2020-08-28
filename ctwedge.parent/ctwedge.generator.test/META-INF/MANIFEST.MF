@@ -8,3 +8,4 @@ Require-Bundle: com.google.inject;bundle-version="3.0.0",
  org.eclipse.xtext,
  ctwedge.util
 Import-Package: ctwedge.generator.casa
+Automatic-Module-Name: ctwedge.generator.test

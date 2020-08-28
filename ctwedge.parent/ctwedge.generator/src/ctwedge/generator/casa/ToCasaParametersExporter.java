@@ -5,6 +5,7 @@ import org.eclipse.xtext.generator.IFileSystemAccess2;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
+import ctwedge.generator.util.ParameterSize;
 import ctwedge.generator.util.Utility;
 
 public class ToCasaParametersExporter {
@@ -24,7 +25,7 @@ public class ToCasaParametersExporter {
 
 		public String toCasaCode(CitModel sm, int n) {
 			String s = n+"\n"+sm.getParameters().size()+"\n";
-			for (Parameter param : sm.getParameters()) s+=Utility.getSize(param)+" ";
+			for (Parameter param : sm.getParameters()) s+=ParameterSize.eInstance.doSwitch(param)+" ";
 			return s;
 		}
 

@@ -69,19 +69,5 @@ public class Utility {
 		}
 		return sb.toString();
 	}
-	
-	/** @return the number of elements in the parameter param */
-	public static int getSize(Parameter param) {
-		if (param instanceof Enumerative) return ((Enumerative)param).getElements().size();
-		if (param instanceof Bool) return 2;
-		if (param instanceof Range) {
-			if (((Range)param).getStep() != 0) {
-				return ((((Range)param).getEnd()-((Range)param).getBegin() +1)/((Range)param).getStep());
-			} else {
-				return ((Range)param).getEnd()-((Range)param).getBegin() +1;
-			}
-		}
-		return 0;
-	}
 
 }

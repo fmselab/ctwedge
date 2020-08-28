@@ -36,3 +36,4 @@ Require-Bundle: ctwedge;bundle-version="1.0.0",
  ctwedge.util
 Bundle-Vendor: University of Bergamo
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: ctwedge.generator
