@@ -11,6 +11,8 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
+import ctwedge.ctWedge.Enumerative
+import static org.junit.Assert.assertEquals
 
 @ExtendWith(InjectionExtension)
 @InjectWith(CTWedgeInjectorProvider)
@@ -36,6 +38,28 @@ class CTWedgeParsingTest {
 		Assertions.assertNotNull(result)
 		val errors = result.eResource.errors
 		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+
+	@Test
+	def void EnumComma() {
+		var result = parseHelper.parse('''Model Phone Parameters:  display : {16MC, 8MC, BW}''')
+		Assertions.assertNotNull(result)
+		var errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+		assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
+		// with spaces
+		result = parseHelper.parse('''Model Phone Parameters:  display : {16MC 8MC BW}''')
+		Assertions.assertNotNull(result)
+		errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+		assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
+		// some errors
+		result = parseHelper.parse('''Model Phone Parameters:  display : {16MC, , 8MC BW}''')
+		Assertions.assertNotNull(result)
+		errors = result.eResource.errors
+		Assertions.assertFalse(errors.isEmpty)
+		println(errors.join(", "));
+		
 	}
 
 	@Test

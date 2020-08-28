@@ -8,5 +8,4 @@ Export-Package: ctwedge.web,
  ctwedge.web.generator.ipapi
 Bundle-Vendor: University of Bergamo
 Require-Bundle: ctwedge.generator;bundle-version="1.0.0",
- org.eclipse.wst.jsdt.chromium,
  ctwedge.web
