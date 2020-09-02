@@ -6,6 +6,11 @@ public class PICTGenerator extends ICTWedgeTestGenerator {
 	protected PICTGenerator() {
 		super("PICT");
 	}
+	
+	public void convert(CitModel model){
+		
+	}
+	
 
 	@Override
 	public TestSuite call() throws Exception {
