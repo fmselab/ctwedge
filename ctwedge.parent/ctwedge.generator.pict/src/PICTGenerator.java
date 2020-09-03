@@ -1,3 +1,4 @@
+import ctwedge.ctWedge.CitModel;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
