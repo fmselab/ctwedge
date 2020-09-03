@@ -99,6 +99,12 @@
 			<version>${xtextVersion}</version>
 		</dependency>
 		<dependency>
+		  	<groupId>org.sakaiproject.webjars</groupId>
+		  	<artifactId>webjars</artifactId>
+		  	<version>19.5</version>
+		  	<type>pom</type>
+		</dependency>
+		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>requirejs</artifactId>
 			<version>2.3.6</version>
