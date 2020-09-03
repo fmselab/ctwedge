@@ -3,4 +3,12 @@
   <groupId>ctwedge.batchgenerator</groupId>
   <artifactId>ctwedge.batchgenerator</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>ctwedge</groupId>
+  		<artifactId>ctwedge.generator</artifactId>
+  		<version>1.0.0-SNAPSHOT</version>
+  		<type>eclipse-plugin</type>
+  	</dependency>
+  </dependencies>
 </project>

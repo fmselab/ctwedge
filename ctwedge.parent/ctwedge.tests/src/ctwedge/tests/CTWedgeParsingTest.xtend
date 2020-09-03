@@ -46,13 +46,13 @@ class CTWedgeParsingTest {
 		Assertions.assertNotNull(result)
 		var errors = result.eResource.errors
 		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
-		assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
+		Assertions.assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
 		// with spaces
 		result = parseHelper.parse('''Model Phone Parameters:  display : {16MC 8MC BW}''')
 		Assertions.assertNotNull(result)
 		errors = result.eResource.errors
 		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
-		assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
+		Assertions.assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
 		// some errors
 		result = parseHelper.parse('''Model Phone Parameters:  display : {16MC, , 8MC BW}''')
 		Assertions.assertNotNull(result)
