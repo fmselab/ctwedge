@@ -1,0 +1,109 @@
+Model benchmark_spinv
+
+Parameters:
+p1: Boolean
+p2: Boolean
+p3: Boolean
+p4: Boolean
+p5: Boolean
+p6: Boolean
+p7: Boolean
+p8: Boolean
+p9: Boolean
+p10: Boolean
+p11: Boolean
+p12: Boolean
+p13: Boolean
+p14: Boolean
+p15: Boolean
+p16: Boolean
+p17: Boolean
+p18: Boolean
+p19: Boolean
+p20: Boolean
+p21: Boolean
+p22: Boolean
+p23: Boolean
+p24: Boolean
+p25: Boolean
+p26: Boolean
+p27: Boolean
+p28: Boolean
+p29: Boolean
+p30: Boolean
+p31: Boolean
+p32: Boolean
+p33: Boolean
+p34: Boolean
+p35: Boolean
+p36: Boolean
+p37: Boolean
+p38: Boolean
+p39: Boolean
+p40: Boolean
+p41: Boolean
+p42: Boolean
+p43: { v1 v2 v3 }
+p44: { v1 v2 v3 }
+p45: { v1 v2 v3 v4 }
+p46: { v1 v2 v3 v4 }
+p47: { v1 v2 v3 v4 }
+p48: { v1 v2 v3 v4 }
+p49: { v1 v2 v3 v4 }
+p50: { v1 v2 v3 v4 }
+p51: { v1 v2 v3 v4 }
+p52: { v1 v2 v3 v4 }
+p53: { v1 v2 v3 v4 }
+p54: { v1 v2 v3 v4 }
+p55: { v1 v2 v3 v4 }
+
+Constraints:
+ # !p2 or p43!=v2 #
+ # !p2 or p43!=v3 #
+ # p43!=v2 or p44!=v2 #
+ # p43!=v2 or p44!=v3 #
+ # p43!=v3 or p44!=v2 #
+ # p43!=v3 or p44!=v3 #
+ # !p2 or p44!=v2 #
+ # !p2 or p44!=v3 #
+ # !p3 or !p4 #
+ # !p3 or !p5 #
+ # !p3 or !p6 #
+ # !p4 or !p5 #
+ # !p4 or !p6 #
+ # !p5 or !p6 #
+ # p45!=v2 or p46!=v2 #
+ # p45!=v2 or p46!=v3 #
+ # p45!=v2 or p46!=v4 #
+ # p45!=v3 or p46!=v2 #
+ # p45!=v3 or p46!=v3 #
+ # p45!=v3 or p46!=v4 #
+ # p45!=v4 or p46!=v2 #
+ # p45!=v4 or p46!=v3 #
+ # p45!=v4 or p46!=v4 #
+ # !p7 or !p8 #
+ # !p9 or !p10 #
+ # !p9 or !p11 #
+ # !p12 or !p13 #
+ # !p7 or p47!=v2 #
+ # !p7 or p47!=v3 #
+ # !p7 or p47!=v4 #
+ # !p14 or !p15 #
+ # !p11 or !p16 #
+ # !p10 or p16 #
+ # !p17 or p18 #
+ # p15 or !p19 #
+ # !p11 or p15 #
+ # p10 or !p16 #
+ # p13 or !p21 #
+ # p13 or !p22 #
+ # p13 or !p23 #
+ # !p24 or p48!=v1 #
+ # p49!=v2 or p50!=v1 #
+ # p49!=v3 or p50!=v1 #
+ # p49!=v4 or p50!=v1 #
+ # !p25 or p50!=v1 #
+ # p17 or !p18 #
+ # p13 or !p26 #
+ # !p13 or p22 or !p27 #
+ # !p8 or p10 or p11 #

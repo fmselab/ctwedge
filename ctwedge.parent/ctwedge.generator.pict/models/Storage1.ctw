@@ -1,0 +1,110 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model Storage1
+
+Parameters:
+p1: { v1 v2 v3 };
+p2: Boolean;
+p3: { v1 v2 v3 v4 v5 };
+p4: { v1 v2 v3 v4 };
+
+Constraints:
+	# ( p3!=v2 OR p2!=true OR p1!=v3 OR p4!=v3) #
+	# ( p3!=v4 OR p1!=v3 OR p2 OR p4!=v3) #
+	# ( p3!=v4 OR p1!=v3 OR p2 OR p4!=v4) #
+	# ( p3!=v2 OR p2!=true OR p1!=v3 OR p4!=v2) #
+	# ( p1!=v3 OR p2 OR p4!=v2 OR p3!=v3) #
+	# ( p4!=v1 OR p1!=v3 OR p3!=v5 OR p2) #
+	# ( p1!=v2 OR p3!=v2 OR p2 OR p4!=v3) #
+	# ( p1!=v2 OR p3!=v2 OR p2 OR p4!=v2) #
+	# ( p4!=v1 OR p1!=v2 OR p3!=v5 OR p2) #
+	# ( p1!=v2 OR p3!=v2 OR p2!=true OR p4!=v3) #
+	# ( p1!=v1 OR p2!=true OR p3!=v3 OR p4!=v4) #
+	# ( p1!=v2 OR p3!=v2 OR p2!=true OR p4!=v4) #
+	# ( p1!=v1 OR p3!=v2 OR p2!=true OR p4!=v3) #
+	# ( p1!=v1 OR p3!=v2 OR p2!=true OR p4!=v2) #
+	# ( p2!=true OR p3!=v4 OR p1!=v3 OR p4!=v3) #
+	# ( p1!=v1 OR p3!=v2 OR p2!=true OR p4!=v4) #
+	# ( p2!=true OR p3!=v4 OR p1!=v3 OR p4!=v2) #
+	# ( p1!=v1 OR p3!=v2 OR p2 OR p4!=v3) #
+	# ( p1!=v2 OR p2 OR p4!=v3 OR p3!=v3) #
+	# ( p4!=v1 OR p3!=v4 OR p1!=v3 OR p2) #
+	# ( p1!=v1 OR p3!=v2 OR p2 OR p4!=v2) #
+	# ( p4!=v1 OR p3!=v2 OR p1!=v3 OR p2) #
+	# ( p4!=v1 OR p3!=v1 OR p1!=v3 OR p2) #
+	# ( p4!=v1 OR p1!=v1 OR p3!=v4 OR p2) #
+	# ( p3!=v4 OR p1!=v3 OR p2 OR p4!=v2) #
+	# ( p1!=v3 OR p2 OR p3!=v3 OR p4!=v4) #
+	# ( p1!=v3 OR p2 OR p4!=v3 OR p3!=v3) #
+	# ( p1!=v2 OR p2!=true OR p4!=v3 OR p3!=v3) #
+	# ( p4!=v1 OR p1!=v2 OR p3!=v4 OR p2) #
+	# ( p4!=v1 OR p2!=true OR p3!=v4 OR p1!=v3) #
+	# ( p4!=v1 OR p3!=v1 OR p2!=true OR p1!=v3) #
+	# ( p1!=v1 OR p2!=true OR p3!=v4 OR p4!=v4) #
+	# ( p3!=v1 OR p2!=true OR p1!=v3 OR p4!=v3) #
+	# ( p1!=v1 OR p2!=true OR p3!=v4 OR p4!=v2) #
+	# ( p3!=v1 OR p2!=true OR p1!=v3 OR p4!=v2) #
+	# ( p1!=v1 OR p2!=true OR p3!=v4 OR p4!=v3) #
+	# ( p4!=v1 OR p3!=v2 OR p2!=true OR p1!=v3) #
+	# ( p1!=v2 OR p3!=v4 OR p2 OR p4!=v3) #
+	# ( p1!=v2 OR p3!=v4 OR p2 OR p4!=v2) #
+	# ( p4!=v1 OR p1!=v2 OR p3!=v2 OR p2!=true) #
+	# ( p2!=true OR p1!=v3 OR p4!=v3 OR p3!=v3) #
+	# ( p4!=v1 OR p1!=v1 OR p3!=v5 OR p2) #
+	# ( p3!=v2 OR p1!=v3 OR p2 OR p4!=v2) #
+	# ( p3!=v2 OR p1!=v3 OR p2 OR p4!=v3) #
+	# ( p4!=v1 OR p1!=v1 OR p2 OR p3!=v3) #
+	# ( p3!=v2 OR p1!=v3 OR p2 OR p4!=v4) #
+	# ( p4!=v1 OR p3!=v1 OR p1!=v2 OR p2) #
+	# ( p1!=v3 OR p3!=v5 OR p2 OR p4!=v4) #
+	# ( p4!=v1 OR p1!=v3 OR p2 OR p3!=v3) #
+	# ( p1!=v2 OR p2!=true OR p3!=v4 OR p4!=v3) #
+	# ( p1!=v2 OR p2!=true OR p4!=v2 OR p3!=v3) #
+	# ( p4!=v1 OR p1!=v2 OR p2!=true OR p3!=v5) #
+	# ( p1!=v2 OR p3!=v5 OR p2 OR p4!=v2) #
+	# ( p4!=v1 OR p1!=v2 OR p2!=true OR p3!=v4) #
+	# ( p1!=v1 OR p2!=true OR p4!=v3 OR p3!=v3) #
+	# ( p3!=v1 OR p1!=v2 OR p2!=true OR p4!=v2) #
+	# ( p1!=v2 OR p2 OR p4!=v2 OR p3!=v3) #
+	# ( p4!=v1 OR p1!=v2 OR p2!=true OR p3!=v3) #
+	# ( p3!=v1 OR p1!=v2 OR p2!=true OR p4!=v4) #
+	# ( p3!=v1 OR p1!=v1 OR p2!=true OR p4!=v2) #
+	# ( p4!=v1 OR p1!=v2 OR p2 OR p3!=v3) #
+	# ( p3!=v1 OR p1!=v1 OR p2!=true OR p4!=v4) #
+	# ( p3!=v1 OR p1!=v1 OR p2!=true OR p4!=v3) #
+	# ( p4!=v1 OR p3!=v1 OR p1!=v1 OR p2) #
+	# ( p4!=v1 OR p1!=v1 OR p3!=v2 OR p2) #
+	# ( p2!=true OR p1!=v3 OR p4!=v2 OR p3!=v3) #
+	# ( p1!=v2 OR p3!=v5 OR p2 OR p4!=v3) #
+	# ( p2!=true OR p1!=v3 OR p3!=v5 OR p4!=v3) #
+	# ( p1!=v2 OR p2!=true OR p3!=v4 OR p4!=v2) #
+	# ( p1!=v1 OR p2 OR p4!=v2 OR p3!=v3) #
+	# ( p1!=v3 OR p3!=v5 OR p2 OR p4!=v3) #
+	# ( p1!=v3 OR p3!=v5 OR p2 OR p4!=v2) #
+	# ( p2!=true OR p1!=v3 OR p3!=v5 OR p4!=v2) #
+	# ( p1!=v1 OR p3!=v5 OR p2 OR p4!=v3) #
+	# ( p3!=v1 OR p1!=v1 OR p2 OR p4!=v2) #
+	# ( p1!=v1 OR p3!=v5 OR p2 OR p4!=v2) #
+	# ( p3!=v1 OR p1!=v1 OR p2 OR p4!=v3) #
+	# ( p1!=v1 OR p2!=true OR p3!=v5 OR p4!=v2) #
+	# ( p1!=v1 OR p2!=true OR p4!=v2 OR p3!=v3) #
+	# ( p1!=v1 OR p3!=v4 OR p2 OR p4!=v3) #
+	# ( p4!=v1 OR p1!=v2 OR p3!=v2 OR p2) #
+	# ( p1!=v1 OR p3!=v4 OR p2 OR p4!=v2) #
+	# ( p4!=v1 OR p3!=v1 OR p1!=v2 OR p2!=true) #
+	# ( p1!=v1 OR p2!=true OR p3!=v5 OR p4!=v4) #
+	# ( p1!=v1 OR p2!=true OR p3!=v5 OR p4!=v3) #
+	# ( p1!=v1 OR p2 OR p4!=v3 OR p3!=v3) #
+	# ( p3!=v1 OR p1!=v3 OR p2 OR p4!=v3) #
+	# ( p3!=v1 OR p1!=v3 OR p2 OR p4!=v2) #
+	# ( p4!=v1 OR p2!=true OR p1!=v3 OR p3!=v5) #
+	# ( p3!=v1 OR p1!=v2 OR p2 OR p4!=v2) #
+	# ( p3!=v1 OR p1!=v3 OR p2 OR p4!=v4) #
+	# ( p1!=v2 OR p2!=true OR p3!=v5 OR p4!=v3) #
+	# ( p4!=v1 OR p2!=true OR p1!=v3 OR p3!=v3) #
+	# ( p3!=v1 OR p1!=v2 OR p2 OR p4!=v3) #
+	# ( p1!=v2 OR p2!=true OR p3!=v5 OR p4!=v2) #
+
