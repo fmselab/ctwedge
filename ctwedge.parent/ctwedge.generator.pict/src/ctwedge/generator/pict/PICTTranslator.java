@@ -1,3 +1,4 @@
+package ctwedge.generator.pict;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;

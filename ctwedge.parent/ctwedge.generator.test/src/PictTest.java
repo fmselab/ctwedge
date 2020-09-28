@@ -1,3 +1,5 @@
+
+import ctwedge.generator.pict.PICTGenerator;
 import ctwedge.generator.util.Utility;
 
 import java.io.BufferedReader;
@@ -6,7 +8,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+
 
 public class PictTest {
 	
