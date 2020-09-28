@@ -7,4 +7,3 @@ Automatic-Module-Name: ctwedge.generator.pict
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.junit,
  org.junit.jupiter.api
-Import-Package: ctwedge.generator.util
