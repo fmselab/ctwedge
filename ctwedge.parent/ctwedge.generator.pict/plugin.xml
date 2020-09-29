@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="PICTGenerator"
+         name="PICTGenerator"
+         point="ctwedge.ui.ctwedgeGenerators">
+      <Generator
+            Algorithm="ctwedge.generator.pict.Generator1"
+            GeneratorPrototype="ctwedge.generator.pict.PICTGenerator"
+            Name="ctwedge.generator.pict.Generator1"
+            support_constraints="true">
+      </Generator>
+   </extension>
+
+</plugin>
