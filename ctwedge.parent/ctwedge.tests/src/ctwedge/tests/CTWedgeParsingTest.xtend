@@ -5,16 +5,15 @@ package ctwedge.tests
 
 import com.google.inject.Inject
 import ctwedge.ctWedge.CitModel
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.extensions.InjectionExtension
-import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.^extension.ExtendWith
 import ctwedge.ctWedge.Enumerative
-import static org.junit.Assert.assertEquals
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.util.ParseHelper
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.Assert
 
-@ExtendWith(InjectionExtension)
+@RunWith(XtextRunner)
 @InjectWith(CTWedgeInjectorProvider)
 class CTWedgeParsingTest {
 	@Inject
@@ -35,29 +34,29 @@ class CTWedgeParsingTest {
 									 Constraints:
 									   # emailViewer => textLines > 28 #
 		''')
-		Assertions.assertNotNull(result)
+		Assert.assertNotNull(result)
 		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''',errors.isEmpty)
 	}
 
 	@Test
 	def void EnumComma() {
 		var result = parseHelper.parse('''Model Phone Parameters:  display : {16MC, 8MC, BW}''')
-		Assertions.assertNotNull(result)
+		Assert.assertNotNull(result)
 		var errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
-		Assertions.assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
+		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.empty)
+		Assert.assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
 		// with spaces
 		result = parseHelper.parse('''Model Phone Parameters:  display : {16MC 8MC BW}''')
-		Assertions.assertNotNull(result)
+		Assert.assertNotNull(result)
 		errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
-		Assertions.assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
+		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''',errors.empty)
+		Assert.assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
 		// some errors
 		result = parseHelper.parse('''Model Phone Parameters:  display : {16MC, , 8MC BW}''')
-		Assertions.assertNotNull(result)
+		Assert.assertNotNull(result)
 		errors = result.eResource.errors
-		Assertions.assertFalse(errors.isEmpty)
+		Assert.assertFalse(errors.isEmpty)
 		println(errors.join(", "));
 		
 	}
@@ -82,12 +81,12 @@ class CTWedgeParsingTest {
 								 Constraints:
 								   # ''' + s + ''' #
 		''')
-		Assertions.assertNotNull(result)
+		Assert.assertNotNull(result)
 		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''',errors.isEmpty)
 		val model = result as CitModel
-		Assertions.assertNotNull(model)
-		Assertions.assertEquals(1, model.constraints.size)
+		Assert.assertNotNull(model)
+		Assert.assertEquals(1, model.constraints.size)
 		
 	}
 
