@@ -37,6 +37,11 @@ public class ParameterElementsGetterAsStrings extends CtWedgeSwitch<List<String>
 	public List<String> caseParameter(Parameter parameter) {
 		return this.doSwitch(parameter);
 	}
+	
+	@Override
+	public List<String> caseBool(Bool parameter) {
+		return this.caseBoolean(parameter);
+	}
 
 	@Override
 	public List<String> caseEnumerative(Enumerative enumerative) {
