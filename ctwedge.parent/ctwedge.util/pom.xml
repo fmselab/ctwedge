@@ -73,5 +73,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>org.eclipse.xtend.lib</artifactId>
 			<version>${xtextVersion}</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.sun.jna</groupId>
+		    <artifactId>jna</artifactId>
+		    <version>3.0.9</version>
+		</dependency>
 	</dependencies>
   </project>

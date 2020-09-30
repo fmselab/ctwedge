@@ -9,7 +9,8 @@ Require-Bundle: ctwedge,
  org.eclipse.emf.ecore,
  org.eclipse.xtext.util,
  org.eclipse.xtext,
- org.junit
+ org.junit,
+ org.eclipse.equinox.preferences
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: ctwedge.util,
  ctwedge.util.ext,
