@@ -23,6 +23,12 @@ public class ParameterSwitchToPairStrings extends
 
 	private static ParameterSwitchToPairStrings eInstance = new ParameterSwitchToPairStrings();
 
+	CitModel model;
+	
+	public void setModel(CitModel model) {
+		this.model = model;
+	}
+	
 	private ParameterSwitchToPairStrings() {
 
 	}
@@ -35,7 +41,7 @@ public class ParameterSwitchToPairStrings extends
 	private List<Pair<Parameter, String>> buildList(Parameter parameter) {
 		List<Pair<Parameter, String>> elements = new ArrayList<Pair<Parameter, String>>();
 		ParameterElementsGetterAsStrings getter = ParameterElementsGetterAsStrings.eInstance;
-		getter.setModel(null);
+		getter.setModel(model);
 		List<String> values = getter.doSwitch(parameter);
 		for (String v : values) {
 			elements.add(new Pair<Parameter, String>(parameter, v));
@@ -56,6 +62,7 @@ public class ParameterSwitchToPairStrings extends
 		List<List<Pair<Parameter, String>>> elements = new ArrayList<List<Pair<Parameter, String>>>();
 		EList<Parameter> vars = citModel.getParameters();
 		ParameterSwitchToPairStrings switchP = ParameterSwitchToPairStrings.eInstance;
+		switchP.setModel(citModel);
 		for (Parameter p : vars) {
 			elements.add(switchP.doSwitch(p));
 		}
