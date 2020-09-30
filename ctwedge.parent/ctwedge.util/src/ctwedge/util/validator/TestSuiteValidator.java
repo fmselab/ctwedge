@@ -220,7 +220,7 @@ public class TestSuiteValidator {
 		return true;
 	}
 
-	public List<Map<Parameter, String>> getRequirements() {
+	private List<Map<Parameter, String>> getRequirements() {
 		CitModel model = ts.getModel();
 		Iterator<List<Pair<Parameter, String>>> reqs = ParameterSwitchToPairStrings.getTuples(model, ts.getStrength());
 

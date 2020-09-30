@@ -40,5 +40,7 @@ public class TestSuiteValidatorTest {
 			tsv.setTestSuite(ts);
 			System.out.println(tsv.howManyTestAreValid());
 			System.out.println(tsv.howManyTuplesCovers());
+			System.out.println(tsv.isValid());
+			System.out.println(tsv.isComplete());
 		}
 }
