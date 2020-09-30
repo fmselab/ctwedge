@@ -19,7 +19,7 @@ public class srec_t extends Structure {
 		initFieldOrder();
 	}
 	protected void initFieldOrder() {
-		setFieldOrder(new String[]{"flag", "str"});
+		//setFieldOrder(new String[]{"flag", "str"});
 	}
 	/// @param str C type : char*
 	public srec_t(int flag, Pointer str) {

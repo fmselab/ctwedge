@@ -34,8 +34,9 @@ public class ParameterSwitchToPairStrings extends
 
 	private List<Pair<Parameter, String>> buildList(Parameter parameter) {
 		List<Pair<Parameter, String>> elements = new ArrayList<Pair<Parameter, String>>();
-		List<String> values = ParameterElementsGetterAsStrings.eInstance
-				.doSwitch(parameter);
+		ParameterElementsGetterAsStrings getter = ParameterElementsGetterAsStrings.eInstance;
+		getter.setModel(null);
+		List<String> values = getter.doSwitch(parameter);
 		for (String v : values) {
 			elements.add(new Pair<Parameter, String>(parameter, v));
 		}

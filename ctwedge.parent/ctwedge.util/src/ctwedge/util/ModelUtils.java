@@ -60,6 +60,9 @@ public class ModelUtils {
 	
 	public ModelUtils(CitModel my) {
 		this.my=my;
+		
+		assert my != null : "The model cannot be NULL";
+		
 		for (Parameter p : my.getParameters()) {
 			paramTypes.put(p.getName(), getType(p));
 			params.put(p.getName(), p);

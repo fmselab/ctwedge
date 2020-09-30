@@ -28,6 +28,10 @@ public class ParameterElementsGetterAsStrings extends CtWedgeSwitch<List<String>
 		this.casaOrder = casaOrder;
 		this.model = model;
 	}
+	
+	public void setModel(CitModel model) {
+		this.model = model;
+	}
 
 	@Override
 	public List<String> caseParameter(Parameter parameter) {

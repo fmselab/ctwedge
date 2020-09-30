@@ -36,7 +36,7 @@ import ctwedge.util.Test;
  * 
  * @author garganti vava radavelli
  */
-public class RuleEvaluator extends CtWedgeSwitch<String> {
+public class RuleEvaluator extends CtWedgeSwitch<Object> {
 
 	/** The seed. */
 	Test seed;
@@ -45,153 +45,175 @@ public class RuleEvaluator extends CtWedgeSwitch<String> {
 		this.seed = t;
 	}
 	
-	public String evaluateConstraint(Constraint r) {
+	public Object evaluateConstraint(Constraint r) {
 		assert seed != null;
 		return this.doSwitch(r);
 	}
 	
 	@Override
-	public String caseCitModel(CitModel m) {
-		for (Constraint c : m.getConstraints()) if (!this.doSwitch(c).equals("true")) return "false";
-		return "true";
+	public Boolean caseCitModel(CitModel m) {
+		for (Constraint c : m.getConstraints()) if (!(Boolean)this.doSwitch(c)) return false;
+		return true;
 	}
 
 	@Override
-	public String caseNotExpression(NotExpression not) {
+	public Boolean caseNotExpression(NotExpression not) {
 		if (not == null || not.getPredicate() == null)
 			return null;
-		String predicate = this.doSwitch(not.getPredicate());
-		return "true".equals(predicate) ? "false" : "true";
+		return !(Boolean)this.doSwitch(not.getPredicate());
 	}
 	
 	@Override
-	public String caseAtomicPredicate(AtomicPredicate x) {
+	public Object caseAtomicPredicate(AtomicPredicate x) {
 		//System.out.println("AtomicPredicate: "+x.getName()+" "+x.getBoolConst()+" "+utils.getType(x)+" "+getValueInSeed(x));
 		return getValueInSeed(x);
 	}
 
 	@Override
-	public String caseImpliesExpression(ImpliesExpression ruleExpr) {
+	public Boolean caseImpliesExpression(ImpliesExpression ruleExpr) {
 		if (ruleExpr == null || ruleExpr.getLeft() == null | ruleExpr.getRight() == null) {
 			return null;
 		}
-		String leftVal = this.doSwitch(ruleExpr.getLeft());
+		Boolean leftVal = (Boolean)this.doSwitch(ruleExpr.getLeft());
 		// if leftval is false and implication
-		if (leftVal.equals("false") && ruleExpr.getOp() == ImpliesOperator.IMPL)
-			return "true";
-		String rightVal = this.doSwitch(ruleExpr.getRight());
+		if (!leftVal && ruleExpr.getOp() == ImpliesOperator.IMPL)
+			return true;
+		Boolean rightVal = (Boolean) this.doSwitch(ruleExpr.getRight());
 		switch (ruleExpr.getOp()) {
 		case IMPL:
 			return rightVal;
 		case IFF:
-			return leftVal.equals(rightVal)+"";
+			return leftVal == rightVal;
 		}
 		throw new RuntimeException("Operator not found in seed");
 
 	}
 
 	@Override
-	public String caseOrExpression(OrExpression orExpr) {
+	public Boolean caseOrExpression(OrExpression orExpr) {
 		if (orExpr == null || orExpr.getLeft() == null || orExpr.getRight() == null) {
 			return null;
 		}
-		String leftVal = this.doSwitch(orExpr.getLeft());
+		Boolean leftVal = (Boolean) this.doSwitch(orExpr.getLeft());
 		// if the first one is true, exit
-		if ("true".equals(leftVal))
-			return "true";
-		String rightVal = this.doSwitch(orExpr.getRight());
-		return rightVal;
+		if (leftVal)
+			return true;
+		
+		assert this.doSwitch(orExpr.getRight()) instanceof Boolean : this.doSwitch(orExpr.getRight()).toString();
+		return (Boolean) this.doSwitch(orExpr.getRight());
 	}
 
 	@Override
-	public String caseAndExpression(AndExpression andExpr) {
+	public Boolean caseAndExpression(AndExpression andExpr) {
 		if (andExpr == null || andExpr.getLeft() == null || andExpr.getRight() == null) {
 			return null;
 		}
-		String leftVal = this.doSwitch(andExpr.getLeft());
+		Boolean leftVal = (Boolean) this.doSwitch(andExpr.getLeft());
 		// simulate short circuit - first is false
-		if ("false".equals(leftVal))
-			return "false";
-		String rightVal = this.doSwitch(andExpr.getRight());
-		return rightVal;
+		if (!leftVal)
+			return false;
+		return (Boolean) this.doSwitch(andExpr.getRight());
 	}
 	
 	@Override
-	public String caseEqualExpression(EqualExpression x) {
-		String left = this.doSwitch(x.getLeft());
-		String right = this.doSwitch(x.getRight());
+	public Boolean caseEqualExpression(EqualExpression x) {
+		Object left = this.doSwitch(x.getLeft());
+		Object right = this.doSwitch(x.getRight());
 		switch (x.getOp()) {
 		case EQ:
-			return ""+left.equals(right);
+			return left.equals(right);
 		case NE:
-			return ""+!left.equals(right);
+			return !left.equals(right);
 		default: throw new RuntimeException("Operator not found in constraint");
 		}
 	}
 	
 	@Override
-	public String casePlusMinus(PlusMinus pm) {
-		Double leftVal = Double.parseDouble(this.doSwitch(pm.getLeft()));
-		Double rightVal = Double.parseDouble(this.doSwitch(pm.getRight()));
+	public Double casePlusMinus(PlusMinus pm) {
+		Double leftVal = (Double) this.doSwitch(pm.getLeft());
+		Double rightVal = (Double) this.doSwitch(pm.getRight());
 		if (pm.getOp() == PlusMinusOperators.MINUS)
-			return ""+(leftVal - rightVal);
+			return (leftVal - rightVal);
 		else
-			return ""+(leftVal + rightVal);
+			return (leftVal + rightVal);
 	}
 
 	@Override
-	public String caseModMultDiv(ModMultDiv md) {
-		Double leftVal = Double.parseDouble(this.doSwitch(md.getLeft()));
-		Double rightVal = Double.parseDouble(this.doSwitch(md.getRight()));
+	public Double caseModMultDiv(ModMultDiv md) {
+		
+		Double leftVal = (Double) this.doSwitch(md.getLeft());
+		Double rightVal = (Double) this.doSwitch(md.getRight());
 		switch (md.getOp()) {
 		case DIV:
-			return ""+(leftVal / rightVal);
+			return leftVal / rightVal;
 		case MULT:
-			return ""+(leftVal * rightVal);
+			return leftVal * rightVal;
 		case MOD:
-			return ""+(leftVal % rightVal);
+			return leftVal % rightVal;
 		}
 		throw new RuntimeException("Operator not found");
 	}
 
 	@Override
-	public String caseRelationalExpression(RelationalExpression x) {
+	public Boolean caseRelationalExpression(RelationalExpression x) {
 		if (x == null || x.getLeft() == null || x.getRight() == null) {
 			return null;
 		}
-		String left = this.doSwitch(x.getLeft());
-		String right = this.doSwitch(x.getRight());
+		Object left = this.doSwitch(x.getLeft());
+		Object right = this.doSwitch(x.getRight());
 		switch (x.getOp()) {
 		case EQ:
-			return left.equals(right)+"";
+			return left.equals(right);
 		case GE:
-			return (Double.parseDouble(left) >= Double.parseDouble(right))+"";
+			return Double.compare((Double)left, (Double)right) >= 0;
 		case GT:
-			return (Double.parseDouble(left) > Double.parseDouble(right))+"";
+			return Double.compare((Double)left, (Double)right) > 0;
 		case LE:
-			return (Double.parseDouble(left) <= Double.parseDouble(right))+"";
+			return Double.compare((Double)left, (Double)right) <= 0;
 		case LT:
-			return (Double.parseDouble(left) < Double.parseDouble(right))+"";
+			return Double.compare((Double)left, (Double)right) < 0;
 		case NE:
-			return (!(left.equals(right))+"");
+			return !left.equals(right);
 		}
 		throw new RuntimeException("Operator not found in seed");
 	}
 	
-	private String getValueInSeed(AtomicPredicate element) {
+	private Object getValueInSeed(AtomicPredicate element) {
+		
 		if (element == null) 
 			return null;
 		if (element.getBoolConst()!=null)
-			return element.getBoolConst();
-		if (seed.containsKey(element.getName()))
-			return seed.get(element.getName());
+			return Boolean.parseBoolean(element.getBoolConst());
+		
+		String val = seed.get(element.getName());
+		
+		// Enumerative -> Return a string
+		if (seed.containsKey(element.getName())) {
+			// If val is double...
+			try {
+				return Double.parseDouble(val);
+			} catch(NumberFormatException ex) {	}
+			// Otherwise, it can be a boolean
+			if (val.equalsIgnoreCase("true"))
+				return true;
+			if (val.equalsIgnoreCase("false"))
+				return false;
+			// NAN and not boolean
+			return val;
+		}
+		
+		// Numeric constant
+		try {
+			return Double.parseDouble(element.getName());
+		} catch(NumberFormatException ex) {		}
 		return element.getName();
+		
 //		for (Assignment a : seed.getAssignments()) {
 //			if (a.getParameter().getName().equals(element.getName())) {
 //				return a.getValue();
 //			}
 //		}
 //		// it reach this point only when i'm typing my seed, when it is incomplete.
-//		return null;
+//		return null;*/
 	}
 }

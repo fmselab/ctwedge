@@ -45,11 +45,15 @@ public class TestSuiteValidator {
 		}
 		this.ts = ts;
 		try {
-			IEclipsePreferences node = InstanceScope.INSTANCE.getNode("citlab.core.jna");
-			System.setProperty("jna.library.path", node.get("dir", "./libs"));
+			//IEclipsePreferences node = InstanceScope.INSTANCE.getNode("citlab.core.jna");
+			//System.setProperty("jna.library.path", node.get("dir", "./libs"));
 
+			System.setProperty("jna.library.path", "F:\\Dati-Andrea\\GitHub\\ctwedge\\ctwedge\\ctwedge.parent\\ctwedge.util\\libs");
+
+			
 			yices = (YicesLibrary) Native.loadLibrary("yices", YicesLibrary.class);
 		} catch (UnsatisfiedLinkError e) {
+			e.printStackTrace();
 			System.err.println("yices not found");
 		}
 
@@ -111,7 +115,7 @@ public class TestSuiteValidator {
 			if (rule.eContainer() instanceof CitModel) {
 				for (Test t : ts.getTests()) {
 					RuleEvaluator rl = new RuleEvaluator(t);
-					if (rl.evaluateConstraint(rule).equals("false"))
+					if (!(Boolean)rl.evaluateConstraint(rule))
 						return false;
 				}
 			}
@@ -126,7 +130,7 @@ public class TestSuiteValidator {
 			if (rule.eContainer() instanceof CitModel) {
 				for(Test t : ts.getTests()) {
 					RuleEvaluator rl = new RuleEvaluator(t);
-					if (rl.evaluateConstraint(rule).equals("false")) {
+					if (!(Boolean)rl.evaluateConstraint(rule)) {
 						// System.out.println("EVALUATING");
 						invalidTests++;
 						break;
@@ -241,7 +245,7 @@ public class TestSuiteValidator {
 		Set<Map<Parameter, String>> testSuiteSet = new HashSet<Map<Parameter, String>>();
 		
 		for (Test t : this.ts.getTests()) {
-			Map<Parameter, String> singleMap = new TreeMap<>();			
+			Map<Parameter, String> singleMap = new HashMap<>();			
 			for (Entry e : t.entrySet()) {
 				Parameter p = CtWedgeFactoryImpl.eINSTANCE.createParameter();
 				p.setName((String)e.getKey());
