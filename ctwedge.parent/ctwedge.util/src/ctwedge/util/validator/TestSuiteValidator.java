@@ -49,7 +49,6 @@ public class TestSuiteValidator {
 			//System.setProperty("jna.library.path", node.get("dir", "./libs"));
 
 			System.setProperty("jna.library.path", "F:\\Dati-Andrea\\GitHub\\ctwedge\\ctwedge\\ctwedge.parent\\ctwedge.util\\libs");
-
 			
 			yices = (YicesLibrary) Native.loadLibrary("yices", YicesLibrary.class);
 		} catch (UnsatisfiedLinkError e) {

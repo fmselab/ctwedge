@@ -98,6 +98,18 @@ public class YicesConstraintTranslator extends CtWedgeSwitch<Pointer> {
 		Pointer rightVal = this.doSwitch(andExpr.getRight());
 		return yices.yices_mk_and(ctx, new Pointer[] { leftVal, rightVal }, 2);
 	}
+	
+	@Override
+	public Pointer caseEqualExpression(EqualExpression object) {
+		logger.debug("Parsing left");
+		Pointer leftVal = this.doSwitch(object.getLeft());
+		logger.debug(leftVal);
+		logger.debug("Parsing Right");
+		Pointer rightVal = this.doSwitch(object.getRight());
+		logger.debug(rightVal);
+		Pointer p = yices.yices_mk_eq(ctx, leftVal, rightVal);
+		return p;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -190,6 +202,15 @@ public class YicesConstraintTranslator extends CtWedgeSwitch<Pointer> {
 
 		}
 		throw new RuntimeException("Operator not found");
+	}
+	
+	@Override
+	public Pointer caseAtomicPredicate(AtomicPredicate atom) {
+		if (atom.getBoolConst() != null)
+			// TODO
+			return null;
+		
+		return yices.yices_get_var_decl_from_name(ctx, atom.getName());
 	}
 
 }

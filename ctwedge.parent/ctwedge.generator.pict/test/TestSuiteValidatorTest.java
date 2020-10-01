@@ -42,6 +42,6 @@ public class TestSuiteValidatorTest {
 			System.out.println("Total valid test number: " + tsv.howManyTestAreValid());
 			System.out.println("Total tuples covered number: " + tsv.howManyTuplesCovers());
 			System.out.println("Is test suite valid? " + tsv.isValid());
-			//System.out.println("Is test suite complete? " + tsv.isComplete());
+			System.out.println("Is test suite complete? " + tsv.isComplete());
 		}
 }
