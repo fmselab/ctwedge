@@ -36,7 +36,7 @@ public class YicesConstraintTranslator extends CtWedgeSwitch<Pointer> {
 			.getLogger(YicesConstraintTranslator.class);
 
 	YicesLibrary yices = null;
-
+	
 	Pointer ctx;
 	Map<Parameter, Pointer> variables;
 	Map<String, String> declaredElements;
@@ -206,6 +206,7 @@ public class YicesConstraintTranslator extends CtWedgeSwitch<Pointer> {
 	
 	@Override
 	public Pointer caseAtomicPredicate(AtomicPredicate atom) {
+				
 		if (atom.getBoolConst() != null)
 			// TODO
 			return null;
