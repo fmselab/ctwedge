@@ -40,6 +40,7 @@ public class PICTGenerator extends ICTWedgeTestGenerator {
 		String output = runTool(tempModel);
 		TestSuite testSuite = new TestSuite(output, citModel);
 		testSuite.populateTestSuite();
+		testSuite.setStrength(nWise);
 		return testSuite;
 	}
 	

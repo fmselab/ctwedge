@@ -98,8 +98,21 @@ public class TestSuiteValidator {
 	private boolean covers(Map<Parameter, ?> test, Map<Parameter, ?> requirement) {
 		int counter = 0;
 		for (Parameter p : requirement.keySet()) {
-			if (requirement.get(p).equals(test.get(p)))
-				counter++;
+			Object valueInTest = null;
+			for (Entry e : test.entrySet()) {
+				if (((Parameter)e.getKey()).getName().equals(p.getName()))
+					valueInTest = e.getValue();
+			}
+			
+			Object valueInReqs = null;
+			for (Entry e : requirement.entrySet()) {
+				if (((Parameter)e.getKey()).getName().equals(p.getName()))
+					valueInReqs = e.getValue();
+			}
+			
+			if (valueInReqs != null && valueInTest != null)
+				if (valueInTest.equals(valueInReqs))
+					counter++;
 		}
 
 		return counter == requirement.size();
