@@ -13,8 +13,7 @@ import org.apache.log4j.Logger;
 
 public class ConstraintChecker {
 
-	private static final Logger logger = Logger
-			.getLogger(ConstraintChecker.class);
+	private static final Logger logger = Logger.getLogger(ConstraintChecker.class);
 
 	/**
 	 * return true if consistent
@@ -24,30 +23,26 @@ public class ConstraintChecker {
 	 */
 	YicesLibrary yices;
 
-	
-	public ConstraintChecker(YicesLibrary yices){
-		this.yices=yices;
-		
+	public ConstraintChecker(YicesLibrary yices) {
+		this.yices = yices;
+
 	}
-	
-	public static void createCtxFromModel(CitModel model, List<Constraint> list,
-			YicesLibrary yices, Pointer ctx,
-			Map<String, String> declaredElements,
-			Map<Parameter, Pointer> variables) {
+
+	public static void createCtxFromModel(CitModel model, List<Constraint> list, YicesLibrary yices, Pointer ctx,
+			Map<String, String> declaredElements, Map<Parameter, Pointer> variables) {
 		addParamters(model, ctx, declaredElements, variables);
 		// traduce tutti i constraint e li aggiunge al contesto
 		for (Constraint r : list) {
-			YicesConstraintTranslator translator = new YicesConstraintTranslator(
-					ctx, variables, declaredElements,yices);
+			YicesConstraintTranslator translator = new YicesConstraintTranslator(ctx, variables, declaredElements,
+					yices);
 			Pointer constraint = translator.doSwitch(r);
 			// add this constraint
 			yices.yices_assert(ctx, constraint);
-			
+
 		}
 	}
 
-	public static void addParamters(CitModel model, Pointer ctx,
-			Map<String, String> declaredElements,
+	public static void addParamters(CitModel model, Pointer ctx, Map<String, String> declaredElements,
 			Map<Parameter, Pointer> variables) {
 		ParameterAdder pa = new ParameterAdder(ctx, declaredElements);
 		for (Parameter nt : model.getParameters()) {
@@ -55,16 +50,15 @@ public class ConstraintChecker {
 			variables.put(nt, variable);
 		}
 	}
-	
-	public static void addParamters(CitModel model, CitModel model2, Pointer ctx,
-			Map<String, String> declaredElements,
+
+	public static void addParamters(CitModel model, CitModel model2, Pointer ctx, Map<String, String> declaredElements,
 			Map<Parameter, Pointer> variables) {
 		ParameterAdder pa = new ParameterAdder(ctx, declaredElements);
 		for (Parameter nt : model.getParameters()) {
 			Pointer variable = pa.doSwitch(nt);
 			variables.put(nt, variable);
 			for (Parameter nt2 : model2.getParameters()) {
-				if(nt2.getName().equals(nt.getName())) {
+				if (nt2.getName().equals(nt.getName())) {
 					variables.put(nt2, variable);
 					break;
 				}
@@ -73,7 +67,7 @@ public class ConstraintChecker {
 	}
 
 	boolean checkConsistency(CitModel model, Boolean deleteCtx) {
-		
+
 		Pointer ctx = yices.yices_mk_context();
 		// crea contesto
 
@@ -81,8 +75,7 @@ public class ConstraintChecker {
 		Map<String, String> declaredElements = new HashMap<>();
 
 		Map<Parameter, Pointer> variables = new HashMap<Parameter, Pointer>();
-		createCtxFromModel(model, model.getConstraints(), yices, ctx,
-				declaredElements, variables);
+		createCtxFromModel(model, model.getConstraints(), yices, ctx, declaredElements, variables);
 		int res = yices.yices_check(ctx);
 		// debug??
 		if (logger.isDebugEnabled()) {
@@ -103,7 +96,7 @@ public class ConstraintChecker {
 	}
 
 	ArrayList<Constraint> findMaxConstraintsSet(CitModel model, Boolean deleteCtx) {
-		
+
 		Pointer ctx = yices.yices_mk_context();
 
 		if (checkConsistency(model, deleteCtx))
@@ -130,11 +123,10 @@ public class ConstraintChecker {
 			ctx = yices.yices_mk_context();
 			HashMap<String, String> declaredElements = new HashMap<>();
 			HashMap<Parameter, Pointer> variables = new HashMap<Parameter, Pointer>();
-			createCtxFromModel(model, constraints, yices, ctx,
-					declaredElements, variables);
+			createCtxFromModel(model, constraints, yices, ctx, declaredElements, variables);
 
 			if (yices.yices_check(ctx) == YicesLibrary.lbool.l_true) {
-				logger.debug("soddisfa - constraints: "+ constraints.size() + " = " + constraints);				
+				logger.debug("soddisfa - constraints: " + constraints.size() + " = " + constraints);
 				yices.yices_del_context(ctx);
 				return constraints;
 
