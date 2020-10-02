@@ -217,6 +217,7 @@ public class SMTTestSuiteValidator {
 		return rangeFormula;
 	}
 
+	@SuppressWarnings("unused")
 	private Boolean checkRequirementsConsistency(SolverContext ctx, List<Map<Parameter, String>> listMapReq,
 			Map<String, String> declaredElements, Map<Parameter, Formula> variables, Iterator<Map<Parameter, String>> i,
 			ProverEnvironment prover) throws InterruptedException, SolverException {
@@ -243,6 +244,18 @@ public class SMTTestSuiteValidator {
 							leftSide = e.getValue();
 					}
 					// Get the right side of the comparison
+					String valueName = requirement.get(p).concat(p.getName());
+					Formula rightSide = null;
+					int counter = 0;
+					for (Entry<String, String> e : declaredElements.entrySet()) {
+						if (e.getKey().equals(valueName)) {
+							rightSide = ctx.getFormulaManager().getIntegerFormulaManager()
+									.makeNumber(counter);
+						}
+					}
+					
+					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
+							(IntegerFormula) rightSide);
 					
 					
 
