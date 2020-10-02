@@ -256,7 +256,7 @@ public class SMTTestSuiteValidator {
 					
 					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
 							(IntegerFormula) rightSide);
-					
+					// TODO : Bound to be defined?
 					
 
 					// TODO: How to manage enumerations?
