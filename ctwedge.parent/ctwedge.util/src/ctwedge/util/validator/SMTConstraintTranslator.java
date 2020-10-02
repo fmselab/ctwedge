@@ -27,6 +27,7 @@ import org.sosy_lab.java_smt.api.RationalFormulaManager;
 import org.sosy_lab.java_smt.api.SolverContext;
 
 import ctwedge.ctWedge.*;
+import ctwedge.ctWedge.impl.ExpressionImpl;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 
 /**
@@ -240,6 +241,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		FormulaManager fmgr = ctx.getFormulaManager();
 		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
 		RationalFormulaManager rfmgr = fmgr.getRationalFormulaManager();
+		IntegerFormulaManager ifmgr = fmgr.getIntegerFormulaManager();
 
 		// Boolean value
 		if (atom.getBoolConst() != null)
@@ -258,6 +260,19 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 				return (Formula)p.getValue();
 			}
 		
+		// Enumerative value
+		int counter = 0;
+		for (Entry<String, String> p: declaredElements.entrySet()) {
+			Expression e = (ExpressionImpl) atom.eContainer();
+			if (e instanceof EqualExpression) {
+				String enumName = ((AtomicPredicate)((EqualExpression) e).getLeft()).getName();
+				if (p.getKey().equals(varName.concat(enumName)))
+					return ifmgr.makeNumber(counter);
+			}	
+			counter++;
+		}
+		
 		return null;
 	}
+
 }

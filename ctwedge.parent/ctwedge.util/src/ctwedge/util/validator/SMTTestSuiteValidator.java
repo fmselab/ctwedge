@@ -192,7 +192,7 @@ public class SMTTestSuiteValidator {
 		return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Formula rangeComposer(Range range, SolverContext ctx) {
 		// The Range object can be seen as an array of values
 		ArrayFormulaManager afmgr = ctx.getFormulaManager().getArrayFormulaManager();
@@ -217,7 +217,6 @@ public class SMTTestSuiteValidator {
 		return rangeFormula;
 	}
 
-	@SuppressWarnings("rawtypes")
 	private Boolean checkRequirementsConsistency(SolverContext ctx, List<Map<Parameter, String>> listMapReq,
 			Map<String, String> declaredElements, Map<Parameter, Formula> variables, Iterator<Map<Parameter, String>> i,
 			ProverEnvironment prover) throws InterruptedException, SolverException {
@@ -237,6 +236,15 @@ public class SMTTestSuiteValidator {
 
 				// Check the type of the parameter
 				if (p instanceof Enumerative) {
+					// Get the left side of the comparison
+					Formula leftSide = null;
+					for (Entry<Parameter, Formula> e : variables.entrySet()) {
+						if (e.getKey().getName().equals(p.getName()))
+							leftSide = e.getValue();
+					}
+					// Get the right side of the comparison
+					
+					
 
 					// TODO: How to manage enumerations?
 
@@ -248,7 +256,7 @@ public class SMTTestSuiteValidator {
 					 * Pointer a1 = yices.yices_parse_expression(ctx, elementName); t =
 					 * yices.yices_mk_eq(ctx, varPointer, a1);
 					 */
-				} else if (p instanceof ctwedge.ctWedge.Bool) {
+				} else if (p instanceof Bool) {
 					if (requirement.get(p).toLowerCase().equals("true"))
 						tNew = (BooleanFormula) varPointer;
 					else

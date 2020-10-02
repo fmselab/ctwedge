@@ -40,7 +40,7 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 	private Map<Enumerative, Formula> declaredTypes = new HashMap<>();
 	private Map<String, String> declaredElements;
 
-	SMTParameterAdder(SolverContext ctx, Map<String, String> declaredElements ) {
+	SMTParameterAdder(SolverContext ctx, Map<String, String> declaredElements) {
 		this.ctx = ctx;
 		this.declaredElements = declaredElements;
 	}
@@ -50,27 +50,28 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 		Enumerative type = enumerative;
 		
 		// Check if the enumerative type is already declared
-		Formula ytype = declaredTypes.get(type);
+		Formula enumType = declaredTypes.get(type);		
+		if (enumType != null)
+			return enumType;
+		
+		// The enumerative type is a new declared type		
 		String elements = "";
 		String enumName = enumerative.getName();
 		
+		// Create the list of elements
 		for (Element e : type.getElements()) {
 			String typeName = "";
-			typeName = getEnumTypeYicesName(type);
-			String elementYicesName = getElementYicesName(typeName, e);
-			declaredElements.put(e.getName().concat(enumName), elementYicesName);
-			elements += " " + elementYicesName;
+			typeName = type.getName();
+			declaredElements.put(e.getName().concat(enumName), typeName);
+			elements += " " + e.getName().concat(enumName);
 		}
-		if (ytype == null) {
-			// add the type
-			ytype = addEnumType(type, enumName,elements);
-			declaredTypes.put(type, ytype);
-		}
-		Pointer adecl = yices.yices_mk_var_decl(ctx, enumName, ytype);
-		Pointer a = yices.yices_mk_var_from_decl(ctx, adecl);
-		if (logger.isDebugEnabled())
-			yices.yices_dump_context(ctx);
-		return a;
+		
+		// add the type
+		enumType = addEnumType(type, enumName,elements);
+		declaredTypes.put(type, enumType);
+				
+		// Return the name of the new created variable
+		return enumType;
 	}
 	/**
 	 * 
@@ -80,42 +81,9 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 	 * @return
 	 */
 	private Formula addEnumType(Enumerative type, String enumName, String elements) {
-		Formula formulaType = null;
-		String command = " (scalar";
-		
-		String typeName = "";
-		typeName = getEnumTypeYicesName(type);
-		
-		
-		command=command.concat(elements);
-		command=command.concat(")");
-		String definetype = "(define-type " + typeName	+ command + ")";
-		logger.debug(" adding " + definetype);
-		int res = yices.yices_parse_command(ctx, definetype);
-		assert 1 == res : yices.yices_get_last_error_message();
-		formulaType = yices.yices_mk_type(ctx, typeName);
-		if (logger.isDebugEnabled())
-			yices.yices_dump_context(ctx);
-		return formulaType;
-	}
-
-	static String getEnumTypeYicesName(Enumerative type) {
-		String typeName;
-		typeName = type.getName();
-		return typeName;
-	}
-
-	/**
-	 * 
-	 * @param elements
-	 * @param typeName
-	 * @param e
-	 * @return
-	 */
-	static String getElementYicesName(String typeName, Element e) {
-		if(!Character.isDigit(e.getName().charAt(0)) )
-		return e.getName()+typeName;
-		else return "E"+ e.getName()+typeName;
+		// Create the new EnumType
+		Formula enumType = ctx.getFormulaManager().getIntegerFormulaManager().makeVariable(enumName);
+		return enumType;
 	}
 
 	@Override

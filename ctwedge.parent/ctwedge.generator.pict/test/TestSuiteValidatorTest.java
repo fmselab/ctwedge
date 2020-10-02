@@ -142,6 +142,54 @@ public class TestSuiteValidatorTest {
 		assertEquals(tsv.howManyTuplesCovers(), 5);
 		assertTrue(tsv.isValid());
 		assertFalse(tsv.isComplete());
+	}
+	
+	@Test
+	public void simpleEnumTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
 		
+		TestSuite ts = null;
+		
+		try {
+			String model = "Model Concurrency\r\n" + 
+					"\r\n" + 
+					"Parameters:\r\n" + 
+					"p1: { v1 v2 };\r\n" + 
+					"p2: { v1 v2 };\r\n" + 
+					"p3: { v1 v2 };\r\n" + 
+					"p4: Boolean;\r\n" + 
+					"p5: Boolean;\r\n" + 
+					"\r\n" + 
+					"Constraints:\r\n" + 
+					"	# ( p3!=v1 OR p2!=v1 OR p5 OR p4 OR p1!=v1) #\r\n" + 
+					"	# ( p1!=v2 OR p5!=true) #\r\n" + 
+					"	# ( p2!=v1 OR p5 OR p4!=true OR p3!=v2 OR p1!=v1) #\r\n" + 
+					"	# ( p5!=true OR p2!=v2) #\r\n" + 
+					"	# ( p4 OR p3!=v2 OR p1!=v1) #\r\n" + 
+					"	# ( p4!=true OR p1!=v2) #\r\n" + 
+					"	# ( p3!=v1 OR p4!=true) #";
+			PICTGenerator generator = new PICTGenerator();
+			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
+		tsv.setTestSuite(ts);
+		assertEquals(ts.getTests().size(), 6);
+		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+		assertEquals(tsv.howManyTuplesCovers(), 36);
+		assertTrue(tsv.isValid());
+		assertTrue(tsv.isComplete());
+		
+		System.out.println("***** Now remove the first test from test suite! *****\n"
+				+ "The size should decrease and the test suite must be not complete");
+		
+		ts.getTests().remove(0);
+		tsv.setTestSuite(ts);
+		assertEquals(ts.getTests().size(), 5);
+		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+		assertEquals(tsv.howManyTuplesCovers(), 5);
+		assertTrue(tsv.isValid());
+		assertFalse(tsv.isComplete());
 	}
 }
