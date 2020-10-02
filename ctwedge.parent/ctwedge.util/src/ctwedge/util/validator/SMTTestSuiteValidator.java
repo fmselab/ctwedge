@@ -157,6 +157,8 @@ public class SMTTestSuiteValidator {
 
 		SolverContext ctx = SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(),
 				Solvers.SMTINTERPOL);
+		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
+		
 		Set<Map<Parameter, String>> testSuiteSet = getTestMap();
 		List<Map<Parameter, String>> listMapReq = getRequirements();
 		Iterator<Map<Parameter, String>> iSeed = testSuiteSet.iterator();
@@ -174,22 +176,21 @@ public class SMTTestSuiteValidator {
 		}
 		Map<String, String> declaredElements = new HashMap<>();
 		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
-		ProverEnvironment pe = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(),
-				ctx, declaredElements, variables);
+		prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(),
+				ctx, declaredElements, variables, prover);
 
 		// Prove
-		if (pe.isUnsat())
+		if (prover.isUnsat())
 			throw new RuntimeException("The list of constraints is unsatisfiable");
 
 		// Add the n-wise tuple to the context
 		Iterator<Map<Parameter, String>> i = listMapReq.iterator();
-		return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i);
+		return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
 	}
 
 	private Boolean checkRequirementsConsistency(SolverContext ctx, List<Map<Parameter, String>> listMapReq,
 			Map<String, String> declaredElements, Map<Parameter, Formula> variables,
-			Iterator<Map<Parameter, String>> i) {
-		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
+			Iterator<Map<Parameter, String>> i, ProverEnvironment prover) throws InterruptedException, SolverException {
 		
 		while (i.hasNext()) {
 			Map<Parameter, String> requirement = i.next();
@@ -204,11 +205,14 @@ public class SMTTestSuiteValidator {
 				
 				// Check the type of the parameter
 				if (p instanceof Enumerative) {
-					String elementName = declaredElements.get(requirement.get(p).concat(p.getName()));
+					
+					// TODO: How to manage enumerations?
+					
+					/*String elementName = declaredElements.get(requirement.get(p).concat(p.getName()));
 					assert elementName != null;
 					
 					Pointer a1 = yices.yices_parse_expression(ctx, elementName);
-					t = yices.yices_mk_eq(ctx, varPointer, a1);
+					t = yices.yices_mk_eq(ctx, varPointer, a1);*/
 				} else if (p instanceof ctwedge.ctWedge.Bool) {
 					if (requirement.get(p).toLowerCase().equals("true"))
 						t = (BooleanFormula) varPointer;

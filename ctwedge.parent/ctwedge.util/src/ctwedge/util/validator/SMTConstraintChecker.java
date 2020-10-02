@@ -51,12 +51,9 @@ public class SMTConstraintChecker {
 	}
 
 	public static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx,
-			Map<String, String> declaredElements, Map<Parameter, Formula> variables) {
+			Map<String, String> declaredElements, Map<Parameter, Formula> variables, ProverEnvironment prover) {
 		// Add all the parameters to the new CTX
 		addParameters(model, ctx, declaredElements, variables);
-
-		// New prover
-		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
 
 		// Translate all the constraints and add them to the context
 		for (Constraint r : list) {
@@ -99,12 +96,13 @@ public class SMTConstraintChecker {
 
 		// Create a new Context
 		SolverContext ctx = createCtx();
+		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
 
 		// Add all the parameters, and their types
 		Map<String, String> declaredElements = new HashMap<>();
 		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
-		ProverEnvironment pe = createCtxFromModel(model, model.getConstraints(), ctx, declaredElements, variables);
-		Boolean result = pe.isUnsat();
+		prover = createCtxFromModel(model, model.getConstraints(), ctx, declaredElements, variables, prover);
+		Boolean result = prover.isUnsat();
 
 		// Delete the existing context
 		if (deleteCtx) {
@@ -146,11 +144,12 @@ public class SMTConstraintChecker {
 				return null;
 
 			ctx = createCtx();
+			ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
 			HashMap<String, String> declaredElements = new HashMap<>();
 			HashMap<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
-			ProverEnvironment pe = createCtxFromModel(model, constraints, ctx, declaredElements, variables);
+			prover = createCtxFromModel(model, constraints, ctx, declaredElements, variables, prover);
 
-			if (pe.isUnsat()) {
+			if (prover.isUnsat()) {
 				System.out.println(" non soddisfa ");
 			} else {
 				logger.debug("soddisfa - constraints: " + constraints.size() + " = " + constraints);

@@ -114,7 +114,9 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		IntegerFormulaManager imgr = fmgr.getIntegerFormulaManager();
 		RationalFormulaManager rfmgr = fmgr.getRationalFormulaManager();
 		
-		
+		if (leftVal == null || rightVal==null)
+			return bmgr.makeBoolean(false);
+			
 		// Different classed -> Cannot be equals
 		if (!leftVal.getClass().equals(rightVal.getClass()))
 			return bmgr.makeBoolean(false);
@@ -252,7 +254,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		// Variable name
 		String varName = atom.getName();
 		for (Entry p : variables.entrySet())
-			if (p.getKey().toString().equalsIgnoreCase(varName))
+			if (((Parameter)p.getKey()).getName().toString().equalsIgnoreCase(varName))
 				return (Formula)p.getValue();
 		
 		return null;

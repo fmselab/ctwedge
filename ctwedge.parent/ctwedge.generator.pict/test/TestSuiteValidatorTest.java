@@ -1,47 +1,78 @@
 import org.junit.Test;
+import org.sosy_lab.common.configuration.InvalidConfigurationException;
+import org.sosy_lab.java_smt.api.SolverException;
 
 import ctwedge.generator.pict.PICTGenerator;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
+import ctwedge.util.validator.SMTTestSuiteValidator;
 import ctwedge.util.validator.TestSuiteValidator;
 
 public class TestSuiteValidatorTest {
-	
+
 	@Test
 	public void test() {
-			
-			TestSuite ts = null;
-			
-			try {
-				String model = "Model Concurrency\r\n" + 
-						"\r\n" + 
-						"Parameters:\r\n" + 
-						"p1: { v1 v2 };\r\n" + 
-						"p2: { v1 v2 };\r\n" + 
-						"p3: { v1 v2 };\r\n" + 
-						"p4: Boolean;\r\n" + 
-						"p5: Boolean;\r\n" + 
-						"\r\n" + 
-						"Constraints:\r\n" + 
-						"	# ( p3!=v1 OR p2!=v1 OR p5 OR p4 OR p1!=v1) #\r\n" + 
-						"	# ( p1!=v2 OR p5!=true) #\r\n" + 
-						"	# ( p2!=v1 OR p5 OR p4!=true OR p3!=v2 OR p1!=v1) #\r\n" + 
-						"	# ( p5!=true OR p2!=v2) #\r\n" + 
-						"	# ( p4 OR p3!=v2 OR p1!=v1) #\r\n" + 
-						"	# ( p4!=true OR p1!=v2) #\r\n" + 
-						"	# ( p3!=v1 OR p4!=true) #";
-				PICTGenerator generator = new PICTGenerator();
-				ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			TestSuiteValidator tsv = new TestSuiteValidator();
-			tsv.setTestSuite(ts);
-			System.out.println("Total test number: " + ts.getTests().size());
-			System.out.println("Total valid test number: " + tsv.howManyTestAreValid());
-			System.out.println("Total tuples covered number: " + tsv.howManyTuplesCovers());
-			System.out.println("Is test suite valid? " + tsv.isValid());
-			System.out.println("Is test suite complete? " + tsv.isComplete());
+
+		TestSuite ts = null;
+
+		try {
+			String model = "Model Concurrency\r\n" + "\r\n" + "Parameters:\r\n" + "p1: { v1 v2 };\r\n"
+					+ "p2: { v1 v2 };\r\n" + "p3: { v1 v2 };\r\n" + "p4: Boolean;\r\n" + "p5: Boolean;\r\n" + "\r\n"
+					+ "Constraints:\r\n" + "	# ( p3!=v1 OR p2!=v1 OR p5 OR p4 OR p1!=v1) #\r\n"
+					+ "	# ( p1!=v2 OR p5!=true) #\r\n" + "	# ( p2!=v1 OR p5 OR p4!=true OR p3!=v2 OR p1!=v1) #\r\n"
+					+ "	# ( p5!=true OR p2!=v2) #\r\n" + "	# ( p4 OR p3!=v2 OR p1!=v1) #\r\n"
+					+ "	# ( p4!=true OR p1!=v2) #\r\n" + "	# ( p3!=v1 OR p4!=true) #";
+			PICTGenerator generator = new PICTGenerator();
+			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+		TestSuiteValidator tsv = new TestSuiteValidator();
+		tsv.setTestSuite(ts);
+		System.out.println("Total test number: " + ts.getTests().size());
+		System.out.println("Total valid test number: " + tsv.howManyTestAreValid());
+		System.out.println("Total tuples covered number: " + tsv.howManyTuplesCovers());
+		System.out.println("Is test suite valid? " + tsv.isValid());
+		System.out.println("Is test suite complete? " + tsv.isComplete());
+	}
+	
+	@Test
+	public void simpleTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
+
+		TestSuite ts = null;
+
+		try {
+			String model = "Model Concurrency\r\n" + 
+						   "\r\n" + 
+						   "Parameters:\r\n" + 
+						   "p4: Boolean;\r\n" + 
+						   "p5: Boolean;\r\n" +
+						   "p2: Boolean;\r\n" + 
+						   "\r\n" + 
+						   "Constraints:\r\n" + 
+						   "	# ( p2!=true OR p5) #";
+			PICTGenerator generator = new PICTGenerator();
+			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
+		tsv.setTestSuite(ts);
+		System.out.println("Total test number: " + ts.getTests().size());
+		System.out.println("Total valid test number: " + tsv.howManyTestAreValid());
+		System.out.println("Total tuples covered number: " + tsv.howManyTuplesCovers());
+		System.out.println("Is test suite valid? " + tsv.isValid());
+		System.out.println("Is test suite complete? " + tsv.isComplete());
+		
+		System.out.println("***** Now remove the first test! *****");
+		ts.getTests().remove(0);
+		tsv.setTestSuite(ts);
+		System.out.println("Total test number: " + ts.getTests().size());
+		System.out.println("Total valid test number: " + tsv.howManyTestAreValid());
+		System.out.println("Total tuples covered number: " + tsv.howManyTuplesCovers());
+		System.out.println("Is test suite valid? " + tsv.isValid());
+		System.out.println("Is test suite complete? " + tsv.isComplete());
+	}
 }

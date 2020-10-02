@@ -112,7 +112,8 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 		else return "E"+ e.getName()+typeName;
 	}
 
-	public Formula caseBoolean(Bool boolParam) {
+	@Override
+	public Formula caseBool(Bool boolParam) {
 		return ctx.getFormulaManager().getBooleanFormulaManager().makeVariable(boolParam.getName());
 	}
 
