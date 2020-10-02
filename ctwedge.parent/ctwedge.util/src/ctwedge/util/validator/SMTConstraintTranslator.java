@@ -183,9 +183,9 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		case GT:			
 			return nmgr.greaterThan((NumeralFormula)leftVal, (NumeralFormula)rightVal);
 		case LE:
-			return nmgr.lessThan((NumeralFormula)leftVal, (NumeralFormula)rightVal);
-		case LT:
 			return nmgr.lessOrEquals((NumeralFormula)leftVal, (NumeralFormula)rightVal);
+		case LT:
+			return nmgr.lessThan((NumeralFormula)leftVal, (NumeralFormula)rightVal);
 		}
 		
 		throw new RuntimeException("Operator not found in constraint");
@@ -254,8 +254,9 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		// Variable name
 		String varName = atom.getName();
 		for (Entry p : variables.entrySet())
-			if (((Parameter)p.getKey()).getName().toString().equalsIgnoreCase(varName))
+			if (((Parameter)p.getKey()).getName().toString().equalsIgnoreCase(varName)) {
 				return (Formula)p.getValue();
+			}
 		
 		return null;
 	}

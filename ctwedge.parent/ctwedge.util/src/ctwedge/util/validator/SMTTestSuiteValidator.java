@@ -25,8 +25,12 @@ import org.sosy_lab.common.log.BasicLogManager;
 import org.sosy_lab.common.log.LogManager;
 import org.sosy_lab.java_smt.SolverContextFactory;
 import org.sosy_lab.java_smt.SolverContextFactory.Solvers;
+import org.sosy_lab.java_smt.api.ArrayFormula;
+import org.sosy_lab.java_smt.api.ArrayFormulaManager;
 import org.sosy_lab.java_smt.api.BooleanFormula;
 import org.sosy_lab.java_smt.api.Formula;
+import org.sosy_lab.java_smt.api.FormulaType;
+import org.sosy_lab.java_smt.api.NumeralFormula.IntegerFormula;
 import org.sosy_lab.java_smt.api.ProverEnvironment;
 import org.sosy_lab.java_smt.api.SolverContext;
 import org.sosy_lab.java_smt.api.SolverException;
@@ -158,7 +162,7 @@ public class SMTTestSuiteValidator {
 		SolverContext ctx = SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(),
 				Solvers.SMTINTERPOL);
 		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
-		
+
 		Set<Map<Parameter, String>> testSuiteSet = getTestMap();
 		List<Map<Parameter, String>> listMapReq = getRequirements();
 		Iterator<Map<Parameter, String>> iSeed = testSuiteSet.iterator();
@@ -176,8 +180,8 @@ public class SMTTestSuiteValidator {
 		}
 		Map<String, String> declaredElements = new HashMap<>();
 		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
-		prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(),
-				ctx, declaredElements, variables, prover);
+		prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx,
+				declaredElements, variables, prover);
 
 		// Prove
 		if (prover.isUnsat())
@@ -188,52 +192,108 @@ public class SMTTestSuiteValidator {
 		return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
 	}
 
+	@SuppressWarnings("unchecked")
+	public Formula rangeComposer(Range range, SolverContext ctx) {
+		// The Range object can be seen as an array of values
+		ArrayFormulaManager afmgr = ctx.getFormulaManager().getArrayFormulaManager();
+		ArrayFormula rangeFormula = null;
+		int counter = 0;
+
+		String typeName = range.getName();
+		rangeFormula = afmgr.makeArray(typeName,
+				new FormulaType.ArrayFormulaType<>(FormulaType.IntegerType, FormulaType.IntegerType));
+
+		// Get the list of all possible values
+		ArrayList<String> values = new ArrayList<String>(ParameterElementsGetterAsStrings.eInstance.caseRange(range));
+		if (values.size() > 1) {
+			for (String v : values) {
+				afmgr.store(rangeFormula, ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(counter),
+						ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(Integer.parseInt(v)));
+				counter++;
+			}
+		} else
+			throw new RuntimeException("Not valid");
+
+		return rangeFormula;
+	}
+
+	@SuppressWarnings("rawtypes")
 	private Boolean checkRequirementsConsistency(SolverContext ctx, List<Map<Parameter, String>> listMapReq,
-			Map<String, String> declaredElements, Map<Parameter, Formula> variables,
-			Iterator<Map<Parameter, String>> i, ProverEnvironment prover) throws InterruptedException, SolverException {
-		
+			Map<String, String> declaredElements, Map<Parameter, Formula> variables, Iterator<Map<Parameter, String>> i,
+			ProverEnvironment prover) throws InterruptedException, SolverException {
+
 		while (i.hasNext()) {
 			Map<Parameter, String> requirement = i.next();
 			logger.debug("checking requirment " + requirement);
 
+			BooleanFormula t = ctx.getFormulaManager().getBooleanFormulaManager().makeTrue();
+
 			prover.push();
 			for (Parameter p : requirement.keySet()) {
 
-				BooleanFormula t = null;
+				BooleanFormula tNew = null;
 				Formula varPointer = variables.get(p);
 				assert varPointer != null;
-				
+
 				// Check the type of the parameter
 				if (p instanceof Enumerative) {
-					
+
 					// TODO: How to manage enumerations?
-					
-					/*String elementName = declaredElements.get(requirement.get(p).concat(p.getName()));
-					assert elementName != null;
-					
-					Pointer a1 = yices.yices_parse_expression(ctx, elementName);
-					t = yices.yices_mk_eq(ctx, varPointer, a1);*/
+
+					/*
+					 * String elementName =
+					 * declaredElements.get(requirement.get(p).concat(p.getName())); assert
+					 * elementName != null;
+					 * 
+					 * Pointer a1 = yices.yices_parse_expression(ctx, elementName); t =
+					 * yices.yices_mk_eq(ctx, varPointer, a1);
+					 */
 				} else if (p instanceof ctwedge.ctWedge.Bool) {
 					if (requirement.get(p).toLowerCase().equals("true"))
-						t = (BooleanFormula) varPointer;
+						tNew = (BooleanFormula) varPointer;
 					else
-						t = ctx.getFormulaManager().getBooleanFormulaManager().not((BooleanFormula) varPointer);
+						tNew = ctx.getFormulaManager().getBooleanFormulaManager().not((BooleanFormula) varPointer);
+				} else if (p instanceof Range) {
+					// Get the left side of the comparison
+					Formula leftSide = null;
+					for (Entry<Parameter, Formula> e : variables.entrySet()) {
+						if (e.getKey().getName().equals(p.getName()))
+							leftSide = e.getValue();
+					}
+					// Get the right side of the comparison
+					Formula rightSide = ctx.getFormulaManager().getIntegerFormulaManager()
+							.makeNumber(Integer.parseInt(requirement.get(p)));
+
+					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
+							(IntegerFormula) rightSide);
+
+					// Add the constraint referring the limits of the range
+					int lBound = ((Range) p).getBegin();
+					int uBound = ((Range) p).getEnd();
+					Formula lBoundFormula = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(lBound);
+					Formula uBoundFormula = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(uBound);
+					tNew = ctx.getFormulaManager().getBooleanFormulaManager().and(tNew,
+							ctx.getFormulaManager().getIntegerFormulaManager()
+									.greaterOrEquals((IntegerFormula) leftSide, (IntegerFormula) lBoundFormula));
+					tNew = ctx.getFormulaManager().getBooleanFormulaManager().and(tNew,
+							ctx.getFormulaManager().getIntegerFormulaManager().lessOrEquals((IntegerFormula) leftSide,
+									(IntegerFormula) uBoundFormula));
 				}
-				// Add the new constraint
+
+				t = ctx.getFormulaManager().getBooleanFormulaManager().and(t, tNew);
+			}
+
+			// Add the new constraint
+			if (t != null)
 				prover.addConstraint(t);
 
-				// The context is inconsistent, the tuple is unfeasible -> go to the next one
-				if (prover.isUnsat()) {
-					break;
-				}
-			}
-			
-			// If the tuple is feasible, it returns false since the test suite is missing a requirement
+			// If the tuple is feasible, it returns false since the test suite is missing a
+			// requirement
 			if (!prover.isUnsat()) {
 				ctx.close();
 				return false;
 			}
-			
+
 			prover.pop();
 		}
 

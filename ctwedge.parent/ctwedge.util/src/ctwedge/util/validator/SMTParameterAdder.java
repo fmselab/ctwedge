@@ -1,4 +1,4 @@
-package ctwedge.util.validator;
+ package ctwedge.util.validator;
 
 /*******************************************************************************
  * Copyright (c) 2020 University of Bergamo - Italy
@@ -19,8 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.sosy_lab.java_smt.api.ArrayFormula;
+import org.sosy_lab.java_smt.api.ArrayFormulaManager;
 import org.sosy_lab.java_smt.api.BooleanFormula;
 import org.sosy_lab.java_smt.api.Formula;
+import org.sosy_lab.java_smt.api.FormulaType;
+import org.sosy_lab.java_smt.api.NumeralFormula.IntegerFormula;
 import org.sosy_lab.java_smt.api.SolverContext;
 
 import ctwedge.ctWedge.*;
@@ -44,13 +48,15 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 	@Override
 	public Formula caseEnumerative(Enumerative enumerative) {
 		Enumerative type = enumerative;
-		// check if already declared
-		Pointer ytype = declaredTypes.get(type);
+		
+		// Check if the enumerative type is already declared
+		Formula ytype = declaredTypes.get(type);
 		String elements = "";
 		String enumName = enumerative.getName();
+		
 		for (Element e : type.getElements()) {
 			String typeName = "";
-			typeName = getEnumTypeYicesName(type, enumName);
+			typeName = getEnumTypeYicesName(type);
 			String elementYicesName = getElementYicesName(typeName, e);
 			declaredElements.put(e.getName().concat(enumName), elementYicesName);
 			elements += " " + elementYicesName;
@@ -78,7 +84,7 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 		String command = " (scalar";
 		
 		String typeName = "";
-		typeName = getEnumTypeYicesName(type, enumName);
+		typeName = getEnumTypeYicesName(type);
 		
 		
 		command=command.concat(elements);
@@ -93,7 +99,7 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 		return formulaType;
 	}
 
-	static String getEnumTypeYicesName(Enumerative type, String enumName) {
+	static String getEnumTypeYicesName(Enumerative type) {
 		String typeName;
 		typeName = type.getName();
 		return typeName;
@@ -117,32 +123,19 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 		return ctx.getFormulaManager().getBooleanFormulaManager().makeVariable(boolParam.getName());
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Formula caseRange(Range range) {
-		Pointer p = null;
-		Pointer type = null;
-		String command = new String();
-		if (range.getStep() != 0 || range.getStep() > 1) {
-			String typeName = range.getName()+"type";
-			ArrayList<String> values = new ArrayList<String>(
-					ParameterElementsGetterAsStrings.eInstance.caseRange(range));
-			if (values.size() > 1) {
-				command = "(subtype (" + typeName + "::int) (or ";
-				for (String v : values) {
-					command=command.concat("(= "+typeName + " " + v + ") ");
-				}
-				command=command.concat("))");
-				// "(subtype (n::int) (or (= n 2) (= n 8) ))"
-				 type = yices.yices_parse_type(ctx, command);
-				
-			} else
-				throw new RuntimeException("Not valid ");
-		} else {
-			 type = yices.yices_parse_type(ctx, "(subrange "+range.getBegin() +" "+range.getEnd()+")");
-		}
-		Pointer adecl = yices.yices_mk_var_decl(ctx, range.getName(), type);
-		p = yices.yices_mk_var_from_decl(ctx, adecl);
-		return p;
+		// The Range object can be seen as an array of values => Get the list of all possible values
+		ArrayList<String> values = new ArrayList<String>(ParameterElementsGetterAsStrings.eInstance.caseRange(range));
+		if (values.size() >= 1) {
+			for (String v : values) {
+				declaredElements.put(v.concat(range.getName()),v);
+			}
+		} else
+			throw new RuntimeException("Not valid");
+		
+		return ctx.getFormulaManager().getIntegerFormulaManager().makeVariable(range.getName());
 	}
 
 }
