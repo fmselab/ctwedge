@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.java_smt.api.SolverException;
 
 import ctwedge.generator.acts.ACTSTranslator;
+import ctwedge.generator.casa.CASATranslator;
 import ctwedge.generator.pict.PICTGenerator;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
@@ -202,16 +204,16 @@ public class TestSuiteValidatorTest {
 		TestSuite ts = null;
 
 		try {
-			String model = readFromFile(new File("models/benchmark_27.ctw"));
-			ACTSTranslator generator = new ACTSTranslator();
+			String model = readFromFile(new File("models/Storage5.ctw"));
+			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		// Define the validator
-		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-		tsv.setTestSuite(ts);
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();	
+		tsv.setTestSuite(ts);	
 		
 		// Save the number of tests
 		int numTest = ts.getTests().size();
@@ -254,27 +256,11 @@ public class TestSuiteValidatorTest {
 			String model;
 			try {
 				
-				// With ACTS we have -1 as weight (for what?)
-				if (file.toString().contains("grep_v0_1_small.ctw")) continue;
-				
 				// It seems that the error is due to PICT. Generating the test suite with ACTS there are no problems
-				if (file.toString().contains("SystemMgmt.ctw")) continue;
-				if (file.toString().contains("benchmark_15.ctw")) continue;
-				if (file.toString().contains("benchmark_27.ctw")) continue;
-				if (file.toString().contains("benchmark_3.ctw")) continue;
-				if (file.toString().contains("benchmark_4.ctw")) continue;
-				if (file.toString().contains("benchmark_8.ctw")) continue;			
-				if (file.toString().contains("CommProtocol.ctw")) continue; 
-				if (file.toString().contains("gzip_v0_small.ctw")) continue;
-				if (file.toString().contains("Healthcare1.ctw")) continue;
 				if (file.toString().contains("Healthcare3.ctw")) continue;
-				if (file.toString().contains("Healthcare4.ctw")) continue;
 				if (file.toString().contains("NetworkMgmt.ctw")) continue;
-				if (file.toString().contains("sed_v0_2_small.ctw")) continue;
 				if (file.toString().contains("Services.ctw")) continue;
-				if (file.toString().contains("Storage1.ctw")) continue;
 				if (file.toString().contains("Storage3.ctw")) continue;
-				if (file.toString().contains("Storage5.ctw")) continue;
 				
 				System.out.println("Checking " + file);
 				

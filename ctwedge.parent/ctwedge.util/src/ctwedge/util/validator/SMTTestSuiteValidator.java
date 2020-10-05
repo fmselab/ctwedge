@@ -41,6 +41,7 @@ import com.sun.jna.Pointer;
 
 import ctwedge.ctWedge.*;
 import ctwedge.ctWedge.impl.CtWedgeFactoryImpl;
+import ctwedge.ctWedge.impl.EnumerativeImpl;
 import ctwedge.ctWedge.impl.ParameterImpl;
 import ctwedge.util.Pair;
 import ctwedge.util.Test;
@@ -161,7 +162,7 @@ public class SMTTestSuiteValidator {
 
 		SolverContext ctx = SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(),
 				Solvers.SMTINTERPOL);
-		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_UNSAT_CORE, ProverOptions.GENERATE_MODELS);
+		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
 
 		Set<Map<Parameter, String>> testSuiteSet = getTestMap();
 		List<Map<Parameter, String>> listMapReq = getRequirements();
@@ -224,6 +225,27 @@ public class SMTTestSuiteValidator {
 		
 		ArrayList<Formula> notComplete = new ArrayList<Formula>();
 
+		// Add all the constraints related to the bounds of the enums
+		for (Entry<Parameter, Formula> type : variables.entrySet()) {
+			if (type.getKey() instanceof EnumerativeImpl) {
+				BooleanFormula tBound = ctx.getFormulaManager().getBooleanFormulaManager().makeFalse();
+				int counter = 0;
+				
+				for (Entry<String, String> e : declaredElements.entrySet()) {
+					if (e.getValue().equals(type.getKey().getName())) {
+						tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound, 
+								ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula)type.getValue(),
+								(IntegerFormula) ctx.getFormulaManager().getIntegerFormulaManager()
+								.makeNumber(counter)));
+					}
+					counter ++;
+				}
+				
+				// Add the bound constraint
+				prover.addConstraint(tBound);
+			}			
+		}	
+		
 		while (i.hasNext()) {
 			Map<Parameter, String> requirement = i.next();
 			logger.debug("checking requirment " + requirement);
@@ -261,24 +283,7 @@ public class SMTTestSuiteValidator {
 					}
 					
 					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
-							(IntegerFormula) rightSide);
-					
-					BooleanFormula tBound = ctx.getFormulaManager().getBooleanFormulaManager().makeFalse();
-					counter = 0;
-					
-					// Define the bounds of the enum param
-					for (Entry<String, String> e : declaredElements.entrySet()) {
-						if (e.getValue().equals(p.getName())) {
-							tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound, 
-									ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
-									(IntegerFormula) ctx.getFormulaManager().getIntegerFormulaManager()
-									.makeNumber(counter)));
-						}
-						counter ++;
-					}
-					
-					// Add the bound constraint
-					tNew = ctx.getFormulaManager().getBooleanFormulaManager().and(tNew, tBound);				
+							(IntegerFormula) rightSide);			
 					
 				} else if (p instanceof Bool) {
 					if (requirement.get(p).toLowerCase().equals("true"))
@@ -323,6 +328,7 @@ public class SMTTestSuiteValidator {
 			// requirement
 			if (!prover.isUnsat()) {
 				notComplete.add(t);
+				System.out.println(prover.getModelAssignments());
 			}
 
 			prover.pop();
