@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.java_smt.api.SolverException;
 
+import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.pict.PICTGenerator;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
@@ -202,7 +203,7 @@ public class TestSuiteValidatorTest {
 		TestSuite ts = null;
 
 		try {
-			String model = readFromFile(new File("models/Telecom.ctw"));
+			String model = readFromFile(new File("models/benchmark_27.ctw"));
 			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 		} catch (Exception e) {
@@ -254,13 +255,17 @@ public class TestSuiteValidatorTest {
 			String model;
 			try {
 				
+				// With ACTS we have -1 as weight (for what?)
+				if (file.toString().contains("grep_v0_1_small.ctw")) continue;
+				
+				// It seems that the error is due to PICT. Generating the test suite with ACTS there are no problems
+				if (file.toString().contains("SystemMgmt")) continue;
 				if (file.toString().contains("benchmark_15.ctw")) continue;
 				if (file.toString().contains("benchmark_27.ctw")) continue;
 				if (file.toString().contains("benchmark_3.ctw")) continue;
 				if (file.toString().contains("benchmark_4.ctw")) continue;
 				if (file.toString().contains("benchmark_8.ctw")) continue;			
 				if (file.toString().contains("CommProtocol.ctw")) continue; 
-				if (file.toString().contains("grep_v0_1_small.ctw")) continue;
 				if (file.toString().contains("gzip_v0_small.ctw")) continue;
 				if (file.toString().contains("Healthcare1.ctw")) continue;
 				if (file.toString().contains("Healthcare3.ctw")) continue;
@@ -271,7 +276,6 @@ public class TestSuiteValidatorTest {
 				if (file.toString().contains("Storage1.ctw")) continue;
 				if (file.toString().contains("Storage3.ctw")) continue;
 				if (file.toString().contains("Storage5")) continue;
-				if (file.toString().contains("SystemMgmt")) continue;
 				
 				System.out.println("Checking " + file);
 				
