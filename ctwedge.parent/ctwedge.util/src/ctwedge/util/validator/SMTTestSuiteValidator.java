@@ -240,8 +240,10 @@ public class SMTTestSuiteValidator {
 					// Get the left side of the comparison
 					Formula leftSide = null;
 					for (Entry<Parameter, Formula> e : variables.entrySet()) {
-						if (e.getKey().getName().equals(p.getName()))
+						if (e.getKey().getName().equals(p.getName())) {
 							leftSide = e.getValue();
+							break;
+						}
 					}
 					// Get the right side of the comparison
 					String valueName = requirement.get(p).concat(p.getName());
@@ -251,6 +253,7 @@ public class SMTTestSuiteValidator {
 						if (e.getKey().equals(valueName)) {
 							rightSide = ctx.getFormulaManager().getIntegerFormulaManager()
 									.makeNumber(counter);
+							break;
 						}
 						counter++;
 					}
