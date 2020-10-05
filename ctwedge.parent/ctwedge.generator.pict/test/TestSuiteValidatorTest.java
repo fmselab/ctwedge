@@ -185,10 +185,12 @@ public class TestSuiteValidatorTest {
 				+ "The size should decrease and the test suite must be not complete");
 		
 		ts.getTests().remove(0);
+		ts.getTests().remove(0);
+		ts.getTests().remove(0);
 		tsv.setTestSuite(ts);
-		assertEquals(ts.getTests().size(), 5);
+		assertEquals(ts.getTests().size(), 3);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
-		assertEquals(tsv.howManyTuplesCovers(), 5);
+		assertEquals(tsv.howManyTuplesCovers(), 28);
 		assertTrue(tsv.isValid());
 		assertFalse(tsv.isComplete());
 	}

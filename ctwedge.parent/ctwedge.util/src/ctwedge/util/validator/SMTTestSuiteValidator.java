@@ -256,19 +256,24 @@ public class SMTTestSuiteValidator {
 					
 					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
 							(IntegerFormula) rightSide);
-					// TODO : Bound to be defined?
 					
-
-					// TODO: How to manage enumerations?
-
-					/*
-					 * String elementName =
-					 * declaredElements.get(requirement.get(p).concat(p.getName())); assert
-					 * elementName != null;
-					 * 
-					 * Pointer a1 = yices.yices_parse_expression(ctx, elementName); t =
-					 * yices.yices_mk_eq(ctx, varPointer, a1);
-					 */
+					BooleanFormula tBound = ctx.getFormulaManager().getBooleanFormulaManager().makeFalse();
+					counter = 0;
+					
+					// Define the bounds of the enum param
+					for (Entry<String, String> e : declaredElements.entrySet()) {
+						if (e.getValue().equals(p.getName())) {
+							tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound, 
+									ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
+									(IntegerFormula) ctx.getFormulaManager().getIntegerFormulaManager()
+									.makeNumber(counter)));
+						}
+						counter ++;
+					}
+					
+					// Add the bound constraint
+					tNew = ctx.getFormulaManager().getBooleanFormulaManager().and(tNew, tBound);				
+					
 				} else if (p instanceof Bool) {
 					if (requirement.get(p).toLowerCase().equals("true"))
 						tNew = (BooleanFormula) varPointer;
