@@ -204,7 +204,7 @@ public class TestSuiteValidatorTest {
 		TestSuite ts = null;
 
 		try {
-			String model = readFromFile(new File("models/Storage5.ctw"));
+			String model = readFromFile(new File("models/Storage3.ctw"));
 			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 		} catch (Exception e) {
@@ -255,12 +255,6 @@ public class TestSuiteValidatorTest {
 		for (File file : fileList) {
 			String model;
 			try {
-				
-				// It seems that the error is due to PICT. Generating the test suite with ACTS there are no problems
-				if (file.toString().contains("Healthcare3.ctw")) continue;
-				if (file.toString().contains("NetworkMgmt.ctw")) continue;
-				if (file.toString().contains("Services.ctw")) continue;
-				if (file.toString().contains("Storage3.ctw")) continue;
 				
 				System.out.println("Checking " + file);
 				

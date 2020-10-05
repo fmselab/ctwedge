@@ -225,6 +225,8 @@ public class SMTTestSuiteValidator {
 		
 		ArrayList<Formula> notComplete = new ArrayList<Formula>();
 
+		prover.push();
+		
 		// Add all the constraints related to the bounds of the enums
 		for (Entry<Parameter, Formula> type : variables.entrySet()) {
 			if (type.getKey() instanceof EnumerativeImpl) {

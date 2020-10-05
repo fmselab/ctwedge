@@ -247,20 +247,8 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		if (atom.getBoolConst() != null)
 			return bmgr.makeBoolean(atom.getBoolConst().equalsIgnoreCase("true") ? true : false);
 		
-		// Numeric value
-		try {
-			double num = Double.parseDouble(atom.getName().toString());
-			return rfmgr.makeNumber(num);
-		} catch (NumberFormatException ex) {}
-		
-		// Variable name
-		String varName = atom.getName();
-		for (Entry p : variables.entrySet())
-			if (((Parameter)p.getKey()).getName().toString().equalsIgnoreCase(varName)) {
-				return (Formula)p.getValue();
-			}
-		
 		// Enumerative value
+		String varName = atom.getName();
 		int counter = 0;
 		for (Entry<String, String> p: declaredElements.entrySet()) {
 			Expression e = (ExpressionImpl) atom.eContainer();
@@ -271,6 +259,18 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 			}	
 			counter++;
 		}
+		
+		// Numeric value
+		try {
+			double num = Double.parseDouble(atom.getName().toString());
+			return rfmgr.makeNumber(num);
+		} catch (NumberFormatException ex) {}
+		
+		// Variable name
+		for (Entry p : variables.entrySet())
+			if (((Parameter)p.getKey()).getName().toString().equalsIgnoreCase(varName)) {
+				return (Formula)p.getValue();
+			}
 		
 		return null;
 	}
