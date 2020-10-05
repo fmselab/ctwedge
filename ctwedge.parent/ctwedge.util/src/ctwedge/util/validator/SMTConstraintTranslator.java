@@ -38,7 +38,7 @@ import ctwedge.ctWedge.util.CtWedgeSwitch;
  */
 public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 
-	private static final Logger logger = Logger.getLogger(YicesConstraintTranslator.class);
+	private static final Logger logger = Logger.getLogger(SMTConstraintTranslator.class);
 
 	SolverContext ctx;
 	Map<Parameter, Formula> variables;
