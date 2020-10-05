@@ -17,7 +17,6 @@ import ctwedge.generator.pict.PICTGenerator;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.validator.SMTTestSuiteValidator;
-import ctwedge.util.validator.TestSuiteValidator;
 
 public class TestSuiteValidatorTest {
 
