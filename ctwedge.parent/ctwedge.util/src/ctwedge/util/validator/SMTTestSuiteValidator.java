@@ -161,7 +161,7 @@ public class SMTTestSuiteValidator {
 
 		SolverContext ctx = SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(),
 				Solvers.SMTINTERPOL);
-		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
+		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_UNSAT_CORE, ProverOptions.GENERATE_MODELS);
 
 		Set<Map<Parameter, String>> testSuiteSet = getTestMap();
 		List<Map<Parameter, String>> listMapReq = getRequirements();
@@ -221,6 +221,8 @@ public class SMTTestSuiteValidator {
 	private Boolean checkRequirementsConsistency(SolverContext ctx, List<Map<Parameter, String>> listMapReq,
 			Map<String, String> declaredElements, Map<Parameter, Formula> variables, Iterator<Map<Parameter, String>> i,
 			ProverEnvironment prover) throws InterruptedException, SolverException {
+		
+		ArrayList<Formula> notComplete = new ArrayList<Formula>();
 
 		while (i.hasNext()) {
 			Map<Parameter, String> requirement = i.next();
@@ -320,8 +322,7 @@ public class SMTTestSuiteValidator {
 			// If the tuple is feasible, it returns false since the test suite is missing a
 			// requirement
 			if (!prover.isUnsat()) {
-				ctx.close();
-				return false;
+				notComplete.add(t);
 			}
 
 			prover.pop();
@@ -329,9 +330,12 @@ public class SMTTestSuiteValidator {
 
 		// Terminate the context
 		ctx.close();
+		
+		// Print all the formulas that have not been satisfied
+		notComplete.forEach(x -> System.out.println(x));
 
 		// If no return has been executed before, the requirements are consistent
-		return true;
+		return notComplete.size()==0;
 	}
 
 	private List<Map<Parameter, String>> getRequirements() {

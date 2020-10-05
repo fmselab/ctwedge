@@ -258,7 +258,7 @@ public class TestSuiteValidatorTest {
 				if (file.toString().contains("grep_v0_1_small.ctw")) continue;
 				
 				// It seems that the error is due to PICT. Generating the test suite with ACTS there are no problems
-				if (file.toString().contains("SystemMgmt")) continue;
+				if (file.toString().contains("SystemMgmt.ctw")) continue;
 				if (file.toString().contains("benchmark_15.ctw")) continue;
 				if (file.toString().contains("benchmark_27.ctw")) continue;
 				if (file.toString().contains("benchmark_3.ctw")) continue;
@@ -274,7 +274,7 @@ public class TestSuiteValidatorTest {
 				if (file.toString().contains("Services.ctw")) continue;
 				if (file.toString().contains("Storage1.ctw")) continue;
 				if (file.toString().contains("Storage3.ctw")) continue;
-				if (file.toString().contains("Storage5")) continue;
+				if (file.toString().contains("Storage5.ctw")) continue;
 				
 				System.out.println("Checking " + file);
 				
