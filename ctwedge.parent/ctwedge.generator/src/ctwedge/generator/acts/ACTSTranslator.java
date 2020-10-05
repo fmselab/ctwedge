@@ -153,6 +153,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			TestSet ts = engine.getTestSet();
 			if (PRINT) System.out.println("7. ACTS sto chiamando ACTS...");
 			res = serializeTestSet(model, ts);
+			
 		} catch (Exception e) {
 			if (PRINT) System.out.println("Error: "+e.getMessage());
 			e.printStackTrace();
@@ -186,7 +187,10 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			res = sw.toString(); // stack trace as a string
 		}
 		*/
-		return new TestSuite(res, model);
+		TestSuite ts = new TestSuite(res, model);
+		ts.setStrength(strength);
+		
+		return ts;
 	}
 
 	/** returns the test set as a CSV string, with heading */

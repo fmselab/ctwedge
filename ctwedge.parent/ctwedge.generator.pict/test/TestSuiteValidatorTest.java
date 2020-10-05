@@ -203,7 +203,7 @@ public class TestSuiteValidatorTest {
 
 		try {
 			String model = readFromFile(new File("models/benchmark_27.ctw"));
-			PICTGenerator generator = new PICTGenerator();
+			ACTSTranslator generator = new ACTSTranslator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 		} catch (Exception e) {
 			e.printStackTrace();

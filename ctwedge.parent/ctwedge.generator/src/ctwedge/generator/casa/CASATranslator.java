@@ -78,7 +78,10 @@ public class CASATranslator extends ICTWedgeTestGenerator {
 		}
 		// parse the results
 		String ts = parseResults(output, exporter);
-		return new TestSuite(ts, citModel);
+		TestSuite tst = new TestSuite(ts, citModel);
+		tst.setStrength(nWise);
+		
+		return tst;
 	}
 
 	/**
