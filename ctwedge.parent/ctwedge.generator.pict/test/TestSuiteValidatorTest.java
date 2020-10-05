@@ -265,17 +265,13 @@ public class TestSuiteValidatorTest {
 				if (file.toString().contains("Healthcare1.ctw")) continue;
 				if (file.toString().contains("Healthcare3.ctw")) continue;
 				if (file.toString().contains("Healthcare4.ctw")) continue;
-				/*if (file.toString().contains("nanoxml_parser_v0_small")) continue;
-				if (file.toString().contains("NetworkMgmt")) continue;
-				if (file.toString().contains("ProcessorComm1")) continue;
-				if (file.toString().contains("sed_v0_2_small")) continue;
-				if (file.toString().contains("Services")) continue;
-				if (file.toString().contains("siena_v0")) continue;
-				if (file.toString().contains("Storage1")) continue;
-				if (file.toString().contains("Storage3")) continue;
-				if (file.toString().contains("Storage4")) continue;
+				if (file.toString().contains("NetworkMgmt.ctw")) continue;
+				if (file.toString().contains("sed_v0_2_small.ctw")) continue;
+				if (file.toString().contains("Services.ctw")) continue;
+				if (file.toString().contains("Storage1.ctw")) continue;
+				if (file.toString().contains("Storage3.ctw")) continue;
 				if (file.toString().contains("Storage5")) continue;
-				if (file.toString().contains("SystemMgmt")) continue;*/
+				if (file.toString().contains("SystemMgmt")) continue;
 				
 				System.out.println("Checking " + file);
 				
