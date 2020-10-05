@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.sosy_lab.common.configuration.InvalidConfigurationException;
@@ -186,12 +188,139 @@ public class TestSuiteValidatorTest {
 		
 		ts.getTests().remove(0);
 		ts.getTests().remove(0);
-		ts.getTests().remove(0);
 		tsv.setTestSuite(ts);
-		assertEquals(ts.getTests().size(), 3);
+		assertEquals(ts.getTests().size(), 4);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
-		assertEquals(tsv.howManyTuplesCovers(), 28);
+		assertEquals(tsv.howManyTuplesCovers(), 32);
 		assertTrue(tsv.isValid());
 		assertFalse(tsv.isComplete());
+	}
+	
+	@Test
+	public void fileTest() throws SolverException, InterruptedException, InvalidConfigurationException {
+
+		TestSuite ts = null;
+
+		try {
+			String model = readFromFile(new File("models/Telecom.ctw"));
+			PICTGenerator generator = new PICTGenerator();
+			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// Define the validator
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
+		tsv.setTestSuite(ts);
+		
+		// Save the number of tests
+		int numTest = ts.getTests().size();
+		// Save the number of covered tuples
+		int covTuples = tsv.howManyTuplesCovers();
+		
+		// Check all the tests are valid
+		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+		
+		// The test suite must be valid and complete
+		assertTrue(tsv.isValid());
+		assertTrue(tsv.isComplete());
+		
+		// Now remove tests until the covered tuples decreases
+		while (ts.getTests().size() > 0) {
+			ts.getTests().remove(0);
+			tsv.setTestSuite(ts);
+			
+			if (tsv.howManyTuplesCovers() < covTuples)
+				break;
+		}
+		
+		// If we still have tests
+		if (ts.getTests().size() > 0) {
+			// Check all the tests are valid
+			assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+			// The test suite must be valid but not complete
+			assertTrue(tsv.isValid());
+			assertFalse(tsv.isComplete());
+		}	
+		
+	}
+	
+	@Test
+	public void testFolder() {
+		PICTGenerator generator = new PICTGenerator();
+		List<File> fileList = new ArrayList<>();
+		new PictTest().listFiles(new File("models/"), fileList);
+		for (File file : fileList) {
+			String model;
+			try {
+				
+				if (file.toString().contains("benchmark_15.ctw")) continue;
+				if (file.toString().contains("benchmark_27.ctw")) continue;
+				if (file.toString().contains("benchmark_3.ctw")) continue;
+				if (file.toString().contains("benchmark_4.ctw")) continue;
+				if (file.toString().contains("benchmark_8.ctw")) continue;			
+				if (file.toString().contains("CommProtocol.ctw")) continue; 
+				if (file.toString().contains("grep_v0_1_small.ctw")) continue;
+				if (file.toString().contains("gzip_v0_small.ctw")) continue;
+				if (file.toString().contains("Healthcare1.ctw")) continue;
+				if (file.toString().contains("Healthcare3.ctw")) continue;
+				if (file.toString().contains("Healthcare4.ctw")) continue;
+				/*if (file.toString().contains("nanoxml_parser_v0_small")) continue;
+				if (file.toString().contains("NetworkMgmt")) continue;
+				if (file.toString().contains("ProcessorComm1")) continue;
+				if (file.toString().contains("sed_v0_2_small")) continue;
+				if (file.toString().contains("Services")) continue;
+				if (file.toString().contains("siena_v0")) continue;
+				if (file.toString().contains("Storage1")) continue;
+				if (file.toString().contains("Storage3")) continue;
+				if (file.toString().contains("Storage4")) continue;
+				if (file.toString().contains("Storage5")) continue;
+				if (file.toString().contains("SystemMgmt")) continue;*/
+				
+				System.out.println("Checking " + file);
+				
+				TestSuite ts = null;
+				model = readFromFile(file);
+				
+				// Generate test suite
+				ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
+				
+				// Define the validator
+				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
+				tsv.setTestSuite(ts);
+				
+				// Save the number of tests
+				int numTest = ts.getTests().size();
+				// Save the number of covered tuples
+				int covTuples = tsv.howManyTuplesCovers();
+				
+				// Check all the tests are valid
+				assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+				
+				// The test suite must be valid and complete
+				assertTrue(tsv.isValid());
+				assertTrue(tsv.isComplete());
+				
+				// Now remove tests until the covered tuples decreases
+				while (ts.getTests().size() > 0) {
+					ts.getTests().remove(0);
+					tsv.setTestSuite(ts);
+					
+					if (tsv.howManyTuplesCovers() < covTuples)
+						break;
+				}
+				
+				// If we still have tests
+				if (ts.getTests().size() > 0) {
+					// Check all the tests are valid
+					assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+					// The test suite must be valid but not complete
+					assertTrue(tsv.isValid());
+					assertFalse(tsv.isComplete());
+				}				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

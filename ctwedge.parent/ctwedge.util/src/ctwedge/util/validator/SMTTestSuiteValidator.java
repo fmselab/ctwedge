@@ -252,6 +252,7 @@ public class SMTTestSuiteValidator {
 							rightSide = ctx.getFormulaManager().getIntegerFormulaManager()
 									.makeNumber(counter);
 						}
+						counter++;
 					}
 					
 					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
