@@ -10,6 +10,8 @@ import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
 
+//import ctwedge.generator.pict.PICTGenerator;
+
 public class DiscoverGenerators {
 
 	@Test
@@ -42,14 +44,17 @@ public class DiscoverGenerators {
 			
 			for (IConfigurationElement e : ce) {
 				
-				try {
-					Class c = Class.forName(e.getAttribute("GeneratorPrototype"));
-					System.out.println(c);
-				} catch (ClassNotFoundException exc) {
-					System.err.println("Unable to find the class: " + e.getAttribute("GeneratorPrototype"));
-				}
+				//try {
+				
+					//Class c = Class.forName(e.getAttribute("GeneratorPrototype"));
+					Object o = e.createExecutableExtension("GeneratorPrototype");
+					System.out.println(o);
+					//System.out.println(c);
+					//PICTGenerator gen = new PICTGenerator();
+				//} catch (ClassNotFoundException exc) {
+					//System.err.println("Unable to find the class: " + e.getAttribute("GeneratorPrototype"));
+				//}
 			}
-			
 		}
 	}
 

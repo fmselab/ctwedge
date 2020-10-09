@@ -6,4 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: ctwedge.generator.pict
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.junit,
- ctwedge.ui;bundle-version="1.0.0"
+ ctwedge.ui;bundle-version="1.0.0",
+ ctwedge.util;bundle-version="1.0.0"
+Export-Package: ctwedge.generator.pict
