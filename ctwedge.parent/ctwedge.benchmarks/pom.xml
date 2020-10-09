@@ -55,9 +55,10 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.eclipse.core</groupId>
-			<artifactId>runtime</artifactId>
-			<version>3.10.0-v20140318-2214</version>
+			<groupId>ctwedge</groupId>
+			<artifactId>ctwedge</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<type>eclipse-plugin</type>
 		</dependency>
 	</dependencies>
 </project>
