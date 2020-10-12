@@ -24,7 +24,8 @@
 		<module>ctwedge</module>
 		<module>ctwedge.util</module>
 		<module>ctwedge.ide</module>
-		<module>ctwedge.generator</module>
+		<module>ctwedge.generators/ctwedge.generator.acts</module>
+		<module>ctwedge.generators/ctwedge.generator.casa</module>
 		<module>ctwedge.generator.pict</module>
 		<module>ctwedge.ui</module>
 		<module>ctwedge.web</module>
