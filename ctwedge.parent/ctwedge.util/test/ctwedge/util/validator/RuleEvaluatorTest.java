@@ -2,7 +2,6 @@ package ctwedge.util.validator;
 
 import java.util.HashMap;
 
-import ctwedge.benchmarks.Benchmarks;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.util.Test;
 

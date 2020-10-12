@@ -95,7 +95,10 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 		System.out.println("Returning test suite " + ts);
 		return ts;
 	}
+	// TODP check with the previous one
+	public abstract TestSuite getTestSuite(CitModel loadModel, int t, boolean ignoreC) throws Exception;
 
+	
 	public CitlabPreferncesSet getGenProperties() {
 		return genProperties;
 	}
@@ -131,5 +134,6 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 			// System.out.println(futureTS.isCancelled() + " " + futureTS.isDone());
 		}
 	}
+
 
 }

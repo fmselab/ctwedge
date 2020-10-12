@@ -13,8 +13,6 @@ import org.junit.Test;
 import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.java_smt.api.SolverException;
 
-import ctwedge.generator.acts.ACTSTranslator;
-import ctwedge.generator.casa.CASATranslator;
 import ctwedge.generator.pict.PICTGenerator;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;

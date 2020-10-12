@@ -137,11 +137,5 @@
 			<artifactId>ctwedge.util</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>ctwedge.generator</artifactId>
-			<version>${project.version}</version>
-			<!-- <scope>provided</scope> -->
-		</dependency>
 	</dependencies>
 </project>

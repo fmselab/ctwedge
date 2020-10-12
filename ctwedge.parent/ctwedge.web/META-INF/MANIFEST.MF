@@ -10,3 +10,4 @@ Bundle-Vendor: University of Bergamo
 Require-Bundle: ctwedge.generator;bundle-version="1.0.0",
  ctwedge.web
 Automatic-Module-Name: ctwedge.web
+Import-Package: ctwedge.util.ext
