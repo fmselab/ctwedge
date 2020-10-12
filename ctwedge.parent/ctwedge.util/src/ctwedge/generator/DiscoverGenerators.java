@@ -28,6 +28,7 @@ public class DiscoverGenerators {
 		for (int i = 0; i < extensions.length; i++) {
 			IExtension ext = extensions[i];
 			IConfigurationElement[] ce = ext.getConfigurationElements();	
+			System.out.println("Checking: " + ext.getLabel());
 			if (ext.getLabel().equalsIgnoreCase(generatorName)) {			
 				for (IConfigurationElement e : ce) {
 					Object o = e.createExecutableExtension("GeneratorPrototype");
