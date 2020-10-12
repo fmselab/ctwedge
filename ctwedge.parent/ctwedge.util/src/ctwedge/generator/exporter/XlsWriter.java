@@ -11,29 +11,44 @@
  ******************************************************************************/
 package ctwedge.generator.exporter;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 public class XlsWriter {
 
-	static void addCaption(WritableSheet sheet, int column, int row, String s, WritableCellFormat timesBoldUnderline)
-	
-			throws RowsExceededException, WriteException {
-		Label label;
-		label = new Label(column, row, s,timesBoldUnderline );
-		sheet.addCell(label);
+	@SuppressWarnings("deprecation")
+	static void addCaption(Sheet sheet, int column, int row, String s, CellStyle timesBoldUnderline)
+			throws Exception {
+		Row r = sheet.getRow(row);
+		Cell cell = r.getCell(column);
+		if (cell == null) {
+			cell = r.createCell(column);
+		}
+		
+		cell.setCellType(CellType.STRING);
+		cell.setCellValue(s);
+		cell.setCellStyle(timesBoldUnderline);
 	}
 
-	static void addNumber(WritableSheet sheet, int column, int row,
-			Integer integer, WritableCellFormat times) throws WriteException, RowsExceededException {
-		Number number;
-		number = new Number(column, row, integer, times);
-		sheet.addCell(number);
+	static void addNumber(Sheet sheet, int column, int row,
+			Integer integer, CellStyle times) throws Exception {		
+		Row r = sheet.getRow(row);
+		Cell cell = r.getCell(column);
+		if (cell == null) {
+			cell = r.createCell(column);
+		}
+		
+		cell.setCellType(CellType.NUMERIC);
+		cell.setCellValue(integer);
+		cell.setCellStyle(times);
 	}
 
-	 static void addLabel(WritableSheet sheet, int column, int row, String s, WritableCellFormat times)
-			throws WriteException, RowsExceededException {
-		Label label;
-		label = new Label(column, row, s, times);
-		sheet.addCell(label);
+	 static void addLabel(Sheet sheet, int column, int row, String s, CellStyle times)
+			throws Exception {
+		addCaption(sheet, column, row, s, times);
 	}
 
 

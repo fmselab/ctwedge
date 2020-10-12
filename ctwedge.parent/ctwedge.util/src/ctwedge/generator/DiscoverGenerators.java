@@ -17,49 +17,27 @@ import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 public class DiscoverGenerators {
 
-	
-/*	public void temp() throws CoreException {
-		IExtensionRegistry reg = Platform.getExtensionRegistry();
-		IExtensionPoint ep = reg.getExtensionPoint("ctwedge.ui.ctwedgeGenerators");
-		IExtension[] extensions = ep.getExtensions();
-		ArrayList contributors = new ArrayList();
-		for (int i = 0; i < extensions.length; i++) {
-			IExtension ext = extensions[i];
-			System.out.println(ext.getExtensionPointUniqueIdentifier());
-			System.out.println(ext.getLabel());
-			IConfigurationElement[] ce = ext.getConfigurationElements();
-			for (int j = 0; j < ce.length; j++) {
-				//contributors.add(obj);
-				System.out.println(ce[j].toString());
-			}
-		}
-	}*/
-	
+
 	// funziona anche via web?
 	// senza plugins/OSGI?
-	static public ICTWedgeTestGenerator getGenerator(String gneratorName) throws CoreException, ClassNotFoundException, InvalidRegistryObjectException {
+	static public ICTWedgeTestGenerator getGenerator(String generatorName) throws CoreException, ClassNotFoundException, InvalidRegistryObjectException {
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
 		IExtensionPoint ep = reg.getExtensionPoint("ctwedge.ui.ctwedgeGenerators");
 		IExtension[] extensions = ep.getExtensions();
 		ArrayList contributors = new ArrayList();
 		for (int i = 0; i < extensions.length; i++) {
 			IExtension ext = extensions[i];
-			IConfigurationElement[] ce = ext.getConfigurationElements();			
-			
-			for (IConfigurationElement e : ce) {
-				
-				//try {
-				
-					//Class c = Class.forName(e.getAttribute("GeneratorPrototype"));
+			IConfigurationElement[] ce = ext.getConfigurationElements();	
+			if (ext.getLabel().equalsIgnoreCase(generatorName)) {			
+				for (IConfigurationElement e : ce) {
 					Object o = e.createExecutableExtension("GeneratorPrototype");
-					System.out.println(o);
-					//System.out.println(c);
-					//PICTGenerator gen = new PICTGenerator();
-				//} catch (ClassNotFoundException exc) {
-					//System.err.println("Unable to find the class: " + e.getAttribute("GeneratorPrototype"));
-				//}
+					System.out.println("Found " + o);
+					if (o instanceof ICTWedgeTestGenerator)
+						return (ICTWedgeTestGenerator)o;
+				}
 			}
 		}
+		return null;
 	}
 
 }

@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import ctwedge.generator.DiscoverGenerators;
 import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 public class ExecThread extends Thread {
 	private final static String DIR_DONE = "/var/www/foselab_html/ctwedge/done";
@@ -51,7 +53,7 @@ public class ExecThread extends Thread {
 		String ts = "";
 		try {
 			ts = Utility
-					.getTestSuite(model, generator, strength, ignoreCostraints, "./")
+					.getTestSuite(model, DiscoverGenerators.getGenerator(generator), strength, ignoreCostraints, "./")
 					.toString().replace(";", ",");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

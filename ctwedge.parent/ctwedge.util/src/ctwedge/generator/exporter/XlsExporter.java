@@ -12,9 +12,22 @@
 package ctwedge.generator.exporter;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Locale;
 import java.util.Map.Entry;
+
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.hssf.record.cf.FontFormatting;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
@@ -25,55 +38,53 @@ public class XlsExporter extends ICTWedgeTestSuiteExporter {
 	@Override
 	public void generateOutput(TestSuite input, String fileName) {
 		File file = new File(fileName);
-		WorkbookSettings wbSettings = new WorkbookSettings();
 
-		wbSettings.setLocale(new Locale("en", "EN"));
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(file,
-					wbSettings);
-			workbook.createSheet("Report", 0);
-			WritableSheet excelSheet = workbook.getSheet(0);
+			Workbook workbook = new HSSFWorkbook();
+			Sheet excelSheet = workbook.createSheet("Report");
 			createLabel(input, excelSheet);
 			createContent(input, excelSheet);
 
-			workbook.write();
+			workbook.write(new FileOutputStream(file));
 			workbook.close();
 		} catch (IOException e) {
 			// TODO: handle exception
-		} catch (WriteException e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
 	}
 
-	private void createLabel(TestSuite testsuite, WritableSheet sheet)
-			throws WriteException {
-		
+	private void createLabel(TestSuite testsuite, Sheet sheet)
+			throws Exception {
 
 		// Create create a bold font with unterlines
-		WritableFont times10ptBoldUnderline = new WritableFont(
-				WritableFont.TIMES, 10, WritableFont.BOLD, false,
-				UnderlineStyle.SINGLE);
-		WritableCellFormat timesBoldUnderline = new WritableCellFormat(
-				times10ptBoldUnderline);
-		// Lets automatically wrap the cells
-		timesBoldUnderline.setWrap(true);
+		Font times10ptBoldUnderline = sheet.getWorkbook().createFont();
+		times10ptBoldUnderline.setFontHeightInPoints((short)10);
+		times10ptBoldUnderline.setFontName("Times New Roman");
+		times10ptBoldUnderline.setBold(true);
+		times10ptBoldUnderline.setUnderline((byte)1);
+		
+		CellStyle style = sheet.getWorkbook().createCellStyle();
+		style.setFont(times10ptBoldUnderline);
 
 		int i=0;
 		for (Entry<String,String> assignment : testsuite.getTests().get(0).entrySet()) {
-			XlsWriter.addCaption(sheet, i++,0, assignment.getKey(),timesBoldUnderline);
+			XlsWriter.addCaption(sheet, i++,0, assignment.getKey(),style);
 		}
 
 	}
 
-	private void createContent(TestSuite testSuite, WritableSheet sheet)
-			throws WriteException, RowsExceededException {
+	private void createContent(TestSuite testSuite, Sheet sheet)
+			throws Exception {
 		// Lets create a times font
-		WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
+		Font times = sheet.getWorkbook().createFont();
+		times.setFontHeightInPoints((short)10);
+		times.setFontName("Times New Roman");
+		
 		// Define the cell format
-		WritableCellFormat times = new WritableCellFormat(times10pt);
-		// Lets automatically wrap the cells
-			times.setWrap(true);
+		CellStyle style = sheet.getWorkbook().createCellStyle();
+		style.setFont(times);
 
 		for (Test test : testSuite.getTests()) {
 			int i=0;
@@ -81,7 +92,7 @@ public class XlsExporter extends ICTWedgeTestSuiteExporter {
 				XlsWriter.addLabel(sheet,
 						i++, //test.getAssignments().indexOf(assignment) ,
 						testSuite.getTests().indexOf(test)+1,
-						assignment.getValue(),times);
+						assignment.getValue(),style);
 		}
 	}
 }
