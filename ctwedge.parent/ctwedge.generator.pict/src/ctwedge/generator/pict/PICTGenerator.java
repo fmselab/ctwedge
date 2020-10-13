@@ -109,7 +109,7 @@ public class PICTGenerator extends ICTWedgeTestGenerator {
 	@Override
 	public TestSuite call() throws Exception {
 		System.out.println("PICT generator called");
-		return getTestSuite(citModel, nWise, true);
+		return getTestSuite(citModel, nWise, ignoreConstraints);
 	}
 	
 

@@ -223,7 +223,7 @@ public class CASATranslator extends ICTWedgeTestGenerator {
 
 	@Override
 	public TestSuite call() throws Exception {
-		return getTestSuite(citModel, nWise, READ_STD_OUT);
+		return getTestSuite(citModel, nWise, ignoreConstraints);
 	}
 
 	/*
