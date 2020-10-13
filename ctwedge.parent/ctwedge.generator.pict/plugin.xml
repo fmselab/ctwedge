@@ -8,7 +8,7 @@
       <Generator
             Algorithm="ctwedge.generator.pict.Generator1"
             GeneratorPrototype="ctwedge.generator.pict.PICTGenerator"
-            Name="ctwedge.generator.pict.Generator1"
+            Name="PICT"
             support_constraints="true">
       </Generator>
    </extension>
