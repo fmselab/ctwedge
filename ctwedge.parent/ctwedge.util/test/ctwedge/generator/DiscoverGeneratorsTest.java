@@ -2,6 +2,8 @@ package ctwedge.generator;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.junit.Test;

@@ -49,8 +49,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-
 		</plugins>
 	</build>
 	<dependencies>
@@ -89,6 +87,10 @@
 			<artifactId>poi</artifactId>
 			<version>4.1.2</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.eclipse.core</groupId>
+			<artifactId>org.eclipse.core.runtime</artifactId>
+			<version>3.7.0</version>
+		</dependency>
 	</dependencies>
 </project>

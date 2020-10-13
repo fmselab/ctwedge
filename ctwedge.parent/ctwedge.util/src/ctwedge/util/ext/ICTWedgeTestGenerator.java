@@ -24,6 +24,7 @@ import ctwedge.util.genprefs.CitlabPreferncesSet;
 /**
  * The Class ICitLabTestGenerator: abstract class for test generators.
  */
+
 public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor implements Callable<TestSuite> {
 
 	protected boolean ignoreConstraints;
