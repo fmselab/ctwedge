@@ -8,12 +8,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import ctwedge.ctWedge.CitModel;
+import ctwedge.generator.util.Benchmarkable;
+import ctwedge.util.Pair;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
-public class PICTGenerator extends ICTWedgeTestGenerator {
+public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkable{
 
 	public PICTGenerator() {
 		super("PICT");
@@ -55,8 +56,8 @@ public class PICTGenerator extends ICTWedgeTestGenerator {
 	private String runTool(File model) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		List<String> command = new ArrayList<String>();
-		String pictExecutable = "pict.exe";
-		command.add(pictExecutable);
+		String casaExecutable = "pict.exe";
+		command.add(casaExecutable);
 		command.add(model.getAbsolutePath());
 		ProcessBuilder pc = new ProcessBuilder(command);
 		pc.command(command);
@@ -109,7 +110,53 @@ public class PICTGenerator extends ICTWedgeTestGenerator {
 	@Override
 	public TestSuite call() throws Exception {
 		System.out.println("PICT generator called");
-		return getTestSuite(citModel, nWise, ignoreConstraints);
+		return getTestSuite(citModel, nWise, true);
+	}
+
+	@Override
+	public TestSuite benchmark_run(CitModel citModel) {
+		try {
+			File tempModel = File.createTempFile("pictmodel_" + citModel.getName(), ".txt");
+			tempModel.deleteOnExit();
+			BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
+			String pictModel = convert(citModel);
+			out.append(pictModel);
+			out.close();
+			StringBuilder sb = new StringBuilder();
+			List<String> command = new ArrayList<String>();
+			String casaExecutable = "pict.exe";
+			command.add(casaExecutable);
+			command.add(tempModel.getAbsolutePath());
+			ProcessBuilder pc = new ProcessBuilder(command);
+			pc.command(command);
+			File tempError = File.createTempFile("pict_error", ".txt");
+			tempError.deleteOnExit();
+			pc.redirectError(tempError);
+			long t_end = 0;
+			long t_start = System.currentTimeMillis();
+				Process p = pc.start();
+				BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				String line;
+				while ((line = bri.readLine()) != null) {
+					line = toCSV(line);
+					sb.append(line + "\n");
+				}
+				bri.close();
+				p.waitFor();
+			t_end = System.currentTimeMillis();
+			if (checkError(tempError)) {
+				System.out.println("******************** ERRORE RILEVATO *****************************");
+			}
+			String output = sb.toString();
+			TestSuite testSuite = new TestSuite(output, citModel);
+			testSuite.populateTestSuite();
+			testSuite.setGeneratorTime(t_end - t_start);
+			return testSuite;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 

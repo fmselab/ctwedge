@@ -20,10 +20,11 @@ import org.eclipse.xtext.xbase.lib.Pair;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
+import ctwedge.generator.util.Benchmarkable;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
-public class CASATranslator extends ICTWedgeTestGenerator {
+public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkable{
 
 	private static final boolean READ_STD_OUT = true;
 	private String path;
@@ -224,6 +225,22 @@ public class CASATranslator extends ICTWedgeTestGenerator {
 	@Override
 	public TestSuite call() throws Exception {
 		return getTestSuite(citModel, nWise, ignoreConstraints);
+	}
+
+	@Override
+	public TestSuite benchmark_run(CitModel model) {
+		try {
+			long t_end = 0;
+			long t_start = System.currentTimeMillis();
+			TestSuite testSuite = getTestSuite(model, 2, false);
+			t_end = System.currentTimeMillis();
+			testSuite.populateTestSuite();
+			testSuite.setGeneratorTime(t_end - t_start);
+			return testSuite;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/*

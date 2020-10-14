@@ -15,7 +15,9 @@ Export-Package: ctwedge.generator.acts;
 Require-Bundle: org.junit,
  ctwedge.ui;bundle-version="1.0.0",
  ctwedge.util,
- ctwedge
+ ctwedge,
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.ecore
 Bundle-Vendor: University of Bergamo
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: ctwedge.generator

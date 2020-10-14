@@ -54,3 +54,4 @@ target/
 ctwedge.parent/ctwedge.generator/libs/acts-3.0.jar
 
 ctwedge\.parent/ctwedge/model/generated/
+/.metadata/

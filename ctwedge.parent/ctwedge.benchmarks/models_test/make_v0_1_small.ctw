@@ -1,0 +1,16 @@
+Model make_v0_1_small
+
+Parameters:
+p1: Boolean
+p2: Boolean
+p3: Boolean
+p4: Boolean
+p5: Boolean
+p6: Boolean
+p7: Boolean
+p8: Boolean
+p9: Boolean
+p10: Boolean
+
+Constraints:
+ # !p4 or !p3 #
