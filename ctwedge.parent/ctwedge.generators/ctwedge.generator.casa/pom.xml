@@ -10,19 +10,8 @@
 	<artifactId>ctwedge.generator.casa</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
-	<!-- <repositories> <repository> <id>acts-3.0</id> <url>file:${basedir}/libs/acts-3.0.jar</url> 
-		</repository> </repositories> -->
-
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>xtend-gen</directory>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -32,66 +21,6 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.9.1</version>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>add-source</goal>
-							<goal>add-resource</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src-gen</source>
-							</sources>
-							<resources>
-								<resource>
-									<directory>src-gen</directory>
-									<excludes>
-										<exclude>**/*.java</exclude>
-									</excludes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>2.5.2</version>
-				<executions>
-					<execution>
-						<!-- <id>install-external</id> -->
-						<phase>clean</phase>
-						<configuration>
-							<file>${basedir}/libs/acts-3.0.jar</file>
-							<repositoryLayout>default</repositoryLayout>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>acts</artifactId>
-							<version>3.0</version>
-							<packaging>jar</packaging>
-							<!-- <generatePom>true</generatePom> -->
-						</configuration>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-install-plugin</artifactId> 
-				<executions> <execution> <id>hack-binary</id> <phase>clean</phase> <configuration> 
-				<file>${basedir}/libs/acts-3.0.jar</file> <repositoryLayout>default</repositoryLayout> 
-				<groupId>${project.groupId}</groupId> <artifactId>acts</artifactId> <version>3.0</version> 
-				<packaging>jar</packaging> <generatePom>true</generatePom> </configuration> 
-				<goals> <goal>install-file</goal> </goals> </execution> </executions> </plugin> -->
-
 		</plugins>
 	</build>
 
@@ -141,6 +70,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			</dependency>
+		</dependency>
 	</dependencies>
 </project>
