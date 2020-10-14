@@ -11,15 +11,6 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>src</directory>
-				<excludes>
-					<exclude>**/*.java</exclude>
-					<exclude>**/*.xtend</exclude>
-				</excludes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>

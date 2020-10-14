@@ -1,4 +1,4 @@
-package ctwedge.batchgenerator;
+package main.java.ctwedge.batchgenerator;
 
 import java.io.File;
 import java.io.FileInputStream;

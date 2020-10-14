@@ -1,7 +1,7 @@
 anifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CTWedge Test Generator
-Bundle-SymbolicName: ctwedge.generator;singleton:=true
+Bundle-SymbolicName: ctwedge.generator.casa;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Export-Package: ctwedge.generator.casa;

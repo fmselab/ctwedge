@@ -8,8 +8,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<xtextVersion>2.23.0</xtextVersion>
-		<mwe2Version>2.11.3</mwe2Version>
+		<xtextVersion>2.18.0</xtextVersion>
+		<mwe2Version>2.10.0</mwe2Version>
 		<project.build.sourceEncoding>windows-1252</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -29,7 +29,7 @@
 		<module>ctwedge.generators/ctwedge.generator.casa</module>
 		<module>ctwedge.generator.pict</module>
 		<module>ctwedge.ui</module>
-		<module>ctwedge.web</module>
+		<!-- <module>ctwedge.web</module>  -->
 		<module>ctwedge.target</module>
 		<module>ctwedge.feature</module>
 		<module>ctwedge.repository</module>
