@@ -12,13 +12,10 @@ Export-Package: ctwedge.generator.acts;
    ctwedge.ctWedge.util,
    ctwedge.util.ext,
    edu.uta.cse.fireeye.common"
-Require-Bundle: ctwedge;bundle-version="1.0.0",
- org.eclipse.emf.ecore;bundle-version="2.13.0",
- com.google.guava;bundle-version="21.0.0",
- com.google.inject;bundle-version="3.0.0",
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext,
- ctwedge.util
+Require-Bundle: org.junit,
+ ctwedge.ui;bundle-version="1.0.0",
+ ctwedge.util,
+ ctwedge
 Bundle-Vendor: University of Bergamo
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: ctwedge.generator

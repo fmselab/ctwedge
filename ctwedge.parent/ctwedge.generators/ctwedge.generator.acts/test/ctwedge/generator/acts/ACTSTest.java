@@ -1,5 +1,4 @@
 package ctwedge.generator.acts;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,9 +6,7 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.util.Utility;
-import ctwedge.util.TestSuite;
 
 public class ACTSTest {
 	
@@ -17,9 +14,7 @@ public class ACTSTest {
 
 	@Test
 	public void test1() throws Exception {
-		System.out.println(Utility.getTestSuite(
-				"Model prova\nParameters:\n a: Boolean; b: Boolean; c: Boolean;\nConstraints:\n # a -> b #\n", acts,
-				2, false, null));
+		acts.getTestSuite(Utility.loadModel("Model prova\nParameters:\n a: Boolean; b: Boolean; c: Boolean;\nConstraints:\n # a -> b #\n"), 2, false);
 	}
 
 	@Test
