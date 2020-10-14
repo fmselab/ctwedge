@@ -13,10 +13,12 @@ Export-Package: ctwedge.generator.casa;
    ctwedge.ctWedge,
    ctwedge.ctWedge.util,
    ctwedge.util.ext"
-Require-Bundle: ctwedge.util,
- ctwedge.ui,
+Require-Bundle: org.junit,
+ ctwedge.util,
  ctwedge,
- org.junit
+ ctwedge.ui,
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.ecore
 Bundle-Vendor: University of Bergamo
 Bundle-ActivationPolicy: lazy
-Automatic-Module-Name: ctwedge.generator
+Automatic-Module-Name: ctwedge.generator.casa

@@ -12,7 +12,7 @@ public class CASATest {
 	
 	@Test
 	public void test1() throws Exception {
-		String s = Utility.getTestSuite("Model prova\nParameters:\n a: Boolean; b: Boolean; c: Boolean;\nConstraints:\n # a #\n", casa, 2, false, null).toString();
+		String s = casa.getTestSuite(Utility.loadModel("Model prova\nParameters:\n a: Boolean; b: Boolean; c: Boolean;\nConstraints:\n # a #\n"), 2, false).toString();
 		System.out.println("Risultato:\n"+s);
 	}
 	
@@ -52,6 +52,13 @@ public class CASATest {
 	@Test
 	public void test6() throws Exception {
 		String s = Utility.getTestSuite("Model Phone\nParameters:\n emailViewer : Boolean\n textLines:  [ 25 .. 30 ]\n display : {16MC, 8MC, BW}\n\n Constraints:\n  # emailViewer => textLines=28 #\n", casa, 2, false, null).toString();		
+		System.out.println("Risultato:\n"+s);
+	}
+	
+	/** test dell'uguale nel modello Phone di esempio no constraint */
+	@Test
+	public void test7() throws Exception {
+		String s = Utility.getTestSuite("Model Phone\nParameters:\n emailViewer : Boolean\n textLines:  [ 25 .. 30 ]\n display : {16MC, 8MC, BW}\n\n Constraints:\n  # emailViewer => textLines=28 #\n", casa, 2, true, null).toString();		
 		System.out.println("Risultato:\n"+s);
 	}
 

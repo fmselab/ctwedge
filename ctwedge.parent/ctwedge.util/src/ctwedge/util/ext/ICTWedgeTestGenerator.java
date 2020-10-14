@@ -47,6 +47,8 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 	protected ICTWedgeTestGenerator(String generator) {
 		this.generatorName = generator;
 	}
+	
+	public ICTWedgeTestGenerator() {	}
 
 	/**
 	 * generates the citModel and save some meta info in the test suite.

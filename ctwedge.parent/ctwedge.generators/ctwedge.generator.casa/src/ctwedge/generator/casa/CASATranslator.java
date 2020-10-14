@@ -37,7 +37,7 @@ public class CASATranslator extends ICTWedgeTestGenerator {
 	public CASATranslator() {
 		super("CASA");
 		path = CASATranslator.class.getProtectionDomain().getCodeSource().getLocation().getPath()
-			.split("/target")[0] + "casa/"; // get the path of the current class
+			.split("/target")[0] + "/casa/"; // get the path of the current class
 		if (path.contains(":") && path.startsWith("/")) path = path.substring(1);
 	}
 	
