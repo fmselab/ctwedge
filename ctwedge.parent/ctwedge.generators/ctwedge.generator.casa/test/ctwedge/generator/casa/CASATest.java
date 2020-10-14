@@ -13,7 +13,6 @@ public class CASATest {
 	@Test
 	public void test1() throws Exception {
 		String s = Utility.getTestSuite("Model prova\nParameters:\n a: Boolean; b: Boolean; c: Boolean;\nConstraints:\n # a #\n", casa, 2, false, null).toString();
-		
 		System.out.println("Risultato:\n"+s);
 	}
 	
