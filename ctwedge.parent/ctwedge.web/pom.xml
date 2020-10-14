@@ -47,10 +47,17 @@
 						<configuration>
 							<sources>
 								<source>src-gen</source>
+								<source>xtend-gen</source>
 							</sources>
 							<resources>
 								<resource>
 									<directory>src-gen</directory>
+									<excludes>
+										<exclude>**/*.java</exclude>
+									</excludes>
+								</resource>
+								<resource>
+									<directory>xtend-gen</directory>
 									<excludes>
 										<exclude>**/*.java</exclude>
 									</excludes>

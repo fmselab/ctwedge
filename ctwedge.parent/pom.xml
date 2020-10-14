@@ -29,7 +29,7 @@
 		<module>ctwedge.generators/ctwedge.generator.casa</module>
 		<module>ctwedge.generator.pict</module>
 		<module>ctwedge.ui</module>
-		<!-- <module>ctwedge.web</module>  -->
+		<module>ctwedge.web</module>
 		<module>ctwedge.target</module>
 		<module>ctwedge.feature</module>
 		<module>ctwedge.repository</module>
