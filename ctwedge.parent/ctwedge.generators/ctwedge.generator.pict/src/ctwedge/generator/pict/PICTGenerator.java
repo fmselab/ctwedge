@@ -106,12 +106,6 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 		fin.close();
 		return errorFound;
 	}
-	
-	@Override
-	public TestSuite call() throws Exception {
-		System.out.println("PICT generator called");
-		return getTestSuite(citModel, nWise, true);
-	}
 
 	@Override
 	public TestSuite benchmark_run(CitModel citModel) {
