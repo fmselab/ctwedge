@@ -27,9 +27,9 @@ import ctwedge.util.genprefs.CitlabPreferncesSet;
 
 public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor implements Callable<TestSuite> {
 
-	protected boolean ignoreConstraints;
-	protected int nWise;
-	protected String generatorName;
+	private boolean ignoreConstraints;
+	private int nWise;
+	private String generatorName;
 
 	/**
 	 * @return the generatorName
@@ -109,7 +109,6 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 	}
 
 	
-	// TODP check with the previous one
 	/**
 	 * real method implementing the algorithm for generating the test suite
 	 * 
