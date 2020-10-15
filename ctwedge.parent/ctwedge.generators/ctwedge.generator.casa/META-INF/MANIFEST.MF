@@ -18,7 +18,8 @@ Require-Bundle: org.junit,
  ctwedge,
  ctwedge.ui,
  org.eclipse.emf.ecore,
- org.eclipse.xtext.ecore
+ org.eclipse.xtext.ecore,
+ org.eclipse.xtext.xbase.lib
 Bundle-Vendor: University of Bergamo
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: ctwedge.generator.casa
