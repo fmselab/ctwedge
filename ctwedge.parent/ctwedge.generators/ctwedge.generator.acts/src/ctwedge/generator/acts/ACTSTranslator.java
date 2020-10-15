@@ -337,15 +337,6 @@ public class ACTSTranslator extends ICTWedgeTestGenerator implements Benchmarkab
 	}
 
 	@Override
-	public TestSuite call() throws Exception {
-		if (PRINT) System.out.println("ACTS chiamato");
-		if (PRINT) System.out.println("citModel: "+citModel+"  nWise: "+nWise+"  ignoreConstraints: "+ignoreConstraints);
-		TestSuite ts = getTestSuite(citModel, nWise, ignoreConstraints);
-		if (PRINT) System.out.println("ACTS test suite: "+ts);
-		return ts;
-	}
-
-	@Override
 	public TestSuite benchmark_run(CitModel model) {
 		String res = "";
 		try {

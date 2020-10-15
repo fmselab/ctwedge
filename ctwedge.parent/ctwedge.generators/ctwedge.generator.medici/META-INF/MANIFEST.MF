@@ -4,4 +4,6 @@ Bundle-Name: Medici
 Bundle-SymbolicName: ctwedge.generator.medici;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: ctwedge.util;bundle-version="1.0.0",
- ctwedge.ui
+ ctwedge.ui,
+ org.eclipse.emf.ecore;bundle-version="2.23.0",
+ ctwedge

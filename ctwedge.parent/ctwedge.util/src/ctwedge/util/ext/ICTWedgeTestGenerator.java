@@ -27,9 +27,9 @@ import ctwedge.util.genprefs.CitlabPreferncesSet;
 
 public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor implements Callable<TestSuite> {
 
-	protected boolean ignoreConstraints;
-	protected int nWise;
-	protected String generatorName;
+	private boolean ignoreConstraints;
+	private int nWise;
+	private String generatorName;
 
 	/**
 	 * @return the generatorName
@@ -72,7 +72,6 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 		es = Executors.newSingleThreadScheduledExecutor();
 		futureTS = es.submit(this);
 		TestSuite ts = null;
-
 		try {
 			// take the test suite generate by the generator
 			System.out.println("Before getting the test suite..:");
@@ -98,7 +97,23 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 		System.out.println("Returning test suite " + ts);
 		return ts;
 	}
-	// TODP check with the previous one
+	
+	@Override
+	final public TestSuite call() throws Exception {
+		// TODO use log
+		// System.out.println("ACTS chiamato");
+		// System.out.println("citModel: "+citModel+"  nWise: "+nWise+"  ignoreConstraints: "+ignoreConstraints);
+		TestSuite ts = getTestSuite(citModel, nWise, ignoreConstraints);
+		// System.out.println("ACTS test suite: "+ts);
+		return ts;
+	}
+
+	
+	/**
+	 * real method implementing the algorithm for generating the test suite
+	 * 
+	 * 
+	 */
 	public abstract TestSuite getTestSuite(CitModel loadModel, int t, boolean ignoreC) throws Exception;
 
 	
