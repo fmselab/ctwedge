@@ -25,7 +25,6 @@ public class DiscoverGenerators {
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
 		IExtensionPoint ep = reg.getExtensionPoint("ctwedge.ui.ctwedgeGenerators");
 		IExtension[] extensions = ep.getExtensions();
-		ArrayList contributors = new ArrayList();
 		for (int i = 0; i < extensions.length; i++) {
 			IExtension ext = extensions[i];
 			IConfigurationElement[] ce = ext.getConfigurationElements();	

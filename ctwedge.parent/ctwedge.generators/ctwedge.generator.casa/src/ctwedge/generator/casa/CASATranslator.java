@@ -223,11 +223,6 @@ public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkab
 	}
 
 	@Override
-	public TestSuite call() throws Exception {
-		return getTestSuite(citModel, nWise, ignoreConstraints);
-	}
-
-	@Override
 	public TestSuite benchmark_run(CitModel model) {
 		try {
 			long t_end = 0;
