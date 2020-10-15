@@ -56,8 +56,8 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 	private String runTool(File model) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		List<String> command = new ArrayList<String>();
-		String casaExecutable = "pict.exe";
-		command.add(casaExecutable);
+		String pictExecutable = "pict.exe";
+		command.add(pictExecutable);
 		command.add(model.getAbsolutePath());
 		ProcessBuilder pc = new ProcessBuilder(command);
 		pc.command(command);
