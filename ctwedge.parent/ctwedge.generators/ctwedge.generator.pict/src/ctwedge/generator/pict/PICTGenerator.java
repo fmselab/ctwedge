@@ -25,11 +25,12 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 			path = path.substring(1);
 	}
 	
-	public String convert(CitModel model){
+	public String convert(CitModel model, boolean ignoreConstraints){
 		PICTTranslator paramTranslator = new PICTTranslator();
 		String param = paramTranslator.paramToPictCode(model);
+		if (ignoreConstraints)
+			return param;
 		String constraints = paramTranslator.constraintToPictCode(model);
-		
 		return param + "\n" + constraints;
 	}
 	
@@ -38,7 +39,7 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 		tempModel.deleteOnExit();
 		System.out.println(tempModel.getAbsolutePath());
 		BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
-		String pictModel = convert(citModel);
+		String pictModel = convert(citModel, ignoreConstraints);
 		out.append(pictModel);
 		out.close();
 		System.out.println("\n------- MODELLO PICT -------\n");
@@ -118,7 +119,7 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 			File tempModel = File.createTempFile("pictmodel_" + citModel.getName(), ".txt");
 			tempModel.deleteOnExit();
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
-			String pictModel = convert(citModel);
+			String pictModel = convert(citModel, false);
 			out.append(pictModel);
 			out.close();
 			StringBuilder sb = new StringBuilder();

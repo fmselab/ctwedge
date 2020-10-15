@@ -34,7 +34,10 @@ public class PictTest {
 					"	# ( p4!=true OR p1!=v2) #\r\n" + 
 					"	# ( p3!=v1 OR p4!=true) #";
 			PICTGenerator generator = new PICTGenerator();
+			//	Test con constraint
 			generator.getTestSuite(Utility.loadModel(model), 2, false);
+			//	Test senza constraint
+			generator.getTestSuite(Utility.loadModel(model), 2, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
