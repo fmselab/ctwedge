@@ -16,8 +16,13 @@ import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkable{
 
+	private String path;
+	
 	public PICTGenerator() {
 		super("PICT");
+		path = PICTGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath().split("/target")[0]; 
+		if (path.contains(":") && path.startsWith("/"))
+			path = path.substring(1);
 	}
 	
 	public String convert(CitModel model){
@@ -56,7 +61,7 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 	private String runTool(File model) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		List<String> command = new ArrayList<String>();
-		String pictExecutable = "pict.exe";
+		String pictExecutable = path + "/pict.exe";
 		command.add(pictExecutable);
 		command.add(model.getAbsolutePath());
 		ProcessBuilder pc = new ProcessBuilder(command);
