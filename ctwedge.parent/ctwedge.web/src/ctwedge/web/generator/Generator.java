@@ -20,6 +20,9 @@ import com.google.gson.JsonObject;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.DiscoverGenerators;
+import ctwedge.generator.acts.ACTSTranslator;
+import ctwedge.generator.casa.CASAConstraintException;
+import ctwedge.generator.casa.CASATranslator;
 import ctwedge.generator.util.ParameterSize;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
@@ -89,17 +92,21 @@ public class Generator extends HttpServlet {
 			if (isSmall(model)) {
 				try {
 					// find the right generator
-					ICTWedgeTestGenerator gen = DiscoverGenerators.getGenerator(generator);
+					ICTWedgeTestGenerator gen;
+					if (generator.equalsIgnoreCase("casa"))
+						gen = new CASATranslator();
+					else
+						gen = new ACTSTranslator();
+					
 					ts = Utility.getTestSuite(model, gen, t, ignoreC, context.getRealPath("/")).toString();
 					if (ts == null || ts.isEmpty()) {
 						response.getWriter().append("Empty test suite. There may be a syntax error in the input model.");
 					}
 					obj.addProperty("isSmall", true);
 					obj.addProperty("result", ts);
-/*				} catch (CASAConstraintException e) {
+				} catch (CASAConstraintException e) {
 					response.getWriter().append(
 							"Exception: arithmetic and relational expressions in constraints are not supported in CASA");
-							*/
 				} catch (Exception e) {
 					e.printStackTrace();
 					response.getWriter().append(Throwables.getStackTraceAsString(e));
