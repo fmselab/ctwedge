@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="ctwedge.ui.ctwedgeGenerators">
+      <Generator
+            Algorithm="covertable"
+            GeneratorPrototype="ctwedge.generator.covertable.CoverTableGenerator"
+            Name="ctwedge.generator.covertable.CoverTableGenerator"
+            support_constraints="true">
+      </Generator>
+   </extension>
+
+</plugin>

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Medici
-Bundle-SymbolicName: ctwedge.generator.medici;singleton:=true
+Bundle-Name: Covertable
+Bundle-SymbolicName: ctwedge.generator.covertable;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: ctwedge.util;bundle-version="1.0.0",
  ctwedge.ui,

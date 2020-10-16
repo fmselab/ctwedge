@@ -25,8 +25,6 @@ import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 
 public class BenchmarkTest {
-	
-	static boolean SHOW_OUTPUT_OF_GENERATOR = false;
 		
 	public static class GeneratorExec implements Callable<TestSuite> {
 		String model;
