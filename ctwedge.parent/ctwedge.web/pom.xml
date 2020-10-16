@@ -128,11 +128,20 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.21</version>
 			<scope>provided</scope>
-		</dependency>
-		
+		</dependency>		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>ctwedge.util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ctwedge.generator.casa</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ctwedge.generator.acts</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

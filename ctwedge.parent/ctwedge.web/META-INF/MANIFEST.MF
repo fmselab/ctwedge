@@ -8,7 +8,7 @@ Export-Package: ctwedge.web,
  ctwedge.web.generator.ipapi
 Bundle-Vendor: University of Bergamo
 Require-Bundle: ctwedge.web,
- ctwedge.util;bundle-version="1.0.0",
+ ctwedge.util,
  org.eclipse.core.runtime,
  ctwedge.generator.acts,
  ctwedge.generator.casa
