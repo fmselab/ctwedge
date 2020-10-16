@@ -8,11 +8,12 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>ctwedge.generator.casa</artifactId>
-	<packaging>eclipse-plugin</packaging>
+	<!-- <packaging>eclipse-plugin</packaging> -->
+	<packaging>jar</packaging>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<testSourceDirectory>${project.basedir}/src/../test</testSourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
