@@ -2,7 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="ctwedge.ui.ctwedgeGenerators">
+         point="ctwedge.util.ctwedgeGenerators">
       <Generator
             Algorithm="covertable"
             GeneratorPrototype="ctwedge.generator.covertable.CoverTableGenerator"

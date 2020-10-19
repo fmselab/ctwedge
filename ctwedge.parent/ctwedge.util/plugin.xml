@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-      <extension
+    <extension
       	id="CSV"
          name="CSVExporter"
-         point="ctwedge.ui.ctwedgeExporters">
+         point="ctwedge.util.ctwedgeExporters">
       <TestSuiteExporter
             ExporterName="CSV"
             FileExtension="*.csv"
             ITSPrototype="ctwedge.generator.exporter.CSVExporter">
       </TestSuiteExporter>
-   </extension>
+   	</extension>
    
-   <extension
+   	<extension
    		id="XLS"
          name="ExcelExporter (.xls)"
-         point="ctwedge.ui.ctwedgeExporters">
+         point="ctwedge.util.ctwedgeExporters">
       <TestSuiteExporter
             ExporterName="XLS"
             FileExtension="*.xls"
             ITSPrototype="ctwedge.generator.exporter.XlsExporter">
       </TestSuiteExporter>
-   </extension>
+   	</extension>
+   
+   	<!-- My extension points -->
+   	<extension-point id="ctwedgeGenerators" name="ctwedgeGenerators" schema="schema/generators.exsd" />
+	<extension-point id="ctwedgeExporters" name="ctwedgeExporters" schema="schema/TestSuiteExporters.exsd" />
 
 </plugin>

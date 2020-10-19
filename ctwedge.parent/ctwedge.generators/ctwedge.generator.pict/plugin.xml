@@ -4,7 +4,7 @@
    <extension
          id="PICTGenerator"
          name="PICTGenerator"
-         point="ctwedge.ui.ctwedgeGenerators">
+         point="ctwedge.util.ctwedgeGenerators">
       <Generator
             Algorithm="ctwedge.generator.pict.Generator1"
             GeneratorPrototype="ctwedge.generator.pict.PICTGenerator"

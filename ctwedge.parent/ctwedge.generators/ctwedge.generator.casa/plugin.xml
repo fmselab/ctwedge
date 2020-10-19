@@ -5,7 +5,7 @@
    <extension
          id="CASA"
          name="CASAGenerator"
-         point="ctwedge.ui.ctwedgeGenerators"> 
+         point="ctwedge.util.ctwedgeGenerators"> 
          
       <Generator
             Algorithm="CASA Algorithm"
