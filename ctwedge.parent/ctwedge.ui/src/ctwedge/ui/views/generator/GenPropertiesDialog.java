@@ -239,6 +239,7 @@ public class GenPropertiesDialog extends Dialog {
 		return new Point(450, 465);
 	}
 
+	@SuppressWarnings("rawtypes")
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
 		//

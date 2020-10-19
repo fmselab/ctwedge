@@ -6,7 +6,6 @@ import org.eclipse.xtext.generator.IFileSystemAccess2;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.util.ParameterSize;
-import ctwedge.generator.util.Utility;
 
 public class ToCasaParametersExporter {
 	// exports 	the part of the model containing the parameters (not the constraints)

@@ -2,8 +2,6 @@ package ctwedge.generator.casa;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ctwedge.generator.casa.CASAConstraintException;
-import ctwedge.generator.casa.CASATranslator;
 import ctwedge.generator.util.Utility;
 
 public class CASATest {

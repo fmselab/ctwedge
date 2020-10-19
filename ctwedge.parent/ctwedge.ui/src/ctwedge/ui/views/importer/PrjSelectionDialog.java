@@ -187,6 +187,7 @@ public class PrjSelectionDialog extends Dialog {
 	protected Point getInitialSize() {
 		return new Point(532, 483);
 	}
+	@SuppressWarnings("rawtypes")
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
