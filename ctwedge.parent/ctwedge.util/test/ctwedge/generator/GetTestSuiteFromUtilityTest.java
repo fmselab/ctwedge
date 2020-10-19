@@ -1,7 +1,5 @@
 package ctwedge.generator;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import ctwedge.generator.util.Utility;

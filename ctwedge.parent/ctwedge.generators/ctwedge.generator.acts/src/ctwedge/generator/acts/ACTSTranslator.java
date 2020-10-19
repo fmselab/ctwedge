@@ -1,9 +1,7 @@
 package ctwedge.generator.acts;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;

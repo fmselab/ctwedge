@@ -143,6 +143,7 @@ public class ResourceManager extends SWTResourceManager {
 			final Rectangle dib = decorator.getBounds();
 			final Point baseImageSize = new Point(bib.width, bib.height);
 			CompositeImageDescriptor compositImageDesc = new CompositeImageDescriptor() {
+				@SuppressWarnings("deprecation")
 				@Override
 				protected void drawCompositeImage(int width, int height) {
 					drawImage(baseImage.getImageData(), 0, 0);

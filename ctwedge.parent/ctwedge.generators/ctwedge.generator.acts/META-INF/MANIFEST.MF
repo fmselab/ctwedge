@@ -20,4 +20,4 @@ Require-Bundle: org.junit,
  org.eclipse.xtext.ecore
 Bundle-Vendor: University of Bergamo
 Bundle-ActivationPolicy: lazy
-Automatic-Module-Name: ctwedge.generator
+Automatic-Module-Name: ctwedge.generator.acts

@@ -19,7 +19,6 @@ import com.google.gson.JsonObject;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.generator.DiscoverGenerators;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.casa.CASAConstraintException;
 import ctwedge.generator.casa.CASATranslator;

@@ -10,13 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.prefs.Preferences;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.EList;
 import org.sosy_lab.common.ShutdownManager;
 import org.sosy_lab.common.configuration.Configuration;
@@ -33,16 +29,17 @@ import org.sosy_lab.java_smt.api.FormulaType;
 import org.sosy_lab.java_smt.api.NumeralFormula.IntegerFormula;
 import org.sosy_lab.java_smt.api.ProverEnvironment;
 import org.sosy_lab.java_smt.api.SolverContext;
-import org.sosy_lab.java_smt.api.SolverException;
 import org.sosy_lab.java_smt.api.SolverContext.ProverOptions;
+import org.sosy_lab.java_smt.api.SolverException;
 
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
-
-import ctwedge.ctWedge.*;
+import ctwedge.ctWedge.Bool;
+import ctwedge.ctWedge.CitModel;
+import ctwedge.ctWedge.Constraint;
+import ctwedge.ctWedge.Enumerative;
+import ctwedge.ctWedge.Parameter;
+import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.impl.CtWedgeFactoryImpl;
 import ctwedge.ctWedge.impl.EnumerativeImpl;
-import ctwedge.ctWedge.impl.ParameterImpl;
 import ctwedge.util.Pair;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;;

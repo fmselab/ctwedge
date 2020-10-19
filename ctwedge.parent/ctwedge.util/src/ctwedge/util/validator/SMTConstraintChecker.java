@@ -18,8 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.jna.Pointer;
-import ctwedge.ctWedge.*;
 import org.apache.log4j.Logger;
 import org.sosy_lab.common.ShutdownManager;
 import org.sosy_lab.common.configuration.Configuration;
@@ -34,6 +32,10 @@ import org.sosy_lab.java_smt.api.ProverEnvironment;
 import org.sosy_lab.java_smt.api.SolverContext;
 import org.sosy_lab.java_smt.api.SolverContext.ProverOptions;
 import org.sosy_lab.java_smt.api.SolverException;
+
+import ctwedge.ctWedge.CitModel;
+import ctwedge.ctWedge.Constraint;
+import ctwedge.ctWedge.Parameter;
 
 public class SMTConstraintChecker {
 

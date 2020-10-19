@@ -14,20 +14,13 @@ package ctwedge.generator.exporter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Locale;
 import java.util.Map.Entry;
 
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.hssf.record.cf.FontFormatting;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;

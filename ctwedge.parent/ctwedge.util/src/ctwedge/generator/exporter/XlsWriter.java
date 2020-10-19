@@ -33,6 +33,7 @@ public class XlsWriter {
 		cell.setCellStyle(timesBoldUnderline);
 	}
 
+	@SuppressWarnings("deprecation")
 	static void addNumber(Sheet sheet, int column, int row,
 			Integer integer, CellStyle times) throws Exception {		
 		Row r = sheet.getRow(row);

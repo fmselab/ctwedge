@@ -19,18 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.sosy_lab.java_smt.api.ArrayFormula;
-import org.sosy_lab.java_smt.api.ArrayFormulaManager;
-import org.sosy_lab.java_smt.api.BooleanFormula;
 import org.sosy_lab.java_smt.api.Formula;
-import org.sosy_lab.java_smt.api.FormulaType;
-import org.sosy_lab.java_smt.api.NumeralFormula.IntegerFormula;
 import org.sosy_lab.java_smt.api.SolverContext;
 
 import ctwedge.ctWedge.*;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
-
-import com.sun.jna.Pointer;
 
 public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 	
