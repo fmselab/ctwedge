@@ -1,11 +1,16 @@
 package ctwedge.generator.benchmarks;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -23,10 +28,13 @@ import org.junit.Test;
 import ctwedge.generator.util.Benchmarkable;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
+import ctwedge.util.validator.SMTTestSuiteValidator;
 
 public class BenchmarkTest {
+	
+	static int timeout_sec = 120;
 		
-	public static class GeneratorExec implements Callable<TestSuite> {
+	public class GeneratorExec implements Callable<TestSuite> {
 		String model;
 		Benchmarkable generator;
 		
@@ -47,7 +55,7 @@ public class BenchmarkTest {
 		
 		//	Recupero le istanze delle classi dei generatori
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
-		IExtensionPoint ep = reg.getExtensionPoint("ctwedge.ui.ctwedgeGenerators");
+		IExtensionPoint ep = reg.getExtensionPoint("ctwedge.util.ctwedgeGenerators");
 		IExtension[] extensions = ep.getExtensions();
 		ArrayList<Benchmarkable> generators = new ArrayList<>();
 		for (int i = 0; i < extensions.length; i++) {
@@ -65,49 +73,95 @@ public class BenchmarkTest {
 		
 		// Builder risultato
 		StringBuilder sb = new StringBuilder();
+		StringBuilder sb_csv = new StringBuilder();
+		
+		//	Descrizione benchmark
+		sb.append("Data benchmark: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()) + "\n");
+		sb.append("Generator list:\n");
+		for (Benchmarkable gen : generators) sb.append("\t" + gen.getGeneratorName() + "\n");
+		sb.append("# test: " + fileList.size() + "\n");
+		sb.append("Timeout: " + timeout_sec + "sec.\n");
+		sb.append("Results:\n");
+		sb_csv.append("Model name;");
+		for (Benchmarkable gen : generators) sb_csv.append(gen.getGeneratorName() + " #test;" + gen.getGeneratorName() + " time;");
+		sb_csv.append("\n");
+		
+		long t_start = System.currentTimeMillis();
 		
 		//	Eseguo ogni file con tutti i generatori
 		for (File file : fileList) {
-			//System.out.println("\n----- " + file.getName() + " -----");
-			sb.append("\n----- " + file.getName() + " -----");
-			sb.append("\n");
+			sb_csv.append(file.getName() + ";");
+			sb.append("\n----- " + file.getName() + " ----- \n");
 			for (Benchmarkable gen : generators) {
 				String model;
 				try {
-					//System.out.println("\t" + gen.getClass().getSimpleName());
-					sb.append("\t" + gen.getClass().getSimpleName());
-					sb.append("\n");
+					sb.append("\t" + gen.getClass().getSimpleName() + "\n");
 					model = readFromFile(file);
-					//TestSuite result = gen.benchmark_run(Utility.loadModel(model));
-					Future<TestSuite> ts_future = Executors.newSingleThreadExecutor().submit(new GeneratorExec(model, gen));
+					ExecutorService executor = Executors.newSingleThreadExecutor();
+					Future<TestSuite> ts_future = executor.submit(new GeneratorExec(model, gen));
 					TestSuite result = null;
 					try {
-						result = ts_future.get(30, TimeUnit.SECONDS);
+						result = ts_future.get(timeout_sec, TimeUnit.SECONDS);
 					} catch (TimeoutException ex) {
+						System.out.println("--- TIMEOUT---");
 						ts_future.cancel(true);
-						sb.append("\t\t timeout");
-						sb.append("\n");
+						executor.shutdown();
+						sb_csv.append("timeout;timeout;");
+						sb.append("\t\t timeout \n");
 						continue;
 			        }
 					if (result != null) {
-						//System.out.println("\t\t #test = " + result.getTests().size());
-						//System.out.println("\t\t time = " + result.getGeneratorTime() + " millis.");
-						sb.append("\t\t #test = " + result.getTests().size());
-						sb.append("\n");
-						sb.append("\t\t time = " + result.getGeneratorTime() + " millis.");
-						sb.append("\n");
+						sb_csv.append(result.getTests().size() + ";" + result.getGeneratorTime() + ";");
+						sb.append("\t\t #test = " + result.getTests().size() + "\n");
+						sb.append("\t\t time = " + result.getGeneratorTime() + " millis." + "\n");
+						
+						// TODO
+//						SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
+//						sb.append("\n");
+//						sb.append("\t\t #test_validi = " + tsv.howManyTestAreValid());
+//						sb.append("\n");
+//						sb.append("\t\t #tuple_coperte = " + tsv.howManyTuplesCovers());
+//						sb.append("\n");
+//						sb.append("\t\t isValid = " + tsv.isValid());
+//						sb.append("\n");
+//						sb.append("\t\t isComplete = " + tsv.isComplete());
+//						sb.append("\n");
+						
 					} else {
-						//System.out.println("\t\t null");
-						sb.append("\t\t null");
-						sb.append("\n");
+						sb_csv.append("null;null;");
+						sb.append("\t\t null \n");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
+			sb_csv.append("\n");
 		}
 		
+		long t_end = System.currentTimeMillis();
+		
+		System.out.flush();
+		
+		String data = new SimpleDateFormat("ddMMyyyy_HHmmss").format(Calendar.getInstance().getTime());
 		System.out.println(sb.toString());
+		System.out.println(sb_csv.toString());
+		System.out.println("\n\n Benchmark execution time: " + ((double)(t_end-t_start))/1000.0 + "sec.");
+		sb.append("Benchmark execution time: " + (t_end-t_start)/1000.0 + "sec.");
+
+		try {
+			File out_desc = new File("bench_output/benchmark_" + data + ".txt");
+			BufferedWriter writer_desc = new BufferedWriter(new FileWriter(out_desc));
+			writer_desc.write(sb.toString());
+			writer_desc.close();	
+			File out_csv = new File("bench_output/benchmark_" + data + ".csv");
+			BufferedWriter writer_csv = new BufferedWriter(new FileWriter(out_csv));
+			writer_csv.write(sb_csv.toString());	
+			writer_csv.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
+		
 	}
 	
 	

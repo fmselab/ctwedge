@@ -1,0 +1,373 @@
+Data benchmark: 22/10/2020 11:44:54
+Generator list:
+	ACTS
+	CASA
+	Medici
+	PICT
+# test: 28
+Timeout: 120sec.
+Results:
+
+----- Banking1.ctw ----- 
+	ACTSTranslator
+		 #test = 15
+		 time = 1534.0 millis.
+	CASATranslator
+		 #test = 13
+		 time = 796.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 18
+		 time = 84.0 millis.
+
+----- Banking2.ctw ----- 
+	ACTSTranslator
+		 #test = 11
+		 time = 17.0 millis.
+	CASATranslator
+		 #test = 10
+		 time = 2491.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 14
+		 time = 64.0 millis.
+
+----- benchmark_apache.ctw ----- 
+	ACTSTranslator
+		 #test = 33
+		 time = 268.0 millis.
+	CASATranslator
+		 #test = 36
+		 time = 111776.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 40
+		 time = 227.0 millis.
+
+----- benchmark_bugzilla.ctw ----- 
+	ACTSTranslator
+		 #test = 18
+		 time = 29.0 millis.
+	CASATranslator
+		 #test = 18
+		 time = 9150.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 20
+		 time = 70.0 millis.
+
+----- benchmark_gcc.ctw ----- 
+	ACTSTranslator
+		 #test = 23
+		 time = 502.0 millis.
+	CASATranslator
+		 timeout 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 30
+		 time = 230.0 millis.
+
+----- benchmark_spins.ctw ----- 
+	ACTSTranslator
+		 #test = 27
+		 time = 80.0 millis.
+	CASATranslator
+		 #test = 20
+		 time = 22620.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 26
+		 time = 66.0 millis.
+
+----- benchmark_spinv.ctw ----- 
+	ACTSTranslator
+		 #test = 44
+		 time = 264.0 millis.
+	CASATranslator
+		 #test = 41
+		 time = 35403.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 63
+		 time = 96.0 millis.
+
+----- CommProtocol.ctw ----- 
+	ACTSTranslator
+		 #test = 19
+		 time = 1911.0 millis.
+	CASATranslator
+		 #test = 16
+		 time = 2837.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 21
+		 time = 373.0 millis.
+
+----- Concurrency.ctw ----- 
+	ACTSTranslator
+		 #test = 6
+		 time = 12.0 millis.
+	CASATranslator
+		 #test = 5
+		 time = 455.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 6
+		 time = 77.0 millis.
+
+----- flex_v0_small.ctw ----- 
+	ACTSTranslator
+		 #test = 27
+		 time = 107.0 millis.
+	CASATranslator
+		 #test = 26
+		 time = 1305.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 26
+		 time = 63.0 millis.
+
+----- Healthcare1.ctw ----- 
+	ACTSTranslator
+		 #test = 30
+		 time = 56.0 millis.
+	CASATranslator
+		 #test = 30
+		 time = 914.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 32
+		 time = 66.0 millis.
+
+----- Healthcare2.ctw ----- 
+	ACTSTranslator
+		 #test = 16
+		 time = 159.0 millis.
+	CASATranslator
+		 #test = 15
+		 time = 3707.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 18
+		 time = 70.0 millis.
+
+----- Healthcare3.ctw ----- 
+	ACTSTranslator
+		 #test = 38
+		 time = 243.0 millis.
+	CASATranslator
+		 #test = 35
+		 time = 8987.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 40
+		 time = 72.0 millis.
+
+----- Healthcare4.ctw ----- 
+	ACTSTranslator
+		 #test = 49
+		 time = 192.0 millis.
+	CASATranslator
+		 #test = 47
+		 time = 20615.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 53
+		 time = 82.0 millis.
+
+----- make_v0_1_small.ctw ----- 
+	ACTSTranslator
+		 #test = 9
+		 time = 2.0 millis.
+	CASATranslator
+		 #test = 7
+		 time = 669.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 9
+		 time = 57.0 millis.
+
+----- nanoxml_parser_v0_small.ctw ----- 
+	ACTSTranslator
+		 #test = 8
+		 time = 8.0 millis.
+	CASATranslator
+		 #test = 8
+		 time = 809.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 9
+		 time = 57.0 millis.
+
+----- NetworkMgmt.ctw ----- 
+	ACTSTranslator
+		 #test = 112
+		 time = 125.0 millis.
+	CASATranslator
+		 #test = 114
+		 time = 33545.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 129
+		 time = 64.0 millis.
+
+----- ProcessorComm1.ctw ----- 
+	ACTSTranslator
+		 #test = 29
+		 time = 46.0 millis.
+	CASATranslator
+		 #test = 23
+		 time = 10825.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 30
+		 time = 63.0 millis.
+
+----- sed_v0_2_small.ctw ----- 
+	ACTSTranslator
+		 #test = 58
+		 time = 1489.0 millis.
+	CASATranslator
+		 #test = 58
+		 time = 10604.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 59
+		 time = 14121.0 millis.
+
+----- Services.ctw ----- 
+	ACTSTranslator
+		 #test = 106
+		 time = 10741.0 millis.
+	CASATranslator
+		 #test = 102
+		 time = 8698.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 111
+		 time = 275.0 millis.
+
+----- siena_v0_small.ctw ----- 
+	ACTSTranslator
+		 #test = 22
+		 time = 321.0 millis.
+	CASATranslator
+		 #test = 20
+		 time = 1557.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 25
+		 time = 93.0 millis.
+
+----- SmartHome.ctw ----- 
+	ACTSTranslator
+		 #test = 13
+		 time = 2110.0 millis.
+	CASATranslator
+		 #test = 8
+		 time = 7637.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 14
+		 time = 93.0 millis.
+
+----- Storage1.ctw ----- 
+	ACTSTranslator
+		 #test = 17
+		 time = 335.0 millis.
+	CASATranslator
+		 #test = 17
+		 time = 908.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 17
+		 time = 65.0 millis.
+
+----- Storage3.ctw ----- 
+	ACTSTranslator
+		 #test = 50
+		 time = 628.0 millis.
+	CASATranslator
+		 #test = 51
+		 time = 3188.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 54
+		 time = 176.0 millis.
+
+----- Storage4.ctw ----- 
+	ACTSTranslator
+		 #test = 121
+		 time = 49.0 millis.
+	CASATranslator
+		 #test = 119
+		 time = 10982.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 117
+		 time = 78.0 millis.
+
+----- Storage5.ctw ----- 
+	ACTSTranslator
+		 #test = 218
+		 time = 1740.0 millis.
+	CASATranslator
+		 timeout 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 234
+		 time = 2492.0 millis.
+
+----- SystemMgmt.ctw ----- 
+	ACTSTranslator
+		 #test = 17
+		 time = 30.0 millis.
+	CASATranslator
+		 #test = 16
+		 time = 858.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 17
+		 time = 64.0 millis.
+
+----- Telecom.ctw ----- 
+	ACTSTranslator
+		 #test = 32
+		 time = 66.0 millis.
+	CASATranslator
+		 #test = 30
+		 time = 971.0 millis.
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 31
+		 time = 65.0 millis.
+
+Benchmark execution time: 598.19sec.
