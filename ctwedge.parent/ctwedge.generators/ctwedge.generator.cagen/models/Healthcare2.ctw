@@ -1,0 +1,48 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model Healthcare2
+
+Parameters:
+p1: { v1 v2 };
+p2: { v1 v2 v3 };
+p3: { v1 v2 };
+p4: { v1 v2 };
+p5: { v1 v2 v3 };
+p6: { v1 v2 v3 };
+p7: { v1 v2 v3 };
+p8: { v1 v2 v3 };
+p9: { v1 v2 };
+p10: { v1 v2 v3 };
+p11: { v1 v2 v3 v4 };
+p12: { v1 v2 };
+
+Constraints:
+	# ( p5!=v1 OR p12!=v1 OR p6!=v3) #
+	# ( p5!=v1 OR p12!=v1 OR p2!=v3 OR p4!=v2 OR p6!=v1) #
+	# ( p5!=v1 OR p2!=v2 OR p12!=v1 OR p4!=v2 OR p6!=v1) #
+	# ( p7!=v1 OR p2!=v2 OR p12!=v1 OR p5!=v2 OR p4!=v2) #
+	# ( p5!=v1 OR p4!=v1 OR p2!=v2 OR p12!=v2 OR p6!=v1) #
+	# ( p8!=v1 OR p12!=v1 OR p2!=v3 OR p4!=v2 OR p5!=v3) #
+	# ( p4!=v1 OR p2!=v2 OR p8!=v1 OR p12!=v2 OR p5!=v3) #
+	# ( p5!=v1 OR p4!=v1 OR p12!=v2 OR p2!=v3 OR p6!=v1) #
+	# ( p7!=v1 OR p4!=v1 OR p12!=v2 OR p5!=v2 OR p2!=v3) #
+	# ( p12!=v2 OR p5!=v3 OR p8!=v2) #
+	# ( p4!=v1 OR p3!=v2) #
+	# ( p12!=v1 OR p8!=v3 OR p5!=v3) #
+	# ( p5!=v1 OR p3!=v1 OR p12!=v2 OR p2!=v1 OR p6!=v1) #
+	# ( p5!=v1 OR p3!=v2 OR p12!=v1 OR p2!=v1 OR p6!=v1) #
+	# ( p8!=v1 OR p3!=v1 OR p12!=v2 OR p2!=v1 OR p5!=v3) #
+	# ( p7!=v1 OR p4!=v1 OR p2!=v2 OR p12!=v2 OR p5!=v2) #
+	# ( p7!=v1 OR p12!=v1 OR p5!=v2 OR p2!=v3 OR p4!=v2) #
+	# ( p7!=v2 OR p12!=v2 OR p5!=v2) #
+	# ( p5!=v1 OR p12!=v2 OR p6!=v2) #
+	# ( p2!=v2 OR p8!=v1 OR p12!=v1 OR p4!=v2 OR p5!=v3) #
+	# ( p4!=v1 OR p8!=v1 OR p12!=v2 OR p2!=v3 OR p5!=v3) #
+	# ( p7!=v1 OR p3!=v1 OR p12!=v2 OR p5!=v2 OR p2!=v1) #
+	# ( p8!=v1 OR p3!=v2 OR p12!=v1 OR p2!=v1 OR p5!=v3) #
+	# ( p7!=v3 OR p12!=v1 OR p5!=v2) #
+	# ( p7!=v1 OR p3!=v2 OR p12!=v1 OR p5!=v2 OR p2!=v1) #
+

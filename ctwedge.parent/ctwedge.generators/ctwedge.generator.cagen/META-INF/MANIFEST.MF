@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Cagen
+Bundle-SymbolicName: ctwedge.generator.cagen;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: ctwedge.util;bundle-version="1.0.0",
+ ctwedge;bundle-version="1.0.0",
+ org.eclipse.emf.ecore;bundle-version="2.22.0"
+Import-Package: org.junit

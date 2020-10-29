@@ -1,0 +1,40 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model NetworkMgmt
+
+Parameters:
+p1: { v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 };
+p2: { v1 v2 v3 v4 v5 };
+p3: { v1 v2 v3 v4 };
+p4: { 0 1 };
+p5: { v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 };
+p6: { v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 };
+p7: { v1 v2 v3 v4 v5 };
+p8: { v1 v2 v3 v4 v5 };
+p9: { 0 1 };
+
+Constraints:
+	# ( p8!=v4 OR p6!=v8) #
+	# ( p8!=v4 OR p6!=v7) #
+	# ( p7!=v4 OR p5!=v9) #
+	# ( p7!=v3 OR p5!=v4) #
+	# ( p8!=v4 OR p6!=v6) #
+	# ( p8!=v4 OR p6!=v5) #
+	# ( p7!=v3 OR p5!=v2) #
+	# ( p7!=v5 OR p4!=1) #
+	# ( p7!=v3 OR p5!=v1) #
+	# ( p7!=v4 OR p5!=v10) #
+	# ( p8!=v5 OR p9!=1) #
+	# ( p5!=v3 OR p7!=v3) #
+	# ( p7!=v4 OR p5!=v6) #
+	# ( p7!=v4 OR p5!=v5) #
+	# ( p7!=v4 OR p5!=v8) #
+	# ( p7!=v3 OR p5!=v9) #
+	# ( p8!=v4 OR p6!=v9) #
+	# ( p7!=v4 OR p5!=v7) #
+	# ( p5!=v10 OR p7!=v3) #
+	# ( p6!=v10 OR p8!=v4) #
+

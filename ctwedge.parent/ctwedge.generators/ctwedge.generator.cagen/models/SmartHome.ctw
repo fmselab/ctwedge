@@ -1,0 +1,86 @@
+Model SmartHome
+
+Parameters:
+	SmartHome: Boolean
+	HeatingManagement: Boolean
+	ManualHeating: Boolean
+	SmartHeating: Boolean
+	WindowsManagement: Boolean
+	ManualWindows: Boolean
+	ElectronicWindows: Boolean
+	LightManagement: Boolean
+	ManualLight: Boolean
+	SmartLight: Boolean
+	Pre_definedValues: Boolean
+	GUI: Boolean
+	TouchScreen: Boolean
+	Internet: Boolean
+	PresenceSimulator: Boolean
+	LightSimulation: Boolean
+	BlindSimulation: Boolean
+	MusicSimulation: Boolean
+	FireControl: Boolean
+	FirstAidGroup: Boolean
+	FireDepartment: Boolean
+	OtherGroup: Boolean
+	FireSprinklers: Boolean
+	IrrigationSprinklers: Boolean
+	SimpleControl: Boolean
+	SmartSprinklers: Boolean
+	Alarm: Boolean
+	Siren: Boolean
+	Bell: Boolean
+	Lights: Boolean
+	Security: Boolean
+	AuthenticationDevice: Boolean
+	Keypad: Boolean
+	RetinaScanner: Boolean
+	FingerPrintReader: Boolean
+	IntrusionDetectionDevice: Boolean
+	GlassbreakSensors: Boolean
+	Cameras: Boolean
+
+Constraints:
+	# SmartHome #
+	# HeatingManagement <=> SmartHome #
+	# ManualHeating <=> HeatingManagement #
+	# SmartHeating => HeatingManagement #
+	# WindowsManagement <=> SmartHome #
+	# ManualWindows <=> WindowsManagement #
+	# ElectronicWindows => WindowsManagement #
+	# LightManagement <=> SmartHome #
+	# ManualLight <=> LightManagement #
+	# SmartLight => LightManagement #
+	# Pre_definedValues => LightManagement #
+	# GUI <=> SmartHome #
+	# TouchScreen <=> GUI #
+	# Internet => GUI #
+	# PresenceSimulator => SmartHome #
+	# PresenceSimulator => ( LightSimulation || BlindSimulation || MusicSimulation) #
+	# LightSimulation => PresenceSimulator #
+	# BlindSimulation => PresenceSimulator #
+	# MusicSimulation => PresenceSimulator #
+	# FireControl <=> SmartHome #
+	# FirstAidGroup <=> FireControl #
+	# FirstAidGroup => ( FireDepartment || OtherGroup || FireSprinklers) #
+	# FireDepartment => FirstAidGroup #
+	# OtherGroup => FirstAidGroup #
+	# FireSprinklers => FirstAidGroup #
+	# IrrigationSprinklers => SmartHome #
+	# SimpleControl <=> IrrigationSprinklers #
+	# SmartSprinklers => IrrigationSprinklers #
+	# Alarm <=> SmartHome #
+	# Alarm => ( Siren || Bell || Lights) #
+	# Siren => Alarm #
+	# Bell => Alarm #
+	# Lights => Alarm #
+	# Security <=> SmartHome #
+	# AuthenticationDevice <=> Security #
+	# AuthenticationDevice => ( Keypad || RetinaScanner || FingerPrintReader) #
+	# Keypad => AuthenticationDevice #
+	# RetinaScanner => AuthenticationDevice #
+	# FingerPrintReader => AuthenticationDevice #
+	# IntrusionDetectionDevice => Security #
+	# IntrusionDetectionDevice => ( GlassbreakSensors || Cameras) #
+	# GlassbreakSensors => IntrusionDetectionDevice #
+	# Cameras => IntrusionDetectionDevice #

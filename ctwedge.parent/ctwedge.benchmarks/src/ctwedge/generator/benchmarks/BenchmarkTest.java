@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
+import org.sosy_lab.java_smt.api.Formula;
 
 import ctwedge.generator.util.Benchmarkable;
 import ctwedge.generator.util.Utility;
@@ -31,6 +32,8 @@ import ctwedge.util.TestSuite;
 import ctwedge.util.validator.SMTTestSuiteValidator;
 
 public class BenchmarkTest {
+	
+	static boolean saveOutputToFile = true;
 	
 	static int timeout_sec = 120;
 		
@@ -140,28 +143,28 @@ public class BenchmarkTest {
 		
 		long t_end = System.currentTimeMillis();
 		
-		System.out.flush();
-		
+		//	Print risultati benchmark
 		String data = new SimpleDateFormat("ddMMyyyy_HHmmss").format(Calendar.getInstance().getTime());
 		System.out.println(sb.toString());
 		System.out.println(sb_csv.toString());
 		System.out.println("\n\n Benchmark execution time: " + ((double)(t_end-t_start))/1000.0 + "sec.");
 		sb.append("Benchmark execution time: " + (t_end-t_start)/1000.0 + "sec.");
 
-		try {
-			File out_desc = new File("bench_output/benchmark_" + data + ".txt");
-			BufferedWriter writer_desc = new BufferedWriter(new FileWriter(out_desc));
-			writer_desc.write(sb.toString());
-			writer_desc.close();	
-			File out_csv = new File("bench_output/benchmark_" + data + ".csv");
-			BufferedWriter writer_csv = new BufferedWriter(new FileWriter(out_csv));
-			writer_csv.write(sb_csv.toString());	
-			writer_csv.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
-		
-		
+		//	Salvataggio benchmark in file txt e csv
+		if (saveOutputToFile) {
+			try {
+				File out_desc = new File("bench_output/benchmark_" + data + ".txt");
+				BufferedWriter writer_desc = new BufferedWriter(new FileWriter(out_desc));
+				writer_desc.write(sb.toString());
+				writer_desc.close();	
+				File out_csv = new File("bench_output/benchmark_" + data + ".csv");
+				BufferedWriter writer_csv = new BufferedWriter(new FileWriter(out_csv));
+				writer_csv.write(sb_csv.toString());	
+				writer_csv.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}		
+		}
 	}
 	
 	

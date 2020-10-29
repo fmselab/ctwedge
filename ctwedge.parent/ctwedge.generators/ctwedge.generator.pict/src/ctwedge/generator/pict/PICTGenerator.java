@@ -45,7 +45,6 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 		System.out.println(pictModel);
 		String output = runTool(tempModel);
 		TestSuite testSuite = new TestSuite(output, citModel);
-		testSuite.populateTestSuite();
 		testSuite.setStrength(nWise);
 		return testSuite;
 	}
@@ -133,15 +132,15 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 			pc.redirectError(tempError);
 			long t_end = 0;
 			long t_start = System.currentTimeMillis();
-				Process p = pc.start();
-				BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
-				String line;
-				while ((line = bri.readLine()) != null) {
-					line = toCSV(line);
-					sb.append(line + "\n");
-				}
-				bri.close();
-				p.waitFor();
+			Process p = pc.start();
+			BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			String line;
+			while ((line = bri.readLine()) != null) {
+				line = toCSV(line);
+				sb.append(line + "\n");
+			}
+			bri.close();
+			p.waitFor();
 			t_end = System.currentTimeMillis();
 			if (checkError(tempError)) {
 				System.out.println("******************** ERRORE RILEVATO *****************************");

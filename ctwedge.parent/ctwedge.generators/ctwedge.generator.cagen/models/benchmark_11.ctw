@@ -1,0 +1,133 @@
+Model benchmark_11
+
+Parameters:
+p1: { v1 v2 v3 v4 v5 v6 }
+p2: { v1 v2 v3 v4 }
+p3: Boolean
+p4: Boolean
+p5: Boolean
+p6: { v1 v2 v3 v4 }
+p7: Boolean
+p8: Boolean
+p9: Boolean
+p10: Boolean
+p11: Boolean
+p12: Boolean
+p13: Boolean
+p14: Boolean
+p15: Boolean
+p16: Boolean
+p17: Boolean
+p18: Boolean
+p19: Boolean
+p20: Boolean
+p21: Boolean
+p22: Boolean
+p23: Boolean
+p24: Boolean
+p25: Boolean
+p26: Boolean
+p27: Boolean
+p28: Boolean
+p29: { v1 v2 v3 v4 v5 v6 }
+p30: Boolean
+p31: Boolean
+p32: Boolean
+p33: Boolean
+p34: Boolean
+p35: Boolean
+p36: Boolean
+p37: Boolean
+p38: Boolean
+p39: Boolean
+p40: { v1 v2 v3 v4 v5 v6 }
+p41: Boolean
+p42: Boolean
+p43: { v1 v2 v3 v4 v5 }
+p44: Boolean
+p45: Boolean
+p46: Boolean
+p47: Boolean
+p48: Boolean
+p49: Boolean
+p50: { v1 v2 v3 }
+p51: { v1 v2 v3 }
+p52: Boolean
+p53: Boolean
+p54: Boolean
+p55: { v1 v2 v3 }
+p56: Boolean
+p57: Boolean
+p58: Boolean
+p59: { v1 v2 v3 v4 v5 v6 }
+p60: Boolean
+p61: Boolean
+p62: Boolean
+p63: Boolean
+p64: Boolean
+p65: Boolean
+p66: Boolean
+p67: Boolean
+p68: Boolean
+p69: Boolean
+p70: Boolean
+p71: Boolean
+p72: { v1 v2 v3 v4 v5 }
+p73: Boolean
+p74: { v1 v2 v3 }
+p75: Boolean
+p76: Boolean
+p77: Boolean
+p78: Boolean
+p79: Boolean
+p80: Boolean
+p81: Boolean
+p82: Boolean
+p83: Boolean
+p84: Boolean
+p85: Boolean
+p86: Boolean
+p87: Boolean
+p88: Boolean
+p89: Boolean
+p90: Boolean
+p91: Boolean
+p92: Boolean
+p93: Boolean
+p94: Boolean
+p95: Boolean
+p96: Boolean
+
+Constraints:
+ # p5 or p6!=v1 #
+ # p2!=v2 or p12 #
+ # !p11 or p16 #
+ # p2!=v3 or !p20 #
+ # p11 or p19 #
+ # p5 or !p15 #
+ # !p11 or p19 #
+ # p10 or !p19 #
+ # !p17 or !p20 #
+ # p2!=v1 or !p7 #
+ # p16 or p20 #
+ # p1!=v3 or !p11 #
+ # !p14 or !p20 #
+ # p6!=v1 or !p20 #
+ # !p8 or p13 #
+ # !p16 or !p20 #
+ # p2!=v4 or !p5 #
+ # p3 or p12 #
+ # p6!=v4 or p14 #
+ # p1!=v3 or !p11 #
+ # !p4 or p20 #
+ # p8 or p9 #
+ # !p3 or p6!=v1 #
+ # !p7 or !p8 #
+ # !p7 or !p20 #
+ # !p7 or !p14 #
+ # !p11 or p13 #
+ # p4 or p14 #
+ # p2!=v4 or !p12 or p20 #
+ # !p7 or p11 or p18 #
+ # p1!=v6 or p2!=v4 or !p7 #
+ # p8 or p13 or !p20 #
