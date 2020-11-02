@@ -44,6 +44,8 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 		System.out.println("\n------- MODELLO PICT -------\n");
 		System.out.println(pictModel);
 		String output = runTool(tempModel);
+		if (output == null)
+			return null;
 		TestSuite testSuite = new TestSuite(output, citModel);
 		testSuite.setStrength(nWise);
 		return testSuite;
@@ -85,9 +87,11 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 			System.out.println("command finished ");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			return null;
 		}
 		if (checkError(tempError)) {
 			System.out.println("******************** ERRORE RILEVATO *****************************");
+			return null;
 		}
 		return sb.toString();
 	}
@@ -110,6 +114,8 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 		fin.close();
 		return errorFound;
 	}
+	
+	private Process p;
 
 	@Override
 	public TestSuite benchmark_run(CitModel citModel) {
@@ -132,7 +138,7 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 			pc.redirectError(tempError);
 			long t_end = 0;
 			long t_start = System.currentTimeMillis();
-			Process p = pc.start();
+			p = pc.start();
 			BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String line;
 			while ((line = bri.readLine()) != null) {
@@ -140,10 +146,11 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 				sb.append(line + "\n");
 			}
 			bri.close();
-			p.waitFor();
+			p.destroy();
 			t_end = System.currentTimeMillis();
 			if (checkError(tempError)) {
 				System.out.println("******************** ERRORE RILEVATO *****************************");
+				return null;
 			}
 			String output = sb.toString();
 			TestSuite testSuite = new TestSuite(output, citModel);
@@ -155,6 +162,12 @@ public class PICTGenerator extends ICTWedgeTestGenerator implements Benchmarkabl
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public void destroyProcess() {
+		if (p != null)
+			p.destroy();
 	}
 	
 

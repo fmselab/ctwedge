@@ -29,6 +29,8 @@ public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkab
 	private static final boolean READ_STD_OUT = true;
 	private String path;
 	
+	private Process p;
+	
 //	String path = Generator.context != null ? Generator.context.getRealPath("/static/" + execName) // if it is
 			// on server
 // : CASATranslator.class.getProtectionDomain().getCodeSource().getLocation().getPath()
@@ -124,7 +126,7 @@ public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkab
 		ProcessBuilder pc = new ProcessBuilder(command);
 		pc.command(command);
 		System.out.println("running " + command);
-		Process p = pc.start();
+		p = pc.start();
 		// wait it finishes
 		try {
 			if (READ_STD_OUT) {
@@ -224,18 +226,25 @@ public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkab
 
 	@Override
 	public TestSuite benchmark_run(CitModel model) {
-		try {
-			long t_end = 0;
-			long t_start = System.currentTimeMillis();
-			TestSuite testSuite = getTestSuite(model, 2, false);
-			t_end = System.currentTimeMillis();
-			testSuite.populateTestSuite();
-			testSuite.setGeneratorTime(t_end - t_start);
-			return testSuite;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+//		try {
+//			long t_end = 0;
+//			long t_start = System.currentTimeMillis();
+//			TestSuite testSuite = getTestSuite(model, 2, false);
+//			t_end = System.currentTimeMillis();
+//			testSuite.populateTestSuite();
+//			testSuite.setGeneratorTime(t_end - t_start);
+//			return testSuite;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+		return null;
+	}
+
+	@Override
+	public void destroyProcess() {
+		if (p != null)
+			p.destroy();
 	}
 
 	/*

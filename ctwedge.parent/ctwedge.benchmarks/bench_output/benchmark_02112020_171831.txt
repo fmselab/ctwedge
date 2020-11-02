@@ -1,0 +1,863 @@
+Data benchmark: 02/11/2020 17:08:23
+Generator list:
+	ACTS
+	CAgen
+	CASA
+	Medici
+	PICT
+# test: 58
+Timeout: 30sec.
+Results:
+
+----- model_0.ctw ----- 
+	ACTSTranslator
+		 #test = 36
+		 time = 619.0 millis.
+	CAgenGenerator
+		 #test = 36
+		 time = 100.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 36
+		 time = 137.0 millis.
+
+----- model_1.ctw ----- 
+	ACTSTranslator
+		 #test = 40
+		 time = 7.0 millis.
+	CAgenGenerator
+		 #test = 40
+		 time = 74.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 43
+		 time = 130.0 millis.
+
+----- model_10.ctw ----- 
+	ACTSTranslator
+		 #test = 51
+		 time = 1613.0 millis.
+	CAgenGenerator
+		 #test = 51
+		 time = 61.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 50
+		 time = 158.0 millis.
+
+----- model_12.ctw ----- 
+	ACTSTranslator
+		 #test = 12544
+		 time = 466.0 millis.
+	CAgenGenerator
+		 #test = 12544
+		 time = 265.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 12544
+		 time = 7330.0 millis.
+
+----- model_13.ctw ----- 
+	ACTSTranslator
+		 #test = 10
+		 time = 19.0 millis.
+	CAgenGenerator
+		 #test = 10
+		 time = 111.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 10
+		 time = 97.0 millis.
+
+----- model_14.ctw ----- 
+	ACTSTranslator
+		 #test = 41
+		 time = 16.0 millis.
+	CAgenGenerator
+		 #test = 41
+		 time = 85.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 42
+		 time = 324.0 millis.
+
+----- model_15.ctw ----- 
+	ACTSTranslator
+		 #test = 72
+		 time = 1.0 millis.
+	CAgenGenerator
+		 #test = 72
+		 time = 97.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 72
+		 time = 96.0 millis.
+
+----- model_16.ctw ----- 
+	ACTSTranslator
+		 #test = 72
+		 time = 2.0 millis.
+	CAgenGenerator
+		 #test = 72
+		 time = 64.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 72
+		 time = 72.0 millis.
+
+----- model_17.ctw ----- 
+	ACTSTranslator
+		 #test = 78
+		 time = 563.0 millis.
+	CAgenGenerator
+		 #test = 79
+		 time = 106.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 81
+		 time = 594.0 millis.
+
+----- model_18.ctw ----- 
+	ACTSTranslator
+		 #test = 72
+		 time = 340.0 millis.
+	CAgenGenerator
+		 #test = 72
+		 time = 104.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 69
+		 time = 260.0 millis.
+
+----- model_19.ctw ----- 
+	ACTSTranslator
+		 #test = 105
+		 time = 2962.0 millis.
+	CAgenGenerator
+		 #test = 102
+		 time = 129.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 101
+		 time = 845.0 millis.
+
+----- model_20.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 265.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 284.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 14
+		 time = 126.0 millis.
+
+----- model_21.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 318.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 77.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 14
+		 time = 98.0 millis.
+
+----- model_22.ctw ----- 
+	ACTSTranslator
+		 #test = 17
+		 time = 35.0 millis.
+	CAgenGenerator
+		 #test = 16
+		 time = 127.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 18
+		 time = 91.0 millis.
+
+----- model_23.ctw ----- 
+	ACTSTranslator
+		 #test = 26
+		 time = 9.0 millis.
+	CAgenGenerator
+		 #test = 25
+		 time = 73.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 26
+		 time = 77.0 millis.
+
+----- model_24.ctw ----- 
+	ACTSTranslator
+		 #test = 35
+		 time = 32.0 millis.
+	CAgenGenerator
+		 #test = 33
+		 time = 80.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 37
+		 time = 74.0 millis.
+
+----- model_25.ctw ----- 
+	ACTSTranslator
+		 #test = 50
+		 time = 3268.0 millis.
+	CAgenGenerator
+		 #test = 50
+		 time = 159.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 timeout 
+
+----- model_26.ctw ----- 
+	ACTSTranslator
+		 #test = 15
+		 time = 1040.0 millis.
+	CAgenGenerator
+		 #test = 15
+		 time = 94.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 15
+		 time = 1972.0 millis.
+
+----- model_27.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 2018.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 85.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 13
+		 time = 86.0 millis.
+
+----- model_28.ctw ----- 
+	ACTSTranslator
+		 #test = 12
+		 time = 728.0 millis.
+	CAgenGenerator
+		 #test = 12
+		 time = 54.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 12
+		 time = 73.0 millis.
+
+----- model_29.ctw ----- 
+	ACTSTranslator
+		 #test = 39
+		 time = 176.0 millis.
+	CAgenGenerator
+		 #test = 36
+		 time = 60.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 42
+		 time = 79.0 millis.
+
+----- model_3.ctw ----- 
+	ACTSTranslator
+		 #test = 45
+		 time = 113.0 millis.
+	CAgenGenerator
+		 #test = 45
+		 time = 67.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 45
+		 time = 97.0 millis.
+
+----- model_30.ctw ----- 
+	ACTSTranslator
+		 #test = 15
+		 time = 16.0 millis.
+	CAgenGenerator
+		 #test = 15
+		 time = 82.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 13
+		 time = 65.0 millis.
+
+----- model_31.ctw ----- 
+	ACTSTranslator
+		 #test = 12
+		 time = 10.0 millis.
+	CAgenGenerator
+		 #test = 12
+		 time = 75.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 13
+		 time = 62.0 millis.
+
+----- model_32.ctw ----- 
+	ACTSTranslator
+		 #test = 17
+		 time = 80.0 millis.
+	CAgenGenerator
+		 #test = 16
+		 time = 58.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 17
+		 time = 67.0 millis.
+
+----- model_33.ctw ----- 
+	ACTSTranslator
+		 #test = 149
+		 time = 1857.0 millis.
+	CAgenGenerator
+		 #test = 148
+		 time = 65.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 149
+		 time = 79.0 millis.
+
+----- model_34.ctw ----- 
+	ACTSTranslator
+		 #test = 79
+		 time = 571.0 millis.
+	CAgenGenerator
+		 #test = 75
+		 time = 60.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 77
+		 time = 73.0 millis.
+
+----- model_35.ctw ----- 
+	ACTSTranslator
+		 #test = 1171
+		 time = 42.0 millis.
+	CAgenGenerator
+		 #test = 1175
+		 time = 145.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 1170
+		 time = 433.0 millis.
+
+----- model_36.ctw ----- 
+	ACTSTranslator
+		 #test = 7503
+		 time = 156.0 millis.
+	CAgenGenerator
+		 #test = 7503
+		 time = 274.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 7500
+		 time = 5998.0 millis.
+
+----- model_37.ctw ----- 
+	ACTSTranslator
+		 #test = 96
+		 time = 3011.0 millis.
+	CAgenGenerator
+		 #test = 94
+		 time = 262.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 timeout 
+
+----- model_38.ctw ----- 
+	ACTSTranslator
+		 #test = 69
+		 time = 1105.0 millis.
+	CAgenGenerator
+		 #test = 68
+		 time = 86.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 74
+		 time = 2824.0 millis.
+
+----- model_39.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 7355.0 millis.
+	CAgenGenerator
+		 #test = 13
+		 time = 1872.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 13
+		 time = 220.0 millis.
+
+----- model_4.ctw ----- 
+	ACTSTranslator
+		 timeout 
+	CAgenGenerator
+		 timeout 
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 timeout 
+
+----- model_40.ctw ----- 
+	ACTSTranslator
+		 #test = 21
+		 time = 892.0 millis.
+	CAgenGenerator
+		 #test = 19
+		 time = 94.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 19
+		 time = 116.0 millis.
+
+----- model_41.ctw ----- 
+	ACTSTranslator
+		 #test = 6
+		 time = 388.0 millis.
+	CAgenGenerator
+		 #test = 6
+		 time = 56.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 6
+		 time = 72.0 millis.
+
+----- model_42.ctw ----- 
+	ACTSTranslator
+		 #test = 15
+		 time = 10517.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 2426.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 16
+		 time = 244.0 millis.
+
+----- model_43.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 timeout 
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 timeout 
+
+----- model_44.ctw ----- 
+	ACTSTranslator
+		 #test = 28
+		 time = 0.0 millis.
+	CAgenGenerator
+		 #test = 28
+		 time = 52.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 30
+		 time = 64.0 millis.
+
+----- model_45.ctw ----- 
+	ACTSTranslator
+		 #test = 28
+		 time = 0.0 millis.
+	CAgenGenerator
+		 #test = 28
+		 time = 52.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 28
+		 time = 62.0 millis.
+
+----- model_46.ctw ----- 
+	ACTSTranslator
+		 #test = 98
+		 time = 17402.0 millis.
+	CAgenGenerator
+		 #test = 96
+		 time = 102.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 105
+		 time = 170.0 millis.
+
+----- model_47.ctw ----- 
+	ACTSTranslator
+		 #test = 27559
+		 time = 4705.0 millis.
+	CAgenGenerator
+		 #test = 27556
+		 time = 620.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 27556
+		 time = 29507.0 millis.
+
+----- model_48.ctw ----- 
+	ACTSTranslator
+		 #test = 49
+		 time = 506.0 millis.
+	CAgenGenerator
+		 timeout 
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 timeout 
+
+----- model_49.ctw ----- 
+	ACTSTranslator
+		 #test = 67
+		 time = 4247.0 millis.
+	CAgenGenerator
+		 timeout 
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 timeout 
+
+----- model_5.ctw ----- 
+	ACTSTranslator
+		 #test = 182
+		 time = 184.0 millis.
+	CAgenGenerator
+		 #test = 183
+		 time = 1238.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 211
+		 time = 984.0 millis.
+
+----- model_50.ctw ----- 
+	ACTSTranslator
+		 #test = 43
+		 time = 1.0 millis.
+	CAgenGenerator
+		 #test = 44
+		 time = 260.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 48
+		 time = 58.0 millis.
+
+----- model_51.ctw ----- 
+	ACTSTranslator
+		 #test = 34
+		 time = 0.0 millis.
+	CAgenGenerator
+		 #test = 33
+		 time = 50.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 41
+		 time = 60.0 millis.
+
+----- model_52.ctw ----- 
+	ACTSTranslator
+		 #test = 36
+		 time = 3204.0 millis.
+	CAgenGenerator
+		 #test = 36
+		 time = 120.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 36
+		 time = 84.0 millis.
+
+----- model_53.ctw ----- 
+	ACTSTranslator
+		 #test = 40
+		 time = 6736.0 millis.
+	CAgenGenerator
+		 #test = 40
+		 time = 70.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 40
+		 time = 92.0 millis.
+
+----- model_54.ctw ----- 
+	ACTSTranslator
+		 #test = 221
+		 time = 2.0 millis.
+	CAgenGenerator
+		 #test = 221
+		 time = 54.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 221
+		 time = 64.0 millis.
+
+----- model_55.ctw ----- 
+	ACTSTranslator
+		 #test = 92
+		 time = 952.0 millis.
+	CAgenGenerator
+		 #test = 90
+		 time = 56.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 93
+		 time = 78.0 millis.
+
+----- model_56.ctw ----- 
+	ACTSTranslator
+		 #test = 100
+		 time = 1011.0 millis.
+	CAgenGenerator
+		 #test = 100
+		 time = 54.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 100
+		 time = 66.0 millis.
+
+----- model_57.ctw ----- 
+	ACTSTranslator
+		 timeout 
+	CAgenGenerator
+		 #test = 171
+		 time = 8565.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 timeout 
+
+----- model_59.ctw ----- 
+	ACTSTranslator
+		 #test = 23
+		 time = 164.0 millis.
+	CAgenGenerator
+		 #test = 25
+		 time = 126.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 27
+		 time = 1109.0 millis.
+
+----- model_6.ctw ----- 
+	ACTSTranslator
+		 #test = 182
+		 time = 157.0 millis.
+	CAgenGenerator
+		 #test = 183
+		 time = 62.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 216
+		 time = 134.0 millis.
+
+----- model_60.ctw ----- 
+	ACTSTranslator
+		 #test = 26
+		 time = 154.0 millis.
+	CAgenGenerator
+		 #test = 24
+		 time = 58.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 24
+		 time = 62.0 millis.
+
+----- model_7.ctw ----- 
+	ACTSTranslator
+		 #test = 45
+		 time = 332.0 millis.
+	CAgenGenerator
+		 #test = 45
+		 time = 118.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 47
+		 time = 158.0 millis.
+
+----- model_8.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 75
+		 time = 5816.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 timeout 
+
+----- model_9.ctw ----- 
+	ACTSTranslator
+		 #test = 50
+		 time = 144.0 millis.
+	CAgenGenerator
+		 #test = 51
+		 time = 966.0 millis.
+	CASATranslator
+		 null 
+	MediciCITGenerator
+		 null 
+	PICTGenerator
+		 #test = 51
+		 time = 190.0 millis.
+Benchmark execution time: 607.784sec.

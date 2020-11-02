@@ -14,6 +14,11 @@ public interface Benchmarkable {
 	 */
 	public TestSuite benchmark_run(CitModel model);
 	
+	/** 
+	 * destroy external process (if the generator is called via ProcessBuilder)
+	 * This function is called on benchmark_timeout
+	 */
+	public void destroyProcess();
 	
 
 

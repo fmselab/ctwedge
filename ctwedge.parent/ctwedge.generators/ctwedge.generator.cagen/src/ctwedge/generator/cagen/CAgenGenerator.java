@@ -129,6 +129,8 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 		return errorFound;
 	}
 
+	Process p;
+	
 	@Override
 	public TestSuite benchmark_run(CitModel model) {
 		try {
@@ -154,12 +156,12 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 			File tempError = File.createTempFile("cagen_error", ".txt");
 			tempError.deleteOnExit();
 			pc.redirectError(tempError);
-			System.out.println("running " + command);
+			//System.out.println("running " + command);
 			pc.directory(new File(path));
-			System.out.println(pc.directory() + " " + pc.command());
+			//System.out.println(pc.directory() + " " + pc.command());
 			long t_end = 0;
 			long t_start = System.currentTimeMillis();
-			Process p = pc.start();
+			p = pc.start();
 			BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String line;
 			while ((line = bri.readLine()) != null) {
@@ -168,9 +170,9 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 				sb.append(line + "\n");
 			}
 			bri.close();
-			p.waitFor();
+			p.destroy();
 			t_end = System.currentTimeMillis();
-			System.out.println("command finished ");
+			//System.out.println("command finished ");
 			if (checkError(tempError)) {
 				System.out.println("******************** ERRORE RILEVATO *****************************");
 				return null;
@@ -192,5 +194,12 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 		
 		return null;
 	}
+	
+	@Override
+	public void destroyProcess() {
+		if (p != null)
+			p.destroy();
+	}
+	
 
 }

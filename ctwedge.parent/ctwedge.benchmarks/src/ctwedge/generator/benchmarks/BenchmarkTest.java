@@ -35,7 +35,7 @@ public class BenchmarkTest {
 	
 	static boolean saveOutputToFile = true;
 	
-	static int timeout_sec = 120;
+	static int timeout_sec = 30;
 		
 	public class GeneratorExec implements Callable<TestSuite> {
 		String model;
@@ -72,7 +72,7 @@ public class BenchmarkTest {
 		
 		//	Prendo la lista di tutti i file presenti
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("models_test/"), fileList);
+		listFiles(new File("new_models/"), fileList);
 		
 		// Builder risultato
 		StringBuilder sb = new StringBuilder();
@@ -109,6 +109,7 @@ public class BenchmarkTest {
 						System.out.println("--- TIMEOUT---");
 						ts_future.cancel(true);
 						executor.shutdown();
+						gen.destroyProcess();
 						sb_csv.append("timeout;timeout;");
 						sb.append("\t\t timeout \n");
 						continue;
@@ -119,16 +120,16 @@ public class BenchmarkTest {
 						sb.append("\t\t time = " + result.getGeneratorTime() + " millis." + "\n");
 						
 						// TODO
-						SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-						sb.append("\n");
-						sb.append("\t\t #test_validi = " + tsv.howManyTestAreValid());
-						sb.append("\n");
-						sb.append("\t\t #tuple_coperte = " + tsv.howManyTuplesCovers());
-						sb.append("\n");
-						sb.append("\t\t isValid = " + tsv.isValid());
-						sb.append("\n");
-						sb.append("\t\t isComplete = " + tsv.isComplete());
-						sb.append("\n");
+//						SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
+//						sb.append("\n");
+//						sb.append("\t\t #test_validi = " + tsv.howManyTestAreValid());
+//						sb.append("\n");
+//						sb.append("\t\t #tuple_coperte = " + tsv.howManyTuplesCovers());
+//						sb.append("\n");
+//						sb.append("\t\t isValid = " + tsv.isValid());
+//						sb.append("\n");
+//						sb.append("\t\t isComplete = " + tsv.isComplete());
+//						sb.append("\n");
 						
 					} else {
 						sb_csv.append("null;null;");

@@ -27,4 +27,7 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchma
 		return null;
 	}
 
+	@Override
+	public void destroyProcess() {}
+
 }

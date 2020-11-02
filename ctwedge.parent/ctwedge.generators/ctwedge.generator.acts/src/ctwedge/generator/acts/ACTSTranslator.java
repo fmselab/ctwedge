@@ -356,6 +356,9 @@ public class ACTSTranslator extends ICTWedgeTestGenerator implements Benchmarkab
 			return null;
 		}
 	}
+
+	@Override
+	public void destroyProcess() {}
 	
 
 }
