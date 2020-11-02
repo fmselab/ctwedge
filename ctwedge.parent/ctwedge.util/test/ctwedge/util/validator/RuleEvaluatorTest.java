@@ -11,6 +11,7 @@ import ctwedge.util.Test;
  */
 public class RuleEvaluatorTest {
 	
+	@SuppressWarnings("serial")
 	@org.junit.Test
 	public void test1() {
 		CitModel model = Utility.loadModel("Model example Parameters: a:Boolean; b:Boolean; c:Boolean Constraints: # !(a and b) #");
@@ -20,6 +21,7 @@ public class RuleEvaluatorTest {
 		System.out.println(new RuleEvaluator(t2).evaluateConstraint(model.getConstraints().get(0)));
 	}
 	
+	@SuppressWarnings("serial")
 	@org.junit.Test
 	public void test2() {
 		CitModel model = Utility.loadModel("Model example Parameters: a:Boolean; b:Boolean; c:Boolean; d:{d1 d2 d3}; Constraints: # !(a and b and d==d3) #");

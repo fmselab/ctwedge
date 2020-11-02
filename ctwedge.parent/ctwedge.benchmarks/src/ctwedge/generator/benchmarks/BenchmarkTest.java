@@ -119,16 +119,16 @@ public class BenchmarkTest {
 						sb.append("\t\t time = " + result.getGeneratorTime() + " millis." + "\n");
 						
 						// TODO
-//						SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-//						sb.append("\n");
-//						sb.append("\t\t #test_validi = " + tsv.howManyTestAreValid());
-//						sb.append("\n");
-//						sb.append("\t\t #tuple_coperte = " + tsv.howManyTuplesCovers());
-//						sb.append("\n");
-//						sb.append("\t\t isValid = " + tsv.isValid());
-//						sb.append("\n");
-//						sb.append("\t\t isComplete = " + tsv.isComplete());
-//						sb.append("\n");
+						SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
+						sb.append("\n");
+						sb.append("\t\t #test_validi = " + tsv.howManyTestAreValid());
+						sb.append("\n");
+						sb.append("\t\t #tuple_coperte = " + tsv.howManyTuplesCovers());
+						sb.append("\n");
+						sb.append("\t\t isValid = " + tsv.isValid());
+						sb.append("\n");
+						sb.append("\t\t isComplete = " + tsv.isComplete());
+						sb.append("\n");
 						
 					} else {
 						sb_csv.append("null;null;");

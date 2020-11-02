@@ -6,10 +6,10 @@ Bundle-Version: 1.0.0.qualifier
 Export-Package: .,
  ctwedge.benchmarks,
  ctwedge.benchmarks.importer
-Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.13.0",
+Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.xtext,
  ctwedge.util,
  org.eclipse.core.runtime,
- org.junit;bundle-version="4.13.0"
+ org.junit
 Import-Package: ctwedge.util
 Automatic-Module-Name: ctwedge.benchmarks
