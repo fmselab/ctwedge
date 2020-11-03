@@ -226,19 +226,18 @@ public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkab
 
 	@Override
 	public TestSuite benchmark_run(CitModel model) {
-//		try {
-//			long t_end = 0;
-//			long t_start = System.currentTimeMillis();
-//			TestSuite testSuite = getTestSuite(model, 2, false);
-//			t_end = System.currentTimeMillis();
-//			testSuite.populateTestSuite();
-//			testSuite.setGeneratorTime(t_end - t_start);
-//			return testSuite;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-		return null;
+		try {
+			long t_end = 0;
+			long t_start = System.currentTimeMillis();
+			TestSuite testSuite = getTestSuite(model, 2, false);
+			t_end = System.currentTimeMillis();
+			testSuite.populateTestSuite();
+			testSuite.setGeneratorTime(t_end - t_start);
+			return testSuite;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

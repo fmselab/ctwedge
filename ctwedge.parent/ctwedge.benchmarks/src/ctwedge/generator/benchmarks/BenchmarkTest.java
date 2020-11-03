@@ -35,7 +35,7 @@ public class BenchmarkTest {
 	
 	static boolean saveOutputToFile = true;
 	
-	static int timeout_sec = 30;
+	static int timeout_sec = 90;
 		
 	public class GeneratorExec implements Callable<TestSuite> {
 		String model;
@@ -66,13 +66,17 @@ public class BenchmarkTest {
 			for (IConfigurationElement e : ce) {
 					Object o = e.createExecutableExtension("GeneratorPrototype");
 					if(o instanceof Benchmarkable)
-						generators.add((Benchmarkable) o);
+						//	TODO controllare CASA
+						//	java.lang.RuntimeException: equalExpression not supported!
+						//	es. # ((A0!=("V0") || A12 = 0)) #
+						//if (((Benchmarkable)o).getGeneratorName().equals("CASA"))
+							generators.add((Benchmarkable) o);
 			}
 		}
 		
 		//	Prendo la lista di tutti i file presenti
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("new_models/"), fileList);
+		listFiles(new File("models_test/"), fileList);
 		
 		// Builder risultato
 		StringBuilder sb = new StringBuilder();
@@ -97,6 +101,7 @@ public class BenchmarkTest {
 			sb.append("\n----- " + file.getName() + " ----- \n");
 			for (Benchmarkable gen : generators) {
 				String model;
+				boolean error_detected = true;
 				try {
 					sb.append("\t" + gen.getClass().getSimpleName() + "\n");
 					model = readFromFile(file);
@@ -135,10 +140,16 @@ public class BenchmarkTest {
 						sb_csv.append("null;null;");
 						sb.append("\t\t null \n");
 					}
+					error_detected = false;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				if (error_detected) {
+					sb_csv.append("null;null;");
+					sb.append("\t\t null \n");
+				}
 			}
+				
 			sb_csv.append("\n");
 		}
 		
