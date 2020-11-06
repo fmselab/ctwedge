@@ -6,6 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Require-Bundle: ctwedge.util;bundle-version="1.0.0",
  ctwedge.ui,
  org.eclipse.emf.ecore,
- ctwedge
- 
+ ctwedge,
+ org.junit
 Automatic-Module-Name: ctwedge.generator.medici

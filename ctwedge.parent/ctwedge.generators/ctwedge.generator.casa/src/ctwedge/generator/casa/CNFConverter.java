@@ -56,7 +56,7 @@ public class CNFConverter {
 	}
 
 	public CNF convertToCNF(Expression aExpression) throws Exception {
-		if (new CASASwitchVerifier().doSwitch(aExpression)==true) throw new CASAConstraintException();  // ci sono constraint non validi (range/operazioni aritmetiche)
+		if (new CASAConstraintIsUnSupported().doSwitch(aExpression)==true) throw new CASAConstraintException();  // ci sono constraint non validi (range/operazioni aritmetiche)
 		
 		// clone the expression that will be modified
 		aExpression = EcoreUtil.copy(aExpression);	
