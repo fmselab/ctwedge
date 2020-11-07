@@ -3,8 +3,10 @@ package ctwedge.generator.benchmarks;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +18,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.poi.util.StringUtil;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -26,6 +29,11 @@ import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
 import org.sosy_lab.java_smt.api.Formula;
 
+import ctwedge.ctWedge.CitModel;
+import ctwedge.ctWedge.Parameter;
+import ctwedge.ctWedge.impl.BoolImpl;
+import ctwedge.ctWedge.impl.EnumerativeImpl;
+import ctwedge.ctWedge.impl.RangeImpl;
 import ctwedge.generator.util.Benchmarkable;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
@@ -177,6 +185,73 @@ public class BenchmarkTest {
 				e.printStackTrace();
 			}		
 		}
+	}
+	
+	@Test
+	public void calculateComplexity() throws Exception {
+		List<File> fileList = new ArrayList<>();
+		//listFiles(new File("new_models/"), fileList);
+		listFiles(new File("models_test/"), fileList);
+		StringBuilder csv_sb = new StringBuilder();
+		csv_sb.append("Model name;Parameter;Constraint\n");
+		for (File file : fileList) {
+			int parameters = 0;
+			int constraints = 0;
+			int and = 0;
+			int or = 0;
+			int implies = 0;
+			int not = 0;
+			String model = readFromFile(file);
+			CitModel citModel = Utility.loadModel(model);
+			for (Parameter p : citModel.getParameters()) {
+				if (p instanceof EnumerativeImpl)
+					parameters += ((EnumerativeImpl) p).getElements().size();
+				if (p instanceof RangeImpl)
+					parameters += ((RangeImpl) p).getEnd() - ((RangeImpl) p).getBegin();
+				if (p instanceof BoolImpl)
+					parameters += 2;
+			}
+			constraints += citModel.getConstraints().size();
+			BufferedReader fin = new BufferedReader(new FileReader(file));
+			String line = "";
+			boolean constr_tag = false;
+			while ((line = fin.readLine()) != null) {
+				if (line.contains("Constraints:"))
+					constr_tag = true;
+				if (!constr_tag)
+					continue;
+				int lastIndex = 0;
+				while(lastIndex != -1){
+				    lastIndex = line.indexOf("||",lastIndex);
+				    if(lastIndex != -1){
+				        or ++;
+				        lastIndex += 2;
+				    }
+				}
+				lastIndex = 0;
+				while(lastIndex != -1){
+				    lastIndex = line.indexOf("&&",lastIndex);
+				    if(lastIndex != -1){
+				        and ++;
+				        lastIndex += 2;
+				    }
+				}
+				lastIndex = 0;
+				while(lastIndex != -1){
+				    lastIndex = line.indexOf("=>",lastIndex);
+				    if(lastIndex != -1){
+				        implies ++;
+				        lastIndex += 2;
+				    }
+				}
+				not += line.chars().filter(c -> c == '!').count();
+			}
+			csv_sb.append(file.getName() + ";" +
+					parameters + ";" +
+					(constraints + and + or + implies + not) + "\n");
+			fin.close();
+		}
+		System.out.println(csv_sb.toString());
 	}
 	
 	
