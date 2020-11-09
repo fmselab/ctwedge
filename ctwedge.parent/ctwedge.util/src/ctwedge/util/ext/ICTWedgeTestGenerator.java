@@ -17,6 +17,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import javax.management.RuntimeErrorException;
+
 import ctwedge.ctWedge.CitModel;
 import ctwedge.util.TestSuite;
 import ctwedge.util.genprefs.CitlabPreferncesSet;
@@ -31,6 +33,10 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 	private int nWise;
 	private String generatorName;
 
+	/** The citModel. */
+	private CitModel citModel = null;
+
+	
 	/**
 	 * @return the generatorName
 	 */
@@ -100,6 +106,7 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 	
 	@Override
 	final public TestSuite call() throws Exception {
+		if (citModel == null) throw new RuntimeException("use generateTestsAndInfo instead");
 		// TODO use log
 		// System.out.println("ACTS chiamato");
 		// System.out.println("citModel: "+citModel+"  nWise: "+nWise+"  ignoreConstraints: "+ignoreConstraints);

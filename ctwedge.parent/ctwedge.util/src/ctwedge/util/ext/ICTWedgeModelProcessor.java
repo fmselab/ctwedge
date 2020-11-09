@@ -35,9 +35,6 @@ import ctwedge.ctWedge.CitModel;
  */
 public class ICTWedgeModelProcessor {
 
-	/** The citModel. */
-	protected CitModel citModel = null;
-
 	/**
 	 * Gets the citModel from a file in filePath
 	 * 
