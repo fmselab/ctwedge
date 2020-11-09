@@ -90,8 +90,8 @@ public class ParameterValuesToInt {
 	// convert the equal expression to an sign + integer
 	public String eqToInt(AtomicPredicate leftPred, Operators op, AtomicPredicate rightPred) {
 		assert (op==Operators.EQ || op ==Operators.NE);
-		String left = leftPred.getName();
-		String right = rightPred.getName();
+		String left = leftPred.getName().replaceAll("\"", "");
+		String right = rightPred.getName().replaceAll("\"", "");
 		
 		int value=-1;
 		// enum1 OP enum2

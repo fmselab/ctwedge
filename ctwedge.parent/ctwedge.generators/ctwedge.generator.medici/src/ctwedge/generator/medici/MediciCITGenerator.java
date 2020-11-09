@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,15 @@ import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.util.Benchmarkable;
 import ctwedge.generator.util.ParameterSize;
+import ctwedge.util.Pair;
+import ctwedge.util.ParameterValuesToInt;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchmarkable {
 
-	private static final boolean READ_STD_OUT = false;
+	private static final boolean READ_STD_OUT = true;
 
 	public MediciCITGenerator() {
 		super("Medici");
@@ -39,7 +42,7 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchma
 		wf.close();
 		// run the tool
 		List<String> command = new ArrayList<String>();
-		command.add(".\\medici.exe");
+		command.add("./medici.exe");
 		// output}
 		File tempoutput = File.createTempFile("medici_output" + loadModel.getName(), ".txt");
 		// model
@@ -94,20 +97,32 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchma
 	//2 --> number of tests
 	//1 2 4 -> values for test1 
 	//1 2 5 ...
-	private TestSuite translateOutput(File file, CitModel model) {
-		TestSuite result = new TestSuite("", model);
-		Scanner scnr;
-		try {
-			scnr = new Scanner(file);
-			// the number of tests
-			int ntests = scnr.nextInt();
-			for(int i = 0; i < ntests; i++) {
-				String test = scnr.nextLine();
-				String[] values = test.split(" ");
+	private TestSuite translateOutput(File file, CitModel model) throws IOException {
+		String csv_out = "";
+		//	first row -> param names
+		for (Parameter param : model.getParameters())
+			csv_out += param.getName() + ";";
+		csv_out = csv_out.substring(0, csv_out.length() - 1);
+		csv_out += "\n";
+		//	other rows -> param values
+		ParameterValuesToInt valToInt = new ParameterValuesToInt(model);
+		BufferedReader fin = new BufferedReader(new FileReader(file));
+		String test = "";
+		boolean firstrow = true;
+		while ((test = fin.readLine()) != null) {
+			if (firstrow) {
+				firstrow = false;
+				continue;
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			String[] values = test.split(" ");
+			for (int i = 0; i < values.length; i++)
+				csv_out += valToInt.convertInt(Integer.parseInt(values[i])).getValue() + ";";
+			csv_out = csv_out.substring(0, csv_out.length() - 1);
+			csv_out += "\n";
 		}
+		fin.close();
+		
+		TestSuite result = new TestSuite(csv_out, model);
 		return result;
 	}
 

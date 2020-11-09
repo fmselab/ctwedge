@@ -66,7 +66,7 @@ public class CAgenTest {
 		String error_files = "";
 		CAgenGenerator generator = new CAgenGenerator();
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("models/"), fileList);
+		listFiles(new File("new_models/"), fileList);
 		for (File file : fileList) {
 			String model;
 			try {
@@ -152,8 +152,7 @@ public class CAgenTest {
 		System.out.println("******\n"
 				+ "File con errore: \n" + error_files);
 		System.out.println("******\n"
-				+ "Test timeout: " + fileList.size() + "\n"
-				+ "Timeour: " + timeouts);
+				+ "Timeout: " + timeouts);
 		System.out.println("******\n"
 				+ "File con timeout: \n" + timeout_files);
 	}

@@ -75,7 +75,7 @@ public class PictTest {
 		String timeout_files = "";
 		PICTGenerator generator = new PICTGenerator();
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("new_models/"), fileList);
+		listFiles(new File("pict_translated/"), fileList);
 		for (File file : fileList) {
 			System.out.println("*************************************** " + file.getName());
 			String model;
@@ -115,8 +115,7 @@ public class PictTest {
 		System.out.println("******\n"
 				+ "File con errore: \n" + error_files);
 		System.out.println("******\n"
-				+ "Test timeout: " + fileList.size() + "\n"
-				+ "Timeour: " + timeouts);
+				+ "Timeout: " + timeouts);
 		System.out.println("******\n"
 				+ "File con timeout: \n" + timeout_files);
 	}
