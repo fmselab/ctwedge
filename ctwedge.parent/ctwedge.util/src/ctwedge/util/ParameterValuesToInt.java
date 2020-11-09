@@ -122,7 +122,7 @@ public class ParameterValuesToInt {
 		}
 		else 
 			throw new RuntimeException("equalExpression : " + left + op.getName() + right + " not supported!");		
-		String sign = op ==Operators.EQ ? "+" : "-";
+		String sign = op == Operators.EQ ? "+" : "-";
 		return sign + " " + value;
 	}
 }

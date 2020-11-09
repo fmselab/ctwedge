@@ -1,5 +1,5 @@
 ****Model name: model.txt *******
-Tuple coperte: 8 Tuple da coprire: 0 Tuple non copribili: 4
-Ottenuti: 4 mdd
-time execution script 265ms
-Tempo per ordinamenti: 0ms
+Tuple coperte: 152 Tuple da coprire: 0 Tuple non copribili: 3
+Ottenuti: 46 mdd
+time execution script 315ms
+Tempo per ordinamenti: 2ms

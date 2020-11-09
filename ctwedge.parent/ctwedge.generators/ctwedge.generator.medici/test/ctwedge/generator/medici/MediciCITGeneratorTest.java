@@ -24,7 +24,7 @@ public class MediciCITGeneratorTest {
 			"A4: { V0,V1,V2 }\n" + 
 			"\n" + 
 			"Constraints:\n" + 
-			"# ((A0!=(\"V4\")) || A2=(\"V3\")) #\n";
+			"# ((A0!=V4) || A2=V3) #\n";
 	
 	static MediciCITGenerator medici = new MediciCITGenerator(); 
 	

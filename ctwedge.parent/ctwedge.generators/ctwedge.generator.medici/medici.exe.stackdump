@@ -1,7 +1,5 @@
-Exception: STATUS_ACCESS_VIOLATION at eip=0040EBC6
-eax=00000000 ebx=80050DA0 ecx=00000000 edx=80050A08 esi=80050830 edi=00000000
-ebp=80050A08 esp=00E71FE0 program=C:\Users\edoar\Desktop\Universita\TESI\ctwedge\ctwedge.parent\ctwedge.generators\ctwedge.generator.medici\medici.exe, pid 1349, thread main
-cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
 Stack trace:
 Frame     Function  Args
-End of stack trace
+00E71DF8  610239CC (0000021C, 0000EA60, 000000A4, 00E71E68)
+00E71F28  611003CA (00E71F48, 00000000, 00000000, 00000000)
+00E71F44  6112A092 (000007B2, 000303EA, 00000000, 00000000)

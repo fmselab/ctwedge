@@ -58,3 +58,4 @@ ctwedge\.parent/ctwedge/model/generated/
 
 # cagen executable
 ctwedge.parent/ctwedge.generators/ctwedge.generator.cagen/fipo-cli.exe
+ctwedge.parent/ctwedge.generators/ctwedge.generator.medici/medici.exe.stackdump

@@ -40,7 +40,12 @@ public class ConstraintToMediciIds extends CtWedgeSwitch<String> {
 	@Override
 	public String caseEqualExpression(EqualExpression x) {
 		if (x.getLeft() instanceof AtomicPredicate && x.getRight() instanceof AtomicPredicate) {
-			return valConverter.eqToInt((AtomicPredicate)x.getLeft(), x.getOp(), (AtomicPredicate)x.getRight());
+			String eqToInt = valConverter.eqToInt((AtomicPredicate)x.getLeft(), x.getOp(), (AtomicPredicate)x.getRight());
+			// can be + n or - n
+			assert eqToInt.startsWith("+ ") || eqToInt.startsWith("- ");
+			//
+			if (eqToInt.startsWith("+ ")) return eqToInt.substring(2);
+			else return eqToInt.substring(2) + " -";
 		} else 
 			throw new RuntimeException("Not all constraints are supported in medici : " + x.getLeft().getClass() + "=" + x.getRight().getClass());
 	}
