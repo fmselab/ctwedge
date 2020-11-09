@@ -16,16 +16,15 @@ public class MediciCITGeneratorTest {
 	private static final String model2 = "Model prova\nParameters:\n a: Boolean; b: Boolean; c: Boolean;\nConstraints:\n # not a #\n";
 	private static final String model3 = "Model prova\nParameters:\n a: Boolean; b: Boolean; c: Boolean;\nConstraints:\n # a or c or c#\n";
 	
-	private static final String model4 = "Model: model_0\r\n" + 
-			"\r\n" + 
-			"Parameters:\r\n" + 
-			"A0: { V0,V4,V1,V2,V3 }\r\n" + 
-			"A2: { V0,V1,V2,V3 }\r\n" + 
-			"A3: { V0,V1,V2,V3,V4,V5,V6,V7,V8 }\r\n" + 
-			"A4: { V0,V1,V2 }\r\n" + 
-			"\r\n" + 
-			"Constraints:\r\n" + 
-			"# ((A0!=(\"V4\")) || A2=(\"V3\")) #\r\n";
+	private static final String model4 = "Model: model_0\n" + 
+			"Parameters:\n" + 
+			"A0: { V0,V4,V1,V2,V3 }\n" + 
+			"A2: { V0,V1,V2,V3 }\n" + 
+			"A3: { V0,V1,V2,V3,V4,V5,V6,V7,V8 }\n" + 
+			"A4: { V0,V1,V2 }\n" + 
+			"\n" + 
+			"Constraints:\n" + 
+			"# ((A0!=(\"V4\")) || A2=(\"V3\")) #\n";
 	
 	static MediciCITGenerator medici = new MediciCITGenerator(); 
 	
