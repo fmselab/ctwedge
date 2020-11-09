@@ -16,6 +16,10 @@ public class TestSuite {
 	CitModel model;
 	List<Test> tests;
 
+	/**
+	 * @param ts test in csv format (first line param names, other lines param values)
+	 * @param model the model
+	 */
 	public TestSuite(String ts, CitModel model) {
 		this.ts = ts;
 		this.model = model;
