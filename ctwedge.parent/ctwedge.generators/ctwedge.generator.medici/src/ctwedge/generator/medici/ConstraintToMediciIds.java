@@ -1,31 +1,36 @@
 package ctwedge.generator.medici;
 
+import static ctwedge.ctWedge.CtWedgeFactory.eINSTANCE;
+
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
+import ctwedge.ctWedge.CtWedgeFactory;
 import ctwedge.ctWedge.EqualExpression;
+import ctwedge.ctWedge.ImpliesExpression;
+import ctwedge.ctWedge.ImpliesOperator;
 import ctwedge.ctWedge.NotExpression;
 import ctwedge.ctWedge.OrExpression;
+import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.generator.util.ParameterElementsGetterAsStrings;
 import ctwedge.util.ParameterValuesToInt;
 
-/** 
+/**
  * 
- * it converts every expression to a list of numbers (as strings) using the medici syntax
+ * it converts every expression to a list of numbers (as strings) using the
+ * medici syntax
  * 
  */
 public class ConstraintToMediciIds extends CtWedgeSwitch<String> {
 
 	private ParameterValuesToInt valConverter;
-	
 
 	public ConstraintToMediciIds(CitModel citModel) {
 		valConverter = new ParameterValuesToInt(citModel);
 	}
-
 
 	@Override
 	public String caseAndExpression(AndExpression and) {
@@ -40,35 +45,59 @@ public class ConstraintToMediciIds extends CtWedgeSwitch<String> {
 	@Override
 	public String caseEqualExpression(EqualExpression x) {
 		if (x.getLeft() instanceof AtomicPredicate && x.getRight() instanceof AtomicPredicate) {
-			String eqToInt = valConverter.eqToInt((AtomicPredicate)x.getLeft(), x.getOp(), (AtomicPredicate)x.getRight());
+			String eqToInt = valConverter.eqToInt((AtomicPredicate) x.getLeft(), x.getOp(),
+					(AtomicPredicate) x.getRight());
 			// can be + n or - n
 			assert eqToInt.startsWith("+ ") || eqToInt.startsWith("- ");
 			//
-			if (eqToInt.startsWith("+ ")) return eqToInt.substring(2);
-			else return eqToInt.substring(2) + " -";
-		} else 
-			throw new RuntimeException("Not all constraints are supported in medici : " + x.getLeft().getClass() + "=" + x.getRight().getClass());
+			if (eqToInt.startsWith("+ "))
+				return eqToInt.substring(2);
+			else
+				return eqToInt.substring(2) + " -";
+		} else
+			throw new RuntimeException("Not all constraints are supported in medici : " + x.getLeft().getClass() + "="
+					+ x.getRight().getClass());
 	}
 
-
-	
 	@Override
 	public String caseAtomicPredicate(AtomicPredicate x) {
 		// in case the predicate is not in an EqualExpression
-		String name = x.getName();		
+		String name = x.getName();
 		if (valConverter.getParamByName(name) instanceof Bool) {
 			int base = valConverter.get(name);
-			int value = base + ParameterElementsGetterAsStrings.instance.doSwitch(valConverter.getParamByName(name)).indexOf("true");
+			int value = base + ParameterElementsGetterAsStrings.instance.doSwitch(valConverter.getParamByName(name))
+					.indexOf("true");
 			return Integer.toString(value);
 		}
 		return super.caseAtomicPredicate(x);
 	}
-	
+
 	@Override
 	public String caseNotExpression(NotExpression x) {
 		return doSwitch(x.getPredicate()) + " -";
 	}
+
+	@Override
+	public String caseImpliesExpression(ImpliesExpression impl) {
+		if (impl.getOp() == ImpliesOperator.IMPL) {
+			// convert to not A or B
+			NotExpression notL = CtWedgeFactory.eINSTANCE.createNotExpression();
+			notL.setPredicate(impl.getLeft());
+			OrExpression or = CtWedgeFactory.eINSTANCE.createOrExpression();
+			or.setLeft(notL);
+			or.setRight(impl.getRight());
+			return doSwitch(or);
+		} else {
+			throw new RuntimeException("impl??");
+		}
+	}
 	
+	@Override
+	public String caseRelationalExpression(RelationalExpression object) {
+		throw new RuntimeException("relational expression are not supported");
+	}
+	
+
 	@Override
 	public String caseConstraint(Constraint x) {
 		return doSwitch(x);

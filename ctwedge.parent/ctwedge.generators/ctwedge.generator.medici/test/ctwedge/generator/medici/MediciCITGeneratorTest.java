@@ -34,6 +34,16 @@ public class MediciCITGeneratorTest {
 			"\r\n" + 
 			" Constraints:\r\n" + 
 			"   # emailViewer => textLines > 28 #";
+
+	private static final String modelPhone2 = "Model Phone\r\n" + 
+			" Parameters:\r\n" + 
+			"   emailViewer : Boolean\r\n" + 
+			"   textLines:  [ 25 .. 30 ]\r\n" + 
+			"   display : {16MC, 8MC, BW}\r\n" + 
+			"\r\n" + 
+			" Constraints:\r\n" + 
+			"   # emailViewer => textLines = 28 #";
+
 	
 	static MediciCITGenerator medici = new MediciCITGenerator(); 
 	
@@ -59,11 +69,17 @@ public class MediciCITGeneratorTest {
 		System.out.println("Risultato:\n"+s);
 	}
 	
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void test_phone() throws Exception {
-		String s = medici.getTestSuite(Utility.loadModel(modelPhone), 2, false).toString();
+		medici.getTestSuite(Utility.loadModel(modelPhone), 2, false).toString();
+	}
+	
+	@Test
+	public void test_phoneCorrect() throws Exception {
+		String s = medici.getTestSuite(Utility.loadModel(modelPhone2), 2, false).toString();
 		System.out.println("Risultato:\n"+s);
 	}
+	
 	
 	//	Usare Junit Plug-In test
 	@Test
