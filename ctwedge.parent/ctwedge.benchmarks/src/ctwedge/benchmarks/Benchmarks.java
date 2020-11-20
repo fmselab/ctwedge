@@ -19,6 +19,8 @@ import com.google.inject.Injector;
 
 import ctwedge.CTWedgeStandaloneSetup;
 import ctwedge.ctWedge.CitModel;
+import ctwedge.generator.util.Utility;
+import de.uni_freiburg.informatik.ultimate.logic.Util;
 
 /**
  * Servlet implementation class for the benchmark table
@@ -42,8 +44,7 @@ public class Benchmarks {
 					&& (listOfFiles[i].getName().endsWith(".citw") || listOfFiles[i].getName().endsWith(".ctw"))) {
 				// System.out.println("File " + listOfFiles[i].getName());
 				try {
-					String model = readFromFile(listOfFiles[i]);
-					CitModel m = loadModel(model);
+					CitModel m = Utility.loadModelFromPath(listOfFiles[i].getAbsolutePath());
 					st.append(listOfFiles[i].getName().replace(".citw", "").replace(".ctw", "") + ";" + folder.getName()
 							+ ";" + m.getParameters().size() + ";" + m.getConstraints().size());
 				} catch (Exception e) {
@@ -64,35 +65,6 @@ public class Benchmarks {
 		for (int i = 1; i < st.length; i++) {
 			sb.append(i + ";" + st[i] + "\n");
 		}
-		return sb.toString();
-	}
-
-	// the string contains the model itself
-	public static CitModel loadModel(String model) {
-		Injector injector = new CTWedgeStandaloneSetup().createInjectorAndDoEMFRegistration();
-		XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
-		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-		// https://wiki.eclipse.org/Xtext/FAQ#How_do_I_load_my_model_in_a_standalone_Java_application.C2.A0.3F
-		Resource resource = resourceSet.createResource(URI.createURI("dummy:/example.ctw"));
-		InputStream in = new ByteArrayInputStream(model.getBytes());
-		try {
-			resource.load(in, resourceSet.getLoadOptions());
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException();
-		}
-		CitModel res = (CitModel) resource.getContents().get(0);
-		// System.out.println("Original model: "+ACTSConstraintTranslator.dump(res,""));
-		return res;
-	}
-
-	public static String readFromFile(File f) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		BufferedReader fin = new BufferedReader(new FileReader(f));
-		String s = "";
-		while ((s = fin.readLine()) != null)
-			sb.append(s + "\n");
-		fin.close();
 		return sb.toString();
 	}
 

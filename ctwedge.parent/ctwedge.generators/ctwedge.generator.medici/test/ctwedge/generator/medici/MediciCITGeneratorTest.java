@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 
@@ -80,7 +82,13 @@ public class MediciCITGeneratorTest {
 		System.out.println("Risultato:\n"+s);
 	}
 	
-	
+	@Test
+	public void test_Storage5() throws Exception {
+		CitModel loadModel = Utility.loadModel("../../models_test/ctwedge.benchmarks/Storage5.ctw");
+		String s = medici.getTestSuite(loadModel, 2, false).toString();
+		System.out.println("Risultato:\n"+s);
+	}
+		
 	//	Usare Junit Plug-In test
 	@Test
 	public void test_bench() {

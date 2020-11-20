@@ -2,23 +2,19 @@ package ctwedge.generator.medici;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.util.Benchmarkable;
 import ctwedge.generator.util.ParameterSize;
-import ctwedge.util.Pair;
 import ctwedge.util.ParameterValuesToInt;
-import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
@@ -97,7 +93,7 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchma
 		return errorFound;
 	}
 
-	private String translateModel(CitModel sm) {
+	String translateModel(CitModel sm) {
 		StringBuffer sb = new StringBuffer();
 		// parameters
 		sb.append("2" + "\n" + sm.getParameters().size() + "\n");

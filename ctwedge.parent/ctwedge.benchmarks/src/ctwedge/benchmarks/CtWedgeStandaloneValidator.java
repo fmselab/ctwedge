@@ -3,6 +3,7 @@ package ctwedge.benchmarks;
 import java.io.File;
 
 import ctwedge.ctWedge.CitModel;
+import ctwedge.generator.util.Utility;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.Test;
 import ctwedge.util.validator.RuleEvaluator;
@@ -12,7 +13,7 @@ public class CtWedgeStandaloneValidator {
 	public static void main(String[] args) {
 		try {
 			File modelFile = new File("model.ctw");
-			CitModel model = Benchmarks.loadModel(Benchmarks.readFromFile(modelFile));
+			CitModel model = Utility.loadModelFromPath(modelFile.getAbsolutePath());
 			Test test = new Test();
 			int i=0;
 			for (String p : (new ModelUtils(model)).paramValues.keySet()) test.put(p, args[i++]);

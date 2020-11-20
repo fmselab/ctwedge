@@ -52,7 +52,7 @@ public class ICTWedgeModelProcessor {
 		if (list.isEmpty())
 			return (CitModel) resource.getContents().get(0);
 		else {
-			NotValidModelException e = new NotValidModelException("THE MODEL CONTAINS ERRORS\n");
+			NotValidModelException e = new NotValidModelException("THE MODEL CONTAINS ERRORS: "+ list.toString());
 			for (Issue issue : list) {
 				e.setTrace(issue.toString().concat(" " + e.getTrace() + "\n"));
 				System.err.println(issue);

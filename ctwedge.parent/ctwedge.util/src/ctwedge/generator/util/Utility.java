@@ -2,6 +2,8 @@ package ctwedge.generator.util;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Path;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -21,11 +23,6 @@ public class Utility {
 	
 	public static TestSuite getTestSuite(String model, ICTWedgeTestGenerator generator, int t, boolean ignoreC, String executableFolderPath) throws Exception {
 		TestSuite ts = null;
-		/*if (generator.equalsIgnoreCase("casa")) { // CASA
-			ts = new CASATranslator(executableFolderPath).getTestSuite(loadModel(model), t, ignoreC);
-		} else { // ACTS
-			ts = new ACTSTranslator().getTestSuite(loadModel(model), t, ignoreC);
-		}*/
 		ts = generator.getTestSuite(loadModel(model), t, ignoreC);
 		return ts;
 	}
@@ -38,23 +35,39 @@ public class Utility {
 
 	// the string contains the model itself
 	public static CitModel loadModel(String model) {
+		// https://wiki.eclipse.org/Xtext/FAQ#How_do_I_load_my_model_in_a_standalone_Java_application.C2.A0.3F
+		return loadModelFromInAndURI(new ByteArrayInputStream(model.getBytes()), URI.createURI("dummy:/example.ctw"));
+	}
+
+	// the string contains the model itself
+	public static CitModel loadModelFromPath(String modelpath) {
+		return loadModelFromInAndURI(null, URI.createFileURI(modelpath));
+	}
+
+	/**
+	 * Load model from in and URI.
+	 *
+	 * @param in the input stream - can be null
+	 * @param uri the uri
+	 * @return the cit model
+	 */
+	private static CitModel loadModelFromInAndURI(InputStream in, URI uri) {
 		Injector injector = new CTWedgeStandaloneSetup().createInjectorAndDoEMFRegistration();
 		XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
 		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-		// https://wiki.eclipse.org/Xtext/FAQ#How_do_I_load_my_model_in_a_standalone_Java_application.C2.A0.3F
-		Resource resource = resourceSet.createResource(URI.createURI("dummy:/example.ctw"));
-		InputStream in = new ByteArrayInputStream(model.getBytes());
+		Resource resource = resourceSet.createResource(uri);
 		try {
-			resource.load(in, resourceSet.getLoadOptions());
+			if (in!= null) resource.load(in, resourceSet.getLoadOptions());
+			else resource.load(resourceSet.getLoadOptions());
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new RuntimeException();
+			throw new RuntimeException(e.getMessage());
 		}
 		CitModel res = (CitModel) resource.getContents().get(0);
-		//System.out.println("Original model: " + ACTSConstraintTranslator.dump(res, ""));
 		return res;
 	}
-
+	
+	
 	public static String addNumbers(String ts) {
 		StringBuffer sb = new StringBuffer();
 		String[] st = ts.split("\n");
