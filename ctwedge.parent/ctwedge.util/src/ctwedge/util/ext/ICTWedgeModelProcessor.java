@@ -11,12 +11,15 @@
  ******************************************************************************/
 package ctwedge.util.ext;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
@@ -36,7 +39,7 @@ import ctwedge.ctWedge.CitModel;
 public class ICTWedgeModelProcessor {
 
 	/**
-	 * Gets the citModel from a file in filePath
+	 * Gets the citModel from a file in filePath it validates also the model
 	 * 
 	 * @param filePath
 	 *            the file path
@@ -44,9 +47,15 @@ public class ICTWedgeModelProcessor {
 	 */
 	public static final CitModel getModel(String filePath) throws NotValidModelException {
 		Injector injector = new CTWedgeStandaloneSetupGenerated().createInjectorAndDoEMFRegistration();
-		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource;
-		resource = resourceSet.getResource(URI.createFileURI(filePath), true);
+		XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
+		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
+		Resource resource = resourceSet.createResource(URI.createFileURI(filePath));
+		try {
+			resource.load(resourceSet.getLoadOptions());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		IResourceValidator validator = injector.getInstance(IResourceValidator.class);
 		List<Issue> list = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
 		if (list.isEmpty())

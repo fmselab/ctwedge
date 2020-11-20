@@ -1,5 +1,7 @@
 package ctwedge.generator.medici;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,6 +13,7 @@ import org.junit.Test;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
+import ctwedge.util.ext.ICTWedgeModelProcessor;
 
 public class MediciCITGeneratorTest {
 
@@ -84,7 +87,22 @@ public class MediciCITGeneratorTest {
 	
 	@Test
 	public void test_Storage5() throws Exception {
-		CitModel loadModel = Utility.loadModel("../../models_test/ctwedge.benchmarks/Storage5.ctw");
+		CitModel loadModel = Utility.loadModelFromPath("../../ctwedge.benchmarks/models_test/Storage5.ctw");
+		loadModel.getName();
+		assertNotNull(loadModel);
+		assertNotNull(loadModel.getName());
+		String s = medici.getTestSuite(loadModel, 2, false).toString();
+		System.out.println("Risultato:\n"+s);
+	}
+	@Test
+	public void test_Model10() throws Exception {
+		String modelpath = "../../ctwedge.benchmarks/models_test/model_10.ctw";
+		CitModel loadModel = Utility.loadModelFromPath(modelpath);
+		loadModel.getName();
+		// Temp what if I use anothe rmethod with the validation
+		ICTWedgeModelProcessor.getModel(modelpath);		
+		assertNotNull(loadModel);
+		assertNotNull(loadModel.getName());
 		String s = medici.getTestSuite(loadModel, 2, false).toString();
 		System.out.println("Risultato:\n"+s);
 	}

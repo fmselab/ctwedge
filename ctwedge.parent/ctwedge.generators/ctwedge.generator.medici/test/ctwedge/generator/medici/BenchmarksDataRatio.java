@@ -19,6 +19,7 @@ import java.util.List;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
+import ctwedge.generator.util.Utility;
 import ctwedge.util.ext.ICTWedgeModelProcessor;
 
 // use medici to compute the data about the benchmarks
@@ -34,13 +35,15 @@ public class BenchmarksDataRatio {
 			@Override
 			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
-				System.out.println(file.getFileName() + " " + Files.isRegularFile(file)
-						+ file.getFileName().toString().endsWith(".ctw"));
+				//System.out.println(file.getFileName() + " " + Files.isRegularFile(file)
+				//		+ file.getFileName().toString().endsWith(".ctw"));
+				// if (!file.getFileName().toString().equals("model_10.ctw")) return FileVisitResult.CONTINUE;
 				if (Files.isRegularFile(file) && file.getFileName().toString().endsWith(".ctw")) {
 					System.out.println(file);
 					// read as
 					try {
-						CitModel loadModel = ICTWedgeModelProcessor.getModel(file.toString());
+						//CitModel loadModel = ICTWedgeModelProcessor.getModel();						
+						CitModel loadModel = Utility.loadModelFromPath(file.toString());
 						fw.write(file.getFileName().toString() + "\t");
 						// convert to medici
 						File model = new File("model.txt");
