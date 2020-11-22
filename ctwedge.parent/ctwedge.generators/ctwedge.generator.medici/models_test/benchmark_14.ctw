@@ -1,0 +1,112 @@
+Model benchmark_14
+
+Parameters:
+p1: Boolean
+p2: { v1 v2 v3 v4 v5 v6 }
+p3: { v1 v2 v3 v4 }
+p4: Boolean
+p5: Boolean
+p6: Boolean
+p7: Boolean
+p8: Boolean
+p9: { v1 v2 v3 }
+p10: Boolean
+p11: Boolean
+p12: Boolean
+p13: Boolean
+p14: Boolean
+p15: Boolean
+p16: Boolean
+p17: Boolean
+p18: Boolean
+p19: Boolean
+p20: Boolean
+p21: Boolean
+p22: Boolean
+p23: Boolean
+p24: { v1 v2 v3 v4 v5 v6 }
+p25: Boolean
+p26: Boolean
+p27: Boolean
+p28: { v1 v2 v3 v4 }
+p29: Boolean
+p30: Boolean
+p31: Boolean
+p32: Boolean
+p33: Boolean
+p34: Boolean
+p35: Boolean
+p36: Boolean
+p37: Boolean
+p38: Boolean
+p39: Boolean
+p40: Boolean
+p41: Boolean
+p42: { v1 v2 v3 }
+p43: { v1 v2 v3 v4 }
+p44: Boolean
+p45: Boolean
+p46: Boolean
+p47: Boolean
+p48: Boolean
+p49: Boolean
+p50: Boolean
+p51: Boolean
+p52: Boolean
+p53: Boolean
+p54: Boolean
+p55: Boolean
+p56: Boolean
+p57: Boolean
+p58: Boolean
+p59: Boolean
+p60: Boolean
+p61: Boolean
+p62: Boolean
+p63: Boolean
+p64: Boolean
+p65: { v1 v2 v3 v4 v5 v6 }
+p66: Boolean
+p67: Boolean
+p68: Boolean
+p69: Boolean
+p70: Boolean
+p71: Boolean
+p72: { v1 v2 v3 }
+p73: { v1 v2 v3 }
+p74: Boolean
+p75: Boolean
+p76: Boolean
+p77: Boolean
+p78: Boolean
+p79: { v1 v2 v3 }
+p80: Boolean
+p81: Boolean
+p82: Boolean
+p83: Boolean
+p84: Boolean
+p85: Boolean
+p86: Boolean
+p87: Boolean
+p88: Boolean
+p89: Boolean
+p90: Boolean
+p91: Boolean
+p92: Boolean
+
+Constraints:
+ # !p1 or p19 #
+ # !p8 or p18 #
+ # p2!=v3 or p19 #
+ # p3!=v1 or !p4 #
+ # p5 or p18 #
+ # p9!=v2 or !p19 #
+ # !p7 or !p8 #
+ # !p12 or p19 #
+ # !p15 or p19 #
+ # !p6 or p14 #
+ # p11 or !p16 #
+ # p13 or !p19 #
+ # p15 or p19 #
+ # p10 or !p17 or p18 #
+ # p5 or p10 or !p19 #

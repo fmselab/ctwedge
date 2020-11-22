@@ -1,0 +1,185 @@
+//
+// from : Itai Segall , Rachel Tzoref - Brill , and Eitan Farchi .
+// Using binary decision diagrams for combinatorial test design. 
+// In Proceedings of the 2011 International Symposium on Software Testing and Analysis ( ISSTA '11).
+//  
+Model Storage5
+
+Parameters:
+p1: { v1 v2 v3 };
+p2: { v1 v2 v3 };
+p3: { v1 v2 v3 };
+p4: { v1 v2 v3 v4 v5 };
+p5: Boolean;
+p6: { v1 v2 v3 };
+p7: { v1 v2 v3 v4 v5 v6 };
+p8: { v1 v2 v3 };
+p9: { v1 v2 v3 v4 v5 v6 };
+p10: { v1 v2 v3 v4 v5 };
+p11: Boolean;
+p12: { v1 v2 v3 };
+p13: { v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 };
+p14: { v1 v2 v3 };
+p15: { v1 v2 v3 v4 v5 };
+p16: Boolean;
+p17: { v1 v2 v3 };
+p18: { v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 };
+p19: { v1 v2 v3 v4 v5 v6 v7 v8 };
+p20: { v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 };
+p21: { v1 v2 v3 v4 v5 v6 v7 v8 v9 };
+p22: Boolean;
+p23: { 32 64 };
+
+Constraints:
+	# ( p18!=v7 OR p13!=v9) #
+	# ( p13!=v1 OR p18!=v10) #
+	# ( p19!=v6 OR p21!=v8) #
+	# ( p19!=v6 OR p21!=v6) #
+	# ( p19!=v6 OR p21!=v7) #
+	# ( p20!=v4 OR p19!=v8) #
+	# ( p19!=v6 OR p21!=v4) #
+	# ( p19!=v6 OR p21!=v5) #
+	# ( p18!=v7 OR p13!=v1) #
+	# ( p19!=v6 OR p21!=v2) #
+	# ( p20!=v4 OR p19!=v2) #
+	# ( p18!=v7 OR p13!=v2) #
+	# ( p19!=v6 OR p21!=v3) #
+	# ( p9!=v6 OR p7!=v5) #
+	# ( p19!=v7 OR p20!=v11) #
+	# ( p20!=v4 OR p19!=v4) #
+	# ( p18!=v7 OR p13!=v3) #
+	# ( p19!=v4 OR p20!=v2) #
+	# ( p18!=v7 OR p13!=v4) #
+	# ( p9!=v6 OR p7!=v3) #
+	# ( p20!=v4 OR p19!=v3) #
+	# ( p19!=v4 OR p20!=v6) #
+	# ( p18!=v7 OR p13!=v8) #
+	# ( p21!=v5 OR p19!=v8) #
+	# ( p20!=v10 OR p19!=v8) #
+	# ( p20!=v3 OR p19!=v8) #
+	# ( p19!=v5 OR p21!=v3) #
+	# ( p19!=v5 OR p21!=v4) #
+	# ( p7!=v4 OR p9!=v5) #
+	# ( p19!=v5 OR p21!=v5) #
+	# ( p20!=v3 OR p19!=v4) #
+	# ( p7!=v4 OR p9!=v6) #
+	# ( p19!=v5 OR p21!=v6) #
+	# ( p20!=v3 OR p19!=v3) #
+	# ( p20!=v3 OR p19!=v2) #
+	# ( p3!=v1 OR p1!=v3) #
+	# ( p13!=v4 OR p18!=v8) #
+	# ( p1!=v1 OR p3!=v2) #
+	# ( p18!=v5 OR p13!=v7) #
+	# ( p18!=v5 OR p13!=v8) #
+	# ( p18!=v5 OR p13!=v9) #
+	# ( p13!=v4 OR p18!=v6) #
+	# ( p13!=v3 OR p18!=v10) #
+	# ( p18!=v5 OR p13!=v4) #
+	# ( p20!=v6 OR p19!=v2) #
+	# ( p19!=v2 OR p20!=v2) #
+	# ( p13!=v3 OR p18!=v8) #
+	# ( p13!=v3 OR p18!=v9) #
+	# ( p13!=v3 OR p18!=v1) #
+	# ( p20!=v5 OR p19!=v8) #
+	# ( p13!=v3 OR p18!=v5) #
+	# ( p13!=v2 OR p18!=v10) #
+	# ( p13!=v3 OR p18!=v6) #
+	# ( p18!=v6 OR p13!=v8) #
+	# ( p13!=v3 OR p18!=v4) #
+	# ( p18!=v6 OR p13!=v7) #
+	# ( p19!=v3 OR p20!=v6) #
+	# ( p18!=v10 OR p13!=v8) #
+	# ( p18!=v6 OR p13!=v5) #
+	# ( p20!=v5 OR p19!=v4) #
+	# ( p20!=v5 OR p19!=v3) #
+	# ( p19!=v3 OR p20!=v2) #
+	# ( p20!=v5 OR p19!=v2) #
+	# ( p19!=v1 OR p20!=v11) #
+	# ( p13!=v9 OR p18!=v10) #
+	# ( p9!=v1 OR p7!=v5) #
+	# ( p13!=v2 OR p18!=v9) #
+	# ( p13!=v2 OR p18!=v8) #
+	# ( p13!=v2 OR p18!=v6) #
+	# ( p9!=v2 OR p7!=v1) #
+	# ( p21!=v9 OR p19!=v2) #
+	# ( p19!=v8 OR p20!=v6) #
+	# ( p21!=v9 OR p19!=v4) #
+	# ( p20!=v8 OR p19!=v8) #
+	# ( p21!=v9 OR p19!=v3) #
+	# ( p9!=v2 OR p7!=v5) #
+	# ( p20!=v8 OR p19!=v2) #
+	# ( p20!=v8 OR p19!=v3) #
+	# ( p20!=v8 OR p19!=v4) #
+	# ( p13!=v2 OR p18!=v5) #
+	# ( p13!=v2 OR p18!=v4) #
+	# ( p19!=v8 OR p20!=v2) #
+	# ( p13!=v1 OR p18!=v9) #
+	# ( p13!=v1 OR p18!=v5) #
+	# ( p13!=v1 OR p18!=v6) #
+	# ( p13!=v1 OR p18!=v8) #
+	# ( p21!=v1 OR p19!=v1) #
+	# ( p21!=v1 OR p19!=v8) #
+	# ( p21!=v1 OR p19!=v7) #
+	# ( p21!=v1 OR p19!=v6) #
+	# ( p21!=v1 OR p19!=v5) #
+	# ( p9!=v3 OR p7!=v1) #
+	# ( p20!=v7 OR p19!=v4) #
+	# ( p20!=v7 OR p19!=v2) #
+	# ( p9!=v3 OR p7!=v5) #
+	# ( p20!=v7 OR p19!=v3) #
+	# ( p13!=v10 OR p18!=v6) #
+	# ( p13!=v1 OR p18!=v4) #
+	# ( p19!=v1 OR p21!=v4) #
+	# ( p19!=v1 OR p21!=v3) #
+	# ( p13!=v1 OR p18!=v2) #
+	# ( p19!=v1 OR p21!=v6) #
+	# ( p19!=v1 OR p21!=v5) #
+	# ( p20!=v7 OR p19!=v8) #
+	# ( p1!=v3 OR p3!=v2) #
+	# ( p19!=v1 OR p21!=v7) #
+	# ( p19!=v1 OR p21!=v8) #
+	# ( p21!=v2 OR p19!=v1) #
+	# ( p21!=v2 OR p19!=v5) #
+	# ( p13!=v9 OR p18!=v6) #
+	# ( p13!=v7 OR p18!=v10) #
+	# ( p13!=v9 OR p18!=v8) #
+	# ( p21!=v2 OR p19!=v8) #
+	# ( p20!=v10 OR p19!=v2) #
+	# ( p20!=v10 OR p19!=v3) #
+	# ( p20!=v10 OR p19!=v4) #
+	# ( p21!=v7 OR p19!=v5) #
+	# ( p7!=v4 OR p9!=v3) #
+	# ( p7!=v4 OR p9!=v1) #
+	# ( p7!=v4 OR p9!=v2) #
+	# ( p21!=v7 OR p19!=v8) #
+	# ( p19!=v6 OR p20!=v11) #
+	# ( p19!=v8 OR p21!=v3) #
+	# ( p18!=v9 OR p13!=v4) #
+	# ( p19!=v8 OR p21!=v4) #
+	# ( p19!=v8 OR p21!=v6) #
+	# ( p13!=v4 OR p18!=v10) #
+	# ( p18!=v2 OR p13!=v3) #
+	# ( p20!=v9 OR p19!=v4) #
+	# ( p20!=v9 OR p19!=v2) #
+	# ( p21!=v8 OR p19!=v5) #
+	# ( p20!=v9 OR p19!=v3) #
+	# ( p20!=v9 OR p19!=v8) #
+	# ( p21!=v8 OR p19!=v8) #
+	# ( p19!=v7 OR p21!=v4) #
+	# ( p19!=v5 OR p20!=v11) #
+	# ( p21!=v9 OR p22!=true) #
+	# ( p19!=v7 OR p21!=v3) #
+	# ( p19!=v7 OR p21!=v2) #
+	# ( p19!=v7 OR p21!=v8) #
+	# ( p20!=v1 OR p19!=v2) #
+	# ( p19!=v7 OR p21!=v7) #
+	# ( p7!=v2 OR p9!=v3) #
+	# ( p20!=v1 OR p19!=v3) #
+	# ( p19!=v7 OR p21!=v6) #
+	# ( p9!=v6 OR p7!=v2) #
+	# ( p18!=v5 OR p13!=v10) #
+	# ( p20!=v1 OR p19!=v4) #
+	# ( p19!=v7 OR p21!=v5) #
+	# ( p9!=v6 OR p7!=v1) #
+	# ( p20!=v1 OR p19!=v8) #
+

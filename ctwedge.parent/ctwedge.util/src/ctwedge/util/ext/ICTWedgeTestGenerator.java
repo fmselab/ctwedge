@@ -35,6 +35,11 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 
 	/** The citModel. */
 	private CitModel citModel = null;
+	
+	/**
+	 * The Process
+	 */
+	public Process executableProcess;
 
 	
 	/**

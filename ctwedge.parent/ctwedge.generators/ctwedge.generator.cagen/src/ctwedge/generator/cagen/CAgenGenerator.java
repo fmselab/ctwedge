@@ -12,11 +12,10 @@ import java.util.List;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.generator.util.Benchmarkable;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
-public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkable{
+public class CAgenGenerator extends ICTWedgeTestGenerator{
 	
 	private String path;
 	
@@ -48,7 +47,9 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 		out.close();
 		System.out.println("\n------- MODELLO CAgen -------\n");
 		System.out.println(cagenModel);
+		long t_start = System.currentTimeMillis();
 		String output = runTool(tempModel, nWise);
+		long t_end = System.currentTimeMillis();
 		//	Caso errore nell'esecuzione del tool
 		if (output == null)
 			return null;
@@ -61,6 +62,7 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 		System.out.println(output);
 		TestSuite testSuite = new TestSuite(output, citModel);
 		testSuite.setStrength(nWise);
+		testSuite.setGeneratorTime(t_end - t_start);
 		return testSuite;
 	}
 	
@@ -77,7 +79,7 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 	private String runTool(File model, int nWise) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		List<String> command = new ArrayList<String>();
-		String cagenExecutable = "./fipo-cli.exe";
+		String cagenExecutable = path + "fipo-cli.exe";
 		command.add(cagenExecutable);
 		command.add("--instance");
 		command.add(model.getAbsolutePath().replace("\\", "/"));
@@ -93,9 +95,9 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 		System.out.println("running " + command);
 		pc.directory(new File(path));
 		System.out.println(pc.directory() + " " + pc.command());
-		Process p = pc.start();
+		executableProcess = pc.start();
 		try {
-			BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			BufferedReader bri = new BufferedReader(new InputStreamReader(executableProcess.getInputStream()));
 			String line;
 			while ((line = bri.readLine()) != null) {
 				line = line.replace(",", ";");
@@ -103,7 +105,7 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 				sb.append(line + "\n");
 			}
 			bri.close();
-			p.waitFor();
+			executableProcess.waitFor();
 			System.out.println("command finished ");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -128,78 +130,4 @@ public class CAgenGenerator extends ICTWedgeTestGenerator implements Benchmarkab
 		fin.close();
 		return errorFound;
 	}
-
-	Process p;
-	
-	@Override
-	public TestSuite benchmark_run(CitModel model) {
-		try {
-			File tempModel = File.createTempFile("cagenmodel_" + model.getName(), ".txt");
-			tempModel.deleteOnExit();
-			//System.out.println(tempModel.getAbsolutePath());
-			BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
-			String cagenModel = convert(model, false);
-			out.append(cagenModel);
-			out.close();
-			StringBuilder sb = new StringBuilder();
-			List<String> command = new ArrayList<String>();
-			String cagenExecutable = path + "/fipo-cli.exe";
-			command.add(cagenExecutable);
-			command.add("--instance");
-			command.add(tempModel.getAbsolutePath().replace("\\", "/"));
-			command.add("--strength");
-			command.add("" + 2);
-			command.add("--print");
-			command.add("--randomize");
-			ProcessBuilder pc = new ProcessBuilder(command);
-			pc.command(command);
-			File tempError = File.createTempFile("cagen_error", ".txt");
-			tempError.deleteOnExit();
-			pc.redirectError(tempError);
-			//System.out.println("running " + command);
-			pc.directory(new File(path));
-			//System.out.println(pc.directory() + " " + pc.command());
-			long t_end = 0;
-			long t_start = System.currentTimeMillis();
-			p = pc.start();
-			BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			String line;
-			while ((line = bri.readLine()) != null) {
-				line = line.replace(",", ";");
-				//System.out.println(line);
-				sb.append(line + "\n");
-			}
-			bri.close();
-			p.destroy();
-			t_end = System.currentTimeMillis();
-			//System.out.println("command finished ");
-			if (checkError(tempError)) {
-				System.out.println("******************** ERRORE RILEVATO *****************************");
-				return null;
-			}
-			String output = sb.toString();
-			String pNamesRow = "";
-			for (Parameter param : model.getParameters())
-				pNamesRow += param.getName() + ";";
-			pNamesRow = pNamesRow.substring(0, pNamesRow.length() - 1);
-			pNamesRow += "\n";
-			output = pNamesRow + output;
-			TestSuite testSuite = new TestSuite(output, model);
-			testSuite.populateTestSuite();
-			testSuite.setGeneratorTime(t_end - t_start);
-			return testSuite;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public void destroyProcess() {
-		if (p != null)
-			p.destroy();
-	}
-	
-
 }

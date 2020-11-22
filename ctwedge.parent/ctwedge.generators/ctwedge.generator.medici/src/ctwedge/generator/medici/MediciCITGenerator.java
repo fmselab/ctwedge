@@ -12,20 +12,22 @@ import java.util.List;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.generator.util.Benchmarkable;
 import ctwedge.generator.util.ParameterSize;
 import ctwedge.util.ParameterValuesToInt;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
-public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchmarkable {
+public class MediciCITGenerator extends ICTWedgeTestGenerator{
 
 	private static final boolean READ_STD_OUT = true;
 	
-	Process p;
+	private String path;
 
 	public MediciCITGenerator() {
 		super("Medici");
+		path = MediciCITGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath().split("/target")[0]; 
+		if (path.contains(":") && path.startsWith("/"))
+			path = path.substring(1);
 	}
 
 	@Override
@@ -40,7 +42,8 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchma
 		wf.close();
 		// run the tool
 		List<String> command = new ArrayList<String>();
-		command.add("./medici.exe");
+		String mediciExecutable = path + "medici.exe";
+		command.add(mediciExecutable);
 		// output}
 		File tempoutput = File.createTempFile("medici_output" + loadModel.getName(), ".txt");
 		// model
@@ -57,18 +60,21 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchma
 		tempError.deleteOnExit();
 		pc.redirectError(tempError);
 		System.out.println("running " + command);
-		p = pc.start();
+		long t_end = 0;
+		long t_start = System.currentTimeMillis();
+		executableProcess = pc.start();
 		// wait it finishes
 		try {
 			if (READ_STD_OUT) {
-				BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				BufferedReader bri = new BufferedReader(new InputStreamReader(executableProcess.getInputStream()));
 				String line;
 				while ((line = bri.readLine()) != null) {
 					System.out.println(line);
 				}
 				bri.close();
 			}
-			p.waitFor();
+			executableProcess.waitFor();
+			t_end = System.currentTimeMillis();
 			System.out.println("command finished ");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -78,7 +84,10 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchma
 			return null;
 		}
 		//
-		return translateOutput(tempoutput, loadModel);
+		TestSuite ts = translateOutput(tempoutput, loadModel);
+		ts.setStrength(t);
+		ts.setGeneratorTime(t_end - t_start);
+		return ts;
 	}
 	
 	private boolean checkError(File errorFile) throws IOException {
@@ -139,68 +148,5 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator implements Benchma
 		
 		TestSuite result = new TestSuite(csv_out, model);
 		return result;
-	}
-
-	@Override
-	public TestSuite benchmark_run(CitModel loadModel) {
-		try {
-			File model = new File("model.txt");
-			FileWriter wf = new FileWriter(model);
-			String translateModel = translateModel(loadModel);
-			wf.write(translateModel);
-			System.out.println(translateModel);
-			wf.close();
-			// run the tool
-			List<String> command = new ArrayList<String>();
-			command.add("./medici.exe");
-			// output}
-			File tempoutput = File.createTempFile("medici_output" + loadModel.getName(), ".txt");
-			// model
-			command.add("--m");
-			command.add(model.getAbsolutePath());
-			// output
-			command.add("--o");
-			command.add(tempoutput.getAbsolutePath());
-			// run
-			ProcessBuilder pc = new ProcessBuilder(command);
-			pc.command(command);
-			//	error redirect
-			File tempError = File.createTempFile("medici_error", ".txt");
-			tempError.deleteOnExit();
-			pc.redirectError(tempError);
-			System.out.println("running " + command);
-			p = pc.start();
-			// wait it finishes
-			try {
-				if (READ_STD_OUT) {
-					BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
-					String line;
-					while ((line = bri.readLine()) != null) {
-						System.out.println(line);
-					}
-					bri.close();
-				}
-				p.waitFor();
-				System.out.println("command finished ");
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			if (checkError(tempError)) {
-				System.out.println("******************** ERRORE RILEVATO *****************************");
-				return null;
-			}
-			TestSuite ts = translateOutput(tempoutput, loadModel);
-			return ts;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-
-	@Override
-	public void destroyProcess() {
-		if (p != null)
-			p.destroy();
 	}
 }

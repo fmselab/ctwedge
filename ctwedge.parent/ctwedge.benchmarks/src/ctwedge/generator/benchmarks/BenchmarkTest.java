@@ -34,9 +34,9 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.impl.BoolImpl;
 import ctwedge.ctWedge.impl.EnumerativeImpl;
 import ctwedge.ctWedge.impl.RangeImpl;
-import ctwedge.generator.util.Benchmarkable;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
+import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.validator.SMTTestSuiteValidator;
 
 public class BenchmarkTest {
@@ -47,9 +47,9 @@ public class BenchmarkTest {
 		
 	public class GeneratorExec implements Callable<TestSuite> {
 		String model;
-		Benchmarkable generator;
+		ICTWedgeTestGenerator generator;
 		
-        public GeneratorExec(String model, Benchmarkable generator) {
+        public GeneratorExec(String model, ICTWedgeTestGenerator generator) {
 			super();
 			this.model = model;
 			this.generator = generator;
@@ -57,7 +57,7 @@ public class BenchmarkTest {
 
 		@Override
         public TestSuite call() throws Exception {
-            return generator.benchmark_run(Utility.loadModel(model));
+            return (generator.getTestSuite(Utility.loadModel(model), 2, false));
         }
     }
 	
@@ -68,23 +68,21 @@ public class BenchmarkTest {
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
 		IExtensionPoint ep = reg.getExtensionPoint("ctwedge.util.ctwedgeGenerators");
 		IExtension[] extensions = ep.getExtensions();
-		ArrayList<Benchmarkable> generators = new ArrayList<>();
+		ArrayList<ICTWedgeTestGenerator> generators = new ArrayList<>();
 		for (int i = 0; i < extensions.length; i++) {
 			IConfigurationElement[] ce = extensions[i].getConfigurationElements();			
 			for (IConfigurationElement e : ce) {
 					Object o = e.createExecutableExtension("GeneratorPrototype");
-					if(o instanceof Benchmarkable)
-						//	TODO controllare CASA
-						//	java.lang.RuntimeException: equalExpression not supported!
-						//	es. # ((A0!=("V0") || A12 = 0)) #
-						//if (((Benchmarkable)o).getGeneratorName().equals("CASA"))
-							generators.add((Benchmarkable) o);
+					if(o instanceof ICTWedgeTestGenerator)
+						if (!((ICTWedgeTestGenerator)o).getGeneratorName().equals("Medici"))
+							if (!((ICTWedgeTestGenerator)o).getGeneratorName().equals("CASA"))
+								generators.add((ICTWedgeTestGenerator) o);
 			}
 		}
 		
 		//	Prendo la lista di tutti i file presenti
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("models_test/"), fileList);
+		listFiles(new File("models/"), fileList);
 		
 		// Builder risultato
 		StringBuilder sb = new StringBuilder();
@@ -93,12 +91,12 @@ public class BenchmarkTest {
 		//	Descrizione benchmark
 		sb.append("Data benchmark: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()) + "\n");
 		sb.append("Generator list:\n");
-		for (Benchmarkable gen : generators) sb.append("\t" + gen.getGeneratorName() + "\n");
+		for (ICTWedgeTestGenerator gen : generators) sb.append("\t" + gen.getGeneratorName() + "\n");
 		sb.append("# test: " + fileList.size() + "\n");
 		sb.append("Timeout: " + timeout_sec + "sec.\n");
 		sb.append("Results:\n");
 		sb_csv.append("Model name;");
-		for (Benchmarkable gen : generators) sb_csv.append(gen.getGeneratorName() + " #test;" + gen.getGeneratorName() + " time;");
+		for (ICTWedgeTestGenerator gen : generators) sb_csv.append(gen.getGeneratorName() + " #test;" + gen.getGeneratorName() + " time;");
 		sb_csv.append("\n");
 		
 		long t_start = System.currentTimeMillis();
@@ -107,7 +105,7 @@ public class BenchmarkTest {
 		for (File file : fileList) {
 			sb_csv.append(file.getName() + ";");
 			sb.append("\n----- " + file.getName() + " ----- \n");
-			for (Benchmarkable gen : generators) {
+			for (ICTWedgeTestGenerator gen : generators) {
 				String model;
 				boolean error_detected = true;
 				try {
@@ -122,12 +120,18 @@ public class BenchmarkTest {
 						System.out.println("--- TIMEOUT---");
 						ts_future.cancel(true);
 						executor.shutdown();
-						gen.destroyProcess();
+						if (gen.executableProcess != null) {
+							gen.executableProcess.destroy();
+						}
 						sb_csv.append("timeout;timeout;");
 						sb.append("\t\t timeout \n");
 						continue;
 			        }
 					if (result != null) {
+						//	Verifico che il tempo sia stato registrato, altrimenti ritorna errore
+						if (result.getGeneratorTime() <= 0)
+							continue;
+							
 						sb_csv.append(result.getTests().size() + ";" + result.getGeneratorTime() + ";");
 						sb.append("\t\t #test = " + result.getTests().size() + "\n");
 						sb.append("\t\t time = " + result.getGeneratorTime() + " millis." + "\n");

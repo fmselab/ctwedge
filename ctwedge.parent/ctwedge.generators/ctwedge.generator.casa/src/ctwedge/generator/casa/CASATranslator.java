@@ -20,16 +20,13 @@ import org.eclipse.xtext.xbase.lib.Pair;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.generator.util.Benchmarkable;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
-public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkable{
+public class CASATranslator extends ICTWedgeTestGenerator{
 
 	private static final boolean READ_STD_OUT = true;
 	private String path;
-	
-	private Process p;
 	
 //	String path = Generator.context != null ? Generator.context.getRealPath("/static/" + execName) // if it is
 			// on server
@@ -66,6 +63,8 @@ public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkab
 		File output;
 		// write the constraints
 		ConvertToAbstractID exporter = new ConvertToAbstractID(citModel);
+		long t_end = 0;
+		long t_start = 0;
 		if (!ignoreConstraints && !citModel.getConstraints().isEmpty()) {
 			CharSequence constraints = exporter.translateConstraints(); // can throw exception
 			assert constraints != null;
@@ -75,13 +74,18 @@ public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkab
 			out.append(constraints);
 			out.close();
 			//
+			t_start = System.currentTimeMillis();
 			output = runTool(citModel, tempModel, tempConstr);
+			t_end = System.currentTimeMillis();
 		} else {
+			t_start = System.currentTimeMillis();
 			output = runTool(citModel, tempModel, null);
+			t_end = System.currentTimeMillis();
 		}
 		// parse the results
 		String ts = parseResults(output, exporter);
 		TestSuite tst = new TestSuite(ts, citModel);
+		tst.setGeneratorTime(t_end - t_start);
 		tst.setStrength(nWise);
 		
 		return tst;
@@ -126,20 +130,20 @@ public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkab
 		ProcessBuilder pc = new ProcessBuilder(command);
 		pc.command(command);
 		System.out.println("running " + command);
-		p = pc.start();
+		executableProcess = pc.start();
 		// wait it finishes
 		try {
 			if (READ_STD_OUT) {
 				// redirect stderr to stout
 				pc.redirectErrorStream();
-				BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				BufferedReader bri = new BufferedReader(new InputStreamReader(executableProcess.getInputStream()));
 				String line;
 				while ((line = bri.readLine()) != null) {
 					System.out.println(line);
 				}
 				bri.close();
 			}
-			p.waitFor();
+			executableProcess.waitFor();
 			System.out.println("command finished ");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -222,27 +226,5 @@ public class CASATranslator extends ICTWedgeTestGenerator implements Benchmarkab
 		}
 		sc.close();
 		return sb.toString();
-	}
-
-	@Override
-	public TestSuite benchmark_run(CitModel model) {
-		try {
-			long t_end = 0;
-			long t_start = System.currentTimeMillis();
-			TestSuite testSuite = getTestSuite(model, 2, false);
-			t_end = System.currentTimeMillis();
-			testSuite.populateTestSuite();
-			testSuite.setGeneratorTime(t_end - t_start);
-			return testSuite;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
-	public void destroyProcess() {
-		if (p != null)
-			p.destroy();
 	}
 }

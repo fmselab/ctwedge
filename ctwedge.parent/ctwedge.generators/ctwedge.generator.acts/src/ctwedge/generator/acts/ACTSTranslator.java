@@ -11,7 +11,6 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
-import ctwedge.generator.util.Benchmarkable;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.ext.NotConvertableModel;
@@ -24,7 +23,7 @@ import edu.uta.cse.fireeye.common.TestSet;
 import edu.uta.cse.fireeye.service.engine.IpoEngine;
 
 /** Exports to ACTS a citlab model, has a method to call ACTS, and returns its output into String **/
-public class ACTSTranslator extends ICTWedgeTestGenerator implements Benchmarkable{
+public class ACTSTranslator extends ICTWedgeTestGenerator{
 
 	public static boolean PRINT=true;
 	
@@ -130,11 +129,14 @@ public class ACTSTranslator extends ICTWedgeTestGenerator implements Benchmarkab
 	
 	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints) {
 		String res = "";
+		long t_end = 0;
+		long t_start = 0;
 		if (PRINT) System.out.println("ACTS sto chiamando ACTS... on "+model.getName()+" "+strength+" "+ignoreConstraints);
 		try {
 			SUT sut = buildSUT(model, ignoreConstraints, strength);
 			if (PRINT) System.out.println("1. ACTS sto chiamando ACTS...");
 			// Create an IPO engine object
+			t_start = System.currentTimeMillis();
 			IpoEngine engine = new IpoEngine(sut);
 			if (PRINT) System.out.println("2. ACTS sto chiamando ACTS...");
 			// build a test set
@@ -151,6 +153,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator implements Benchmarkab
 			if (PRINT) System.out.println("6. ACTS sto chiamando ACTS...");
 			TestSet ts = engine.getTestSet();
 			if (PRINT) System.out.println("7. ACTS sto chiamando ACTS...");
+			t_end = System.currentTimeMillis();
 			res = serializeTestSet(model, ts);
 			
 		} catch (Exception e) {
@@ -186,8 +189,13 @@ public class ACTSTranslator extends ICTWedgeTestGenerator implements Benchmarkab
 			res = sw.toString(); // stack trace as a string
 		}
 		*/
+		
+		if (res.isEmpty())
+			return null;
+		
 		TestSuite ts = new TestSuite(res, model);
 		ts.setStrength(strength);
+		ts.setGeneratorTime(t_end - t_start);
 		
 		return ts;
 	}
@@ -333,32 +341,4 @@ public class ACTSTranslator extends ICTWedgeTestGenerator implements Benchmarkab
 		}
 		return txtFile;
 	}
-
-	@Override
-	public TestSuite benchmark_run(CitModel model) {
-		String res = "";
-		try {
-			long t_end = 0;
-			long t_start = System.currentTimeMillis();
-			SUT sut = buildSUT(model, false, 2);
-			IpoEngine engine = new IpoEngine(sut);
-			engine.buildOnlyPT(Algorithm.ipog);
-			TestSet ts = engine.getTestSet();
-			res = serializeTestSet(model, ts);
-			t_end = System.currentTimeMillis();
-			TestSuite testSuite = new TestSuite(res, model);
-			testSuite.setStrength(2);
-			testSuite.populateTestSuite();
-			testSuite.setGeneratorTime(t_end - t_start);
-			return testSuite;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
-	public void destroyProcess() {}
-	
-
 }

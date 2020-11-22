@@ -4,9 +4,10 @@ clc
 
 %% Import dati
 
-data = readtable('benchmark_03112020_202725.csv');
-data = removevars(data, 'Var12');
+data = readtable('benchmark_20112020_232203.csv');
+%data = removevars(data, 'Var8');
 
+timeout_ms = '150000';
 
 
 %%  Calcolo migliori gen. per #test
@@ -162,7 +163,7 @@ title('Difference from mean values [%]')
 complexity = readtable('complexity.csv');
 for i = 1:size(gen_names,2) 
     figure
-    temp = strrep(table2array(time_only(:,i)),'timeout', '90000');
+    temp = strrep(table2array(time_only(:,i)),'timeout', timeout_ms);
     time_array = str2double(temp);
     compl_array = table2array(complexity(:,3));
     scatter(compl_array(:,1), time_array(:,1));
@@ -171,10 +172,10 @@ for i = 1:size(gen_names,2)
     ylabel('Generation time [ms]');
 end
 
-XXXX = 1:133;
+XXXX = 1:size(complexity,1);
 for i = 1:size(gen_names,2) 
     figure
-    temp = strrep(table2array(time_only(:,i)),'timeout', '90000');
+    temp = strrep(table2array(time_only(:,i)),'timeout', timeout_ms);
     time_array = str2double(temp);
     time_array = sort(time_array);
     scatter(XXXX, time_array(:,1));
@@ -197,7 +198,8 @@ param_and_const = table2array(complexity(:,2:3));
 param_and_const = param_and_const(pt,:);
 figure
 bar(XXXX, param_and_const, 'stacked');
-title("Models complexity");
+%title("Models complexity");
 xlabel('Model');
 ylabel('Complexity');
 legend({'# of parameters','# of constraints'},'Location','northeast');
+
