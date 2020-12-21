@@ -18,6 +18,7 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.util.IndexOutOfBoundException;
 import ctwedge.generator.util.ParameterElementsGetterAsStrings;
 import ctwedge.generator.util.ParameterSize;
+import ctwedge.util.ext.NotConvertableModel;
 
 /** converts any value of a parameter to unique integers */
 public class ParameterValuesToInt {
@@ -90,25 +91,26 @@ public class ParameterValuesToInt {
 	// convert the equal expression to an sign + integer
 	public String eqToInt(AtomicPredicate leftPred, Operators op, AtomicPredicate rightPred) {
 		assert (op==Operators.EQ || op ==Operators.NE);
-		String left = leftPred.getName().replaceAll("\"", "");
-		String right = rightPred.getName().replaceAll("\"", "");
+		// attenzione potrebbero essere dei booleani
+		String left = leftPred.getName()  != null? leftPred.getName().replaceAll("\"", "") : null;
+		String right = rightPred.getName() != null? rightPred.getName().replaceAll("\"", "") : null;
 		
 		int value=-1;
 		// enum1 OP enum2
-		if (u.enums.containsKey(left) && u.elems.contains(right)) {
+		if (left!= null && right != null && u.enums.containsKey(left) && u.elems.contains(right)) {
 			int base = offsets.get(params.get(left));
 			value = base + ParameterElementsGetterAsStrings.instance.doSwitch(params.get(left)).indexOf(right);
 		} 
-		else if (u.enums.containsKey(right) && u.elems.contains(left)) {
+		else if (left!= null && right != null && u.enums.containsKey(right) && u.elems.contains(left)) {
 			int base = offsets.get(params.get(right));
 			value = base + ParameterElementsGetterAsStrings.instance.doSwitch(params.get(right)).indexOf(left);
 		}
 		// a = true/false
-		else if (params.get(left) instanceof Bool && rightPred.getBoolConst()!=null) {
+		else if (left != null && params.get(left) instanceof Bool && rightPred.getBoolConst()!=null) {
 			int base = offsets.get(params.get(left));
 			value = base + ParameterElementsGetterAsStrings.instance.doSwitch(params.get(left)).indexOf(rightPred.getBoolConst());
 		}
-		else if (leftPred.getBoolConst()!=null && params.get(right) instanceof Bool) {
+		else if (right!= null && leftPred.getBoolConst()!=null && params.get(right) instanceof Bool) {
 			int base = offsets.get(params.get(right));
 			value = base + ParameterElementsGetterAsStrings.instance.doSwitch(params.get(right)).indexOf(leftPred.getBoolConst());
 		}
@@ -121,7 +123,8 @@ public class ParameterValuesToInt {
 			value = base + Integer.parseInt(left) - u.ranges.get(right)[0];
 		}
 		else 
-			throw new RuntimeException("equalExpression : " + left + op.getName() + right + " not supported!");		
+			throw new NotConvertableModel("equalExpression : " + left + " " + op.getName() + " " + right + " not supported!");
+		// now builde the String for the expression
 		String sign = op == Operators.EQ ? "+" : "-";
 		return sign + " " + value;
 	}

@@ -16,8 +16,9 @@ import ctwedge.generator.util.ParameterSize;
 import ctwedge.util.ParameterValuesToInt;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.ICTWedgeTranslTestGenerator;
 
-public class MediciCITGenerator extends ICTWedgeTestGenerator{
+public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 
 	private static final boolean READ_STD_OUT = true;
 	
@@ -36,7 +37,7 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator{
 		// convert to medici
 		File model = new File("model.txt");
 		FileWriter wf = new FileWriter(model);
-		String translateModel = translateModel(loadModel);
+		String translateModel = translateModel(loadModel, ignoreC);
 		wf.write(translateModel);
 		System.out.println(translateModel);
 		wf.close();
@@ -101,8 +102,8 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator{
 		fin.close();
 		return errorFound;
 	}
-
-	String translateModel(CitModel sm) {
+	// translation of the model to String
+	public String translateModel(CitModel sm, boolean ignoreConstraints) {
 		StringBuffer sb = new StringBuffer();
 		// parameters
 		sb.append("2" + "\n" + sm.getParameters().size() + "\n");
@@ -110,11 +111,15 @@ public class MediciCITGenerator extends ICTWedgeTestGenerator{
 			sb.append(ParameterSize.eInstance.doSwitch(param)).append(" ");
 		sb.append("\n");
 		// add all the constraints
-		sb.append(sm.getConstraints().size() + "\n");
-		// TODO if the constraints are to be ignored
-		ConstraintToMediciIds translator = new ConstraintToMediciIds(sm);
-		for (Constraint c : sm.getConstraints())
-			sb.append(translator.doSwitch(c)).append("\n");
+		if (!ignoreConstraints) {
+			sb.append(sm.getConstraints().size() + "\n");			
+			ConstraintToMediciIds translator = new ConstraintToMediciIds(sm);
+			for (Constraint c : sm.getConstraints())
+				sb.append(translator.doSwitch(c)).append("\n");
+		} else {
+			// no constraints
+			sb.append("0\n");
+		}
 		return sb.toString();
 	}
 	// format for the output

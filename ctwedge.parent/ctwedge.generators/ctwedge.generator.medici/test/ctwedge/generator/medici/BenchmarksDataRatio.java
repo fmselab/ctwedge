@@ -48,7 +48,7 @@ public class BenchmarksDataRatio {
 						// convert to medici
 						File model = new File("model.txt");
 						FileWriter wf = new FileWriter(model);
-						String translateModel = gen.translateModel(loadModel);
+						String translateModel = gen.translateModel(loadModel,false);
 						wf.write(translateModel);
 						System.out.println(translateModel);
 						wf.close();

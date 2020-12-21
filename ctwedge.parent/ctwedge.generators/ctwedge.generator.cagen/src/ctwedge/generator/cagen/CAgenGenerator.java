@@ -14,8 +14,9 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.ICTWedgeTranslTestGenerator;
 
-public class CAgenGenerator extends ICTWedgeTestGenerator{
+public class CAgenGenerator extends ICTWedgeTranslTestGenerator{
 	
 	private String path;
 	
@@ -26,7 +27,7 @@ public class CAgenGenerator extends ICTWedgeTestGenerator{
 			path = path.substring(1);
 	}
 	
-	public String convert(CitModel model, boolean ignoreConstraints){
+	public String translateModel(CitModel model, boolean ignoreConstraints){
 		String header = "[System]\nName: " + model.getName() + "\n";
 		CAgenTranslator translator = new CAgenTranslator();
 		String param = "[Parameter]\n" + translator.paramToCAgenCode(model);
@@ -42,7 +43,7 @@ public class CAgenGenerator extends ICTWedgeTestGenerator{
 		tempModel.deleteOnExit();
 		//System.out.println(tempModel.getAbsolutePath());
 		BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
-		String cagenModel = convert(citModel, ignoreConstraints);
+		String cagenModel = translateModel(citModel, ignoreConstraints);
 		out.append(cagenModel);
 		out.close();
 		System.out.println("\n------- MODELLO CAgen -------\n");

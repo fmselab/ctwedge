@@ -12,11 +12,13 @@ import ctwedge.ctWedge.EqualExpression;
 import ctwedge.ctWedge.ImpliesExpression;
 import ctwedge.ctWedge.ImpliesOperator;
 import ctwedge.ctWedge.NotExpression;
+import ctwedge.ctWedge.Operators;
 import ctwedge.ctWedge.OrExpression;
 import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.generator.util.ParameterElementsGetterAsStrings;
 import ctwedge.util.ParameterValuesToInt;
+import ctwedge.util.ext.NotConvertableModel;
 
 /**
  * 
@@ -88,13 +90,18 @@ public class ConstraintToMediciIds extends CtWedgeSwitch<String> {
 			or.setRight(impl.getRight());
 			return doSwitch(or);
 		} else {
-			throw new RuntimeException("impl??");
+			// convert to equals 
+			EqualExpression eqE = CtWedgeFactory.eINSTANCE.createEqualExpression();
+			eqE.setLeft(impl.getLeft());
+			eqE.setOp(Operators.EQ);
+			eqE.setRight(impl.getRight());
+			return doSwitch(eqE);
 		}
 	}
 	
 	@Override
 	public String caseRelationalExpression(RelationalExpression object) {
-		throw new RuntimeException("relational expression are not supported");
+		throw new NotConvertableModel("relational expression are not supported");
 	}
 	
 

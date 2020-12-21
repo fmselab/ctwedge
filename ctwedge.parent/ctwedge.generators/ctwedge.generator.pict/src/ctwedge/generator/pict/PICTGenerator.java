@@ -11,8 +11,9 @@ import java.util.List;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.ICTWedgeTranslTestGenerator;
 
-public class PICTGenerator extends ICTWedgeTestGenerator{
+public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 
 	private String path;
 	
@@ -23,7 +24,7 @@ public class PICTGenerator extends ICTWedgeTestGenerator{
 			path = path.substring(1);
 	}
 	
-	public String convert(CitModel model, boolean ignoreConstraints){
+	public String translateModel(CitModel model, boolean ignoreConstraints){
 		PICTTranslator paramTranslator = new PICTTranslator();
 		String param = paramTranslator.paramToPictCode(model);
 		if (ignoreConstraints)
@@ -37,7 +38,7 @@ public class PICTGenerator extends ICTWedgeTestGenerator{
 		tempModel.deleteOnExit();
 		System.out.println(tempModel.getAbsolutePath());
 		BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
-		String pictModel = convert(citModel, ignoreConstraints);
+		String pictModel = translateModel(citModel, ignoreConstraints);
 		out.append(pictModel);
 		out.close();
 		System.out.println("\n------- MODELLO PICT -------\n");

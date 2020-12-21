@@ -142,8 +142,7 @@ public class MediciCITGeneratorTest {
 		for (File file : fileList) {
 			String model;
 			try {
-				model = readFromFile(file);
-				if (generator.getTestSuite(Utility.loadModel(model), 2, false) == null) {
+				if (generator.getTestSuite(Utility.loadModelFromPath(file.getPath()), 2, false) == null) {
 					errors++;
 					error_files += file.getName() + "\n";
 				}
@@ -170,22 +169,12 @@ public class MediciCITGeneratorTest {
 			}
 		}
 	}
-	
-	public static String readFromFile(File f) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		BufferedReader fin = new BufferedReader(new FileReader(f));
-		String s = "";
-		while ((s = fin.readLine()) != null)
-			sb.append(s + "\n");
-		fin.close();
-		return sb.toString();
-	}
-	
+		
 	public class GeneratorExec implements Callable<TestSuite> {
-		String model;
+		File model;
 		ICTWedgeTestGenerator generator;
 		
-        public GeneratorExec(String model, ICTWedgeTestGenerator generator) {
+        public GeneratorExec(File model, ICTWedgeTestGenerator generator) {
 			super();
 			this.model = model;
 			this.generator = generator;
@@ -193,7 +182,7 @@ public class MediciCITGeneratorTest {
 
 		@Override
         public TestSuite call() throws Exception {
-            return  generator.getTestSuite(Utility.loadModel(model), 2, false);
+            return  generator.getTestSuite(Utility.loadModelFromPath(model.getPath()), 2, false);
         }
     }
 	
@@ -221,11 +210,9 @@ public class MediciCITGeneratorTest {
 		for (File file : fileList) {
 			sb_csv.append(file.getName() + ";");
 			System.out.println("*************************************** " + file.getName());
-			String model;
 			try {
-				model = readFromFile(file);
 				ExecutorService executor = Executors.newSingleThreadExecutor();
-				Future<TestSuite> ts_future = executor.submit(new GeneratorExec(model, generator));
+				Future<TestSuite> ts_future = executor.submit(new GeneratorExec(file, generator));
 				TestSuite result = null;
 				try {
 					//	Timeout 60 sec.
