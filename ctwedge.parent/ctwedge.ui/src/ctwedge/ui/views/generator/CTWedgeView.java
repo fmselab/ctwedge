@@ -345,6 +345,7 @@ public class CTWedgeView extends ViewPart {
 		checkboxTableViewer = CheckboxTableViewer.newCheckList(composite,
 				SWT.BORDER | SWT.FULL_SELECTION);
 		checkboxTableViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 
 				boolean portfolioSupportCon = true;
@@ -374,6 +375,7 @@ public class CTWedgeView extends ViewPart {
 			@Inject
 			Shell shell;
 
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
 
 				ISelection selection = checkboxTableViewer.getSelection();

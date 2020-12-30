@@ -17,8 +17,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import javax.management.RuntimeErrorException;
-
 import ctwedge.ctWedge.CitModel;
 import ctwedge.util.TestSuite;
 import ctwedge.util.genprefs.CitlabPreferncesSet;

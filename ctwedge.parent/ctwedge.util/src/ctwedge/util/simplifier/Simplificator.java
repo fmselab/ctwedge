@@ -15,6 +15,7 @@ package ctwedge.util.simplifier;
 
 import java.util.Set;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 
 import ctwedge.ctWedge.AtomicPredicate;
@@ -53,7 +54,7 @@ public class Simplificator {
 	 */
 	public CitModel getSimplifiedVersion(){
 		// build a copy of the model
-		CitModel m2 = EcoreUtil2.copy(model);
+		CitModel m2 = EcoreUtil.copy(model);
 		// simplify the constraints
 		constSimpl.simplify(m2);
 		// simplify the parameters

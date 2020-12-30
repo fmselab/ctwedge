@@ -1,6 +1,5 @@
 package ctwedge.modelanalyzer;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,7 +23,6 @@ import org.eclipse.xtext.validation.Issue;
 import com.google.inject.Injector;
 
 import ctwedge.CTWedgeStandaloneSetup;
-import ctwedge.ctWedge.CitModel;
 
 // check the validity of all the benchmarks
 // it uses the grammar paser and the validator of xtext

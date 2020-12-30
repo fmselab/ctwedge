@@ -1,7 +1,5 @@
 package ctwedge.generator.medici;
 
-import static ctwedge.ctWedge.CtWedgeFactory.eINSTANCE;
-
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.Bool;

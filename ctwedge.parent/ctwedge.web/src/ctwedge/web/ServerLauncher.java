@@ -40,6 +40,7 @@ public class ServerLauncher {
 			log.info("Server started " + server.getURI() + "...");
 			new Thread() {
 
+				@Override
 				public void run() {
 					try {
 						log.info("Press enter to stop the server...");

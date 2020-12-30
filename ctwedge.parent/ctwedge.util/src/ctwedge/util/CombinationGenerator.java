@@ -101,6 +101,7 @@ final class CombinationGenerator implements Iterator<int[]> {
 	 * @see java.util.Iterator#hasNext()
 	 */
 	
+	@Override
 	public boolean hasNext() {
 		return numLeft.compareTo(BigInteger.ZERO) == 1;
 	}
@@ -128,6 +129,7 @@ final class CombinationGenerator implements Iterator<int[]> {
 	 * @see java.util.Iterator#next()
 	 */
 	
+	@Override
 	public int[] next() {
 
 		if (numLeft.equals(total)) {

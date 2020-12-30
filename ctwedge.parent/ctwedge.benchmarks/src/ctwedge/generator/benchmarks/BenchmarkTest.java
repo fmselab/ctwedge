@@ -3,10 +3,8 @@ package ctwedge.generator.benchmarks;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,7 +16,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.apache.poi.util.StringUtil;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -27,8 +24,6 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
-import org.sosy_lab.java_smt.api.Formula;
-
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.impl.BoolImpl;
@@ -37,7 +32,6 @@ import ctwedge.ctWedge.impl.RangeImpl;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
-import ctwedge.util.validator.SMTTestSuiteValidator;
 
 public class BenchmarkTest {
 	
@@ -171,7 +165,7 @@ public class BenchmarkTest {
 		String data = new SimpleDateFormat("ddMMyyyy_HHmmss").format(Calendar.getInstance().getTime());
 		System.out.println(sb.toString());
 		System.out.println(sb_csv.toString());
-		System.out.println("\n\n Benchmark execution time: " + ((double)(t_end-t_start))/1000.0 + "sec.");
+		System.out.println("\n\n Benchmark execution time: " + (t_end-t_start)/1000.0 + "sec.");
 		sb.append("Benchmark execution time: " + (t_end-t_start)/1000.0 + "sec.");
 
 		//	Salvataggio benchmark in file txt e csv

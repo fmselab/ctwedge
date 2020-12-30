@@ -16,6 +16,7 @@ public class BenchmarkModelsAnalyzer {
 	public static void main(String[] args) throws IOException {
 		extracted(BooleanOnlyParameters.eInstance);
 		extracted(FobiddenTuples.eInstance);
+		extracted(UseRelationalOperators.eInstance);
 		extracted( new CTWedgeModelAnalyzer(){
 
 			@Override

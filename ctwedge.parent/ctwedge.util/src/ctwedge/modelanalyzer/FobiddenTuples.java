@@ -1,22 +1,18 @@
 package ctwedge.modelanalyzer;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
-import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
-import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.EqualExpression;
 import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.NotExpression;
 import ctwedge.ctWedge.Operators;
 import ctwedge.ctWedge.OrExpression;
-import ctwedge.ctWedge.Parameter;
 
 // constraints are forbidden tuples
 public class FobiddenTuples extends CTWedgeModelAnalyzer{

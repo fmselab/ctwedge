@@ -48,6 +48,7 @@ public class CombinationGeneratorList<T> implements Iterator<List<T>>, Iterable<
 	}
 
 	
+	@Override
 	public List<T> next() {
 		int[] nextComb = generator.next();
 		List<T> result = new ArrayList<T>();
@@ -57,6 +58,7 @@ public class CombinationGeneratorList<T> implements Iterator<List<T>>, Iterable<
 	}
 
 	
+	@Override
 	public boolean hasNext() {
 		return generator.hasNext();
 	}

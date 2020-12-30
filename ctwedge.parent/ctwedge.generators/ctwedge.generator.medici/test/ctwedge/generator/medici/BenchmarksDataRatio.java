@@ -20,7 +20,6 @@ import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.util.Utility;
-import ctwedge.util.ext.ICTWedgeModelProcessor;
 
 // use medici to compute the data about the benchmarks
 public class BenchmarksDataRatio {

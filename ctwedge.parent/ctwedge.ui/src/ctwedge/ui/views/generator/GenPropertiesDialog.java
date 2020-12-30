@@ -185,6 +185,7 @@ public class GenPropertiesDialog extends Dialog {
 		combo.setLayoutData(gd_combo);
 
 		combo.addModifyListener(new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				for (CitlabPreference<?> p : genProperties) {
 					if (combo.getText() == null || combo.getText().trim().equals(""))

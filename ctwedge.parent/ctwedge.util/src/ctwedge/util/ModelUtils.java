@@ -197,11 +197,13 @@ public class ModelUtils {
 			private Iterator<List<T>> currentCombinationIterator;
 
 			
+			@Override
 			public boolean hasNext() {
 				return gen.hasNext() || currentCombinationIterator.hasNext();
 			}
 
 		
+			@Override
 			public List<T> next() {
 				if (currentCombinationIterator == null || !currentCombinationIterator.hasNext()) {
 					// get the next combination

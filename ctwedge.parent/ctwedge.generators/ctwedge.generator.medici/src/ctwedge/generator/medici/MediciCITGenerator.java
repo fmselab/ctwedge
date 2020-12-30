@@ -15,7 +15,6 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.util.ParameterSize;
 import ctwedge.util.ParameterValuesToInt;
 import ctwedge.util.TestSuite;
-import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.ext.ICTWedgeTranslTestGenerator;
 
 public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
@@ -103,6 +102,7 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 		return errorFound;
 	}
 	// translation of the model to String
+	@Override
 	public String translateModel(CitModel sm, boolean ignoreConstraints) {
 		StringBuffer sb = new StringBuffer();
 		// parameters

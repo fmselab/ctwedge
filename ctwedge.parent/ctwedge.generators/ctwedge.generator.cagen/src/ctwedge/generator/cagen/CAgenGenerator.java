@@ -13,7 +13,6 @@ import java.util.List;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.util.TestSuite;
-import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.ext.ICTWedgeTranslTestGenerator;
 
 public class CAgenGenerator extends ICTWedgeTranslTestGenerator{
@@ -27,6 +26,7 @@ public class CAgenGenerator extends ICTWedgeTranslTestGenerator{
 			path = path.substring(1);
 	}
 	
+	@Override
 	public String translateModel(CitModel model, boolean ignoreConstraints){
 		String header = "[System]\nName: " + model.getName() + "\n";
 		CAgenTranslator translator = new CAgenTranslator();
