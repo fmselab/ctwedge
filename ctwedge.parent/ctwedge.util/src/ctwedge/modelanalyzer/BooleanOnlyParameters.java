@@ -16,6 +16,7 @@ public class BooleanOnlyParameters extends CTWedgeModelAnalyzer{
 		for (Parameter p: model.getParameters()) {
 			if (p instanceof Bool) continue;
 			if (p instanceof Enumerative && ((Enumerative)p).getElements().size() == 2) continue;
+			return false;
 		}		
 		return true;
 	} 
