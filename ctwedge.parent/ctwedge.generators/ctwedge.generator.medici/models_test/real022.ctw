@@ -1,27 +1,27 @@
 Model real022
 
 Parameters: 
-ProjectType : { VCM, VCUM, VB, Csharp, WebSP, WebLocalIIS, WebLocalFile, };
-FileType : { CBPair, CB, Bin, Txt, Unicode, Prj, Sln, PrjFolder, SlnFolder, NestedPrrjFolder, NestedSlnFolder, };
-FileLinked : { Yes, No, };
-SecondFile : { None, SameType, DiffType, };
-SecondFileSELoc : { None, SameProj, DiffProj, };
-CheckOutOperation : { Checkout, SilentCheckout, };
-COType : { COE, COS, };
-FileSELoc : { Default, Prj, PrjFolder, Solution, SlnFolder, SubFolder, };
-FileDiskLocation : { Default, SlnFolder, PrjFolder, DiffFolder, DiffDisk, UNC, Mapped, Removable, };
-FileName : { Long, DBCS, IName, IExt, Any, };
-FileSize : { Any, Large, Null, };
-LocalVersion : { First, Middle, Last, };
-Shared : { No, Branched, Shared, };
-FileEditor : { Loaded, Modified, Unloaded, };
-FileSccStatus : { CI, COS, COSMe, COSMeCOS, };
-FileChange : { None, ChangedLoc, ChangeEncoding, ChangedSer, ChangedBoth, };
+ProjectType : { VCM, VCUM, VB, Csharp, WebSP, WebLocalIIS, WebLocalFile};
+FileType : { CBPair, CB, Bin, Txt, Unicode, Prj, Sln, PrjFolder, SlnFolder, NestedPrrjFolder, NestedSlnFolder};
+FileLinked : { Yes, No};
+SecondFile : { None, SameType, DiffType};
+SecondFileSELoc : { None, SameProj, DiffProj};
+CheckOutOperation : { Checkout, SilentCheckout};
+COType : { COE, COS};
+FileSELoc : { Default, Prj, PrjFolder, Solution, SlnFolder, SubFolder};
+FileDiskLocation : { Default, SlnFolder, PrjFolder, DiffFolder, DiffDisk, UNC, Mapped, Removable};
+FileName : { Long, DBCS, IName, IExt, Any};
+FileSize : { Any, Large, Null};
+LocalVersion : { First, Middle, Last};
+Shared : { No, Branched, Shared};
+FileEditor : { Loaded, Modified, Unloaded};
+FileSccStatus : { CI, COS, COSMe, COSMeCOS};
+FileChange : { None, ChangedLoc, ChangeEncoding, ChangedSer, ChangedBoth};
 FileDel : { None, DelSer, DelSE, DelLoc, DelLocDelSer};
-FileIO : { RO, RW, DNE, };
-FileHidden : { Yes, No, };
-FileSystem : { Yes, No, };
-FileExtra : { None, Pinned, MergedNotVerified, VersionLocked, };
+FileIO : { RO, RW, DNE};
+FileHidden : { Yes, No};
+FileSystem : { Yes, No};
+FileExtra : { None, Pinned, MergedNotVerified, VersionLocked};
 
 Constraints: 
 # (ProjectType!=VB AND ProjectType!=Csharp) => FileLinked=No #

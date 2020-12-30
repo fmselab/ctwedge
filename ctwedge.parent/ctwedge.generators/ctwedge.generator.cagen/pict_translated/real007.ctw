@@ -1,13 +1,13 @@
 Model real007
 
 Parameters: 
-A : { a1, a2, };
-B : { b1, b2, b3, b4, b5, };
-C : { c1, c2, c3, c4, c5, };
-D : { d1, d2, };
-E : { e1, e2, };
-F : { f1, f2, };
-G : { g1, g2, };
+A : { a1, a2};
+B : { b1, b2, b3, b4, b5};
+C : { c1, c2, c3, c4, c5};
+D : { d1, d2};
+E : { e1, e2};
+F : { f1, f2};
+G : { g1, g2};
 
 Constraints: 
 # C=c1 => D=d2 #

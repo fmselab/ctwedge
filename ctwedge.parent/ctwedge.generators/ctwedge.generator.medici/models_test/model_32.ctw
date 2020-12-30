@@ -1,4 +1,4 @@
-Model: model_32
+Model model_32
 
 Parameters:
 A28: { V0,V1,V2 }

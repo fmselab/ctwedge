@@ -1,11 +1,11 @@
-Model: model_16
+Model model_16
 
 Parameters:
 A0: { V0,V1,V2,V3,V4,V5,V6,V7 }
 A1: { T,F }
 A2: { V0,V1 }
 A3: { V0,V1,V2 }
-A4: { 0,1,2,3,0 to 3 by 1 's }
+A4: { 0,1,2,3}
 A5: { V0,V1,V2 }
 A6: { V0,V1 }
 A7: { V0,V1,V2 }
@@ -63,4 +63,4 @@ A58: { T,F }
 A59: { T,F }
 A60: { T,F }
 
-Constraints:
+//Constraints:

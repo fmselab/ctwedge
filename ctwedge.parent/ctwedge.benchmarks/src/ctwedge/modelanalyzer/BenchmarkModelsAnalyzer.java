@@ -16,10 +16,17 @@ public class BenchmarkModelsAnalyzer {
 	public static void main(String[] args) throws IOException {
 		extracted(BooleanOnlyParameters.eInstance);
 		extracted(FobiddenTuples.eInstance);
+		extracted( new CTWedgeModelAnalyzer(){
+
+			@Override
+			public boolean process(CitModel model) {
+				// TODO Auto-generated method stub
+				return true;
+			}});
 	}
 
 	private static void extracted(CTWedgeModelAnalyzer eInstance) throws IOException {
-		Stream<Path> walk = Files.walk(Paths.get("models"));
+		Stream<Path> walk = Files.walk(Paths.get("models_test"));
 		Stream<CitModel> models = walk
 		.filter(x -> x.getFileName().toString().endsWith(".ctw")) // include only valid files
 		.map(m -> Utility.loadModelFromPath(m.toString())) // read

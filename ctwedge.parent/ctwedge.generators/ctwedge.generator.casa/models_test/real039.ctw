@@ -1,39 +1,39 @@
 Model real039
 
 Parameters: 
-RowID : { IsLabel, IsNotLabel, };
-RowLabel : { Empty, NotEmpty, };
-RowType : { Text, Detail, DetailAndSummary, Summary, Calc, SubTotal, };
-RowDimension : { NewDimension, OldDimension, NAP, };
-RowMember : { OneMember, MemberSet, NAP, };
-SubTotalOfText1 : { Yes, No, };
-SubtotalOfDetail1 : { Yes, No, };
-SubtotalOfDetailAndSummary1 : { Yes, No, };
-SubtotalOfSummary1 : { Yes, No, };
-SubtotalOfSubtotal1 : { Yes, No, };
-SubtotalOfCalc1 : { Yes, No, };
-CalcOperator1 : { Add, Sub, NAP, };
-CalcOperand1 : { Member, MemberSet, Row, Number, Expression, NAP, };
-RowDimensionProperties : { Zero, One, Two, Multiple, };
-ColumnHeader : { Empty, NotEmptyDimension, };
-Properties : { Zero, One, Two, Multiple, };
-ColumnIncludeScenario : { Yes, No, };
-ScenarioMember : { Member, MemberSet, Calc, NAP, };
-ScenarioCalcOperator1 : { Add, Sub, NAP, };
-ScenarioCalcOperand1 : { Member, MemberSet, Number, Expression, NAP, };
-ColumnIncludeTime : { Yes, No, };
-TimeMember : { StaticTime, Calc, NAP, };
-TimeCalcOperator1 : { Add, Sub, NAP, };
-TimeCalcOperand1 : { StaticTime, DTCY, DTCM, DTCYlagM, DTCYMlead, DTCYleadCMlag, Number, Expression, NAP, };
-ColumnIncludeOneMoreDimension : { Yes, No, };
-OneMoreDimensionMember : { Member, MemberSet, Calc, NAP, };
-OneMoreDimensionCalcOperator1 : { Add, Sub, NAP, };
-OneMoreDimensionCalcOperand1 : { Member, MemberSet, Number, Expression, NAP, };
-ColumnIncludeTwoMoreDimensions : { Yes, No, };
-TwoMoreDimensionMember : { Member, MemberSet, Calc, NAP, };
-TwoMoreDimensionCalcOperator1 : { Add, Sub, NAP, };
-TwoMoreDimensionCalcOperand1 : { Member, MemberSet, Number, Expression, NAP, };
-DefaultTime : { Time, };
+RowID : { IsLabel, IsNotLabel};
+RowLabel : { Empty, NotEmpty};
+RowType : { Text, Detail, DetailAndSummary, Summary, Calc, SubTotal};
+RowDimension : { NewDimension, OldDimension, NAP};
+RowMember : { OneMember, MemberSet, NAP};
+SubTotalOfText1 : { Yes, No};
+SubtotalOfDetail1 : { Yes, No};
+SubtotalOfDetailAndSummary1 : { Yes, No};
+SubtotalOfSummary1 : { Yes, No};
+SubtotalOfSubtotal1 : { Yes, No};
+SubtotalOfCalc1 : { Yes, No};
+CalcOperator1 : { Add, Sub, NAP};
+CalcOperand1 : { Member, MemberSet, Row, Number, Expression, NAP};
+RowDimensionProperties : { Zero, One, Two, Multiple};
+ColumnHeader : { Empty, NotEmptyDimension};
+Properties : { Zero, One, Two, Multiple};
+ColumnIncludeScenario : { Yes, No};
+ScenarioMember : { Member, MemberSet, Calc, NAP};
+ScenarioCalcOperator1 : { Add, Sub, NAP};
+ScenarioCalcOperand1 : { Member, MemberSet, Number, Expression, NAP};
+ColumnIncludeTime : { Yes, No};
+TimeMember : { StaticTime, Calc, NAP};
+TimeCalcOperator1 : { Add, Sub, NAP};
+TimeCalcOperand1 : { StaticTime, DTCY, DTCM, DTCYlagM, DTCYMlead, DTCYleadCMlag, Number, Expression, NAP};
+ColumnIncludeOneMoreDimension : { Yes, No};
+OneMoreDimensionMember : { Member, MemberSet, Calc, NAP};
+OneMoreDimensionCalcOperator1 : { Add, Sub, NAP};
+OneMoreDimensionCalcOperand1 : { Member, MemberSet, Number, Expression, NAP};
+ColumnIncludeTwoMoreDimensions : { Yes, No};
+TwoMoreDimensionMember : { Member, MemberSet, Calc, NAP};
+TwoMoreDimensionCalcOperator1 : { Add, Sub, NAP};
+TwoMoreDimensionCalcOperand1 : { Member, MemberSet, Number, Expression, NAP};
+DefaultTime : { Time};
 
 
 

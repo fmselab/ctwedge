@@ -1,18 +1,18 @@
 Model real026
 
 Parameters: 
-DisconnItem : { Project, Solution, };
-COTarget : { item, Project, Solution, };
-BDCOStatus : { DNE, CI, JustAdded, COS, COE, COSMe, COEMe, COSMeCOS, };
-BDFileRO : { RO, RW, DNE, };
-BDFileChange : { None, ChangeLoc, ChUnicode, ChangeSer, ChangeBoth, };
-BDFileEditor : { Loaded, Modified, Unloaded, };
-WDCOStatus : { Same, JustAdded, COS, COE, COSMe, COEMe, COSMeCOS, };
-WDFileEditor : { Loaded, Modified, Unloaded, };
-LocalVersion : { First, Middle, Last, };
-PrjMultipleConnections : { Yes, No, };
-SameUserReconnect : { Yes, No, };
-WDMoveSlnToNewLocation : { Yes, No, };
+DisconnItem : { Project, Solution};
+COTarget : { item, Project, Solution};
+BDCOStatus : { DNE, CI, JustAdded, COS, COE, COSMe, COEMe, COSMeCOS};
+BDFileRO : { RO, RW, DNE};
+BDFileChange : { None, ChangeLoc, ChUnicode, ChangeSer, ChangeBoth};
+BDFileEditor : { Loaded, Modified, Unloaded};
+WDCOStatus : { Same, JustAdded, COS, COE, COSMe, COEMe, COSMeCOS};
+WDFileEditor : { Loaded, Modified, Unloaded};
+LocalVersion : { First, Middle, Last};
+PrjMultipleConnections : { Yes, No};
+SameUserReconnect : { Yes, No};
+WDMoveSlnToNewLocation : { Yes, No};
 
 Constraints: 
 # BDCOStatus=COEMe => (WDCOStatus=Same OR WDCOStatus=COSMeCOS) #

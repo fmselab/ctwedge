@@ -1,12 +1,12 @@
 Model real001
 
 Parameters: 
-TYPE : { Primary, Logical, Single, Span, Stripe, Mirror, RAID5, };
-SIZE : { 10, 1000, 5000, 40000, };
-FORMAT : { quick, slow, };
-FSYSTEM : { FAT, FAT32, NTFS, };
-CLUSTER : { 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, };
-COMPRESSION : { on, off, };
+TYPE : { Primary, Logical, Single, Span, Stripe, Mirror, RAID5};
+SIZE : { 10, 1000, 5000, 40000};
+FORMAT : { quick, slow};
+FSYSTEM : { FAT, FAT32, NTFS};
+CLUSTER : { 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536};
+COMPRESSION : { on, off};
 
 Constraints: 
 # FSYSTEM=FAT => SIZE<=4096 #

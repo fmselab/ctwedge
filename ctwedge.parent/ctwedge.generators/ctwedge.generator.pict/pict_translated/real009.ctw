@@ -1,12 +1,12 @@
 Model real009
 
 Parameters: 
-SRVBLD : { SP, 2195, SP, WinXP, };
-SRVSKU : { Svr, Ads, DTC, WP, };
-SRVLNG : { EN, DE, };
-CLIBLD : { SP, 2195, SP, WinXP, };
-CLISKU : { Pro, Svr, Ads, DTC, WP, };
-CLILNG : { EN, DE, };
+SRVBLD : { SP, 2195, SP, WinXP};
+SRVSKU : { Svr, Ads, DTC, WP};
+SRVLNG : { EN, DE};
+CLIBLD : { SP, 2195, SP, WinXP};
+CLISKU : { Pro, Svr, Ads, DTC, WP};
+CLILNG : { EN, DE};
 
 Constraints: 
 # SRVLNG!=EN => SRVSKU!=WP #

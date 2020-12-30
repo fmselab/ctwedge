@@ -1,4 +1,4 @@
-Model: model_51
+Model model_51
 
 Parameters:
 A0: { V0,V1,V2,V3,V4 }
@@ -16,4 +16,4 @@ A11: { V0,V1 }
 A12: { V0,V1 }
 A13: { T,F }
 
-Constraints:
+//Constraints:

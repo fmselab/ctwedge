@@ -1,4 +1,4 @@
-Model: model_95
+Model model_95
 
 Parameters:
 A0: { V0,V1,V2,V3,V4,V5,V6 }
@@ -7,4 +7,4 @@ A2: { V0,V1,V2 }
 A3: { V0,V1,V2 }
 A4: { V0,V1,V2 }
 
-Constraints:
+//Constraints:

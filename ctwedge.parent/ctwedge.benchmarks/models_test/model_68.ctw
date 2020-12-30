@@ -1,4 +1,4 @@
-Model: model_68
+Model model_68
 
 Parameters:
 A0: { V0,V1 }
@@ -15,4 +15,4 @@ A6: { V0,V1 }
 A11: { T,F }
 A12: { T,F }
 
-Constraints:
+//Constraints:

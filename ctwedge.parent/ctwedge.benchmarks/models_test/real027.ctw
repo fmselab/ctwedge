@@ -1,24 +1,24 @@
 Model real027
 
 Parameters: 
-ProjectType : { VCM, VCUM, VB, Csharp, WebSP, WebLocalIIS, WebLocalFile, };
-FileType : { CBPair, CB, Bin, Txt, Unicode, Prj, Sln, Folder, };
-FileLinked : { Yes, No, };
-SecondFile : { None, SameType, DiffType, };
-FileSELoc : { Default, Prj, PrjFolder, Solution, SlnFolder, SubFolder, };
-FileDiskLocation : { Default, SlnFolder, PrjFolder, DiffFolder, DiffDisk, UNC, Mapped, Removable, };
-FileName : { Long, DBCS, IName, IExt, Any, };
-FileSize : { Any, Large, Null, };
-LocalVersion : { First, Middle, Last, };
-Shared : { No, Branched, Shared, };
-FileEditor : { Loaded, Modified, Unloaded, };
-FileCO : { JustAdded, COS, COSMe, COEMe, COSMeCOS, };
-FileChange : { None, ChangeLoc, ChUnicode, ChangeSer, ChangeBoth, };
-FileAdd : { None, AddLoc, };
+ProjectType : { VCM, VCUM, VB, Csharp, WebSP, WebLocalIIS, WebLocalFile};
+FileType : { CBPair, CB, Bin, Txt, Unicode, Prj, Sln, Folder};
+FileLinked : { Yes, No};
+SecondFile : { None, SameType, DiffType};
+FileSELoc : { Default, Prj, PrjFolder, Solution, SlnFolder, SubFolder};
+FileDiskLocation : { Default, SlnFolder, PrjFolder, DiffFolder, DiffDisk, UNC, Mapped, Removable};
+FileName : { Long, DBCS, IName, IExt, Any};
+FileSize : { Any, Large, Null};
+LocalVersion : { First, Middle, Last};
+Shared : { No, Branched, Shared};
+FileEditor : { Loaded, Modified, Unloaded};
+FileCO : { JustAdded, COS, COSMe, COEMe, COSMeCOS};
+FileChange : { None, ChangeLoc, ChUnicode, ChangeSer, ChangeBoth};
+FileAdd : { None, AddLoc};
 FileDel : { None, DelSer, DelSE, DelLoc, DelLocDelSer};
-FileRO : { RO, RW, DNE, };
-FileAttr : { H, S, HS, None, };
-FileExtra : { None, Pinned, MergedNotVerified, VersionLocked, };
+FileRO : { RO, RW, DNE};
+FileAttr : { H, S, HS, None};
+FileExtra : { None, Pinned, MergedNotVerified, VersionLocked};
 
 Constraints: 
 # (ProjectType!=VB AND ProjectType!=Csharp) => FileLinked=No #

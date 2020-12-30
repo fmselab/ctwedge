@@ -1,4 +1,4 @@
-Model: model_1
+Model model_1
 
 Parameters:
 A0: { V0,V1,V2,V3 }

@@ -1,15 +1,15 @@
 Model real034
 
 Parameters: 
-ServerType : { SameMachineSameProc, SameMachineDiffProcs, Win2kAdvancedServer, XPPro, NetServer, };
-ClientType : { Win2kServer, XPPro, NetServer, };
-TokenAvailability : { None, UsernamePasswordGet, UsernamePasswordSet, WinAuthGet, WinAuthSet, X509Get, X509Set, AllGet, AllSet, };
-SignatureRequirements : { None, UsernamePassword, WinAuth, X509, Any, All, };
-TestMethodName : { Get, Set, GetNegative, };
-EncryptionOnServer : { None, UsernamePassword, WinAuth, X509, };
-PermissionsTokenIssuance : { True, False, };
-CommunicationsStyle : { InProc, XProc, DirectTcp, RoutedTcp, RoutedInProc, };
-AccountType : { ClientRegularUserServerAdministrator, BothAdministrator, ClientRegularUserServerLocalSystem, };
+ServerType : { SameMachineSameProc, SameMachineDiffProcs, Win2kAdvancedServer, XPPro, NetServer};
+ClientType : { Win2kServer, XPPro, NetServer};
+TokenAvailability : { None, UsernamePasswordGet, UsernamePasswordSet, WinAuthGet, WinAuthSet, X509Get, X509Set, AllGet, AllSet};
+SignatureRequirements : { None, UsernamePassword, WinAuth, X509, Any, All};
+TestMethodName : { Get, Set, GetNegative};
+EncryptionOnServer : { None, UsernamePassword, WinAuth, X509};
+PermissionsTokenIssuance : { True, False};
+CommunicationsStyle : { InProc, XProc, DirectTcp, RoutedTcp, RoutedInProc};
+AccountType : { ClientRegularUserServerAdministrator, BothAdministrator, ClientRegularUserServerLocalSystem};
 
 Constraints: 
 # (TokenAvailability=None OR SignatureRequirements=None) => TestMethodName=GetNegative #
