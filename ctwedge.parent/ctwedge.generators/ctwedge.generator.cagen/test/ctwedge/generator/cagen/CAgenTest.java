@@ -3,6 +3,8 @@ package ctwedge.generator.cagen;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -38,7 +40,8 @@ public class CAgenTest {
 		String error_files = "";
 		CAgenGenerator generator = new CAgenGenerator();
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("new_models/"), fileList);
+		Path path = Paths.get("../../ctwedge.benchmarks/models_test");
+		listFiles(path.toFile(), fileList);
 		for (File file : fileList) {
 			String model;
 			try {

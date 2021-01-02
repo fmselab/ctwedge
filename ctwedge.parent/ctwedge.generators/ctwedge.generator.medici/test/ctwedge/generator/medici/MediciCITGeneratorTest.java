@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -136,7 +138,8 @@ public class MediciCITGeneratorTest {
 		String error_files = "";
 		MediciCITGenerator generator = new MediciCITGenerator();
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("models_test/"), fileList);
+		Path path = Paths.get("../../ctwedge.benchmarks/models_test");
+		listFiles(path.toFile(), fileList);
 		for (File file : fileList) {
 			String model;
 			try {
@@ -185,7 +188,7 @@ public class MediciCITGeneratorTest {
     }
 	
 	@Test
-	public void testFolder_bench() {
+	public void benchmark() {
 		
 		MediciCITGenerator generator = new MediciCITGenerator();
 		
@@ -203,7 +206,8 @@ public class MediciCITGeneratorTest {
 		
 		
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("models_test/"), fileList);
+		Path path = Paths.get("../../ctwedge.benchmarks/models_test");
+		listFiles(path.toFile(), fileList);
 		
 		for (File file : fileList) {
 			sb_csv.append(file.getName() + ";");

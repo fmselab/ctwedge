@@ -1,0 +1,13 @@
+Model real036
+
+Parameters: 
+OS1 : { Win2000, WinXP};
+SKU1 : { Professional, Server, Datacenter, WinPowered};
+LANG1 : { EN, DE};
+OS2 : { Win2000, WinXP};
+SKU2 : { Professional, Server, Datecenter};
+LANG2 : { EN, DE};
+
+Constraints: 
+# (OS1="Win2000" AND OS2="WinXP") OR (OS2="Win2000" AND OS1="WinXP") #
+# (LANG1="EN" AND LANG2="DE") OR (LANG2="EN" AND LANG1="DE") #

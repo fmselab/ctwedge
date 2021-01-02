@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +79,8 @@ public class TestSuiteValidatorTest {
 		TestSuite ts = null;
 
 		try {
-			String model = readFromFile(new File("models/SmartHome.ctw"));
+			Path path = Paths.get("../../ctwedge.benchmarks/models_test/ctwedge/SmartHome.ctw");
+			String model = readFromFile(path.toFile());
 			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 		} catch (Exception e) {
@@ -201,7 +204,8 @@ public class TestSuiteValidatorTest {
 		TestSuite ts = null;
 
 		try {
-			String model = readFromFile(new File("models/Storage3.ctw"));
+			Path path = Paths.get("../../ctwedge.benchmarks/models_test/ctwedge/Storage3.ctw");
+			String model = readFromFile(path.toFile());
 			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 		} catch (Exception e) {
@@ -248,7 +252,8 @@ public class TestSuiteValidatorTest {
 	public void testFolder() {
 		PICTGenerator generator = new PICTGenerator();
 		List<File> fileList = new ArrayList<>();
-		new PictTest().listFiles(new File("models/"), fileList);
+		Path path = Paths.get("../../ctwedge.benchmarks/models_test");
+		new PictTest().listFiles(path.toFile(), fileList);
 		for (File file : fileList) {
 			String model;
 			try {
