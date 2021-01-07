@@ -52,6 +52,12 @@ class CTWedgeParsingTest {
 		errors = result.eResource.errors
 		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''',errors.empty)
 		Assert.assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
+		// with spaces and commas mixed
+		result = parseHelper.parse('''Model Phone Parameters:  display : {16MC, 8MC BW}''')
+		Assert.assertNotNull(result)
+		errors = result.eResource.errors
+		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''',errors.empty)
+		Assert.assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
 		// some errors
 		result = parseHelper.parse('''Model Phone Parameters:  display : {16MC, , 8MC BW}''')
 		Assert.assertNotNull(result)
