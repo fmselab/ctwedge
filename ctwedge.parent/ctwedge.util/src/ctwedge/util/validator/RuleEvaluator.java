@@ -27,6 +27,7 @@ import ctwedge.ctWedge.OrExpression;
 import ctwedge.ctWedge.PlusMinus;
 import ctwedge.ctWedge.PlusMinusOperators;
 import ctwedge.ctWedge.RelationalExpression;
+import ctwedge.ctWedge.impl.OrExpressionImpl;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.util.Test;
 
@@ -34,7 +35,7 @@ import ctwedge.util.Test;
  * Evaluated if a rule makes a seed invalid, it generate a boolean output.
  * The output is a true/false string.
  * 
- * @author garganti vava radavelli
+ * @author garganti vava radavelli bombarda
  */
 public class RuleEvaluator extends CtWedgeSwitch<Object> {
 
@@ -206,7 +207,7 @@ public class RuleEvaluator extends CtWedgeSwitch<Object> {
 		try {
 			return Double.parseDouble(element.getName());
 		} catch(NumberFormatException ex) {		}
-		return element.getName();
+		return element.getName().replace("\"", "");
 		
 //		for (Assignment a : seed.getAssignments()) {
 //			if (a.getParameter().getName().equals(element.getName())) {

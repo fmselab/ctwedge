@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -19,6 +21,7 @@ import java.util.concurrent.TimeoutException;
 import org.junit.Test;
 import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.java_smt.api.SolverException;
+
 
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
@@ -64,6 +67,66 @@ public class TesSuiteValidatorTest {
 		}
 	}	
 	
+	@Test	
+	public void singleFileTest() throws SolverException, InterruptedException, InvalidConfigurationException {
+
+		TestSuite ts = null;
+
+		try {
+			Path path = Paths.get("..\\..\\ctwedge.benchmarks\\models_test\\pict\\real034.ctw");
+			String model = readFromFile(path.toFile());
+			ICTWedgeTestGenerator generator = new ACTSTranslator();
+			ExecutorService executor = Executors.newSingleThreadExecutor();
+			Future<TestSuite> ts_future = executor.submit(new GeneratorExec(model, generator));
+			TestSuite result = null;
+			try {
+				result = ts_future.get(150, TimeUnit.SECONDS);
+			} catch (TimeoutException ex) {
+	        }
+			
+			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(ts.toString());
+		
+		// Define the validator
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
+		tsv.setTestSuite(ts);
+
+		// Save the number of tests
+		int numTest = ts.getTests().size();
+		// Save the number of covered tuples
+		int covTuples = tsv.howManyTuplesCovers();
+
+		// Check all the tests are valid
+		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+
+		// The test suite must be valid and complete
+		assertTrue(tsv.isValid());
+		assertTrue(tsv.isComplete());
+
+		// Now remove tests until the covered tuples decreases
+		while (ts.getTests().size() > 0) {
+			ts.getTests().remove(0);
+			tsv.setTestSuite(ts);
+
+			if (tsv.howManyTuplesCovers() < covTuples)
+				break;
+		}
+
+		// If we still have tests
+		if (ts.getTests().size() > 0) {
+			// Check all the tests are valid
+			assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+			// The test suite must be valid but not complete
+			assertTrue(tsv.isValid());
+			assertFalse(tsv.isComplete());
+		}
+
+	}
+	
 	@Test
 	public void testFolder() {
 		ICTWedgeTestGenerator generator = new ACTSTranslator();
@@ -72,6 +135,7 @@ public class TesSuiteValidatorTest {
 		int nComplete = 0;
 		int nValid = 0;
 		int nTimeOut = 0;
+		StringBuilder sb = new StringBuilder();
 		listFiles(new File("../../ctwedge.benchmarks/models_test/"), fileList);
 		for (File file : fileList) {
 			String model;
@@ -83,8 +147,7 @@ public class TesSuiteValidatorTest {
 				TestSuite ts = null;
 				model = readFromFile(file);
 				
-				// Generate test suite
-				
+				// Generate test suite				
 				ExecutorService executor = Executors.newSingleThreadExecutor();
 				Future<TestSuite> ts_future = executor.submit(new GeneratorExec(model, generator));
 				TestSuite result = null;
@@ -113,9 +176,15 @@ public class TesSuiteValidatorTest {
 				if (tsv.isValid()) {
 					nValid++;
 					assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+				} 
+				else {
+					sb.append("NOT VALID - " + file + "\n");
 				}
 				if (tsv.isComplete())
 					nComplete++;
+				else {
+					sb.append("NOT COMPLETE - " + file + "\n");
+				}
 				
 				// assertTrue(tsv.isValid());
 				// assertTrue(tsv.isComplete());
@@ -145,5 +214,8 @@ public class TesSuiteValidatorTest {
 		System.out.println(nValid + " valid test suites");
 		System.out.println(nComplete + " complete test suites");
 		System.out.println(nTimeOut + " test timed out");
+		
+		System.out.println("LOGS");
+		System.out.println(sb.toString());
 	}
 }
