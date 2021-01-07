@@ -163,6 +163,7 @@ public class PrjSelectionDialog extends Dialog {
 		});
 		btnNewButton.setText("OK");
 		text.addModifyListener(new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				if(text.getText()!=null && (text.getText().length() == 0 || text.getText().charAt(0) != ' ') && !text.getText().equals(""))
 				btnNewButton.setEnabled(true); else btnNewButton.setEnabled(false); 

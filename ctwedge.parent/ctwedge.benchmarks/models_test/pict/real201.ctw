@@ -1,0 +1,11 @@
+Model real201
+
+Parameters: 
+Type : { 10, 100, 500, 1000, 5000, 10000, 40000};
+Size : { 10, 100, 500, 1000, 5000, 10000, 40000};
+$RESULT : { TRUE, FALSE};
+
+Constraints: 
+# Type=Size => $RESULT=TRUE #
+# Type!=Size => $RESULT=FALSE #
+# Type>=Size #

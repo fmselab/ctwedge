@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,7 +57,7 @@ public class CASATranslatorTest {
     }
 	
 	@Test
-	public void testFolder_bench() {
+	public void benchmark() {
 		
 		CASATranslator generator = new CASATranslator();
 		
@@ -73,7 +75,8 @@ public class CASATranslatorTest {
 		
 		
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("models_test/"), fileList);
+		Path path = Paths.get("../../ctwedge.benchmarks/models_test");
+		listFiles(path.toFile(), fileList);
 		for (File file : fileList) {
 			sb_csv.append(file.getName() + ";");
 			System.out.println("*************************************** " + file.getName());

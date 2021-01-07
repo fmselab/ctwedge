@@ -1,0 +1,20 @@
+Model real030
+
+Parameters: 
+ROMSectionRoot : { 0, 1};
+SubpicturePalette : { 0, 1};
+ChoiceParameter1 : { SKIP, Menu, SlideShow, Media};
+ChoiceParameter2 : { SKIP, Menu, SlideShow, Media};
+ChoiceParameter3 : { SKIP, Menu, SlideShow, Media};
+ChoiceParameter4 : { SKIP, Menu, SlideShow, Media};
+ChoiceParameter5 : { SKIP, Menu, SlideShow, Media};
+OpticalMediaDiscProjectName : { TestDVD};
+OpticalMediaDiscProjectFirstPlay : { MainMenu};
+OpticalMediaDiscProjectJacketPicture : { SKIP};
+OpticalMediaDiscProjectSchemaVersion : { SKIP};
+OpticalMediaDiscProjectLanguage : { SKIP};
+OpticalMediaDiscProjectEncoding : { SKIP};
+OpticalMediaDiscProjectDiscBurner : { SKIP};
+OpticalMediaDiscProjectDiscVolumeOnHardDrive : { C};
+
+//Constraints: 

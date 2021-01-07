@@ -35,6 +35,7 @@ import org.sosy_lab.java_smt.api.SolverException;
 import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
+import ctwedge.ctWedge.CtWedgeFactory;
 import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.Range;
@@ -234,7 +235,7 @@ public class SMTTestSuiteValidator {
 					if (e.getValue().equals(type.getKey().getName())) {
 						tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound, 
 								ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula)type.getValue(),
-								(IntegerFormula) ctx.getFormulaManager().getIntegerFormulaManager()
+								ctx.getFormulaManager().getIntegerFormulaManager()
 								.makeNumber(counter)));
 					}
 					counter ++;
@@ -370,7 +371,7 @@ public class SMTTestSuiteValidator {
 		for (Test t : this.ts.getTests()) {
 			Map<Parameter, String> singleMap = new HashMap<>();
 			for (Entry e : t.entrySet()) {
-				Parameter p = CtWedgeFactoryImpl.eINSTANCE.createParameter();
+				Parameter p = CtWedgeFactory.eINSTANCE.createParameter();
 				p.setName((String) e.getKey());
 				singleMap.put(p, (String) e.getValue());
 			}

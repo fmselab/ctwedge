@@ -1,0 +1,20 @@
+Model real038
+
+Parameters: 
+DCOS : { W2K3, W2K};
+FWOS : { W2K3, W2K};
+LangF : { Eng, Ger};
+FWDomE : { Domain, WG};
+IPRoutB : { Yes, No};
+NLB : { Yes, No};
+HardD : { Yes, No};
+
+
+
+
+
+
+
+Constraints: 
+# FWOS=W2K => HardD=No #
+# FWOS=W2K => NLB=No #

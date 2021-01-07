@@ -1,0 +1,27 @@
+Model real011
+
+Parameters: 
+SKU : { Pro, Srv, ASrv, DTC, WP};
+SKUTy : { Pro, Srv};
+MUI : { yes, no};
+OCM : { yes, no};
+SP : { Gold, SP1, SP2};
+AttEP : { yes, no};
+STK : { yes, no};
+SRP : { yes, no};
+IE : { IE55, IE6, Def};
+IISPch : { yes, no};
+RunSS : { yes, no};
+SP3 : { FC, FCWU, Pt, PtWU, msi};
+NOCM : { yes, no};
+VUninst : { yes, no};
+
+Constraints: 
+# SP!=SP2 => SRP=no #
+# SP!=SP1 => AttEP=no #
+# SKU=DTC => STK=no #
+# (SKU=DTC AND SP!=SP2) => MUI=no #
+# SKUTy=Pro => SKU=Pro #
+# SKUTy!=Pro => SKU!=Pro #
+# RunSS=yes => NOCM=no #
+# RunSS=yes => VUninst=yes #

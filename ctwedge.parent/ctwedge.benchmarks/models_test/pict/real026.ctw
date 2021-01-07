@@ -1,0 +1,21 @@
+Model real026
+
+Parameters: 
+DisconnItem : { Project, Solution};
+COTarget : { item, Project, Solution};
+BDCOStatus : { DNE, CI, JustAdded, COS, COE, COSMe, COEMe, COSMeCOS};
+BDFileRO : { RO, RW, DNE};
+BDFileChange : { None, ChangeLoc, ChUnicode, ChangeSer, ChangeBoth};
+BDFileEditor : { Loaded, Modified, Unloaded};
+WDCOStatus : { Same, JustAdded, COS, COE, COSMe, COEMe, COSMeCOS};
+WDFileEditor : { Loaded, Modified, Unloaded};
+LocalVersion : { First, Middle, Last};
+PrjMultipleConnections : { Yes, No};
+SameUserReconnect : { Yes, No};
+WDMoveSlnToNewLocation : { Yes, No};
+
+Constraints: 
+# BDCOStatus=COEMe => (WDCOStatus=Same OR WDCOStatus=COSMeCOS) #
+# (BDCOStatus=COSMe OR BDCOStatus=COSMeCOS) => (WDCOStatus=Same OR WDCOStatus=COSMe OR WDCOStatus=COSMeCOS) #
+# WDCOStatus=JustAdded => (BDCOStatus=JustAdded OR BDCOStatus=DNE OR BDCOStatus=COS OR BDCOStatus=COE) #
+# COTarget=Solution => WDCOStatus=Same #

@@ -1,3 +1,5 @@
+Banking1.ctw	Generated tuples for 2-wise with cardinality 102	Cardinalita di partenza 324	Cardinalita finale 212	size dopo controllo copribilita 102	
+Banking2.ctw	Generated tuples for 2-wise with cardinality 476	Cardinalita di partenza 65536	Cardinalita finale 40960	size dopo controllo copribilita 473	
 benchmark_1.ctw	Generated tuples for 2-wise with cardinality 24350	Cardinalita di partenza 9.40061e+32	Cardinalita finale 1.51331e+30	size dopo controllo copribilita 23876	
 benchmark_10.ctw	Generated tuples for 2-wise with cardinality 54688	Cardinalita di partenza 3.29209e+49	Cardinalita finale 6.49011e+44	size dopo controllo copribilita 52659	
 benchmark_11.ctw	Generated tuples for 2-wise with cardinality 24343	Cardinalita di partenza 8.12212e+32	Cardinalita finale 8.99295e+29	size dopo controllo copribilita 23636	
@@ -33,39 +35,162 @@ benchmark_bugzilla.ctw	Generated tuples for 2-wise with cardinality 5822	Cardina
 benchmark_gcc.ctw	Generated tuples for 2-wise with cardinality 82809	Cardinalita di partenza 4.63321e+61	Cardinalita finale 1.66188e+59	size dopo controllo copribilita 82770	
 benchmark_spins.ctw	Generated tuples for 2-wise with cardinality 992	Cardinalita di partenza 8.38861e+06	Cardinalita finale 2.00294e+06	size dopo controllo copribilita 979	
 benchmark_spinv.ctw	Generated tuples for 2-wise with cardinality 8797	Cardinalita di partenza 1.66021e+20	Cardinalita finale 2.59647e+16	size dopo controllo copribilita 8741	
-Banking1.ctw	Generated tuples for 2-wise with cardinality 102	Cardinalita di partenza 324	Cardinalita finale 212	size dopo controllo copribilita 102	
-Banking2.ctw	Banking2.ctw	 error:Cannot invoke "String.replaceAll(String, String)" because the return value of "ctwedge.ctWedge.AtomicPredicate.getName()" is null
-CommProtocol.ctw	CommProtocol.ctw	 error:Cannot invoke "String.replaceAll(String, String)" because the return value of "ctwedge.ctWedge.AtomicPredicate.getName()" is null
-Concurrency.ctw	Concurrency.ctw	 error:Cannot invoke "String.replaceAll(String, String)" because the return value of "ctwedge.ctWedge.AtomicPredicate.getName()" is null
-Healthcare1.ctw	Healthcare1.ctw	 error:Cannot invoke "String.replaceAll(String, String)" because the return value of "ctwedge.ctWedge.AtomicPredicate.getName()" is null
+CommProtocol.ctw	Generated tuples for 2-wise with cardinality 320	Cardinalita di partenza 7168	Cardinalita finale 364	size dopo controllo copribilita 285	
+Concurrency.ctw	Generated tuples for 2-wise with cardinality 40	Cardinalita di partenza 32	Cardinalita finale 8	size dopo controllo copribilita 36	
+flex_v0_small.ctw	Generated tuples for 2-wise with cardinality 231	Cardinalita di partenza 2880	Cardinalita finale 500	size dopo controllo copribilita 213	
+Healthcare1.ctw	Generated tuples for 2-wise with cardinality 369	Cardinalita di partenza 17280	Cardinalita finale 4320	size dopo controllo copribilita 361	
 Healthcare2.ctw	Generated tuples for 2-wise with cardinality 467	Cardinalita di partenza 93312	Cardinalita finale 34992	size dopo controllo copribilita 466	
 Healthcare3.ctw	Generated tuples for 2-wise with cardinality 3151	Cardinalita di partenza 1.46767e+12	Cardinalita finale 2.13044e+10	size dopo controllo copribilita 3092	
 Healthcare4.ctw	Generated tuples for 2-wise with cardinality 5745	Cardinalita di partenza 1.87238e+16	Cardinalita finale 3.7751e+15	size dopo controllo copribilita 5707	
 NetworkMgmt.ctw	Generated tuples for 2-wise with cardinality 1248	Cardinalita di partenza 2.2e+06	Cardinalita finale 1.13256e+06	size dopo controllo copribilita 1228	
 ProcessorComm1.ctw	Generated tuples for 2-wise with cardinality 1071	Cardinalita di partenza 2.38879e+07	Cardinalita finale 8.0041e+06	size dopo controllo copribilita 1058	
-ProcessorComm2.ctw	ProcessorComm2.ctw	 error:equalExpression : p16NEone not supported!
 Services.ctw	Generated tuples for 2-wise with cardinality 1835	Cardinalita di partenza 1.0368e+08	Cardinalita finale 1.2672e+06	size dopo controllo copribilita 1819	
-Storage1.ctw	Storage1.ctw	 error:Cannot invoke "String.replaceAll(String, String)" because the return value of "ctwedge.ctWedge.AtomicPredicate.getName()" is null
+siena_v0_small.ctw	Generated tuples for 2-wise with cardinality 453	Cardinalita di partenza 77760	Cardinalita finale 526	size dopo controllo copribilita 341	
+SmartHome.ctw	SmartHome.ctw	 error:equalExpression : HeatingManagement EQ SmartHome not supported!
+Storage1.ctw	Generated tuples for 2-wise with cardinality 71	Cardinalita di partenza 120	Cardinalita finale 25	size dopo controllo copribilita 53	
 Storage3.ctw	Generated tuples for 2-wise with cardinality 1140	Cardinalita di partenza 9.216e+06	Cardinalita finale 265600	size dopo controllo copribilita 1020	
 Storage4.ctw	Generated tuples for 2-wise with cardinality 3438	Cardinalita di partenza 2.06341e+11	Cardinalita finale 1.30153e+11	size dopo controllo copribilita 3414	
-Storage5.ctw	Storage5.ctw	 error:Cannot invoke "String.replaceAll(String, String)" because the return value of "ctwedge.ctWedge.AtomicPredicate.getName()" is null
-SystemMgmt.ctw	SystemMgmt.ctw	 error:Cannot invoke "String.replaceAll(String, String)" because the return value of "ctwedge.ctWedge.AtomicPredicate.getName()" is null
-Telecom.ctw	Telecom.ctw	 error:Cannot invoke "String.replaceAll(String, String)" because the return value of "ctwedge.ctWedge.AtomicPredicate.getName()" is null
-flex_v0_small.ctw	Generated tuples for 2-wise with cardinality 231	Cardinalita di partenza 2880	Cardinalita finale 500	size dopo controllo copribilita 213	
-grep_v0_1_small.ctw	Generated tuples for 2-wise with cardinality 628	Cardinalita di partenza 207360	Cardinalita finale 438	size dopo controllo copribilita 433	
-gzip_v0_small.ctw	Generated tuples for 2-wise with cardinality 390	Cardinalita di partenza 24576	Cardinalita finale 159	size dopo controllo copribilita 326	
-make_v0_1_small.ctw	Generated tuples for 2-wise with cardinality 180	Cardinalita di partenza 1024	Cardinalita finale 768	size dopo controllo copribilita 179	
-nanoxml_parser_v0_small.ctw	Generated tuples for 2-wise with cardinality 108	Cardinalita di partenza 256	Cardinalita finale 64	size dopo controllo copribilita 98	
-sed_v0_2_small.ctw	Generated tuples for 2-wise with cardinality 590	Cardinalita di partenza 92160	Cardinalita finale 324	size dopo controllo copribilita 452	
-siena_v0_small.ctw	Generated tuples for 2-wise with cardinality 453	Cardinalita di partenza 77760	Cardinalita finale 526	size dopo controllo copribilita 341	
-Banking1.ctw	Generated tuples for 2-wise with cardinality 102	Cardinalita di partenza 324	Cardinalita finale 212	size dopo controllo copribilita 102	
-Banking2.ctw	Banking2.ctw	 error:Cannot invoke "String.replaceAll(String, String)" because the return value of "ctwedge.ctWedge.AtomicPredicate.getName()" is null
-benchmark_1.ctw	Generated tuples for 2-wise with cardinality 24350	Cardinalita di partenza 9.40061e+32	Cardinalita finale 1.51331e+30	size dopo controllo copribilita 23876	
-benchmark_10.ctw	Generated tuples for 2-wise with cardinality 54688	Cardinalita di partenza 3.29209e+49	Cardinalita finale 6.49011e+44	size dopo controllo copribilita 52659	
-benchmark_11.ctw	Generated tuples for 2-wise with cardinality 24343	Cardinalita di partenza 8.12212e+32	Cardinalita finale 8.99295e+29	size dopo controllo copribilita 23636	
-benchmark_12.ctw	Generated tuples for 2-wise with cardinality 50500	Cardinalita di partenza 4.87717e+47	Cardinalita finale 4.66359e+44	size dopo controllo copribilita 49522	
-benchmark_13.ctw	Generated tuples for 2-wise with cardinality 40563	Cardinalita di partenza 6.20165e+42	Cardinalita finale 8.29044e+39	size dopo controllo copribilita 38862	
-benchmark_14.ctw	Generated tuples for 2-wise with cardinality 21162	Cardinalita di partenza 8.12212e+30	Cardinalita finale 2.49851e+29	size dopo controllo copribilita 20544	
-benchmark_15.ctw	Generated tuples for 2-wise with cardinality 8543	Cardinalita di partenza 5.47187e+19	Cardinalita finale 9.21479e+17	size dopo controllo copribilita 8388	
-benchmark_16.ctw	Generated tuples for 2-wise with cardinality 16903	Cardinalita di partenza 6.26707e+27	Cardinalita finale 4.30326e+23	size dopo controllo copribilita 14600	
-benchmark_17.ctw	Generated tuples for 2-wise with cardinality 43456	Cardinalita di partenza 1.58762e+44	Cardinalita finale 3.02771e+40	size dopo controllo copribilita 43390	
+Storage5.ctw	Generated tuples for 2-wise with cardinality 5588	Cardinalita di partenza 7.48269e+13	Cardinalita finale 8.99251e+11	size dopo controllo copribilita 5342	
+SystemMgmt.ctw	Generated tuples for 2-wise with cardinality 324	Cardinalita di partenza 12960	Cardinalita finale 972	size dopo controllo copribilita 310	
+Telecom.ctw	Generated tuples for 2-wise with cardinality 451	Cardinalita di partenza 46080	Cardinalita finale 18360	size dopo controllo copribilita 440	
+model_0.ctw	Generated tuples for 2-wise with cardinality 155	Cardinalita di partenza 540	Cardinalita finale 276	size dopo controllo copribilita 119	
+model_1.ctw	Generated tuples for 2-wise with cardinality 435	Cardinalita di partenza 30720	Cardinalita finale 30720	size dopo controllo copribilita 435	
+model_10.ctw	Generated tuples for 2-wise with cardinality 11001	Cardinalita di partenza 1.00415e+23	Cardinalita finale 2.4999e+10	size dopo controllo copribilita 5426	
+model_100.ctw	Generated tuples for 2-wise with cardinality 998	Cardinalita di partenza 344064	Cardinalita finale 53892	size dopo controllo copribilita 894	
+model_101.ctw	Generated tuples for 2-wise with cardinality 1346	Cardinalita di partenza 811008	Cardinalita finale 248224	size dopo controllo copribilita 1213	
+model_102.ctw	Generated tuples for 2-wise with cardinality 8163	Cardinalita di partenza 3.73968e+19	Cardinalita finale 2.53892e+19	size dopo controllo copribilita 8160	
+model_103.ctw	Generated tuples for 2-wise with cardinality 7912	Cardinalita di partenza 1.66208e+19	Cardinalita finale 5.31781e+17	size dopo controllo copribilita 7781	
+model_104.ctw	Generated tuples for 2-wise with cardinality 8949	Cardinalita di partenza 2.99175e+20	Cardinalita finale 1.36419e+20	size dopo controllo copribilita 8938	
+model_105.ctw	Generated tuples for 2-wise with cardinality 16100	Cardinalita di partenza 9.28305e+16	Cardinalita finale 2.93171e+13	size dopo controllo copribilita 10756	
+model_106.ctw	Generated tuples for 2-wise with cardinality 330	Cardinalita di partenza 4800	Cardinalita finale 1160	size dopo controllo copribilita 257	
+model_107.ctw	Generated tuples for 2-wise with cardinality 19636	Cardinalita di partenza 1.41511e+19	Cardinalita finale 3.41819e+15	size dopo controllo copribilita 13527	
+model_109.ctw	Generated tuples for 2-wise with cardinality 1389	Cardinalita di partenza 2.41865e+08	Cardinalita finale 3.36927e+07	size dopo controllo copribilita 1329	
+model_110.ctw	Generated tuples for 2-wise with cardinality 295	Cardinalita di partenza 7680	Cardinalita finale 5756	size dopo controllo copribilita 293	
+model_111.ctw	Generated tuples for 2-wise with cardinality 1012	Cardinalita di partenza 8.38861e+06	Cardinalita finale 202240	size dopo controllo copribilita 951	
+model_112.ctw	model_112.ctw	 error:equalExpression : A6 NE A1 not supported!
+model_113.ctw	Generated tuples for 2-wise with cardinality 1084	Cardinalita di partenza 1.69344e+06	Cardinalita finale 5040	size dopo controllo copribilita 419	
+model_115.ctw	Generated tuples for 2-wise with cardinality 254	Cardinalita di partenza 2304	Cardinalita finale 2304	size dopo controllo copribilita 254	
+model_116.ctw	Generated tuples for 2-wise with cardinality 2511	Cardinalita di partenza 5.15396e+10	Cardinalita finale 135168	size dopo controllo copribilita 1583	
+model_12.ctw	Generated tuples for 2-wise with cardinality 26388	Cardinalita di partenza 3.8214e+08	Cardinalita finale 2.24788e+07	size dopo controllo copribilita 22164	
+model_13.ctw	Generated tuples for 2-wise with cardinality 173	Cardinalita di partenza 140	Cardinalita finale 10	size dopo controllo copribilita 67	
+model_14.ctw	Generated tuples for 2-wise with cardinality 250	Cardinalita di partenza 800	Cardinalita finale 700	size dopo controllo copribilita 245	
+model_15.ctw	Generated tuples for 2-wise with cardinality 94435	Cardinalita di partenza 6.38239e+25	Cardinalita finale 6.38239e+25	size dopo controllo copribilita 94435	
+model_16.ctw	Generated tuples for 2-wise with cardinality 95761	Cardinalita di partenza 1.27648e+26	Cardinalita finale 1.27648e+26	size dopo controllo copribilita 95761	
+model_17.ctw	Generated tuples for 2-wise with cardinality 947	Cardinalita di partenza 933120	Cardinalita finale 164340	size dopo controllo copribilita 898	
+model_18.ctw	Generated tuples for 2-wise with cardinality 664	Cardinalita di partenza 106920	Cardinalita finale 28908	size dopo controllo copribilita 619	
+model_19.ctw	Generated tuples for 2-wise with cardinality 1976	Cardinalita di partenza 4.97664e+08	Cardinalita finale 2.31459e+07	size dopo controllo copribilita 1850	
+model_20.ctw	Generated tuples for 2-wise with cardinality 255	Cardinalita di partenza 2016	Cardinalita finale 28	size dopo controllo copribilita 55	
+model_21.ctw	Generated tuples for 2-wise with cardinality 489	Cardinalita di partenza 18144	Cardinalita finale 28	size dopo controllo copribilita 68	
+model_22.ctw	Generated tuples for 2-wise with cardinality 869	Cardinalita di partenza 2.98598e+06	Cardinalita finale 103680	size dopo controllo copribilita 674	
+model_23.ctw	Generated tuples for 2-wise with cardinality 1076	Cardinalita di partenza 2.01554e+07	Cardinalita finale 1.25971e+06	size dopo controllo copribilita 898	
+model_24.ctw	Generated tuples for 2-wise with cardinality 1687	Cardinalita di partenza 7.96262e+08	Cardinalita finale 2.17728e+07	size dopo controllo copribilita 1356	
+model_25.ctw	Generated tuples for 2-wise with cardinality 1007	Cardinalita di partenza 3.6864e+06	Cardinalita finale 101412	size dopo controllo copribilita 901	
+model_26.ctw	Generated tuples for 2-wise with cardinality 958	Cardinalita di partenza 152100	Cardinalita finale 30	size dopo controllo copribilita 77	
+model_27.ctw	Generated tuples for 2-wise with cardinality 896	Cardinalita di partenza 564480	Cardinalita finale 2304	size dopo controllo copribilita 258	
+model_28.ctw	Generated tuples for 2-wise with cardinality 437	Cardinalita di partenza 9408	Cardinalita finale 48	size dopo controllo copribilita 80	
+model_29.ctw	Generated tuples for 2-wise with cardinality 1294	Cardinalita di partenza 2.68739e+07	Cardinalita finale 414720	size dopo controllo copribilita 921	
+model_3.ctw	Generated tuples for 2-wise with cardinality 346	Cardinalita di partenza 2352	Cardinalita finale 540	size dopo controllo copribilita 249	
+model_30.ctw	Generated tuples for 2-wise with cardinality 1563	Cardinalita di partenza 4.52985e+08	Cardinalita finale 4.02653e+08	size dopo controllo copribilita 1563	
+model_31.ctw	Generated tuples for 2-wise with cardinality 237	Cardinalita di partenza 3456	Cardinalita finale 2112	size dopo controllo copribilita 234	
+model_32.ctw	Generated tuples for 2-wise with cardinality 903	Cardinalita di partenza 9.56594e+06	Cardinalita finale 18513	size dopo controllo copribilita 787	
+model_33.ctw	Generated tuples for 2-wise with cardinality 891	Cardinalita di partenza 104544	Cardinalita finale 28640	size dopo controllo copribilita 801	
+model_34.ctw	Generated tuples for 2-wise with cardinality 554	Cardinalita di partenza 28672	Cardinalita finale 5922	size dopo controllo copribilita 479	
+model_35.ctw	Generated tuples for 2-wise with cardinality 12003	Cardinalita di partenza 9.93735e+12	Cardinalita finale 9.93735e+12	size dopo controllo copribilita 12003	
+model_36.ctw	Generated tuples for 2-wise with cardinality 51838	Cardinalita di partenza 6.02907e+21	Cardinalita finale 6.02907e+21	size dopo controllo copribilita 51838	
+model_37.ctw	Generated tuples for 2-wise with cardinality 867	Cardinalita di partenza 259200	Cardinalita finale 6498	size dopo controllo copribilita 761	
+model_38.ctw	Generated tuples for 2-wise with cardinality 601	Cardinalita di partenza 82944	Cardinalita finale 2544	size dopo controllo copribilita 525	
+model_39.ctw	Generated tuples for 2-wise with cardinality 208	Cardinalita di partenza 1536	Cardinalita finale 96	size dopo controllo copribilita 164	
+model_4.ctw	Generated tuples for 2-wise with cardinality 1332	Cardinalita di partenza 2.0736e+06	Cardinalita finale 37344	size dopo controllo copribilita 1088	
+model_40.ctw	Generated tuples for 2-wise with cardinality 320	Cardinalita di partenza 7168	Cardinalita finale 240	size dopo controllo copribilita 264	
+model_41.ctw	Generated tuples for 2-wise with cardinality 96	Cardinalita di partenza 192	Cardinalita finale 6	size dopo controllo copribilita 41	
+model_42.ctw	Generated tuples for 2-wise with cardinality 300	Cardinalita di partenza 6144	Cardinalita finale 268	size dopo controllo copribilita 250	
+model_43.ctw	Generated tuples for 2-wise with cardinality 320	Cardinalita di partenza 7168	Cardinalita finale 485	size dopo controllo copribilita 285	
+model_44.ctw	Generated tuples for 2-wise with cardinality 417	Cardinalita di partenza 40500	Cardinalita finale 40500	size dopo controllo copribilita 417	
+model_45.ctw	Generated tuples for 2-wise with cardinality 389	Cardinalita di partenza 27000	Cardinalita finale 27000	size dopo controllo copribilita 389	
+model_46.ctw	Generated tuples for 2-wise with cardinality 8663	Cardinalita di partenza 9.28935e+18	Cardinalita finale 9.21178e+14	size dopo controllo copribilita 7969	
+model_47.ctw	Generated tuples for 2-wise with cardinality 59183	Cardinalita di partenza 2.35135e+16	Cardinalita finale 1.38963e+15	size dopo controllo copribilita 58736	
+model_48.ctw	Generated tuples for 2-wise with cardinality 2027	Cardinalita di partenza 3.16406e+09	Cardinalita finale 6.58664e+08	size dopo controllo copribilita 2009	
+model_49.ctw	Generated tuples for 2-wise with cardinality 2476	Cardinalita di partenza 1.11974e+10	Cardinalita finale 1.91206e+06	size dopo controllo copribilita 1273	
+model_5.ctw	Generated tuples for 2-wise with cardinality 16747	Cardinalita di partenza 1.26214e+21	Cardinalita finale 9.49529e+18	size dopo controllo copribilita 14463	
+model_50.ctw	Generated tuples for 2-wise with cardinality 1239	Cardinalita di partenza 2.90304e+07	Cardinalita finale 2.90304e+07	size dopo controllo copribilita 1239	
+model_51.ctw	Generated tuples for 2-wise with cardinality 1012	Cardinalita di partenza 6.912e+06	Cardinalita finale 6.912e+06	size dopo controllo copribilita 1012	
+model_52.ctw	Generated tuples for 2-wise with cardinality 1290	Cardinalita di partenza 4.89888e+07	Cardinalita finale 82944	size dopo controllo copribilita 618	
+model_53.ctw	Generated tuples for 2-wise with cardinality 977	Cardinalita di partenza 103680	Cardinalita finale 320	size dopo controllo copribilita 195	
+model_54.ctw	Generated tuples for 2-wise with cardinality 491	Cardinalita di partenza 1989	Cardinalita finale 1989	size dopo controllo copribilita 491	
+model_55.ctw	Generated tuples for 2-wise with cardinality 1181	Cardinalita di partenza 3.402e+06	Cardinalita finale 272736	size dopo controllo copribilita 996	
+model_56.ctw	Generated tuples for 2-wise with cardinality 942	Cardinalita di partenza 630000	Cardinalita finale 51184	size dopo controllo copribilita 772	
+model_57.ctw	Generated tuples for 2-wise with cardinality 56721	Cardinalita di partenza 7.84882e+47	Cardinalita finale 3.37306e+18	size dopo controllo copribilita 26126	
+model_59.ctw	model_59.ctw	 error:relational expression are not supported
+model_6.ctw	Generated tuples for 2-wise with cardinality 9527	Cardinalita di partenza 7.70351e+16	Cardinalita finale 4.60665e+14	size dopo controllo copribilita 7815	
+model_60.ctw	model_60.ctw	 error:relational expression are not supported
+model_61.ctw	model_61.ctw	 error:relational expression are not supported
+model_62.ctw	Generated tuples for 2-wise with cardinality 3468	Cardinalita di partenza 2.43525e+12	Cardinalita finale 1.38148e+10	size dopo controllo copribilita 3425	
+model_63.ctw	Generated tuples for 2-wise with cardinality 2137	Cardinalita di partenza 7.24776e+09	Cardinalita finale 1.25813e+09	size dopo controllo copribilita 2125	
+model_64.ctw	Generated tuples for 2-wise with cardinality 5436	Cardinalita di partenza 6.74057e+15	Cardinalita finale 1.2792e+11	size dopo controllo copribilita 5320	
+model_65.ctw	Generated tuples for 2-wise with cardinality 4929	Cardinalita di partenza 1.12343e+15	Cardinalita finale 1.92121e+11	size dopo controllo copribilita 4849	
+model_66.ctw	Generated tuples for 2-wise with cardinality 80	Cardinalita di partenza 128	Cardinalita finale 128	size dopo controllo copribilita 80	
+model_67.ctw	Generated tuples for 2-wise with cardinality 108	Cardinalita di partenza 256	Cardinalita finale 256	size dopo controllo copribilita 108	
+model_68.ctw	Generated tuples for 2-wise with cardinality 309	Cardinalita di partenza 4096	Cardinalita finale 4096	size dopo controllo copribilita 309	
+model_69.ctw	Generated tuples for 2-wise with cardinality 1968	Cardinalita di partenza 633600	Cardinalita finale 9630	size dopo controllo copribilita 1676	
+model_7.ctw	Generated tuples for 2-wise with cardinality 1187	Cardinalita di partenza 2.53125e+07	Cardinalita finale 4.59017e+06	size dopo controllo copribilita 1167	
+model_70.ctw	Generated tuples for 2-wise with cardinality 571	Cardinalita di partenza 9792	Cardinalita finale 1566	size dopo controllo copribilita 484	
+model_71.ctw	Generated tuples for 2-wise with cardinality 451	Cardinalita di partenza 46080	Cardinalita finale 18360	size dopo controllo copribilita 440	
+model_72.ctw	Generated tuples for 2-wise with cardinality 1035	Cardinalita di partenza 1.79159e+07	Cardinalita finale 7.07616e+06	size dopo controllo copribilita 1024	
+model_73.ctw	Generated tuples for 2-wise with cardinality 7491	Cardinalita di partenza 1.74019e+17	Cardinalita finale 3.25965e+07	size dopo controllo copribilita 5902	
+model_74.ctw	Generated tuples for 2-wise with cardinality 7850	Cardinalita di partenza 1.58574e+17	Cardinalita finale 6.6886e+10	size dopo controllo copribilita 4886	
+model_75.ctw	Generated tuples for 2-wise with cardinality 15741	Cardinalita di partenza 9.80955e+21	Cardinalita finale 6.17249e+20	size dopo controllo copribilita 15628	
+model_76.ctw	Generated tuples for 2-wise with cardinality 15581	Cardinalita di partenza 3.47431e+22	Cardinalita finale 3.10206e+22	size dopo controllo copribilita 15578	
+model_77.ctw	Generated tuples for 2-wise with cardinality 599	Cardinalita di partenza 43200	Cardinalita finale 2581	size dopo controllo copribilita 541	
+model_78.ctw	Generated tuples for 2-wise with cardinality 565	Cardinalita di partenza 34560	Cardinalita finale 1927	size dopo controllo copribilita 486	
+model_79.ctw	Generated tuples for 2-wise with cardinality 2001	Cardinalita di partenza 8.49347e+08	Cardinalita finale 6.7392e+07	size dopo controllo copribilita 1898	
+model_8.ctw	Generated tuples for 2-wise with cardinality 1329	Cardinalita di partenza 4.32e+07	Cardinalita finale 1.70276e+06	size dopo controllo copribilita 1218	
+model_80.ctw	Generated tuples for 2-wise with cardinality 2261	Cardinalita di partenza 2.78692e+09	Cardinalita finale 3.68271e+08	size dopo controllo copribilita 2166	
+model_81.ctw	Generated tuples for 2-wise with cardinality 4051	Cardinalita di partenza 2.82175e+12	Cardinalita finale 1.44027e+12	size dopo controllo copribilita 3694	
+model_82.ctw	Generated tuples for 2-wise with cardinality 2640	Cardinalita di partenza 5.87866e+09	Cardinalita finale 2.99429e+09	size dopo controllo copribilita 2403	
+model_83.ctw	Generated tuples for 2-wise with cardinality 315	Cardinalita di partenza 5760	Cardinalita finale 680	size dopo controllo copribilita 273	
+model_84.ctw	Generated tuples for 2-wise with cardinality 292	Cardinalita di partenza 4608	Cardinalita finale 432	size dopo controllo copribilita 239	
+model_85.ctw	Generated tuples for 2-wise with cardinality 1704	Cardinalita di partenza 1.28995e+09	Cardinalita finale 6.6886e+08	size dopo controllo copribilita 1646	
+model_86.ctw	Generated tuples for 2-wise with cardinality 1176	Cardinalita di partenza 5.37477e+07	Cardinalita finale 2.78692e+07	size dopo controllo copribilita 1128	
+model_87.ctw	Generated tuples for 2-wise with cardinality 1405	Cardinalita di partenza 1.21651e+06	Cardinalita finale 266464	size dopo controllo copribilita 1182	
+model_88.ctw	Generated tuples for 2-wise with cardinality 1346	Cardinalita di partenza 811008	Cardinalita finale 248224	size dopo controllo copribilita 1213	
+model_89.ctw	Generated tuples for 2-wise with cardinality 869	Cardinalita di partenza 518400	Cardinalita finale 12504	size dopo controllo copribilita 716	
+model_9.ctw	Generated tuples for 2-wise with cardinality 18310	Cardinalita di partenza 4.49758e+29	Cardinalita finale 1.2397e+21	size dopo controllo copribilita 13812	
+model_90.ctw	Generated tuples for 2-wise with cardinality 255	Cardinalita di partenza 2016	Cardinalita finale 602	size dopo controllo copribilita 224	
+model_91.ctw	Generated tuples for 2-wise with cardinality 489	Cardinalita di partenza 18144	Cardinalita finale 3094	size dopo controllo copribilita 403	
+model_92.ctw	Generated tuples for 2-wise with cardinality 347	Cardinalita di partenza 9408	Cardinalita finale 1666	size dopo controllo copribilita 326	
+model_93.ctw	Generated tuples for 2-wise with cardinality 405	Cardinalita di partenza 18816	Cardinalita finale 2304	size dopo controllo copribilita 343	
+model_94.ctw	Generated tuples for 2-wise with cardinality 156	Cardinalita di partenza 810	Cardinalita finale 254	size dopo controllo copribilita 127	
+model_95.ctw	Generated tuples for 2-wise with cardinality 186	Cardinalita di partenza 1134	Cardinalita finale 1134	size dopo controllo copribilita 186	
+model_96.ctw	Generated tuples for 2-wise with cardinality 105	Cardinalita di partenza 270	Cardinalita finale 76	size dopo controllo copribilita 59	
+model_97.ctw	model_97.ctw	 error:equalExpression : A1 EQ A2 not supported!
+model_98.ctw	model_98.ctw	 error:equalExpression : A1 EQ A2 not supported!
+model_99.ctw	Generated tuples for 2-wise with cardinality 998	Cardinalita di partenza 344064	Cardinalita finale 131712	size dopo controllo copribilita 955	
+real001.ctw	real001.ctw	 error:relational expression are not supported
+real002.ctw	Generated tuples for 2-wise with cardinality 1258	Cardinalita di partenza 3.44064e+07	Cardinalita finale 3.44064e+07	size dopo controllo copribilita 1258	
+real003.ctw	Generated tuples for 2-wise with cardinality 304	Cardinalita di partenza 6912	Cardinalita finale 6912	size dopo controllo copribilita 304	
+real004.ctw	Generated tuples for 2-wise with cardinality 180	Cardinalita di partenza 1280	Cardinalita finale 1280	size dopo controllo copribilita 180	
+real005.ctw	Generated tuples for 2-wise with cardinality 180	Cardinalita di partenza 1280	Cardinalita finale 756	size dopo controllo copribilita 174	
+real006.ctw	Generated tuples for 2-wise with cardinality 180	Cardinalita di partenza 1280	Cardinalita finale 568	size dopo controllo copribilita 167	
+real007.ctw	Generated tuples for 2-wise with cardinality 165	Cardinalita di partenza 800	Cardinalita finale 108	size dopo controllo copribilita 132	
+real008.ctw	Generated tuples for 2-wise with cardinality 304	Cardinalita di partenza 6912	Cardinalita finale 6912	size dopo controllo copribilita 304	
+real009.ctw	Generated tuples for 2-wise with cardinality 180	Cardinalita di partenza 1280	Cardinalita finale 630	size dopo controllo copribilita 172	
+real011.ctw	Generated tuples for 2-wise with cardinality 594	Cardinalita di partenza 230400	Cardinalita finale 26100	size dopo controllo copribilita 581	
+real012.ctw	Generated tuples for 2-wise with cardinality 412	Cardinalita di partenza 27648	Cardinalita finale 27648	size dopo controllo copribilita 412	
+real020.ctw	Generated tuples for 2-wise with cardinality 2309	Cardinalita di partenza 1.88117e+10	Cardinalita finale 1.41088e+10	size dopo controllo copribilita 2308	
+real021.ctw	Generated tuples for 2-wise with cardinality 2699	Cardinalita di partenza 3.13528e+10	Cardinalita finale 4.2566e+09	size dopo controllo copribilita 2634	
+real022.ctw	Generated tuples for 2-wise with cardinality 3468	Cardinalita di partenza 5.17322e+11	Cardinalita finale 3.76273e+10	size dopo controllo copribilita 3323	
+real023.ctw	real023.ctw	 error:relational expression are not supported
+real024.ctw	Generated tuples for 2-wise with cardinality 295	Cardinalita di partenza 5760	Cardinalita finale 3672	size dopo controllo copribilita 289	
+real025.ctw	Generated tuples for 2-wise with cardinality 2845	Cardinalita di partenza 5.64351e+10	Cardinalita finale 6.10943e+09	size dopo controllo copribilita 2771	
+real026.ctw	Generated tuples for 2-wise with cardinality 825	Cardinalita di partenza 1.08864e+06	Cardinalita finale 596160	size dopo controllo copribilita 805	
+real027.ctw	Generated tuples for 2-wise with cardinality 2917	Cardinalita di partenza 7.83821e+10	Cardinalita finale 2.04235e+09	size dopo controllo copribilita 2805	
+real030.ctw	Generated tuples for 2-wise with cardinality 464	Cardinalita di partenza 4096	Cardinalita finale 4096	size dopo controllo copribilita 464	
+real031.ctw	Generated tuples for 2-wise with cardinality 165	Cardinalita di partenza 1152	Cardinalita finale 672	size dopo controllo copribilita 158	
+real033.ctw	Generated tuples for 2-wise with cardinality 715	Cardinalita di partenza 186624	Cardinalita finale 139968	size dopo controllo copribilita 706	
+real034.ctw	Generated tuples for 2-wise with cardinality 693	Cardinalita di partenza 291600	Cardinalita finale 33828	size dopo controllo copribilita 632	
+real035.ctw	Generated tuples for 2-wise with cardinality 16	Cardinalita di partenza 16	Cardinalita finale 13	size dopo controllo copribilita 13	
+real036.ctw	real036.ctw	 error:equalExpression : OS1 NE OS2 not supported!
+real037.ctw	Generated tuples for 2-wise with cardinality 366	Cardinalita di partenza 19440	Cardinalita finale 19440	size dopo controllo copribilita 366	
+real038.ctw	Generated tuples for 2-wise with cardinality 84	Cardinalita di partenza 128	Cardinalita finale 80	size dopo controllo copribilita 82	
+real039.ctw	Generated tuples for 2-wise with cardinality 5508	Cardinalita di partenza 2.22903e+15	Cardinalita finale 2.41934e+08	size dopo controllo copribilita 5145	
+real201.ctw	Generated tuples for 2-wise with cardinality 49	Cardinalita di partenza 49	Cardinalita finale 49	size dopo controllo copribilita 49	

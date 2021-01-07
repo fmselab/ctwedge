@@ -18,10 +18,10 @@ Bool:
 	name=ID ':' 'Boolean';
 	
 Enumerative:
-	name=ID (':' '{' (elements+=Element)+ '}'); // elements in the enumerative
+	name=ID (':' '{' elements+=Element (','? elements+=Element)* '}'); // elements in the enumerative
 
 Element:
-	name=elementID ','?;
+	name=elementID;
 
 Range:
 	name=ID ':' '[' begin=PossiblySignedNumber '..' end=PossiblySignedNumber ']' ('step' step=INT)?; //range of value of a constant

@@ -127,6 +127,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator{
 	
 	// IMPORTER METHODS
 	
+	@Override
 	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints) {
 		String res = "";
 		long t_end = 0;

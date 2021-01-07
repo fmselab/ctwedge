@@ -42,10 +42,11 @@ public class CTWedgeLaunchShortcut implements ILaunchShortcut {
 	 * org.eclipse.debug.ui.ILaunchShortcut#launch(org.eclipse.ui.IEditorPart,
 	 * java.lang.String)
 	 */
+	@Override
 	public void launch(IEditorPart editor, String mode) {
 		System.out.println("Launch from editor");
 		IEditorInput input = editor.getEditorInput();
-		IFile file = (IFile) input.getAdapter(IFile.class);
+		IFile file = input.getAdapter(IFile.class);
 		if (file != null) {
 			findAndLaunch(mode, file);
 		}
@@ -104,7 +105,7 @@ public class CTWedgeLaunchShortcut implements ILaunchShortcut {
 			int candidateCount = configurations.length;
 			ILaunchConfiguration configuration = null;
 			if (candidateCount == 1) {
-				configuration = (ILaunchConfiguration) configurations[0];
+				configuration = configurations[0];
 			} else if (candidateCount > 1) {
 				configuration = chooseConfiguration(Arrays.asList(configurations));
 

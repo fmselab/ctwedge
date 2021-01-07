@@ -1,0 +1,8 @@
+Model real035
+
+Parameters: 
+a : { 1, 0, 1, 2};
+b : { 1, 0, 1, 2};
+
+Constraints: 
+# a=1 => b=0 #

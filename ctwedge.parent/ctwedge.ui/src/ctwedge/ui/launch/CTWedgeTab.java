@@ -42,6 +42,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 	 * org.eclipse.debug.ui.ILaunchConfigurationTab#createControl(org.eclipse.swt.
 	 * widgets.Composite)
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		//Font font = parent.getFont();
 
@@ -170,6 +171,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 	 * org.eclipse.debug.ui.ILaunchConfigurationTab#setDefaults(org.eclipse.debug.
 	 * core.ILaunchConfigurationWorkingCopy)
 	 */
+	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 		System.out.println("Setting defaults...");
 		configuration.setAttribute(STRENGTH, 2);
@@ -184,6 +186,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 	 * org.eclipse.debug.ui.ILaunchConfigurationTab#initializeFrom(org.eclipse.debug
 	 * .core.ILaunchConfiguration)
 	 */
+	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		// String program = null;
 		// program = "CTWedge"; //
@@ -208,6 +211,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 	 * org.eclipse.debug.ui.ILaunchConfigurationTab#performApply(org.eclipse.debug.
 	 * core.ILaunchConfigurationWorkingCopy)
 	 */
+	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		// String program = fProgramText.getText().trim();
 		// if (program.length() == 0) {
@@ -242,6 +246,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 	 * 
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
 	 */
+	@Override
 	public String getName() {
 		return "CTWedge";
 	}
@@ -253,6 +258,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 	 * org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(org.eclipse.debug.core.
 	 * ILaunchConfiguration)
 	 */
+	@Override
 	public boolean isValid(ILaunchConfiguration launchConfig) {
 		// setErrorMessage(null);
 		// setMessage(null);
@@ -280,6 +286,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 	 * 
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getImage()
 	 */
+	@Override
 	public Image getImage() {
 		return null; // return
 						// DebugUIPlugin.getDefault().getImageRegistry().get(DebugUIPlugin.IMG_OBJ_PDA);

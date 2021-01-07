@@ -1,0 +1,11 @@
+Model model_66
+
+Parameters:
+A0: { V0,V1 }
+A1: { V0,V1 }
+A2: { V0,V1 }
+A3: { V0,V1 }
+A4: { V0,V1,V2,V3 }
+A5: { T,F }
+
+//Constraints:

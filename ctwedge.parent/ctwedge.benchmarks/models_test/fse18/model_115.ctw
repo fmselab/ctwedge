@@ -1,0 +1,15 @@
+Model model_115
+
+Parameters:
+A0: { V0,V1,V2,V3 }
+A1: { V0,V1 }
+A2: { V0,V1,V2,V3 }
+A3: { V0,V1,V2 }
+A4: { V0,V1,V2 }
+A5: { V0,V1 }
+A6: { V0 }
+A7: { V0 }
+A8: { V0,V1 }
+A9: { V0,V1 }
+
+// Constraints:

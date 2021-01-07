@@ -1,0 +1,15 @@
+Model real005
+
+Parameters: 
+BLDS : { SP, 2195, SP, WinXP};
+SKUS : { Svr, Ads, DTC, WP};
+LNGS : { EN, DE};
+BLDC : { SP, 2195, SP, WinXP};
+SKUC : { Pro, Svr, Ads, DTC, WP};
+LNGC : { EN, DE};
+
+Constraints: 
+# LNGS!=EN => SKUS!=WP #
+# LNGC!=EN => SKUC!=WP #
+# (BLDS!=WinXP AND BLDS!=2195) OR BLDC!=WinXP #
+# (BLDS=WinXP OR BLDS=2195) => BLDC!=2195 #

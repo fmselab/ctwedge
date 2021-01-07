@@ -46,6 +46,7 @@ public class CASATranslator extends ICTWedgeTestGenerator{
 		if (path!=null) this.path = path;
 	}
 
+	@Override
 	public TestSuite getTestSuite(CitModel citModel, int nWise, boolean ignoreConstraints) throws Exception {
 		// 1. MODEL
 		// convert to temporary file

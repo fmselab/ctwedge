@@ -1,0 +1,79 @@
+Model real039
+
+Parameters: 
+RowID : { IsLabel, IsNotLabel};
+RowLabel : { Empty, NotEmpty};
+RowType : { Text, Detail, DetailAndSummary, Summary, Calc, SubTotal};
+RowDimension : { NewDimension, OldDimension, NAP};
+RowMember : { OneMember, MemberSet, NAP};
+SubTotalOfText1 : { Yes, No};
+SubtotalOfDetail1 : { Yes, No};
+SubtotalOfDetailAndSummary1 : { Yes, No};
+SubtotalOfSummary1 : { Yes, No};
+SubtotalOfSubtotal1 : { Yes, No};
+SubtotalOfCalc1 : { Yes, No};
+CalcOperator1 : { Add, Sub, NAP};
+CalcOperand1 : { Member, MemberSet, Row, Number, Expression, NAP};
+RowDimensionProperties : { Zero, One, Two, Multiple};
+ColumnHeader : { Empty, NotEmptyDimension};
+Properties : { Zero, One, Two, Multiple};
+ColumnIncludeScenario : { Yes, No};
+ScenarioMember : { Member, MemberSet, Calc, NAP};
+ScenarioCalcOperator1 : { Add, Sub, NAP};
+ScenarioCalcOperand1 : { Member, MemberSet, Number, Expression, NAP};
+ColumnIncludeTime : { Yes, No};
+TimeMember : { StaticTime, Calc, NAP};
+TimeCalcOperator1 : { Add, Sub, NAP};
+TimeCalcOperand1 : { StaticTime, DTCY, DTCM, DTCYlagM, DTCYMlead, DTCYleadCMlag, Number, Expression, NAP};
+ColumnIncludeOneMoreDimension : { Yes, No};
+OneMoreDimensionMember : { Member, MemberSet, Calc, NAP};
+OneMoreDimensionCalcOperator1 : { Add, Sub, NAP};
+OneMoreDimensionCalcOperand1 : { Member, MemberSet, Number, Expression, NAP};
+ColumnIncludeTwoMoreDimensions : { Yes, No};
+TwoMoreDimensionMember : { Member, MemberSet, Calc, NAP};
+TwoMoreDimensionCalcOperator1 : { Add, Sub, NAP};
+TwoMoreDimensionCalcOperand1 : { Member, MemberSet, Number, Expression, NAP};
+DefaultTime : { Time};
+
+
+
+
+
+
+Constraints: 
+# RowType=Detail => (RowDimension!=NAP AND (RowMember!=NAP AND ((SubTotalOfText1=No AND (SubtotalOfDetail1=No AND (SubtotalOfDetailAndSummary1=No AND (SubtotalOfSummary1=No AND (SubtotalOfSubtotal1=No AND SubtotalOfCalc1=No))))) AND CalcOperator1=NAP))) #
+# RowType=DetailAndSummary => (RowDimension!=NAP AND (RowMember!=NAP AND ((SubTotalOfText1=No AND (SubtotalOfDetail1=No AND (SubtotalOfDetailAndSummary1=No AND (SubtotalOfSummary1=No AND (SubtotalOfSubtotal1=No AND SubtotalOfCalc1=No))))) AND CalcOperator1=NAP))) #
+# RowType=Summary => (RowDimension!=NAP AND (RowMember!=NAP AND ((SubTotalOfText1=No AND (SubtotalOfDetail1=No AND (SubtotalOfDetailAndSummary1=No AND (SubtotalOfSummary1=No AND (SubtotalOfSubtotal1=No AND SubtotalOfCalc1=No))))) AND CalcOperator1=NAP))) #
+# RowType=Text => (RowDimension=NAP AND (RowMember=NAP AND ((SubTotalOfText1=No AND (SubtotalOfDetail1=No AND (SubtotalOfDetailAndSummary1=No AND (SubtotalOfSummary1=No AND (SubtotalOfSubtotal1=No AND SubtotalOfCalc1=No))))) AND CalcOperator1=NAP))) #
+# RowType=SubTotal => (RowDimension=NAP AND (RowMember=NAP AND ((SubTotalOfText1=Yes OR (SubtotalOfDetail1=Yes OR (SubtotalOfDetailAndSummary1=Yes OR (SubtotalOfSummary1=Yes OR (SubtotalOfSubtotal1=Yes OR SubtotalOfCalc1=Yes))))) AND CalcOperator1=NAP))) #
+# RowType=Calc => (RowDimension=NAP AND (RowMember=NAP AND ((SubTotalOfText1=No AND (SubtotalOfDetail1=No AND (SubtotalOfDetailAndSummary1=No AND (SubtotalOfSummary1=No AND (SubtotalOfSubtotal1=No AND SubtotalOfCalc1=No))))) AND CalcOperator1!=NAP))) #
+# CalcOperator1=NAP => CalcOperand1=NAP #
+# CalcOperator1!=NAP => CalcOperand1!=NAP #
+# ColumnIncludeScenario=Yes => ScenarioMember!=NAP #
+# ColumnIncludeScenario=No => ScenarioMember=NAP #
+# (ScenarioMember=Member OR (ScenarioMember=MemberSet OR ScenarioMember=NAP)) => ScenarioCalcOperator1=NAP #
+# ScenarioMember=Calc => ScenarioCalcOperator1!=NAP #
+# ScenarioCalcOperator1=NAP => ScenarioCalcOperand1=NAP #
+# ScenarioCalcOperator1!=NAP => ScenarioCalcOperand1!=NAP #
+# ColumnIncludeTime=Yes => TimeMember!=NAP #
+# ColumnIncludeTime=Yes => TimeMember!=NAP #
+# ColumnIncludeTime=No => TimeMember=NAP #
+# (TimeMember=StaticTime OR TimeMember=NAP) => TimeCalcOperator1=NAP #
+# TimeMember=Calc => TimeCalcOperator1!=NAP #
+# TimeCalcOperator1=NAP => TimeCalcOperand1=NAP #
+# TimeCalcOperator1!=NAP => TimeCalcOperand1!=NAP #
+# ColumnIncludeOneMoreDimension=Yes => OneMoreDimensionMember!=NAP #
+# ColumnIncludeOneMoreDimension=Yes => OneMoreDimensionMember!=NAP #
+# ColumnIncludeOneMoreDimension=No => OneMoreDimensionMember=NAP #
+# (OneMoreDimensionMember=Member OR (OneMoreDimensionMember=MemberSet OR OneMoreDimensionMember=NAP)) => OneMoreDimensionCalcOperator1=NAP #
+# OneMoreDimensionMember=Calc => OneMoreDimensionCalcOperator1!=NAP #
+# OneMoreDimensionCalcOperator1=NAP => OneMoreDimensionCalcOperand1=NAP #
+# OneMoreDimensionCalcOperator1!=NAP => OneMoreDimensionCalcOperand1!=NAP #
+# ColumnIncludeOneMoreDimension=No => ColumnIncludeTwoMoreDimensions=No #
+# ColumnIncludeTwoMoreDimensions=Yes => TwoMoreDimensionMember!=NAP #
+# ColumnIncludeTwoMoreDimensions=Yes => TwoMoreDimensionMember!=NAP #
+# ColumnIncludeTwoMoreDimensions=No => TwoMoreDimensionMember=NAP #
+# (TwoMoreDimensionMember=Member OR (TwoMoreDimensionMember=MemberSet OR TwoMoreDimensionMember=NAP)) => TwoMoreDimensionCalcOperator1=NAP #
+# TwoMoreDimensionMember=Calc => TwoMoreDimensionCalcOperator1!=NAP #
+# TwoMoreDimensionCalcOperator1=NAP => TwoMoreDimensionCalcOperand1=NAP #
+# TwoMoreDimensionCalcOperator1!=NAP => TwoMoreDimensionCalcOperand1!=NAP #

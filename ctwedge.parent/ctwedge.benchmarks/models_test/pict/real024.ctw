@@ -1,0 +1,13 @@
+Model real024
+
+Parameters: 
+FileType : { CBPair, CB, projectitem, solutionitem};
+SecondFile : { None, SameType, DiffType};
+FileSELoc : { Prj, PrjFolder, Solution, SlnFolder, SubFolder};
+FileSccStatus : { NotUnderSccYet, Pending, CI, COS, COE, COSMe, COEMe, COSMeCOS};
+FileChange : { None, ChangeLoc, ChangeSer, ChangeBoth};
+FileDel : { None, DelSer, DelLoc};
+
+Constraints: 
+# (FileDel=DelLoc) => FileChange=None #
+# FileType=projectitem => (FileSELoc=Prj OR FileSELoc=PrjFolder) #

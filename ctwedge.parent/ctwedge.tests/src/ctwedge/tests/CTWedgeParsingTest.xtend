@@ -62,6 +62,14 @@ class CTWedgeParsingTest {
 	}
 
 	@Test
+	def void EnumWithEmpty() {
+		var result = parseHelper.parse('''Model Phone Parameters:  display : {16MC, 8MC, BW, }''')
+		Assert.assertNotNull(result)
+		var errors = result.eResource.errors
+		Assert.assertFalse(errors.isEmpty)
+	}
+
+	@Test
 	def void loadModelBoolean() {
 		loadModelBooleanConstraint("A = B")
 		loadModelBooleanConstraint("A == B")

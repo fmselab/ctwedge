@@ -1,26 +1,13 @@
 package ctwedge.benchmarks;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.Test;
 
-import com.google.inject.Injector;
-
-import ctwedge.CTWedgeStandaloneSetup;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.util.Utility;
-import de.uni_freiburg.informatik.ultimate.logic.Util;
 
 /**
  * Servlet implementation class for the benchmark table

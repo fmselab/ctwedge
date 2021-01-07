@@ -1,6 +1,5 @@
 package ctwedge.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +10,6 @@ import org.eclipse.xtext.xbase.lib.Pair;
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.CitModel;
-import ctwedge.ctWedge.EqualExpression;
-import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.Operators;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.util.IndexOutOfBoundException;

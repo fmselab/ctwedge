@@ -62,3 +62,6 @@ ctwedge.parent/ctwedge.generators/ctwedge.generator.medici/medici.exe.stackdump
 ctwedge.parent/ctwedge.generators/ctwedge.generator.medici/model.txt
 *.stackdump
 /ctwedge.parent/ctwedge.generators/ctwedge.generator.medici/*.stackdump
+
+
+.DS_Store

@@ -63,7 +63,7 @@ for i = 1:size(mean_test,2)
     mean_mean_test = [mean_mean_test, mean(mean_test(:,i), 'omitnan')];
 end  
 
-mean_mean_test = (mean_mean_test - 1) * -100;
+mean_mean_test = (mean_mean_test - 1) * 100;
 
 %%  Calcolo migliori gen. per tempo di esecuzione
 
@@ -89,7 +89,7 @@ for iter = 1:size(time_only, 1)
 end
 
 sum_best_time = [];
-for i = 1:size(best_test,2)
+for i = 1:size(best_time,2)
     sum_best_time = [sum_best_time, sum(best_time(:,i))];
 end    
 
@@ -112,7 +112,7 @@ for i = 1:size(mean_time,2)
     mean_mean_time = [mean_mean_time, mean(mean_time(:,i), 'omitnan')];
 end  
 
-mean_mean_time = (mean_mean_time - 1) * -100;
+mean_mean_time = (mean_mean_time - 1) * 100;
 
 %% Numero timeout e errori
 timeouts = [];
@@ -160,17 +160,16 @@ legend({'time','#tests'},'Location','northeast')
 title('Difference from mean values [%]')
 
 
+figure
+sum_matrix = [sum_best_time; sum_best_test]';
+bar(X, sum_matrix)
+ylabel('Number of times better than others'); 
+xlabel('Generators');
+legend({'time','#tests'},'Location','northeast')
+title('Number of victories')
+
+
 complexity = readtable('complexity.csv');
-for i = 1:size(gen_names,2) 
-    figure
-    temp = strrep(table2array(time_only(:,i)),'timeout', timeout_ms);
-    time_array = str2double(temp);
-    compl_array = table2array(complexity(:,3));
-    scatter(compl_array(:,1), time_array(:,1));
-    title(gen_names(:,i));
-    xlabel('Complexity');
-    ylabel('Generation time [ms]');
-end
 
 XXXX = 1:size(complexity,1);
 for i = 1:size(gen_names,2) 
@@ -179,27 +178,85 @@ for i = 1:size(gen_names,2)
     time_array = str2double(temp);
     time_array = sort(time_array);
     scatter(XXXX, time_array(:,1));
+    set(gca, 'YScale', 'log')
     title(gen_names(:,i));
     xlabel('Model');
     ylabel('Generation time [ms]');
+    xlim([0, size(complexity,1)])
 end
 
 figure
-scatter(XXXX, sort(table2array(complexity(:,2))));
-hold on
-scatter(XXXX, sort(table2array(complexity(:,3))));
 title("Models complexity");
+subplot(2,1,1);
+scatter(XXXX, sort(table2array(complexity(:,2))), 'r');
 xlabel('Model');
-ylabel('Complexity');
-legend({'# of parameters','# of constraints'},'Location','northeast');
+ylabel('# of parameters');
+%legend({'# of parameters'},'Location','northeast');
+subplot(2,1,2);
+scatter(XXXX, sort(table2array(complexity(:,3))));
+xlabel('Model');
+ylabel('# of constraints');
+%legend({'# of constraints'},'Location','northeast');
+sgtitle('Number of parameters and constraints')
 
 param_and_const = table2array(complexity(:,2:3));
 [~,pt] = sort(sum(param_and_const,2));
 param_and_const = param_and_const(pt,:);
 figure
-bar(XXXX, param_and_const, 'stacked');
-%title("Models complexity");
-xlabel('Model');
-ylabel('Complexity');
+barh(XXXX, param_and_const, 'stacked');
+title("Models complexity");
+ylabel('Model');
+xlabel('Complexity');
 legend({'# of parameters','# of constraints'},'Location','northeast');
 
+
+
+for i = 1:size(gen_names,2) 
+    figure
+    temp = strrep(table2array(time_only(:,i)),'timeout', timeout_ms);
+    time_array = str2double(temp);
+    compl_array = table2array(complexity(:,3));
+    scatter(compl_array(:,1), time_array(:,1));
+    set(gca, 'YScale', 'log')
+    title(gen_names(:,i));
+    xlabel('Complexity');
+    ylabel('Generation time [ms]');
+    xlim([0, max(sum(param_and_const,2))])
+end
+
+cc = readtable('data.txt');
+compl2 = [];
+for iter = 1:size(cc, 1)
+   row = cc(iter,4);
+   array = table2array(row);
+   compl2 = [compl2; array];
+end
+for i = 1:size(gen_names,2) 
+    figure
+    temp = strrep(table2array(time_only(:,i)),'timeout', timeout_ms);
+    time_array = str2double(temp);
+    scatter(compl2, time_array(:,1));
+    title(gen_names(:,i));
+    xlabel('Size');
+    ylabel('Generation time [ms]');
+    set(gca, 'XScale', 'log') 
+    set(gca, 'YScale', 'log')
+end
+
+figure
+scatter(XXXX, sort(table2array(complexity(:,3))), 'r');
+title("Models size");
+xlabel('Model');
+ylabel('Size');
+set(gca, 'YScale', 'log')
+
+%%
+
+figure
+subplot(1,2,1);
+boxplot((1.-mean_test).*-100, X)
+title('Difference from mean TEST [%]')
+
+subplot(1,2,2);
+boxplot((1.-mean_time).*-100, X)
+title('Difference from mean TIME [%]')

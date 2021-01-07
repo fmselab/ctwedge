@@ -1,0 +1,15 @@
+Model real012
+
+Parameters: 
+CPU : { Pent, PentPro, PII, PIII, P4, IA64};
+CPUS : { Single, Dual, Quad};
+RAM : { 16MB, 32MB, 64MB, 128MB, 256MB, 512MB};
+OS : { Win98, NT4, Win2K, WinXP};
+IE : { 40, 50, 55, 60};
+SP : { 1, 2, 3, 4};
+DISK : { SCSI, IDE};
+DUALMON : { yes, no};
+
+
+
+//Constraints: 

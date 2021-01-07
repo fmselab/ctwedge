@@ -20,14 +20,13 @@ import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.util.Utility;
-import ctwedge.util.ext.ICTWedgeModelProcessor;
 
 // use medici to compute the data about the benchmarks
 public class BenchmarksDataRatio {
 
 	@Test
 	public void computeData() throws IOException {
-		Path path = Paths.get("../../ctwedge.benchmarks");
+		Path path = Paths.get("../../ctwedge.benchmarks/models_test");
 		assertTrue(Files.exists(path));
 		MediciCITGenerator gen = new MediciCITGenerator();
 		FileWriter fw = new FileWriter("data.txt");

@@ -23,7 +23,7 @@ import ctwedge.ui.utils.Constants;
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = Constants.packagaName; //$NON-NLS-1$
+	public static final String PLUGIN_ID = Constants.packagaName; 
 
 	// The shared instance
 	private static Activator plugin;
