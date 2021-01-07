@@ -35,6 +35,8 @@ import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 public class BenchmarkTest {
 	
+	private List<String> excludedGen = new ArrayList<String>();
+	
 	static boolean saveOutputToFile = true;
 	
 	static int timeout_sec = 90;
@@ -57,6 +59,9 @@ public class BenchmarkTest {
 	
 	@Test
 	public void bench_test() throws CoreException, ClassNotFoundException, InvalidRegistryObjectException {
+		//	Generatori da escludere
+		excludedGen.add("Medici");
+		excludedGen.add("CASA");
 		
 		//	Recupero le istanze delle classi dei generatori
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
@@ -68,15 +73,14 @@ public class BenchmarkTest {
 			for (IConfigurationElement e : ce) {
 					Object o = e.createExecutableExtension("GeneratorPrototype");
 					if(o instanceof ICTWedgeTestGenerator)
-						if (!((ICTWedgeTestGenerator)o).getGeneratorName().equals("Medici"))
-							if (!((ICTWedgeTestGenerator)o).getGeneratorName().equals("CASA"))
-								generators.add((ICTWedgeTestGenerator) o);
+						if (!excludedGen.contains(((ICTWedgeTestGenerator)o).getGeneratorName()))
+							generators.add((ICTWedgeTestGenerator) o);
 			}
 		}
 		
 		//	Prendo la lista di tutti i file presenti
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("models/"), fileList);
+		listFiles(new File("models_test/"), fileList);
 		
 		// Builder risultato
 		StringBuilder sb = new StringBuilder();
@@ -251,8 +255,6 @@ public class BenchmarkTest {
 		}
 		System.out.println(csv_sb.toString());
 	}
-	
-	
 	
 	public void listFiles(File folder, List<File> fileList) {
 		File[] listOfFiles = folder.listFiles();

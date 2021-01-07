@@ -5,8 +5,16 @@ import static org.junit.Assert.assertTrue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.junit.Test;
 import org.sosy_lab.common.configuration.InvalidConfigurationException;
@@ -15,7 +23,24 @@ import org.sosy_lab.java_smt.api.SolverException;
 import ctwedge.generator.pict.PICTGenerator;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
+import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.validator.SMTTestSuiteValidator;
+
+class GeneratorExec implements Callable<TestSuite> {
+	String model;
+	ICTWedgeTestGenerator generator;
+
+    public GeneratorExec(String model, ICTWedgeTestGenerator generator) {
+		super();
+		this.model = model;
+		this.generator = generator;
+	}
+
+	@Override
+    public TestSuite call() throws Exception {
+        return (generator.getTestSuite(Utility.loadModel(model), 2, false));
+    }
+}
 
 public class TestSuiteValidatorTest {
 
@@ -28,21 +53,21 @@ public class TestSuiteValidatorTest {
 		fin.close();
 		return sb.toString();
 	}
-	
+
 	@Test
 	public void simpleBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
 
 		TestSuite ts = null;
 
 		try {
-			String model = "Model Concurrency\r\n" + 
-						   "\r\n" + 
-						   "Parameters:\r\n" + 
-						   "p4: Boolean;\r\n" + 
+			String model = "Model Concurrency\r\n" +
+						   "\r\n" +
+						   "Parameters:\r\n" +
+						   "p4: Boolean;\r\n" +
 						   "p5: Boolean;\r\n" +
-						   "p2: Boolean;\r\n" + 
-						   "\r\n" + 
-						   "Constraints:\r\n" + 
+						   "p2: Boolean;\r\n" +
+						   "\r\n" +
+						   "Constraints:\r\n" +
 						   "	# p2!=true OR p5 #";
 			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
@@ -57,10 +82,10 @@ public class TestSuiteValidatorTest {
 		assertEquals(tsv.howManyTuplesCovers(), 11);
 		assertTrue(tsv.isValid());
 		assertTrue(tsv.isComplete());
-		
+
 		System.out.println("***** Now remove the first test from test suite! *****\n"
 				+ "The size should decrease and the test suite must be not complete");
-		
+
 		ts.getTests().remove(0);
 		tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 4);
@@ -68,16 +93,17 @@ public class TestSuiteValidatorTest {
 		assertEquals(tsv.howManyTuplesCovers(), 10);
 		assertTrue(tsv.isValid());
 		assertFalse(tsv.isComplete());
-		
+
 	}
-	
+
 	@Test
 	public void complexBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
 
 		TestSuite ts = null;
 
 		try {
-			String model = readFromFile(new File("models/SmartHome.ctw"));
+			Path path = Paths.get("../../ctwedge.benchmarks/models_test/ctwedge/SmartHome.ctw");
+			String model = readFromFile(path.toFile());
 			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 		} catch (Exception e) {
@@ -91,10 +117,10 @@ public class TestSuiteValidatorTest {
 		assertEquals(tsv.howManyTuplesCovers(), 1858);
 		assertTrue(tsv.isValid());
 		assertTrue(tsv.isComplete());
-		
+
 		System.out.println("***** Now remove the first test from test suite! *****\n"
 				+ "The size should decrease and the test suite must be not complete");
-		
+
 		ts.getTests().remove(0);
 		tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 13);
@@ -102,9 +128,9 @@ public class TestSuiteValidatorTest {
 		assertEquals(tsv.howManyTuplesCovers(), 1849);
 		assertTrue(tsv.isValid());
 		assertFalse(tsv.isComplete());
-		
+
 	}
-	
+
 	@Test
 	public void simpleRangeTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
 
@@ -132,10 +158,10 @@ public class TestSuiteValidatorTest {
 		assertEquals(tsv.howManyTuplesCovers(), 6);
 		assertTrue(tsv.isValid());
 		assertTrue(tsv.isComplete());
-		
+
 		System.out.println("***** Now remove the first test from test suite! *****\n"
 				+ "The size should decrease and the test suite must be not complete");
-		
+
 		ts.getTests().remove(0);
 		tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 5);
@@ -144,36 +170,36 @@ public class TestSuiteValidatorTest {
 		assertTrue(tsv.isValid());
 		assertFalse(tsv.isComplete());
 	}
-	
+
 	@Test
 	public void simpleEnumTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
-		
+
 		TestSuite ts = null;
-		
+
 		try {
-			String model = "Model Concurrency\r\n" + 
-					"\r\n" + 
-					"Parameters:\r\n" + 
-					"p1: { v1 v2 };\r\n" + 
-					"p2: { v1 v2 };\r\n" + 
-					"p3: { v1 v2 };\r\n" + 
-					"p4: Boolean;\r\n" + 
-					"p5: Boolean;\r\n" + 
-					"\r\n" + 
-					"Constraints:\r\n" + 
-					"	# ( p3!=v1 OR p2!=v1 OR p5 OR p4 OR p1!=v1) #\r\n" + 
-					"	# ( p1!=v2 OR p5!=true) #\r\n" + 
-					"	# ( p2!=v1 OR p5 OR p4!=true OR p3!=v2 OR p1!=v1) #\r\n" + 
-					"	# ( p5!=true OR p2!=v2) #\r\n" + 
-					"	# ( p4 OR p3!=v2 OR p1!=v1) #\r\n" + 
-					"	# ( p4!=true OR p1!=v2) #\r\n" + 
+			String model = "Model Concurrency\r\n" +
+					"\r\n" +
+					"Parameters:\r\n" +
+					"p1: { v1 v2 };\r\n" +
+					"p2: { v1 v2 };\r\n" +
+					"p3: { v1 v2 };\r\n" +
+					"p4: Boolean;\r\n" +
+					"p5: Boolean;\r\n" +
+					"\r\n" +
+					"Constraints:\r\n" +
+					"	# ( p3!=v1 OR p2!=v1 OR p5 OR p4 OR p1!=v1) #\r\n" +
+					"	# ( p1!=v2 OR p5!=true) #\r\n" +
+					"	# ( p2!=v1 OR p5 OR p4!=true OR p3!=v2 OR p1!=v1) #\r\n" +
+					"	# ( p5!=true OR p2!=v2) #\r\n" +
+					"	# ( p4 OR p3!=v2 OR p1!=v1) #\r\n" +
+					"	# ( p4!=true OR p1!=v2) #\r\n" +
 					"	# ( p3!=v1 OR p4!=true) #";
 			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
 		tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 6);
@@ -181,10 +207,10 @@ public class TestSuiteValidatorTest {
 		assertEquals(tsv.howManyTuplesCovers(), 36);
 		assertTrue(tsv.isValid());
 		assertTrue(tsv.isComplete());
-		
+
 		System.out.println("***** Now remove the first test from test suite! *****\n"
 				+ "The size should decrease and the test suite must be not complete");
-		
+
 		ts.getTests().remove(0);
 		ts.getTests().remove(0);
 		tsv.setTestSuite(ts);
@@ -194,14 +220,15 @@ public class TestSuiteValidatorTest {
 		assertTrue(tsv.isValid());
 		assertFalse(tsv.isComplete());
 	}
-	
+
 	@Test
 	public void fileTest() throws SolverException, InterruptedException, InvalidConfigurationException {
 
 		TestSuite ts = null;
 
 		try {
-			String model = readFromFile(new File("models/Storage3.ctw"));
+			Path path = Paths.get("../../ctwedge.benchmarks/models_test/ctwedge/Storage3.ctw");
+			String model = readFromFile(path.toFile());
 			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 		} catch (Exception e) {
@@ -209,30 +236,30 @@ public class TestSuiteValidatorTest {
 		}
 
 		// Define the validator
-		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();	
-		tsv.setTestSuite(ts);	
-		
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
+		tsv.setTestSuite(ts);
+
 		// Save the number of tests
 		int numTest = ts.getTests().size();
 		// Save the number of covered tuples
 		int covTuples = tsv.howManyTuplesCovers();
-		
+
 		// Check all the tests are valid
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
-		
+
 		// The test suite must be valid and complete
 		assertTrue(tsv.isValid());
 		assertTrue(tsv.isComplete());
-		
+
 		// Now remove tests until the covered tuples decreases
 		while (ts.getTests().size() > 0) {
 			ts.getTests().remove(0);
 			tsv.setTestSuite(ts);
-			
+
 			if (tsv.howManyTuplesCovers() < covTuples)
 				break;
 		}
-		
+
 		// If we still have tests
 		if (ts.getTests().size() > 0) {
 			// Check all the tests are valid
@@ -240,63 +267,90 @@ public class TestSuiteValidatorTest {
 			// The test suite must be valid but not complete
 			assertTrue(tsv.isValid());
 			assertFalse(tsv.isComplete());
-		}	
-		
+		}
+
 	}
-	
+
 	@Test
 	public void testFolder() {
-		PICTGenerator generator = new PICTGenerator();
+		ICTWedgeTestGenerator generator = new PICTGenerator();
 		List<File> fileList = new ArrayList<>();
-		new PictTest().listFiles(new File("models/"), fileList);
+		int nTest = 0;
+		int nComplete = 0;
+		int nValid = 0;
+		int nTimeOut = 0;
+		new PictTest().listFiles(new File("../../ctwedge.benchmarks/models_test/"), fileList);
 		for (File file : fileList) {
 			String model;
 			try {
-				
+
 				System.out.println("Checking " + file);
-				
+				nTest++;
+
 				TestSuite ts = null;
 				model = readFromFile(file);
-				
+
 				// Generate test suite
+
+				ExecutorService executor = Executors.newSingleThreadExecutor();
+				Future<TestSuite> ts_future = executor.submit(new GeneratorExec(model, generator));
+				TestSuite result = null;
+				try {
+					result = ts_future.get(150, TimeUnit.SECONDS);
+				} catch (TimeoutException ex) {
+					nTimeOut++;
+					continue;
+		        }
+
 				ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
-				
+
 				// Define the validator
 				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
 				tsv.setTestSuite(ts);
-				
+
 				// Save the number of tests
 				int numTest = ts.getTests().size();
 				// Save the number of covered tuples
 				int covTuples = tsv.howManyTuplesCovers();
-				
+
 				// Check all the tests are valid
-				assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
-				
+				// assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+
 				// The test suite must be valid and complete
-				assertTrue(tsv.isValid());
-				assertTrue(tsv.isComplete());
-				
+				if (tsv.isValid()) {
+					nValid++;
+					assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
+				}
+				if (tsv.isComplete())
+					nComplete++;
+
+				// assertTrue(tsv.isValid());
+				// assertTrue(tsv.isComplete());
+
 				// Now remove tests until the covered tuples decreases
 				while (ts.getTests().size() > 0) {
 					ts.getTests().remove(0);
 					tsv.setTestSuite(ts);
-					
+
 					if (tsv.howManyTuplesCovers() < covTuples)
 						break;
 				}
-				
+
 				// If we still have tests
-				if (ts.getTests().size() > 0) {
+				if (ts.getTests().size() > 0 && tsv.isValid()) {
 					// Check all the tests are valid
 					assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 					// The test suite must be valid but not complete
 					assertTrue(tsv.isValid());
-					assertFalse(tsv.isComplete());
-				}				
+					//assertFalse(tsv.isComplete());
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("Checked " + nTest + " test");
+		System.out.println(nValid + " valid test suites");
+		System.out.println(nComplete + " test suites");
+		System.out.println(nTimeOut + " test timed out");
 	}
 }

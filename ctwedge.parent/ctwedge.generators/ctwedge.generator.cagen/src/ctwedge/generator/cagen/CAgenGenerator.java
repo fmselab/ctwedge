@@ -80,7 +80,7 @@ public class CAgenGenerator extends ICTWedgeTranslTestGenerator{
 	private String runTool(File model, int nWise) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		List<String> command = new ArrayList<String>();
-		String cagenExecutable = path + "fipo-cli.exe";
+		String cagenExecutable = path + "/fipo-cli.exe";
 		command.add(cagenExecutable);
 		command.add("--instance");
 		command.add(model.getAbsolutePath().replace("\\", "/"));

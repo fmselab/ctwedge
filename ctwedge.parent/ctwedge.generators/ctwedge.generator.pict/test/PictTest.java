@@ -6,6 +6,8 @@ import ctwedge.util.TestSuite;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -54,7 +56,8 @@ public class PictTest {
 	public void testFolder() {
 		PICTGenerator generator = new PICTGenerator();
 		List<File> fileList = new ArrayList<>();
-		listFiles(new File("models/"), fileList);
+		Path path = Paths.get("../../ctwedge.benchmarks/models_test");
+		listFiles(path.toFile(), fileList);
 		for (File file : fileList) {
 			String model;
 			try {
