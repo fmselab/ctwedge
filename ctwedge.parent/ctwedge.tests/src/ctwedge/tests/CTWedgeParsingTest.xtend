@@ -76,10 +76,23 @@ class CTWedgeParsingTest {
 	}
 
 	@Test
+	def void EnumWithBoolean() {
+		var result = parseHelper.parse('''Model Phone Parameters:  display : {TRUE, FALSE}''')
+		Assert.assertNotNull(result)
+		var errors = result.eResource.errors
+		Assert.assertFalse(errors.isEmpty)
+		println(result.parameters.get(0))
+		Assert.assertEquals(2, (result.parameters.get(0) as Enumerative).elements.size);
+	}
+
+
+	@Test
 	def void loadModelBoolean() {
 		loadModelBooleanConstraint("A = B")
 		loadModelBooleanConstraint("A == B")
 		loadModelBooleanConstraint("A <=> B")
+		loadModelBooleanConstraint("A = TRUE")
+		loadModelBooleanConstraint("A=TRUE")
 	}
 
 	def void loadModelBooleanConstraint(String s){
