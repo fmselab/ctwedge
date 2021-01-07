@@ -82,7 +82,7 @@ class CTWedgeParsingTest {
 		var errors = result.eResource.errors
 		Assert.assertFalse(errors.isEmpty)
 		println(result.parameters.get(0))
-		Assert.assertEquals(2, (result.parameters.get(0) as Enumerative).elements.size);
+		Assert.assertEquals(3, (result.parameters.get(0) as Enumerative).elements.size);
 	}
 
 

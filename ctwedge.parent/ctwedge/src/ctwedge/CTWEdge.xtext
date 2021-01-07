@@ -15,7 +15,7 @@ Parameter:
 	(Bool | Enumerative | Range) ';'?;
 
 Bool:
-	name=ID ':' 'Boolean';
+	name=ID ':' ('Boolean' | '{' 'TRUE' ','? 'FALSE' '}' | '{' 'FALSE' ','? 'TRUE' '}' | '{' 'true' ','? 'false' '}' | '{' 'false' ','? 'true' '}');
 	
 Enumerative:
 	name=ID (':' '{' elements+=Element (','? elements+=Element)* '}'); // elements in the enumerative
