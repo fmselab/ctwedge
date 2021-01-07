@@ -43,7 +43,7 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 		wf.close();
 		// run the tool
 		List<String> command = new ArrayList<String>();
-		String mediciExecutable = path + "medici.exe";
+		String mediciExecutable = path + "/medici.exe";
 		command.add(mediciExecutable);
 		// output}
 		File tempoutput = File.createTempFile("medici_output" + loadModel.getName(), ".txt");

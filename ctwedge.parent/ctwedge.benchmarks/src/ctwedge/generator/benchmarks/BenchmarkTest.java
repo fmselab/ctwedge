@@ -258,8 +258,6 @@ public class BenchmarkTest {
 		System.out.println(csv_sb.toString());
 	}
 	
-	
-	
 	public void listFiles(File folder, List<File> fileList) {
 		File[] listOfFiles = folder.listFiles();
 		for (int i = 0; i < listOfFiles.length; i++) {

@@ -1,8 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>ctwedge</groupId>
+  <parent>
+		<groupId>ctwedge</groupId>
+		<artifactId>ctwedge.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
   <artifactId>ctwedge.generator.cagen</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>  
+  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
@@ -17,4 +22,22 @@
       </plugin>
     </plugins>
   </build>
+  
+  <dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ctwedge</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ctwedge.util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>
