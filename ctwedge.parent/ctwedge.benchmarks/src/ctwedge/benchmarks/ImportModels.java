@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 
 import org.junit.Test;
 
@@ -28,7 +29,7 @@ public class ImportModels {
 				//System.out.println("File " + listOfFiles[i].getName());
 				try {
 					name = name.replace("_2way.model", "");
-					model = readFromFile(listOfFiles[i]) + readFromFile(new File(folder+name+".constraints"));
+					model = Files.readString(listOfFiles[i].toPath()) + Files.readString(new File(folder+name+".constraints").toPath());
 					//model = CitLabImporter.importFromCitlab(model);
 					model = CASAImporter.instance.importFromCASA(name, model);
 					OUTPUT_FOLDER = "models/EMSE10/";
@@ -36,7 +37,7 @@ public class ImportModels {
 			} else if (listOfFiles[i].isFile() && listOfFiles[i].getName().endsWith(".model")) {
 				try {
 					name = name.replace(".model", "");
-					model = readFromFile(listOfFiles[i]) + readFromFile(new File(folder+name+".constraints"));
+					model = Files.readString(listOfFiles[i].toPath()) + Files.readString(new File(folder+name+".constraints").toPath());
 					//model = CitLabImporter.importFromCitlab(model);
 					model = CASAImporter.instance.importFromCASA(name, model);
 					OUTPUT_FOLDER = "models/Petke/";
@@ -49,15 +50,6 @@ public class ImportModels {
 		}
 	}
 	
-	
-	public static String readFromFile(File f) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		BufferedReader fin = new BufferedReader(new FileReader(f));
-		String s="";
-		while ((s=fin.readLine())!=null) sb.append(s+"\n");
-		fin.close();
-		return sb.toString();
-	}
 	
 	public static void writeToFile(String filename, String content) throws Exception {
 		PrintWriter fout = new PrintWriter(new FileWriter(filename));

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -44,15 +45,6 @@ class GeneratorExec implements Callable<TestSuite> {
 
 public class TestSuiteValidatorTest {
 
-	public static String readFromFile(File f) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		BufferedReader fin = new BufferedReader(new FileReader(f));
-		String s = "";
-		while ((s = fin.readLine()) != null)
-			sb.append(s + "\n");
-		fin.close();
-		return sb.toString();
-	}
 
 	@Test
 	public void simpleBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
@@ -103,9 +95,8 @@ public class TestSuiteValidatorTest {
 
 		try {
 			Path path = Paths.get("../../ctwedge.benchmarks/models_test/ctwedge/SmartHome.ctw");
-			String model = readFromFile(path.toFile());
 			PICTGenerator generator = new PICTGenerator();
-			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
+			ts = generator.getTestSuite(Utility.loadModelFromPath(path.toString()), 2, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -228,9 +219,8 @@ public class TestSuiteValidatorTest {
 
 		try {
 			Path path = Paths.get("../../ctwedge.benchmarks/models_test/ctwedge/Storage3.ctw");
-			String model = readFromFile(path.toFile());
 			PICTGenerator generator = new PICTGenerator();
-			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
+			ts = generator.getTestSuite(Utility.loadModelFromPath(path.toString()), 2, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -288,7 +278,7 @@ public class TestSuiteValidatorTest {
 				nTest++;
 
 				TestSuite ts = null;
-				model = readFromFile(file);
+				model = Files.readString(file.toPath());
 
 				// Generate test suite
 

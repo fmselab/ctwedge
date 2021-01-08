@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -82,7 +83,7 @@ public class CASATranslatorTest {
 			System.out.println("*************************************** " + file.getName());
 			String model;
 			try {
-				model = readFromFile(file);
+				model = Files.readString(file.toPath());
 				ExecutorService executor = Executors.newSingleThreadExecutor();
 				Future<TestSuite> ts_future = executor.submit(new GeneratorExec(model, generator));
 				TestSuite result = null;
@@ -150,13 +151,4 @@ public class CASATranslatorTest {
 		}
 	}
 	
-	public static String readFromFile(File f) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		BufferedReader fin = new BufferedReader(new FileReader(f));
-		String s = "";
-		while ((s = fin.readLine()) != null)
-			sb.append(s + "\n");
-		fin.close();
-		return sb.toString();
-	}
 }

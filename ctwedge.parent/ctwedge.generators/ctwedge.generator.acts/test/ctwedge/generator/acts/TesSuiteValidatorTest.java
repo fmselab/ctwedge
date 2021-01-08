@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.sosy_lab.common.configuration.InvalidConfigurationException;
@@ -46,15 +49,6 @@ class GeneratorExec implements Callable<TestSuite> {
 
 public class TesSuiteValidatorTest {
 
-	public static String readFromFile(File f) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		BufferedReader fin = new BufferedReader(new FileReader(f));
-		String s = "";
-		while ((s = fin.readLine()) != null)
-			sb.append(s + "\n");
-		fin.close();
-		return sb.toString();
-	}
 	
 	public void listFiles(File folder, List<File> fileList) {
 		File[] listOfFiles = folder.listFiles();
@@ -74,7 +68,7 @@ public class TesSuiteValidatorTest {
 
 		try {
 			Path path = Paths.get("..\\..\\ctwedge.benchmarks\\models_test\\fse18\\model_98.ctw");
-			String model = readFromFile(path.toFile());
+			String model = Files.readString(path);
 			ICTWedgeTestGenerator generator = new ACTSTranslator();
 			ExecutorService executor = Executors.newSingleThreadExecutor();
 			Future<TestSuite> ts_future = executor.submit(new GeneratorExec(model, generator));
@@ -128,15 +122,18 @@ public class TesSuiteValidatorTest {
 	}
 	
 	@Test
-	public void testFolder() {
+	public void testFolder() throws IOException {
 		ICTWedgeTestGenerator generator = new ACTSTranslator();
-		List<File> fileList = new ArrayList<>();
 		int nTest = 0;
 		int nComplete = 0;
 		int nValid = 0;
 		int nTimeOut = 0;
 		StringBuilder sb = new StringBuilder();
-		listFiles(new File("../../ctwedge.benchmarks/models_test/"), fileList);
+		List<File> fileList = Files.walk(Paths.get("../../ctwedge.benchmarks/models_test/"))
+                .filter(Files::isRegularFile)
+                .map(Path::toFile)
+                .filter(x -> x.getName().endsWith(".ctw"))
+                .collect(Collectors.toList());
 		for (File file : fileList) {
 			String model;
 			try {
@@ -145,7 +142,7 @@ public class TesSuiteValidatorTest {
 				nTest++;
 				
 				TestSuite ts = null;
-				model = readFromFile(file);
+				model = Files.readString(file.toPath());
 				
 				// Generate test suite				
 				ExecutorService executor = Executors.newSingleThreadExecutor();

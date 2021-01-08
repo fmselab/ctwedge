@@ -1,10 +1,16 @@
 package ctwedge.generator.benchmarks;
 
+import static org.junit.Assert.fail;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +21,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -58,7 +65,7 @@ public class BenchmarkTest {
     }
 	
 	@Test
-	public void bench_test() throws CoreException, ClassNotFoundException, InvalidRegistryObjectException {
+	public void bench_test() throws CoreException, ClassNotFoundException, InvalidRegistryObjectException, IOException {
 		//	Generatori da escludere
 		excludedGen.add("Medici");
 		excludedGen.add("CASA");
@@ -79,13 +86,15 @@ public class BenchmarkTest {
 		}
 		
 		//	Prendo la lista di tutti i file presenti
-		List<File> fileList = new ArrayList<>();
-		listFiles(new File("models_test/"), fileList);
+		List<File> fileList = Files.walk(Paths.get("models_test/"))
+                .filter(Files::isRegularFile)
+                .map(Path::toFile)
+                .filter(x -> x.getName().endsWith(".ctw"))
+                .collect(Collectors.toList());
 		
 		// Builder risultato
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sb_csv = new StringBuilder();
-		
 		//	Descrizione benchmark
 		sb.append("Data benchmark: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()) + "\n");
 		sb.append("Generator list:\n");
@@ -108,7 +117,7 @@ public class BenchmarkTest {
 				boolean error_detected = true;
 				try {
 					sb.append("\t" + gen.getClass().getSimpleName() + "\n");
-					model = readFromFile(file);
+					model = Files.readString(file.toPath());
 					ExecutorService executor = Executors.newSingleThreadExecutor();
 					Future<TestSuite> ts_future = executor.submit(new GeneratorExec(model, gen));
 					TestSuite result = null;
@@ -191,9 +200,11 @@ public class BenchmarkTest {
 	
 	@Test
 	public void calculateComplexity() throws Exception {
-		List<File> fileList = new ArrayList<>();
-		//listFiles(new File("new_models/"), fileList);
-		listFiles(new File("models_test/"), fileList);
+		List<File> fileList = Files.walk(Paths.get("models_test/"))
+                .filter(Files::isRegularFile)
+                .map(Path::toFile)
+                .filter(x -> x.getName().endsWith(".ctw"))
+                .collect(Collectors.toList());
 		StringBuilder csv_sb = new StringBuilder();
 		csv_sb.append("Model name;Parameter;Constraint\n");
 		for (File file : fileList) {
@@ -203,7 +214,7 @@ public class BenchmarkTest {
 			int or = 0;
 			int implies = 0;
 			int not = 0;
-			String model = readFromFile(file);
+			String model = Files.readString(file.toPath());
 			CitModel citModel = Utility.loadModel(model);
 			for (Parameter p : citModel.getParameters()) {
 				if (p instanceof EnumerativeImpl)
@@ -254,29 +265,5 @@ public class BenchmarkTest {
 			fin.close();
 		}
 		System.out.println(csv_sb.toString());
-	}
-	
-	public void listFiles(File folder, List<File> fileList) {
-		File[] listOfFiles = folder.listFiles();
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()	&& (listOfFiles[i].getName().endsWith(".citw") || listOfFiles[i].getName().endsWith(".ctw"))) {
-				fileList.add(listOfFiles[i]);
-			} else if (listOfFiles[i].isDirectory()) {
-				listFiles(listOfFiles[i], fileList);
-			}
-		}
-	}
-	
-	public static String readFromFile(File f) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		BufferedReader fin = new BufferedReader(new FileReader(f));
-		String s = "";
-		while ((s = fin.readLine()) != null)
-			sb.append(s + "\n");
-		fin.close();
-		return sb.toString();
-	}
-	
-
-
+	}	
 }

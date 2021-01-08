@@ -3,6 +3,7 @@ package ctwedge.generator.cagen;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class CAgenTest {
 		for (File file : fileList) {
 			String model;
 			try {
-				model = readFromFile(file);
+				model = Files.readString(file.toPath());
 				if (generator.getTestSuite(Utility.loadModel(model), 2, false) == null) {
 					errors++;
 					error_files += file.getName() + "\n";
@@ -74,14 +75,4 @@ public class CAgenTest {
 		}
 	}
 	
-	public static String readFromFile(File f) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		BufferedReader fin = new BufferedReader(new FileReader(f));
-		String s = "";
-		while ((s = fin.readLine()) != null)
-			sb.append(s + "\n");
-		fin.close();
-		return sb.toString();
-	}
-
 }
