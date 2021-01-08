@@ -17,13 +17,16 @@ public class BenchmarkModelsAnalyzer {
 		extracted(BooleanOnlyParameters.eInstance);
 		extracted(FobiddenTuples.eInstance);
 		extracted(UseRelationalOperators.eInstance);
-		extracted( new CTWedgeModelAnalyzer(){
+		extracted(new CTWedgeModelAnalyzer(){
 
 			@Override
 			public boolean process(CitModel model) {
 				// TODO Auto-generated method stub
 				return true;
 			}});
+		extracted(AlsoEnumerativeParameters.eInstance);
+		extracted(AlsoIntegerParameters.eInstance);
+		extracted(AllTheSameCardinality.eInstance);
 	}
 
 	private static void extracted(CTWedgeModelAnalyzer eInstance) throws IOException {
