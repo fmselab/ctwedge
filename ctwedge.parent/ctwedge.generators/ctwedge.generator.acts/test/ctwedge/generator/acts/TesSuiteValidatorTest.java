@@ -73,7 +73,7 @@ public class TesSuiteValidatorTest {
 		TestSuite ts = null;
 
 		try {
-			Path path = Paths.get("..\\..\\ctwedge.benchmarks\\models_test\\pict\\real034.ctw");
+			Path path = Paths.get("..\\..\\ctwedge.benchmarks\\models_test\\fse18\\model_98.ctw");
 			String model = readFromFile(path.toFile());
 			ICTWedgeTestGenerator generator = new ACTSTranslator();
 			ExecutorService executor = Executors.newSingleThreadExecutor();

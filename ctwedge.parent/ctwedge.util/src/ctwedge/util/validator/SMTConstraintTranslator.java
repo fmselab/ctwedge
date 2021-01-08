@@ -248,7 +248,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 			return bmgr.makeBoolean(atom.getBoolConst().equalsIgnoreCase("true") ? true : false);
 		
 		// Enumerative value
-		String varName = atom.getName();
+		String varName = atom.getName().replace("\"", "");
 		int counter = 0;
 		for (Entry<String, String> p: declaredElements.entrySet()) {
 			Expression e = (ExpressionImpl) atom.eContainer();
