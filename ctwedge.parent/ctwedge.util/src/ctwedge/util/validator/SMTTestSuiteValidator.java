@@ -175,12 +175,25 @@ public class SMTTestSuiteValidator {
 						iReq.remove();
 				}
 			}
-
 		}
 		Map<String, String> declaredElements = new HashMap<>();
 		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
 		prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx,
 				declaredElements, variables, prover);
+		
+		// Check if all the tuples are satisfiable with the present constraints
+		Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
+		while (iReq.hasNext()) {
+			Map<Parameter, String> requirement = iReq.next();			
+			BooleanFormula t = extractFormulaFromTuple(ctx, declaredElements, variables, requirement);
+			
+			prover.push(t);
+			if (prover.isUnsat())
+				iReq.remove();
+			prover.pop();
+
+		}
+		
 
 		// Prove
 		if (prover.isUnsat())
@@ -189,6 +202,78 @@ public class SMTTestSuiteValidator {
 		// Add the n-wise tuple to the context
 		Iterator<Map<Parameter, String>> i = listMapReq.iterator();
 		return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
+	}
+
+	private BooleanFormula extractFormulaFromTuple(SolverContext ctx, Map<String, String> declaredElements,
+			Map<Parameter, Formula> variables, Map<Parameter, String> requirement) {
+		BooleanFormula t = ctx.getFormulaManager().getBooleanFormulaManager().makeTrue();
+		
+		for (Parameter p : requirement.keySet()) {
+			BooleanFormula tNew = null;
+			Formula varPointer = variables.get(p);
+			assert varPointer != null;
+
+			// Check the type of the parameter
+			if (p instanceof Enumerative) {
+				// Get the left side of the comparison
+				Formula leftSide = null;
+				for (Entry<Parameter, Formula> e : variables.entrySet()) {
+					if (e.getKey().getName().equals(p.getName())) {
+						leftSide = e.getValue();
+						break;
+					}
+				}
+				// Get the right side of the comparison
+				String valueName = requirement.get(p).concat(p.getName());
+				Formula rightSide = null;
+				int counter = 0;
+				for (Entry<String, String> e : declaredElements.entrySet()) {
+					if (e.getKey().equals(valueName)) {
+						rightSide = ctx.getFormulaManager().getIntegerFormulaManager()
+								.makeNumber(counter);
+						break;
+					}
+					counter++;
+				}
+				
+				tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
+						(IntegerFormula) rightSide);			
+				
+			} else if (p instanceof Bool) {
+				if (requirement.get(p).toLowerCase().equals("true"))
+					tNew = (BooleanFormula) varPointer;
+				else
+					tNew = ctx.getFormulaManager().getBooleanFormulaManager().not((BooleanFormula) varPointer);
+			} else if (p instanceof Range) {
+				// Get the left side of the comparison
+				Formula leftSide = null;
+				for (Entry<Parameter, Formula> e : variables.entrySet()) {
+					if (e.getKey().getName().equals(p.getName()))
+						leftSide = e.getValue();
+				}
+				// Get the right side of the comparison
+				Formula rightSide = ctx.getFormulaManager().getIntegerFormulaManager()
+						.makeNumber(Integer.parseInt(requirement.get(p)));
+
+				tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
+						(IntegerFormula) rightSide);
+
+				// Add the constraint referring the limits of the range
+				int lBound = ((Range) p).getBegin();
+				int uBound = ((Range) p).getEnd();
+				Formula lBoundFormula = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(lBound);
+				Formula uBoundFormula = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(uBound);
+				tNew = ctx.getFormulaManager().getBooleanFormulaManager().and(tNew,
+						ctx.getFormulaManager().getIntegerFormulaManager()
+								.greaterOrEquals((IntegerFormula) leftSide, (IntegerFormula) lBoundFormula));
+				tNew = ctx.getFormulaManager().getBooleanFormulaManager().and(tNew,
+						ctx.getFormulaManager().getIntegerFormulaManager().lessOrEquals((IntegerFormula) leftSide,
+								(IntegerFormula) uBoundFormula));
+			}
+
+			t = ctx.getFormulaManager().getBooleanFormulaManager().and(t, tNew);
+		}
+		return t;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -249,7 +334,7 @@ public class SMTTestSuiteValidator {
 		while (i.hasNext()) {
 			Map<Parameter, String> requirement = i.next();
 			logger.debug("checking requirment " + requirement);
-
+			
 			BooleanFormula t = ctx.getFormulaManager().getBooleanFormulaManager().makeTrue();
 
 			prover.push();
@@ -339,7 +424,7 @@ public class SMTTestSuiteValidator {
 		
 		// Print all the formulas that have not been satisfied
 		notComplete.forEach(x -> System.out.println(x));
-
+		
 		// If no return has been executed before, the requirements are consistent
 		return notComplete.size()==0;
 	}
