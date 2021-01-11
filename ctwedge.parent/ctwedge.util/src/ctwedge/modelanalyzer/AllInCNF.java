@@ -29,17 +29,22 @@ public class AllInCNF extends CTWedgeModelAnalyzer{
 		// (...) AND (...)
 		Expression e = (Expression) c;
 		if (c instanceof AndExpression) {
-			List<Expression> splitAnd = splitAnd(e);
-			
-			
-			
-			
-			return splitAnd.stream().allMatch(x -> isSimpleEqual(x, Operators.EQ));
+			List<Expression> splitAnd = splitAnd(e);		
+			return splitAnd.stream().allMatch(x -> notContainsAnd(x));
 		}
-		// A!=A1 or B!=B2 ...
-		List<Expression> splitor = splitOr(e);
-		return splitor.stream().allMatch(x -> isSimpleEqual(x, Operators.NE));
+		/*else if (c instanceof NotExpression) {
+			// !((...) OR (....))
+			List<Expression> splitor = splitOr(((NotExpression) c).getPredicate());
+			
+			
+			
+			
+			return splitor.stream().allMatch(x -> isSimpleEqual(x, Operators.NE));
+		}*/
+		return false;
+		
 	}
+	
 	// if e is e1 and e2 and ... en returns [e1,..en] 
 	private List<Expression> splitAnd(Expression e){
 		if (e instanceof AndExpression) {
@@ -51,6 +56,7 @@ public class AllInCNF extends CTWedgeModelAnalyzer{
 			return Collections.singletonList(e);
 		}
 	}
+	
 	// the same for OR
 	private List<Expression> splitOr(Expression e){
 		if (e instanceof OrExpression) {
@@ -62,15 +68,21 @@ public class AllInCNF extends CTWedgeModelAnalyzer{
 			return Collections.singletonList(e);
 		}
 	}
-	// equal or not equal expression
-	private boolean isSimpleEqual(Expression e, Operators operator) {
-		if (e instanceof EqualExpression) {
-			EqualExpression eqExpression = (EqualExpression) e;
-			if (eqExpression.getOp()==operator) {
-				return (eqExpression.getLeft() instanceof AtomicPredicate) &&
-						(eqExpression.getRight() instanceof AtomicPredicate);
-			}
+	
+	// Check if the expression does not contain another and
+	private boolean notContainsAnd(Expression e) {
+		// CNF is composed by a set of OR expressions
+		if (e instanceof OrExpression) {
+			OrExpression orExpression = (OrExpression) e;
+			// Verify that on the right and on the left, the expression does not contain an AND
+			return !(notContainsAnd(orExpression.getLeft()) || notContainsAnd(orExpression.getRight()));
 		}
+		
+		// CNF can be seen as an AND of Atomic Predicates
+		if (e instanceof AtomicPredicate) 
+			return true;
+		
+		// It is not a CNF form
 		return false;
 	}
 }
