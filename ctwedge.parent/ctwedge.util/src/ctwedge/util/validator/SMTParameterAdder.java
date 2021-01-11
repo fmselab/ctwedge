@@ -37,6 +37,13 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 		this.ctx = ctx;
 		this.declaredElements = declaredElements;
 	}
+	
+	private void addElement(String elementKey, String elementValue) {
+		if (declaredElements.containsKey(elementKey))
+			declaredElements.put(elementKey, declaredElements.get(elementKey) + ";" + elementValue);
+		else 
+			declaredElements.put(elementKey, elementValue);
+	}
 
 	@Override
 	public Formula caseEnumerative(Enumerative enumerative) {
@@ -55,7 +62,7 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 		for (Element e : type.getElements()) {
 			String typeName = "";
 			typeName = type.getName();
-			declaredElements.put(e.getName().concat(enumName), typeName);
+			addElement(e.getName(), typeName);
 			elements += " " + e.getName().concat(enumName);
 		}
 		
@@ -91,7 +98,7 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 		ArrayList<String> values = new ArrayList<String>(ParameterElementsGetterAsStrings.eInstance.caseRange(range));
 		if (values.size() >= 1) {
 			for (String v : values) {
-				declaredElements.put(v.concat(range.getName()),v);
+				addElement(v, range.getName());
 			}
 		} else
 			throw new RuntimeException("Not valid");

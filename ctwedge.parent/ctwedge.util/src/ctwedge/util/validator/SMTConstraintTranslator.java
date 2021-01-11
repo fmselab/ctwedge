@@ -253,8 +253,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		for (Entry<String, String> p: declaredElements.entrySet()) {
 			Expression e = (ExpressionImpl) atom.eContainer();
 			if (e instanceof EqualExpression) {
-				String enumName = ((AtomicPredicate)((EqualExpression) e).getLeft()).getName();
-				if (p.getKey().equals(varName.concat(enumName)))
+				if (p.getKey().equals(varName))
 					return ifmgr.makeNumber(counter);
 			}	
 			counter++;

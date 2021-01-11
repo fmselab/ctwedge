@@ -1,6 +1,7 @@
 package ctwedge.util.validator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -180,20 +181,6 @@ public class SMTTestSuiteValidator {
 		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
 		prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx,
 				declaredElements, variables, prover);
-		
-		// Check if all the tuples are satisfiable with the present constraints
-		Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
-		while (iReq.hasNext()) {
-			Map<Parameter, String> requirement = iReq.next();			
-			BooleanFormula t = extractFormulaFromTuple(ctx, declaredElements, variables, requirement);
-			
-			prover.push(t);
-			if (prover.isUnsat())
-				iReq.remove();
-			prover.pop();
-
-		}
-		
 
 		// Prove
 		if (prover.isUnsat())
@@ -224,7 +211,7 @@ public class SMTTestSuiteValidator {
 					}
 				}
 				// Get the right side of the comparison
-				String valueName = requirement.get(p).concat(p.getName());
+				String valueName = requirement.get(p);
 				Formula rightSide = null;
 				int counter = 0;
 				for (Entry<String, String> e : declaredElements.entrySet()) {
@@ -317,12 +304,14 @@ public class SMTTestSuiteValidator {
 				int counter = 0;
 				
 				for (Entry<String, String> e : declaredElements.entrySet()) {
-					if (e.getValue().equals(type.getKey().getName())) {
+					if (Arrays.stream(e.getValue().split("")).
+							filter(x -> x.equals(type.getKey().getName())).count()>0) {
 						tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound, 
 								ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula)type.getValue(),
 								ctx.getFormulaManager().getIntegerFormulaManager()
 								.makeNumber(counter)));
 					}
+					
 					counter ++;
 				}
 				
@@ -355,7 +344,7 @@ public class SMTTestSuiteValidator {
 						}
 					}
 					// Get the right side of the comparison
-					String valueName = requirement.get(p).concat(p.getName());
+					String valueName = requirement.get(p);
 					Formula rightSide = null;
 					int counter = 0;
 					for (Entry<String, String> e : declaredElements.entrySet()) {

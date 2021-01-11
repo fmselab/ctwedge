@@ -59,66 +59,6 @@ public class TesSuiteValidatorTest {
 				listFiles(listOfFiles[i], fileList);
 			}
 		}
-	}	
-	
-	@Test	
-	public void singleFileTest() throws SolverException, InterruptedException, InvalidConfigurationException {
-
-		TestSuite ts = null;
-
-		try {
-			Path path = Paths.get("..\\..\\ctwedge.benchmarks\\models_test\\fse18\\model_98.ctw");
-			String model = Files.readString(path);
-			ICTWedgeTestGenerator generator = new ACTSTranslator();
-			ExecutorService executor = Executors.newSingleThreadExecutor();
-			Future<TestSuite> ts_future = executor.submit(new GeneratorExec(model, generator));
-			TestSuite result = null;
-			try {
-				result = ts_future.get(150, TimeUnit.SECONDS);
-			} catch (TimeoutException ex) {
-	        }
-			
-			ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		System.out.println(ts.toString());
-		
-		// Define the validator
-		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-		tsv.setTestSuite(ts);
-
-		// Save the number of tests
-		int numTest = ts.getTests().size();
-		// Save the number of covered tuples
-		int covTuples = tsv.howManyTuplesCovers();
-
-		// Check all the tests are valid
-		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
-
-		// The test suite must be valid and complete
-		assertTrue(tsv.isValid());
-		assertTrue(tsv.isComplete());
-
-		// Now remove tests until the covered tuples decreases
-		while (ts.getTests().size() > 0) {
-			ts.getTests().remove(0);
-			tsv.setTestSuite(ts);
-
-			if (tsv.howManyTuplesCovers() < covTuples)
-				break;
-		}
-
-		// If we still have tests
-		if (ts.getTests().size() > 0) {
-			// Check all the tests are valid
-			assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
-			// The test suite must be valid but not complete
-			assertTrue(tsv.isValid());
-			assertFalse(tsv.isComplete());
-		}
-
 	}
 	
 	@Test
