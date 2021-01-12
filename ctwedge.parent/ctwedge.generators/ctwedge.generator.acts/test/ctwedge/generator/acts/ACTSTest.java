@@ -26,6 +26,12 @@ public class ACTSTest {
 
 	@Test
 	public void test3() throws Exception {
+		System.out.println(Utility.getTestSuite("Model example1\nParameters:\nP1 : {V1, V2}\nP2 : {V1, V2}\nP3 : {V1, V2, V3}\n	Constraints:\n# P1 != P2 #\n# P3=V1 => P2=V2 #\n",
+				acts, 2, false, null));
+	}
+	
+	@Test
+	public void test9() throws Exception {
 		System.out.println(Utility.getTestSuite(
 				"Model prova\nParameters:\n a: Boolean; b: Boolean; c: {x, y}; \nConstraints:\n # a -> b #\n# c=x #\n",
 				acts, 2, false, null));

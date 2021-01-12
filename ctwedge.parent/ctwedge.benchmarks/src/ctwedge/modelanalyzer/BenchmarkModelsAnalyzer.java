@@ -28,6 +28,7 @@ public class BenchmarkModelsAnalyzer {
 		extracted(AlsoIntegerParameters.eInstance);
 		extracted(AllTheSameCardinality.eInstance);
 		extracted(AllInCNF.eInstance);
+		extracted(NoConstraints.eInstance);
 	}
 
 	private static void extracted(CTWedgeModelAnalyzer eInstance) throws IOException {

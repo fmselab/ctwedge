@@ -1,5 +1,7 @@
 package ctwedge.modelanalyzer;
 
+import java.util.Arrays;
+
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Element;
 import ctwedge.ctWedge.Enumerative;
@@ -15,18 +17,21 @@ public class AlsoIntegerParameters extends CTWedgeModelAnalyzer{
 	@Override
 	public boolean process(CitModel model) {
 		for (Parameter p: model.getParameters()) {
-			if (p instanceof Range) continue;
-			if (p instanceof Enumerative) {
-				for (Element e : ((Enumerative)p).getElements())
-					try {
-						Double.parseDouble(e.getName());
-					} catch(NumberFormatException ex) {
-						return false;
-					}
-				continue;
+			if (p instanceof Range) return true;
+			if (p instanceof Enumerative) {				
+				if (Arrays.stream(((Enumerative)p).getElements().toArray()).allMatch(x -> isInteger((Element)x)))
+					return true;
 			}
-			return false;
 		}		
-		return true;
+		return false;
 	} 
+	
+	private boolean isInteger(Element e) {
+		try {
+			Double.parseDouble(e.getName());
+			return true;
+		} catch(NumberFormatException ex) {
+			return false;
+		}
+	}
 }
