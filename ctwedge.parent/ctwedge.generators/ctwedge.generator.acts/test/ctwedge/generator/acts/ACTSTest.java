@@ -92,4 +92,15 @@ public class ACTSTest {
 		stream.close();
 		System.out.println(Utility.getTestSuite(contentBuilder.toString(), acts,2,false, null));
 	}
+	
+	
+	@Test
+	public void testExample2() throws Exception {
+		StringBuilder contentBuilder = new StringBuilder();
+		String filePath = "../../ctwedge.benchmarks/models_test/fse18/model_112.ctw";
+		Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8);
+		stream.forEach(s -> contentBuilder.append(s).append("\n"));
+		stream.close();
+		System.out.println(Utility.getTestSuite(contentBuilder.toString(), acts,2,false, null));
+	}
 }

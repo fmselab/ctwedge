@@ -1,0 +1,2106 @@
+Data benchmark: 15/01/2021 12:58:20
+Generator list:
+	ACTS
+	CAgen
+	PICT
+# test: 196
+Timeout: 90sec.
+Results:
+
+----- Banking1.ctw ----- 
+	ACTSTranslator
+		 #test = 15
+		 time = 1180.0 millis.
+	CAgenGenerator
+		 #test = 16
+		 time = 185.0 millis.
+	PICTGenerator
+		 #test = 18
+		 time = 127.0 millis.
+
+----- Banking2.ctw ----- 
+	ACTSTranslator
+		 #test = 11
+		 time = 13.0 millis.
+	CAgenGenerator
+		 #test = 11
+		 time = 49.0 millis.
+	PICTGenerator
+		 #test = 14
+		 time = 42.0 millis.
+
+----- benchmark_1.ctw ----- 
+	ACTSTranslator
+		 #test = 48
+		 time = 1499.0 millis.
+	CAgenGenerator
+		 #test = 49
+		 time = 58.0 millis.
+	PICTGenerator
+		 #test = 53
+		 time = 98.0 millis.
+
+----- benchmark_10.ctw ----- 
+	ACTSTranslator
+		 #test = 47
+		 time = 2292.0 millis.
+	CAgenGenerator
+		 #test = 45
+		 time = 63.0 millis.
+	PICTGenerator
+		 #test = 58
+		 time = 156.0 millis.
+
+----- benchmark_11.ctw ----- 
+	ACTSTranslator
+		 #test = 48
+		 time = 1078.0 millis.
+	CAgenGenerator
+		 #test = 44
+		 time = 51.0 millis.
+	PICTGenerator
+		 #test = 59
+		 time = 106.0 millis.
+
+----- benchmark_12.ctw ----- 
+	ACTSTranslator
+		 #test = 40
+		 time = 1043.0 millis.
+	CAgenGenerator
+		 #test = 39
+		 time = 55.0 millis.
+	PICTGenerator
+		 #test = 56
+		 time = 141.0 millis.
+
+----- benchmark_13.ctw ----- 
+	ACTSTranslator
+		 #test = 41
+		 time = 508.0 millis.
+	CAgenGenerator
+		 #test = 39
+		 time = 48.0 millis.
+	PICTGenerator
+		 #test = 44
+		 time = 117.0 millis.
+
+----- benchmark_14.ctw ----- 
+	ACTSTranslator
+		 #test = 39
+		 time = 191.0 millis.
+	CAgenGenerator
+		 #test = 39
+		 time = 45.0 millis.
+	PICTGenerator
+		 #test = 48
+		 time = 77.0 millis.
+
+----- benchmark_15.ctw ----- 
+	ACTSTranslator
+		 #test = 32
+		 time = 188.0 millis.
+	CAgenGenerator
+		 #test = 32
+		 time = 49.0 millis.
+	PICTGenerator
+		 #test = 39
+		 time = 71.0 millis.
+
+----- benchmark_16.ctw ----- 
+	ACTSTranslator
+		 #test = 25
+		 time = 421.0 millis.
+	CAgenGenerator
+		 #test = 25
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 29
+		 time = 67.0 millis.
+
+----- benchmark_17.ctw ----- 
+	ACTSTranslator
+		 #test = 41
+		 time = 1056.0 millis.
+	CAgenGenerator
+		 #test = 39
+		 time = 65.0 millis.
+	PICTGenerator
+		 #test = 54
+		 time = 147.0 millis.
+
+----- benchmark_18.ctw ----- 
+	ACTSTranslator
+		 #test = 52
+		 time = 838.0 millis.
+	CAgenGenerator
+		 #test = 51
+		 time = 51.0 millis.
+	PICTGenerator
+		 #test = 58
+		 time = 150.0 millis.
+
+----- benchmark_19.ctw ----- 
+	ACTSTranslator
+		 #test = 51
+		 time = 2251.0 millis.
+	CAgenGenerator
+		 #test = 51
+		 time = 70.0 millis.
+	PICTGenerator
+		 #test = 66
+		 time = 266.0 millis.
+
+----- benchmark_2.ctw ----- 
+	ACTSTranslator
+		 #test = 35
+		 time = 423.0 millis.
+	CAgenGenerator
+		 #test = 32
+		 time = 46.0 millis.
+	PICTGenerator
+		 #test = 40
+		 time = 77.0 millis.
+
+----- benchmark_20.ctw ----- 
+	ACTSTranslator
+		 #test = 60
+		 time = 4581.0 millis.
+	CAgenGenerator
+		 #test = 60
+		 time = 56.0 millis.
+	PICTGenerator
+		 #test = 70
+		 time = 201.0 millis.
+
+----- benchmark_21.ctw ----- 
+	ACTSTranslator
+		 #test = 39
+		 time = 586.0 millis.
+	CAgenGenerator
+		 #test = 37
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 48
+		 time = 75.0 millis.
+
+----- benchmark_22.ctw ----- 
+	ACTSTranslator
+		 #test = 36
+		 time = 269.0 millis.
+	CAgenGenerator
+		 #test = 37
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 39
+		 time = 62.0 millis.
+
+----- benchmark_23.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 34.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 18
+		 time = 42.0 millis.
+
+----- benchmark_24.ctw ----- 
+	ACTSTranslator
+		 #test = 48
+		 time = 1147.0 millis.
+	CAgenGenerator
+		 #test = 48
+		 time = 46.0 millis.
+	PICTGenerator
+		 #test = 57
+		 time = 108.0 millis.
+
+----- benchmark_25.ctw ----- 
+	ACTSTranslator
+		 #test = 52
+		 time = 1151.0 millis.
+	CAgenGenerator
+		 #test = 56
+		 time = 51.0 millis.
+	PICTGenerator
+		 #test = 65
+		 time = 135.0 millis.
+
+----- benchmark_26.ctw ----- 
+	ACTSTranslator
+		 #test = 34
+		 time = 704.0 millis.
+	CAgenGenerator
+		 #test = 31
+		 time = 48.0 millis.
+	PICTGenerator
+		 #test = 42
+		 time = 76.0 millis.
+
+----- benchmark_27.ctw ----- 
+	ACTSTranslator
+		 #test = 38
+		 time = 173.0 millis.
+	CAgenGenerator
+		 #test = 38
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 44
+		 time = 52.0 millis.
+
+----- benchmark_28.ctw ----- 
+	ACTSTranslator
+		 #test = 57
+		 time = 1715.0 millis.
+	CAgenGenerator
+		 #test = 56
+		 time = 62.0 millis.
+	PICTGenerator
+		 #test = 72
+		 time = 272.0 millis.
+
+----- benchmark_29.ctw ----- 
+	ACTSTranslator
+		 #test = 28
+		 time = 246.0 millis.
+	CAgenGenerator
+		 #test = 29
+		 time = 48.0 millis.
+	PICTGenerator
+		 #test = 34
+		 time = 94.0 millis.
+
+----- benchmark_3.ctw ----- 
+	ACTSTranslator
+		 #test = 19
+		 time = 21.0 millis.
+	CAgenGenerator
+		 #test = 18
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 23
+		 time = 37.0 millis.
+
+----- benchmark_30.ctw ----- 
+	ACTSTranslator
+		 #test = 21
+		 time = 309.0 millis.
+	CAgenGenerator
+		 #test = 21
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 25
+		 time = 59.0 millis.
+
+----- benchmark_4.ctw ----- 
+	ACTSTranslator
+		 #test = 23
+		 time = 111.0 millis.
+	CAgenGenerator
+		 #test = 22
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 29
+		 time = 50.0 millis.
+
+----- benchmark_5.ctw ----- 
+	ACTSTranslator
+		 #test = 54
+		 time = 2286.0 millis.
+	CAgenGenerator
+		 #test = 53
+		 time = 55.0 millis.
+	PICTGenerator
+		 #test = 65
+		 time = 207.0 millis.
+
+----- benchmark_6.ctw ----- 
+	ACTSTranslator
+		 #test = 25
+		 time = 300.0 millis.
+	CAgenGenerator
+		 #test = 25
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 32
+		 time = 62.0 millis.
+
+----- benchmark_7.ctw ----- 
+	ACTSTranslator
+		 #test = 12
+		 time = 21.0 millis.
+	CAgenGenerator
+		 #test = 12
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 12
+		 time = 43.0 millis.
+
+----- benchmark_8.ctw ----- 
+	ACTSTranslator
+		 #test = 47
+		 time = 1459.0 millis.
+	CAgenGenerator
+		 #test = 46
+		 time = 46.0 millis.
+	PICTGenerator
+		 #test = 56
+		 time = 107.0 millis.
+
+----- benchmark_9.ctw ----- 
+	ACTSTranslator
+		 #test = 21
+		 time = 314.0 millis.
+	CAgenGenerator
+		 #test = 21
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 23
+		 time = 53.0 millis.
+
+----- benchmark_apache.ctw ----- 
+	ACTSTranslator
+		 #test = 33
+		 time = 54.0 millis.
+	CAgenGenerator
+		 #test = 32
+		 time = 46.0 millis.
+	PICTGenerator
+		 #test = 40
+		 time = 134.0 millis.
+
+----- benchmark_bugzilla.ctw ----- 
+	ACTSTranslator
+		 #test = 18
+		 time = 6.0 millis.
+	CAgenGenerator
+		 #test = 18
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 20
+		 time = 44.0 millis.
+
+----- benchmark_gcc.ctw ----- 
+	ACTSTranslator
+		 #test = 23
+		 time = 197.0 millis.
+	CAgenGenerator
+		 #test = 21
+		 time = 53.0 millis.
+	PICTGenerator
+		 #test = 30
+		 time = 137.0 millis.
+
+----- benchmark_spins.ctw ----- 
+	ACTSTranslator
+		 #test = 27
+		 time = 46.0 millis.
+	CAgenGenerator
+		 #test = 26
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 26
+		 time = 41.0 millis.
+
+----- benchmark_spinv.ctw ----- 
+	ACTSTranslator
+		 #test = 44
+		 time = 143.0 millis.
+	CAgenGenerator
+		 #test = 44
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 63
+		 time = 56.0 millis.
+
+----- CommProtocol.ctw ----- 
+	ACTSTranslator
+		 #test = 19
+		 time = 1423.0 millis.
+	CAgenGenerator
+		 #test = 19
+		 time = 408.0 millis.
+	PICTGenerator
+		 #test = 21
+		 time = 325.0 millis.
+
+----- Concurrency.ctw ----- 
+	ACTSTranslator
+		 #test = 6
+		 time = 7.0 millis.
+	CAgenGenerator
+		 #test = 5
+		 time = 38.0 millis.
+	PICTGenerator
+		 #test = 6
+		 time = 37.0 millis.
+
+----- flex_v0_small.ctw ----- 
+	ACTSTranslator
+		 #test = 27
+		 time = 48.0 millis.
+	CAgenGenerator
+		 #test = 26
+		 time = 38.0 millis.
+	PICTGenerator
+		 #test = 26
+		 time = 36.0 millis.
+
+----- Healthcare1.ctw ----- 
+	ACTSTranslator
+		 #test = 30
+		 time = 45.0 millis.
+	CAgenGenerator
+		 #test = 30
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 32
+		 time = 36.0 millis.
+
+----- Healthcare2.ctw ----- 
+	ACTSTranslator
+		 #test = 16
+		 time = 95.0 millis.
+	CAgenGenerator
+		 #test = 16
+		 time = 45.0 millis.
+	PICTGenerator
+		 #test = 18
+		 time = 41.0 millis.
+
+----- Healthcare3.ctw ----- 
+	ACTSTranslator
+		 #test = 38
+		 time = 169.0 millis.
+	CAgenGenerator
+		 #test = 38
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 40
+		 time = 41.0 millis.
+
+----- Healthcare4.ctw ----- 
+	ACTSTranslator
+		 #test = 49
+		 time = 145.0 millis.
+	CAgenGenerator
+		 #test = 49
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 53
+		 time = 48.0 millis.
+
+----- NetworkMgmt.ctw ----- 
+	ACTSTranslator
+		 #test = 112
+		 time = 64.0 millis.
+	CAgenGenerator
+		 #test = 113
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 129
+		 time = 39.0 millis.
+
+----- ProcessorComm1.ctw ----- 
+	ACTSTranslator
+		 #test = 29
+		 time = 32.0 millis.
+	CAgenGenerator
+		 #test = 28
+		 time = 39.0 millis.
+	PICTGenerator
+		 #test = 30
+		 time = 36.0 millis.
+
+----- Services.ctw ----- 
+	ACTSTranslator
+		 #test = 106
+		 time = 12149.0 millis.
+	CAgenGenerator
+		 #test = 108
+		 time = 230.0 millis.
+	PICTGenerator
+		 #test = 111
+		 time = 196.0 millis.
+
+----- siena_v0_small.ctw ----- 
+	ACTSTranslator
+		 #test = 22
+		 time = 372.0 millis.
+	CAgenGenerator
+		 #test = 23
+		 time = 53.0 millis.
+	PICTGenerator
+		 #test = 25
+		 time = 48.0 millis.
+
+----- SmartHome.ctw ----- 
+	ACTSTranslator
+		 #test = 13
+		 time = 1880.0 millis.
+	CAgenGenerator
+		 #test = 13
+		 time = 49.0 millis.
+	PICTGenerator
+		 #test = 14
+		 time = 57.0 millis.
+
+----- Storage1.ctw ----- 
+	ACTSTranslator
+		 #test = 17
+		 time = 268.0 millis.
+	CAgenGenerator
+		 #test = 17
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 17
+		 time = 42.0 millis.
+
+----- Storage3.ctw ----- 
+	ACTSTranslator
+		 #test = 50
+		 time = 600.0 millis.
+	CAgenGenerator
+		 #test = 51
+		 time = 51.0 millis.
+	PICTGenerator
+		 #test = 54
+		 time = 98.0 millis.
+
+----- Storage4.ctw ----- 
+	ACTSTranslator
+		 #test = 121
+		 time = 39.0 millis.
+	CAgenGenerator
+		 #test = 120
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 117
+		 time = 47.0 millis.
+
+----- Storage5.ctw ----- 
+	ACTSTranslator
+		 #test = 218
+		 time = 2268.0 millis.
+	CAgenGenerator
+		 #test = 218
+		 time = 56.0 millis.
+	PICTGenerator
+		 #test = 234
+		 time = 1446.0 millis.
+
+----- SystemMgmt.ctw ----- 
+	ACTSTranslator
+		 #test = 17
+		 time = 22.0 millis.
+	CAgenGenerator
+		 #test = 18
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 17
+		 time = 36.0 millis.
+
+----- Telecom.ctw ----- 
+	ACTSTranslator
+		 #test = 32
+		 time = 39.0 millis.
+	CAgenGenerator
+		 #test = 30
+		 time = 45.0 millis.
+	PICTGenerator
+		 #test = 31
+		 time = 40.0 millis.
+
+----- model_0.ctw ----- 
+	ACTSTranslator
+		 #test = 36
+		 time = 89.0 millis.
+	CAgenGenerator
+		 #test = 36
+		 time = 47.0 millis.
+	PICTGenerator
+		 #test = 36
+		 time = 43.0 millis.
+
+----- model_1.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 40
+		 time = 69.0 millis.
+	PICTGenerator
+		 #test = 43
+		 time = 36.0 millis.
+
+----- model_10.ctw ----- 
+	ACTSTranslator
+		 #test = 51
+		 time = 654.0 millis.
+	CAgenGenerator
+		 #test = 51
+		 time = 57.0 millis.
+	PICTGenerator
+		 #test = 50
+		 time = 65.0 millis.
+
+----- model_100.ctw ----- 
+	ACTSTranslator
+		 #test = 115
+		 time = 1313.0 millis.
+	CAgenGenerator
+		 #test = 118
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 122
+		 time = 49.0 millis.
+
+----- model_101.ctw ----- 
+	ACTSTranslator
+		 #test = 164
+		 time = 1599.0 millis.
+	CAgenGenerator
+		 #test = 168
+		 time = 45.0 millis.
+	PICTGenerator
+		 #test = 168
+		 time = 52.0 millis.
+
+----- model_102.ctw ----- 
+	ACTSTranslator
+		 #test = 21
+		 time = 126.0 millis.
+	CAgenGenerator
+		 #test = 21
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 30
+		 time = 46.0 millis.
+
+----- model_103.ctw ----- 
+	ACTSTranslator
+		 #test = 19
+		 time = 165.0 millis.
+	CAgenGenerator
+		 #test = 20
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 26
+		 time = 53.0 millis.
+
+----- model_104.ctw ----- 
+	ACTSTranslator
+		 #test = 21
+		 time = 1896.0 millis.
+	CAgenGenerator
+		 #test = 22
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 27
+		 time = 50.0 millis.
+
+----- model_105.ctw ----- 
+	ACTSTranslator
+		 #test = 1026
+		 time = 5332.0 millis.
+	CAgenGenerator
+		 #test = 1031
+		 time = 2263.0 millis.
+	PICTGenerator
+		 timeout 
+
+----- model_106.ctw ----- 
+	ACTSTranslator
+		 #test = 28
+		 time = 50.0 millis.
+	CAgenGenerator
+		 #test = 28
+		 time = 49.0 millis.
+	PICTGenerator
+		 #test = 28
+		 time = 49.0 millis.
+
+----- model_107.ctw ----- 
+	ACTSTranslator
+		 #test = 1103
+		 time = 15925.0 millis.
+	CAgenGenerator
+		 #test = 1104
+		 time = 4030.0 millis.
+	PICTGenerator
+		 timeout 
+
+----- model_109.ctw ----- 
+	ACTSTranslator
+		 #test = 18
+		 time = 221.0 millis.
+	CAgenGenerator
+		 #test = 18
+		 time = 337.0 millis.
+	PICTGenerator
+		 timeout 
+
+----- model_110.ctw ----- 
+	ACTSTranslator
+		 #test = 20
+		 time = 35.0 millis.
+	CAgenGenerator
+		 #test = 20
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 24
+		 time = 38.0 millis.
+
+----- model_111.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 264.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 45.0 millis.
+	PICTGenerator
+		 #test = 16
+		 time = 44.0 millis.
+
+----- model_112.ctw ----- 
+	ACTSTranslator
+		 null 
+	CAgenGenerator
+		 #test = 100
+		 time = 23844.0 millis.
+	PICTGenerator
+		 timeout 
+
+----- model_113.ctw ----- 
+	ACTSTranslator
+		 #test = 58
+		 time = 67.0 millis.
+	CAgenGenerator
+		 #test = 56
+		 time = 46.0 millis.
+	PICTGenerator
+		 #test = 58
+		 time = 52.0 millis.
+
+----- model_115.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 16
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 18
+		 time = 37.0 millis.
+
+----- model_116.ctw ----- 
+	ACTSTranslator
+		 #test = 19
+		 time = 1358.0 millis.
+	CAgenGenerator
+		 #test = 20
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 17
+		 time = 47.0 millis.
+
+----- model_12.ctw ----- 
+	ACTSTranslator
+		 #test = 12544
+		 time = 125.0 millis.
+	CAgenGenerator
+		 #test = 12544
+		 time = 113.0 millis.
+	PICTGenerator
+		 #test = 12544
+		 time = 5148.0 millis.
+
+----- model_13.ctw ----- 
+	ACTSTranslator
+		 #test = 10
+		 time = 9.0 millis.
+	CAgenGenerator
+		 #test = 10
+		 time = 39.0 millis.
+	PICTGenerator
+		 #test = 10
+		 time = 45.0 millis.
+
+----- model_14.ctw ----- 
+	ACTSTranslator
+		 #test = 41
+		 time = 8.0 millis.
+	CAgenGenerator
+		 #test = 41
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 42
+		 time = 36.0 millis.
+
+----- model_15.ctw ----- 
+	ACTSTranslator
+		 #test = 8003
+		 time = 127.0 millis.
+	CAgenGenerator
+		 #test = 8001
+		 time = 235.0 millis.
+	PICTGenerator
+		 #test = 8000
+		 time = 9510.0 millis.
+
+----- model_16.ctw ----- 
+	ACTSTranslator
+		 #test = 8003
+		 time = 92.0 millis.
+	CAgenGenerator
+		 #test = 8001
+		 time = 245.0 millis.
+	PICTGenerator
+		 #test = 8000
+		 time = 9726.0 millis.
+
+----- model_17.ctw ----- 
+	ACTSTranslator
+		 #test = 78
+		 time = 281.0 millis.
+	CAgenGenerator
+		 #test = 79
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 81
+		 time = 222.0 millis.
+
+----- model_18.ctw ----- 
+	ACTSTranslator
+		 #test = 72
+		 time = 196.0 millis.
+	CAgenGenerator
+		 #test = 72
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 69
+		 time = 106.0 millis.
+
+----- model_19.ctw ----- 
+	ACTSTranslator
+		 #test = 105
+		 time = 1796.0 millis.
+	CAgenGenerator
+		 #test = 102
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 101
+		 time = 233.0 millis.
+
+----- model_20.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 56.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 14
+		 time = 44.0 millis.
+
+----- model_21.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 199.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 46.0 millis.
+	PICTGenerator
+		 #test = 14
+		 time = 46.0 millis.
+
+----- model_22.ctw ----- 
+	ACTSTranslator
+		 #test = 17
+		 time = 15.0 millis.
+	CAgenGenerator
+		 #test = 16
+		 time = 50.0 millis.
+	PICTGenerator
+		 #test = 18
+		 time = 43.0 millis.
+
+----- model_23.ctw ----- 
+	ACTSTranslator
+		 #test = 26
+		 time = 4.0 millis.
+	CAgenGenerator
+		 #test = 25
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 26
+		 time = 44.0 millis.
+
+----- model_24.ctw ----- 
+	ACTSTranslator
+		 #test = 35
+		 time = 17.0 millis.
+	CAgenGenerator
+		 #test = 33
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 37
+		 time = 47.0 millis.
+
+----- model_25.ctw ----- 
+	ACTSTranslator
+		 #test = 50
+		 time = 2585.0 millis.
+	CAgenGenerator
+		 #test = 50
+		 time = 52.0 millis.
+	PICTGenerator
+		 timeout 
+
+----- model_26.ctw ----- 
+	ACTSTranslator
+		 #test = 15
+		 time = 851.0 millis.
+	CAgenGenerator
+		 #test = 15
+		 time = 47.0 millis.
+	PICTGenerator
+		 #test = 15
+		 time = 1173.0 millis.
+
+----- model_27.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 1941.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 48.0 millis.
+	PICTGenerator
+		 #test = 13
+		 time = 49.0 millis.
+
+----- model_28.ctw ----- 
+	ACTSTranslator
+		 #test = 12
+		 time = 597.0 millis.
+	CAgenGenerator
+		 #test = 12
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 12
+		 time = 49.0 millis.
+
+----- model_29.ctw ----- 
+	ACTSTranslator
+		 #test = 39
+		 time = 153.0 millis.
+	CAgenGenerator
+		 #test = 36
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 42
+		 time = 48.0 millis.
+
+----- model_3.ctw ----- 
+	ACTSTranslator
+		 #test = 45
+		 time = 78.0 millis.
+	CAgenGenerator
+		 #test = 45
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 45
+		 time = 56.0 millis.
+
+----- model_30.ctw ----- 
+	ACTSTranslator
+		 #test = 15
+		 time = 11.0 millis.
+	CAgenGenerator
+		 #test = 15
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 13
+		 time = 39.0 millis.
+
+----- model_31.ctw ----- 
+	ACTSTranslator
+		 #test = 12
+		 time = 7.0 millis.
+	CAgenGenerator
+		 #test = 12
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 13
+		 time = 36.0 millis.
+
+----- model_32.ctw ----- 
+	ACTSTranslator
+		 #test = 17
+		 time = 59.0 millis.
+	CAgenGenerator
+		 #test = 16
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 17
+		 time = 42.0 millis.
+
+----- model_33.ctw ----- 
+	ACTSTranslator
+		 #test = 149
+		 time = 1543.0 millis.
+	CAgenGenerator
+		 #test = 148
+		 time = 47.0 millis.
+	PICTGenerator
+		 #test = 149
+		 time = 53.0 millis.
+
+----- model_34.ctw ----- 
+	ACTSTranslator
+		 #test = 79
+		 time = 507.0 millis.
+	CAgenGenerator
+		 #test = 75
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 77
+		 time = 41.0 millis.
+
+----- model_35.ctw ----- 
+	ACTSTranslator
+		 #test = 1171
+		 time = 6.0 millis.
+	CAgenGenerator
+		 #test = 1175
+		 time = 47.0 millis.
+	PICTGenerator
+		 #test = 1170
+		 time = 255.0 millis.
+
+----- model_36.ctw ----- 
+	ACTSTranslator
+		 #test = 7503
+		 time = 71.0 millis.
+	CAgenGenerator
+		 #test = 7503
+		 time = 139.0 millis.
+	PICTGenerator
+		 #test = 7500
+		 time = 5008.0 millis.
+
+----- model_37.ctw ----- 
+	ACTSTranslator
+		 #test = 96
+		 time = 2762.0 millis.
+	CAgenGenerator
+		 #test = 94
+		 time = 161.0 millis.
+	PICTGenerator
+		 #test = 107
+		 time = 25671.0 millis.
+
+----- model_38.ctw ----- 
+	ACTSTranslator
+		 #test = 69
+		 time = 984.0 millis.
+	CAgenGenerator
+		 #test = 68
+		 time = 69.0 millis.
+	PICTGenerator
+		 #test = 74
+		 time = 1647.0 millis.
+
+----- model_39.ctw ----- 
+	ACTSTranslator
+		 #test = 14
+		 time = 5907.0 millis.
+	CAgenGenerator
+		 #test = 13
+		 time = 1165.0 millis.
+	PICTGenerator
+		 #test = 13
+		 time = 140.0 millis.
+
+----- model_4.ctw ----- 
+	ACTSTranslator
+		 #test = 135
+		 time = 32877.0 millis.
+	CAgenGenerator
+		 timeout 
+	PICTGenerator
+		 timeout 
+
+----- model_40.ctw ----- 
+	ACTSTranslator
+		 #test = 21
+		 time = 686.0 millis.
+	CAgenGenerator
+		 #test = 19
+		 time = 47.0 millis.
+	PICTGenerator
+		 #test = 19
+		 time = 51.0 millis.
+
+----- model_41.ctw ----- 
+	ACTSTranslator
+		 #test = 6
+		 time = 310.0 millis.
+	CAgenGenerator
+		 #test = 6
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 6
+		 time = 46.0 millis.
+
+----- model_42.ctw ----- 
+	ACTSTranslator
+		 #test = 15
+		 time = 7471.0 millis.
+	CAgenGenerator
+		 #test = 14
+		 time = 1331.0 millis.
+	PICTGenerator
+		 #test = 16
+		 time = 137.0 millis.
+
+----- model_43.ctw ----- 
+	ACTSTranslator
+		 null 
+	CAgenGenerator
+		 timeout 
+	PICTGenerator
+		 #test = 21
+		 time = 60340.0 millis.
+
+----- model_44.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 28
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 30
+		 time = 37.0 millis.
+
+----- model_45.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 28
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 28
+		 time = 38.0 millis.
+
+----- model_46.ctw ----- 
+	ACTSTranslator
+		 #test = 98
+		 time = 17712.0 millis.
+	CAgenGenerator
+		 #test = 96
+		 time = 68.0 millis.
+	PICTGenerator
+		 #test = 105
+		 time = 115.0 millis.
+
+----- model_47.ctw ----- 
+	ACTSTranslator
+		 #test = 27559
+		 time = 5029.0 millis.
+	CAgenGenerator
+		 #test = 27556
+		 time = 393.0 millis.
+	PICTGenerator
+		 #test = 27556
+		 time = 25758.0 millis.
+
+----- model_48.ctw ----- 
+	ACTSTranslator
+		 #test = 49
+		 time = 392.0 millis.
+	CAgenGenerator
+		 timeout 
+	PICTGenerator
+		 timeout 
+
+----- model_49.ctw ----- 
+	ACTSTranslator
+		 #test = 67
+		 time = 3788.0 millis.
+	CAgenGenerator
+		 timeout 
+	PICTGenerator
+		 timeout 
+
+----- model_5.ctw ----- 
+	ACTSTranslator
+		 #test = 182
+		 time = 139.0 millis.
+	CAgenGenerator
+		 #test = 183
+		 time = 57.0 millis.
+	PICTGenerator
+		 #test = 211
+		 time = 137.0 millis.
+
+----- model_50.ctw ----- 
+	ACTSTranslator
+		 #test = 43
+		 time = 1.0 millis.
+	CAgenGenerator
+		 #test = 44
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 48
+		 time = 37.0 millis.
+
+----- model_51.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 33
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 41
+		 time = 39.0 millis.
+
+----- model_52.ctw ----- 
+	ACTSTranslator
+		 #test = 36
+		 time = 2925.0 millis.
+	CAgenGenerator
+		 #test = 36
+		 time = 77.0 millis.
+	PICTGenerator
+		 #test = 36
+		 time = 52.0 millis.
+
+----- model_53.ctw ----- 
+	ACTSTranslator
+		 #test = 40
+		 time = 10259.0 millis.
+	CAgenGenerator
+		 #test = 40
+		 time = 51.0 millis.
+	PICTGenerator
+		 #test = 40
+		 time = 66.0 millis.
+
+----- model_54.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 221
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 221
+		 time = 43.0 millis.
+
+----- model_55.ctw ----- 
+	ACTSTranslator
+		 #test = 92
+		 time = 4857.0 millis.
+	CAgenGenerator
+		 #test = 90
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 93
+		 time = 46.0 millis.
+
+----- model_56.ctw ----- 
+	ACTSTranslator
+		 #test = 100
+		 time = 4002.0 millis.
+	CAgenGenerator
+		 #test = 100
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 100
+		 time = 42.0 millis.
+
+----- model_57.ctw ----- 
+	ACTSTranslator
+		 timeout 
+	CAgenGenerator
+		 #test = 171
+		 time = 5111.0 millis.
+	PICTGenerator
+		 timeout 
+
+----- model_59.ctw ----- 
+	ACTSTranslator
+		 #test = 23
+		 time = 91.0 millis.
+	CAgenGenerator
+		 #test = 25
+		 time = 77.0 millis.
+	PICTGenerator
+		 #test = 27
+		 time = 46.0 millis.
+
+----- model_6.ctw ----- 
+	ACTSTranslator
+		 #test = 182
+		 time = 122.0 millis.
+	CAgenGenerator
+		 #test = 183
+		 time = 47.0 millis.
+	PICTGenerator
+		 #test = 216
+		 time = 88.0 millis.
+
+----- model_60.ctw ----- 
+	ACTSTranslator
+		 #test = 26
+		 time = 200.0 millis.
+	CAgenGenerator
+		 #test = 24
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 24
+		 time = 38.0 millis.
+
+----- model_61.ctw ----- 
+	ACTSTranslator
+		 #test = 9
+		 time = 74.0 millis.
+	CAgenGenerator
+		 #test = 10
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 9
+		 time = 44.0 millis.
+
+----- model_62.ctw ----- 
+	ACTSTranslator
+		 null 
+	CAgenGenerator
+		 #test = 58
+		 time = 9658.0 millis.
+	PICTGenerator
+		 timeout 
+
+----- model_63.ctw ----- 
+	ACTSTranslator
+		 #test = 37
+		 time = 207.0 millis.
+	CAgenGenerator
+		 #test = 37
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 42
+		 time = 25193.0 millis.
+
+----- model_64.ctw ----- 
+	ACTSTranslator
+		 #test = 67
+		 time = 1107.0 millis.
+	CAgenGenerator
+		 #test = 67
+		 time = 47.0 millis.
+	PICTGenerator
+		 #test = 75
+		 time = 57.0 millis.
+
+----- model_65.ctw ----- 
+	ACTSTranslator
+		 #test = 61
+		 time = 1847.0 millis.
+	CAgenGenerator
+		 #test = 59
+		 time = 60.0 millis.
+	PICTGenerator
+		 #test = 59
+		 time = 96.0 millis.
+
+----- model_66.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 8
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 12
+		 time = 37.0 millis.
+
+----- model_67.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 8
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 10
+		 time = 36.0 millis.
+
+----- model_68.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 10
+		 time = 38.0 millis.
+	PICTGenerator
+		 #test = 11
+		 time = 40.0 millis.
+
+----- model_69.ctw ----- 
+	ACTSTranslator
+		 #test = 415
+		 time = 19694.0 millis.
+	CAgenGenerator
+		 #test = 414
+		 time = 220.0 millis.
+	PICTGenerator
+		 timeout 
+
+----- model_7.ctw ----- 
+	ACTSTranslator
+		 #test = 45
+		 time = 297.0 millis.
+	CAgenGenerator
+		 #test = 45
+		 time = 80.0 millis.
+	PICTGenerator
+		 #test = 47
+		 time = 114.0 millis.
+
+----- model_70.ctw ----- 
+	ACTSTranslator
+		 #test = 92
+		 time = 365.0 millis.
+	CAgenGenerator
+		 #test = 92
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 92
+		 time = 55.0 millis.
+
+----- model_71.ctw ----- 
+	ACTSTranslator
+		 #test = 32
+		 time = 35.0 millis.
+	CAgenGenerator
+		 #test = 30
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 32
+		 time = 43.0 millis.
+
+----- model_72.ctw ----- 
+	ACTSTranslator
+		 #test = 25
+		 time = 21.0 millis.
+	CAgenGenerator
+		 #test = 25
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 26
+		 time = 43.0 millis.
+
+----- model_73.ctw ----- 
+	ACTSTranslator
+		 null 
+	CAgenGenerator
+		 #test = 323
+		 time = 380.0 millis.
+	PICTGenerator
+		 #test = 340
+		 time = 19376.0 millis.
+
+----- model_74.ctw ----- 
+	ACTSTranslator
+		 #test = 84
+		 time = 4417.0 millis.
+	CAgenGenerator
+		 #test = 86
+		 time = 215.0 millis.
+	PICTGenerator
+		 #test = 104
+		 time = 288.0 millis.
+
+----- model_75.ctw ----- 
+	ACTSTranslator
+		 #test = 212
+		 time = 2345.0 millis.
+	CAgenGenerator
+		 #test = 202
+		 time = 48.0 millis.
+	PICTGenerator
+		 #test = 238
+		 time = 116.0 millis.
+
+----- model_76.ctw ----- 
+	ACTSTranslator
+		 #test = 178
+		 time = 15.0 millis.
+	CAgenGenerator
+		 #test = 177
+		 time = 52.0 millis.
+	PICTGenerator
+		 #test = 198
+		 time = 97.0 millis.
+
+----- model_77.ctw ----- 
+	ACTSTranslator
+		 #test = 88
+		 time = 905.0 millis.
+	CAgenGenerator
+		 #test = 89
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 87
+		 time = 40.0 millis.
+
+----- model_78.ctw ----- 
+	ACTSTranslator
+		 #test = 87
+		 time = 1412.0 millis.
+	CAgenGenerator
+		 #test = 87
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 91
+		 time = 41.0 millis.
+
+----- model_79.ctw ----- 
+	ACTSTranslator
+		 #test = 93
+		 time = 70.0 millis.
+	CAgenGenerator
+		 #test = 92
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 97
+		 time = 53.0 millis.
+
+----- model_8.ctw ----- 
+	ACTSTranslator
+		 null 
+	CAgenGenerator
+		 #test = 75
+		 time = 3562.0 millis.
+	PICTGenerator
+		 timeout 
+
+----- model_80.ctw ----- 
+	ACTSTranslator
+		 #test = 87
+		 time = 63.0 millis.
+	CAgenGenerator
+		 #test = 87
+		 time = 49.0 millis.
+	PICTGenerator
+		 #test = 87
+		 time = 43.0 millis.
+
+----- model_81.ctw ----- 
+	ACTSTranslator
+		 #test = 75
+		 time = 930.0 millis.
+	CAgenGenerator
+		 #test = 72
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 79
+		 time = 58.0 millis.
+
+----- model_82.ctw ----- 
+	ACTSTranslator
+		 #test = 90
+		 time = 662.0 millis.
+	CAgenGenerator
+		 #test = 88
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 89
+		 time = 50.0 millis.
+
+----- model_83.ctw ----- 
+	ACTSTranslator
+		 #test = 49
+		 time = 18.0 millis.
+	CAgenGenerator
+		 #test = 48
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 52
+		 time = 46.0 millis.
+
+----- model_84.ctw ----- 
+	ACTSTranslator
+		 #test = 53
+		 time = 478.0 millis.
+	CAgenGenerator
+		 #test = 53
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 50
+		 time = 38.0 millis.
+
+----- model_85.ctw ----- 
+	ACTSTranslator
+		 #test = 26
+		 time = 7.0 millis.
+	CAgenGenerator
+		 #test = 27
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 32
+		 time = 42.0 millis.
+
+----- model_86.ctw ----- 
+	ACTSTranslator
+		 #test = 22
+		 time = 7.0 millis.
+	CAgenGenerator
+		 #test = 22
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 23
+		 time = 41.0 millis.
+
+----- model_87.ctw ----- 
+	ACTSTranslator
+		 #test = 145
+		 time = 1217.0 millis.
+	CAgenGenerator
+		 #test = 150
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 148
+		 time = 51.0 millis.
+
+----- model_88.ctw ----- 
+	ACTSTranslator
+		 #test = 164
+		 time = 1740.0 millis.
+	CAgenGenerator
+		 #test = 168
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 168
+		 time = 50.0 millis.
+
+----- model_89.ctw ----- 
+	ACTSTranslator
+		 null 
+	CAgenGenerator
+		 #test = 118
+		 time = 44.0 millis.
+	PICTGenerator
+		 #test = 117
+		 time = 79.0 millis.
+
+----- model_9.ctw ----- 
+	ACTSTranslator
+		 #test = 50
+		 time = 105.0 millis.
+	CAgenGenerator
+		 #test = 51
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 51
+		 time = 69.0 millis.
+
+----- model_90.ctw ----- 
+	ACTSTranslator
+		 #test = 76
+		 time = 141.0 millis.
+	CAgenGenerator
+		 #test = 76
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 72
+		 time = 36.0 millis.
+
+----- model_91.ctw ----- 
+	ACTSTranslator
+		 #test = 80
+		 time = 517.0 millis.
+	CAgenGenerator
+		 #test = 80
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 79
+		 time = 47.0 millis.
+
+----- model_92.ctw ----- 
+	ACTSTranslator
+		 #test = 53
+		 time = 401.0 millis.
+	CAgenGenerator
+		 #test = 53
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 60
+		 time = 39.0 millis.
+
+----- model_93.ctw ----- 
+	ACTSTranslator
+		 #test = 53
+		 time = 631.0 millis.
+	CAgenGenerator
+		 #test = 53
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 58
+		 time = 46.0 millis.
+
+----- model_94.ctw ----- 
+	ACTSTranslator
+		 #test = 24
+		 time = 42.0 millis.
+	CAgenGenerator
+		 #test = 24
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 25
+		 time = 42.0 millis.
+
+----- model_95.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 42
+		 time = 38.0 millis.
+	PICTGenerator
+		 #test = 42
+		 time = 35.0 millis.
+
+----- model_96.ctw ----- 
+	ACTSTranslator
+		 #test = 19
+		 time = 28.0 millis.
+	CAgenGenerator
+		 #test = 19
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 19
+		 time = 43.0 millis.
+
+----- model_97.ctw ----- 
+	ACTSTranslator
+		 #test = 32
+		 time = 792.0 millis.
+	CAgenGenerator
+		 #test = 31
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 36
+		 time = 47.0 millis.
+
+----- model_98.ctw ----- 
+	ACTSTranslator
+		 #test = 29
+		 time = 24.0 millis.
+	CAgenGenerator
+		 #test = 28
+		 time = 39.0 millis.
+	PICTGenerator
+		 #test = 30
+		 time = 36.0 millis.
+
+----- model_99.ctw ----- 
+	ACTSTranslator
+		 #test = 118
+		 time = 210.0 millis.
+	CAgenGenerator
+		 #test = 123
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 121
+		 time = 42.0 millis.
+
+----- real001.ctw ----- 
+	ACTSTranslator
+		 #test = 57
+		 time = 44.0 millis.
+	CAgenGenerator
+		 #test = 56
+		 time = 39.0 millis.
+	PICTGenerator
+		 #test = 57
+		 time = 44.0 millis.
+
+----- real002.ctw ----- 
+	ACTSTranslator
+		 #test = 37
+		 time = 1.0 millis.
+	CAgenGenerator
+		 #test = 36
+		 time = 38.0 millis.
+	PICTGenerator
+		 #test = 39
+		 time = 37.0 millis.
+
+----- real003.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 36
+		 time = 37.0 millis.
+	PICTGenerator
+		 #test = 36
+		 time = 35.0 millis.
+
+----- real004.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 20
+		 time = 38.0 millis.
+	PICTGenerator
+		 #test = 25
+		 time = 35.0 millis.
+
+----- real005.ctw ----- 
+	ACTSTranslator
+		 null 
+	CAgenGenerator
+		 #test = 24
+		 time = 39.0 millis.
+	PICTGenerator
+		 null 
+
+----- real006.ctw ----- 
+	ACTSTranslator
+		 null 
+	CAgenGenerator
+		 #test = 27
+		 time = 40.0 millis.
+	PICTGenerator
+		 null 
+
+----- real007.ctw ----- 
+	ACTSTranslator
+		 #test = 17
+		 time = 47.0 millis.
+	CAgenGenerator
+		 #test = 16
+		 time = 39.0 millis.
+	PICTGenerator
+		 #test = 16
+		 time = 43.0 millis.
+
+----- real008.ctw ----- 
+	ACTSTranslator
+		 #test = 36
+		 time = 1.0 millis.
+	CAgenGenerator
+		 #test = 36
+		 time = 39.0 millis.
+	PICTGenerator
+		 #test = 36
+		 time = 31.0 millis.
+
+----- real009.ctw ----- 
+	ACTSTranslator
+		 null 
+	CAgenGenerator
+		 #test = 27
+		 time = 43.0 millis.
+	PICTGenerator
+		 null 
+
+----- real011.ctw ----- 
+	ACTSTranslator
+		 #test = 25
+		 time = 46.0 millis.
+	CAgenGenerator
+		 #test = 25
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 28
+		 time = 38.0 millis.
+
+----- real012.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 36
+		 time = 37.0 millis.
+	PICTGenerator
+		 #test = 36
+		 time = 36.0 millis.
+
+----- real020.ctw ----- 
+	ACTSTranslator
+		 #test = 43
+		 time = 1.0 millis.
+	CAgenGenerator
+		 #test = 44
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 50
+		 time = 40.0 millis.
+
+----- real021.ctw ----- 
+	ACTSTranslator
+		 #test = 79
+		 time = 933.0 millis.
+	CAgenGenerator
+		 #test = 79
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 88
+		 time = 46.0 millis.
+
+----- real022.ctw ----- 
+	ACTSTranslator
+		 #test = 102
+		 time = 2140.0 millis.
+	CAgenGenerator
+		 #test = 103
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 111
+		 time = 49.0 millis.
+
+----- real023.ctw ----- 
+	ACTSTranslator
+		 #test = 57
+		 time = 43.0 millis.
+	CAgenGenerator
+		 #test = 56
+		 time = 39.0 millis.
+	PICTGenerator
+		 #test = 57
+		 time = 37.0 millis.
+
+----- real024.ctw ----- 
+	ACTSTranslator
+		 #test = 42
+		 time = 5.0 millis.
+	CAgenGenerator
+		 #test = 46
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 44
+		 time = 37.0 millis.
+
+----- real025.ctw ----- 
+	ACTSTranslator
+		 #test = 79
+		 time = 1034.0 millis.
+	CAgenGenerator
+		 #test = 77
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 88
+		 time = 45.0 millis.
+
+----- real026.ctw ----- 
+	ACTSTranslator
+		 #test = 53
+		 time = 34.0 millis.
+	CAgenGenerator
+		 #test = 52
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 53
+		 time = 45.0 millis.
+
+----- real027.ctw ----- 
+	ACTSTranslator
+		 #test = 103
+		 time = 3133.0 millis.
+	CAgenGenerator
+		 #test = 100
+		 time = 43.0 millis.
+	PICTGenerator
+		 #test = 113
+		 time = 48.0 millis.
+
+----- real030.ctw ----- 
+	ACTSTranslator
+	CAgenGenerator
+		 #test = 24
+		 time = 39.0 millis.
+	PICTGenerator
+		 #test = 23
+		 time = 37.0 millis.
+
+----- real031.ctw ----- 
+	ACTSTranslator
+		 #test = 20
+		 time = 8.0 millis.
+	CAgenGenerator
+		 #test = 20
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 23
+		 time = 36.0 millis.
+
+----- real033.ctw ----- 
+	ACTSTranslator
+		 #test = 84
+		 time = 8.0 millis.
+	CAgenGenerator
+		 #test = 83
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 81
+		 time = 39.0 millis.
+
+----- real034.ctw ----- 
+	ACTSTranslator
+		 #test = 64
+		 time = 461.0 millis.
+	CAgenGenerator
+		 #test = 63
+		 time = 42.0 millis.
+	PICTGenerator
+		 #test = 65
+		 time = 78.0 millis.
+
+----- real035.ctw ----- 
+	ACTSTranslator
+		 #test = 10
+		 time = 2.0 millis.
+	CAgenGenerator
+		 #test = 13
+		 time = 39.0 millis.
+	PICTGenerator
+		 #test = 10
+		 time = 37.0 millis.
+
+----- real036.ctw ----- 
+	ACTSTranslator
+		 #test = 12
+		 time = 2.0 millis.
+	CAgenGenerator
+		 #test = 12
+		 time = 38.0 millis.
+	PICTGenerator
+		 #test = 13
+		 time = 37.0 millis.
+
+----- real037.ctw ----- 
+	ACTSTranslator
+		 #test = 30
+		 time = 1.0 millis.
+	CAgenGenerator
+		 #test = 30
+		 time = 40.0 millis.
+	PICTGenerator
+		 #test = 30
+		 time = 35.0 millis.
+
+----- real038.ctw ----- 
+	ACTSTranslator
+		 #test = 9
+		 time = 3.0 millis.
+	CAgenGenerator
+		 #test = 7
+		 time = 41.0 millis.
+	PICTGenerator
+		 #test = 7
+		 time = 35.0 millis.
+
+----- real039.ctw ----- 
+	ACTSTranslator
+		 #test = 115
+		 time = 1978.0 millis.
+	CAgenGenerator
+		 #test = 114
+		 time = 56.0 millis.
+	PICTGenerator
+		 #test = 139
+		 time = 906.0 millis.
+
+----- real201.ctw ----- 
+	ACTSTranslator
+		 #test = 28
+		 time = 15.0 millis.
+	CAgenGenerator
+		 null 
+	PICTGenerator
+		 null 
+Benchmark execution time: 2069.906sec.

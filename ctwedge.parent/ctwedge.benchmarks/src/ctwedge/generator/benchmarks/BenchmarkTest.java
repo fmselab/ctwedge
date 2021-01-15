@@ -124,6 +124,7 @@ public class BenchmarkTest {
 					try {
 						result = ts_future.get(timeout_sec, TimeUnit.SECONDS);
 					} catch (TimeoutException ex) {
+						result = null;
 						System.out.println("--- TIMEOUT---");
 						ts_future.cancel(true);
 						executor.shutdown();
