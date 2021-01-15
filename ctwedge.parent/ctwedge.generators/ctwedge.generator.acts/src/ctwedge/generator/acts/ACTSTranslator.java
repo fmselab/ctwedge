@@ -135,25 +135,18 @@ public class ACTSTranslator extends ICTWedgeTestGenerator{
 		if (PRINT) System.out.println("ACTS sto chiamando ACTS... on "+model.getName()+" "+strength+" "+ignoreConstraints);
 		try {
 			SUT sut = buildSUT(model, ignoreConstraints, strength);
-			if (PRINT) System.out.println("1. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("1. ACTS sto chiamando ACTS... - building engine");
 			// Create an IPO engine object
 			t_start = System.currentTimeMillis();
 			IpoEngine engine = new IpoEngine(sut);
-			if (PRINT) System.out.println("2. ACTS sto chiamando ACTS...");
-			// build a test set
-			
-			if (PRINT) System.out.println("3. ACTS sto chiamando ACTS...");
-			//if (PRINT) System.setOut(new PrintStream(new ByteArrayOutputStream()));
+			if (PRINT) System.out.println("2. ACTS sto chiamando ACTS... - printing sut");
 			if (PRINT) System.out.println(sut.toString());
-			if (PRINT) System.out.println("4. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("3. ACTS sto chiamando ACTS... . calling build");
 			engine.buildOnlyPT(Algorithm.ipog);
-			if (PRINT) System.out.println("5. ACTS sto chiamando ACTS...");
-			//engine.buildSupportedNT(getAlgorithm());
-			
 			// get the resulting test set
-			if (PRINT) System.out.println("6. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("4. ACTS sto chiamando ACTS... - get the TS");
 			TestSet ts = engine.getTestSet();
-			if (PRINT) System.out.println("7. ACTS sto chiamando ACTS...");
+			if (PRINT) System.out.println("5. ACTS sto chiamando ACTS... - saving tests");
 			t_end = System.currentTimeMillis();
 			res = serializeTestSet(model, ts);
 			
