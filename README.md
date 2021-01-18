@@ -12,7 +12,7 @@ It comes as a Web interface, and as an Eclipse plugin:
 
 For developers, to compile source see instructions [here](https://fmselab.github.io/ctwedge/developer).
 
-## How to extend CTWEDGE
+## Documentation
 
 https://github.com/fmselab/ctwedge/wiki
 
