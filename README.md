@@ -12,6 +12,10 @@ It comes as a Web interface, and as an Eclipse plugin:
 
 For developers, to compile source see instructions [here](https://fmselab.github.io/ctwedge/developer).
 
+## Documentation
+
+https://github.com/fmselab/ctwedge/wiki
+
 ## People
 Most of the implementation work has been done by [Marco Radavelli](https://cs.unibg.it/radavelli/) and [Angelo Gargantini](http://cs.unibg.it/gargantini/). CTWedge extends the [CitLab](https://sourceforge.net/projects/citlab/) framework by [Paolo Vavassori](http://cs.unibg.it/vavassori/). For any problems, contact [Angelo Gargantini](mailto://angelo.gargantini@unibg.it)  
 
