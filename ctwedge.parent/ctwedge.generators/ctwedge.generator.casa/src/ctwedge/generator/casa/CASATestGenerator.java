@@ -23,7 +23,7 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
-public class CASATranslator extends ICTWedgeTestGenerator{
+public class CASATestGenerator extends ICTWedgeTestGenerator{
 
 	private static final boolean READ_STD_OUT = true;
 	private String path;
@@ -34,14 +34,14 @@ public class CASATranslator extends ICTWedgeTestGenerator{
 //.split("/target")[0] + "/WebContent/static/" + execName; // get the path of the current
 // class
 	
-	public CASATranslator() {
+	public CASATestGenerator() {
 		super("CASA");
-		path = CASATranslator.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+		path = CASATestGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath()
 			.split("/target")[0] + "/casa/"; // get the path of the current class
 		if (path.contains(":") && path.startsWith("/")) path = path.substring(1);
 	}
 	
-	public CASATranslator(String path) {
+	public CASATestGenerator(String path) {
 		this();
 		if (path!=null) this.path = path;
 	}

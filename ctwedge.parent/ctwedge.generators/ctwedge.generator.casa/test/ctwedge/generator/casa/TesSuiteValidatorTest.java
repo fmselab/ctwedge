@@ -62,7 +62,7 @@ public class TesSuiteValidatorTest {
 	
 	@Test
 	public void testFolder() {
-		ICTWedgeTestGenerator generator = new CASATranslator();
+		ICTWedgeTestGenerator generator = new CASATestGenerator();
 		List<File> fileList = new ArrayList<>();
 		int nTest = 0;
 		int nComplete = 0;

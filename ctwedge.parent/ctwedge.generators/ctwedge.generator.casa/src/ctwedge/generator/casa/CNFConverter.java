@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
@@ -46,7 +47,7 @@ import ctwedge.ctWedge.util.CtWedgeSwitch;
  */
 public class CNFConverter {
 	
-	//static private Logger logger = Logger.getLogger(CNFConverter.class); 
+	static Logger logger = Logger.getLogger(CNFConverter.class); 
 	
 	private static final DistributeOrOverAnd DISTRIBUTE_OR_OVER_AND = new DistributeOrOverAnd();
 	private static final NegationsIn NEGATIONS_IN = new NegationsIn();
@@ -61,23 +62,23 @@ public class CNFConverter {
 		// clone the expression that will be modified
 		aExpression = EcoreUtil.copy(aExpression);	
 		// change the new expressions
-		System.out.println("original =>" + toStringCoverter.doSwitch(aExpression));
+		logger.debug("original =>" + toStringCoverter.doSwitch(aExpression));
 		// I)mplications Out:
 		Expression implicationsOut = IMPLICATIONS_OUT.doSwitch(aExpression);
 		// delete aExpression
 		aExpression = null;
 		assert implicationsOut != null;
-		System.out.println("implication out =>" + toStringCoverter.doSwitch(implicationsOut));
+		logger.debug("implication out =>" + toStringCoverter.doSwitch(implicationsOut));
 		// N)egations In:
 		Expression negationsIn = NEGATIONS_IN.doSwitch(implicationsOut);
 		assert negationsIn != null;
 		implicationsOut = null;
-		System.out.println("negation in  =>" +toStringCoverter.doSwitch(negationsIn));
+		logger.debug("negation in  =>" +toStringCoverter.doSwitch(negationsIn));
 		// D)istribution V over ^:
 		Expression orDistributedOverAnd = DISTRIBUTE_OR_OVER_AND.doSwitch(negationsIn);
 		assert orDistributedOverAnd != null;
 		negationsIn = null;
-		System.out.println("distributed or/and  =>" + toStringCoverter.doSwitch(orDistributedOverAnd));
+		logger.debug("distributed or/and  =>" + toStringCoverter.doSwitch(orDistributedOverAnd));
 		// O)perators Out
 		CNF fillWith = (new CNFFiller()).fillWith(orDistributedOverAnd);
 		return fillWith;
@@ -159,7 +160,7 @@ abstract class CitLSwitchRecursive extends CtWedgeSwitch<Expression> {
 	@Override
 	public Expression doSwitch(EObject eObject) {
 		assert eObject != null;
-		System.out.println("eObject: "+eObject);
+		CNFConverter.logger.debug("eObject: "+eObject);
 		Expression res = super.doSwitch(eObject);
 		assert res != null;
 		return res;
@@ -175,7 +176,7 @@ class ImplicationsOut extends CitLSwitchRecursive {
 
 	@Override
 	public Expression caseImpliesExpression(ImpliesExpression imp) {
-		System.out.println("caseImpl: "+imp);
+		CNFConverter.logger.debug("caseImpl: "+imp);
 		Expression alpha = this.doSwitch(imp.getLeft());
 		Expression beta = this.doSwitch(imp.getRight());
 		// this is needed in any case

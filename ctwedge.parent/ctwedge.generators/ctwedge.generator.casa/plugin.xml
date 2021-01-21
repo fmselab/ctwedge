@@ -9,7 +9,7 @@
          
       <Generator
             Algorithm="CASA Algorithm"
-            GeneratorPrototype="ctwedge.generator.casa.CASATranslator"
+            GeneratorPrototype="ctwedge.generator.casa.CASATestGenerator"
             Name="CASA"
             support_constraints="true">
       </Generator>

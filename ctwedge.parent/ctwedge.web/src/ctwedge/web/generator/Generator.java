@@ -21,7 +21,7 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.casa.CASAConstraintException;
-import ctwedge.generator.casa.CASATranslator;
+import ctwedge.generator.casa.CASATestGenerator;
 import ctwedge.generator.util.ParameterSize;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
@@ -94,7 +94,7 @@ public class Generator extends HttpServlet {
 					// find the right generator
 					ICTWedgeTestGenerator gen;
 					if (generator.equalsIgnoreCase("casa"))
-						gen = new CASATranslator();
+						gen = new CASATestGenerator();
 					else
 						gen = new ACTSTranslator();
 					

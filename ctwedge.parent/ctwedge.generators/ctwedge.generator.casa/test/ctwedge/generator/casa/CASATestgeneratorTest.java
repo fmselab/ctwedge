@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +18,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -24,22 +26,9 @@ import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
-public class CASATranslatorTest {
+// test for CASA generator
+public class CASATestgeneratorTest {
 	
-	@Test
-	public void test() throws Exception {
-		ctwedge.ctWedge.CitModel citModel = Utility.loadModel("Model Phone\nParameters:\n emailViewer : Boolean\n textLines:  [ 25 .. 30 ]\n display : {16MC, 8MC, BW}\n\n Constraints:\n  # textLines=28 #\n");	
-		//System.out.println(new CASATranslator().getTestSuite(m, 2, false));
-		ToCasaParametersExporter mygen = new ToCasaParametersExporter();
-		// get the model in casa
-		CharSequence modelS = mygen.toCasaCode(citModel, 2);
-		System.out.println(modelS);
-
-		ConvertToAbstractID exporter = new ConvertToAbstractID(citModel);
-		CharSequence constraints = exporter.translateConstraints(); // can throw exception
-		assert constraints != null;
-		System.out.println(constraints);
-	}
 	
 	public class GeneratorExec implements Callable<TestSuite> {
 		String model;
@@ -58,9 +47,9 @@ public class CASATranslatorTest {
     }
 	
 	@Test
-	public void benchmark() {
+	public void benchmark() throws IOException {
 		
-		CASATranslator generator = new CASATranslator();
+		CASATestGenerator generator = new CASATestGenerator();
 		
 		// Builder risultato
 		StringBuilder sb_csv = new StringBuilder();
@@ -75,9 +64,12 @@ public class CASATranslatorTest {
 		sb_csv.append("\n");
 		
 		
-		List<File> fileList = new ArrayList<>();
 		Path path = Paths.get("../../ctwedge.benchmarks/models_test");
-		listFiles(path.toFile(), fileList);
+		List<File> fileList = Files.walk(path)
+                .filter(Files::isRegularFile)
+                .map(Path::toFile)
+                .filter(x -> x.getName().endsWith(".ctw"))
+                .collect(Collectors.toList());
 		for (File file : fileList) {
 			sb_csv.append(file.getName() + ";");
 			System.out.println("*************************************** " + file.getName());
@@ -140,15 +132,5 @@ public class CASATranslatorTest {
 		}	
 	}
 	
-	public void listFiles(File folder, List<File> fileList) {
-		File[] listOfFiles = folder.listFiles();
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()	&& (listOfFiles[i].getName().endsWith(".citw") || listOfFiles[i].getName().endsWith(".ctw"))) {
-				fileList.add(listOfFiles[i]);
-			} else if (listOfFiles[i].isDirectory()) {
-				listFiles(listOfFiles[i], fileList);
-			}
-		}
-	}
 	
 }

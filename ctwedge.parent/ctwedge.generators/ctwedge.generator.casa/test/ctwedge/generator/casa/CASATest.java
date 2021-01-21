@@ -6,7 +6,7 @@ import ctwedge.generator.util.Utility;
 
 public class CASATest {
 	
-	static CASATranslator casa = new CASATranslator(); 
+	static CASATestGenerator casa = new CASATestGenerator(); 
 	
 	@Test
 	public void test1() throws Exception {

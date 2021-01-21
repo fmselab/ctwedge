@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.Pair;
 
@@ -30,6 +31,7 @@ public class ConvertToAbstractID extends CtWedgeSwitch<List<String>> {
 	private CitModel model;
 	private ParameterValuesToInt valConverter;
 	
+	static Logger logger = Logger.getLogger(ConvertToAbstractID.class); 
 
 	public ConvertToAbstractID(CitModel citModel) {
 		valConverter = new ParameterValuesToInt(citModel);
@@ -108,7 +110,7 @@ public class ConvertToAbstractID extends CtWedgeSwitch<List<String>> {
 
 		for (Constraint r : constraints) {
 			CNF cnf = new CNFConverter().convertToCNF((Expression)r);
-			System.out.println("CNF: "+cnf);
+			logger.info("CNF: "+cnf);
 
 			for (Clause cl : cnf.clauses) {
 				int size=cl.literals.size();
