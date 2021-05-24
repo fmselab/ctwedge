@@ -118,9 +118,10 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 		//combo.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
 		combo.setBounds(140, 0, 80, 39);
 		// combo.setFont(SWTResourceManager.getFont("Courier", 21, SWT.NORMAL));
+		// get all the generators
 		ArrayList<String> extensionsNames = new ArrayList<String>();
 		IConfigurationElement[] eXgenerator = Platform.getExtensionRegistry()
-				.getConfigurationElementsFor(Constants.packagaName + ".ctwedgeGenerators");
+				.getConfigurationElementsFor(Constants.extensionPointGeneratorID);
 		for (int i = 0; i < eXgenerator.length; i++) {
 			if (eXgenerator[i] != null) {
 				extensionsNames.add(eXgenerator[i].getAttribute("Name"));

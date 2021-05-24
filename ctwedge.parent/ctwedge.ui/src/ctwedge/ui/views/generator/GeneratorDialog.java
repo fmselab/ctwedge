@@ -95,8 +95,8 @@ public class GeneratorDialog extends Dialog {
 					 * output = generator.generateTestsAndInfo( simp.getSimplifiedVersion(),
 					 * ignoreConstraints, ignoreSeeds, ignoreTestgoals, nWise); SemanticPreserver SP
 					 * = new SemanticPreserver( output, simp); output = SP.preserve(); } else
-					 */ 
-						output = generator.generateTestsAndInfo(citModel, ignoreConstraints, nWise);
+					 */
+					output = generator.generateTestsAndInfo(citModel, ignoreConstraints, nWise);
 				}
 			};
 

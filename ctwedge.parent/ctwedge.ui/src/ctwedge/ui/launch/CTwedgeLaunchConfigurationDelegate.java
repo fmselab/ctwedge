@@ -21,22 +21,22 @@ import ctwedge.util.ext.ICTWedgeTestGenerator;
 public class CTwedgeLaunchConfigurationDelegate implements ILaunchConfigurationDelegate {
 
 	@Override
-	public void launch(ILaunchConfiguration configuration, String arg1, ILaunch arg2, IProgressMonitor arg3) throws CoreException {
+	public void launch(ILaunchConfiguration configuration, String arg1, ILaunch arg2, IProgressMonitor arg3)
+			throws CoreException {
 		System.out.println(configuration + " " + arg1 + arg2);
 		// use ACTS by default with the constraints and the pairwise
 		String generatorName = configuration.getAttribute(CTWedgeTab.GENERATOR2, "ACTS");
 		int nWise = configuration.getAttribute(CTWedgeTab.STRENGTH, 2);
-		boolean ignoreConstraints = configuration.getAttribute(CTWedgeTab.IGNORE_CONSTRAINTS,false);
+		boolean ignoreConstraints = configuration.getAttribute(CTWedgeTab.IGNORE_CONSTRAINTS, false);
 		String filePath = configuration.getAttribute(CTWedgeLaunchShortcut.ATTR_FILEPATH, "");
 
 		System.out.println(nWise + " " + generatorName + " " + ignoreConstraints + " " + filePath);
 
+		// String filePath = configuration.getAttribute("file", "nullInputFile");
 
-		//String filePath = configuration.getAttribute("file", "nullInputFile");
-
-		//Cerco generatore con nome generatorName
+		// Cerco generatore con nome generatorName
 		IConfigurationElement[] eXgenerator = Platform.getExtensionRegistry()
-				.getConfigurationElementsFor(Constants.packagaName + ".ctwedgeGenerators");
+				.getConfigurationElementsFor(Constants.extensionPointGeneratorID);
 
 		BusyIndicator.showWhile(Display.getCurrent(), new Runnable() {
 			private CitModel citModel;
@@ -53,7 +53,7 @@ public class CTwedgeLaunchConfigurationDelegate implements ILaunchConfigurationD
 							e1.printStackTrace();
 						}
 						if (o instanceof ICTWedgeTestGenerator) {
-							final ICTWedgeTestGenerator gen = (ICTWedgeTestGenerator)o;
+							final ICTWedgeTestGenerator gen = (ICTWedgeTestGenerator) o;
 							runnable = new ISafeRunnable() {
 
 								@Override
@@ -64,14 +64,15 @@ public class CTwedgeLaunchConfigurationDelegate implements ILaunchConfigurationD
 								@Override
 								public void run() throws Exception {
 									citModel = ICTWedgeModelProcessor.getModel(filePath);
-									
+
 									if (citModel != null) {
-										Job generation = new SafeGeneratorRunnable("Generation of the test suite", nWise, citModel, ignoreConstraints, generatorName, gen);
+										Job generation = new SafeGeneratorRunnable("Generation of the test suite",
+												nWise, citModel, ignoreConstraints, generatorName, gen);
 										generation.setPriority(Job.SHORT);
 										generation.setUser(true);
 										generation.schedule();
 									} else {
-										//MR: prima era "showMessage", ma non riesco a farlo perché non c'è il parent
+										// MR: prima era "showMessage", ma non riesco a farlo perché non c'è il parent
 										System.out.println("The combinatorial model is not valid");
 									}
 								}
@@ -79,11 +80,12 @@ public class CTwedgeLaunchConfigurationDelegate implements ILaunchConfigurationD
 
 							SafeRunner.run(runnable);
 							break;
+						} else {
+							System.err.println("generator " + generatorName + " not found");
 						}
-					}
+					} 
 				}
 			}
-		});				
+		});
 	}
 }
-

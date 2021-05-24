@@ -16,7 +16,6 @@ Export-Package: ctwedge.generator.casa;
 Require-Bundle: org.junit,
  ctwedge.util,
  ctwedge,
- ctwedge.ui,
  org.eclipse.emf.ecore,
  org.eclipse.xtext.ecore,
  org.eclipse.xtext.xbase.lib
