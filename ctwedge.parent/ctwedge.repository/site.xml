@@ -3,7 +3,7 @@
    <description name="CTWedge update site" url="https://fmselab.github.io/ctwedge/ctwedge_update/">
       CTWedge for Eclipse Update Site
    </description>
-   <feature url="features/ctwedge.feature_1.0.0.201905231327.jar" id="ctwedge.feature" version="1.0.0.201905231327">
+   <feature url="features/ctwedge.feature_1.0.0.202105241450.jar" id="ctwedge.feature" version="1.0.0.202105241450">
       <category name="CTWedge"/>
    </feature>
    <category-def name="CTWedge" label="CTWedge"/>
