@@ -7,6 +7,7 @@ It comes as a Web interface, and as an Eclipse plugin:
 
 - [CTWedge Web: `http://foselab.unibg.it/ctwedge`](http://foselab.unibg.it/ctwedge). Please note that this web service is provided for free and without warranty. If the website is not responding, please contact contact [Angelo Gargantini](mailto://angelo.gargantini@unibg.it).
 - CTWedge for Eclipse: in Eclipse, press `Help` -> `Install New Software...`, add this link: **`https://raw.githubusercontent.com/fmselab/ctwedge/master/ctwedge.updatesite`** . Follow the instructions to install. Obs.: note that Xtext is required: if not present, please install it first (it can be found also in the Eclipse Marketplace). To use the plugin, check out our [short user guide here](https://fmselab.github.io/ctwedge).
+- There is a zip containing eclipse and the ctwedge plugin installed (casa is currently not working in the zip): <https://foselab.unibg.it/eclipse_ctwedge.zip>
 
 <a href="http://foselab.unibg.it/ctwedge"><img src="https://raw.githubusercontent.com/fmselab/ctwedge/master/ctwedge.parent/ctwedge.web/WebRoot/logo.png" width="200" alt="CTWedge logo"></a>
 
