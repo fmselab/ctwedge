@@ -32,7 +32,7 @@
 					<execution>
 						<phase>clean</phase>
 						<configuration>
-							<file>${basedir}/libs/acts-3.0.jar</file>
+							<file>${project.basedir}/libs/acts-3.2.jar</file>
 							<repositoryLayout>default</repositoryLayout>
 							<groupId>${project.groupId}</groupId>
 							<artifactId>acts</artifactId>

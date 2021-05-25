@@ -114,7 +114,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 		//lblGenerator.setFont(SWTResourceManager.getFont("Sans Serif", 14, SWT.NORMAL));
 		//lblGenerator.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_DARK_SHADOW));
 		lblGenerator.setText("Generation Algorithm");
-		combo = new Combo(composite_generator, SWT.NONE);
+		combo = new Combo(composite_generator, SWT.READ_ONLY);
 		//combo.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
 		combo.setBounds(140, 0, 80, 39);
 		// combo.setFont(SWTResourceManager.getFont("Courier", 21, SWT.NORMAL));
@@ -129,7 +129,7 @@ public class CTWedgeTab extends AbstractLaunchConfigurationTab {
 		}
 		combo.setItems(extensionsNames.toArray(new String[0]));
 		combo.addSelectionListener(defaultSelectionListener);
-		combo.select(1);
+		combo.select(0);
 
 		Composite composite_uses = new Composite(composite, SWT.NONE);
 		composite_uses.setBounds(54, 86, 203, 99);
