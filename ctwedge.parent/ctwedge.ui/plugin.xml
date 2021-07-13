@@ -519,6 +519,14 @@
                     <count
                         value="+">
                     </count>
+                     <iterate operator="and">
+			            <adapt type="org.eclipse.core.resources.IFile">
+			              <test property="org.eclipse.core.resources.extension"
+			                    value="ctw">
+			              </test>
+			            </adapt>
+			          </iterate>
+                    
                 </with>
             </enablement>
         </contextualLaunch>
