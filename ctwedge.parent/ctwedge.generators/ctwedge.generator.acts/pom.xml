@@ -6,6 +6,7 @@
 		<groupId>ctwedge</groupId>
 		<artifactId>ctwedge.parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../..</relativePath>
 	</parent>
 	<artifactId>ctwedge.generator.acts</artifactId>
 	<!-- <packaging>eclipse-plugin</packaging> -->

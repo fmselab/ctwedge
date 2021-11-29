@@ -4,6 +4,7 @@
 		<groupId>ctwedge</groupId>
 		<artifactId>ctwedge.parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../..</relativePath>
 	</parent>
   <artifactId>ctwedge.generator.cagen</artifactId>
   <packaging>jar</packaging>  
