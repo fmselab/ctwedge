@@ -60,15 +60,7 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 		System.out.println("caseNotExpression: "+x);
 		return "! ("+doSwitch(x.getPredicate())+")";
 	}
-	
-	/*@Override
-	public String caseNotExpression(NotExpression not) {
-		System.out.println("caseNot: "+not+" ->"+not.getPredicate());
-		assert not.getPredicate()!=null : "Predicate null";
-		String predicate = this.doSwitch(not.getPredicate());
-		return "! (" + predicate + ")";
-	}*/
-	
+		
 	@Override
 	public String caseAtomicPredicate(AtomicPredicate x) {
 		System.out.println("Case AtomicPredicate: "+x);
@@ -168,7 +160,7 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 		throw new RuntimeException("Operator not found");
 	}
 	
-	public static String dump(EObject mod_, String indent) {
+	static String dump(EObject mod_, String indent) {
 	    String res = indent + mod_.toString().replaceFirst(".*[.]impl[.](.*)Impl[^(]*", "$1 ");
 
 	    for (EObject a :mod_.eCrossReferences())

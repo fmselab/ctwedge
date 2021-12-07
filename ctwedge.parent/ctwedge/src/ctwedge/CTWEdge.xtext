@@ -89,7 +89,7 @@ AND_OPERATOR:
 	'&&' | 'and' | 'AND' | '&';
 
 NOT_OPERATOR:
-	'!' | 'not';
+	'!' | 'not' | 'NOT';
 
 
 enum PlusMinusOperators:

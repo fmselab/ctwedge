@@ -103,4 +103,6 @@ public class ACTSTest {
 		stream.close();
 		System.out.println(Utility.getTestSuite(contentBuilder.toString(), acts,2,false, null));
 	}
+	
+
 }
