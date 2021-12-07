@@ -12,6 +12,7 @@ import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Element;
 import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.EqualExpression;
+import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.ImpliesExpression;
 import ctwedge.ctWedge.ModMultDiv;
 import ctwedge.ctWedge.NotExpression;
@@ -38,6 +39,7 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 	@SuppressWarnings("unused")
 	private static final String ACTS_OP_IFF = "=";
 	private static final String ACTS_OP_EQ = "=";
+	static boolean PRINT = false;
 	
 	// the constraint to be translated;
 	Set<String> elements = new HashSet<>();
@@ -50,51 +52,61 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 
 	@Override
 	public String caseConstraint(Constraint x) {
-		System.out.println("CaseRule: "+x);
-		System.out.println("Dump: "+dump(x,""));
+		if (PRINT) System.out.println("CaseRule: "+x);
+		if (PRINT) System.out.println("Dump: "+dump(x,""));
 		return this.doSwitch(x);
 	}
 	
 	@Override
 	public String caseNotExpression(NotExpression x) {
-		System.out.println("caseNotExpression: "+x);
+		if (PRINT) System.out.println("caseNotExpression: "+x);
 		return "! ("+doSwitch(x.getPredicate())+")";
 	}
 		
 	@Override
 	public String caseAtomicPredicate(AtomicPredicate x) {
-		System.out.println("Case AtomicPredicate: "+x);
+		// if not null, it does not contain !
+		assert x.getName() == null || !x.getName().contains("!");
+		if (PRINT) System.out.println("Case AtomicPredicate: "+x);
 		return x.getName()!=null ? (elements.contains(x.getName()) && !StaticUtils.INSTANCE.isNumber(x.getName()) ? "\""+x.getName()+"\"" : x.getName()) : (x.getBoolConst()!=null ? x.getBoolConst() : "");
 	}
 	
 	@Override
 	public String caseEqualExpression(EqualExpression x) {
-		String left = this.doSwitch(x.getLeft());
-		String right = this.doSwitch(x.getRight());
+		if (PRINT) System.out.println("caseEqualExpression: "+x);
 		switch (x.getOp()) {
 		case EQ:
-			return parathesis(left, ACTS_OP_EQ, right);
+			return parathesis(x.getLeft(), ACTS_OP_EQ, x.getRight());
 		case NE:
-			return parathesis(left, ACTS_OP_NEQ, right);
+			return parathesis(x.getLeft(), ACTS_OP_NEQ, x.getRight());
 		default: throw new RuntimeException("Operator not found in constraint");
 		}
 	}
 
 	@Override
 	public String caseImpliesExpression(ImpliesExpression ruleExpr) {
-		String leftVal = this.doSwitch(ruleExpr.getLeft());
-		String rightVal = this.doSwitch(ruleExpr.getRight());
+		if (PRINT) System.out.println("caseImpliesExpression: "+ruleExpr);
 		switch (ruleExpr.getOp()) {
 		case IMPL:
-			return parathesis(leftVal, ACTS_OP_IMPLIES, rightVal);
+			return parathesis(ruleExpr.getLeft(), ACTS_OP_IMPLIES, ruleExpr.getRight());
 		case IFF:
-			return parathesis(parathesis(leftVal, ACTS_OP_IMPLIES, rightVal),
-					ACTS_OP_AND, parathesis(rightVal, ACTS_OP_IMPLIES, leftVal));
+			return parathesis(parathesis(ruleExpr.getLeft(), ACTS_OP_IMPLIES, ruleExpr.getRight()),
+					ACTS_OP_AND, parathesis(ruleExpr.getRight(), ACTS_OP_IMPLIES, ruleExpr.getLeft()));
 		}
 		throw new RuntimeException("Operator not found in seed");
-
 	}
-
+	private String parathesis(Expression left, String op, Expression right) {
+		String leftVal = this.doSwitch(left);
+		String rightVal = this.doSwitch(right);
+		String result = "";
+		if (left instanceof AtomicPredicate ) 			result += leftVal;
+		else result += "(" + leftVal + ")";
+		result += " " + op + " ";
+		if (right instanceof AtomicPredicate ) 			result += rightVal;
+		else result += "(" + rightVal + ")";
+		return result;
+		
+	}
 	private String parathesis(String leftVal, String op, String rightVal) {
 		// choco does not accept negative integers
 		// commentato sembra funzionare. Forse nelle operazioni? AG
@@ -105,31 +117,25 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 
 	@Override
 	public String caseOrExpression(OrExpression orExpr) {
-		String leftVal = this.doSwitch(orExpr.getLeft());
-		String rightVal = this.doSwitch(orExpr.getRight());
-		return parathesis(leftVal, ACTS_OP_OR, rightVal);
+		return parathesis(orExpr.getLeft(), ACTS_OP_OR, orExpr.getRight());
 	}
 
 	@Override
 	public String caseAndExpression(AndExpression andExpr) {
-		String leftVal = this.doSwitch(andExpr.getLeft());
-		String rightVal = this.doSwitch(andExpr.getRight());
-		return parathesis(leftVal, ACTS_OP_AND, rightVal);
+		return parathesis(andExpr.getLeft(), ACTS_OP_AND, andExpr.getRight());
 	}
 
 	@Override
 	public String caseRelationalExpression(RelationalExpression ineqExpr) {
-		String numerical = this.doSwitch(ineqExpr.getLeft());
-		String value2 = this.doSwitch(ineqExpr.getRight());
 		switch (ineqExpr.getOp()) {
 		case GE:
-			return parathesis(numerical, ">=", value2);
+			return parathesis(ineqExpr.getLeft(), ">=", ineqExpr.getRight());
 		case GT:
-			return parathesis(numerical, ">", value2);
+			return parathesis(ineqExpr.getLeft(), ">", ineqExpr.getRight());
 		case LE:
-			return parathesis(numerical, "<=", value2);
+			return parathesis(ineqExpr.getLeft(), "<=", ineqExpr.getRight());
 		case LT:
-			return parathesis(numerical, "<", value2);
+			return parathesis(ineqExpr.getLeft(), "<", ineqExpr.getRight());
 		default: throw new RuntimeException("Operator not found in constraint");
 
 		}
@@ -137,25 +143,21 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 
 	@Override
 	public String casePlusMinus(PlusMinus pm) {
-		String leftVal = this.doSwitch(pm.getLeft());
-		String rightVal = this.doSwitch(pm.getRight());
 		if (pm.getOp() == PlusMinusOperators.MINUS)
-			return parathesis(leftVal, "-", rightVal);
+			return parathesis(pm.getLeft(), "-", pm.getRight());
 		else
-			return parathesis(leftVal, "+", rightVal);
+			return parathesis(pm.getLeft(), "+", pm.getRight());
 	}
 
 	@Override
 	public String caseModMultDiv(ModMultDiv md) {
-		String leftVal = this.doSwitch(md.getLeft());
-		String rightVal = this.doSwitch(md.getRight());
 		switch (md.getOp()) {
 		case DIV:
-			return parathesis(leftVal, "/", rightVal);
+			return parathesis(md.getLeft(), "/", md.getRight());
 		case MULT:
-			return parathesis(leftVal, "*", rightVal);
+			return parathesis(md.getLeft(), "*", md.getRight());
 		case MOD:
-			return parathesis(leftVal, "%", rightVal);
+			return parathesis(md.getLeft(), "%", md.getRight());
 		}
 		throw new RuntimeException("Operator not found");
 	}
