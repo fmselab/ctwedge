@@ -307,7 +307,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator{
 			}
 			p.println();
 
-			if (sut.getRelations().size() > 0) {
+			if (sut.getRelations() != null && sut.getRelations().size() > 0) {
 				p.println("[Relation]");
 				p.println("-- this section is optional");
 				p.println("-- general format Rx : (p1, p2, ..., pk, Strength)");
