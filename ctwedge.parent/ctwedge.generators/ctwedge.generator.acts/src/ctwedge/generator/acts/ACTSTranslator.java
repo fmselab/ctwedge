@@ -307,15 +307,17 @@ public class ACTSTranslator extends ICTWedgeTestGenerator{
 			}
 			p.println();
 
-			p.println("[Relation]");
-			p.println("-- this section is optional");
-			p.println("-- general format Rx : (p1, p2, ..., pk, Strength)");
-			int x = 0;
-			for (Relation relation : sut.getRelations()) {
-				x++;
-				p.println("R" + x + " : (" + relation.getParamNames() + ", " + relation.getStrength() + ")");
+			if (sut.getRelations() != null && sut.getRelations().size() > 0) {
+				p.println("[Relation]");
+				p.println("-- this section is optional");
+				p.println("-- general format Rx : (p1, p2, ..., pk, Strength)");
+				int x = 0;
+				for (Relation relation : sut.getRelations()) {
+					x++;
+					p.println("R" + x + " : (" + relation.getParamNames() + ", " + relation.getStrength() + ")");
+				}
+				p.println();
 			}
-			p.println();
 
 			if (sut.getConstraintManager().getConstraints().size() > 0) {
 				p.println("[Constraint]");
