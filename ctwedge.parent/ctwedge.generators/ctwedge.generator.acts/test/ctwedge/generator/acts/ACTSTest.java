@@ -93,7 +93,6 @@ public class ACTSTest {
 		System.out.println(Utility.getTestSuite(contentBuilder.toString(), acts,2,false, null));
 	}
 	
-	
 	@Test
 	public void testExample2() throws Exception {
 		StringBuilder contentBuilder = new StringBuilder();
@@ -103,4 +102,6 @@ public class ACTSTest {
 		stream.close();
 		System.out.println(Utility.getTestSuite(contentBuilder.toString(), acts,2,false, null));
 	}
+	
+
 }
