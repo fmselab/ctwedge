@@ -1,5 +1,7 @@
 package ctwedge.generator.medici;
 
+import org.eclipse.xtext.EcoreUtil2;
+
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.Bool;
@@ -7,6 +9,7 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.CtWedgeFactory;
 import ctwedge.ctWedge.EqualExpression;
+import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.ImpliesExpression;
 import ctwedge.ctWedge.ImpliesOperator;
 import ctwedge.ctWedge.NotExpression;
@@ -54,9 +57,33 @@ public class ConstraintToMediciIds extends CtWedgeSwitch<String> {
 				return eqToInt.substring(2);
 			else
 				return eqToInt.substring(2) + " -";
-		} else
+		} else {
+			// If they are not atomic predicates, it means that the Equal has been derived
+			// from a double implication a <=> b
+			// Let's convert it as (a and b) or (not a and not b)
+			OrExpression orE = CtWedgeFactory.eINSTANCE.createOrExpression();
+			AndExpression andER = CtWedgeFactory.eINSTANCE.createAndExpression();
+			AndExpression andEL = CtWedgeFactory.eINSTANCE.createAndExpression();
+			NotExpression notA = CtWedgeFactory.eINSTANCE.createNotExpression();
+			NotExpression notB = CtWedgeFactory.eINSTANCE.createNotExpression();
+			Expression left = EcoreUtil2.clone(x.getLeft());
+			Expression right = EcoreUtil2.clone(x.getRight());
+			Expression left2 = EcoreUtil2.clone(left);
+			Expression right2 = EcoreUtil2.clone(right);
+			
+			andER.setLeft(left);
+			andER.setRight(right);
+			notA.setPredicate(left2);
+			notB.setPredicate(right2);
+			andEL.setLeft(notA);
+			andEL.setRight(notB);
+			orE.setLeft(andEL);
+			orE.setRight(andER);
+			return doSwitch(orE);
+			/*
 			throw new RuntimeException("Not all constraints are supported in medici : " + x.getLeft().getClass() + "="
-					+ x.getRight().getClass());
+					+ x.getRight().getClass());*/ 
+		}
 	}
 
 	@Override

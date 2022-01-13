@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
+
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
@@ -114,8 +116,10 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 		if (!ignoreConstraints) {
 			sb.append(sm.getConstraints().size() + "\n");			
 			ConstraintToMediciIds translator = new ConstraintToMediciIds(sm);
-			for (Constraint c : sm.getConstraints())
+			for (Constraint c : sm.getConstraints()) {
+				System.out.println("Converting: " + c.toString());
 				sb.append(translator.doSwitch(c)).append("\n");
+			}
 		} else {
 			// no constraints
 			sb.append("0\n");
