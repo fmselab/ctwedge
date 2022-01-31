@@ -162,7 +162,9 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			if (PRINT)
 				System.out.println("5. ACTS sto chiamando ACTS... - saving tests");
 			t_end = System.currentTimeMillis();
-			res = serializeTestSet(model, ts);
+			if (ts != null)
+				res = serializeTestSet(model, ts);
+			
 
 		} catch (Exception e) {
 			if (PRINT)
@@ -331,7 +333,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 				p.println("-- this section is also optional");
 				for (edu.uta.cse.fireeye.common.Constraint constraint : sut.getConstraintManager().getConstraints()) {
 					String text = constraint.getText();
-					p.print(text);
+					p.println(text);
 // we wanted to split long lines - but ACTS does not know how to temrinate a constraint
 //					// split long lines in multiple lines
 //					StringTokenizer tok = new StringTokenizer(text, " ");
