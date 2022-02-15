@@ -65,13 +65,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>acts</artifactId>
-			<version>3.2</version>
-			<systemPath>${project.basedir}/libs/acts_3.2.jar</systemPath>
-			<scope>system</scope>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
 			<artifactId>ctwedge</artifactId>
 			<version>${project.version}</version>
 		</dependency>
