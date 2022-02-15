@@ -1,0 +1,22 @@
+anifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CTWedge Test Generator
+Bundle-SymbolicName: ctwedge.generator.acts;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .,
+ libs/acts_3.2.jar
+Export-Package: ctwedge.generator.smttest;
+  uses:="org.eclipse.emf.ecore,
+   ctwedge.util,
+   ctwedge.ctWedge,
+   ctwedge.ctWedge.util,
+   ctwedge.util.ext,
+   edu.uta.cse.fireeye.common"
+Require-Bundle: org.junit,
+ ctwedge.util,
+ ctwedge,
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.ecore
+Bundle-Vendor: University of Bergamo
+Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: ctwedge.generator.acts

@@ -1,0 +1,37 @@
+Model scommesse
+
+Parameters:
+  vincita1 : {-2 -1 1}
+  //vincita2 : {-2 -1 1}
+  //vincita3 : {-2 -1 1}
+  //vincita4 : {-2 -1 1}
+  //vincita5 : {-2 -1 1}
+  //budget1 : [ 0 .. 10 ]
+  //budget2 : [ 0 .. 10 ]
+  //budget3 : [ 0 .. 10 ]
+  //budget4 : [ 0 .. 10 ]
+  //budget5 : [ 0 .. 10 ]
+  risultato1 : { UNO DUE X };
+  //risultato2 : { UNO DUE X };
+  //risultato3 : { UNO DUE X };
+  //risultato4 : { UNO DUE X };
+  //risultato5 : { UNO DUE X };
+  scommessa1 : { UNO DUE X };
+  //scommessa2 : { UNO DUE X };
+  //scommessa3 : { UNO DUE X };
+  //scommessa4 : { UNO DUE X };
+  //scommessa5 : { UNO DUE X };
+  	
+Constraints:
+
+  //# (budget1+budget2+budget3+budget4+budget5)>=0#
+  //# budget1>0 and budget2>0 and budget3>0 and budget4>0 and budget5>1 #
+  //# budget1>0 and budget1 + budget2 <20#
+  # (risultato1==scommessa1) => (vincita1==1)#
+  # (risultato1!=scommessa1 and risultato1 == X) => (vincita1==-1)#
+  # (risultato1!=scommessa1 and risultato1 != X) => (vincita1==-2)#
+  //# (vincita2==1) => (risultato2==scommessa2)#
+  //# (vincita3==1) => (risultato3==scommessa3)#
+  //# (vincita4==1) => (risultato4==scommessa4)#
+  //# (vincita5==1) => (risultato5==scommessa5)#
+  
