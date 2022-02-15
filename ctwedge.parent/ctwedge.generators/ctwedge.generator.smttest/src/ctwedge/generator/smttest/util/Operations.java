@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 import java.util.Vector;
 
@@ -21,6 +23,7 @@ import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.smttest.safeelements.ExtendedSemaphore;
 import ctwedge.generator.util.ParameterElementsGetterAsStrings;
+import ctwedge.util.validator.SMTConstraintChecker;
 import ctwedge.util.validator.SMTConstraintTranslator;
 
 public class Operations {
@@ -147,6 +150,10 @@ public class Operations {
 		SolverContext ctx = SolverContextFactory.createSolverContext(Solvers.Z3); 
 		IntegerFormulaManager variableManager = ctx.getFormulaManager().getIntegerFormulaManager();
 		SMTConstraintTranslator cTranslator = new SMTConstraintTranslator(ctx, null, null);
+		SMTConstraintChecker cChecker = new SMTConstraintChecker();
+		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
+		
+		cChecker.addParameters(m, ctx, null, variables);
 		
 		// Load all the parameters from the model into the context
 		for (Parameter p : m.getParameters()) {
@@ -159,6 +166,8 @@ public class Operations {
 		// Fetch all the constraints and load them into the context
 		for (Constraint c : m.getConstraints()) {
 			Formula constraint = cTranslator.doSwitch(c);
+			
+			
 		}		
 		
 		return ctx;
