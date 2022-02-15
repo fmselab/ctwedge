@@ -11,6 +11,7 @@ import java.util.Vector;
 import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.java_smt.SolverContextFactory;
 import org.sosy_lab.java_smt.SolverContextFactory.Solvers;
+import org.sosy_lab.java_smt.api.Formula;
 import org.sosy_lab.java_smt.api.FormulaManager;
 import org.sosy_lab.java_smt.api.IntegerFormulaManager;
 import org.sosy_lab.java_smt.api.SolverContext;
@@ -20,6 +21,7 @@ import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.smttest.safeelements.ExtendedSemaphore;
 import ctwedge.generator.util.ParameterElementsGetterAsStrings;
+import ctwedge.util.validator.SMTConstraintTranslator;
 
 public class Operations {
 
@@ -144,6 +146,7 @@ public class Operations {
 	public static SolverContext updateContext(CitModel m) throws InvalidConfigurationException {
 		SolverContext ctx = SolverContextFactory.createSolverContext(Solvers.Z3); 
 		IntegerFormulaManager variableManager = ctx.getFormulaManager().getIntegerFormulaManager();
+		SMTConstraintTranslator cTranslator = new SMTConstraintTranslator(ctx, null, null);
 		
 		// Load all the parameters from the model into the context
 		for (Parameter p : m.getParameters()) {
@@ -155,7 +158,7 @@ public class Operations {
 		
 		// Fetch all the constraints and load them into the context
 		for (Constraint c : m.getConstraints()) {
-			
+			Formula constraint = cTranslator.doSwitch(c);
 		}		
 		
 		return ctx;
