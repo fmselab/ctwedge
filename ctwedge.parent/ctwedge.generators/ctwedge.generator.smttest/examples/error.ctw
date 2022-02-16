@@ -1,7 +1,0 @@
-Model BOOLC_0
-Parameters:
-Par0 : Boolean
-Par1 : Boolean
-
-Constraints:
-# AAA Par0  #
