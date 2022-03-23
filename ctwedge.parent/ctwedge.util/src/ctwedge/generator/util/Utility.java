@@ -73,16 +73,20 @@ public class Utility {
 		}
 		// validate the resource
 		IResourceValidator validator = injector.getInstance(IResourceValidator.class);
-		List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
-		for (Issue issue : issues) {
-			switch (issue.getSeverity()) {
-			case ERROR:
-				throw new RuntimeException("(first) ERROR: " + issue.getMessage());
-			case WARNING:
-			case IGNORE: 
-			case INFO :
-				// TODO System.out.println("WARNING: " + issue.getMessage());
+		try {
+			List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
+			for (Issue issue : issues) {
+				switch (issue.getSeverity()) {
+				case ERROR:
+					throw new RuntimeException("(first) ERROR: " + issue.getMessage());
+				case WARNING:
+				case IGNORE: 
+				case INFO :
+					// TODO System.out.println("WARNING: " + issue.getMessage());
+				}
 			}
+		} catch(Exception e) {
+			
 		}
 		// return 
 		CitModel res = (CitModel) resource.getContents().get(0);
