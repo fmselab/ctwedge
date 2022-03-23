@@ -23,6 +23,8 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 
 	private static final boolean READ_STD_OUT = true;
 	
+	public static boolean OUTPUT_ON_STD_OUT_DURING_TRANSLATION = true;
+	
 	private String path;
 
 	public MediciCITGenerator() {
@@ -117,7 +119,8 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 			sb.append(sm.getConstraints().size() + "\n");			
 			ConstraintToMediciIds translator = new ConstraintToMediciIds(sm);
 			for (Constraint c : sm.getConstraints()) {
-				System.out.println("Converting: " + c.toString());
+				if (OUTPUT_ON_STD_OUT_DURING_TRANSLATION)
+					System.out.println("Converting: " + c.toString());
 				sb.append(translator.doSwitch(c)).append("\n");
 			}
 		} else {
