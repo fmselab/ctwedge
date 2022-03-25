@@ -191,7 +191,7 @@ public class SMTTestSuiteValidator {
 		return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
 	}
 
-	private BooleanFormula extractFormulaFromTuple(SolverContext ctx, Map<String, String> declaredElements,
+	public BooleanFormula extractFormulaFromTuple(SolverContext ctx, Map<String, String> declaredElements,
 			Map<Parameter, Formula> variables, Map<Parameter, String> requirement) {
 		BooleanFormula t = ctx.getFormulaManager().getBooleanFormulaManager().makeTrue();
 		
