@@ -1,0 +1,19 @@
+Model Cellphone
+
+Parameters:
+	Boolean MMS;
+	Boolean Communication;
+	Boolean WLAN;
+	Boolean Bluetooth;
+	Boolean UMTS;
+	Boolean MP3;
+	Enumerative Camera { a3MP a8MP NONE };
+end
+Constraints:
+	# WLAN==true => Communication==true #
+	# Bluetooth==true => Communication==true #
+	# UMTS==true => Communication==true #
+	# MP3==true || Camera!=Camera.NONE #
+	# ! MMS==true || Camera!=Camera.NONE #
+	# ! Bluetooth==true || ! MP3==true #
+end

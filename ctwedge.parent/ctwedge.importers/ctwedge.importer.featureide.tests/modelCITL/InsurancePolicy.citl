@@ -1,0 +1,26 @@
+Model InsurancePolicy
+
+Parameters:
+	Boolean Auto;
+	Boolean Comprehensive;
+	Boolean TP;
+	Boolean Home;
+	Boolean commercial;
+	Boolean watercraft;
+	Boolean ThirdPartyServices;
+	Boolean Add_Validation;
+	Boolean VINValidation;
+	Enumerative CreditCheck { simple advanced NONE };
+	Boolean cardetails;
+	Boolean housedetails;
+end
+Constraints:
+	# Auto==true || Home==true || commercial==true || watercraft==true #
+	# Auto==true => ( Comprehensive==true || TP==true) #
+	# Comprehensive==true => Auto==true #
+	# TP==true => Auto==true #
+	# Add_Validation==true => ThirdPartyServices==true #
+	# VINValidation==true => ThirdPartyServices==true #
+	# CreditCheck!=CreditCheck.NONE => ThirdPartyServices==true #
+	# TP==true || watercraft==true #
+end

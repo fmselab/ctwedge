@@ -1,0 +1,61 @@
+Model Cocheecologico
+
+Parameters:
+	Enumerative Pintura { Metalizada Nometalizada };
+	Enumerative Metalizada { Grisperla Rojoturco Verdecactus Azulcobalto NONE };
+	Enumerative Nometalizada {
+	Blanco Negro Azulmarino Verdeesmeralda Rojofuego NONE };
+	Enumerative Lunastraseraydepasajeros { _r_1_20_26_27_28 Tintadas };
+	Enumerative Tintadas { Tintadooscuro Tintadomedio Tintadosuave NONE };
+	Enumerative Faros { Neon Xenon };
+	Boolean Llantasdealeacionligera;
+	Enumerative Tapiceria { Cuero Estampado };
+	Enumerative Cuero { _r_2_34_37_38_39_40 _r_2_34_37_38_39_41 Marron NONE };
+	Enumerative Estampado { Liso Moteado NONE };
+	Enumerative Liso {
+	_r_2_34_37_43_46_47_49_50 Rojogranate Verdemusgo Marronroble NONE };
+	Enumerative Moteado {
+	Geometricoverde_rojo_amarillo Hojascamarron_negro_amarillo Balonesblanco_azul_verde NONE };
+	Enumerative Asientosdelanteros { Deportivosenvolventes Asientosdeserie };
+	Enumerative Cinturondeseguridaddelanteros { Deportivos Deserie };
+	Boolean Pasajeros;
+	Boolean Laterales;
+	Boolean _r_2_78_82_83_84;
+	Boolean _r_2_78_82_83_85;
+	Enumerative Baterias { Ion_litio Niquel_cadmio };
+	Boolean Sistemaantirrobointegradoenlallavedeencendido;
+	Boolean Capacidadesespeciales;
+	Boolean LectordearchivosMP3porUSB;
+	Boolean LectordearchivosMP3entarjetasSD;
+	Boolean Cargadorde3CDs;
+	Boolean Aperturaycierredepuertasadistanciaenlallave;
+	Boolean NavegadorGPSintegrado;
+	Boolean Temperaturainterior;
+	Boolean Aireacondicionado;
+	Enumerative Aclimatador {
+	Controlescomunes Controlesseparadosdepilotoycopilotoypasajeros NONE };
+	Boolean Elevalunaselectricoenlasventanillastraseras;
+	Boolean ReproductordeDVDintegradoconpantallaparalospasajeros;
+end
+Constraints:
+	# Metalizada!=Metalizada.NONE <=> Pintura==Pintura.Metalizada #
+	# Nometalizada!=Nometalizada.NONE <=> Pintura==Pintura.Nometalizada #
+	# Tintadas!=Tintadas.NONE <=>
+	Lunastraseraydepasajeros==Lunastraseraydepasajeros.Tintadas #
+	# Cuero!=Cuero.NONE <=> Tapiceria==Tapiceria.Cuero #
+	# Estampado!=Estampado.NONE <=> Tapiceria==Tapiceria.Estampado #
+	# Liso!=Liso.NONE <=> Estampado==Estampado.Liso #
+	# Moteado!=Moteado.NONE <=> Estampado==Estampado.Moteado #
+	# Laterales==true => ( _r_2_78_82_83_84==true || _r_2_78_82_83_85==true) #
+	# _r_2_78_82_83_84==true => Laterales==true #
+	# _r_2_78_82_83_85==true => Laterales==true #
+	# LectordearchivosMP3porUSB==true <=> Capacidadesespeciales==true #
+	# LectordearchivosMP3entarjetasSD==true <=> Capacidadesespeciales==true #
+	# Cargadorde3CDs==true <=> Capacidadesespeciales==true #
+	# Aireacondicionado==true => Temperaturainterior==true #
+	# Aclimatador!=Aclimatador.NONE => Temperaturainterior==true #
+	# ! Asientosdelanteros==Asientosdelanteros.Deportivosenvolventes ||
+	Cinturondeseguridaddelanteros==Cinturondeseguridaddelanteros.Deportivos #
+	# Sistemaantirrobointegradoenlallavedeencendido==true || !
+	Aperturaycierredepuertasadistanciaenlallave==true #
+end

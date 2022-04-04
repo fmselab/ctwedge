@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and abstract="true" mandatory="true" name="phone">
+				<feature mandatory="true" name="PhoneCall"/>
+				<feature name="GPS"/>
+				<alt mandatory="true" name="Screen">
+					<feature mandatory="true" name="Basic"/>
+					<feature mandatory="true" name="Color"/>
+					<feature mandatory="true" name="HighDefinition"/>
+				</alt>
+				<or mandatory="true" name="KeyBoard">
+					<feature mandatory="true" name="Real"/>
+					<feature mandatory="true" name="Virtual"/>
+				</or>
+				<or name="Media">
+					<feature mandatory="true" name="Radio"/>
+					<feature mandatory="true" name="MP3"/>
+				</or>
+				<alt name="Camera">
+					<feature mandatory="true" name="r1_MP"/>
+					<feature mandatory="true" name="r_2MP"/>
+					<feature mandatory="true" name="r_6MP"/>
+				</alt>
+			</and>
+		</struct>
+		<constraints/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

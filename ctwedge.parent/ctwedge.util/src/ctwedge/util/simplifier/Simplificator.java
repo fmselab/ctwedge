@@ -11,8 +11,6 @@
  ******************************************************************************/
 package ctwedge.util.simplifier;
 
-
-
 import java.util.Set;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -21,9 +19,6 @@ import org.eclipse.xtext.EcoreUtil2;
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.CitModel;
 
-
-
-
 /**
  * performs the semplification over a CitModel
  * 
@@ -31,34 +26,34 @@ import ctwedge.ctWedge.CitModel;
  *
  */
 public class Simplificator {
-		
+
 	private ConstraintSimplifier constSimpl = ConstraintSimplifier.eInstance;
-	
-	//MR private ParameterSimplifier paramSimpl = new ParameterSimplifier();
+
+	// MR private ParameterSimplifier paramSimpl = new ParameterSimplifier();
 
 	private CitModel model;
-	
-	
-	public Simplificator(CitModel model){
-	//MR 	paramSimpl = new ParameterSimplifier();
+
+	public Simplificator(CitModel model) {
+		// MR paramSimpl = new ParameterSimplifier();
 		this.model = model;
 	}
-		
-	public Set<AtomicPredicate> getRemovedPA(){
-	return null;//MR 	return paramSimpl.removed;
-		 
-	 }	
+
+	public Set<AtomicPredicate> getRemovedPA() {
+		return null;// MR return paramSimpl.removed;
+
+	}
+
 	/**
 	 * 
-	 * @return build a new  simplified model
+	 * @return build a new simplified model
 	 */
-	public CitModel getSimplifiedVersion(){
+	public CitModel getSimplifiedVersion() {
 		// build a copy of the model
 		CitModel m2 = EcoreUtil.copy(model);
 		// simplify the constraints
 		constSimpl.simplify(m2);
 		// simplify the parameters
-		//MR paramSimpl.simplify(m2);
+		// MR paramSimpl.simplify(m2);
 		//
 		return m2;
 	}

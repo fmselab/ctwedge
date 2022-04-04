@@ -1,0 +1,30 @@
+Model ATMsoftware
+
+Parameters:
+	Enumerative UserInterface { Basic2Dview Deluxe3Dview };
+	Boolean Depositmoney;
+	Boolean Printingstatement;
+	Boolean Changemaximumlimitforwithdrawal;
+	Boolean Localtransfertothesamebank;
+	Boolean Localtransfertootherbanks;
+	Boolean Detuschbank;
+	Boolean Stadtparkasse;
+	Boolean Volksbank;
+	Boolean Internationaltransfer;
+	Boolean Moneyexchange;
+	Boolean Checkingmoneyexchangerate;
+	Boolean Additionalfunctionality;
+	Boolean Mobiletop_up;
+	Boolean Paythebills;
+	Enumerative Languageselection { German English French Italian NONE };
+end
+Constraints:
+	# Localtransfertootherbanks==true => ( Detuschbank==true ||
+	Stadtparkasse==true || Volksbank==true) #
+	# Detuschbank==true => Localtransfertootherbanks==true #
+	# Stadtparkasse==true => Localtransfertootherbanks==true #
+	# Volksbank==true => Localtransfertootherbanks==true #
+	# Mobiletop_up==true => Additionalfunctionality==true #
+	# Paythebills==true => Additionalfunctionality==true #
+	# Languageselection!=Languageselection.NONE => Additionalfunctionality==true #
+end

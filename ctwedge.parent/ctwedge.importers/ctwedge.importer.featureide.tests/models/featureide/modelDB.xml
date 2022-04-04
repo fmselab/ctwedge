@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and abstract="true" mandatory="true" name="DB">
+				<alt abstract="true" mandatory="true" name="OS">
+					<feature mandatory="true" name="NutOS"/>
+					<feature mandatory="true" name="Win"/>
+				</alt>
+				<alt abstract="true" mandatory="true" name="BufferMsgr">
+					<and abstract="true" mandatory="true" name="Persistent">
+						<alt abstract="true" mandatory="true" name="MemAlloc">
+							<feature mandatory="true" name="Static"/>
+							<feature mandatory="true" name="Dynamic"/>
+						</alt>
+						<alt abstract="true" mandatory="true" name="PageRepl">
+							<feature mandatory="true" name="LFU"/>
+							<feature mandatory="true" name="RFU"/>
+						</alt>
+					</and>
+					<feature mandatory="true" name="InMemory"/>
+				</alt>
+				<and abstract="true" mandatory="true" name="Storage">
+					<or abstract="true" mandatory="true" name="ApI">
+						<feature mandatory="true" name="get"/>
+						<feature mandatory="true" name="put"/>
+						<feature mandatory="true" name="delete"/>
+					</or>
+					<alt abstract="true" mandatory="true" name="indexing">
+						<feature mandatory="true" name="BTree"/>
+						<feature mandatory="true" name="Unindexed"/>
+					</alt>
+				</and>
+				<feature name="DebugLogging"/>
+			</and>
+		</struct>
+		<constraints/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

@@ -1,0 +1,23 @@
+Model MobilePhone
+
+Parameters:
+	Boolean SMS;
+	Boolean MMS;
+	Boolean Games;
+	Enumerative OS { Symbian WinCE };
+	Boolean JavaSupport;
+	Boolean Media;
+	Boolean Camera;
+	Boolean MP3;
+	Boolean Connectivity;
+	Boolean USB;
+	Boolean Bluetooth;
+end
+Constraints:
+	# SMS==true || MMS==true #
+	# Camera==true <=> Media==true #
+	# MP3==true => Media==true #
+	# USB==true <=> Connectivity==true #
+	# Bluetooth==true => Connectivity==true #
+	# ! Games==true || JavaSupport==true #
+end

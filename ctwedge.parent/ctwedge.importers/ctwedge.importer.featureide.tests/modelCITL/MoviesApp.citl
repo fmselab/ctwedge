@@ -1,0 +1,14 @@
+Model MoviesApp
+
+Parameters:
+	Enumerative GUI { Thin Rich };
+	Enumerative DB { Local Remote };
+	Boolean CachePolicy;
+	Enumerative Network { Wifi Bluetooth };
+	Boolean GPS;
+	Boolean Built_In;
+end
+Constraints:
+	# CachePolicy==true <=> DB==DB.Remote #
+	# Built_In==true => GPS==true #
+end

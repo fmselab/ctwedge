@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and abstract="true" mandatory="true" name="model">
+				<or name="A">
+					<and mandatory="true" name="a1">
+						<feature name="a11"/>
+						<feature name="a12"/>
+					</and>
+					<or mandatory="true" name="a2">
+						<feature mandatory="true" name="a21"/>
+						<feature mandatory="true" name="a22"/>
+					</or>
+					<alt mandatory="true" name="a3">
+						<feature mandatory="true" name="a31"/>
+						<feature mandatory="true" name="a32"/>
+					</alt>
+				</or>
+				<alt name="B">
+					<feature mandatory="true" name="b1"/>
+					<feature mandatory="true" name="bn"/>
+				</alt>
+				<or mandatory="true" name="C">
+					<feature mandatory="true" name="c1"/>
+					<feature mandatory="true" name="cn"/>
+				</or>
+				<alt mandatory="true" name="D">
+					<feature mandatory="true" name="d1"/>
+					<feature mandatory="true" name="dn"/>
+				</alt>
+				<feature name="E"/>
+				<feature mandatory="true" name="F"/>
+			</and>
+		</struct>
+		<constraints/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

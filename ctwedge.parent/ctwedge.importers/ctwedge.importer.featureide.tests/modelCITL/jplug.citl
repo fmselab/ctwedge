@@ -1,0 +1,26 @@
+Model jplug
+
+Parameters:
+	Enumerative interface { sdi mdi };
+	Boolean gui_builder;
+	Boolean java;
+	Boolean qt;
+	Boolean model_code_synch;
+	Boolean compiler;
+	Boolean javac;
+	Boolean mvc;
+	Boolean diagram_builder;
+	Boolean uml;
+	Boolean petri_net;
+end
+Constraints:
+	# java==true <=> gui_builder==true #
+	# qt==true => gui_builder==true #
+	# compiler==true => ( javac==true || mvc==true) #
+	# javac==true => compiler==true #
+	# mvc==true => compiler==true #
+	# uml==true <=> diagram_builder==true #
+	# petri_net==true => diagram_builder==true #
+	# ! gui_builder==true || ! interface==interface.sdi #
+	# ! model_code_synch==true || diagram_builder==true #
+end

@@ -1,0 +1,27 @@
+Model MobileGames
+
+Parameters:
+	Boolean TouchScreen;
+	Boolean Keypad;
+	Boolean Speech;
+	Boolean Movementdetection;
+	Boolean Output;
+	Boolean ForceFeedback;
+	Boolean NetworkSupport;
+	Boolean OnlineMultiplayer;
+	Boolean Internationalization;
+	Boolean Internationallanguangessupport;
+	Boolean PlatformIndependence;
+	Boolean Platformindependencesupport;
+	Boolean Payandbillsupport;
+	Boolean Payandbillsystem;
+end
+Constraints:
+	# TouchScreen==true || Keypad==true || Speech==true || Movementdetection==true
+	#
+	# ForceFeedback==true => Output==true #
+	# OnlineMultiplayer==true => NetworkSupport==true #
+	# Internationallanguangessupport==true => Internationalization==true #
+	# Platformindependencesupport==true => PlatformIndependence==true #
+	# Payandbillsystem==true => Payandbillsupport==true #
+end

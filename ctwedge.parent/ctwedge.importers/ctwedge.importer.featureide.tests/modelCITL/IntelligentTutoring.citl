@@ -1,0 +1,20 @@
+Model IntelligentTutoring
+
+Parameters:
+	Boolean tutoringsimulation;
+	Boolean Tutoringexercise;
+	Boolean Tutoringlecture;
+	Boolean Grading;
+	Boolean ResultMonitoring;
+	Boolean UserAuthentication;
+	Boolean Student;
+	Boolean Instructor;
+end
+Constraints:
+	# tutoringsimulation==true || Tutoringexercise==true || Tutoringlecture==true
+	#
+	# UserAuthentication==true => ( Student==true || Instructor==true) #
+	# Student==true => UserAuthentication==true #
+	# Instructor==true => UserAuthentication==true #
+	# ! ResultMonitoring==true || UserAuthentication==true #
+end

@@ -1,0 +1,58 @@
+Model MeetingConfig
+
+Parameters:
+	Boolean Assemblymembers;
+	Boolean Starttime;
+	Boolean Endtime;
+	Boolean Attendees;
+	Boolean Place;
+	Boolean Usegroupsascategories;
+	Enumerative Iteminsertionalgorithm {
+	Attheend Categoryorder Proposinggrouporder };
+	Enumerative Meetingworkflow {
+	Standardworkflow Collegeworkflow Archiveworkflow };
+	Boolean Zope3conditioninterfave;
+	Boolean Zope3actioninterface;
+	Boolean Archived;
+	Boolean Created;
+	Boolean Decided;
+	Boolean Closed;
+	Boolean Published;
+	Enumerative Defaultview {
+	Myitems Allitems Availablemeetings Decidedmeetings };
+	Boolean Itemduplication;
+	Boolean Openannexesinseparatewindow;
+	Boolean Emailnotification;
+	Boolean Displaymacro;
+	Boolean Taskcreator;
+	Boolean Manager;
+	Boolean Meetingmanager;
+	Boolean Owner;
+	Boolean Enablevoting;
+	Boolean Voteencoder;
+	Boolean _r_47_49_50_51;
+	Boolean Voter;
+	Boolean Availablevotevalues;
+	Boolean Yes;
+	Boolean No;
+	Boolean Abstention;
+	Enumerative Defaultvotevalue {
+	_r_47_58_59_60 _r_47_58_59_61 _r_47_58_59_62 NONE };
+end
+Constraints:
+	# Starttime==true || Endtime==true || Attendees==true || Place==true #
+	# Archived==true || Created==true || Decided==true || Closed==true ||
+	Published==true #
+	# Taskcreator==true => ( Manager==true || Meetingmanager==true ||
+	Owner==true) #
+	# Manager==true => Taskcreator==true #
+	# Meetingmanager==true => Taskcreator==true #
+	# Owner==true => Taskcreator==true #
+	# Voteencoder==true => ( _r_47_49_50_51==true || Voter==true) #
+	# _r_47_49_50_51==true => Voteencoder==true #
+	# Voter==true => Voteencoder==true #
+	# Availablevotevalues==true => ( Yes==true || No==true || Abstention==true) #
+	# Yes==true => Availablevotevalues==true #
+	# No==true => Availablevotevalues==true #
+	# Abstention==true => Availablevotevalues==true #
+end

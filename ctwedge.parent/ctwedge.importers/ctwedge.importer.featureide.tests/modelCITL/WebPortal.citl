@@ -1,0 +1,73 @@
+Model WebPortal
+
+Parameters:
+	Boolean AdditionalServices;
+	Boolean SiteStatistics;
+	Boolean Basic;
+	Boolean Advanced;
+	Boolean SiteSearch;
+	Boolean Images;
+	Boolean Text;
+	Boolean HTML;
+	Boolean Dynamic;
+	Boolean AdServer;
+	Boolean Reports;
+	Boolean Pop_ups;
+	Boolean Banners;
+	Boolean Image;
+	Boolean Flash;
+	Boolean KeywordSupport;
+	Enumerative Logging { DB File NONE };
+	Boolean Protocols;
+	Boolean NTTP;
+	Boolean FTP;
+	Boolean HTTPS;
+	Boolean Active;
+	Boolean ASP;
+	Boolean PHP;
+	Boolean JSP;
+	Boolean CGI;
+	Enumerative Persistence { XML Database NONE };
+	Boolean Security;
+	Boolean DataStorage;
+	Boolean DataTransfer;
+	Boolean UserAuthentication;
+	Enumerative Performance { Ms Sec Min NONE };
+end
+Constraints:
+	# SiteStatistics==true => AdditionalServices==true #
+	# Basic==true <=> SiteStatistics==true #
+	# Advanced==true => SiteStatistics==true #
+	# SiteSearch==true => AdditionalServices==true #
+	# Images==true => SiteSearch==true #
+	# Text==true => SiteSearch==true #
+	# HTML==true <=> Text==true #
+	# Dynamic==true => Text==true #
+	# AdServer==true => AdditionalServices==true #
+	# Reports==true <=> AdServer==true #
+	# Pop_ups==true => AdServer==true #
+	# Banners==true <=> AdServer==true #
+	# Image==true <=> Banners==true #
+	# Flash==true => Banners==true #
+	# KeywordSupport==true => AdServer==true #
+	# Protocols==true => ( NTTP==true || FTP==true || HTTPS==true) #
+	# NTTP==true => Protocols==true #
+	# FTP==true => Protocols==true #
+	# HTTPS==true => Protocols==true #
+	# Active==true => ( ASP==true || PHP==true || JSP==true || CGI==true) #
+	# ASP==true => Active==true #
+	# PHP==true => Active==true #
+	# JSP==true => Active==true #
+	# CGI==true => Active==true #
+	# Security==true => ( DataStorage==true || DataTransfer==true ||
+	UserAuthentication==true) #
+	# DataStorage==true => Security==true #
+	# DataTransfer==true => Security==true #
+	# UserAuthentication==true => Security==true #
+	# ! KeywordSupport==true || Text==true #
+	# ! Dynamic==true || Active==true #
+	# ! Logging==Logging.DB || Persistence==Persistence.Database #
+	# ! DataTransfer==true || HTTPS==true #
+	# ! Logging==Logging.File || FTP==true #
+	# ! HTTPS==true || ! Performance==Performance.Ms #
+end

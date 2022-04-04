@@ -1,0 +1,31 @@
+Model Sienna
+
+Parameters:
+	Enumerative Grade { Base LE SE XLE LTD };
+	Boolean XLENavigationPackage;
+	Boolean XLEPremiumPackage;
+	Enumerative Engine { L4 V6 };
+	Enumerative Drive { a2Wd AWD };
+	Enumerative PsgrCount { a7PSGR a8PSGR };
+	Enumerative ModelCode { a5312 a5328 };
+	Enumerative ExteriorColor { SilverSkyMetallic SuperWhite BlizzardPearl };
+	Enumerative InteriorColor { Bisc Gray Charcoal };
+	Boolean Accessories;
+	Boolean FloorMats;
+	Boolean MudFlaps;
+	Enumerative Antenna { InGlass Pole };
+end
+Constraints:
+	# XLENavigationPackage==true => Grade==Grade.XLE #
+	# XLEPremiumPackage==true => Grade==Grade.XLE #
+	# FloorMats==true => Accessories==true #
+	# MudFlaps==true => Accessories==true #
+	# Grade==Grade.Base || ! ModelCode==ModelCode.a5312 #
+	# Antenna==Antenna.InGlass || ! XLEPremiumPackage==true #
+	# Antenna==Antenna.InGlass || ! XLENavigationPackage==true #
+	# ! Grade==Grade.LTD || Antenna==Antenna.InGlass #
+	# ! Grade==Grade.LE || Antenna==Antenna.Pole #
+	# ! Grade==Grade.SE || Antenna==Antenna.Pole #
+	# Grade==Grade.SE || ! InteriorColor==InteriorColor.Charcoal #
+	# ! Grade==Grade.Base || Antenna==Antenna.Pole #
+end

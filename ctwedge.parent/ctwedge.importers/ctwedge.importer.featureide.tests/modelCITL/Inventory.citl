@@ -1,0 +1,44 @@
+Model Inventory
+
+Parameters:
+	Boolean ItemAssociations;
+	Boolean Services;
+	Boolean Identification;
+	Boolean RFID;
+	Boolean BarCode;
+	Boolean Categories;
+	Boolean Tags;
+	Boolean Generic;
+	Boolean Assembly;
+	Boolean Perishable;
+	Boolean Serialized;
+	Boolean RawMaterial;
+	Boolean Increase;
+	Boolean Decrease;
+	Boolean Transfer;
+	Boolean Adjustment;
+	Boolean Consignment;
+	Boolean Allocation;
+	Boolean Assembling;
+	Boolean WarehouseManagement;
+	Boolean SerialTracking;
+	Boolean ExpirationControl;
+	Enumerative ValuationMethod { FIFO LIFO AVG };
+	Enumerative InventoryMethod { Perpetual Periodic };
+end
+Constraints:
+	# Identification==true => ( RFID==true || BarCode==true) #
+	# RFID==true => Identification==true #
+	# BarCode==true => Identification==true #
+	# Categories==true || Tags==true #
+	# Generic==true || Assembly==true || Perishable==true || Serialized==true ||
+	RawMaterial==true #
+	# Increase==true || Decrease==true || Transfer==true || Adjustment==true ||
+	Consignment==true || Allocation==true || Assembling==true #
+	# Assembly==true || ! Assembling==true #
+	# WarehouseManagement==true || ! Transfer==true #
+	# ! SerialTracking==true || Identification==true #
+	# ExpirationControl==true || ! Perishable==true #
+	# Identification==true || ! Serialized==true #
+	# ItemAssociations==true || ! Assembly==true #
+end

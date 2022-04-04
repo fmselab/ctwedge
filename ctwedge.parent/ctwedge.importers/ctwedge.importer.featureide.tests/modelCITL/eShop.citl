@@ -1,0 +1,560 @@
+Model eShop
+
+Parameters:
+	Boolean Homepage;
+	Boolean Staticcontent;
+	Boolean Dynamiccontent;
+	Boolean Contenttype;
+	Boolean Welcomemessage;
+	Boolean Specialoffers;
+	Boolean Variationsource;
+	Boolean Timedependent;
+	Boolean Personalized;
+	Boolean Registration;
+	Boolean Registrationenforcement;
+	Boolean Registertobrowse;
+	Boolean Registertobuy;
+	Boolean None;
+	Boolean Registrationinformation;
+	Boolean Logincredentials;
+	Boolean Shippingaddress;
+	Boolean Multipleshippingaddresses;
+	Boolean Billingaddress;
+	Boolean Multiplebillingaddresses;
+	Boolean Creditcardinformation;
+	Boolean Cardholdername;
+	Boolean Cardnumber;
+	Boolean Expirydate;
+	Boolean Securityinformation;
+	Boolean Demographics;
+	Boolean Age;
+	Boolean Income;
+	Boolean Education;
+	Boolean CustomDemographicfield;
+	Boolean PersonalInformation;
+	Boolean Preferences;
+	Boolean Sitelayout;
+	Boolean Listsize;
+	Boolean Language;
+	Boolean Reminders;
+	Boolean Quickcheckoutprofile;
+	Boolean Customfields;
+	Boolean Userbehaviourtrackinginformation;
+	Boolean Eletronicgoods;
+	Boolean Physicalgoods;
+	Boolean Services;
+	Boolean Detailedinformation;
+	Boolean Warrantyinformation;
+	Boolean Customerreviews;
+	Boolean Associatedassets;
+	Boolean Documents;
+	Boolean Mediafiles;
+	Boolean Image;
+	Boolean Thumbnail;
+	Boolean a2Dimage;
+	Boolean a3Dimage;
+	Boolean a360degreesimage;
+	Boolean Differentperspectives;
+	Boolean Gallery;
+	Boolean Video;
+	Boolean Sound;
+	Boolean Productvariants;
+	Boolean Complexproductconfiguration;
+	Boolean Size;
+	Boolean Weight;
+	Boolean Availability;
+	Boolean custom_fields;
+	Boolean Categories;
+	Boolean categories_catalog;
+	Boolean _id_52;
+	Boolean Multi_level;
+	Boolean Multipleclassification;
+	Boolean Multiplecatalogs;
+	Boolean Searching;
+	Boolean Basicsearch;
+	Boolean Advancedsearch;
+	Boolean Browsing;
+	Boolean Productpage;
+	Boolean Categorypage;
+	Boolean Indexpage;
+	Boolean Sortingfilters;
+	Boolean Price;
+	Boolean Quality;
+	Boolean Price_Qualityratio;
+	Boolean Manufacturername;
+	Boolean Customfilter;
+	Boolean Customviews;
+	Boolean Seasonalproductviews;
+	Boolean Personalizedviews;
+	Boolean Wishlist;
+	Boolean Wishlistsaveaftersession;
+	Boolean E_mailwishlist;
+	Boolean Multiplewishlists;
+	Boolean Permissions;
+	Boolean Publicaccess;
+	Boolean Restrictedaccess;
+	Boolean Privateaccess;
+	Boolean Cartsummarypage;
+	Boolean Cartsaveaftersession;
+	Boolean Registeredcheckout;
+	Boolean Quickcheckout;
+	Boolean Enableprofileupdateoncheckout;
+	Boolean Guestcheckout;
+	Boolean Shippingoptions;
+	Boolean Qualityofserviceselection;
+	Boolean Carrierselection;
+	Boolean Giftoptions;
+	Boolean Multipleshipments;
+	Boolean Shippingcostcalculation;
+	Boolean Customtaxation;
+	Boolean Type;
+	Boolean Fixed_ratetaxation;
+	Boolean Rule_basedtaxation;
+	Boolean Taxcodes;
+	Boolean Address;
+	Boolean Shipping;
+	Boolean Billing;
+	Boolean Resolution;
+	Boolean Country;
+	Boolean Region;
+	Boolean City;
+	Boolean Ammountspecification;
+	Boolean Surcharge;
+	Boolean Percentage;
+	Boolean Taxgateways;
+	Boolean CertiTAX;
+	Boolean CyberSource;
+	Boolean Customtaxgateway;
+	Boolean COD;
+	Boolean Creditcard;
+	Boolean Debitcard;
+	Boolean Eletroniccheque;
+	Boolean Faxmailorder;
+	Boolean Purchaseorder;
+	Boolean Giftcertificate;
+	Boolean Phoneorder;
+	Boolean Custompaymenttype;
+	Boolean Frauddetection;
+	Boolean Paymentgateways;
+	Boolean Authorize_Net;
+	Boolean _id_133;
+	Boolean LinkPoint;
+	Boolean Paradata;
+	Boolean SkipJack;
+	Boolean VerisignPayflowPro;
+	Boolean Custompaymentgateway;
+	Boolean Eletronicpage;
+	Boolean E_mail;
+	Boolean Phone;
+	Boolean Mail;
+	Boolean Customerservice;
+	Boolean Questionandfeedbackforms;
+	Boolean Questionandfeedbacktracking;
+	Boolean Productreturns;
+	Boolean Orderstatusreview;
+	Boolean Filteringcriteria;
+	Boolean Ordernumber;
+	Boolean Orderdate;
+	Boolean Orderstatus;
+	Boolean Requestorderhardcopy;
+	Boolean Shipmentstatustracking;
+	Boolean Internaltracking;
+	Boolean Partnertracking;
+	Boolean Userbehaviourtracking;
+	Boolean Behaviourtracked;
+	Boolean Locallyvisitedpages;
+	Boolean Externalreferringpages;
+	Boolean Previouspurchases;
+	Boolean Physicalgoodsfulfillment;
+	Boolean Warehousemanagement;
+	Boolean shipping;
+	Boolean Customshippingmethod;
+	Boolean Pricing;
+	Boolean Flatrate;
+	Boolean Ratefactors;
+	Boolean Quantitypurchased;
+	Boolean Ordertotal;
+	Boolean _id_173;
+	Boolean Productclassification;
+	Boolean Shippinggateways;
+	Boolean FedEX;
+	Boolean UPS;
+	Boolean USPS;
+	Boolean CanadaPost;
+	Boolean Customshippinggateway;
+	Boolean Eletronicgoodsfulfillment;
+	Boolean Filerepository;
+	Boolean Licensemanagement;
+	Boolean Servicesfulfillment;
+	Boolean Appointmentscheduling;
+	Boolean Resourceplanning;
+	Boolean Targeting;
+	Boolean Targetingcriteria;
+	Boolean Customerpreferences;
+	Boolean Personalinformation;
+	Boolean _id_190;
+	Boolean targeting_criteria_previous_purchases;
+	Boolean Shoppingcartcontent;
+	Boolean Wishlistcontent;
+	Boolean Previouslyvisitedpages;
+	Boolean Dateandtime;
+	Boolean Customtargetcriteria;
+	Boolean Targetingmechanisms;
+	Boolean Advertisements;
+	Boolean Advertisementtypes;
+	Boolean Bannerads;
+	Boolean Pop_upads;
+	Boolean Advertisementsources;
+	Boolean Houseadvertisements;
+	Boolean Paidadvertisements;
+	Boolean Advertisementmanagementinterface;
+	Boolean Advertisementresponsetracking;
+	Boolean Contextsensitiveads;
+	Boolean Discounts;
+	Boolean Discountconditions;
+	Boolean Productandquantityscope;
+	Boolean Timescope;
+	Boolean Purchasevaluescope;
+	Boolean Award;
+	Boolean Percentagediscount;
+	Boolean Fixeddiscount;
+	Boolean Freeitem;
+	Boolean Eligibilityrequirements;
+	Boolean Customersegments;
+	Boolean _id_219;
+	Boolean Graduationby;
+	Boolean Purchasevalue;
+	Boolean Quantity;
+	Boolean Coupons;
+	Boolean Handlingmultiplediscounts;
+	Boolean Sellstrategies;
+	Boolean Productkitting;
+	Boolean Up_selling;
+	Boolean Substituteproducts;
+	Boolean Cross_selling;
+	Boolean Pastcustomersalsobought;
+	Boolean Displayandnotification;
+	Boolean Assignmenttopagetypesfordisplay;
+	Boolean Productflagging;
+	Boolean E_mails;
+	Boolean personalized_emails;
+	Boolean Responsetracking;
+	Boolean Campaigns;
+	Boolean Affiliates;
+	Boolean Affiliateregistration;
+	Boolean Commissiontracking;
+	Boolean Inventorytracking;
+	Boolean Allowbackorders;
+	Boolean Procurement;
+	Boolean Stockreplenishment;
+	Boolean Manual;
+	Boolean Automatic;
+	Boolean Non_repudiationservice;
+	Boolean Reportingandanalysis;
+	Boolean Reporttypes;
+	Boolean Reportformats;
+	Boolean Levelofdetail;
+	Boolean Externalsystemsintegration;
+	Boolean Fulfillmentsystem;
+	Boolean Inventorymanagementsystem;
+	Boolean Procurementsystem;
+	Boolean Externaldistributorsystem;
+	Boolean Contentapproval;
+end
+Constraints:
+	# Homepage==true => ( Staticcontent==true || Dynamiccontent==true) #
+	# Staticcontent==true => Homepage==true #
+	# Dynamiccontent==true => Homepage==true #
+	# Contenttype==true <=> Dynamiccontent==true #
+	# Contenttype==true => ( Welcomemessage==true || Specialoffers==true) #
+	# Welcomemessage==true => Contenttype==true #
+	# Specialoffers==true => Contenttype==true #
+	# Variationsource==true <=> Dynamiccontent==true #
+	# Variationsource==true => ( Timedependent==true || Personalized==true) #
+	# Timedependent==true => Variationsource==true #
+	# Personalized==true => Variationsource==true #
+	# Registrationenforcement==true <=> Registration==true #
+	# Registrationenforcement==true => ( Registertobrowse==true ||
+	Registertobuy==true || None==true) #
+	# Registertobrowse==true => Registrationenforcement==true #
+	# Registertobuy==true => Registrationenforcement==true #
+	# None==true => Registrationenforcement==true #
+	# Registrationinformation==true <=> Registration==true #
+	# Logincredentials==true <=> Registrationinformation==true #
+	# Shippingaddress==true => Registrationinformation==true #
+	# Multipleshippingaddresses==true => Shippingaddress==true #
+	# Billingaddress==true => Registrationinformation==true #
+	# Multiplebillingaddresses==true => Billingaddress==true #
+	# Creditcardinformation==true => Registrationinformation==true #
+	# Cardholdername==true <=> Creditcardinformation==true #
+	# Cardnumber==true <=> Creditcardinformation==true #
+	# Expirydate==true <=> Creditcardinformation==true #
+	# Securityinformation==true => Creditcardinformation==true #
+	# Demographics==true => Registrationinformation==true #
+	# Demographics==true => ( Age==true || Income==true || Education==true ||
+	CustomDemographicfield==true) #
+	# Age==true => Demographics==true #
+	# Income==true => Demographics==true #
+	# Education==true => Demographics==true #
+	# CustomDemographicfield==true => Demographics==true #
+	# PersonalInformation==true => Registrationinformation==true #
+	# Preferences==true => Registrationinformation==true #
+	# Preferences==true => ( Sitelayout==true || Listsize==true ||
+	Language==true) #
+	# Sitelayout==true => Preferences==true #
+	# Listsize==true => Preferences==true #
+	# Language==true => Preferences==true #
+	# Reminders==true => Registrationinformation==true #
+	# Quickcheckoutprofile==true => Registrationinformation==true #
+	# Customfields==true => Registrationinformation==true #
+	# Userbehaviourtrackinginformation==true => Registration==true #
+	# Eletronicgoods==true || Physicalgoods==true || Services==true #
+	# Associatedassets==true => ( Documents==true || Mediafiles==true) #
+	# Documents==true => Associatedassets==true #
+	# Mediafiles==true => Associatedassets==true #
+	# Mediafiles==true => ( Image==true || Video==true || Sound==true) #
+	# Image==true => Mediafiles==true #
+	# Image==true => ( Thumbnail==true || a2Dimage==true || a3Dimage==true ||
+	a360degreesimage==true || Differentperspectives==true || Gallery==true) #
+	# Thumbnail==true => Image==true #
+	# a2Dimage==true => Image==true #
+	# a3Dimage==true => Image==true #
+	# a360degreesimage==true => Image==true #
+	# Differentperspectives==true => Image==true #
+	# Gallery==true => Image==true #
+	# Video==true => Mediafiles==true #
+	# Sound==true => Mediafiles==true #
+	# Complexproductconfiguration==true => Productvariants==true #
+	# categories_catalog==true <=> Categories==true #
+	# _id_52==true => categories_catalog==true #
+	# Multi_level==true => _id_52==true #
+	# Multipleclassification==true => _id_52==true #
+	# Searching==true => ( Basicsearch==true || Advancedsearch==true) #
+	# Basicsearch==true => Searching==true #
+	# Advancedsearch==true => Searching==true #
+	# Productpage==true <=> Browsing==true #
+	# Categorypage==true => Browsing==true #
+	# Indexpage==true => Browsing==true #
+	# Sortingfilters==true => Indexpage==true #
+	# Sortingfilters==true => ( Price==true || Quality==true ||
+	Price_Qualityratio==true || Manufacturername==true || Customfilter==true) #
+	# Price==true => Sortingfilters==true #
+	# Quality==true => Sortingfilters==true #
+	# Price_Qualityratio==true => Sortingfilters==true #
+	# Manufacturername==true => Sortingfilters==true #
+	# Customfilter==true => Sortingfilters==true #
+	# Seasonalproductviews==true => Customviews==true #
+	# Personalizedviews==true => Customviews==true #
+	# Wishlistsaveaftersession==true => Wishlist==true #
+	# E_mailwishlist==true => Wishlist==true #
+	# Multiplewishlists==true => Wishlist==true #
+	# Permissions==true => Wishlist==true #
+	# Permissions==true => ( Publicaccess==true || Restrictedaccess==true ||
+	Privateaccess==true) #
+	# Publicaccess==true => Permissions==true #
+	# Restrictedaccess==true => Permissions==true #
+	# Privateaccess==true => Permissions==true #
+	# Registeredcheckout==true || Guestcheckout==true #
+	# Quickcheckout==true => Registeredcheckout==true #
+	# Enableprofileupdateoncheckout==true => Quickcheckout==true #
+	# Qualityofserviceselection==true => Shippingoptions==true #
+	# Carrierselection==true => Shippingoptions==true #
+	# Giftoptions==true => Shippingoptions==true #
+	# Multipleshipments==true => Shippingoptions==true #
+	# Shippingcostcalculation==true <=> Shippingoptions==true #
+	# Customtaxation==true || Taxgateways==true #
+	# Type==true <=> Customtaxation==true #
+	# Type==true => ( Fixed_ratetaxation==true || Rule_basedtaxation==true) #
+	# Fixed_ratetaxation==true => Type==true #
+	# Rule_basedtaxation==true => Type==true #
+	# Taxcodes==true <=> Rule_basedtaxation==true #
+	# Address==true <=> Rule_basedtaxation==true #
+	# Shipping==true <=> Address==true #
+	# Billing==true => Address==true #
+	# Resolution==true => Rule_basedtaxation==true #
+	# Resolution==true => ( Country==true || Region==true || City==true) #
+	# Country==true => Resolution==true #
+	# Region==true => Resolution==true #
+	# City==true => Resolution==true #
+	# Ammountspecification==true <=> Customtaxation==true #
+	# Ammountspecification==true => ( Surcharge==true || Percentage==true) #
+	# Surcharge==true => Ammountspecification==true #
+	# Percentage==true => Ammountspecification==true #
+	# Taxgateways==true => ( CertiTAX==true || CyberSource==true ||
+	Customtaxgateway==true) #
+	# CertiTAX==true => Taxgateways==true #
+	# CyberSource==true => Taxgateways==true #
+	# Customtaxgateway==true => Taxgateways==true #
+	# COD==true || Creditcard==true || Debitcard==true || Eletroniccheque==true ||
+	Faxmailorder==true || Purchaseorder==true || Giftcertificate==true ||
+	Phoneorder==true || Custompaymenttype==true #
+	# Paymentgateways==true => ( Authorize_Net==true || _id_133==true ||
+	LinkPoint==true || Paradata==true || SkipJack==true ||
+	VerisignPayflowPro==true || Custompaymentgateway==true) #
+	# Authorize_Net==true => Paymentgateways==true #
+	# _id_133==true => Paymentgateways==true #
+	# LinkPoint==true => Paymentgateways==true #
+	# Paradata==true => Paymentgateways==true #
+	# SkipJack==true => Paymentgateways==true #
+	# VerisignPayflowPro==true => Paymentgateways==true #
+	# Custompaymentgateway==true => Paymentgateways==true #
+	# Eletronicpage==true || E_mail==true || Phone==true || Mail==true #
+	# Customerservice==true => ( Questionandfeedbackforms==true ||
+	Productreturns==true || Orderstatusreview==true ||
+	Shipmentstatustracking==true) #
+	# Questionandfeedbackforms==true => Customerservice==true #
+	# Questionandfeedbacktracking==true => Questionandfeedbackforms==true #
+	# Productreturns==true => Customerservice==true #
+	# Orderstatusreview==true => Customerservice==true #
+	# Filteringcriteria==true <=> Orderstatusreview==true #
+	# Filteringcriteria==true => ( Ordernumber==true || Orderdate==true ||
+	Orderstatus==true) #
+	# Ordernumber==true => Filteringcriteria==true #
+	# Orderdate==true => Filteringcriteria==true #
+	# Orderstatus==true => Filteringcriteria==true #
+	# Requestorderhardcopy==true => Orderstatusreview==true #
+	# Shipmentstatustracking==true => Customerservice==true #
+	# Shipmentstatustracking==true => ( Internaltracking==true ||
+	Partnertracking==true) #
+	# Internaltracking==true => Shipmentstatustracking==true #
+	# Partnertracking==true => Shipmentstatustracking==true #
+	# Behaviourtracked==true <=> Userbehaviourtracking==true #
+	# Behaviourtracked==true => ( Locallyvisitedpages==true ||
+	Externalreferringpages==true || Previouspurchases==true) #
+	# Locallyvisitedpages==true => Behaviourtracked==true #
+	# Externalreferringpages==true => Behaviourtracked==true #
+	# Previouspurchases==true => Behaviourtracked==true #
+	# Physicalgoodsfulfillment==true || Eletronicgoodsfulfillment==true ||
+	Servicesfulfillment==true #
+	# Warehousemanagement==true <=> Physicalgoodsfulfillment==true #
+	# shipping==true <=> Physicalgoodsfulfillment==true #
+	# shipping==true => ( Customshippingmethod==true || Shippinggateways==true) #
+	# Customshippingmethod==true => shipping==true #
+	# Pricing==true <=> Customshippingmethod==true #
+	# Flatrate==true <=> Pricing==true #
+	# Ratefactors==true => Pricing==true #
+	# Ratefactors==true => ( Quantitypurchased==true || Ordertotal==true ||
+	_id_173==true || Productclassification==true) #
+	# Quantitypurchased==true => Ratefactors==true #
+	# Ordertotal==true => Ratefactors==true #
+	# _id_173==true => Ratefactors==true #
+	# Productclassification==true => Ratefactors==true #
+	# Shippinggateways==true => shipping==true #
+	# Shippinggateways==true => ( FedEX==true || UPS==true || USPS==true ||
+	CanadaPost==true || Customshippinggateway==true) #
+	# FedEX==true => Shippinggateways==true #
+	# UPS==true => Shippinggateways==true #
+	# USPS==true => Shippinggateways==true #
+	# CanadaPost==true => Shippinggateways==true #
+	# Customshippinggateway==true => Shippinggateways==true #
+	# Filerepository==true <=> Eletronicgoodsfulfillment==true #
+	# Licensemanagement==true <=> Eletronicgoodsfulfillment==true #
+	# Appointmentscheduling==true => Servicesfulfillment==true #
+	# Resourceplanning==true => Servicesfulfillment==true #
+	# Targetingcriteria==true <=> Targeting==true #
+	# Targetingcriteria==true => ( Customerpreferences==true ||
+	Personalinformation==true || _id_190==true ||
+	targeting_criteria_previous_purchases==true || Shoppingcartcontent==true ||
+	Wishlistcontent==true || Previouslyvisitedpages==true || Dateandtime==true ||
+	Customtargetcriteria==true) #
+	# Customerpreferences==true => Targetingcriteria==true #
+	# Personalinformation==true => Targetingcriteria==true #
+	# _id_190==true => Targetingcriteria==true #
+	# targeting_criteria_previous_purchases==true => Targetingcriteria==true #
+	# Shoppingcartcontent==true => Targetingcriteria==true #
+	# Wishlistcontent==true => Targetingcriteria==true #
+	# Previouslyvisitedpages==true => Targetingcriteria==true #
+	# Dateandtime==true => Targetingcriteria==true #
+	# Customtargetcriteria==true => Targetingcriteria==true #
+	# Targetingmechanisms==true <=> Targeting==true #
+	# Targetingmechanisms==true => ( Advertisements==true || Discounts==true ||
+	Sellstrategies==true) #
+	# Advertisements==true => Targetingmechanisms==true #
+	# Advertisementtypes==true <=> Advertisements==true #
+	# Advertisementtypes==true => ( Bannerads==true || Pop_upads==true) #
+	# Bannerads==true => Advertisementtypes==true #
+	# Pop_upads==true => Advertisementtypes==true #
+	# Advertisementsources==true <=> Advertisements==true #
+	# Advertisementsources==true => ( Houseadvertisements==true ||
+	Paidadvertisements==true) #
+	# Houseadvertisements==true => Advertisementsources==true #
+	# Paidadvertisements==true => Advertisementsources==true #
+	# Advertisementmanagementinterface==true <=> Paidadvertisements==true #
+	# Advertisementresponsetracking==true => Advertisements==true #
+	# Contextsensitiveads==true => Advertisements==true #
+	# Discounts==true => Targetingmechanisms==true #
+	# Discountconditions==true <=> Discounts==true #
+	# Productandquantityscope==true <=> Discountconditions==true #
+	# Timescope==true <=> Discountconditions==true #
+	# Purchasevaluescope==true => Discountconditions==true #
+	# Award==true <=> Discounts==true #
+	# Award==true => ( Percentagediscount==true || Fixeddiscount==true ||
+	Freeitem==true) #
+	# Percentagediscount==true => Award==true #
+	# Fixeddiscount==true => Award==true #
+	# Freeitem==true => Award==true #
+	# Eligibilityrequirements==true <=> Discounts==true #
+	# Customersegments==true => Eligibilityrequirements==true #
+	# _id_219==true => Eligibilityrequirements==true #
+	# Graduationby==true <=> Discounts==true #
+	# Graduationby==true => ( Purchasevalue==true || Quantity==true) #
+	# Purchasevalue==true => Graduationby==true #
+	# Quantity==true => Graduationby==true #
+	# Coupons==true => Discounts==true #
+	# Handlingmultiplediscounts==true <=> Discounts==true #
+	# Sellstrategies==true => Targetingmechanisms==true #
+	# Sellstrategies==true => ( Productkitting==true || Up_selling==true ||
+	Cross_selling==true) #
+	# Productkitting==true => Sellstrategies==true #
+	# Up_selling==true => Sellstrategies==true #
+	# Substituteproducts==true <=> Up_selling==true #
+	# Cross_selling==true => Sellstrategies==true #
+	# Pastcustomersalsobought==true <=> Cross_selling==true #
+	# Displayandnotification==true <=> Targeting==true #
+	# Displayandnotification==true => ( Assignmenttopagetypesfordisplay==true ||
+	Productflagging==true || E_mails==true) #
+	# Assignmenttopagetypesfordisplay==true => Displayandnotification==true #
+	# Productflagging==true => Displayandnotification==true #
+	# E_mails==true => Displayandnotification==true #
+	# personalized_emails==true => E_mails==true #
+	# Responsetracking==true => E_mails==true #
+	# Campaigns==true => Targeting==true #
+	# Affiliateregistration==true <=> Affiliates==true #
+	# Commissiontracking==true <=> Affiliates==true #
+	# Allowbackorders==true => Inventorytracking==true #
+	# Stockreplenishment==true <=> Procurement==true #
+	# Manual==true <=> Stockreplenishment==true #
+	# Automatic==true => Stockreplenishment==true #
+	# Non_repudiationservice==true <=> Automatic==true #
+	# Reporttypes==true <=> Reportingandanalysis==true #
+	# Reportformats==true <=> Reportingandanalysis==true #
+	# Levelofdetail==true <=> Reportingandanalysis==true #
+	# Externalsystemsintegration==true => ( Fulfillmentsystem==true ||
+	Inventorymanagementsystem==true || Procurementsystem==true ||
+	Externaldistributorsystem==true) #
+	# Fulfillmentsystem==true => Externalsystemsintegration==true #
+	# Inventorymanagementsystem==true => Externalsystemsintegration==true #
+	# Procurementsystem==true => Externalsystemsintegration==true #
+	# Externaldistributorsystem==true => Externalsystemsintegration==true #
+	# ! Wishlist==true || Wishlistsaveaftersession==true #
+	# Registration==true || Wishlistsaveaftersession==true #
+	# ! Eletronicgoods==true || Size==true #
+	# ! Physicalgoods==true || Size==true #
+	# ! Eletronicgoods==true || Eletronicgoodsfulfillment==true #
+	# ! Userbehaviourtrackinginformation==true || Userbehaviourtracking==true #
+	# ! Quickcheckout==true || Quickcheckoutprofile==true #
+	# ! Customerpreferences==true || Preferences==true #
+	# ! Services==true || Servicesfulfillment==true #
+	# ! Physicalgoods==true || Physicalgoodsfulfillment==true #
+	# ! Wishlistcontent==true || Wishlist==true #
+	# ! Registeredcheckout==true || Registertobuy==true #
+	# ! Shippingoptions==true || shipping==true #
+	# ! Previouslyvisitedpages==true || ( Locallyvisitedpages==true ||
+	Externalreferringpages==true) #
+	# ! Specialoffers==true || Discounts==true #
+	# ! Availability==true || Inventorytracking==true #
+	# ! Physicalgoods==true || Weight==true #
+	# ! Categorypage==true || Categories==true #
+	# ! Permissions==true || Registration==true #
+	# ! E_mailwishlist==true || Registration==true #
+end

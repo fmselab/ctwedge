@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="ArcadeGame">
+			<and mandatory="true" name="UseCases">
+				<graphics key="collapsed" value="true"/>
+				<feature name="CheckPreviousBestScore"/>
+				<feature name="SaveScore"/>
+				<feature mandatory="true" name="SaveGame"/>
+				<feature mandatory="true" name="ExitGame"/>
+				<feature mandatory="true" name="InstallGame"/>
+				<feature mandatory="true" name="UninstallGame"/>
+				<feature mandatory="true" name="ListGame"/>
+				<or mandatory="true" name="PlayGame">
+					<graphics key="collapsed" value="true"/>
+					<feature name="PlayBrickles"/>
+					<feature name="PlayPong"/>
+					<feature name="PlayBowling"/>
+					<feature name="Initialization"/>
+					<feature name="AnimationLoop"/>
+				</or>
+			</and>
+			<and mandatory="true" name="ClassDiagram">
+				<graphics key="collapsed" value="true"/>
+				<or mandatory="true" name="GameSprite">
+					<graphics key="collapsed" value="true"/>
+					<feature name="SpritePair"/>
+					<and name="Rectangle">
+						<graphics key="collapsed" value="true"/>
+						<feature mandatory="true" name="Size"/>
+						<feature mandatory="true" name="Point"/>
+					</and>
+					<or name="MovableSprite">
+						<graphics key="collapsed" value="true"/>
+						<feature name="Velocity"/>
+						<or name="Paddle">
+							<graphics key="collapsed" value="true"/>
+							<feature name="TopPaddle"/>
+							<feature name="BottomPaddle"/>
+						</or>
+						<feature name="Puck"/>
+						<feature name="BowlingBall"/>
+						<feature name="BowlingPin"/>
+					</or>
+					<or name="StationarySprite">
+						<graphics key="collapsed" value="true"/>
+						<or name="Wall">
+							<graphics key="collapsed" value="true"/>
+							<feature name="Leftpong"/>
+							<feature name="Rightpont"/>
+							<feature name="Leftbrickles"/>
+							<feature name="Rightbrickles"/>
+						</or>
+						<feature name="Brick"/>
+						<feature name="BrickPile"/>
+						<feature name="Ceilingbrickles"/>
+						<feature name="Floorbrickles"/>
+						<feature name="Lane"/>
+						<feature name="Gutter"/>
+						<feature name="Edge"/>
+						<feature name="EndofAlley"/>
+						<feature name="RackofPins"/>
+						<feature name="ScoreBoard"/>
+						<feature name="Floorpong"/>
+						<feature name="Ceilingpong"/>
+						<feature name="DividingLine"/>
+					</or>
+				</or>
+				<feature name="Pucksupply"/>
+				<or mandatory="true" name="Board">
+					<graphics key="collapsed" value="true"/>
+					<feature name="PongBoard"/>
+					<feature name="BricklesBoard"/>
+					<feature name="BowlingBoard"/>
+				</or>
+				<or mandatory="true" name="Menu">
+					<graphics key="collapsed" value="true"/>
+					<feature name="Pong"/>
+					<feature name="Brickles"/>
+					<feature name="Bowling"/>
+				</or>
+				<or mandatory="true" name="GameMenu">
+					<graphics key="collapsed" value="true"/>
+					<feature name="PongGameMenu"/>
+					<feature name="BricklesGameMenu"/>
+					<feature name="BowlingGameMenu"/>
+				</or>
+			</and>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<disj>
+				<not>
+					<var>PlayBrickles</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<var>PlayBrickles</var>
+				<not>
+					<var>Brickles</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>PlayPong</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<var>PlayPong</var>
+				<not>
+					<var>Pong</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>PlayBowling</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<var>PlayBowling</var>
+				<not>
+					<var>Bowling</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>TopPaddle</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>BottomPaddle</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Leftpong</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Rightpont</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>ScoreBoard</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Floorpong</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Ceilingpong</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>DividingLine</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>PongBoard</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>PongGameMenu</var>
+				</not>
+				<var>Pong</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>BowlingBoard</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>BowlingBall</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>BowlingPin</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Lane</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Gutter</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Edge</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>EndofAlley</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>RackofPins</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>BowlingGameMenu</var>
+				</not>
+				<var>Bowling</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>BricklesGameMenu</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>BricklesBoard</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Leftbrickles</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Rightbrickles</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>BrickPile</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Brick</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Ceilingbrickles</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Floorbrickles</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Pucksupply</var>
+				</not>
+				<var>Brickles</var>
+			</disj>
+		</rule>
+	</constraints>
+</featureModel>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="ctwedge.util.ctwedgeImporters">
+      <Importer
+            ImporterPrototype="ctwedge.importer.featureide.CTWedgeImporter:1"
+            Name="ctwedge.importer.featureide.Importer1">
+      </Importer>
+   </extension>
+
+</plugin>

@@ -1,0 +1,18 @@
+Model ProjectPortalSuite
+
+Parameters:
+	Boolean IndicadoresyReportes;
+	Boolean Bibliotecadocumentalnormativa;
+	Boolean Basedeconocimiento;
+	Boolean Bibliotecadocumentaldecontratos;
+	Boolean Registrosfinancieros;
+	Boolean Registrodecargosypersonas;
+	Boolean Bibliotecadocumentaldepersonas;
+	Boolean ExecutiveDashboard;
+	Boolean EngineeringDocumentManagement;
+	Boolean ContractManagement;
+	Boolean ProgramandControlManagement;
+	Boolean StaffingManagement;
+	Boolean ComplianceManagement;
+	Boolean BestPracticesandLessonsLearned;
+end

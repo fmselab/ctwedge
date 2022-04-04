@@ -1,0 +1,63 @@
+Model doc_gen
+
+Parameters:
+	Enumerative cobol { ibm_cobol microfocus_cobol NONE };
+	Boolean jcl;
+	Boolean sql;
+	Boolean delphi;
+	Boolean progress;
+	Boolean version_mngt;
+	Boolean subsystems;
+	Boolean english;
+	Boolean dutch;
+	Enumerative interaction { static dynamic };
+	Boolean program_page;
+	Boolean annotation_section;
+	Boolean activation_section;
+	Boolean entities_section;
+	Boolean parameters_section;
+	Boolean copybook_page;
+	Enumerative statistics_page { with_history without_history NONE };
+	Boolean indexes;
+	Boolean search_page;
+	Boolean subsystem_page;
+	Boolean source_page;
+	Boolean source_difference;
+	Boolean visualizations;
+	Boolean perform_graph;
+	Boolean conditional_perform_graph;
+	Boolean jcl_graph;
+	Boolean subsystem_graph;
+	Boolean overview_graph;
+	Enumerative database { db2 oracle mysql };
+end
+Constraints:
+	# cobol!=cobol.NONE || jcl==true || sql==true || delphi==true ||
+	progress==true #
+	# english==true || dutch==true #
+	# program_page==true || copybook_page==true ||
+	statistics_page!=statistics_page.NONE || indexes==true || search_page==true ||
+	subsystem_page==true || source_page==true || source_difference==true #
+	# program_page==true => ( annotation_section==true || activation_section==true
+	|| entities_section==true || parameters_section==true) #
+	# annotation_section==true => program_page==true #
+	# activation_section==true => program_page==true #
+	# entities_section==true => program_page==true #
+	# parameters_section==true => program_page==true #
+	# visualizations==true => ( perform_graph==true ||
+	conditional_perform_graph==true || jcl_graph==true || subsystem_graph==true ||
+	overview_graph==true) #
+	# perform_graph==true => visualizations==true #
+	# conditional_perform_graph==true => visualizations==true #
+	# jcl_graph==true => visualizations==true #
+	# subsystem_graph==true => visualizations==true #
+	# overview_graph==true => visualizations==true #
+	# ! subsystem_page==true || subsystems==true #
+	# ! subsystem_graph==true || subsystems==true #
+	# ! source_difference==true || version_mngt==true #
+	# ! perform_graph==true || cobol!=cobol.NONE #
+	# ! conditional_perform_graph==true || cobol!=cobol.NONE #
+	# ! jcl_graph==true || jcl==true #
+	# ! interaction==interaction.static || ! annotation_section==true #
+	# ! interaction==interaction.static || ! search_page==true #
+end

@@ -1,0 +1,18 @@
+Model Car
+
+Parameters:
+	Boolean AutomatedDrivingController;
+	Enumerative CollisionAvoidanceBraking {
+	StandardAvoidance EnhancedAvoidance NONE };
+	Boolean ParallelParking;
+	Boolean LateralRangeFinder;
+	Boolean ForwardRangeFinder;
+end
+Constraints:
+	# CollisionAvoidanceBraking!=CollisionAvoidanceBraking.NONE <=>
+	AutomatedDrivingController==true #
+	# ParallelParking==true => AutomatedDrivingController==true #
+	# ! CollisionAvoidanceBraking==CollisionAvoidanceBraking.EnhancedAvoidance ||
+	ForwardRangeFinder==true #
+	# ! ParallelParking==true || LateralRangeFinder==true #
+end

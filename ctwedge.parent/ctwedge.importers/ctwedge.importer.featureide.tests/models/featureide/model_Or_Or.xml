@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<or abstract="true" mandatory="true" name="model">
+				<or mandatory="true" name="a1">
+					<feature mandatory="true" name="a11"/>
+					<feature mandatory="true" name="a12"/>
+				</or>
+				<feature mandatory="true" name="a2"/>
+			</or>
+		</struct>
+		<constraints/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

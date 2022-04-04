@@ -1,0 +1,35 @@
+Model graph
+
+Parameters:
+	Enumerative selection_mode { increment_selection non_increment_selection };
+	Enumerative moving_mode { outline_moving content_moving };
+	Enumerative moving_constraint {
+	horizontal_constraint vertical_constraint NONE };
+	Boolean compose;
+	Boolean layer_adjust;
+	Boolean up_layer;
+	Boolean down_layer;
+	Boolean do_undo_redo;
+	Boolean select_do_undo_redo;
+	Boolean add_do_undo_redo;
+	Boolean delete_do_undo_redo;
+	Boolean move_do_undo_redo;
+	Boolean compose_do_undo_redo;
+	Boolean layer_adjust_do_undo_redo;
+	Boolean zoom_inout;
+end
+Constraints:
+	# up_layer==true <=> layer_adjust==true #
+	# down_layer==true <=> layer_adjust==true #
+	# select_do_undo_redo==true <=> do_undo_redo==true #
+	# add_do_undo_redo==true <=> do_undo_redo==true #
+	# delete_do_undo_redo==true <=> do_undo_redo==true #
+	# move_do_undo_redo==true <=> do_undo_redo==true #
+	# compose_do_undo_redo==true => do_undo_redo==true #
+	# layer_adjust_do_undo_redo==true => do_undo_redo==true #
+	# ! compose==true || ( ! do_undo_redo==true || compose_do_undo_redo==true) #
+	# ! compose_do_undo_redo==true || compose==true #
+	# ! layer_adjust==true || ( ! do_undo_redo==true ||
+	layer_adjust_do_undo_redo==true) #
+	# ! layer_adjust_do_undo_redo==true || layer_adjust==true #
+end

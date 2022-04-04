@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="modelCITL"/>
+	<classpathentry exported="true" kind="lib" path="libs/"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.importer.featureide"/>
+	<classpathentry kind="lib" path="libs/javabdd.jar"/>
+	<classpathentry kind="lib" path="libs/featureide_fm_core_citlab.jar"/>
+	<classpathentry kind="lib" path="libs/splar_citlab.jar"/>
+	<classpathentry kind="lib" path="libs/org.sat4j.core.jar" sourcepath="libs/org.sat4j.core-src.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="libs/jxl.jar"/>
+	<classpathentry kind="lib" path="libs/javacsv.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

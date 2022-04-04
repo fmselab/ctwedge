@@ -1,0 +1,14 @@
+Model E_Portal
+
+Parameters:
+	Boolean Foto;
+	Boolean DestaqueWide;
+	Boolean ComFoto;
+	Boolean SemFoto;
+	Boolean DestaqueDuplo;
+end
+Constraints:
+	# DestaqueWide==true => ( ComFoto==true || SemFoto==true) #
+	# ComFoto==true => DestaqueWide==true #
+	# SemFoto==true => DestaqueWide==true #
+end

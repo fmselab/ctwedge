@@ -1,0 +1,26 @@
+Model Connector
+
+Parameters:
+	Enumerative Paradigm { Client_Server Message_Based };
+	Enumerative Client_Server { Synchronous Asynchronous NONE };
+	Boolean Timeout;
+	Enumerative Asynchronous { Polling Callback NONE };
+	Enumerative Polling { Blocking Non_blocking NONE };
+	Boolean Sender;
+	Enumerative Receiver { Pull Push NONE };
+	Boolean Queued;
+	Boolean Non_Queued;
+	Enumerative Technology { CAN Local };
+end
+Constraints:
+	# Client_Server!=Client_Server.NONE <=> Paradigm==Paradigm.Client_Server #
+	# Timeout==true => Client_Server==Client_Server.Synchronous #
+	# Asynchronous!=Asynchronous.NONE <=>
+	Client_Server==Client_Server.Asynchronous #
+	# Polling!=Polling.NONE <=> Asynchronous==Asynchronous.Polling #
+	# Sender==true <=> Paradigm==Paradigm.Message_Based #
+	# Receiver!=Receiver.NONE <=> Paradigm==Paradigm.Message_Based #
+	# Receiver==Receiver.Pull => ( Queued==true || Non_Queued==true) #
+	# Queued==true => Receiver==Receiver.Pull #
+	# Non_Queued==true => Receiver==Receiver.Pull #
+end

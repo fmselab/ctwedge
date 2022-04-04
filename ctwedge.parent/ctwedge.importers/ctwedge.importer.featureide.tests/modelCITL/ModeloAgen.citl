@@ -1,0 +1,52 @@
+Model ModeloAgen
+
+Parameters:
+	Boolean ImpressaodeFolhadeRosto;
+	Boolean Reagendamento;
+	Boolean Notificacao;
+	Boolean Email;
+	Boolean Celular;
+	Enumerative Regras { PorAdm PorUsuario };
+	Boolean TipodeUso;
+	Boolean Reuniao;
+	Boolean Palestra;
+	Boolean Treinamento;
+	Boolean Videoconferencia;
+	Boolean CadastrodeHorarios;
+	Boolean BloqueiodeHorarios;
+	Boolean CadastrodeSalas;
+	Boolean TipodeSala;
+	Boolean _r_3_25_26_27;
+	Boolean Aula;
+	Boolean Auditorio;
+	Boolean Laboratorio;
+	Boolean CadastrodeEquipamentos;
+	Boolean CadastrodeAdministradores;
+	Boolean Relatorios;
+	Boolean OcupacaoDiaria;
+	Boolean OcupacaoSemanal;
+end
+Constraints:
+	# Notificacao==true => ( Email==true || Celular==true) #
+	# Email==true => Notificacao==true #
+	# Celular==true => Notificacao==true #
+	# TipodeUso==true => ( Reuniao==true || Palestra==true || Treinamento==true ||
+	Videoconferencia==true) #
+	# Reuniao==true => TipodeUso==true #
+	# Palestra==true => TipodeUso==true #
+	# Treinamento==true => TipodeUso==true #
+	# Videoconferencia==true => TipodeUso==true #
+	# BloqueiodeHorarios==true => CadastrodeHorarios==true #
+	# TipodeSala==true <=> CadastrodeSalas==true #
+	# TipodeSala==true => ( _r_3_25_26_27==true || Aula==true || Auditorio==true
+	|| Laboratorio==true) #
+	# _r_3_25_26_27==true => TipodeSala==true #
+	# Aula==true => TipodeSala==true #
+	# Auditorio==true => TipodeSala==true #
+	# Laboratorio==true => TipodeSala==true #
+	# Relatorios==true => ( OcupacaoDiaria==true || OcupacaoSemanal==true) #
+	# OcupacaoDiaria==true => Relatorios==true #
+	# OcupacaoSemanal==true => Relatorios==true #
+	# CadastrodeSalas==true || ! CadastrodeEquipamentos==true #
+	# CadastrodeSalas==true || ! TipodeUso==true #
+end

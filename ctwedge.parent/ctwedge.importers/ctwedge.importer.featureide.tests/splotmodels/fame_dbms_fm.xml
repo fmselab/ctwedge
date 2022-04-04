@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<feature_model name="FeatureIDE model">
+    <feature_tree>
+:r FAME_DBMS(FAME_DBMS)
+	:m OS(OS)
+		:g [1,1]
+			: Nut_OS(Nut_OS)
+			: Win(Win)
+	:m BufferManager(BufferManager)
+		:g [1,1]
+			: Persistent(Persistent)
+				:m MemoryAllocation(MemoryAllocation)
+					:g [1,1]
+						: Static(Static)
+						: Dynamic(Dynamic)
+				:m PageReplication(PageReplication)
+					:g [1,1]
+						: LRU(LRU)
+						: LFU(LFU)
+			: InMemory(InMemory)
+	:o DebugLogging(DebugLogging)
+	:m Storage(Storage)
+		:m API(API)
+			:o Get(Get)
+			:o Put(Put)
+			:o Delete(Delete)
+		:m Storage_2(Storage_2)
+			:g [1,1]
+				: B_Tree(B_Tree)
+				: Unindexed(Unindexed)
+</feature_tree>
+    <constraints>
+</constraints>
+</feature_model>

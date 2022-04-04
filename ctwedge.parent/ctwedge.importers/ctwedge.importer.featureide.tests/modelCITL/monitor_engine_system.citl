@@ -1,0 +1,12 @@
+Model monitor_engine_system
+
+Parameters:
+	Boolean colant;
+	Enumerative measures { l_km gallon_mile };
+	Boolean distance;
+	Boolean type_of_driving;
+	Boolean drive;
+end
+Constraints:
+	# distance==true || type_of_driving==true || drive==true #
+end

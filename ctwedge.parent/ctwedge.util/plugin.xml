@@ -26,5 +26,6 @@
    	<!-- My extension points -->
    	<extension-point id="ctwedgeGenerators" name="ctwedgeGenerators" schema="schema/generators.exsd" />
 	<extension-point id="ctwedgeExporters" name="ctwedgeExporters" schema="schema/TestSuiteExporters.exsd" />
+ <extension-point id="ctwedgeImporters" name="ctwedgeImporters" schema="schema/model_importers.exsd"/>
 
 </plugin>

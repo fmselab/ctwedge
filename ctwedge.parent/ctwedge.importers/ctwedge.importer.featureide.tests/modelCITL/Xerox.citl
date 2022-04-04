@@ -1,0 +1,162 @@
+Model Xerox
+
+Parameters:
+	Boolean Print;
+	Boolean Scan;
+	Boolean Copy;
+	Boolean Fax;
+	Boolean ProductionPrinting;
+	Boolean Finishing;
+	Boolean Reprinting;
+	Boolean ProductionMICRPrinting;
+	Boolean High_volumenetworkprintingand3rd_partyfinishing;
+	Boolean OptionalCapabilties;
+	Boolean _r_1_23_24_25;
+	Boolean Scanning;
+	Enumerative PrintedSides { Duplex };
+	Enumerative MICR { Yes No };
+	Boolean _r_2_12_96_97;
+	Boolean RIP;
+	Boolean _r_2_12_96_136;
+	Boolean Scantofile;
+	Boolean Black;
+	Boolean Color;
+	Boolean IntegratedScanner;
+	Boolean FreeFlowScanner;
+	Boolean _r_3_165_166_167;
+	Boolean _r_3_165_166_168;
+	Boolean SheetFeedModule;
+	Boolean HighCapacitySheetFeedModule;
+	Boolean HighCapacityStackingOption;
+	Boolean StitchingandBindingoption;
+	Boolean _r_4_33_169_170;
+	Boolean _r_4_33_169_171;
+	Boolean __r_4_33_169_171;
+	Boolean _r_4_33_169_172;
+	Boolean coated;
+	Boolean uncoated;
+	Boolean _r_4_39_113_114;
+	Boolean _r_4_39_113_115;
+	Boolean _r_4_40_106_107;
+	Boolean _r_4_40_106_108;
+	Boolean speciality;
+	Boolean StandardFour_traySheet;
+	Boolean OversizedHigh_CapacitySheetFeedModule;
+	Boolean RollFeedSolution;
+	Boolean Post_printFour_trayPaperInsertionModule;
+	Boolean Post_printOversizedTwo_trayPaperInsertionModule;
+	Boolean InsertionModule;
+	Boolean HighCapacityInsertionModule;
+	Boolean Tray1;
+	Boolean Tray2;
+	Boolean Tray3;
+	Boolean Tray4;
+	Boolean Tray5;
+	Boolean OffsetOutputTray;
+	Boolean TopTray;
+	Boolean Stacker;
+	Boolean Finisher;
+	Boolean BasicFinisherModule;
+	Boolean BasicFinisherModulePlus;
+	Boolean BasicFinisherModule_DC;
+	Boolean MultifunctionFinisherProfessional;
+	Boolean MultifunctionFinisherProplus;
+	Boolean BookletMaking;
+	Boolean Stapler;
+	Boolean Binder;
+	Boolean Cutting;
+	Boolean TapeBound;
+	Boolean HolePunch;
+	Boolean OtherFinishingOptions;
+	Boolean _r_7_51_145;
+	Boolean SlitterorMerger;
+	Boolean ByPassTransport;
+	Boolean _r_9_57_120_121;
+	Boolean SheetfeedandInsertionModule;
+	Boolean SheetEnhancementModule;
+	Boolean _r_9_57_120_124;
+	Boolean _r_9_57_120_125;
+	Boolean FinishingTransportModule;
+	Boolean FeederModuleWithIntegratedScanner;
+	Boolean Professional;
+	Boolean _r_9_57_120_150;
+	Boolean BasicFinisherModuleDC;
+	Boolean XeroxDS3500Stacker;
+	Boolean XeroxTapeBinder;
+	Boolean IPfiltering;
+	Boolean Imageoverwrite;
+	Boolean Secureprint;
+	Boolean EncryptedScantoemail;
+	Boolean Authentication;
+	Boolean IP_v6support;
+	Enumerative Category {
+	DigitalPrintingPresses ProductionPrintersandCopiers ContinuousFeedPrinters WideFormatSolutions Workflowsoftware BusinessDevelopment };
+	Enumerative DigitalPrintingPresses {
+	ColorDigitalPrintingPress BandWPublishingDigitalPrintingPress BandWTransactionDigitalPrintingPress HighLightColorDigitalPrintingPress NONE };
+	Enumerative ProductionPrintersandCopiers {
+	ColorPrinters BandWPrinters BandWPublishing BandWTransaction HighLightColor NONE };
+	Enumerative WideFormatSolutions {
+	ColorWideFormatPrinters DigitalWideFormatPrintersandCopiers WideFormatFinishers SoftwareSolutions NONE };
+	Enumerative Workflowsoftware {
+	FreeflowSoftwareandscanners DFEsandcontrollers Productionprintingsoftware NONE };
+	Enumerative Products { MonoProducts ColorProducts };
+	Enumerative MonoProducts { BB QM Teak HLC Nuvera NONE };
+	Enumerative ColorProducts { Mykonos Malta Chandon Chamonix Pinot NONE };
+end
+Constraints:
+	# Print==true || Scan==true || Copy==true || Fax==true ||
+	ProductionPrinting==true || Finishing==true || Reprinting==true ||
+	ProductionMICRPrinting==true ||
+	High_volumenetworkprintingand3rd_partyfinishing==true #
+	# OptionalCapabilties==true => ( _r_1_23_24_25==true || Scanning==true) #
+	# _r_1_23_24_25==true => OptionalCapabilties==true #
+	# Scanning==true => OptionalCapabilties==true #
+	# _r_2_12_96_97==true || RIP==true || _r_2_12_96_136==true || Scantofile==true
+	|| Black==true || Color==true #
+	# IntegratedScanner==true || FreeFlowScanner==true #
+	# _r_3_165_166_167==true || _r_3_165_166_168==true #
+	# SheetFeedModule==true || HighCapacitySheetFeedModule==true ||
+	HighCapacityStackingOption==true || StitchingandBindingoption==true #
+	# _r_4_33_169_170==true || _r_4_33_169_171==true || __r_4_33_169_171==true ||
+	_r_4_33_169_172==true #
+	# coated==true || uncoated==true #
+	# _r_4_39_113_114==true || _r_4_39_113_115==true #
+	# _r_4_40_106_107==true || _r_4_40_106_108==true || speciality==true #
+	# StandardFour_traySheet==true || OversizedHigh_CapacitySheetFeedModule==true
+	|| RollFeedSolution==true #
+	# Post_printFour_trayPaperInsertionModule==true ||
+	Post_printOversizedTwo_trayPaperInsertionModule==true || InsertionModule==true
+	|| HighCapacityInsertionModule==true #
+	# Tray1==true || Tray2==true || Tray3==true || Tray4==true || Tray5==true #
+	# OffsetOutputTray==true || TopTray==true || Stacker==true #
+	# Finisher==true || BookletMaking==true || Stapler==true || Binder==true ||
+	Cutting==true || TapeBound==true || HolePunch==true ||
+	OtherFinishingOptions==true || _r_7_51_145==true || SlitterorMerger==true ||
+	ByPassTransport==true #
+	# Finisher==true => ( BasicFinisherModule==true ||
+	BasicFinisherModulePlus==true || BasicFinisherModule_DC==true ||
+	MultifunctionFinisherProfessional==true ||
+	MultifunctionFinisherProplus==true) #
+	# BasicFinisherModule==true => Finisher==true #
+	# BasicFinisherModulePlus==true => Finisher==true #
+	# BasicFinisherModule_DC==true => Finisher==true #
+	# MultifunctionFinisherProfessional==true => Finisher==true #
+	# MultifunctionFinisherProplus==true => Finisher==true #
+	# _r_9_57_120_121==true || SheetfeedandInsertionModule==true ||
+	SheetEnhancementModule==true || _r_9_57_120_124==true || _r_9_57_120_125==true
+	|| FinishingTransportModule==true || FeederModuleWithIntegratedScanner==true
+	|| Professional==true || _r_9_57_120_150==true || BasicFinisherModuleDC==true
+	|| XeroxDS3500Stacker==true || XeroxTapeBinder==true #
+	# IPfiltering==true || Imageoverwrite==true || Secureprint==true ||
+	EncryptedScantoemail==true || Authentication==true || IP_v6support==true #
+	# DigitalPrintingPresses!=DigitalPrintingPresses.NONE <=>
+	Category==Category.DigitalPrintingPresses #
+	# ProductionPrintersandCopiers!=ProductionPrintersandCopiers.NONE <=>
+	Category==Category.ProductionPrintersandCopiers #
+	# WideFormatSolutions!=WideFormatSolutions.NONE <=>
+	Category==Category.WideFormatSolutions #
+	# Workflowsoftware!=Workflowsoftware.NONE <=>
+	Category==Category.Workflowsoftware #
+	# MonoProducts!=MonoProducts.NONE <=> Products==Products.MonoProducts #
+	# ColorProducts!=ColorProducts.NONE <=> Products==Products.ColorProducts #
+end

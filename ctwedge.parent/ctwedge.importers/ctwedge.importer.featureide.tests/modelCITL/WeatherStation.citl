@@ -1,0 +1,23 @@
+Model WeatherStation
+
+Parameters:
+	Boolean Pressure;
+	Boolean Temperature;
+	Boolean WindSpeed;
+	Enumerative DataSource { Internet Demo ExternalServices };
+	Enumerative OutputFormat { Text WebServer File Format Language };
+	Enumerative Format { XML HTML PlainText NONE };
+	Enumerative Language { English German NONE };
+	Boolean Alarm;
+	Boolean FreezePoint;
+	Boolean StormAlert;
+end
+Constraints:
+	# Pressure==true || Temperature==true || WindSpeed==true #
+	# Format!=Format.NONE <=> OutputFormat==OutputFormat.Format #
+	# Language!=Language.NONE <=> OutputFormat==OutputFormat.Language #
+	# Alarm==true => ( FreezePoint==true || StormAlert==true) #
+	# FreezePoint==true => Alarm==true #
+	# StormAlert==true => Alarm==true #
+	# ! FreezePoint==true || Temperature==true #
+end

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and mandatory="true" name="ModeloAgen">
+				<and mandatory="true" name="Agendamento">
+					<feature name="ImpressaodeFolhadeRosto"/>
+					<feature name="Reagendamento"/>
+					<or name="Notificacao">
+						<feature mandatory="true" name="Email"/>
+						<feature mandatory="true" name="Celular"/>
+					</or>
+					<alt mandatory="true" name="Regras">
+						<feature mandatory="true" name="PorAdm"/>
+						<feature mandatory="true" name="PorUsuario"/>
+					</alt>
+					<feature mandatory="true" name="Visualizacao"/>
+					<or name="TipodeUso">
+						<feature mandatory="true" name="Reuniao"/>
+						<feature mandatory="true" name="Palestra"/>
+						<feature mandatory="true" name="Treinamento"/>
+						<feature mandatory="true" name="Videoconferencia"/>
+					</or>
+				</and>
+				<and name="CadastrodeHorarios">
+					<feature name="BloqueiodeHorarios"/>
+				</and>
+				<and name="CadastrodeSalas">
+					<or mandatory="true" name="TipodeSala">
+						<feature mandatory="true" name="_r_3_25_26_27"/>
+						<feature mandatory="true" name="Aula"/>
+						<feature mandatory="true" name="Auditorio"/>
+						<feature mandatory="true" name="Laboratorio"/>
+					</or>
+				</and>
+				<feature name="CadastrodeEquipamentos"/>
+				<feature name="CadastrodeAdministradores"/>
+				<or name="Relatorios">
+					<feature mandatory="true" name="OcupacaoDiaria"/>
+					<feature mandatory="true" name="OcupacaoSemanal"/>
+				</or>
+			</and>
+		</struct>
+		<constraints>
+			<rule>
+				<disj>
+					<var>CadastrodeSalas</var>
+					<not>
+						<var>CadastrodeEquipamentos</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>CadastrodeSalas</var>
+					<not>
+						<var>TipodeUso</var>
+					</not>
+				</disj>
+			</rule>
+		</constraints>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

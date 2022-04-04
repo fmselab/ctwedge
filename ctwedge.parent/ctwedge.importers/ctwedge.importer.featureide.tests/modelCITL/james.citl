@@ -1,0 +1,18 @@
+Model james
+
+Parameters:
+	Enumerative user_mngt { db ldap };
+	Boolean ws_interface;
+	Boolean pc;
+	Boolean pda;
+	Boolean calendar;
+	Boolean forum;
+	Boolean congress_mngt;
+	Boolean repository;
+end
+Constraints:
+	# pc==true || pda==true #
+	# calendar==true || forum==true || congress_mngt==true || repository==true #
+	# ! pda==true || ! repository==true #
+	# ! congress_mngt==true || repository==true #
+end

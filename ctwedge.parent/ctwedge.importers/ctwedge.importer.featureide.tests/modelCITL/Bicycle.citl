@@ -1,0 +1,20 @@
+Model Bicycle
+
+Parameters:
+	Enumerative Frame { Iron Aluminum Carbon };
+	Enumerative Carbon { White Red Black NONE };
+	Boolean Gears;
+	Boolean Front;
+	Boolean Rear;
+	Enumerative Color { _r_15_16_17 Green Blue };
+	Boolean Pedals;
+	Enumerative Warranty { a1year a2years a3years NONE };
+	Enumerative Maintenanceplan { _r_29_30_31 _r_29_30_32 lifetime NONE };
+end
+Constraints:
+	# Carbon!=Carbon.NONE <=> Frame==Frame.Carbon #
+	# Front==true => Gears==true #
+	# Rear==true => Gears==true #
+	# ! Front==true || Rear==true #
+	# ! Frame==Frame.Carbon || Color==Color._r_15_16_17 #
+end

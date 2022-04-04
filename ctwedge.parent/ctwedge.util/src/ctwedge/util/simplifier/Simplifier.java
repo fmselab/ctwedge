@@ -14,7 +14,7 @@ package ctwedge.util.simplifier;
 import ctwedge.ctWedge.CitModel;
 
 /**
- * Reprsents several possible simplification of citmodels
+ * Represents several possible simplification of citmodels
  * 
  * @author garganti
  *

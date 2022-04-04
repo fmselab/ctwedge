@@ -1,0 +1,14 @@
+Model VODPlayer
+
+Parameters:
+	Enumerative VODPlayer {
+	StartPlayer Pause PlayImm StartMovie VCRInterf Quit SelectMovie };
+	Boolean StopMovie;
+	Boolean ChangeServer;
+	Boolean Detail;
+end
+Constraints:
+	# StopMovie==true => VODPlayer==VODPlayer.StartMovie #
+	# ChangeServer==true => VODPlayer==VODPlayer.SelectMovie #
+	# Detail==true => VODPlayer==VODPlayer.SelectMovie #
+end

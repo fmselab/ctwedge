@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and mandatory="true" name="Smartphone_SPL">
+				<alt mandatory="true" name="Base_OS">
+					<feature mandatory="true" name="Android"/>
+					<feature mandatory="true" name="WindowsPhone"/>
+					<feature mandatory="true" name="BlackBerryOS"/>
+				</alt>
+				<or mandatory="true" name="InstalledApps">
+					<feature mandatory="true" name="Email"/>
+					<feature mandatory="true" name="Browser"/>
+					<feature mandatory="true" name="Calendar"/>
+					<feature mandatory="true" name="AppStore"/>
+					<feature mandatory="true" name="AlarmClock"/>
+					<feature mandatory="true" name="Calculator"/>
+					<feature mandatory="true" name="Camera"/>
+				</or>
+				<or mandatory="true" name="Device_Drivers">
+					<feature mandatory="true" name="Bluetooth"/>
+					<feature mandatory="true" name="WLAN"/>
+					<feature mandatory="true" name="GPS"/>
+					<feature mandatory="true" name="Acceleration_Sensor"/>
+					<feature mandatory="true" name="Light_Sensor"/>
+					<feature mandatory="true" name="Position_Sensor"/>
+					<feature mandatory="true" name="_r_17_18_26"/>
+					<alt mandatory="true" name="Base_Device_Driver_Package">
+						<feature mandatory="true" name="HTC_Package"/>
+						<feature mandatory="true" name="Samsung_Package"/>
+						<feature mandatory="true" name="LG_Package"/>
+						<feature mandatory="true" name="Motorola_Package"/>
+						<feature mandatory="true" name="Sony_Package"/>
+						<feature mandatory="true" name="Blackberry_Package"/>
+					</alt>
+				</or>
+				<alt mandatory="true" name="Manufacturer">
+					<feature mandatory="true" name="HTC"/>
+					<feature mandatory="true" name="Samsung"/>
+					<feature mandatory="true" name="LG"/>
+					<feature mandatory="true" name="Motorola"/>
+					<feature mandatory="true" name="Sony"/>
+					<feature mandatory="true" name="Blackberry"/>
+				</alt>
+			</and>
+		</struct>
+		<constraints>
+			<rule>
+				<disj>
+					<not>
+						<var>Sony_Package</var>
+					</not>
+					<var>Sony</var>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>Android</var>
+					<disj>
+						<var>WindowsPhone</var>
+						<not>
+							<var>Samsung</var>
+						</not>
+					</disj>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>Android</var>
+					<disj>
+						<var>WindowsPhone</var>
+						<not>
+							<var>LG</var>
+						</not>
+					</disj>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<not>
+						<var>Camera</var>
+					</not>
+					<var>_r_17_18_26</var>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<not>
+						<var>LG</var>
+					</not>
+					<var>LG_Package</var>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>Samsung</var>
+					<not>
+						<var>Samsung_Package</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<not>
+						<var>Samsung</var>
+					</not>
+					<var>Samsung_Package</var>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>Android</var>
+					<not>
+						<var>Sony</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<not>
+						<var>Motorola</var>
+					</not>
+					<var>Motorola_Package</var>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>Blackberry_Package</var>
+					<not>
+						<var>Blackberry</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>Camera</var>
+					<not>
+						<var>_r_17_18_26</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>LG</var>
+					<not>
+						<var>LG_Package</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>BlackBerryOS</var>
+					<not>
+						<var>Blackberry</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<not>
+						<var>Blackberry_Package</var>
+					</not>
+					<var>Blackberry</var>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<not>
+						<var>HTC_Package</var>
+					</not>
+					<var>HTC</var>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>AppStore</var>
+					<not>
+						<var>WindowsPhone</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>Motorola</var>
+					<not>
+						<var>Motorola_Package</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<not>
+						<var>BlackBerryOS</var>
+					</not>
+					<var>Blackberry</var>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>AppStore</var>
+					<not>
+						<var>BlackBerryOS</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>Sony_Package</var>
+					<not>
+						<var>Sony</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>HTC_Package</var>
+					<not>
+						<var>HTC</var>
+					</not>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>Android</var>
+					<disj>
+						<var>WindowsPhone</var>
+						<not>
+							<var>HTC</var>
+						</not>
+					</disj>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<var>AppStore</var>
+					<not>
+						<var>Android</var>
+					</not>
+				</disj>
+			</rule>
+		</constraints>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>
