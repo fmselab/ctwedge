@@ -266,5 +266,25 @@ public class BenchmarkTest {
 			fin.close();
 		}
 		System.out.println(csv_sb.toString());
-	}	
+	}
+	
+	@Test
+	public void onlyOneValue() throws IOException {
+		List<File> fileList = Files.walk(Paths.get("/Users/andrea/Downloads/CTComp/"))
+                .filter(Files::isRegularFile)
+                .map(Path::toFile)
+                .filter(x -> x.getName().endsWith(".ctw"))
+                .collect(Collectors.toList());
+		
+		for (File file : fileList) {
+			String model = Files.readString(file.toPath());
+			CitModel citModel = Utility.loadModel(model);
+			for (Parameter p : citModel.getParameters()) {
+				if (p instanceof EnumerativeImpl) {
+					if (((EnumerativeImpl) p).getElements().size() == 1)
+						System.out.println(citModel.getName());
+				} 
+			}
+		}
+	}
 }
