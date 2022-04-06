@@ -6,7 +6,10 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
+import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.ICTWedgeModelProcessor;
+import edu.uta.cse.fireeye.common.SUT;
 
 public class ACTSTest {
 	
@@ -102,6 +105,22 @@ public class ACTSTest {
 		stream.close();
 		System.out.println(Utility.getTestSuite(contentBuilder.toString(), acts,2,false, null));
 	}
-	
+
+	@Test
+	public void testExample3() throws Exception {
+		StringBuilder contentBuilder = new StringBuilder();
+		//String filePath = "D:\\AgHome\\progettidaSVNGIT\\pMedici\\pMEDICI-z3\\examples\\ctcomp\\MCA_3.ctw";
+		String filePath = "D:\\AgHome\\progettidaSVNGIT\\pMedici\\pMEDICI-z3\\examples\\ctcomp\\ADD_BOOLC_4.ctw";
+		
+		CitModel model = ICTWedgeModelProcessor.getModel(filePath);
+		ACTSTranslator trans = new ACTSTranslator();
+		SUT SUT = trans.buildSUT(model, false, 2);
+		System.out.println(SUT);
+//		Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8);
+//		stream.forEach(s -> contentBuilder.append(s).append("\n"));
+//		stream.close();
+//		System.out.println(Utility.getTestSuite(contentBuilder.toString(), acts,2,false, null));
+	}
+
 
 }
