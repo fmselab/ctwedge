@@ -105,7 +105,7 @@ public class FeatureIdeModelSimplifierTest {
 	}
 	@Test
 	public void readCIMSProductLine() throws FileNotFoundException,
-			UnsupportedModelException, NotImportableException {
+			UnsupportedModelException {
 		SxfmFiImporter importer = new SxfmFiImporter();
 		CitModel model = importer.importModel("splotmodels_new/model_20100412_337845737.xml");
 		assertNotNull(model);

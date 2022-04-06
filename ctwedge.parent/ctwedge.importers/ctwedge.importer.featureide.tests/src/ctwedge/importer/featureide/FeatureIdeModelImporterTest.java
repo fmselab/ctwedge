@@ -11,7 +11,9 @@
  ******************************************************************************/
 package ctwedge.importer.featureide;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
@@ -20,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.osgi.resource.Resource;
 
+import com.google.common.io.PatternFilenameFilter;
 import com.google.inject.Injector;
 import ctwedge.CTWedgeStandaloneSetup;
 import ctwedge.ctWedge.CitModel;
@@ -37,13 +40,32 @@ public class FeatureIdeModelImporterTest {
 
 	public static final String FI_MODELS_DIR = "models/featureide/";
 
+	
+	@Test
+	public void readAllModels() throws FileNotFoundException,	
+	UnsupportedModelException {
+		File dir = new File(FI_MODELS_DIR);
+		for (String f: dir.list(new FilenameFilter() {			
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".xml");
+			}
+		})){
+			try{
+				readModel(FI_MODELS_DIR + File.separator + f);			
+			} catch(Exception e) {
+				System.err.println("error reading " + f);
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	@Test
 	public void readCellPhone() throws FileNotFoundException,
 			UnsupportedModelException {
 		CitModel cellPhone = readModel(FI_MODELS_DIR +"cellphone_15.xml");
 		int count = CombinationCounter.count(cellPhone);
 		System.out.println(count);
-		System.out.println(modelToStringSerializer(cellPhone));
 	}
 
 	@Test
@@ -52,7 +74,6 @@ public class FeatureIdeModelImporterTest {
 		CitModel cellPhone = readModel(FI_MODELS_DIR +"connector_fm.xml");
 		int count = CombinationCounter.count(cellPhone);
 		System.out.println(count);
-		System.out.println(modelToStringSerializer(cellPhone));
 		Assert.assertEquals(18, count);
 
 	}
@@ -62,8 +83,6 @@ public class FeatureIdeModelImporterTest {
 			UnsupportedModelException {
 		CitModel connector = FeatureIdeModelImporterTest.readModel(FI_MODELS_DIR +"connector_fm_sim.xml");
 		int count = CombinationCounter.count(connector);
-		System.out.println(count);
-		System.out.println(FeatureIdeModelImporterTest.modelToStringSerializer(connector));
 		Assert.assertEquals(4, count);
 	}
 
@@ -79,7 +98,7 @@ public class FeatureIdeModelImporterTest {
 			UnsupportedModelException {
 		// [model != NONE, model = a1 => OR a11 OR a12, a11 = true => model =
 		// a1, a12 = true => model = a1]
-		readModel(FI_MODELS_DIR +"model_Alt_Or.xml");
+		readModel(FI_MODELS_DIR +"model_Alt_Or.xml");		
 	}
 
 	@Test
@@ -87,9 +106,7 @@ public class FeatureIdeModelImporterTest {
 			UnsupportedModelException {
 		// root is an alternative
 		// [model != NONE]
-		CitModel m = readModel(FI_MODELS_DIR +"model1.xml");
-		System.out.println(m.toString());
-		System.out.println(modelToStringSerializer(m));
+		readModel(FI_MODELS_DIR +"model1.xml");
 	}
 
 	@Test
@@ -97,7 +114,7 @@ public class FeatureIdeModelImporterTest {
 			UnsupportedModelException {
 		// [model = true, A != NONE IFF model = true, B != NONE IFF model =
 		// true]
-		readModel(FI_MODELS_DIR +"model2.xml");
+		CitModel m = readModel(FI_MODELS_DIR +"model2.xml");
 	}
 
 	@Test
@@ -181,12 +198,14 @@ public class FeatureIdeModelImporterTest {
 		CitModel result;
 		try {
 			result = importer.importModel(modelPath);
+			// check the validity of the model - for now serialize it
+			System.out.println(modelToStringSerializer(result));
 			return result;
 		} catch (NotImportableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
-		}
+		}		
 	}
 
 }

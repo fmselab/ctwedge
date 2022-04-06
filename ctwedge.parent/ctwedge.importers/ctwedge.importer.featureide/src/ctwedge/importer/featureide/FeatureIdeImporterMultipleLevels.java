@@ -133,17 +133,17 @@ public abstract class FeatureIdeImporterMultipleLevels extends ctwedge.util.ext.
 		return transformed;
 	}
 
-	public static boolean startsWithANumber(String s) {
-
+	private static boolean startsWithANumber(String s) {
 		return !(s.charAt(0) >= 'a' || s.charAt(0) >= 'A');
 	}
 
 	//static PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:*.xml");
-	
+	// load the feature model from file
 	private FeatureModel readModel(Path path) throws FileNotFoundException, UnsupportedModelException {
 		if (path.toString().toLowerCase().endsWith(".xml")) {
 			//FeatureModelManager reader = getFeatureModelReader(fm);
 			IFeatureModel root = FeatureModelManager.load(path);
+			assert root != null : "errors reading " + path; 
 			System.out.println(root);
 			System.out.println(root.getFeatureOrderList());
 			return (FeatureModel) root;
@@ -198,49 +198,44 @@ public abstract class FeatureIdeImporterMultipleLevels extends ctwedge.util.ext.
 	 */
 	private void addConstraints(IFeature currentNode, CitModel result) {
 		// aggiungo i constraints
-		IFeatureStructure parent = currentNode.getStructure().getParent();
+		IFeatureStructure parentS = currentNode.getStructure().getParent();
 		String currentNodeChoose = choosenString.get(currentNode);
 		Expression chooseCurrent = choosenExpr.get(currentNode);
-		if (parent == null) {
+		if (parentS == null) {
 			// assume that parent is the root
 			result.getConstraints().add(chooseCurrent);
 			constraintStrings.add(currentNodeChoose);
 		} else {
-			if (parent.isAlternative()) {
+			IFeature parentF = parentS.getFeature();
+			if (parentS.isAlternative()) {
 				if (currentNode.getStructure().isAlternative()) {
 					// parent alternative and current alternative
-					EqualExpression enumAssign = CtWedgeFactory.eINSTANCE.createEqualExpression();
+					// currentNode != NONE
 					Parameter pNode = getEnumerativeByName(result, normalize(currentNode.getName()));
-					AtomicPredicate enumParaExpr = CtWedgeFactory.eINSTANCE.createAtomicPredicate();
-					enumParaExpr.setName(pNode.getName());
-					enumAssign.setLeft(enumParaExpr);
-					enumAssign.setOp(Operators.NE);
-					AtomicPredicate NONExpr = CtWedgeFactory.eINSTANCE.createAtomicPredicate();
-					enumParaExpr.setName(NONE);					
-					enumAssign.setRight(NONExpr);
+					assert pNode != null;					
+					EqualExpression enumAssign = createEqExpression(pNode, Operators.NE, NONE);									
 					//
 					String currentNodeIsTaken = currentNode + "!=" + NONE;
 					// currentNode != NONE <=> choose(currentNode)
 					addImpliesConstraint(EcoreUtil2.cloneIfContained(enumAssign), ImpliesOperator.IFF,
 							EcoreUtil2.cloneIfContained(chooseCurrent), result);
 					addImpliesConstraint(currentNodeIsTaken, currentNodeChoose, ImpliesOperator.IFF);
-
 				} else {
 					// the constraints are guranteed by the enumerative
 					logger.debug("skipping constraint for " + normalize(currentNode.getName()));
 				}
-			} else if (currentNode.getStructure().isMandatory() && !parent.isOr()) {
+			} else if (currentNode.getStructure().isMandatory() && !parentS.isOr()) {
 				// mandatory (but leaf in not OR)
 				// choose current IFF choose parent
 				addImpliesConstraint(EcoreUtil2.cloneIfContained(chooseCurrent), ImpliesOperator.IFF,
-						EcoreUtil2.cloneIfContained(choosenExpr.get(parent)), result);
-				addImpliesConstraint(currentNodeChoose, choosenString.get(parent), ImpliesOperator.IFF);
+						EcoreUtil2.cloneIfContained(choosenExpr.get(parentF)), result);
+				addImpliesConstraint(currentNodeChoose, choosenString.get(parentF), ImpliesOperator.IFF);
 			} else {
 				// not mandatory of not in or => OPTIONAL
 				// son => parent
 				addImpliesConstraint(EcoreUtil2.cloneIfContained(chooseCurrent), ImpliesOperator.IMPL,
-						EcoreUtil2.cloneIfContained(choosenExpr.get(parent)), result);
-				addImpliesConstraint(currentNodeChoose, choosenString.get(parent), ImpliesOperator.IMPL);
+						EcoreUtil2.cloneIfContained(choosenExpr.get(parentF)), result);
+				addImpliesConstraint(currentNodeChoose, choosenString.get(parentF), ImpliesOperator.IMPL);
 
 				// NOT POSSIBLE OPTIMIZATION; se currentNodeChoose � gi� nei
 				// constraints posso otttimizzare.
