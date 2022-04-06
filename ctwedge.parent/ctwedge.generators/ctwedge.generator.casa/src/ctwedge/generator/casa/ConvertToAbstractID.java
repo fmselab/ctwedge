@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.xtext.xbase.lib.Pair;
 
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
@@ -21,6 +20,7 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.generator.casa.CNF.Clause;
 import ctwedge.generator.util.ParameterElementsGetterAsStrings;
+import ctwedge.util.Pair;
 import ctwedge.util.ParameterValuesToInt;
 
 /** it converts every expression to a list of numbers (as strings)

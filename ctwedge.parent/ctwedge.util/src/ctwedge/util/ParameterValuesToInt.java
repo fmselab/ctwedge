@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.eclipse.xtext.xbase.lib.Pair;
-
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.CitModel;

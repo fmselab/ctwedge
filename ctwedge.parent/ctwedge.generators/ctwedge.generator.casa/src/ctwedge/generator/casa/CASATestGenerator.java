@@ -16,10 +16,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import org.eclipse.xtext.xbase.lib.Pair;
-
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
+import ctwedge.util.Pair;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
@@ -210,7 +209,7 @@ public class CASATestGenerator extends ICTWedgeTestGenerator{
 				for (int j = 0; j < assignments.length; j++) {
 					assert assignments[j].length() > 0 : "line " + testS;
 					Pair<Parameter, String> singleA = exporter.convertInt(Integer.parseInt(assignments[j]));
-					sb.append((j > 0 ? ";" : "") + singleA.getKey().getName());
+					sb.append((j > 0 ? ";" : "") + singleA.getFirst().getName());
 				}
 				sb.append("\n");
 			}
@@ -221,7 +220,7 @@ public class CASATestGenerator extends ICTWedgeTestGenerator{
 				int aNum = Integer.parseInt(s);
 				// convert from int to paramter and value
 				Pair<Parameter, String> singleA = exporter.convertInt(aNum);
-				sb.append((j > 0 ? ";" : "") + singleA.getValue());
+				sb.append((j > 0 ? ";" : "") + singleA.getSecond());
 			}
 			sb.append("\n");
 		}
