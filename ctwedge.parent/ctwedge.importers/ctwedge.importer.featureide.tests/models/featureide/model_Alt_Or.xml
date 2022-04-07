@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-	<featureModel chosenLayoutAlgorithm="1">
-		<struct>
-			<alt abstract="true" mandatory="true" name="model">
-				<or mandatory="true" name="a1">
-					<feature mandatory="true" name="a11"/>
-					<feature mandatory="true" name="a12"/>
-				</or>
-				<feature mandatory="true" name="a2"/>
-				<feature mandatory="true" name="a3"/>
-				<feature mandatory="true" name="a4"/>
-			</alt>
-		</struct>
-		<constraints/>
-		<comments/>
-		<featureOrder userDefined="false"/>
-	</featureModel>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<alt abstract="true" mandatory="true" name="model">
+			<or name="a1">
+				<graphics key="collapsed" value="false"/>
+				<feature name="a11"/>
+				<feature name="a12"/>
+			</or>
+			<feature name="a2"/>
+			<feature name="a3"/>
+			<feature name="a4"/>
+		</alt>
+	</struct>
+</featureModel>
