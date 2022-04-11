@@ -35,7 +35,8 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 	
 	public TestSuite getTestSuite(CitModel citModel, int nWise, boolean ignoreConstraints) throws Exception {
 		File tempModel = File.createTempFile("pictmodel_" + citModel.getName(), ".txt");
-		tempModel.deleteOnExit();
+		System.out.println(tempModel.getAbsolutePath());
+		//tempModel.deleteOnExit();
 		System.out.println(tempModel.getAbsolutePath());
 		BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
 		String pictModel = translateModel(citModel, ignoreConstraints);
