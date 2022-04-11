@@ -1,11 +1,15 @@
 
 import ctwedge.generator.pict.PICTGenerator;
+import ctwedge.generator.pict.PICTTranslator;
 import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +22,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 
@@ -79,6 +85,26 @@ public class PictTest {
 				listFiles(listOfFiles[i], fileList);
 			}
 		}
+	}
+	
+	@Test
+	public void convertCTComp() throws IOException {
+		Path path = Paths.get("E:\\GitHub\\CIT_Benchmark_Generator\\Benchmarks_CITCompetition_2022\\CTWedge\\");
+		Files.walk(path).filter(Files::isRegularFile).map(Path::toFile).filter(x -> x.getName().endsWith(".ctw"))
+				.forEach(x -> {
+					System.out.println(x.getName());
+					ctwedge.ctWedge.CitModel citModel = Utility.loadModelFromPath(x.getAbsolutePath());
+					BufferedWriter out;
+					try {
+						out = new BufferedWriter(new FileWriter("E:\\GitHub\\CIT_Benchmark_Generator\\Benchmarks_CITCompetition_2022\\PICT\\" + citModel.getName() + ".txt"));
+						PICTGenerator translator = new PICTGenerator();
+						out.append(translator.translateModel(citModel, false));						
+						out.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
 	}
 	
 }

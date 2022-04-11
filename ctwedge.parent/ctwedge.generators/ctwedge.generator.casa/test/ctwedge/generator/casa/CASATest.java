@@ -1,8 +1,19 @@
 package ctwedge.generator.casa;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
 import ctwedge.generator.util.Utility;
+import ctwedge.util.TestSuite;
 
 public class CASATest {
 	
@@ -58,6 +69,44 @@ public class CASATest {
 	public void test7() throws Exception {
 		String s = Utility.getTestSuite("Model Phone\nParameters:\n emailViewer : Boolean\n textLines:  [ 25 .. 30 ]\n display : {16MC, 8MC, BW}\n\n Constraints:\n  # emailViewer => textLines=28 #\n", casa, 2, true, null).toString();		
 		System.out.println("Risultato:\n"+s);
+	}
+	
+	@Test
+	public void convertCTComp() throws IOException {
+		Logger.getLogger(ConvertToAbstractID.class).setLevel(Level.OFF);
+		Path path = Paths.get("C:\\Users\\Andrea_PC\\Desktop\\CTComp\\CTComp\\");
+		Files.walk(path).filter(Files::isRegularFile).map(Path::toFile).filter(x -> x.getName().endsWith(".ctw"))
+				.forEach(x -> {
+					System.out.print(x.getName());
+					ctwedge.ctWedge.CitModel citModel = Utility.loadModelFromPath(x.getAbsolutePath());
+					// System.out.println(new CASATranslator().getTestSuite(m, 2, false));
+					ToCasaParametersExporter mygen = new ToCasaParametersExporter();
+					BufferedWriter out;
+					try {
+						out = new BufferedWriter(new FileWriter("C:\\Users\\Andrea_PC\\Desktop\\CTComp\\CTComp\\" + citModel.getName() + ".citmodel"));
+						// get the model in casa
+						CharSequence modelS = mygen.toCasaCode(citModel, 2);
+						out.append(modelS);
+						out.close();
+						assert modelS.length() > 0;
+						ConvertToAbstractID exporter = new ConvertToAbstractID(citModel);
+						CharSequence constraints;
+						try {
+							constraints = exporter.translateConstraints();// can throw exception
+							assert constraints != null;
+							out = new BufferedWriter(new FileWriter("C:\\Users\\Andrea_PC\\Desktop\\CTComp\\CTComp\\" + citModel.getName() + ".constraints"));
+							out.append(constraints);
+							out.close();
+							System.out.println(" ok");
+						} catch (Throwable e) {
+							// TODO Auto-generated catch block
+							System.out.println(" error " + e.getClass() + " - " + e.getStackTrace());
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				});
 	}
 
 }
