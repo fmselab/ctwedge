@@ -1,0 +1,43 @@
+Model Software
+
+Parameters:
+	Enumerative Software { Anwendungssoftware Systemsoftware };
+	Enumerative Anwendungssoftware { Individualsoftware Standardsoftware NONE };
+	Enumerative Standardsoftware {
+	Basissoftware Officesoftware FunktionsorientierteSoftware NONE };
+	Boolean Managementsoftware;
+	Boolean OperativeSoftware;
+	Boolean FunktionsabhaengigeSoftware;
+	Boolean FunktionsuebergreifendeSoftware;
+	Boolean BranchenspezifischeSoftware;
+	Boolean BranchenunabhaengigeSoftware;
+	Boolean Client_Server_Architektur;
+	Boolean Service_orientierteArchitektur;
+end
+Constraints:
+	# Anwendungssoftware!=Anwendungssoftware.NONE <=>
+	Software==Software.Anwendungssoftware #
+	# Standardsoftware!=Standardsoftware.NONE <=>
+	Anwendungssoftware==Anwendungssoftware.Standardsoftware #
+	# Standardsoftware==Standardsoftware.FunktionsorientierteSoftware =>
+	( Managementsoftware==true || OperativeSoftware==true ||
+	FunktionsabhaengigeSoftware==true || FunktionsuebergreifendeSoftware==true ||
+	BranchenspezifischeSoftware==true || BranchenunabhaengigeSoftware==true ||
+	Client_Server_Architektur==true || Service_orientierteArchitektur==true) #
+	# Managementsoftware==true =>
+	Standardsoftware==Standardsoftware.FunktionsorientierteSoftware #
+	# OperativeSoftware==true =>
+	Standardsoftware==Standardsoftware.FunktionsorientierteSoftware #
+	# FunktionsabhaengigeSoftware==true =>
+	Standardsoftware==Standardsoftware.FunktionsorientierteSoftware #
+	# FunktionsuebergreifendeSoftware==true =>
+	Standardsoftware==Standardsoftware.FunktionsorientierteSoftware #
+	# BranchenspezifischeSoftware==true =>
+	Standardsoftware==Standardsoftware.FunktionsorientierteSoftware #
+	# BranchenunabhaengigeSoftware==true =>
+	Standardsoftware==Standardsoftware.FunktionsorientierteSoftware #
+	# Client_Server_Architektur==true =>
+	Standardsoftware==Standardsoftware.FunktionsorientierteSoftware #
+	# Service_orientierteArchitektur==true =>
+	Standardsoftware==Standardsoftware.FunktionsorientierteSoftware #
+end

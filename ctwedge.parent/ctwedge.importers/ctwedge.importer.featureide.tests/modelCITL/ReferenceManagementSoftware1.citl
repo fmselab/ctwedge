@@ -1,0 +1,49 @@
+Model ReferenceManagementSoftware
+
+Parameters:
+	Enumerative PlatformType { Web_centred Desktop };
+	Boolean Publications;
+	Boolean Citeasyouwrite;
+	Boolean SubjectAssociation;
+	Boolean Tagging;
+	Boolean Exporting;
+	Boolean BibTex;
+	Boolean EndNote;
+	Boolean RIS;
+	Boolean PubMed;
+	Boolean XML;
+	Boolean Importing;
+	Boolean _r_6_25_26_27;
+	Boolean _r_6_25_26_28;
+	Boolean _r_6_25_26_29;
+	Boolean _r_6_25_26_30;
+	Boolean _r_6_25_26_31;
+	Boolean StatisticsGeneration;
+	Boolean UsersInteraction;
+	Boolean ContentSharing;
+	Boolean DiscussionBoards;
+	Boolean PublicationWritingCollaboration;
+	Boolean Multi_languageSupport;
+end
+Constraints:
+	# SubjectAssociation==true || Tagging==true #
+	# Exporting==true => ( BibTex==true || EndNote==true || RIS==true ||
+	PubMed==true || XML==true) #
+	# BibTex==true => Exporting==true #
+	# EndNote==true => Exporting==true #
+	# RIS==true => Exporting==true #
+	# PubMed==true => Exporting==true #
+	# XML==true => Exporting==true #
+	# Importing==true => ( _r_6_25_26_27==true || _r_6_25_26_28==true ||
+	_r_6_25_26_29==true || _r_6_25_26_30==true || _r_6_25_26_31==true) #
+	# _r_6_25_26_27==true => Importing==true #
+	# _r_6_25_26_28==true => Importing==true #
+	# _r_6_25_26_29==true => Importing==true #
+	# _r_6_25_26_30==true => Importing==true #
+	# _r_6_25_26_31==true => Importing==true #
+	# ContentSharing==true <=> UsersInteraction==true #
+	# DiscussionBoards==true => UsersInteraction==true #
+	# PublicationWritingCollaboration==true => UsersInteraction==true #
+	# Publications==true || ! PublicationWritingCollaboration==true #
+	# PlatformType==PlatformType.Web_centred || ! UsersInteraction==true #
+end

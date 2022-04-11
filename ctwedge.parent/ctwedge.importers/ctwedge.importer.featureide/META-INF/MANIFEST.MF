@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Featureide Importer
+Bundle-SymbolicName: ctwedge.importer.featureide;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: ctwedge.importer.featureide.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.apache.log4j,
+ org.eclipse.core.resources,
+ ctwedge.util;bundle-version="1.0.0",
+ ctwedge,
+ org.eclipse.xtext
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ClassPath: .,
+ libs/de.ovgu.featureide.lib.fm-v3.8.1.jar

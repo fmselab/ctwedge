@@ -28,7 +28,7 @@ import ctwedge.ctWedge.OrExpression;
  */
 public final class ConstraintSimplifier extends Simplifier {
 
-	static ConstraintSimplifier eInstance = new ConstraintSimplifier();
+	public static ConstraintSimplifier eInstance = new ConstraintSimplifier();
 
 	private ConstraintSimplifier() {
 	}

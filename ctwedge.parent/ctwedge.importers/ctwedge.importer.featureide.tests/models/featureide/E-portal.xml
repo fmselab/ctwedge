@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and mandatory="true" name="E_Portal">
+				<feature mandatory="true" name="Site"/>
+				<feature mandatory="true" name="Elementos"/>
+				<feature mandatory="true" name="Menu"/>
+				<and mandatory="true" name="Box">
+					<feature mandatory="true" name="Texto"/>
+					<feature name="Foto"/>
+					<or mandatory="true" name="DestaqueWide">
+						<feature mandatory="true" name="ComFoto"/>
+						<feature mandatory="true" name="SemFoto"/>
+					</or>
+					<feature name="DestaqueDuplo"/>
+				</and>
+			</and>
+		</struct>
+		<constraints/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

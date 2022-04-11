@@ -1,0 +1,30 @@
+Model GPL
+
+Parameters:
+	Enumerative Gtp { directed undirected };
+	Enumerative Weight { weighted unweighted NONE };
+	Enumerative Search { BFS DFS NONE };
+	Boolean number;
+	Boolean connected;
+	Boolean stronglyc;
+	Boolean cycle;
+	Boolean mstprim;
+	Boolean mstkruskal;
+	Boolean shortest;
+end
+Constraints:
+	# number==true || connected==true || stronglyc==true || cycle==true ||
+	mstprim==true || mstkruskal==true || shortest==true #
+	# Gtp==Gtp.undirected || ! mstkruskal==true #
+	# Weight==Weight.unweighted || ! mstkruskal==true #
+	# Gtp==Gtp.undirected || ! mstprim==true #
+	# Gtp==Gtp.undirected || ! stronglyc==true #
+	# Weight==Weight.unweighted || ! mstprim==true #
+	# Search==Search.DFS || ! cycle==true #
+	# ! mstprim==true || ! mstkruskal==true #
+	# Gtp==Gtp.undirected || ! connected==true #
+	# Gtp==Gtp.directed || ! shortest==true #
+	# Search!=Search.NONE || ! connected==true #
+	# Weight==Weight.unweighted || ! shortest==true #
+	# Search!=Search.NONE || ! number==true #
+end

@@ -1,0 +1,39 @@
+Model ConferenceContext
+
+Parameters:
+	Boolean Person;
+	Enumerative Location { RoomResolution BuildingResolution NONE };
+	Boolean EventsPreference;
+	Boolean Publications;
+	Boolean ConferencePapers;
+	Boolean JournalPapers;
+	Boolean BookChapters;
+	Boolean ContactDetails;
+	Boolean ___;
+	Boolean Conference;
+	Boolean Venue;
+	Boolean ParticipatingPeople;
+	Boolean PhDStudent;
+	Enumerative Experts { HavingAwards HavingJournalPublications NONE };
+	Boolean _r_2_32;
+end
+Constraints:
+	# Person==true => ( Location!=Location.NONE || EventsPreference==true ||
+	Publications==true || ContactDetails==true || ___==true) #
+	# Location!=Location.NONE => Person==true #
+	# EventsPreference==true => Person==true #
+	# Publications==true => Person==true #
+	# Publications==true => ( ConferencePapers==true || JournalPapers==true ||
+	BookChapters==true) #
+	# ConferencePapers==true => Publications==true #
+	# JournalPapers==true => Publications==true #
+	# BookChapters==true => Publications==true #
+	# ContactDetails==true => Person==true #
+	# ___==true => Person==true #
+	# Venue==true => Conference==true #
+	# ParticipatingPeople==true => Conference==true #
+	# ParticipatingPeople==true => ( PhDStudent==true || Experts!=Experts.NONE) #
+	# PhDStudent==true => ParticipatingPeople==true #
+	# Experts!=Experts.NONE => ParticipatingPeople==true #
+	# _r_2_32==true => Conference==true #
+end

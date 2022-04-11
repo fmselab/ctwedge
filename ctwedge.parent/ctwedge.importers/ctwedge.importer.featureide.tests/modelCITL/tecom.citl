@@ -1,0 +1,15 @@
+Model tecom
+
+Parameters:
+	Boolean ipvoice;
+	Enumerative software { swpack1 swpack2 NONE };
+	Enumerative sizes { large medium small };
+	Boolean messaging;
+	Boolean upgrade_swpack;
+end
+Constraints:
+	# software!=software.NONE <=> ipvoice==true #
+	# upgrade_swpack==true => messaging==true #
+	# ! software==software.swpack1 || ! upgrade_swpack==true #
+	# ! ipvoice==true || ( ! messaging==true || upgrade_swpack==true) #
+end

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="MonitorEngine">
+			<and mandatory="true" name="MonitorEngineperformance">
+				<graphics key="collapsed" value="false"/>
+				<and mandatory="true" name="Monitortemperatures">
+					<graphics key="collapsed" value="false"/>
+					<feature name="coolant"/>
+					<feature mandatory="true" name="oil"/>
+					<feature mandatory="true" name="engine"/>
+					<feature mandatory="true" name="transmission"/>
+				</and>
+				<feature mandatory="true" name="MonitorRPM"/>
+				<feature mandatory="true" name="Monitorexhaustlevelsandtemperature"/>
+			</and>
+			<and mandatory="true" name="MonitorFuelConsumption">
+				<graphics key="collapsed" value="false"/>
+				<alt mandatory="true" name="Measures">
+					<graphics key="collapsed" value="false"/>
+					<feature name="a1perkm"/>
+					<feature name="gallonpermile"/>
+				</alt>
+				<alt mandatory="true" name="Methods">
+					<graphics key="collapsed" value="false"/>
+					<feature name="Basedondistance"/>
+					<feature name="Basedontypeofdriving"/>
+					<feature name="Basedondriving"/>
+				</alt>
+				<or name="temperature">
+					<graphics key="collapsed" value="false"/>
+					<feature name="F1"/>
+					<feature name="F2"/>
+				</or>
+			</and>
+		</and>
+	</struct>
+</featureModel>

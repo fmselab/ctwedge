@@ -1,0 +1,58 @@
+Model thread
+
+Parameters:
+	Enumerative thread_instance { multiple single };
+	Boolean coroutine;
+	Boolean dispatching;
+	Boolean dispach_method;
+	Boolean global_life;
+	Boolean scheduling;
+	Boolean bundle_schedule;
+	Boolean bundle_preemption;
+	Enumerative bundle_strategy {
+	bundle_strategy_replugging bundle_fcfs bundle_lcfs NONE };
+	Enumerative idle_control { idle_guard idle_panic idle_user NONE };
+	Boolean query_schedule;
+	Boolean thread_schedule;
+	Boolean thread_preemption;
+	Boolean non_preemptable_threads;
+	Boolean scheduler_lockable;
+	Enumerative thread_strategy {
+	priority thread_fcfs thread_lcfs thread_strategy_replugging NONE };
+	Boolean schedule_same_priority;
+	Enumerative priority_behaviour {
+	priority_cooperative priority_preemptive NONE };
+	Enumerative priority_count { priority_16 priority_32 priority_8 NONE };
+	Enumerative location { integrated separated NONE };
+	Boolean size;
+	Boolean float_set;
+	Boolean volatile_set;
+	Boolean minimal_set;
+end
+Constraints:
+	# coroutine==true => thread_instance==thread_instance.multiple #
+	# dispatching==true => coroutine==true #
+	# dispach_method==true <=> dispatching==true #
+	# global_life==true <=> dispach_method==true #
+	# scheduling==true => dispatching==true #
+	# bundle_schedule==true => scheduling==true #
+	# bundle_preemption==true => bundle_schedule==true #
+	# bundle_strategy!=bundle_strategy.NONE <=> bundle_schedule==true #
+	# idle_control!=idle_control.NONE => scheduling==true #
+	# query_schedule==true => scheduling==true #
+	# thread_schedule==true <=> scheduling==true #
+	# thread_preemption==true => thread_schedule==true #
+	# non_preemptable_threads==true => thread_preemption==true #
+	# scheduler_lockable==true => thread_preemption==true #
+	# thread_strategy!=thread_strategy.NONE <=> thread_schedule==true #
+	# schedule_same_priority==true => thread_strategy==thread_strategy.priority #
+	# priority_behaviour!=priority_behaviour.NONE <=>
+	thread_strategy==thread_strategy.priority #
+	# priority_count!=priority_count.NONE <=>
+	thread_strategy==thread_strategy.priority #
+	# location!=location.NONE <=> coroutine==true #
+	# size==true <=> coroutine==true #
+	# float_set==true => size==true #
+	# volatile_set==true => size==true #
+	# minimal_set==true <=> size==true #
+end

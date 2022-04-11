@@ -1,0 +1,28 @@
+Model editor_config
+
+Parameters:
+	Boolean autosave;
+	Boolean minutes;
+	Boolean backup_onchange;
+	Enumerative backup_extension { file_bak file_bak_ext file_ext_bak };
+	Boolean document_class;
+	Boolean associated_file_ext;
+	Boolean ext;
+	Boolean commands;
+	Boolean remove_blank_lines;
+	Boolean spell_check;
+	Boolean dos_unix_conversion;
+	Boolean syntax_highlighting;
+	Boolean syntax_definition_file;
+end
+Constraints:
+	# minutes==true <=> autosave==true #
+	# associated_file_ext==true <=> document_class==true #
+	# ext==true => associated_file_ext==true #
+	# commands==true <=> document_class==true #
+	# remove_blank_lines==true => commands==true #
+	# spell_check==true => commands==true #
+	# dos_unix_conversion==true => commands==true #
+	# syntax_highlighting==true => document_class==true #
+	# syntax_definition_file==true <=> syntax_highlighting==true #
+end

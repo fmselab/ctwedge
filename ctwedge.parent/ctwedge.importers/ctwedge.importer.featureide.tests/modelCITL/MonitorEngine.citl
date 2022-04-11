@@ -1,0 +1,15 @@
+Model MonitorEngine
+
+Parameters:
+	Boolean coolant;
+	Enumerative Measures { a1perkm gallonpermile };
+	Enumerative Methods { Basedondistance Basedontypeofdriving Basedondriving };
+	Boolean temperature;
+	Boolean F1;
+	Boolean F2;
+end
+Constraints:
+	# temperature==true => ( F1==true || F2==true) #
+	# F1==true => temperature==true #
+	# F2==true => temperature==true #
+end

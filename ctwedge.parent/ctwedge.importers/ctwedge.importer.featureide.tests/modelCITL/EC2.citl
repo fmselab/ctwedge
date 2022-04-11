@@ -1,0 +1,17 @@
+Model EC2
+
+Parameters:
+	Enumerative O_S { Linux Windows };
+	Enumerative Country { US EU };
+	Enumerative InstanceCategory { Ondemand Reserve };
+	Enumerative Ondemand { Standard HighMemory HighCPU NONE };
+	Enumerative Standard { S L XL NONE };
+	Enumerative HighMemory { Duo Qua NONE };
+	Enumerative HighCPU { M _r_3_4_5_17_20_29_31 NONE };
+end
+Constraints:
+	# Ondemand!=Ondemand.NONE <=> InstanceCategory==InstanceCategory.Ondemand #
+	# Standard!=Standard.NONE <=> Ondemand==Ondemand.Standard #
+	# HighMemory!=HighMemory.NONE <=> Ondemand==Ondemand.HighMemory #
+	# HighCPU!=HighCPU.NONE <=> Ondemand==Ondemand.HighCPU #
+end

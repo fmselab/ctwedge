@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="model">
+			<or name="A">
+				<graphics key="collapsed" value="false"/>
+				<and name="a1">
+					<graphics key="collapsed" value="false"/>
+					<feature name="a11"/>
+					<feature name="a12"/>
+				</and>
+				<or name="a2">
+					<graphics key="collapsed" value="true"/>
+					<feature name="a21"/>
+					<feature name="a22"/>
+				</or>
+				<alt name="a3">
+					<graphics key="collapsed" value="false"/>
+					<feature name="a31"/>
+					<feature name="a32"/>
+				</alt>
+			</or>
+			<alt name="B">
+				<graphics key="collapsed" value="false"/>
+				<feature name="b1"/>
+				<feature name="bn"/>
+			</alt>
+			<or mandatory="true" name="C">
+				<graphics key="collapsed" value="false"/>
+				<feature name="c1"/>
+				<feature name="cn"/>
+			</or>
+			<alt mandatory="true" name="D">
+				<graphics key="collapsed" value="false"/>
+				<feature name="d1"/>
+				<feature name="dn"/>
+			</alt>
+			<feature name="E"/>
+			<feature mandatory="true" name="F"/>
+		</and>
+	</struct>
+</featureModel>

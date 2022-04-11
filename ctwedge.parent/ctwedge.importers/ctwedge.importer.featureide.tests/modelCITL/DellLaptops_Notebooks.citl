@@ -1,0 +1,221 @@
+Model DellLaptops_Notebooks
+
+Parameters:
+	Enumerative ProductCategory {
+	MiniNotebooks InspironLaptops StudioLaptops XPSLaptops Adamo StudioXPSLaptops };
+	Enumerative OperatingSystem {
+	VistawithDowngradetoXP WindowsVista64bit WindowsXPHome UbuntuLinux };
+	Enumerative HardDrive {
+	a500GB a320GB a250GB a160GB a128GBSolidState a120GB a80GB };
+	Enumerative OpticalDrive {
+	CD_DVD_RW DVD_ROMDriveandDVD__RW DVD__RWandCD_RWCombo BluRayDisc NONE };
+	Enumerative LaptopWeight { UltraLight Light DesktopReplacement };
+	Enumerative Memory { Morethan4GB a4GB a3GB a2GB a1GB };
+	Enumerative Processor {
+	IntelCore2Duo IntelPentiumDualcore IntelCeleron IntelAtom };
+	Enumerative Price { Lessthan_400 _400__800 _800__1200 Morethan_1200 };
+end
+Constraints:
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	OperatingSystem==OperatingSystem.VistawithDowngradetoXP #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	OperatingSystem==OperatingSystem.WindowsVista64bit #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	HardDrive==HardDrive.a500GB #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	HardDrive==HardDrive.a320GB #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	HardDrive==HardDrive.a250GB #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	HardDrive==HardDrive.a128GBSolidState #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	OpticalDrive==OpticalDrive.CD_DVD_RW #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	OpticalDrive==OpticalDrive.DVD_ROMDriveandDVD__RW #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	OpticalDrive==OpticalDrive.DVD__RWandCD_RWCombo #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	OpticalDrive==OpticalDrive.BluRayDisc #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	LaptopWeight==LaptopWeight.Light #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	LaptopWeight==LaptopWeight.DesktopReplacement #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	Memory==Memory.Morethan4GB #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || ! Memory==Memory.a4GB #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || ! Memory==Memory.a3GB #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	Processor==Processor.IntelCore2Duo #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	Processor==Processor.IntelPentiumDualcore #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	Processor==Processor.IntelCeleron #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	Price==Price._800__1200 #
+	# ! ProductCategory==ProductCategory.MiniNotebooks || !
+	Price==Price.Morethan_1200 #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	OperatingSystem==OperatingSystem.WindowsVista64bit #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	OperatingSystem==OperatingSystem.WindowsXPHome #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	OperatingSystem==OperatingSystem.UbuntuLinux #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	HardDrive==HardDrive.a128GBSolidState #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	HardDrive==HardDrive.a120GB #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	HardDrive==HardDrive.a80GB #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	OpticalDrive==OpticalDrive.DVD_ROMDriveandDVD__RW #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	OpticalDrive==OpticalDrive.DVD__RWandCD_RWCombo #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	OpticalDrive==OpticalDrive.BluRayDisc #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	LaptopWeight==LaptopWeight.UltraLight #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	LaptopWeight==LaptopWeight.DesktopReplacement #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	Memory==Memory.Morethan4GB #
+	# ! ProductCategory==ProductCategory.InspironLaptops || ! Memory==Memory.a1GB
+	#
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	Processor==Processor.IntelAtom #
+	# ! ProductCategory==ProductCategory.InspironLaptops || !
+	Price==Price.Morethan_1200 #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	OperatingSystem==OperatingSystem.VistawithDowngradetoXP #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	OperatingSystem==OperatingSystem.WindowsXPHome #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	OperatingSystem==OperatingSystem.UbuntuLinux #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	HardDrive==HardDrive.a160GB #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	HardDrive==HardDrive.a128GBSolidState #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	HardDrive==HardDrive.a120GB #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	HardDrive==HardDrive.a80GB #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	Memory==Memory.Morethan4GB #
+	# ! ProductCategory==ProductCategory.StudioLaptops || ! Memory==Memory.a2GB #
+	# ! ProductCategory==ProductCategory.StudioLaptops || ! Memory==Memory.a1GB #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	Processor==Processor.IntelCeleron #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	Processor==Processor.IntelAtom #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	Price==Price.Lessthan_400 #
+	# ! ProductCategory==ProductCategory.StudioLaptops || !
+	Price==Price.Morethan_1200 #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	OperatingSystem==OperatingSystem.VistawithDowngradetoXP #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	OperatingSystem==OperatingSystem.WindowsXPHome #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	OperatingSystem==OperatingSystem.UbuntuLinux #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	HardDrive==HardDrive.a160GB #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	HardDrive==HardDrive.a128GBSolidState #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	HardDrive==HardDrive.a120GB #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	HardDrive==HardDrive.a80GB #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	OpticalDrive==OpticalDrive.DVD_ROMDriveandDVD__RW #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	OpticalDrive==OpticalDrive.DVD__RWandCD_RWCombo #
+	# ! ProductCategory==ProductCategory.XPSLaptops || ! Memory==Memory.a2GB #
+	# ! ProductCategory==ProductCategory.XPSLaptops || ! Memory==Memory.a1GB #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	Processor==Processor.IntelPentiumDualcore #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	Processor==Processor.IntelCeleron #
+	# ! ProductCategory==ProductCategory.XPSLaptops || !
+	Processor==Processor.IntelAtom #
+	# ! ProductCategory==ProductCategory.XPSLaptops || ! Price==Price.Lessthan_400
+	#
+	# ! ProductCategory==ProductCategory.Adamo || !
+	OperatingSystem==OperatingSystem.VistawithDowngradetoXP #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	OperatingSystem==OperatingSystem.WindowsXPHome #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	OperatingSystem==OperatingSystem.UbuntuLinux #
+	# ! ProductCategory==ProductCategory.Adamo || ! HardDrive==HardDrive.a500GB #
+	# ! ProductCategory==ProductCategory.Adamo || ! HardDrive==HardDrive.a320GB #
+	# ! ProductCategory==ProductCategory.Adamo || ! HardDrive==HardDrive.a250GB #
+	# ! ProductCategory==ProductCategory.Adamo || ! HardDrive==HardDrive.a160GB #
+	# ! ProductCategory==ProductCategory.Adamo || ! HardDrive==HardDrive.a120GB #
+	# ! ProductCategory==ProductCategory.Adamo || ! HardDrive==HardDrive.a80GB #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	OpticalDrive==OpticalDrive.CD_DVD_RW #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	OpticalDrive==OpticalDrive.DVD_ROMDriveandDVD__RW #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	OpticalDrive==OpticalDrive.DVD__RWandCD_RWCombo #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	OpticalDrive==OpticalDrive.BluRayDisc #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	LaptopWeight==LaptopWeight.Light #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	LaptopWeight==LaptopWeight.DesktopReplacement #
+	# ! ProductCategory==ProductCategory.Adamo || ! Memory==Memory.Morethan4GB #
+	# ! ProductCategory==ProductCategory.Adamo || ! Memory==Memory.a3GB #
+	# ! ProductCategory==ProductCategory.Adamo || ! Memory==Memory.a1GB #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	Processor==Processor.IntelPentiumDualcore #
+	# ! ProductCategory==ProductCategory.Adamo || !
+	Processor==Processor.IntelCeleron #
+	# ! ProductCategory==ProductCategory.Adamo || ! Processor==Processor.IntelAtom
+	#
+	# ! ProductCategory==ProductCategory.Adamo || ! Price==Price.Lessthan_400 #
+	# ! ProductCategory==ProductCategory.Adamo || ! Price==Price._400__800 #
+	# ! ProductCategory==ProductCategory.Adamo || ! Price==Price._800__1200 #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	OperatingSystem==OperatingSystem.VistawithDowngradetoXP #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	OperatingSystem==OperatingSystem.WindowsXPHome #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	OperatingSystem==OperatingSystem.UbuntuLinux #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	HardDrive==HardDrive.a250GB #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	HardDrive==HardDrive.a160GB #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	HardDrive==HardDrive.a128GBSolidState #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	HardDrive==HardDrive.a120GB #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	HardDrive==HardDrive.a80GB #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	OpticalDrive==OpticalDrive.DVD_ROMDriveandDVD__RW #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	OpticalDrive==OpticalDrive.DVD__RWandCD_RWCombo #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	OpticalDrive==OpticalDrive.BluRayDisc #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	LaptopWeight==LaptopWeight.DesktopReplacement #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	Memory==Memory.Morethan4GB #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || ! Memory==Memory.a3GB
+	#
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || ! Memory==Memory.a2GB
+	#
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || ! Memory==Memory.a1GB
+	#
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	Processor==Processor.IntelPentiumDualcore #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	Processor==Processor.IntelCeleron #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	Processor==Processor.IntelAtom #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	Price==Price.Lessthan_400 #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	Price==Price._400__800 #
+	# ! ProductCategory==ProductCategory.StudioXPSLaptops || !
+	Price==Price.Morethan_1200 #
+end

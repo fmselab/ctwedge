@@ -1,0 +1,19 @@
+Model kwic
+
+Parameters:
+	Boolean file;
+	Boolean console;
+	Enumerative shift_data { implicit explicit };
+	Enumerative compression {
+	shift_processing each_line all_lines noise_words NONE };
+	Enumerative order { descendant ascendant };
+	Enumerative case_sensitivity { sensitive insensitive };
+	Enumerative arch_style {
+	shared_data adt implicit_invocation pipe_and_filter };
+end
+Constraints:
+	# file==true || console==true #
+	# ! compression!=compression.NONE || shift_data==shift_data.explicit #
+	# ! arch_style==arch_style.pipe_and_filter ||
+	compression==compression.all_lines #
+end

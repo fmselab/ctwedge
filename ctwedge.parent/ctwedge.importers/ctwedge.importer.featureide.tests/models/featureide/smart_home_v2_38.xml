@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and mandatory="true" name="SmartHome">
+				<and mandatory="true" name="HeatingManagement">
+					<feature mandatory="true" name="ManualHeating"/>
+					<feature name="SmartHeating"/>
+				</and>
+				<and mandatory="true" name="WindowsManagement">
+					<feature mandatory="true" name="ManualWindows"/>
+					<feature name="ElectronicWindows"/>
+				</and>
+				<and mandatory="true" name="LightManagement">
+					<feature mandatory="true" name="ManualLight"/>
+					<feature name="SmartLight"/>
+					<feature name="Pre_definedValues"/>
+				</and>
+				<and mandatory="true" name="GUI">
+					<feature mandatory="true" name="TouchScreen"/>
+					<feature name="Internet"/>
+				</and>
+				<or name="PresenceSimulator">
+					<feature mandatory="true" name="LightSimulation"/>
+					<feature mandatory="true" name="BlindSimulation"/>
+					<feature mandatory="true" name="MusicSimulation"/>
+				</or>
+				<and mandatory="true" name="FireControl">
+					<or mandatory="true" name="FirstAidGroup">
+						<feature mandatory="true" name="FireDepartment"/>
+						<feature mandatory="true" name="OtherGroup"/>
+						<feature mandatory="true" name="FireSprinklers"/>
+					</or>
+				</and>
+				<and name="IrrigationSprinklers">
+					<feature mandatory="true" name="SimpleControl"/>
+					<feature name="SmartSprinklers"/>
+				</and>
+				<or mandatory="true" name="Alarm">
+					<feature mandatory="true" name="Siren"/>
+					<feature mandatory="true" name="Bell"/>
+					<feature mandatory="true" name="Lights"/>
+				</or>
+				<and mandatory="true" name="Security">
+					<or mandatory="true" name="AuthenticationDevice">
+						<feature mandatory="true" name="Keypad"/>
+						<feature mandatory="true" name="RetinaScanner"/>
+						<feature mandatory="true" name="FingerPrintReader"/>
+					</or>
+					<or name="IntrusionDetectionDevice">
+						<feature mandatory="true" name="GlassbreakSensors"/>
+						<feature mandatory="true" name="Cameras"/>
+					</or>
+				</and>
+			</and>
+		</struct>
+		<constraints/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

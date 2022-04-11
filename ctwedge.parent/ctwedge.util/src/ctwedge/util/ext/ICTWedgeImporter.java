@@ -8,20 +8,20 @@
  * Contributors: 
  *   Paolo Vavassori - initial API and implementation 
  *   Angelo Gargantini - utils and architecture 
- ******************************************************************************/ 
-package ctwedge.util.ext; 
- 
-import ctwedge.ctWedge.CitModel; 
- 
-/** transform a file in a CitLabModel */ 
- 
-public abstract class ICTWedgeImporter { 
-  /** import a model from a file given as path 
-   *  
-   * @param path 
-   * @return 
-   */ 
-  public abstract CitModel importModel  (String path) throws NotImportableException; 
- 
-   
-} 
+ ******************************************************************************/
+package ctwedge.util.ext;
+
+import ctwedge.ctWedge.CitModel;
+
+/** transform a file in a CitLabModel */
+
+public abstract class ICTWedgeImporter {
+	/**
+	 * import a model from a file given as path
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public abstract CitModel importModel(String path) throws NotImportableException;
+
+}

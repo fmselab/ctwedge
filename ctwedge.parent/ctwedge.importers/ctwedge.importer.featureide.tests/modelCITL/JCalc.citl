@@ -1,0 +1,12 @@
+Model JCalc
+
+Parameters:
+	Enumerative LANG { PT_BR EN };
+	Boolean EDIT;
+	Boolean SAVE;
+	Enumerative LOOKANDFEEL { Metal System Motif GTK Windows NONE };
+	Boolean ANALYZER;
+	Boolean PERFORMANCE;
+	Enumerative DEVICE { Z6 Milestone PC };
+	Boolean COMMA;
+end

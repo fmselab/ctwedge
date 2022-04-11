@@ -1,0 +1,15 @@
+Model SAL
+
+Parameters:
+	Boolean Conditional;
+	Enumerative Evaluator { Evaluationsemantics Machinesemantics };
+	Boolean Optimizer;
+	Boolean Constantfolding;
+	Boolean Short_circuit;
+end
+Constraints:
+	# Optimizer==true => ( Constantfolding==true || Short_circuit==true) #
+	# Constantfolding==true => Optimizer==true #
+	# Short_circuit==true => Optimizer==true #
+	# Conditional==true || ! Short_circuit==true #
+end

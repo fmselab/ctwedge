@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="Aircraft">
+			<or mandatory="true" name="Wing">
+				<graphics key="collapsed" value="false"/>
+				<feature name="High"/>
+				<feature name="Shoulder"/>
+				<feature name="Low"/>
+			</or>
+			<alt name="Engine">
+				<graphics key="collapsed" value="false"/>
+				<feature name="Jet"/>
+				<feature name="Piston"/>
+			</alt>
+			<or mandatory="true" name="Materials">
+				<graphics key="collapsed" value="false"/>
+				<feature name="Metal"/>
+				<feature name="Wood"/>
+				<feature name="Cloth"/>
+				<feature name="Plastic"/>
+			</or>
+		</and>
+	</struct>
+</featureModel>

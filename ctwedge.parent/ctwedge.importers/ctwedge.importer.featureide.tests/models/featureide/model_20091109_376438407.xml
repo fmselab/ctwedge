@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="InsurancePolicy">
+			<or mandatory="true" name="LOB">
+				<graphics key="collapsed" value="false"/>
+				<or name="Auto">
+					<graphics key="collapsed" value="false"/>
+					<feature name="Comprehensive"/>
+					<feature name="TP"/>
+				</or>
+				<feature name="Home"/>
+				<feature name="commercial"/>
+				<feature name="watercraft"/>
+			</or>
+			<feature mandatory="true" name="Financials"/>
+			<feature mandatory="true" name="Reporting"/>
+			<and name="ThirdPartyServices">
+				<graphics key="collapsed" value="false"/>
+				<feature name="Add_Validation"/>
+				<feature name="VINValidation"/>
+				<alt name="CreditCheck">
+					<graphics key="collapsed" value="false"/>
+					<feature name="simple"/>
+					<feature name="advanced"/>
+				</alt>
+			</and>
+			<and mandatory="true" name="DataCapture">
+				<graphics key="collapsed" value="false"/>
+				<feature mandatory="true" name="clientdata"/>
+				<feature name="cardetails"/>
+				<feature name="housedetails"/>
+			</and>
+			<and mandatory="true" name="U_W">
+				<graphics key="collapsed" value="false"/>
+				<feature mandatory="true" name="decision"/>
+			</and>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<disj>
+				<var>Comprehensive</var>
+				<disj>
+					<var>clientdata</var>
+					<var>cardetails</var>
+				</disj>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<var>TP</var>
+				<var>watercraft</var>
+			</disj>
+		</rule>
+	</constraints>
+</featureModel>

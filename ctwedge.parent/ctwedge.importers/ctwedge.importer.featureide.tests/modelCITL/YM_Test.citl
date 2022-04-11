@@ -1,0 +1,7 @@
+Model YM_Test
+
+Parameters:
+	Boolean USB;
+	Boolean Wifi;
+	Boolean PowerLineControl;
+end

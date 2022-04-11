@@ -1,0 +1,21 @@
+Model search_engine_PL
+
+Parameters:
+	Boolean page_translation;
+	Enumerative image { jpg gif svg NONE };
+	Boolean video;
+	Boolean search_by_language;
+	Boolean portuguese;
+	Boolean english;
+	Boolean spanish;
+	Boolean page_preview;
+end
+Constraints:
+	# search_by_language==true => ( portuguese==true || english==true ||
+	spanish==true) #
+	# portuguese==true => search_by_language==true #
+	# english==true => search_by_language==true #
+	# spanish==true => search_by_language==true #
+	# ! search_by_language==true || page_translation==true #
+	# ! page_preview==true || ! image==image.svg #
+end

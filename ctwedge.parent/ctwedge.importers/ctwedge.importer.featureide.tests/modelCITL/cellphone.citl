@@ -1,0 +1,16 @@
+Model cellphone
+
+Parameters:
+	Boolean wireless;
+	Boolean infrared;
+	Boolean bluetooth;
+	Enumerative accu_cell { li_ion ni_mh ni_ca };
+	Enumerative display { color monochrome };
+end
+Constraints:
+	# wireless==true => ( infrared==true || bluetooth==true) #
+	# infrared==true => wireless==true #
+	# bluetooth==true => wireless==true #
+	# ! bluetooth==true || accu_cell==accu_cell.li_ion #
+	# ! display==display.color || ! accu_cell==accu_cell.ni_ca #
+end

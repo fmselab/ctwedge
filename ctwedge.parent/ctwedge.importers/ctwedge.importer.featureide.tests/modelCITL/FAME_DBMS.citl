@@ -1,0 +1,22 @@
+Model FAME_DBMS
+
+Parameters:
+	Enumerative OS { Nut_OS Win };
+	Enumerative BufferManager { Persistent InMemory };
+	Enumerative MemoryAllocation { Static Dynamic NONE };
+	Enumerative PageReplication { LRU LFU NONE };
+	Boolean DebugLogging;
+	Enumerative Storage { API B_Tree Unindexed };
+	Boolean Get;
+	Boolean Put;
+	Boolean Delete;
+end
+Constraints:
+	# MemoryAllocation!=MemoryAllocation.NONE <=>
+	BufferManager==BufferManager.Persistent #
+	# PageReplication!=PageReplication.NONE <=>
+	BufferManager==BufferManager.Persistent #
+	# Get==true => Storage==Storage.API #
+	# Put==true => Storage==Storage.API #
+	# Delete==true => Storage==Storage.API #
+end

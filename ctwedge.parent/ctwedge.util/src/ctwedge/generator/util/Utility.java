@@ -1,12 +1,18 @@
 package ctwedge.generator.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.parser.IParseResult;
+import org.eclipse.xtext.parser.IParser;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.util.CancelIndicator;
@@ -71,6 +77,21 @@ public class Utility {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
+		// execute the parser
+		IParser parser = injector.getInstance(IParser.class);
+		IParseResult pResult = parser.parse(new InputStreamReader(in));
+		// check that there is a model resource.getAllContents()				
+		// TODO elimina questi messaggi
+		if (!pResult.hasSyntaxErrors())
+			System.out.println("parser ok");
+		else {
+			System.out.println("parser errors ");
+			for (INode issue : pResult.getSyntaxErrors()) {
+				System.out.println(issue.getText() + " (Line " + issue.getStartLine() + "): "
+						+ issue.getSyntaxErrorMessage().getMessage());
+			}
+			throw new RuntimeException("(praser) ERROR");
+		}		
 		// validate the resource
 		IResourceValidator validator = injector.getInstance(IResourceValidator.class);
 		try {
@@ -91,9 +112,9 @@ public class Utility {
 		// return 
 		CitModel res = (CitModel) resource.getContents().get(0);
 		return res;
-
 	}
-
+	
+	
 	public static String addNumbers(String ts) {
 		StringBuffer sb = new StringBuffer();
 		String[] st = ts.split("\n");

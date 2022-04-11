@@ -1,0 +1,24 @@
+Model SmartHome
+
+Parameters:
+	Boolean Celsius;
+	Boolean Fahrenheit;
+	Boolean SmartHeatingManagement;
+	Boolean AutomaticWindows;
+	Boolean SmartLightManagement;
+	Boolean Pre_definedValues;
+	Boolean TouchScreen;
+	Boolean Mobile;
+	Boolean Internet;
+	Boolean LightSimulation;
+	Boolean BlindSimulation;
+	Boolean MusicSimulation;
+	Boolean FireDepartment;
+	Boolean OtherGroup;
+	Boolean Siren;
+	Boolean Bell;
+	Boolean Light;
+	Boolean KeypadReader;
+	Boolean CardReader;
+	Boolean FingerprintReader;
+end
