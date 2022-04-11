@@ -6,18 +6,22 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
+import ctwedge.ctWedge.CtWedgeFactory;
 import ctwedge.ctWedge.Element;
 import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.EqualExpression;
+import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.ImpliesExpression;
 import ctwedge.ctWedge.ModMultDiv;
 import ctwedge.ctWedge.NotExpression;
+import ctwedge.ctWedge.Operators;
 import ctwedge.ctWedge.OrExpression;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.PlusMinus;
@@ -30,7 +34,7 @@ import ctwedge.util.StaticUtils;
 public class PICTConstraintTranslator extends CtWedgeSwitch<String> {
 
 	
-	private static final String ACTS_OP_NEQ = "<>";
+	private static final String PICT_OP_NEQ = "<>";
 	private static final String ACTS_OP_AND = " AND ";
 	private static final String ACTS_OP_OR = " OR ";
 	private static final String ACTS_OP_EQ = "=";
@@ -41,7 +45,9 @@ public class PICTConstraintTranslator extends CtWedgeSwitch<String> {
 	public PICTConstraintTranslator(CitModel citModel) {
 		for (Parameter p : citModel.getParameters()) {
 			params.put(p.getName(), p);
-			if (p instanceof Enumerative) for (Element e : ((Enumerative)p).getElements()) elements.add(e.getName());
+			if (p instanceof Enumerative) { 
+				for (Element e : ((Enumerative)p).getElements()) elements.add(e.getName());
+			}
 		}
 	}
 
@@ -81,24 +87,52 @@ public class PICTConstraintTranslator extends CtWedgeSwitch<String> {
 		case EQ:
 			return left + ACTS_OP_EQ + right;
 		case NE:
-			return left + ACTS_OP_NEQ + right;
+			return left + PICT_OP_NEQ + right;
 		default: throw new RuntimeException("Operator not found in constraint");
 		}
 	}
 
 	@Override
 	public String caseImpliesExpression(ImpliesExpression ruleExpr) {
-		String leftVal = this.doSwitch(ruleExpr.getLeft());
-		String rightVal = this.doSwitch(ruleExpr.getRight());
+		//in case it is an implies ad first expression in the constraint
+//			ImpliesExpression e = (ImpliesExpression) x;
+//			String leftVal = this.doSwitch(e.getLeft());
+//			String rightVal = this.doSwitch(e.getRight());
+//			switch (e.getOp()) {
+//				case IMPL:
+//					return "IF " + parathesis(leftVal, " THEN ", rightVal);
+//				case IFF:
+//					return "(IF " + parathesis(leftVal, " THEN ", rightVal) + ");\n" +
+//							"IF " + parathesis(rightVal, " THEN ", leftVal) + ")";
+//			}
+		Expression left = ruleExpr.getLeft();
+		Expression right = ruleExpr.getRight();
 		switch (ruleExpr.getOp()) {
 		case IMPL:
-			return "IF " + parathesis(leftVal, " THEN ", rightVal);
+			OrExpression or = implicationAsOr(left, right);
+			return doSwitch(or);
 		case IFF:
-			return "IF " + parathesis(leftVal, " THEN ", rightVal) + ";\n" +
-					"IF " + parathesis(rightVal, " THEN ", leftVal);
+			// AS equal (problemi con le parentesi varie)
+//			EqualExpression eq = CtWedgeFactory.eINSTANCE.createEqualExpression();
+//			eq.setLeft(ruleExpr.getLeft());
+//			eq.setRight(ruleExpr.getRight());
+//			eq.setOp(Operators.EQ);
+			AndExpression and = CtWedgeFactory.eINSTANCE.createAndExpression();			
+			and.setLeft(implicationAsOr(EcoreUtil.copy(left), EcoreUtil.copy(right)));
+			and.setRight(implicationAsOr(EcoreUtil.copy(right), EcoreUtil.copy(left)));			
+			return doSwitch(and);
+			
 		}
 		throw new RuntimeException("Operator not found in seed");
+	}
 
+	private OrExpression implicationAsOr(Expression left, Expression right) {
+		OrExpression or = CtWedgeFactory.eINSTANCE.createOrExpression();
+		NotExpression not = CtWedgeFactory.eINSTANCE.createNotExpression();
+		not.setPredicate(left);
+		or.setLeft(not);
+		or.setRight(right);
+		return or;
 	}
 
 	private String parathesis(String leftVal, String op, String rightVal) {

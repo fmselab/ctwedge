@@ -77,21 +77,23 @@ public class Utility {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
-		// execute the parser
-		IParser parser = injector.getInstance(IParser.class);
-		IParseResult pResult = parser.parse(new InputStreamReader(in));
-		// check that there is a model resource.getAllContents()				
-		// TODO elimina questi messaggi
-		if (!pResult.hasSyntaxErrors())
-			System.out.println("parser ok");
-		else {
-			System.out.println("parser errors ");
-			for (INode issue : pResult.getSyntaxErrors()) {
-				System.out.println(issue.getText() + " (Line " + issue.getStartLine() + "): "
-						+ issue.getSyntaxErrorMessage().getMessage());
-			}
-			throw new RuntimeException("(praser) ERROR");
-		}		
+//		execute the parser
+//		AG: 11/04/2022 questo dà un sacco di problemi se faccio anche il parsing
+//		IParser parser = injector.getInstance(IParser.class);
+//		assert parser != null;
+//		IParseResult pResult = parser.parse(new InputStreamReader(in));
+//		// check that there is a model resource.getAllContents()				
+//		// TODO elimina questi messaggi
+//		if (!pResult.hasSyntaxErrors())
+//			System.out.println("parser ok");
+//		else {
+//			System.out.println("parser errors ");
+//			for (INode issue : pResult.getSyntaxErrors()) {
+//				System.out.println(issue.getText() + " (Line " + issue.getStartLine() + "): "
+//						+ issue.getSyntaxErrorMessage().getMessage());
+//			}
+//			throw new RuntimeException("(praser) ERROR");
+//		}		
 		// validate the resource
 		IResourceValidator validator = injector.getInstance(IResourceValidator.class);
 		try {
@@ -110,7 +112,8 @@ public class Utility {
 			
 		}
 		// return 
-		CitModel res = (CitModel) resource.getContents().get(0);
+		// get the model
+		CitModel res = (CitModel) resource.getContents().get(0);		
 		return res;
 	}
 	
