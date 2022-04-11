@@ -19,7 +19,6 @@ import java.io.FilenameFilter;
 import org.junit.Assert;
 import org.junit.Test;
 
-import citlab.core.ext.NotImportableException;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.importer.featureide.FeatureIdeImporterMultipleLevels;
 import ctwedge.importer.featureide.SxfmFiImporter;
@@ -57,15 +56,9 @@ public class SxfmFiImporterTest{
 
 	private CitModel readSXFMModel(String origin) {
 		FeatureIdeImporterMultipleLevels importer = new SxfmFiImporter();
-		try {
-			CitModel result = importer.importModel(origin);
-			// check result
-			return result;
-		} catch (NotImportableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+		CitModel result = importer.importModel(origin);
+		// check result
+		return result;
 	}
 	@Test
 	public void testAccents(){

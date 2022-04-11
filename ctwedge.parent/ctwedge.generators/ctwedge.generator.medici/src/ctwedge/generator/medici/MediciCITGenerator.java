@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.util.SystemOutLogger;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
@@ -152,7 +151,7 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 			}
 			String[] values = test.split(" ");
 			for (int i = 0; i < values.length; i++)
-				csv_out += valToInt.convertInt(Integer.parseInt(values[i])).getValue() + ";";
+				csv_out += valToInt.convertInt(Integer.parseInt(values[i])).getSecond() + ";";
 			csv_out = csv_out.substring(0, csv_out.length() - 1);
 			csv_out += "\n";
 		}

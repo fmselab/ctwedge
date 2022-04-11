@@ -9,7 +9,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: ctwedge,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
- org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: ctwedge.tests;x-internal=true
-

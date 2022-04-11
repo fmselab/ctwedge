@@ -65,7 +65,7 @@ public class ParameterValuesToInt {
 			throw new IndexOutOfBoundException(n, offsets);
 		}
 		String string = doSwitch.get(singleOffset);
-		return Pair.of(selectedPara, string);
+		return new Pair<Parameter, String>(selectedPara, string);
 	}
 
 	// parameter -> int
