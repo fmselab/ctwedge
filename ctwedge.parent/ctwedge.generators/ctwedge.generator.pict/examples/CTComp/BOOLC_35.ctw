@@ -1,0 +1,10 @@
+Model BOOLC_35
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2 : Boolean
+Par3 : Boolean
+Par4 : Boolean
+
+Constraints:
+# ((((not (Par2 = true)) <=> (not (Par0 = true))) OR ((not (Par4 != true)) <=> (not (Par0 != true)))) OR (((not (Par3 = false)) OR Par2 != true) => (Par3 = true => (not (Par1 = true))))) #

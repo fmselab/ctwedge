@@ -1,0 +1,32 @@
+Model BOOLC_31
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2 : Boolean
+Par3 : Boolean
+Par4 : Boolean
+Par5 : Boolean
+Par6 : Boolean
+Par7 : Boolean
+Par8 : Boolean
+Par9 : Boolean
+Par10 : Boolean
+Par11 : Boolean
+Par12 : Boolean
+Par13 : Boolean
+Par14 : Boolean
+
+Constraints:
+# (((Par8 = false => (not (Par9 = true))) <=> (Par9 = false OR Par7 = true)) <=> ((Par6 != false AND Par10 = true) => (Par11 = true => Par0 = true))) #
+# ((Par11 != false AND Par2 != false) => ((not (Par2 = true)) AND Par9 = false)) #
+# (((not (Par12 != true)) AND (not (Par14 = false))) OR ((not (Par13 != true)) <=> (not (Par5 != true)))) #
+# ((Par2 != false => (not (Par6 != false))) OR ((not (Par11 != false)) <=> (not (Par4 = true)))) #
+# (((Par5 != false => Par1 != false) AND ((not (Par1 = true)) => Par14 != true)) <=> ((Par4 = false => (not (Par11 != true))) <=> ((not (Par3 = true)) OR (not (Par6 = false))))) #
+# ((((not (Par11 != false)) <=> Par5 != false) <=> ((not (Par4 != true)) => Par9 != true)) OR (((not (Par8 != true)) <=> Par6 = true) OR (Par14 != false => (not (Par11 != false))))) #
+# (((Par3 = true AND Par10 != true) <=> (Par8 = false OR (not (Par11 = false)))) => (((not (Par8 != true)) <=> (not (Par10 = true))) => ((not (Par9 != false)) AND (not (Par11 = false))))) #
+# ((Par9 = false AND (not (Par10 != false))) <=> ((not (Par3 = false)) <=> (not (Par11 = true)))) #
+# (((Par8 = true => (not (Par0 = true))) <=> (Par0 != true <=> (not (Par7 = true)))) => ((Par1 != false <=> Par10 = true) <=> ((not (Par2 != false)) AND Par6 != false))) #
+# (Par7 = true AND Par8 = false) #
+# (((not (Par3 = true)) AND (not (Par12 = true))) OR ((not (Par9 = true)) => Par3 != false)) #
+# (((Par2 = true => Par10 != false) AND ((not (Par13 = false)) <=> (not (Par5 = true)))) AND ((Par10 != false <=> (not (Par6 != false))) OR ((not (Par9 = false)) <=> Par9 = false))) #
+# ((Par0 = false <=> (not (Par12 != true))) => ((not (Par5 = true)) OR Par10 != false)) #

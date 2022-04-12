@@ -1,0 +1,21 @@
+Model MCAC_26
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2: {PAR2_0,PAR2_1,PAR2_2,PAR2_3,PAR2_4,PAR2_5,PAR2_6,PAR2_7,PAR2_8,PAR2_9,PAR2_10,PAR2_11,PAR2_12,PAR2_13,PAR2_14,PAR2_15,PAR2_16,PAR2_17,PAR2_18,PAR2_19,PAR2_20,PAR2_21,PAR2_22,PAR2_23,PAR2_24,PAR2_25,PAR2_26,PAR2_27,PAR2_28,PAR2_29,PAR2_30,PAR2_31,PAR2_32,PAR2_33,PAR2_34,PAR2_35,PAR2_36,PAR2_37,PAR2_38,PAR2_39,PAR2_40,PAR2_41,PAR2_42,PAR2_43,PAR2_44,PAR2_45}
+Par3: {PAR3_0,PAR3_1,PAR3_2,PAR3_3,PAR3_4,PAR3_5,PAR3_6,PAR3_7,PAR3_8,PAR3_9,PAR3_10,PAR3_11,PAR3_12,PAR3_13,PAR3_14,PAR3_15,PAR3_16,PAR3_17}
+Par4: {PAR4_0,PAR4_1,PAR4_2,PAR4_3,PAR4_4,PAR4_5,PAR4_6,PAR4_7,PAR4_8,PAR4_9,PAR4_10,PAR4_11,PAR4_12,PAR4_13,PAR4_14,PAR4_15,PAR4_16,PAR4_17,PAR4_18,PAR4_19,PAR4_20,PAR4_21,PAR4_22,PAR4_23,PAR4_24,PAR4_25,PAR4_26,PAR4_27,PAR4_28,PAR4_29,PAR4_30,PAR4_31,PAR4_32,PAR4_33,PAR4_34,PAR4_35,PAR4_36,PAR4_37,PAR4_38,PAR4_39,PAR4_40,PAR4_41,PAR4_42,PAR4_43,PAR4_44}
+Par5 : Boolean
+Par6 : Boolean
+Par7 : Boolean
+Par8 : Boolean
+Par9 : Boolean
+
+Constraints:
+# ((((not (Par4 != PAR4_31)) => (not (Par2 != PAR2_22))) AND (Par0 != false AND Par4 = PAR4_10)) => (((not (Par4 != PAR4_33)) => Par8 = true) => (Par6 = false AND (not (Par4 != PAR4_4))))) #
+# (((Par5 = false => Par7 = true) => ((not (Par3 = PAR3_0)) => Par6 = true)) <=> ((Par2 = PAR2_42 => (not (Par1 != false))) <=> ((not (Par4 = PAR4_11)) => (not (Par7 != false))))) #
+# ((((not (Par9 = false)) OR Par0 != false) <=> (Par8 != false => (not (Par1 = false)))) AND ((Par5 = false <=> (not (Par6 != false))) OR (Par3 = PAR3_11 <=> (not (Par3 = PAR3_13))))) #
+# ((Par4 = PAR4_30 => Par6 = true) OR (Par1 != false <=> (not (Par2 != PAR2_24)))) #
+# (((Par8 = false => (not (Par5 != true))) => (Par0 = false <=> Par5 != false)) => ((Par4 != PAR4_13 <=> Par5 = true) AND (Par7 != false => (not (Par7 = false))))) #
+# (((Par0 = true => (not (Par0 = true))) => (Par5 = true OR (not (Par9 = true)))) OR (((not (Par8 != true)) AND Par8 != false) <=> ((not (Par9 != true)) <=> Par4 != PAR4_17))) #
+# ((Par9 != false AND (not (Par3 != PAR3_13))) OR ((not (Par2 != PAR2_10)) OR Par7 != true)) #

@@ -1,0 +1,32 @@
+Model BOOLC_25
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2 : Boolean
+Par3 : Boolean
+Par4 : Boolean
+Par5 : Boolean
+Par6 : Boolean
+Par7 : Boolean
+Par8 : Boolean
+Par9 : Boolean
+Par10 : Boolean
+Par11 : Boolean
+Par12 : Boolean
+Par13 : Boolean
+Par14 : Boolean
+
+Constraints:
+# ((((not (Par12 = true)) <=> (not (Par9 = false))) => (Par0 != false AND Par11 = false)) AND ((Par6 != true AND (not (Par1 != false))) <=> ((not (Par6 = true)) AND Par5 != true))) #
+# ((((not (Par0 = false)) <=> Par3 != false) AND ((not (Par12 = true)) AND Par6 != false)) OR (((not (Par0 != false)) AND Par1 != true) => ((not (Par4 != true)) AND Par13 != false))) #
+# (Par2 = false OR (not (Par7 != true))) #
+# (Par14 != false <=> Par2 = true) #
+# ((Par2 = false => (not (Par3 = false))) OR (Par14 = false => (not (Par2 != false)))) #
+# (((Par9 != true <=> Par8 = true) => ((not (Par10 = true)) => (not (Par0 = false)))) => (((not (Par13 != true)) => Par8 = false) OR (Par1 = true OR Par6 = true))) #
+# ((((not (Par10 = false)) => Par4 = false) OR (Par6 != true OR (not (Par6 = false)))) OR (((not (Par9 = false)) <=> Par3 != false) AND ((not (Par5 = true)) OR Par4 != false))) #
+# ((Par10 = true => Par12 = false) AND (Par7 = true => (not (Par9 != true)))) #
+# (((Par9 != false => Par11 = true) => (Par10 = false <=> (not (Par3 = true)))) <=> ((Par12 = false AND Par10 = true) OR ((not (Par2 = true)) => (not (Par2 != true))))) #
+# ((Par13 != false <=> Par7 != false) OR ((not (Par10 != false)) OR Par8 != true)) #
+# ((((not (Par2 != true)) AND Par11 != false) AND ((not (Par2 = false)) OR (not (Par9 != true)))) AND (((not (Par9 != true)) AND Par6 = true) AND ((not (Par2 = false)) => (not (Par6 != true))))) #
+# (((Par13 = true => (not (Par11 = true))) OR ((not (Par13 = false)) AND Par9 = true)) OR (((not (Par4 = false)) => Par3 != false) => ((not (Par2 = true)) <=> Par12 != false))) #
+# ((((not (Par12 != false)) AND Par14 != true) OR (Par13 != true AND (not (Par4 != true)))) <=> (((not (Par9 = false)) AND Par12 != true) => ((not (Par8 = true)) <=> (not (Par11 = true))))) #

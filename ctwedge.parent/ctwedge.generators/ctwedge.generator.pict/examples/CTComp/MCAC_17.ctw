@@ -1,0 +1,12 @@
+Model MCAC_17
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2 : Boolean
+Par3: {PAR3_0,PAR3_1,PAR3_2,PAR3_3,PAR3_4,PAR3_5,PAR3_6,PAR3_7,PAR3_8}
+Par4: {PAR4_0,PAR4_1,PAR4_2,PAR4_3}
+Par5 : Boolean
+Par6 : Boolean
+
+Constraints:
+# (((not (Par2 = false)) AND Par0 = false) AND (Par4 = PAR4_3 OR (not (Par6 != false)))) #

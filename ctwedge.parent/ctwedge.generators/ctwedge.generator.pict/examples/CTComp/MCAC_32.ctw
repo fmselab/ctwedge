@@ -1,0 +1,35 @@
+Model MCAC_32
+Parameters:
+Par0: {PAR0_0,PAR0_1,PAR0_2,PAR0_3,PAR0_4,PAR0_5,PAR0_6,PAR0_7,PAR0_8,PAR0_9,PAR0_10,PAR0_11,PAR0_12,PAR0_13,PAR0_14}
+Par1 : Boolean
+Par2 : Boolean
+Par3: {PAR3_0,PAR3_1,PAR3_2,PAR3_3,PAR3_4,PAR3_5,PAR3_6,PAR3_7,PAR3_8,PAR3_9,PAR3_10,PAR3_11,PAR3_12,PAR3_13,PAR3_14,PAR3_15,PAR3_16,PAR3_17}
+Par4: {PAR4_0,PAR4_1,PAR4_2,PAR4_3,PAR4_4,PAR4_5,PAR4_6,PAR4_7,PAR4_8,PAR4_9,PAR4_10,PAR4_11,PAR4_12,PAR4_13,PAR4_14,PAR4_15,PAR4_16,PAR4_17,PAR4_18,PAR4_19,PAR4_20,PAR4_21,PAR4_22,PAR4_23,PAR4_24,PAR4_25,PAR4_26,PAR4_27,PAR4_28,PAR4_29,PAR4_30,PAR4_31,PAR4_32,PAR4_33,PAR4_34,PAR4_35,PAR4_36,PAR4_37,PAR4_38,PAR4_39,PAR4_40,PAR4_41,PAR4_42,PAR4_43,PAR4_44,PAR4_45,PAR4_46,PAR4_47,PAR4_48}
+Par5: {PAR5_0,PAR5_1,PAR5_2,PAR5_3,PAR5_4,PAR5_5,PAR5_6,PAR5_7,PAR5_8,PAR5_9,PAR5_10,PAR5_11,PAR5_12,PAR5_13,PAR5_14,PAR5_15,PAR5_16,PAR5_17,PAR5_18,PAR5_19}
+Par6: {PAR6_0,PAR6_1,PAR6_2,PAR6_3,PAR6_4,PAR6_5,PAR6_6,PAR6_7,PAR6_8,PAR6_9,PAR6_10,PAR6_11,PAR6_12,PAR6_13,PAR6_14,PAR6_15,PAR6_16,PAR6_17}
+Par7 : Boolean
+Par8 : Boolean
+Par9: {PAR9_0,PAR9_1,PAR9_2,PAR9_3,PAR9_4,PAR9_5,PAR9_6,PAR9_7,PAR9_8,PAR9_9,PAR9_10,PAR9_11,PAR9_12,PAR9_13,PAR9_14,PAR9_15,PAR9_16,PAR9_17,PAR9_18,PAR9_19,PAR9_20,PAR9_21,PAR9_22,PAR9_23}
+
+Constraints:
+# (((not (Par9 != PAR9_19)) OR (not (Par3 != PAR3_8))) OR ((not (Par6 != PAR6_7)) => Par5 = PAR5_11)) #
+# ((((not (Par4 != PAR4_8)) => (not (Par8 != false))) AND (Par4 = PAR4_4 OR (not (Par0 = PAR0_0)))) OR (((not (Par0 != PAR0_8)) <=> Par1 != true) AND ((not (Par1 = false)) <=> Par9 != PAR9_7))) #
+# ((Par0 = PAR0_11 <=> Par1 = false) => (Par0 = PAR0_2 <=> (not (Par9 != PAR9_6)))) #
+# (((not (Par8 = false)) => (not (Par3 = PAR3_10))) => ((not (Par1 = true)) OR (not (Par5 = PAR5_12)))) #
+# ((((not (Par7 != false)) OR Par7 != false) <=> (Par1 != true => (not (Par7 != false)))) <=> (((not (Par9 = PAR9_3)) => Par0 != PAR0_9) OR (Par5 = PAR5_10 AND Par1 != false))) #
+# (((Par9 != PAR9_10 AND Par4 != PAR4_32) <=> (Par4 = PAR4_37 OR (not (Par0 = PAR0_12)))) <=> ((Par0 != PAR0_7 OR Par6 != PAR6_2) AND ((not (Par8 != false)) AND (not (Par2 = true))))) #
+# ((Par8 != true => (not (Par7 = false))) OR (Par2 = true OR Par0 = PAR0_11)) #
+# ((((not (Par0 != PAR0_13)) AND (not (Par5 = PAR5_12))) <=> (Par3 = PAR3_3 <=> (not (Par2 = false)))) => ((Par0 != PAR0_14 => Par7 != false) OR (Par2 != true => (not (Par9 = PAR9_6))))) #
+# (((Par0 != PAR0_6 <=> Par2 = false) AND ((not (Par3 = PAR3_7)) => (not (Par9 = PAR9_9)))) <=> (((not (Par7 != false)) AND (not (Par9 = PAR9_15))) <=> ((not (Par7 = true)) <=> Par9 != PAR9_17))) #
+# (((Par8 = false <=> Par7 = false) AND (Par4 = PAR4_32 AND Par2 = true)) OR ((Par5 = PAR5_12 AND (not (Par0 != PAR0_4))) <=> (Par9 != PAR9_23 <=> Par9 = PAR9_22))) #
+# ((((not (Par9 != PAR9_19)) OR (not (Par5 != PAR5_9))) => ((not (Par3 != PAR3_1)) <=> Par4 = PAR4_48)) OR ((Par8 != false <=> Par7 != true) => ((not (Par1 = true)) => (not (Par1 = false))))) #
+# ((not (Par3 != PAR3_2)) OR (not (Par3 != PAR3_11))) #
+# ((((not (Par7 != false)) <=> Par5 != PAR5_11) OR ((not (Par0 = PAR0_10)) <=> (not (Par7 = false)))) => (((not (Par7 = true)) <=> (not (Par5 = PAR5_4))) AND ((not (Par2 = false)) OR (not (Par0 != PAR0_1))))) #
+# (((not (Par5 = PAR5_8)) <=> Par1 = true) AND (Par3 != PAR3_9 <=> Par2 = true)) #
+# (((Par3 = PAR3_14 => (not (Par5 = PAR5_9))) AND ((not (Par1 = true)) <=> Par7 = true)) AND (((not (Par6 = PAR6_5)) AND Par5 = PAR5_14) OR (Par0 != PAR0_8 AND (not (Par7 != false))))) #
+# (((Par4 != PAR4_46 => Par0 = PAR0_14) <=> ((not (Par4 = PAR4_16)) => Par1 != true)) OR (((not (Par4 = PAR4_1)) <=> Par6 != PAR6_17) <=> ((not (Par2 = false)) AND Par6 != PAR6_3))) #
+# ((not (Par0 = PAR0_9)) => Par3 != PAR3_15) #
+# (((Par3 = PAR3_17 => Par4 != PAR4_16) OR ((not (Par2 != true)) AND Par1 != true)) <=> ((Par9 != PAR9_7 AND Par2 != false) OR ((not (Par9 = PAR9_21)) AND (not (Par1 = true))))) #
+# (((not (Par5 = PAR5_1)) => Par8 = false) AND (Par2 != true OR (not (Par4 != PAR4_33)))) #
+# ((Par7 = false OR Par0 = PAR0_12) AND ((not (Par0 = PAR0_9)) AND Par5 != PAR5_17)) #
+# ((((not (Par8 != false)) <=> (not (Par8 = false))) OR ((not (Par8 = false)) => (not (Par7 != false)))) OR (((not (Par3 != PAR3_16)) => (not (Par4 = PAR4_0))) AND (Par1 = true <=> (not (Par7 = false))))) #
