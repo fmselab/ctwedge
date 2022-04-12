@@ -1,0 +1,10 @@
+Model BOOLC_24
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2 : Boolean
+Par3 : Boolean
+
+Constraints:
+# ((not (Par3 != false)) OR (not (Par3 != false))) #
+# ((Par0 != false OR Par0 = false) OR (Par0 != false => Par3 != true)) #

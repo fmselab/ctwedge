@@ -1,0 +1,16 @@
+Model BOOLC_32
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2 : Boolean
+Par3 : Boolean
+Par4 : Boolean
+Par5 : Boolean
+Par6 : Boolean
+Par7 : Boolean
+Par8 : Boolean
+
+Constraints:
+# (((Par6 = false <=> (not (Par4 != true))) => (Par7 != false => (not (Par3 = false)))) OR ((Par2 != true => Par4 != true) <=> ((not (Par8 = false)) <=> (not (Par4 = true))))) #
+# (((Par4 = false OR (not (Par5 != true))) OR ((not (Par6 != false)) AND (not (Par3 = true)))) AND ((Par6 != false <=> (not (Par7 = false))) OR ((not (Par1 = true)) AND (not (Par1 != true))))) #
+# ((((not (Par5 != false)) => (not (Par6 = false))) OR (Par5 = true AND (not (Par4 != false)))) AND (((not (Par5 != true)) => Par6 != false) <=> ((not (Par4 != false)) => (not (Par2 = true))))) #

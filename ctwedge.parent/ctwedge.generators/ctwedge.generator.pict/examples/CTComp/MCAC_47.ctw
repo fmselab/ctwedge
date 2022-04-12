@@ -1,0 +1,11 @@
+Model MCAC_47
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2 : Boolean
+Par3 : Boolean
+Par4 : Boolean
+
+Constraints:
+# ((Par3 != false <=> Par2 != true) => (Par3 != false AND Par4 != true)) #
+# (((Par0 != true => Par0 != true) => (Par1 = false => (not (Par2 = false)))) AND (((not (Par0 = true)) <=> Par4 = true) <=> ((not (Par3 = false)) => (not (Par1 != true))))) #

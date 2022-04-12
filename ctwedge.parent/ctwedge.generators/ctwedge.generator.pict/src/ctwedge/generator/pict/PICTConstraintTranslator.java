@@ -61,7 +61,7 @@ public class PICTConstraintTranslator extends CtWedgeSwitch<String> {
 	@Override
 	public String caseNotExpression(NotExpression x) {
 		//System.out.println("caseNotExpression: "+x);
-		return "NOT ("+doSwitch(x.getPredicate())+")";
+		return "(NOT ("+doSwitch(x.getPredicate())+"))";
 	}
 	
 	@Override

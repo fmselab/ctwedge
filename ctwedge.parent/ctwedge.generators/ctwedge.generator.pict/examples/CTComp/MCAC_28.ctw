@@ -1,0 +1,8 @@
+Model MCAC_28
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2 : Boolean
+
+Constraints:
+# (Par2 != true <=> (not (Par0 != true))) #

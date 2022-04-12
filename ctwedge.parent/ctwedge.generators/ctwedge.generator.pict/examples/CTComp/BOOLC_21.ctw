@@ -1,0 +1,25 @@
+Model BOOLC_21
+Parameters:
+Par0 : Boolean
+Par1 : Boolean
+Par2 : Boolean
+Par3 : Boolean
+Par4 : Boolean
+Par5 : Boolean
+Par6 : Boolean
+Par7 : Boolean
+Par8 : Boolean
+Par9 : Boolean
+Par10 : Boolean
+Par11 : Boolean
+
+Constraints:
+# (not (Par10 != true)) #
+# ((((not (Par2 = true)) => Par1 = false) AND (Par0 = false AND (not (Par8 = false)))) AND ((Par4 = true <=> Par10 != true) OR ((not (Par7 = true)) AND Par11 = true))) #
+# ((not (Par2 != true)) AND (not (Par4 = false))) #
+# (((Par11 = true <=> Par9 = false) OR ((not (Par11 = true)) <=> Par1 = false)) => ((Par0 != true => Par7 != false) <=> (Par1 = true <=> Par2 != true))) #
+# (((Par10 != true OR Par11 = false) => ((not (Par3 != false)) <=> (not (Par10 = false)))) <=> (((not (Par5 != false)) OR (not (Par8 != false))) OR (Par8 != false <=> (not (Par4 != true))))) #
+# (Par5 = true <=> (not (Par9 != false))) #
+# Par7 = false #
+# (((not (Par10 = false)) <=> Par5 = true) <=> (Par3 != false AND (not (Par4 = true)))) #
+# ((((not (Par1 = true)) <=> (not (Par4 = true))) <=> (Par1 != false <=> (not (Par9 = false)))) <=> (((not (Par9 != true)) AND Par5 != true) <=> (Par0 != false => Par1 != true))) #

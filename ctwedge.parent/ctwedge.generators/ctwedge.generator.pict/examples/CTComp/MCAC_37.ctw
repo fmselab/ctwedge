@@ -1,0 +1,15 @@
+Model MCAC_37
+Parameters:
+Par0: {PAR0_0,PAR0_1,PAR0_2,PAR0_3,PAR0_4,PAR0_5,PAR0_6,PAR0_7,PAR0_8,PAR0_9,PAR0_10,PAR0_11,PAR0_12,PAR0_13,PAR0_14,PAR0_15,PAR0_16,PAR0_17,PAR0_18,PAR0_19,PAR0_20,PAR0_21,PAR0_22,PAR0_23,PAR0_24,PAR0_25,PAR0_26,PAR0_27,PAR0_28,PAR0_29,PAR0_30,PAR0_31,PAR0_32,PAR0_33,PAR0_34,PAR0_35,PAR0_36,PAR0_37,PAR0_38,PAR0_39,PAR0_40,PAR0_41,PAR0_42,PAR0_43,PAR0_44,PAR0_45}
+Par1 : Boolean
+Par2 : Boolean
+Par3 : Boolean
+Par4: {PAR4_0,PAR4_1,PAR4_2,PAR4_3,PAR4_4,PAR4_5,PAR4_6,PAR4_7,PAR4_8,PAR4_9,PAR4_10,PAR4_11,PAR4_12,PAR4_13,PAR4_14,PAR4_15,PAR4_16,PAR4_17,PAR4_18,PAR4_19,PAR4_20,PAR4_21,PAR4_22,PAR4_23,PAR4_24,PAR4_25,PAR4_26,PAR4_27,PAR4_28,PAR4_29,PAR4_30,PAR4_31,PAR4_32,PAR4_33,PAR4_34,PAR4_35,PAR4_36,PAR4_37}
+Par5 : Boolean
+
+Constraints:
+# ((((not (Par1 != false)) <=> Par4 = PAR4_15) <=> ((not (Par3 = true)) AND (not (Par1 = false)))) OR (((not (Par1 != true)) OR Par3 != false) OR ((not (Par5 != true)) AND Par0 != PAR0_23))) #
+# ((((not (Par0 = PAR0_33)) OR Par0 != PAR0_15) => (Par5 != false <=> Par0 = PAR0_9)) AND (((not (Par0 = PAR0_25)) <=> (not (Par4 != PAR4_16))) AND ((not (Par1 = true)) OR Par1 = true))) #
+# ((((not (Par2 = false)) AND Par3 != true) <=> (Par3 = false OR (not (Par0 != PAR0_21)))) <=> (((not (Par4 = PAR4_30)) => Par1 != false) OR (Par3 != true AND (not (Par4 = PAR4_24))))) #
+# (((not (Par0 = PAR0_13)) AND (not (Par0 != PAR0_45))) OR (Par0 = PAR0_0 => Par3 != false)) #
+# ((not (Par5 = false)) <=> Par0 != PAR0_16) #

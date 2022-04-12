@@ -1,0 +1,10 @@
+Model MCAC_19
+Parameters:
+Par0: {PAR0_0,PAR0_1,PAR0_2,PAR0_3,PAR0_4,PAR0_5,PAR0_6,PAR0_7,PAR0_8,PAR0_9,PAR0_10,PAR0_11,PAR0_12,PAR0_13,PAR0_14}
+Par1 : Boolean
+Par2: {PAR2_0,PAR2_1,PAR2_2,PAR2_3,PAR2_4,PAR2_5,PAR2_6,PAR2_7,PAR2_8,PAR2_9,PAR2_10,PAR2_11,PAR2_12,PAR2_13,PAR2_14,PAR2_15,PAR2_16,PAR2_17,PAR2_18,PAR2_19,PAR2_20,PAR2_21,PAR2_22}
+Par3 : Boolean
+
+Constraints:
+# ((((not (Par1 != false)) <=> Par0 != PAR0_14) AND (Par1 != true <=> Par2 = PAR2_4)) => ((Par0 = PAR0_14 OR Par3 != true) <=> ((not (Par2 = PAR2_4)) OR Par1 = false))) #
+# (((Par1 = false <=> Par3 = true) AND (Par2 = PAR2_14 => Par1 != false)) => ((Par3 = false <=> Par2 = PAR2_4) <=> ((not (Par1 = false)) => (not (Par0 != PAR0_3))))) #

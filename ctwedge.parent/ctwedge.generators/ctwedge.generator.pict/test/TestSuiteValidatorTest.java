@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -214,16 +215,46 @@ public class TestSuiteValidatorTest {
 
 	@Test
 	public void fileTest() throws SolverException, InterruptedException, InvalidConfigurationException {
+		generateAndValidate("../../ctwedge.benchmarks/models_test/ctwedge/Storage3.ctw");
+	}
+	
+	@Test
+	public void fileTest2() throws SolverException, InterruptedException, InvalidConfigurationException {
+		generateAndValidate("examples/ADD_BOOLC_1.ctw");
+	}
+	
+	@Test
+	public void fileTest3() throws SolverException, InterruptedException, InvalidConfigurationException {
+		generateAndValidate("examples/ADD_BOOLC_0.ctw");
+	}
+	
+	@Test
+	public void testAllFilesInCTComp() throws IOException {
+		Path path = Paths.get("examples/CTComp/");
+		Files.walk(path).filter(Files::isRegularFile).map(Path::toFile).filter(x -> x.getName().endsWith(".ctw"))
+				.forEach(x -> {
+					System.err.println(x.getAbsolutePath());
+					try {
+						generateAndValidate(x.getAbsolutePath());
+					} catch (InterruptedException | SolverException | InvalidConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
+	}
 
+	private void generateAndValidate(String pathString) throws SolverException, InterruptedException, InvalidConfigurationException {
 		TestSuite ts = null;
 
 		try {
-			Path path = Paths.get("../../ctwedge.benchmarks/models_test/ctwedge/Storage3.ctw");
+			Path path = Paths.get(pathString);
 			PICTGenerator generator = new PICTGenerator();
 			ts = generator.getTestSuite(Utility.loadModelFromPath(path.toString()), 2, false);
+			ts.setModel(Utility.loadModelFromPath(path.toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 
 		// Define the validator
 		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
@@ -240,24 +271,6 @@ public class TestSuiteValidatorTest {
 		// The test suite must be valid and complete
 		assertTrue(tsv.isValid());
 		assertTrue(tsv.isComplete());
-
-		// Now remove tests until the covered tuples decreases
-		while (ts.getTests().size() > 0) {
-			ts.getTests().remove(0);
-			tsv.setTestSuite(ts);
-
-			if (tsv.howManyTuplesCovers() < covTuples)
-				break;
-		}
-
-		// If we still have tests
-		if (ts.getTests().size() > 0) {
-			// Check all the tests are valid
-			assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
-			// The test suite must be valid but not complete
-			assertTrue(tsv.isValid());
-			assertFalse(tsv.isComplete());
-		}
 
 	}
 
