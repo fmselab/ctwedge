@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and mandatory="true" name="Cellphone">
+				<and mandatory="true" name="BasisFunctions">
+					<and mandatory="true" name="Message">
+						<feature mandatory="true" name="SMS"/>
+						<feature name="MMS"/>
+					</and>
+					<feature mandatory="true" name="VoiceCall"/>
+				</and>
+				<and name="Communication">
+					<feature name="WLAN"/>
+					<feature name="Bluetooth"/>
+					<feature name="UMTS"/>
+				</and>
+				<or mandatory="true" name="Extras">
+					<feature mandatory="true" name="MP3"/>
+					<alt mandatory="true" name="Camera">
+						<feature mandatory="true" name="a3MP"/>
+						<feature mandatory="true" name="a8MP"/>
+					</alt>
+				</or>
+			</and>
+		</struct>
+		<constraints>
+			<rule>
+				<disj>
+					<not>
+						<var>MMS</var>
+					</not>
+					<var>Camera</var>
+				</disj>
+			</rule>
+			<rule>
+				<disj>
+					<not>
+						<var>Bluetooth</var>
+					</not>
+					<not>
+						<var>MP3</var>
+					</not>
+				</disj>
+			</rule>
+		</constraints>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>
