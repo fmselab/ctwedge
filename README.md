@@ -11,7 +11,7 @@ It comes as a Web interface, and as an Eclipse plugin:
 
 <a href="http://foselab.unibg.it/ctwedge"><img src="https://raw.githubusercontent.com/fmselab/ctwedge/master/ctwedge.parent/ctwedge.web/WebRoot/logo.png" width="200" alt="CTWedge logo"></a>
 
-For developers, to compile source see instructions [here](https://fmselab.github.io/ctwedge/developer).
+For developers, to compile source see instructions [here](https://github.com/fmselab/ctwedge/wiki/Developer).
 
 ## Documentation
 
