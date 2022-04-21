@@ -14,3 +14,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .,
  libs/de.ovgu.featureide.lib.fm-v3.8.1.jar
+Automatic-Module-Name: ctwedge.importer.featureide

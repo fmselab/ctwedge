@@ -3,7 +3,11 @@ package ctwedge.util.validator;
 import java.util.ArrayList;
 import java.util.List;
 
-import ctwedge.ctWedge.*;
+import ctwedge.ctWedge.Bool;
+import ctwedge.ctWedge.CitModel;
+import ctwedge.ctWedge.Enumerative;
+import ctwedge.ctWedge.Parameter;
+import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.util.ModelUtils;
 

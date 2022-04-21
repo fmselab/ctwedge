@@ -8,10 +8,7 @@ import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
-import ctwedge.ctWedge.EqualExpression;
 import ctwedge.ctWedge.Expression;
-import ctwedge.ctWedge.NotExpression;
-import ctwedge.ctWedge.Operators;
 import ctwedge.ctWedge.OrExpression;
 
 // constraints are forbidden tuples

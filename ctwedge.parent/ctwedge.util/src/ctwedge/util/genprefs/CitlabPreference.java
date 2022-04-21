@@ -1,6 +1,6 @@
 package ctwedge.util.genprefs; 
  
-import java.util.List; 
+import java.util.List;
 import java.util.prefs.Preferences; 
 /** 
  *  

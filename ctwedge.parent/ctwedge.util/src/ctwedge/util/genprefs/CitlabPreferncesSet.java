@@ -1,6 +1,6 @@
 package ctwedge.util.genprefs; 
  
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.prefs.Preferences; 
  
 public class CitlabPreferncesSet extends ArrayList<CitlabPreference<?>> 

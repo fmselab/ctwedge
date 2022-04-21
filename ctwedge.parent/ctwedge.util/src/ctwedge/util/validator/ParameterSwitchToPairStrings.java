@@ -6,7 +6,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 
-import ctwedge.ctWedge.*;
+import ctwedge.ctWedge.CitModel;
+import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.Pair;

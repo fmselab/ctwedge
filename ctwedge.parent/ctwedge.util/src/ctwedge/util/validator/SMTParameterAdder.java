@@ -22,7 +22,10 @@ import org.apache.log4j.Logger;
 import org.sosy_lab.java_smt.api.Formula;
 import org.sosy_lab.java_smt.api.SolverContext;
 
-import ctwedge.ctWedge.*;
+import ctwedge.ctWedge.Bool;
+import ctwedge.ctWedge.Element;
+import ctwedge.ctWedge.Enumerative;
+import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 
 public class SMTParameterAdder extends CtWedgeSwitch<Formula> {

@@ -1,7 +1,8 @@
 package ctwedge.util.validator;
 
 import java.util.ArrayList;
-import ctwedge.ctWedge.*;
+
+import ctwedge.ctWedge.Constraint;
 
 //Extracts all subsets of the given set
 	/*

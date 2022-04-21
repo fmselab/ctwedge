@@ -39,14 +39,9 @@ import splar.plugins.reasoners.bdd.javabdd.ReasoningWithBDD;
 import splar.plugins.reasoners.sat.sat4j.FMReasoningWithSAT;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Expression;
-import ctwedge.ctWedge.Rule;
 import ctwedge.importer.featureide.FeatureIdeImporterMultipleLevels;
 import ctwedge.importer.featureide.SxfmFiImporter;
-import citlab.model.logic.cnf.CNF;
-import citlab.model.logic.cnf.CNFConverter;
-import citlab.model.simplifier.Simplificator;
-import citlab.model.simplifier.Simplifier;
-import citlab.model.util.CombinationCounter;
+import ctwedge.util.simplifier.Simplificator;
 
 import com.csvreader.CsvWriter;
 
@@ -54,6 +49,7 @@ import de.ovgu.featureide.fm.core.FeatureModel;
 import de.ovgu.featureide.fm.core.FeatureModelAnalyzer;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
 import de.ovgu.featureide.fm.core.io.sxfm.SXFMReader;
+import de.ovgu.featureide.fm.core.job.monitor.NullMonitor;
 
 /**
  * write the data about the models from SXFM file
@@ -173,10 +169,10 @@ public class Experiment_DataWriter extends Experiment_SPLOTmodels{
         ArrayList<Object> metrica = new ArrayList<>();
 		// numero di prodotti calcolcato con featureIde
 		FeatureModelAnalyzer analyser = fiModel.getAnalyser();
-		analyser.analyzeFeatureModel(new NullProgressMonitor());
+		analyser.analyzeFeatureModel(new NullMonitor<Boolean>());
 		// dead feature and common by FeatureIde
-		int deadFeatures= analyser.getDeadFeatures().size();	
-		int commonfeatures = analyser.commonFeatures(111000, fiModel.getRoot()).size();
+		int deadFeatures= analyser.getDeadFeatures(new NullMonitor<>()).size();	
+		int commonfeatures = analyser.getCommonFeatures(new NullMonitor<>()).size();
 		// calcolato con SAT di SPLOT
 		List<String> commonFeatureSSAT = getListOfCommonFeaturesSPLOTUsingSat(splotModel);
 		int commonferatureSPLOT = commonFeatureSSAT.size();

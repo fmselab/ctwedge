@@ -1,6 +1,6 @@
 package ctwedge.util.genprefs; 
  
-import java.util.List; 
+import java.util.List;
 import java.util.prefs.Preferences; 
  
 public class CitlabEnumPreferenceAG<T extends Enum<T>> extends CitlabPreference<T> { 

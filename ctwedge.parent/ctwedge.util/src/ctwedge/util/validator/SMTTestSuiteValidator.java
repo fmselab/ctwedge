@@ -40,7 +40,6 @@ import ctwedge.ctWedge.CtWedgeFactory;
 import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.Range;
-import ctwedge.ctWedge.impl.CtWedgeFactoryImpl;
 import ctwedge.ctWedge.impl.EnumerativeImpl;
 import ctwedge.util.Pair;
 import ctwedge.util.Test;

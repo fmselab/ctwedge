@@ -14,7 +14,6 @@ package ctwedge.util.simplifier;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.EcoreUtil2;
 
 import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.CitModel;

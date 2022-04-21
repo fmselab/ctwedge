@@ -26,7 +26,18 @@ import org.sosy_lab.java_smt.api.NumeralFormula.RationalFormula;
 import org.sosy_lab.java_smt.api.RationalFormulaManager;
 import org.sosy_lab.java_smt.api.SolverContext;
 
-import ctwedge.ctWedge.*;
+import ctwedge.ctWedge.AndExpression;
+import ctwedge.ctWedge.AtomicPredicate;
+import ctwedge.ctWedge.EqualExpression;
+import ctwedge.ctWedge.Expression;
+import ctwedge.ctWedge.ImpliesExpression;
+import ctwedge.ctWedge.ModMultDiv;
+import ctwedge.ctWedge.NotExpression;
+import ctwedge.ctWedge.OrExpression;
+import ctwedge.ctWedge.Parameter;
+import ctwedge.ctWedge.PlusMinus;
+import ctwedge.ctWedge.PlusMinusOperators;
+import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.impl.ExpressionImpl;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 
