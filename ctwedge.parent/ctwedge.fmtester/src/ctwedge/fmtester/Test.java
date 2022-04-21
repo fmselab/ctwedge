@@ -18,6 +18,7 @@ public class Test {
 		// genera il caso di test
 		ACTSTranslator acts = new ACTSTranslator();
 		TestSuite ts = acts.generateTestsAndInfo(result, false, 2);
+		System.out.println("numeri di test");
 		System.out.println(ts.getTests());
 	}
 	
