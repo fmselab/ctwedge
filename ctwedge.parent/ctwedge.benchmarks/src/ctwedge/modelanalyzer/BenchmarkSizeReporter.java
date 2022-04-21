@@ -35,7 +35,7 @@ public class BenchmarkSizeReporter {
 			}			
 			System.out.println(z.getName() + " " + size);
 		});
-		
+		walk.close();
 	}
 
 }

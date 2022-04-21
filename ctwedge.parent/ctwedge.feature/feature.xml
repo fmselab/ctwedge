@@ -42,40 +42,40 @@
          id="ctwedge"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="ctwedge.ide"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="ctwedge.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="ctwedge.util"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="ctwedge.generator.acts"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="1.0.0.qualifier"/>
 
    <plugin
          id="ctwedge.generator.casa"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="1.0.0.qualifier"/>
+
+   <plugin
+         id="ctwedge.util"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
 
 </feature>

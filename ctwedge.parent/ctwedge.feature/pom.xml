@@ -11,5 +11,17 @@
 
 
 	<dependencies>
+	<dependency>
+		<groupId>ctwedge</groupId>
+		<artifactId>ctwedge.util</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<type>eclipse-plugin</type>
+	</dependency>
+	<dependency>
+		<groupId>ctwedge</groupId>
+		<artifactId>ctwedge.generator.acts</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<type>eclipse-plugin</type>
+	</dependency>
 	</dependencies>
 </project>

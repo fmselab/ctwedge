@@ -65,7 +65,7 @@ public class FeatureIdeModelImporterTest {
 			UnsupportedModelException {
 		CitModel cellPhone = readModel(FI_MODELS_DIR +"cellphone_15.xml");
 		int count = CombinationCounter.count(cellPhone);
-		System.out.println(count);
+		System.out.println("count " + count);
 	}
 
 	@Test
