@@ -37,7 +37,7 @@
 							<repositoryLayout>default</repositoryLayout>
 							<groupId>${project.groupId}</groupId>
 							<artifactId>acts</artifactId>
-							<version>3.2</version>
+							<version>3.0</version>
 							<packaging>jar</packaging>
 							<!-- <generatePom>true</generatePom> -->
 						</configuration>
@@ -67,7 +67,7 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>acts</artifactId>
 			<version>3.2</version>
-			<systemPath>${project.basedir}/libs/acts-3.2.jar</systemPath>
+			<systemPath>${project.basedir}/libs/acts_3.2.jar</systemPath>
 			<scope>system</scope>
 		</dependency>
 		<dependency>
