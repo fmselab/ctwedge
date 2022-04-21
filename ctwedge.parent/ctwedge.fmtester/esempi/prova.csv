@@ -1,0 +1,11 @@
+BasisFunctions,Bluetooth,Camera,Cellphone,Communication,Extras,MMS,MP3,Message,SMS,UMTS,VoiceCall,WLAN
+false,false,a3MP,false,false,false,false,true,false,false,false,false,false
+false,true,a8MP,false,true,false,true,false,false,false,true,false,true
+false,true,NONE,false,false,false,true,false,false,false,false,false,false
+false,true,a3MP,false,true,false,true,true,false,false,true,false,true
+false,false,a8MP,false,false,false,false,true,false,false,true,false,true
+false,true,a3MP,false,true,false,false,false,false,false,true,false,true
+false,true,NONE,false,true,false,true,false,false,false,true,false,true
+false,false,a8MP,false,false,false,true,true,false,false,false,false,false
+false,true,NONE,false,false,false,true,false,false,false,true,false,false
+false,false,a3MP,false,false,false,false,true,false,false,false,false,true
