@@ -10,12 +10,14 @@
 		<graphics key="layoutalgorithm" value="1"/>
 	</properties>
 	<struct>
-		<and mandatory="true" name="Linux">
-			<or mandatory="true" name="FileSystem">
-				<feature name="ext3"/>
-				<feature name="ext4"/>
-				<feature name="Encfs"/>
-			</or>
+		<and mandatory="true" name="CarBody">
+			<and name="MultimediaDevices">
+				<alt name="Radio">
+					<feature name="MonochromeRadioDisplay"/>
+					<feature name="ColorRadioDisplay"/>
+				</alt>
+			</and>
+			<feature mandatory="true" name="OtherFeatures"/>
 		</and>
 	</struct>
 </featureModel>

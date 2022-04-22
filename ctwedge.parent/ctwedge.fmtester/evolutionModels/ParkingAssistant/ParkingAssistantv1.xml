@@ -10,12 +10,14 @@
 		<graphics key="layoutalgorithm" value="1"/>
 	</properties>
 	<struct>
-		<and mandatory="true" name="Linux">
-			<or mandatory="true" name="FileSystem">
-				<feature name="ext3"/>
-				<feature name="ext4"/>
-				<feature name="Encfs"/>
-			</or>
+		<and mandatory="true" name="ParkingAssistant">
+			<and mandatory="true" name="Sensors">
+				<feature mandatory="true" name="VelocitySensor"/>
+				<and mandatory="true" name="DistanceSensors">
+					<feature mandatory="true" name="InfraredSensor"/>
+				</and>
+			</and>
+			<feature mandatory="true" name="Controller"/>
 		</and>
 	</struct>
 </featureModel>
