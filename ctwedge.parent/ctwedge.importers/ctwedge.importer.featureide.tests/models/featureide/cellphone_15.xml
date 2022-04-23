@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-	<featureModel chosenLayoutAlgorithm="1">
-		<struct>
-			<and mandatory="true" name="Cellphone">
-				<and mandatory="true" name="BasisFunctions">
-					<and mandatory="true" name="Message">
-						<feature mandatory="true" name="SMS"/>
-						<feature name="MMS"/>
-					</and>
-					<feature mandatory="true" name="VoiceCall"/>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="Cellphone">
+			<and mandatory="true" name="BasisFunctions">
+				<graphics key="collapsed" value="false"/>
+				<and mandatory="true" name="Message">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="SMS"/>
+					<feature name="MMS"/>
 				</and>
-				<and name="Communication">
-					<feature name="WLAN"/>
-					<feature name="Bluetooth"/>
-					<feature name="UMTS"/>
-				</and>
-				<or mandatory="true" name="Extras">
-					<feature mandatory="true" name="MP3"/>
-					<alt mandatory="true" name="Camera">
-						<feature mandatory="true" name="a3MP"/>
-						<feature mandatory="true" name="a8MP"/>
-					</alt>
-				</or>
+				<feature mandatory="true" name="VoiceCall"/>
 			</and>
-		</struct>
-		<constraints>
-			<rule>
-				<disj>
-					<not>
-						<var>MMS</var>
-					</not>
-					<var>Camera</var>
-				</disj>
-			</rule>
-			<rule>
-				<disj>
-					<not>
-						<var>Bluetooth</var>
-					</not>
-					<not>
-						<var>MP3</var>
-					</not>
-				</disj>
-			</rule>
-		</constraints>
-		<comments/>
-		<featureOrder userDefined="false"/>
-	</featureModel>
+			<and name="Communication">
+				<graphics key="collapsed" value="false"/>
+				<feature name="WLAN"/>
+				<feature name="Bluetooth"/>
+				<feature name="UMTS"/>
+			</and>
+			<or mandatory="true" name="Extras">
+				<graphics key="collapsed" value="false"/>
+				<feature name="MP3"/>
+				<alt name="Camera">
+					<graphics key="collapsed" value="false"/>
+					<feature name="a3MP"/>
+					<feature name="a8MP"/>
+				</alt>
+			</or>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<disj>
+				<not>
+					<var>MMS</var>
+				</not>
+				<var>Camera</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>Bluetooth</var>
+				</not>
+				<not>
+					<var>MP3</var>
+				</not>
+			</disj>
+		</rule>
+	</constraints>
+</featureModel>

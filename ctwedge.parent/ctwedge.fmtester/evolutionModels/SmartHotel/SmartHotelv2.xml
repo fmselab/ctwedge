@@ -10,6 +10,17 @@
 		<graphics key="layoutalgorithm" value="1"/>
 	</properties>
 	<struct>
-		<feature abstract="true" mandatory="true" name="CellPhone"/>
+		<and mandatory="true" name="SmartHotel">
+			<feature name="Automatedillumination"/>
+			<and name="Security">
+				<or name="Alarm">
+					<feature name="Siren"/>
+					<feature name="VisualAlarm"/>
+				</or>
+			</and>
+			<and name="TemperatureControl">
+				<feature name="Heating"/>
+			</and>
+		</and>
 	</struct>
 </featureModel>
