@@ -1,0 +1,8 @@
+CompassSensors,Controller,DirectionSensors,DistanceSensorTypes,DistanceSensors,DrivenWaySensors,InfraredSensor,ParkingAssistant,PulseLengthSensorV2,SensorFusion,Sensors,UltrasonicSensor
+false,ControllerWithDir,false,false,false,false,false,false,false,false,false,false
+false,ControllerWithoutDir,false,false,false,false,true,false,false,true,false,false
+true,ControllerWithDir,true,false,false,false,false,false,false,true,false,true
+false,ControllerWithoutDir,false,false,false,false,false,false,false,false,false,false
+true,ControllerWithDir,true,false,false,false,true,false,false,true,false,false
+false,ControllerWithoutDir,false,false,false,false,false,false,false,true,false,true
+true,ControllerWithDir,true,false,false,false,false,false,false,false,false,false

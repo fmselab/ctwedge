@@ -1,0 +1,11 @@
+Alarm,DataSource,Format,FreezePoint,Language,Measurements,OutFormAndLanguage,OutputFormat,Pressure,StormAlert,Temperature,WeatherStation,WindSpeed
+false,ExternalSensors,XML,false,German,false,false,File,false,false,false,false,false
+true,ExternalSensors,NONE,true,English,false,false,WebServer,false,true,true,false,true
+true,ExternalSensors,HTML,true,German,false,false,Text,true,true,false,false,true
+false,Demo,HTML,true,English,false,false,File,true,false,true,false,false
+true,Demo,NONE,true,German,false,false,WebServer,true,true,false,false,false
+false,Demo,XML,true,English,false,false,Text,false,false,true,false,true
+true,Internet,HTML,true,German,false,false,File,false,true,true,false,true
+false,Internet,NONE,false,English,false,false,WebServer,true,false,false,false,false
+true,Internet,XML,true,German,false,false,Text,true,true,true,false,false
+false,Demo,HTML,false,German,false,false,Text,false,true,false,false,true

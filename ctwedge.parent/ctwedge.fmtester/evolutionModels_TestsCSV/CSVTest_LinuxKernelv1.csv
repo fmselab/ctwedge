@@ -1,0 +1,5 @@
+Encfs,FileSystem,Linux,ext3,ext4
+false,false,false,false,false
+false,false,false,true,true
+true,false,false,false,true
+true,false,false,true,false

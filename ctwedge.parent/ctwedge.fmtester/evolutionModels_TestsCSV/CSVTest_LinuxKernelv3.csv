@@ -1,0 +1,10 @@
+FileSystem,IP,Linux,ext3,ext4,goCrypt,v4,v6
+false,false,false,false,false,AES,false,false
+false,false,false,true,true,Twofish,true,false
+false,false,false,false,true,NONE,false,true
+false,false,false,true,false,AES,true,false
+false,false,false,true,false,NONE,false,true
+false,false,false,false,false,Twofish,true,false
+false,false,false,true,true,AES,false,true
+false,false,false,false,true,NONE,true,false
+false,false,false,false,true,Twofish,false,true

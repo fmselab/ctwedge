@@ -1,0 +1,12 @@
+CarBody,DVDDrive,DVDEntertainment,DataStorage,DisplayType,HardDiskDrive,MultimediaDevices,Navigation,OtherFeatures,Radio
+false,false,false,false,MonochromeNavDisplay,false,false,false,false,MonochromeRadioDisplay
+false,true,true,true,ColorNavDisplay,true,false,false,false,MonochromeRadioDisplay
+false,true,true,true,NONE,true,false,true,false,MonochromeRadioDisplay
+false,true,true,true,MonochromeNavDisplay,true,false,false,false,ColorRadioDisplay
+false,false,true,false,ColorNavDisplay,false,false,false,false,ColorRadioDisplay
+false,true,true,true,NONE,true,false,true,false,ColorRadioDisplay
+false,false,false,false,MonochromeNavDisplay,true,false,false,false,NONE
+false,true,true,true,ColorNavDisplay,true,false,false,false,NONE
+false,true,true,true,NONE,true,true,true,false,NONE
+false,true,true,false,ColorNavDisplay,false,false,false,false,NONE
+false,false,false,false,ColorNavDisplay,false,false,false,false,ColorRadioDisplay

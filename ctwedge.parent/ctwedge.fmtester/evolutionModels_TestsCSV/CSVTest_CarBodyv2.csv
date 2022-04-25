@@ -1,0 +1,7 @@
+CarBody,MultimediaDevices,Navigation,OtherFeatures,Radio
+false,false,false,false,MonochromeRadioDisplay
+false,false,true,false,ColorRadioDisplay
+false,true,true,false,NONE
+false,false,true,false,NONE
+false,false,true,false,MonochromeRadioDisplay
+false,false,false,false,ColorRadioDisplay

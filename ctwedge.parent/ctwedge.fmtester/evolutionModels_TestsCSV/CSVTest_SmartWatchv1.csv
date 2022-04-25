@@ -1,0 +1,10 @@
+CarKey,EnergyBurnt,HeartBeat,HomeKey,Language,ManageHealth,SmartKey,SmartPay,Smartwatch
+false,false,false,false,English,false,false,false,false
+true,true,true,true,Chinese,true,true,true,false
+true,false,false,true,Korean,false,true,false,false
+true,true,true,false,English,true,false,true,false
+false,true,true,true,Korean,true,false,true,false
+false,false,true,false,Chinese,false,false,false,false
+true,true,true,true,English,true,true,false,false
+true,true,false,false,Korean,false,false,true,false
+false,false,false,false,Chinese,false,false,true,false

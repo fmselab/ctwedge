@@ -16,6 +16,14 @@ public class Test {
 
 	public static void main(String[] args) {
 
+		// * Nota *
+		// Se genero le test suites tutte insieme, la prima richiede sempre
+		// un tempo maggiore rispetto a tutte le altre (a causa probabilmente
+		// di inizializzazioni varie).
+		// Per calcolare il tempo di generazione in modo "equo" conviene quindi
+		// creare sempre una sola test suite per 1 solo modello alla volta
+		// commentando il codice degli altri FM.
+
 		System.out.println("-- TEST GENERATION --");
 
 		// input folder
@@ -233,7 +241,6 @@ public class Test {
 		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
 		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
 		// ------------------------------------------------------------------
-
 
 	}
 
