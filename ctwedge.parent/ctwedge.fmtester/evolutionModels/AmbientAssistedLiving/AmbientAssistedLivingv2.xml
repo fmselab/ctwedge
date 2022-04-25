@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="AmbientAssistedLiving">
+			<and mandatory="true" name="Sensor">
+				<feature name="LightMonit"/>
+				<feature name="TempMonit"/>
+				<feature name="GlucMonit"/>
+				<or abstract="true" name="Others">
+					<feature name="Humidity"/>
+					<feature name="Accelerometer"/>
+					<feature name="Glucose"/>
+					<feature name="Light"/>
+					<feature name="Temperature"/>
+				</or>
+				<feature name="FallMonit"/>
+				<feature name="SenEncryp"/>
+			</and>
+			<and mandatory="true" name="Smartphone">
+				<feature name="Video"/>
+				<alt abstract="true" name="SmartphoneType">
+					<feature name="Android"/>
+					<feature name="iPhone"/>
+				</alt>
+				<feature name="FailTrans"/>
+				<feature name="Diabetes"/>
+				<feature name="PhEncryp"/>
+			</and>
+			<feature mandatory="true" name="Alarm"/>
+			<and mandatory="true" name="Camera">
+				<feature name="Transmission"/>
+				<feature name="Rec"/>
+				<feature name="CamEncryp"/>
+				<feature name="FallRec"/>
+			</and>
+			<and mandatory="true" name="Services">
+				<feature name="VideoSurveillance"/>
+				<feature name="Encryption"/>
+				<feature name="LightControl"/>
+				<feature name="GlucoseControl"/>
+				<feature name="FallDetection"/>
+				<feature name="HeatControl"/>
+			</and>
+		</and>
+	</struct>
+</featureModel>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="Boeing">
+			<alt mandatory="true" name="SeatsConfiguration">
+				<feature name="Rows3Passengers210"/>
+				<feature name="Rows3Passengers290"/>
+			</alt>
+			<and mandatory="true" name="FuelCapacity">
+				<feature mandatory="true" name="Liters138700"/>
+			</and>
+		</and>
+	</struct>
+</featureModel>

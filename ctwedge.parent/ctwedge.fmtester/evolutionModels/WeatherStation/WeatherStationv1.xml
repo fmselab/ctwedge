@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="WeatherStation">
+			<or mandatory="true" name="Measurements">
+				<feature name="WindSpeed"/>
+				<feature name="Temperature"/>
+				<feature name="Pressure"/>
+			</or>
+			<alt mandatory="true" name="DataSource">
+				<feature name="ExternalSensors"/>
+				<feature name="Demo"/>
+				<feature name="Internet"/>
+			</alt>
+			<and abstract="true" mandatory="true" name="OutFormAndLanguage">
+				<alt mandatory="true" name="OutputFormat">
+					<feature name="File"/>
+					<and name="WebServer">
+						<alt mandatory="true" name="Format">
+							<feature name="HTML"/>
+							<feature name="XML"/>
+						</alt>
+					</and>
+					<feature name="Text"/>
+				</alt>
+				<alt mandatory="true" name="Language">
+					<feature name="English"/>
+					<feature name="German"/>
+				</alt>
+			</and>
+			<or name="Alarm">
+				<feature name="FreezePoint"/>
+				<feature name="StormAlert"/>
+			</or>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>FreezePoint</var>
+				<var>Temperature</var>
+			</imp>
+		</rule>
+	</constraints>
+</featureModel>
