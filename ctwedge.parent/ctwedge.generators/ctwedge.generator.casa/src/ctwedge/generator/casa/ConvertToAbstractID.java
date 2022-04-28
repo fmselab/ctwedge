@@ -58,7 +58,8 @@ public class ConvertToAbstractID extends CtWedgeSwitch<List<String>> {
 	@Override
 	public List<String> caseEqualExpression(EqualExpression x) {
 		if (x.getLeft() instanceof AtomicPredicate && x.getRight() instanceof AtomicPredicate) {
-			return Collections.singletonList(valConverter.eqToInt((AtomicPredicate)x.getLeft(), x.getOp(), (AtomicPredicate)x.getRight()));
+			Pair<Character, Integer> eqToInt = valConverter.eqToInt((AtomicPredicate)x.getLeft(), x.getOp(), (AtomicPredicate)x.getRight());
+			return Collections.singletonList(eqToInt.getFirst() + " " + eqToInt.getSecond());
 		} else 
 			throw new RuntimeException("Not all constraints are supported in CASA : " + x.getLeft().getClass() + "=" + x.getRight().getClass());
 	}

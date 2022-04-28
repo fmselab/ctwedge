@@ -10,8 +10,12 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 
+
 /** @Deprecated for constraints, because there is no reference anymore */
 public class ParameterElementsGetterAsStrings extends CtWedgeSwitch<List<String>> {
+	
+	public static final String TRUE_AS_STRING = "true";
+	public static final String FALSE_AS_STRING = "false";
 	
 	public static ParameterElementsGetterAsStrings instance = new ParameterElementsGetterAsStrings();
 		
@@ -32,9 +36,22 @@ public class ParameterElementsGetterAsStrings extends CtWedgeSwitch<List<String>
 
 	@Override
 	public List<String> caseBool(Bool bool) {
-		ArrayList<String> boolValues = new ArrayList<String>();
-		boolValues.add("false");			
-		boolValues.add("true");
+		ArrayList<String> boolValues = new ArrayList<String>() {
+			// in case of boolean values, it must be consider the case (ignoring it)
+			@Override
+			public int indexOf(Object o) {
+				if (o instanceof String) {
+					return super.indexOf(((String)o).toLowerCase());
+				}
+				return super.indexOf(o);
+			}
+			@Override
+			public boolean contains(Object o) {
+				throw new RuntimeException("not implemented yet");
+			}
+		};
+		boolValues.add(FALSE_AS_STRING);			
+		boolValues.add(TRUE_AS_STRING);
 		return boolValues;
 	}
 

@@ -1,5 +1,6 @@
 package ctwedge.generator.medici;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -34,6 +35,22 @@ public class MediciTranslatorTest {
 		medici.translateModel(loadModelFromPath, false);
 	}	
 	
+	private static final String model1 = "Model Phone\r\n" + 
+			" Parameters:\r\n" + 
+			"   emailViewer : Boolean\r\n" + 
+			"   textLines:  [ 25 .. 30 ]\r\n" + 
+			"\r\n" + 
+			" Constraints:\r\n" + 
+			"   # emailViewer != TRUE #";
+	
+	@Test
+	public void testSimpleModelWTRUE() {
+		CitModel loadModelFromPath = Utility.loadModel(model1);
+		assertNotNull(loadModelFromPath);
+		String s = medici.translateModel(loadModelFromPath, false);
+		System.out.println(s);
+		assertFalse(s.contains("-1"));
+	}
 	@Test
 	public void testFolderWithTests() {
 		testFilesInFolder("models_test/", false);
