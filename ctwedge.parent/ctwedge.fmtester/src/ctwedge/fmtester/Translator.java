@@ -7,7 +7,7 @@ import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 
 public class Translator {
-	
+	// traduce un 
 	public static void main(String[] args) {
 		// converte da FM a ctwdege
 		XmlFeatureModelImporter importer = new XmlFeatureModelImporter();
