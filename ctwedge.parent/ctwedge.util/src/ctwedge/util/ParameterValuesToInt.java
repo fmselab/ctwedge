@@ -84,17 +84,20 @@ public class ParameterValuesToInt {
 	
 	
 	// convert the equal expression to an sign + integer
-	public String eqToInt(AtomicPredicate leftPred, Operators op, AtomicPredicate rightPred) {
+	// char + o -
+	// integer: tha value
+	public Pair<Character,Integer> eqToInt(AtomicPredicate leftPred, Operators op, AtomicPredicate rightPred) {
 		assert (op==Operators.EQ || op ==Operators.NE);
 		// attenzione potrebbero essere dei booleani
 		String left = leftPred.getName()  != null? leftPred.getName().replaceAll("\"", "") : null;
 		String right = rightPred.getName() != null? rightPred.getName().replaceAll("\"", "") : null;
 		
-		int value=-1;
+		int value = -1;
 		// enum1 OP enum2
 		if (left!= null && right != null && u.enums.containsKey(left) && u.elems.contains(right)) {
 			int base = offsets.get(params.get(left));
-			value = base + ParameterElementsGetterAsStrings.instance.doSwitch(params.get(left)).indexOf(right);
+			List<String> doSwitch = ParameterElementsGetterAsStrings.instance.doSwitch(params.get(left));
+			value = base + doSwitch.indexOf(right);
 		} 
 		else if (left!= null && right != null && u.enums.containsKey(right) && u.elems.contains(left)) {
 			int base = offsets.get(params.get(right));
@@ -103,12 +106,13 @@ public class ParameterValuesToInt {
 		// a = true/false
 		else if (left != null && params.get(left) instanceof Bool && rightPred.getBoolConst()!=null) {
 			int base = offsets.get(params.get(left));
-			value = base + ParameterElementsGetterAsStrings.instance.doSwitch(params.get(left)).indexOf(rightPred.getBoolConst());
+			List<String> doSwitch = ParameterElementsGetterAsStrings.instance.doSwitch(params.get(left));
+			value = base + doSwitch.indexOf(rightPred.getBoolConst());
 		}
 		else if (right!= null && leftPred.getBoolConst()!=null && params.get(right) instanceof Bool) {
 			int base = offsets.get(params.get(right));
 			value = base + ParameterElementsGetterAsStrings.instance.doSwitch(params.get(right)).indexOf(leftPred.getBoolConst());
-		}
+		}		
 		else if (u.ranges.containsKey(left)) {
 			int base = offsets.get(params.get(left));
 			value = base + Integer.parseInt(right) - u.ranges.get(left)[0];
@@ -119,8 +123,9 @@ public class ParameterValuesToInt {
 		}
 		else 
 			throw new NotConvertableModel("equalExpression : " + left + " " + op.getName() + " " + right + " not supported!");
+		assert value != -1 : " left = " + left + " right = " + right + " map: " + params;
 		// now builde the String for the expression
-		String sign = op == Operators.EQ ? "+" : "-";
-		return sign + " " + value;
+		char sign = op == Operators.EQ ? '+' : '-';
+		return new Pair<>(sign, value);
 	}
 }
