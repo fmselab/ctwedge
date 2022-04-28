@@ -32,15 +32,15 @@ public class Test {
 		String FMInputPath;
 		long FMtime;
 
-		// ------------------------------------------------------------------
-		/* EVOLUTION MODEL: AmbientAssistedLiving */
-		FMSubFolder = "AmbientAssistedLiving";
-		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-		System.out.println("----------------------------------------------");
-		/* v1 */
-		FMName = "AmbientAssistedLivingv1.xml";
-		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+//		// ------------------------------------------------------------------
+//		/* EVOLUTION MODEL: AmbientAssistedLiving */
+//		FMSubFolder = "AmbientAssistedLiving";
+//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+//		System.out.println("----------------------------------------------");
+//		/* v1 */
+//		FMName = "AmbientAssistedLivingv1.xml";
+//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
 //		/* v2 */
 //		FMName = "AmbientAssistedLivingv2.xml";
 //		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
@@ -128,14 +128,14 @@ public class Test {
 //		// ------------------------------------------------------------------
 //
 //		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: ParkingAssistant */
-//		FMSubFolder = "ParkingAssistant";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "ParkingAssistantv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* EVOLUTION MODEL: ParkingAssistant */
+		FMSubFolder = "ParkingAssistant";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "ParkingAssistantv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
 //		/* v2 */
 //		FMName = "ParkingAssistantv2.xml";
 //		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
@@ -259,7 +259,7 @@ public class Test {
 		PrintStream originalStream = System.out;
 		consolePrintingOff();
 		
-		/* inizio generazione caso di caso di test */
+		/* inizio generazione caso di test */
 		
 		// cattura il tempo impiegato
 		long start1 = System.currentTimeMillis();
@@ -274,7 +274,7 @@ public class Test {
 		
 		long end1 = System.currentTimeMillis();
 		
-		/* fine generazione caso di caso di test */
+		/* fine generazione caso di test */
 
 		// esporta il file in CSV
 		CSVExporter exporterCSV = new CSVExporter();
