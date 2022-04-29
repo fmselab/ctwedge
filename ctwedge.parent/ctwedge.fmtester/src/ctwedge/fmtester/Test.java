@@ -10,6 +10,13 @@ import ctwedge.importer.featureide.FeatureIdeImporterMultipleLevels;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
 
+/**
+ * Test offers a static method to generate combinatorial tests in .csv format for the specified input Feature Model.
+ * 
+ * </br>
+ * The main() method generates combinatorial tests in .csv files for all models in the <i>evolutionModels</i> folder. 
+ * 
+ */
 public class Test {
 
 	private static final String EVOLUTION_MODELS_INPUT_FOLDER = "evolutionModels/";
@@ -247,8 +254,8 @@ public class Test {
 	/**
 	 * Generate the test suite for the specified input Feature Model.
 	 * 
-	 * @param the name of the Feature Model xml file
-	 * @param the path to the input folder where the xml file is located
+	 * @param FMName the name of the Feature Model xml file
+	 * @param FMinputPath the path to the input folder where the xml file is located
 	 * @return the time taken by the generator (in milliseconds) for generating the
 	 *         test suite
 	 */
@@ -290,7 +297,10 @@ public class Test {
 
 	}
 
-	private static void consolePrintingOff() {
+	/**
+	 * Deactivate console printing
+	 */
+	static void consolePrintingOff() {
 
 		PrintStream emptyStream = new PrintStream(new OutputStream() {
 			public void write(int b) {
@@ -301,7 +311,10 @@ public class Test {
 		System.setOut(emptyStream);
 	}
 
-	private static void consolePrintingOn(PrintStream originalStream) {
+	/**
+	 * Activate console printing
+	 */
+	static void consolePrintingOn(PrintStream originalStream) {
 		System.setOut(originalStream);
 	}
 

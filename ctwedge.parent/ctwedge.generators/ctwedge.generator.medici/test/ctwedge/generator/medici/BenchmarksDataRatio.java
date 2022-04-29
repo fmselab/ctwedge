@@ -61,13 +61,15 @@ public class BenchmarksDataRatio {
 	@Test
 	public void testSingleModel() throws IOException {
 		
-		Path f  = Paths.get("..//..//ctwedge.fmtester/evolutionModels/AmbientAssistedLiving/AmbientAssistedLivingv1.ctw", "");
+		System.out.println("\n * INIZIO GENERAZIONE medici * ");
+		Path f  = Paths.get("..//..//ctwedge.fmtester/evolutionModels/AmbientAssistedLiving/AmbientAssistedLivingv122.ctw", "");
 		MediciCITGenerator gen = new MediciCITGenerator();
 		printData(gen,new OutputStreamWriter(System.out), f);
+		System.out.println("\n * TERMINE GENERAZIONE medici *");
 	}
 	
 
-	private void printData(MediciCITGenerator gen, OutputStreamWriter fw, Path file) throws IOException {
+	public void printData(MediciCITGenerator gen, OutputStreamWriter fw, Path file) throws IOException {
 		//CitModel loadModel = ICTWedgeModelProcessor.getModel();						
 		CitModel loadModel = Utility.loadModelFromPath(file.toString());
 		fw.write(file.getFileName().toString() + "\t");
@@ -81,6 +83,7 @@ public class BenchmarksDataRatio {
 		// call medici
 		List<String> command = new ArrayList<String>();
 		command.add("./medici.exe");
+		//command.add("..//ctwedge.generators/ctwedge.generator.medici./medici.exe");
 		// model
 		command.add("--m");
 		command.add("model.txt");
