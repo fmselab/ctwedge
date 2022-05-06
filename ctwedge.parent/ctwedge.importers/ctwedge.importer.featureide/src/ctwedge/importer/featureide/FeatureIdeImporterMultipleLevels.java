@@ -352,7 +352,9 @@ public abstract class FeatureIdeImporterMultipleLevels extends ctwedge.util.ext.
 		AtomicPredicate paramExpr = CtWedgeFactory.eINSTANCE.createAtomicPredicate();
 		paramExpr.setName(en.getName());
 		enumAssign.setLeft(paramExpr);
-		enumAssign.setOp(Operators.NE);
+		// 06/05/2022 Andrea - It is wrong to always assign != if the operator is given as parameter
+		//enumAssign.setOp(Operators.NE);
+		enumAssign.setOp(eq);
 		AtomicPredicate rExpr = CtWedgeFactory.eINSTANCE.createAtomicPredicate();
 		rExpr.setName(name);
 		enumAssign.setRight(rExpr);
