@@ -1,3 +1,2 @@
 Boeing,FuelCapacity,Liters138700,SeatsConfiguration
-false,false,false,Rows3Passengers210
-false,false,false,Rows3Passengers290
+true,true,true,NONE

@@ -1,7 +1,0 @@
-Conveyor,Crane,PPU,SRouting,Slide,Workpiece
-SSortation,false,false,false,Straight,Metal
-DSortation,false,false,false,Straight,Plastic
-NONE,false,false,false,Straight,Metal
-SSortation,false,false,false,Straight,Plastic
-NONE,false,false,false,Straight,Plastic
-DSortation,false,false,false,Straight,Metal

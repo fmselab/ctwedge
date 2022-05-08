@@ -1,3 +1,2 @@
 Controller,DistanceSensors,ParkingAssistant,Sensors,VelocitySensor
-false,InfraredSensor,false,false,false
-false,UltrasonicSensor,false,false,false
+true,NONE,true,true,true

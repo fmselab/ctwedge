@@ -78,4 +78,20 @@ OnBoardComputer : Boolean Constraints :
 # PersonalNavigation != TRUE => AutomotiveMultimedia != TRUE #
 # VoiceRecognition != TRUE => PersonalNavigation != TRUE #
 # Maps != TRUE <=> PersonalNavigation != TRUE #
-# OnBoardComputer != TRUE <=> AutomotiveMultimedia != TRUE #
+# OnBoardComputer != TRUE <=> AutomotiveMultimedia != TRUE #Model MAutomotiveMultimediav2 Parameters :
+AutomotiveMultimedia : Boolean
+AudioPlayer : Boolean
+Radio : Boolean
+CDPlayer : { AudioCDPlayer MP3CDPlayer NONE }
+PersonalNavigation : Boolean
+VoiceRecognition : Boolean
+Maps : Boolean
+OnBoardComputer : Boolean Constraints :
+# AutomotiveMultimedia == TRUE #
+# AudioPlayer == TRUE => AutomotiveMultimedia == TRUE #
+# Radio == TRUE <=> AudioPlayer == TRUE #
+# CDPlayer == NONE => AudioPlayer == TRUE #
+# PersonalNavigation == TRUE => AutomotiveMultimedia == TRUE #
+# VoiceRecognition == TRUE => PersonalNavigation == TRUE #
+# Maps == TRUE <=> PersonalNavigation == TRUE #
+# OnBoardComputer == TRUE <=> AutomotiveMultimedia == TRUE #

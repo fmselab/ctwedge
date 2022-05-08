@@ -1,9 +1,9 @@
 CarKey,EnergyBurnt,HeartBeat,HomeKey,Language,ManageHealth,SmartKey,SmartPay,Smartwatch,Speaker
-false,false,false,false,English,false,false,false,false,Poly
-true,true,true,true,English,true,true,true,false,Plain
-true,true,true,false,Chinese,true,false,true,false,Poly
-true,false,false,true,Chinese,false,true,false,false,Plain
-true,false,true,true,Korean,false,true,true,false,Poly
-false,true,true,false,Korean,true,false,false,false,Plain
-false,true,false,true,Chinese,false,false,true,false,Plain
-true,false,false,true,Korean,false,true,false,false,Poly
+false,false,false,false,NONE,false,false,false,true,NONE
+true,true,true,true,NONE,true,true,true,true,NONE
+false,false,false,true,NONE,false,true,false,true,NONE
+false,true,true,false,NONE,true,false,true,true,NONE
+true,false,false,false,NONE,false,true,false,true,NONE
+true,false,true,true,NONE,true,true,false,true,NONE
+true,false,false,false,NONE,false,true,true,true,NONE
+false,true,false,false,NONE,true,false,false,true,NONE

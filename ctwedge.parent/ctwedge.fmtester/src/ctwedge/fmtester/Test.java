@@ -135,14 +135,14 @@ public class Test {
 //		// ------------------------------------------------------------------
 //
 //		// ------------------------------------------------------------------
-		/* EVOLUTION MODEL: ParkingAssistant */
-		FMSubFolder = "ParkingAssistant";
-		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-		System.out.println("----------------------------------------------");
-		/* v1 */
-		FMName = "ParkingAssistantv1.xml";
-		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+//		/* EVOLUTION MODEL: ParkingAssistant */
+//		FMSubFolder = "ParkingAssistant";
+//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+//		System.out.println("----------------------------------------------");
+//		/* v1 */
+//		FMName = "ParkingAssistantv1.xml";
+//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
 //		/* v2 */
 //		FMName = "ParkingAssistantv2.xml";
 //		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
@@ -203,7 +203,7 @@ public class Test {
 //		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
 //		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
 //		// ------------------------------------------------------------------
-//		
+		
 //		// ------------------------------------------------------------------
 //		/* EVOLUTION MODEL: SmartHotel */
 //		FMSubFolder = "SmartHotel";
@@ -235,18 +235,18 @@ public class Test {
 //		// ------------------------------------------------------------------
 //
 //		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: WeatherStation */
-//		FMSubFolder = "WeatherStation";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		/* EVOLUTION MODEL: WeatherStation */
+		FMSubFolder = "WeatherStation";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
 //		System.out.println("----------------------------------------------");
 //		/* v1 */
 //		FMName = "WeatherStationv1.xml";
 //		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
 //		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "WeatherStationv2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "WeatherStationv2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
 //		// ------------------------------------------------------------------
 
 	}
