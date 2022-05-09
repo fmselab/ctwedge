@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Batchgenerator
 Bundle-SymbolicName: ctwedge.batchgenerator
 Bundle-Version: 1.0.0.qualifier
-Export-Package: main.java.ctwedge.batchgenerator
+Export-Package: ctwedge.batchgenerator
 Require-Bundle: org.eclipse.core.runtime,
  ctwedge.util
 Automatic-Module-Name: ctwedge.batchgenerator

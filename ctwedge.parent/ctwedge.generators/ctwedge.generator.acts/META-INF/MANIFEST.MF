@@ -4,7 +4,7 @@ Bundle-Name: CTWedge Test Generator
 Bundle-SymbolicName: ctwedge.generator.acts;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .,
- libs/acts_3.2.jar
+ libs/acts-3.2.jar
 Export-Package: ctwedge.generator.acts;
   uses:="org.eclipse.emf.ecore,
    ctwedge.util,
