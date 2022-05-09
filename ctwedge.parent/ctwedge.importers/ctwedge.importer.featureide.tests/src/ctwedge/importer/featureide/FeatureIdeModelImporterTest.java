@@ -11,6 +11,8 @@
  ******************************************************************************/
 package ctwedge.importer.featureide;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
@@ -64,8 +66,14 @@ public class FeatureIdeModelImporterTest {
 	public void readCellPhone() throws FileNotFoundException,
 			UnsupportedModelException {
 		CitModel cellPhone = readModel(FI_MODELS_DIR +"cellphone_15.xml");
-		int count = CombinationCounter.count(cellPhone);
-		System.out.println("count XXXX" + count);
+		//int count = CombinationCounter.count(cellPhone);
+		//System.out.println("count XXXX" + count);
+		ModelUtils mu = new ModelUtils(cellPhone);
+		String s = mu.serializeToString();
+		System.out.println(s);
+		//
+		assertTrue(s.contains("# Cellphone == TRUE #"));
+		assertTrue(s.contains("# Camera != NONE => Extras == TRUE #"));
 	}
 
 	@Test
@@ -89,8 +97,14 @@ public class FeatureIdeModelImporterTest {
 	@Test
 	public void readModel_Alt_Alt() throws FileNotFoundException,
 			UnsupportedModelException {
-		// [model != NONE, a1!= NONE =>model = a1]
-		readModel(FI_MODELS_DIR +"model_Alt_Alt.xml");
+		// [model != NONE, a1!= NONE <=>model = a1]
+		CitModel ct = readModel(FI_MODELS_DIR +"model_Alt_Alt.xml");
+		ModelUtils mu = new ModelUtils(ct);
+		String s = mu.serializeToString();
+		System.out.println(s);
+		//
+		assertTrue(s.contains("# model != NONE #"));
+		assertTrue(s.contains("# a1 != NONE <=> model == a1 #"));
 	}
 
 	@Test
@@ -126,10 +140,15 @@ public class FeatureIdeModelImporterTest {
 
 	@Test
 	public void readModel_Man2() throws FileNotFoundException,
-			UnsupportedModelException {
-		// [model != NONE, model = a1 => OR a11 OR a12, a11 = true => model =
-		// a1, a12 = true => model = a1]
-		readModel(FI_MODELS_DIR +"model_Man_Man.xml");
+			UnsupportedModelException {	
+		// mandatory - mandatory
+		CitModel ct = readModel(FI_MODELS_DIR +"model_Man_Man.xml");
+		ModelUtils mu = new ModelUtils(ct);
+		String s = mu.serializeToString();
+		//
+		assertTrue(s.contains("# model == TRUE #"));
+		assertTrue(s.contains("# a1 == TRUE <=> model == TRUE #"));
+		assertTrue(s.contains("# a11 == TRUE <=> a1 == TRUE #"));
 	}
 	@Test
 	public void readModel_Or_Alt() throws FileNotFoundException,
