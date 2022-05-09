@@ -48,4 +48,14 @@ Controller : Boolean Constraints :
 # Sensors == TRUE <=> ParkingAssistant == TRUE #
 # VelocitySensor == TRUE <=> Sensors == TRUE #
 # DistanceSensors == NONE <=> Sensors == TRUE #
+# Controller == TRUE <=> ParkingAssistant == TRUE #Model MParkingAssistantv2 Parameters :
+ParkingAssistant : Boolean
+Sensors : Boolean
+VelocitySensor : Boolean
+DistanceSensors : { InfraredSensor UltrasonicSensor NONE }
+Controller : Boolean Constraints :
+# ParkingAssistant == TRUE #
+# Sensors == TRUE <=> ParkingAssistant == TRUE #
+# VelocitySensor == TRUE <=> Sensors == TRUE #
+# DistanceSensors == NONE <=> Sensors == TRUE #
 # Controller == TRUE <=> ParkingAssistant == TRUE #

@@ -39,215 +39,215 @@ public class Test {
 		String FMInputPath;
 		long FMtime;
 
-//		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: AmbientAssistedLiving */
-//		FMSubFolder = "AmbientAssistedLiving";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "AmbientAssistedLivingv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "AmbientAssistedLivingv2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
-//
-//		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: AutomotiveMultimedia */
-//		FMSubFolder = "AutomotiveMultimedia";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "AutomotiveMultimediav1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "AutomotiveMultimediav2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v3 */
-//		FMName = "AutomotiveMultimediav3.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
-//
-//		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: Boeing */
-//		FMSubFolder = "Boeing";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "Boeingv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "Boeingv2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v3 */
-//		FMName = "Boeingv3.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
-//
-//		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: CarBody */
-//		FMSubFolder = "CarBody";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "CarBodyv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "CarBodyv2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v3 */
-//		FMName = "CarBodyv3.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v4 */
-//		FMName = "CarBodyv4.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
-//
-//		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: LinuxKernel */
-//		FMSubFolder = "LinuxKernel";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "LinuxKernelv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "LinuxKernelv2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v3 */
-//		FMName = "LinuxKernelv3.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
-//
-//		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: ParkingAssistant */
-//		FMSubFolder = "ParkingAssistant";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "ParkingAssistantv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "ParkingAssistantv2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v3 */
-//		FMName = "ParkingAssistantv3.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v4 */
-//		FMName = "ParkingAssistantv4.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v5 */
-//		FMName = "ParkingAssistantv5.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
-//
-//		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: PPU */
-//		FMSubFolder = "PPU";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "PPUv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "PPUv2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v3 */
-//		FMName = "PPUv3.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v4 */
-//		FMName = "PPUv4.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v5 */
-//		FMName = "PPUv5.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v6 */
-//		FMName = "PPUv6.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v7 */
-//		FMName = "PPUv7.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v8 */
-//		FMName = "PPUv8.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v9 */
-//		FMName = "PPUv9.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
+		// ------------------------------------------------------------------
+		/* EVOLUTION MODEL: AmbientAssistedLiving */
+		FMSubFolder = "AmbientAssistedLiving";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "AmbientAssistedLivingv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "AmbientAssistedLivingv2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		// ------------------------------------------------------------------
+
+		// ------------------------------------------------------------------
+		/* EVOLUTION MODEL: AutomotiveMultimedia */
+		FMSubFolder = "AutomotiveMultimedia";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "AutomotiveMultimediav1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "AutomotiveMultimediav2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v3 */
+		FMName = "AutomotiveMultimediav3.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		// ------------------------------------------------------------------
+
+		// ------------------------------------------------------------------
+		/* EVOLUTION MODEL: Boeing */
+		FMSubFolder = "Boeing";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "Boeingv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "Boeingv2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v3 */
+		FMName = "Boeingv3.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		// ------------------------------------------------------------------
+
+		// ------------------------------------------------------------------
+		/* EVOLUTION MODEL: CarBody */
+		FMSubFolder = "CarBody";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "CarBodyv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "CarBodyv2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v3 */
+		FMName = "CarBodyv3.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v4 */
+		FMName = "CarBodyv4.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		// ------------------------------------------------------------------
+
+		// ------------------------------------------------------------------
+		/* EVOLUTION MODEL: LinuxKernel */
+		FMSubFolder = "LinuxKernel";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "LinuxKernelv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "LinuxKernelv2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v3 */
+		FMName = "LinuxKernelv3.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		// ------------------------------------------------------------------
+
+		// ------------------------------------------------------------------
+		/* EVOLUTION MODEL: ParkingAssistant */
+		FMSubFolder = "ParkingAssistant";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "ParkingAssistantv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "ParkingAssistantv2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v3 */
+		FMName = "ParkingAssistantv3.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v4 */
+		FMName = "ParkingAssistantv4.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v5 */
+		FMName = "ParkingAssistantv5.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		// ------------------------------------------------------------------
+
+		// ------------------------------------------------------------------
+		/* EVOLUTION MODEL: PPU */
+		FMSubFolder = "PPU";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "PPUv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "PPUv2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v3 */
+		FMName = "PPUv3.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v4 */
+		FMName = "PPUv4.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v5 */
+		FMName = "PPUv5.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v6 */
+		FMName = "PPUv6.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v7 */
+		FMName = "PPUv7.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v8 */
+		FMName = "PPUv8.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v9 */
+		FMName = "PPUv9.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		// ------------------------------------------------------------------
 		
-//		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: SmartHotel */
-//		FMSubFolder = "SmartHotel";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "SmartHotelv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "SmartHotelv2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
-//
-//		// ------------------------------------------------------------------
-//		/* EVOLUTION MODEL: SmartWatch */
-//		FMSubFolder = "SmartWatch";
-//		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "SmartWatchv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		/* v2 */
-//		FMName = "SmartWatchv2.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
-//
-//		// ------------------------------------------------------------------
+		// ------------------------------------------------------------------
+		/* EVOLUTION MODEL: SmartHotel */
+		FMSubFolder = "SmartHotel";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "SmartHotelv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "SmartHotelv2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		// ------------------------------------------------------------------
+
+		// ------------------------------------------------------------------
+		/* EVOLUTION MODEL: SmartWatch */
+		FMSubFolder = "SmartWatch";
+		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "SmartWatchv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		/* v2 */
+		FMName = "SmartWatchv2.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		// ------------------------------------------------------------------
+
+		// ------------------------------------------------------------------
 		/* EVOLUTION MODEL: WeatherStation */
 		FMSubFolder = "WeatherStation";
 		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-//		System.out.println("----------------------------------------------");
-//		/* v1 */
-//		FMName = "WeatherStationv1.xml";
-//		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
-//		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		System.out.println("----------------------------------------------");
+		/* v1 */
+		FMName = "WeatherStationv1.xml";
+		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
 		/* v2 */
 		FMName = "WeatherStationv2.xml";
 		FMtime = generateTestAndExportCSV(FMName, FMInputPath);
 		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-//		// ------------------------------------------------------------------
+		// ------------------------------------------------------------------
 
 	}
 

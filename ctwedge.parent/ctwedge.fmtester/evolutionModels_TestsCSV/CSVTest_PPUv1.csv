@@ -1,0 +1,4 @@
+Conveyor,Crane,PPU,SRouting,Slide,Workpiece
+SSortation,true,true,true,Conveyor,true
+DSortation,true,true,true,Conveyor,true
+NONE,true,true,true,Conveyor,true
