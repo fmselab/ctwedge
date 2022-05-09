@@ -1,6 +1,5 @@
 package ctwedge.generator.casa;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +12,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ctwedge.generator.util.Utility;
-import ctwedge.util.TestSuite;
 
 public class CASATest {
 	
