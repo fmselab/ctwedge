@@ -202,7 +202,7 @@ public abstract class FeatureIdeImporterMultipleLevels extends ctwedge.util.ext.
 		String currentNodeChoose = choosenString.get(currentNode);
 		Expression chooseCurrent = choosenExpr.get(currentNode);
 		if (parentS == null) {
-			// assume that parent is the root
+			// assume that currentNode is the root
 			result.getConstraints().add(chooseCurrent);
 			constraintStrings.add(currentNodeChoose);
 		} else {
@@ -307,7 +307,7 @@ public abstract class FeatureIdeImporterMultipleLevels extends ctwedge.util.ext.
 				logger.debug("skipping choose for " + currentNode.getFeature().getName());
 			} else {
 				// set chosen for the currentNode
-				EqualExpression eq = createEqExpression(en, Operators.EQ, NONE);				
+				EqualExpression eq = createEqExpression(en, Operators.NE, NONE);				
 				setChosen(currentNode.getFeature(), eq);
 				setChosen(currentNode.getFeature(), normalize(currentNode.getFeature().getName()) + " !=" + NONE);
 
