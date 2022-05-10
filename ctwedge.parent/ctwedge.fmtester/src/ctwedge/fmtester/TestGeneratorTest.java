@@ -23,6 +23,11 @@ public class TestGeneratorTest {
 		String fm = "fmexamples\\model_Man_Man.xml";
 		extracted(fm);			
 	}
+	@Test
+	public void test3() {
+		String fm = "fmexamples\\CarBodyv1.xml";
+		extracted(fm);			
+	}
 
 	
 	private void extracted(String fm) {
