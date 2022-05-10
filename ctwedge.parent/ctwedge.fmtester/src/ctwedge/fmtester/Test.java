@@ -277,7 +277,7 @@ public class Test {
 
 		ACTSTranslator acts = new ACTSTranslator();
 			// TestSuite ts = acts.generateTestsAndInfo(result, false, 2);
-		TestSuite ts = acts.getTestSuite(result, 2, false);
+		TestSuite ts = acts.getTestSuite(result, 2, false); // 2 = n-wise = 2-wise
 		
 		long end1 = System.currentTimeMillis();
 		
