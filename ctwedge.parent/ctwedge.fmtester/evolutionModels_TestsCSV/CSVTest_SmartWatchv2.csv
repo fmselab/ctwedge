@@ -1,0 +1,9 @@
+CarKey,EnergyBurnt,HeartBeat,HomeKey,Language,ManageHealth,SmartKey,SmartPay,Smartwatch,Speaker
+false,false,false,false,NONE,false,false,false,true,NONE
+true,true,true,true,NONE,true,true,true,true,NONE
+false,false,false,true,NONE,false,true,false,true,NONE
+false,true,true,false,NONE,true,false,true,true,NONE
+true,false,false,false,NONE,false,true,false,true,NONE
+true,false,true,true,NONE,true,true,false,true,NONE
+true,false,false,false,NONE,false,true,true,true,NONE
+false,true,false,false,NONE,true,false,false,true,NONE

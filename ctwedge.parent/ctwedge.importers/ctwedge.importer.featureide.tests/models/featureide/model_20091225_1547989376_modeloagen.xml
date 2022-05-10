@@ -1,63 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-	<featureModel chosenLayoutAlgorithm="1">
-		<struct>
-			<and mandatory="true" name="ModeloAgen">
-				<and mandatory="true" name="Agendamento">
-					<feature name="ImpressaodeFolhadeRosto"/>
-					<feature name="Reagendamento"/>
-					<or name="Notificacao">
-						<feature mandatory="true" name="Email"/>
-						<feature mandatory="true" name="Celular"/>
-					</or>
-					<alt mandatory="true" name="Regras">
-						<feature mandatory="true" name="PorAdm"/>
-						<feature mandatory="true" name="PorUsuario"/>
-					</alt>
-					<feature mandatory="true" name="Visualizacao"/>
-					<or name="TipodeUso">
-						<feature mandatory="true" name="Reuniao"/>
-						<feature mandatory="true" name="Palestra"/>
-						<feature mandatory="true" name="Treinamento"/>
-						<feature mandatory="true" name="Videoconferencia"/>
-					</or>
-				</and>
-				<and name="CadastrodeHorarios">
-					<feature name="BloqueiodeHorarios"/>
-				</and>
-				<and name="CadastrodeSalas">
-					<or mandatory="true" name="TipodeSala">
-						<feature mandatory="true" name="_r_3_25_26_27"/>
-						<feature mandatory="true" name="Aula"/>
-						<feature mandatory="true" name="Auditorio"/>
-						<feature mandatory="true" name="Laboratorio"/>
-					</or>
-				</and>
-				<feature name="CadastrodeEquipamentos"/>
-				<feature name="CadastrodeAdministradores"/>
-				<or name="Relatorios">
-					<feature mandatory="true" name="OcupacaoDiaria"/>
-					<feature mandatory="true" name="OcupacaoSemanal"/>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="ModeloAgen">
+			<and mandatory="true" name="Agendamento">
+				<graphics key="collapsed" value="true"/>
+				<feature name="ImpressaodeFolhadeRosto"/>
+				<feature name="Reagendamento"/>
+				<or name="Notificacao">
+					<graphics key="collapsed" value="true"/>
+					<feature name="Email"/>
+					<feature name="Celular"/>
+				</or>
+				<alt mandatory="true" name="Regras">
+					<graphics key="collapsed" value="true"/>
+					<feature name="PorAdm"/>
+					<feature name="PorUsuario"/>
+				</alt>
+				<feature mandatory="true" name="Visualizacao"/>
+				<or name="TipodeUso">
+					<graphics key="collapsed" value="true"/>
+					<feature name="Reuniao"/>
+					<feature name="Palestra"/>
+					<feature name="Treinamento"/>
+					<feature name="Videoconferencia"/>
 				</or>
 			</and>
-		</struct>
-		<constraints>
-			<rule>
-				<disj>
-					<var>CadastrodeSalas</var>
-					<not>
-						<var>CadastrodeEquipamentos</var>
-					</not>
-				</disj>
-			</rule>
-			<rule>
-				<disj>
-					<var>CadastrodeSalas</var>
-					<not>
-						<var>TipodeUso</var>
-					</not>
-				</disj>
-			</rule>
-		</constraints>
-		<comments/>
-		<featureOrder userDefined="false"/>
-	</featureModel>
+			<and name="CadastrodeHorarios">
+				<graphics key="collapsed" value="true"/>
+				<feature name="BloqueiodeHorarios"/>
+			</and>
+			<and name="CadastrodeSalas">
+				<graphics key="collapsed" value="true"/>
+				<or mandatory="true" name="TipodeSala">
+					<graphics key="collapsed" value="true"/>
+					<feature name="_r_3_25_26_27"/>
+					<feature name="Aula"/>
+					<feature name="Auditorio"/>
+					<feature name="Laboratorio"/>
+				</or>
+			</and>
+			<feature name="CadastrodeEquipamentos"/>
+			<feature name="CadastrodeAdministradores"/>
+			<or name="Relatorios">
+				<graphics key="collapsed" value="true"/>
+				<feature name="OcupacaoDiaria"/>
+				<feature name="OcupacaoSemanal"/>
+			</or>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<disj>
+				<var>CadastrodeSalas</var>
+				<not>
+					<var>CadastrodeEquipamentos</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<var>CadastrodeSalas</var>
+				<not>
+					<var>TipodeUso</var>
+				</not>
+			</disj>
+		</rule>
+	</constraints>
+</featureModel>

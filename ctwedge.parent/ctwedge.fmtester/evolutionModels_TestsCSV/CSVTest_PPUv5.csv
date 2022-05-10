@@ -1,0 +1,11 @@
+Conveyor,Crane,Dark,Light,Metal,PPU,Plastic,SRouting,Slide,Stamp,Type,Workpiece
+SSortation,false,false,true,false,false,false,false,Straight,APressure,false,false
+DSortation,false,true,true,false,false,true,false,Straight,NONE,false,false
+NONE,false,true,false,false,false,false,false,Straight,SPressure,false,false
+SSortation,false,true,true,false,false,true,false,Straight,SPressure,false,false
+DSortation,false,false,false,false,false,false,false,Straight,SPressure,false,false
+DSortation,false,true,true,false,false,true,false,Straight,APressure,false,false
+NONE,false,true,true,false,false,true,false,Straight,APressure,false,false
+SSortation,false,false,false,true,false,false,false,Straight,NONE,false,false
+NONE,false,false,true,true,false,false,false,Straight,NONE,false,false
+DSortation,false,true,false,true,false,false,false,Straight,NONE,false,false

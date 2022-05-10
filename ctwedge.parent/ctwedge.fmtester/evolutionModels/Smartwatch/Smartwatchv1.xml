@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="Smartwatch">
+			<feature name="SmartPay"/>
+			<or name="SmartKey">
+				<feature name="CarKey"/>
+				<feature name="HomeKey"/>
+			</or>
+			<or name="ManageHealth">
+				<feature name="HeartBeat"/>
+				<feature name="EnergyBurnt"/>
+			</or>
+			<alt mandatory="true" name="Language">
+				<feature name="English"/>
+				<feature name="Chinese"/>
+				<feature name="Korean"/>
+			</alt>
+		</and>
+	</struct>
+</featureModel>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="PPU">
+			<and abstract="true" mandatory="true" name="Crane">
+				<feature mandatory="true" name="SRouting"/>
+			</and>
+			<alt abstract="true" mandatory="true" name="Slide">
+				<feature name="Straight"/>
+				<alt abstract="true" name="Conveyor">
+					<feature name="SSortation"/>
+					<feature name="DSortation"/>
+				</alt>
+			</alt>
+			<feature mandatory="true" name="Workpiece"/>
+		</and>
+	</struct>
+</featureModel>

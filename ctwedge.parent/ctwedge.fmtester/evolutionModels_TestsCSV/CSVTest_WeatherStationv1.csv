@@ -1,0 +1,10 @@
+Alarm,DataSource,Format,FreezePoint,Language,Measurements,OutFormAndLanguage,OutputFormat,Pressure,StormAlert,Temperature,WeatherStation,WindSpeed
+false,NONE,XML,false,NONE,true,true,NONE,true,false,false,true,false
+true,NONE,HTML,true,NONE,true,true,NONE,false,true,true,true,true
+false,NONE,XML,false,NONE,true,true,NONE,false,false,false,true,true
+true,NONE,HTML,false,NONE,true,true,NONE,true,true,true,true,false
+false,NONE,XML,false,NONE,true,true,NONE,true,false,true,true,true
+true,NONE,HTML,false,NONE,true,true,NONE,true,true,false,true,false
+true,NONE,XML,true,NONE,true,true,NONE,false,false,true,true,false
+false,NONE,HTML,false,NONE,true,true,NONE,true,false,false,true,false
+true,NONE,XML,true,NONE,true,true,NONE,true,true,true,true,false

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +21,7 @@ import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.util.Utility;
+import ctwedge.util.ModelUtils;
 
 // use medici to compute the data about the benchmarks
 public class BenchmarksDataRatio {
@@ -41,51 +43,7 @@ public class BenchmarksDataRatio {
 					System.out.println(file);
 					// read as
 					try {
-						//CitModel loadModel = ICTWedgeModelProcessor.getModel();						
-						CitModel loadModel = Utility.loadModelFromPath(file.toString());
-						fw.write(file.getFileName().toString() + "\t");
-						// convert to medici
-						File model = new File("model.txt");
-						FileWriter wf = new FileWriter(model);
-						String translateModel = gen.translateModel(loadModel,false);
-						wf.write(translateModel);
-						System.out.println(translateModel);
-						wf.close();
-						// call medici
-						List<String> command = new ArrayList<String>();
-						command.add("./medici.exe");
-						// model
-						command.add("--m");
-						command.add("model.txt");
-						// do not generate
-						command.add("--donotgenerate");
-						System.out.println(command);
-						// run
-						ProcessBuilder pc = new ProcessBuilder(command);
-						pc.command(command);
-						pc.redirectError();
-						Process p = pc.start();
-						try {
-							BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
-							String line;
-							while ((line = bri.readLine()) != null) {
-								System.out.println(line);
-								// save to file
-								if (line.contains("Cardinalita di partenza"))
-									fw.write(line + "\t");
-								if (line.contains("Cardinalita finale"))
-									fw.write(line + "\t");
-								if (line.contains("Generated tuples for 2-wise"))
-									fw.write(line + "\t");
-								if (line.contains("size dopo controllo copribilita"))
-									fw.write(line + "\t");
-							}
-							bri.close();
-							p.waitFor();
-							System.out.println("command finished ");
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+						printData(gen, fw, file);
 					} catch (Exception e) {
 						fw.write(file.getFileName().toString() + "\t error:" + e.getMessage());
 					}
@@ -98,5 +56,67 @@ public class BenchmarksDataRatio {
 		});
 		fw.close();
 	}
+	
+	
+	@Test
+	public void testSingleModel() throws IOException {
+		
+		System.out.println("\n * INIZIO GENERAZIONE medici * ");
+		Path f  = Paths.get("..//..//ctwedge.fmtester/evolutionModels/AmbientAssistedLiving/AmbientAssistedLivingv122.ctw", "");
+		MediciCITGenerator gen = new MediciCITGenerator();
+		printData(gen,new OutputStreamWriter(System.out), f);
+		System.out.println("\n * TERMINE GENERAZIONE medici *");
+	}
+	
 
+	public void printData(MediciCITGenerator gen, OutputStreamWriter fw, Path file) throws IOException {
+		//CitModel loadModel = ICTWedgeModelProcessor.getModel();						
+		CitModel loadModel = Utility.loadModelFromPath(file.toString());
+		fw.write(file.getFileName().toString() + "\t");
+		// convert to medici
+		File model = new File("model.txt");
+		FileWriter wf = new FileWriter(model);
+		String translateModel = gen.translateModel(loadModel,false);
+		wf.write(translateModel);
+		System.out.println(translateModel);
+		wf.close();
+		// call medici
+		List<String> command = new ArrayList<String>();
+		command.add("./medici.exe");
+		//command.add("..//ctwedge.generators/ctwedge.generator.medici./medici.exe");
+		// model
+		command.add("--m");
+		command.add("model.txt");
+		// do not generate
+		command.add("--donotgenerate");
+		System.out.println(command);
+		// run
+		ProcessBuilder pc = new ProcessBuilder(command);
+		pc.command(command);
+		pc.redirectError();
+		Process p = pc.start();
+		try {
+			BufferedReader bri = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			String line;
+			while ((line = bri.readLine()) != null) {
+				System.out.println(line);
+				// save to file
+				if (line.contains("Cardinalita di partenza"))
+					fw.write(line + "\t");
+				if (line.contains("Cardinalita finale"))
+					fw.write(line + "\t");
+				if (line.contains("Generated tuples for 2-wise"))
+					fw.write(line + "\t");
+				if (line.contains("size dopo controllo copribilita"))
+					fw.write(line + "\t");
+			}
+			bri.close();
+			p.waitFor();
+			System.out.println("command finished ");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 }
