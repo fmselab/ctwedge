@@ -28,6 +28,11 @@ public class TestGeneratorTest {
 		String fm = "fmexamples\\CarBodyv1.xml";
 		extracted(fm);			
 	}
+	@Test
+	public void test4() {
+		String fm = "fmexamples\\CarBodyv1_man.xml";
+		extracted(fm);			
+	}
 
 	
 	private void extracted(String fm) {
