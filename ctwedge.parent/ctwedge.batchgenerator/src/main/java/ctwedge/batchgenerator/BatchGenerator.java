@@ -1,4 +1,4 @@
-package main.java.ctwedge.batchgenerator;
+package ctwedge.batchgenerator;
 
 import java.io.File;
 import java.util.ArrayList;

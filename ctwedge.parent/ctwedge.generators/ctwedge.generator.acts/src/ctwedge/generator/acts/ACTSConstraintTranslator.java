@@ -68,7 +68,19 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 		// if not null, it does not contain !
 		assert x.getName() == null || !x.getName().contains("!");
 		if (PRINT) System.out.println("Case AtomicPredicate: "+x);
-		return x.getName()!=null ? (elements.contains(x.getName()) && !StaticUtils.INSTANCE.isNumber(x.getName()) ? "\""+x.getName()+"\"" : x.getName()) : (x.getBoolConst()!=null ? x.getBoolConst() : "");
+		
+		// AB: Is it to the left?
+		// Normally we have the parameter name to the left of the Equal expression
+		if (x.eContainer() instanceof EqualExpression) {
+			EqualExpression container = (EqualExpression) x.eContainer();
+			if (container.getLeft().equals(x) && x.getName() != null) {
+				return x.getName();
+			}
+		}
+		
+		return x.getName() != null ? (elements.contains(x.getName()) && !StaticUtils.INSTANCE.isNumber(x.getName())
+				? "\"" + x.getName() + "\""
+				: x.getName()) : (x.getBoolConst() != null ? x.getBoolConst() : "");
 	}
 	
 	@Override

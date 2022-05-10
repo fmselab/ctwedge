@@ -54,7 +54,8 @@ public class Translator {
 		ModelUtils utils = new ModelUtils(model);
 
 		// converto e scrivo il modello CTWedge in outPath
-		FileWriter file = new FileWriter(outPath, true);
+		// AG messo a false l'append
+		FileWriter file = new FileWriter(outPath, false);
 		PrintWriter outputfile = new PrintWriter(file);
 		final String res = utils.serializeToString();
 		outputfile.write(res);

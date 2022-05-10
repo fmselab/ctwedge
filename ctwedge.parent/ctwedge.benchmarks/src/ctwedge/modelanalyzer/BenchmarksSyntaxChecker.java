@@ -44,6 +44,7 @@ public class BenchmarksSyntaxChecker {
 		});
 		System.out.println("right " + right.get());
 		System.out.println("wrong " + wrong.get());
+		walk.close();
 	}
 
 	static boolean parseAndValidate(Path x) throws IOException {
