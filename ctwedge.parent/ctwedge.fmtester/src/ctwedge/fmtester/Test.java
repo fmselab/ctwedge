@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.exporter.CSVExporter;
-import ctwedge.importer.featureide.FeatureIdeImporterMultipleLevels;
+import ctwedge.importer.featureide.FeatureIdeImporter;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
 
@@ -272,7 +272,7 @@ public class Test {
 		long start1 = System.currentTimeMillis();
 		
 		// importa il modello
-		FeatureIdeImporterMultipleLevels importer = new XmlFeatureModelImporter();
+		FeatureIdeImporter importer = new XmlFeatureModelImporter();
 		CitModel result = importer.importModel(FMinputPath + FMName);
 
 		ACTSTranslator acts = new ACTSTranslator();

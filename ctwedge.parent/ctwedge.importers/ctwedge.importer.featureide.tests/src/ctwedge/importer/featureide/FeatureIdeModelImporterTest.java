@@ -28,7 +28,6 @@ import com.google.common.io.PatternFilenameFilter;
 import com.google.inject.Injector;
 import ctwedge.CTWedgeStandaloneSetup;
 import ctwedge.ctWedge.CitModel;
-import ctwedge.importer.featureide.FeatureIdeImporterMultipleLevels;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.ext.NotImportableException;
@@ -213,7 +212,7 @@ public class FeatureIdeModelImporterTest {
 	static public CitModel readModel(String modelPath)
 			throws FileNotFoundException, UnsupportedModelException {
 
-		FeatureIdeImporterMultipleLevels importer = new XmlFeatureModelImporter();
+		FeatureIdeImporter importer = new XmlFeatureModelImporter();
 		CitModel result;
 		try {
 			result = importer.importModel(modelPath);

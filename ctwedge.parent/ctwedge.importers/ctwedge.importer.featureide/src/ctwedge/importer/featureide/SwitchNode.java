@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *   Paolo Vavassori - initial API and implementation
  *   Angelo Gargantini - utils and architecture
@@ -22,10 +22,10 @@ import org.prop4j.Node;
 import org.prop4j.Not;
 import org.prop4j.Or;
 
- 
+
 /** switch node for prop4j */
 public abstract class SwitchNode<E> {
-	
+
 	protected abstract E visit(And n);
 
 	protected abstract E visit(AtLeast n);
@@ -39,9 +39,9 @@ public abstract class SwitchNode<E> {
 	protected abstract E visit(Implies n);
 
 	protected abstract E visit(Literal n);
-	
 
-	
+
+
 	E visit(Node n){
 		if (n instanceof And)
 			return visit((And) n);
