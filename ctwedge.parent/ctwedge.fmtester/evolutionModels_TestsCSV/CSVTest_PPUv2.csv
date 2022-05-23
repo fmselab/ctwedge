@@ -1,7 +1,7 @@
-Conveyor,Crane,PPU,SRouting,Slide,Workpiece
-NONE,true,true,true,Straight,Metal
-SSortation,true,true,true,Conveyor,Plastic
-DSortation,true,true,true,Conveyor,Metal
-DSortation,true,true,true,Conveyor,Plastic
-NONE,true,true,true,Straight,Plastic
-SSortation,true,true,true,Conveyor,Metal
+Conveyor,Crane,DSortation,Metal,PPU,Plastic,SRouting,SSortation,Slide,Straight,Workpiece
+true,true,true,true,true,false,true,false,true,false,true
+false,true,false,false,true,true,true,true,true,true,true
+true,true,false,true,true,false,true,true,true,false,true
+false,true,true,false,true,true,true,false,true,true,true
+false,true,false,true,true,false,true,false,true,true,true
+true,true,false,false,true,true,true,true,true,false,true

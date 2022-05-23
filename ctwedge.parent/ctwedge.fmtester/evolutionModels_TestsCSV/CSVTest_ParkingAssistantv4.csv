@@ -1,8 +1,8 @@
-CompassSensors,Controller,DirectionSensors,DistanceSensorTypes,DistanceSensors,DrivenWaySensors,InfraredSensor,ParkingAssistant,PulseLengthSensorV2,SensorFusion,Sensors,UltrasonicSensor
-true,ControllerWithDir,true,true,true,true,false,true,true,false,true,true
-false,ControllerWithoutDir,false,true,true,true,true,true,true,true,true,true
-true,ControllerWithDir,true,true,true,true,true,true,true,true,true,true
-false,ControllerWithoutDir,false,true,true,true,false,true,true,false,true,true
-true,ControllerWithDir,true,true,true,true,true,true,true,false,true,false
-false,ControllerWithoutDir,false,true,true,true,true,true,true,false,true,false
-true,ControllerWithoutDir,true,true,true,true,true,true,true,true,true,true
+CompassSensors,Controller,ControllerWithDir,ControllerWithoutDir,DirectionSensors,DistanceSensorTypes,DistanceSensors,DrivenWaySensors,InfraredSensor,ParkingAssistant,PulseLengthSensorV2,SensorFusion,Sensors,UltrasonicSensor
+false,true,false,true,false,true,true,true,false,true,true,false,true,true
+true,true,true,false,true,true,true,true,true,true,true,true,true,true
+false,true,false,true,false,true,true,true,true,true,true,false,true,false
+true,true,true,false,true,true,true,true,true,true,true,false,true,false
+true,true,false,true,true,true,true,true,false,true,true,false,true,true
+false,true,false,true,false,true,true,true,true,true,true,true,true,true
+true,true,true,false,true,true,true,true,false,true,true,false,true,true
