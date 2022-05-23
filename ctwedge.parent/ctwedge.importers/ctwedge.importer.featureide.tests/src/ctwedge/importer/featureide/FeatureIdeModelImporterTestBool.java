@@ -11,6 +11,7 @@
  ******************************************************************************/
 package ctwedge.importer.featureide;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -18,9 +19,12 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.util.List;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.osgi.resource.Resource;
 
@@ -37,29 +41,35 @@ import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
  * test of the importer from feature IDE (not simplifier) 
  *
  */
-public class FeatureIdeModelImporterTest {
+public class FeatureIdeModelImporterTestBool {
 
 	public static final String FI_MODELS_DIR = "models/featureide/";
 
+	@BeforeClass
+	public static void setupLogger() {
+		Logger.getLogger(FeatureIdeImporterBoolean.class).setLevel(Level.ALL);
+	}
 	
 	@Test
-	public void readAllModels() throws FileNotFoundException,	
-	UnsupportedModelException {
-		File dir = new File(FI_MODELS_DIR);
-		for (String f: dir.list(new FilenameFilter() {			
-			@Override
-			public boolean accept(File dir, String name) {
-				return name.endsWith(".xml");
-			}
-		})){
-			try{
-				readModel(FI_MODELS_DIR + File.separator + f);			
-			} catch(Exception e) {
-				System.err.println("error reading " + f);
-				e.printStackTrace();
-			}
-		}
+	public void readModel1() throws FileNotFoundException,
+			UnsupportedModelException {
+		CitModel cellPhone = readModel(FI_MODELS_DIR +"model1.xml");
+		ModelUtils mu = new ModelUtils(cellPhone);
+		String s = mu.serializeToString();
+		System.out.println(s);
+		//
+		assertTrue(s.contains("model : Boolean"));
+		assertTrue(s.contains("a1 : Boolean"));
+		assertTrue(s.contains("a2 : Boolean"));
+		assertTrue(s.contains("a3 : Boolean"));
+		assertTrue(s.contains("a4 : Boolean"));
+		assertFalse(s.contains("# a1 == TRUE => ! a1 #"));
+		assertTrue(s.contains("# a1 == TRUE => ! a2 #"));
+		// tutte le altre a seguire
+		assertTrue(s.contains("# model == TRUE => a1 == TRUE || a2 == TRUE || a3 == TRUE || a4 == TRUE #"));
 	}
+
+	
 	
 	@Test
 	public void readCellPhone() throws FileNotFoundException,
@@ -88,7 +98,7 @@ public class FeatureIdeModelImporterTest {
 	@Test
 	public void readConnectorSimple() throws FileNotFoundException,
 			UnsupportedModelException {
-		CitModel connector = FeatureIdeModelImporterTest.readModel(FI_MODELS_DIR +"connector_fm_sim.xml");
+		CitModel connector = FeatureIdeModelImporterTestBool.readModel(FI_MODELS_DIR +"connector_fm_sim.xml");
 		int count = CombinationCounter.count(connector);
 		Assert.assertEquals(4, count);
 	}
@@ -161,11 +171,7 @@ public class FeatureIdeModelImporterTest {
 			UnsupportedModelException {
 		// [model != NONE, model = a1 => OR a11 OR a12, a11 = true => model =
 		// a1, a12 = true => model = a1]
-		CitModel ct = readModel(FI_MODELS_DIR +"model_Or_Or.xml");
-		ModelUtils mu = new ModelUtils(ct);
-		String s = mu.serializeToString();
-		//
-		assertTrue(s.contains("# model == TRUE #"));
+		readModel(FI_MODELS_DIR +"model_Or_Or.xml");
 	}
 
 	
@@ -176,14 +182,7 @@ public class FeatureIdeModelImporterTest {
 		// [model = true, model = true => OR a1 OR a2 OR a3 OR a4,
 		// a1 = true => model = true, a2 = true => model = true, a3 = true =>
 		// model = true, a4 = true => model = true]
-		CitModel ct = readModel(FI_MODELS_DIR +"model3_OR.xml");
-		ModelUtils mu = new ModelUtils(ct);
-		String s = mu.serializeToString();
-		//
-		assertTrue(s.contains("# model == TRUE #"));
-		assertTrue(s.contains("# model == TRUE => a1 == TRUE || a2 == TRUE || a3 == TRUE || a4 == TRUE #"));
-		assertTrue(s.contains("# a1 == TRUE => model == TRUE #"));
-		//and the others
+		readModel(FI_MODELS_DIR +"model3_OR.xml");
 	}
 
 	@Test
@@ -196,21 +195,6 @@ public class FeatureIdeModelImporterTest {
 
 	}
 
-	
-	/** returns the citmodel as String
-	 * 
-	 * @param result
-	 * @return
-	 */
-	public static String modelToStringSerializer(CitModel result) {
-		ModelUtils m = new ModelUtils(result);
-		return m.serializeToString();		
-	}
-	public static String modelToStringSerializer(CitModel result,String name) {
-		// TODO pass also the name
-		ModelUtils m = new ModelUtils(result);
-		return m.serializeToString();		
-	}   
 	/**
 	 * read the feature ide model
 	 * 
@@ -223,12 +207,12 @@ public class FeatureIdeModelImporterTest {
 	static public CitModel readModel(String modelPath)
 			throws FileNotFoundException, UnsupportedModelException {
 
-		FeatureIdeImporter importer = new XmlFeatureModelImporter();
+		FeatureIdeImporter importer = new FeatureIdeImporterBoolean();
 		CitModel result;
 		try {
 			result = importer.importModel(modelPath);
 			// check the validity of the model - for now serialize it
-			System.out.println(modelToStringSerializer(result));
+			System.out.println(FeatureIdeModelImporterTest.modelToStringSerializer(result));
 			return result;
 		} catch (NotImportableException e) {
 			// TODO Auto-generated catch block

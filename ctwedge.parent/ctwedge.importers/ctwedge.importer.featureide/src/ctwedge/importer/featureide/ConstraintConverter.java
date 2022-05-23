@@ -34,6 +34,7 @@ import ctwedge.ctWedge.ImpliesExpression;
 import ctwedge.ctWedge.ImpliesOperator;
 import ctwedge.ctWedge.NotExpression;
 import ctwedge.ctWedge.OrExpression;
+import ctwedge.util.Pair;
 import de.ovgu.featureide.fm.core.base.IFeature;
 
 /**
@@ -49,12 +50,12 @@ public class ConstraintConverter extends SwitchNode<Expression> {
 	    	return Normalizer.normalize(x,Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replace(",", "y");
 	    }
 
-	ConstraintConverter(Map<IFeature, Expression> choosenExpr) {
+	ConstraintConverter(Map<IFeature, Pair<Expression, String>> choosenExpr) {
 		litParams = new HashMap<>();
-		for (Entry<IFeature, Expression> c : choosenExpr.entrySet()) {
+		for (Entry<IFeature, Pair<Expression, String>> c : choosenExpr.entrySet()) {
 			String name = normalize(c.getKey().getName());
 			assert litParams.get(name) == null;
-			litParams.put(name, c.getValue());
+			litParams.put(name, c.getValue().getFirst());
 		}
 	}
 
