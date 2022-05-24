@@ -12,13 +12,13 @@ import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
 
 /**
- * Test offers a static method to generate combinatorial tests in .csv format for the specified input Feature Model.
+ * {@link CombinatorialTestGenerator} offers a static method to generate combinatorial tests in .csv format for the specified input Feature Model.
  * 
  * </br>
  * The main() method generates combinatorial tests in .csv files for all models in the <i>evolutionModels</i> folder. 
  * 
  */
-public class Test {
+public class CombinatorialTestGenerator {
 
 	private static final String EVOLUTION_MODELS_INPUT_FOLDER = "evolutionModels/";
 

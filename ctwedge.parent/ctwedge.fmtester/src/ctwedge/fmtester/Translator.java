@@ -46,7 +46,7 @@ public class Translator {
 
 		// disabilito temporaneamente system.out
 		PrintStream originalStream = System.out;
-		Test.consolePrintingOff();
+		CombinatorialTestGenerator.consolePrintingOff();
 
 		// importo Feature Model .xml
 		XmlFeatureModelImporter importer = new XmlFeatureModelImporter();
@@ -62,7 +62,7 @@ public class Translator {
 		outputfile.close();
 
 		// riabilito system out
-		Test.consolePrintingOn(originalStream);
+		CombinatorialTestGenerator.consolePrintingOn(originalStream);
 
 		return res;
 	}
@@ -78,7 +78,7 @@ public class Translator {
 
 		// disabilito temporaneamente system.out
 		PrintStream originalStream = System.out;
-		Test.consolePrintingOff();
+		CombinatorialTestGenerator.consolePrintingOff();
 
 		Path file = Paths.get(inPath, "");
 		MediciCITGenerator gen = new MediciCITGenerator();
@@ -93,7 +93,7 @@ public class Translator {
 		wf.close();
 
 		// riabilito system out
-		Test.consolePrintingOn(originalStream);
+		CombinatorialTestGenerator.consolePrintingOn(originalStream);
 
 		return translateModel;
 	}

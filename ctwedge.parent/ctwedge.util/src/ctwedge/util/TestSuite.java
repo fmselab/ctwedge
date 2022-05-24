@@ -71,6 +71,10 @@ public class TestSuite {
 		return generatorTime;
 	}
 	
+	public String getTs() {
+		return ts;
+	}
+	
 	public void populateTestSuite() {
 		setModel(model);
 		List<Parameter> params = new ArrayList<>();
@@ -98,4 +102,5 @@ public class TestSuite {
 		}
 		return null;
 	}
+
 }
