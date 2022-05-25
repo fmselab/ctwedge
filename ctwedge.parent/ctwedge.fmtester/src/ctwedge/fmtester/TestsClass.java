@@ -175,7 +175,16 @@ public class TestsClass {
 		String fmp = "evolutionModels\\SmartHotel\\SmartHotelv2.xml";
 		TestSuite tsp = getTestSuite(fmp);
 		
-		System.out.println("Distance%:"+DistancesCalculator.percTestSuitesDist(ts, tsp));
+		String fmOther = "evolutionModels\\PPU\\PPUv1.xml";
+		TestSuite tsOther = getTestSuite(fmOther);
+		
+		System.out.println("Distance%: "+DistancesCalculator.percTestSuitesDist(ts, tsp)+"%");
+		// Confrontando due modelli identici mi aspetto una distanza del 0%
+		System.out.println("Distance%: "+DistancesCalculator.percTestSuitesDist(ts, ts)+"%");
+		assertTrue(DistancesCalculator.percTestSuitesDist(ts, ts)==0.0);
+		// Confrontando due modelli diversi mi aspetto una distanza del 100%
+		System.out.println("Distance%: "+DistancesCalculator.percTestSuitesDist(ts, tsOther)+"%");
+		assertTrue(DistancesCalculator.percTestSuitesDist(ts, tsOther)==100.0);
 	
 	}
 	

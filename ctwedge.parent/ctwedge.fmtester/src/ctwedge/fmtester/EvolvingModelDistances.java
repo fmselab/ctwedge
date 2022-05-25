@@ -19,10 +19,7 @@ public class EvolvingModelDistances {
 		String FMSubFolder;
 		String FMInputPath;
 		String fmPath;
-		String fmpPath;
-		long FMtime;
-		
-		
+		String fmpPath;		
 		
 		/* EVOLUTION MODEL: AmbientAssistedLiving */
 		FMSubFolder = "AmbientAssistedLiving";
