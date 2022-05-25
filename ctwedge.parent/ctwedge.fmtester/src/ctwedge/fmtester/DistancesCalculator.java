@@ -1,8 +1,13 @@
 package ctwedge.fmtester;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Set;
 import java.util.TreeSet;
 
+import ctwedge.ctWedge.CitModel;
+import ctwedge.generator.acts.ACTSTranslator;
+import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 
@@ -26,6 +31,40 @@ public class DistancesCalculator {
 	 *   implemented as TreeMap<String,String>
 	 * 
 	 */
+	
+	/**
+	 * Get the greedy distance as percentage between the boolean combinatorial
+	 * test suites of the feature models fm and fmp
+	 * 
+	 * @param fmPath the path to the first feature model
+	 * @param fmpPath the path to the second feature model
+	 * 
+	 * @return distance% between the test suites of fm and fmp
+	 */
+	public static float percTestSuitesDist_FromModels(String fmPath, String fmpPath) {
+		
+		// disabilito stampa a console
+		PrintStream originalStream = System.out;
+		consolePrintingOff();
+				
+		// Getting the test suite ts of the first feature model
+		FeatureIdeImporterBoolean importer = new FeatureIdeImporterBoolean();
+		ACTSTranslator acts = new ACTSTranslator();
+		CitModel model = importer.importModel(fmPath);
+		TestSuite ts = acts.getTestSuite(model, 2, false);
+		
+		// Getting the test suite tsp of the second feature model
+		FeatureIdeImporterBoolean importerp = new FeatureIdeImporterBoolean();
+		ACTSTranslator actsp = new ACTSTranslator();
+		model = importerp.importModel(fmpPath);
+		TestSuite tsp = actsp.getTestSuite(model, 2, false);
+		
+		// riabilito stampa a console
+		consolePrintingOn(originalStream);
+		
+		return DistancesCalculator.percTestSuitesDist(ts, tsp);
+		
+	}
 
 	/**
 	 * Get the greedy distance as percentage between the test suites ts and tsp
@@ -111,8 +150,11 @@ public class DistancesCalculator {
 	public static int get_maxValue(int[][] tcDist) {
 		int max = -1;
 
-		for (int i = 0; i < tcDist.length; i++) {
-			for (int j = 0; j < tcDist[i].length; j++) {
+		final int nRows = tcDist.length; // tcDist rows number
+		final int nCols = tcDist[0].length; // tcDist cols number
+
+		for (int i = 0; i < nRows; i++) {
+			for (int j = 0; j < nCols; j++) {
 				if (tcDist[i][j] > max)
 					max = tcDist[i][j];
 			}
@@ -137,14 +179,22 @@ public class DistancesCalculator {
 
 		// |TS|>=|TS'|
 		if (cardTs >= cardTsp)
-			tcDist = new int[cardTsp][cardTs];
+			tcDist = new int[cardTsp][cardTs]; //ts=cols, tsp=rows
 		// |TS|<|TS'|
 		else
-			tcDist = new int[cardTs][cardTsp];
+			tcDist = new int[cardTs][cardTsp]; //ts=rows, tsp=cols
+		
+		final int nRows = tcDist.length; // tcDist rows number
+		final int nCols = tcDist[0].length; // tcDist cols number
 
-		for (int i = 0; i < tcDist.length; i++) {
-			for (int j = 0; j < tcDist[i].length; j++) {
-				tcDist[i][j] = DistancesCalculator.testCasesDist(ts.getTests().get(i), tsp.getTests().get(j));
+		for (int i = 0; i<nRows; i++) {
+			for (int j = 0; j<nCols; j++) {
+				// |TS|>=|TS'|
+				if (cardTs >= cardTsp) //i=tsp=rows, j=ts=cols
+					tcDist[i][j] = DistancesCalculator.testCasesDist(tsp.getTests().get(i), ts.getTests().get(j));
+				// |TS|<|TS'|
+				else //i=ts=rows, j=tsp=cols
+					tcDist[i][j] = DistancesCalculator.testCasesDist(ts.getTests().get(i), tsp.getTests().get(j));
 			}
 		}
 
@@ -189,5 +239,27 @@ public class DistancesCalculator {
 		else
 			return 0;
 	}
+	
+	/**
+	 * Deactivate console printing
+	 */
+	private static void consolePrintingOff() {
+
+		PrintStream emptyStream = new PrintStream(new OutputStream() {
+			public void write(int b) {
+				// NO-OP
+			}
+		});
+
+		System.setOut(emptyStream);
+	}
+
+	/**
+	 * Activate console printing
+	 */
+	private static void consolePrintingOn(PrintStream originalStream) {
+		System.setOut(originalStream);
+	}
+
 
 }

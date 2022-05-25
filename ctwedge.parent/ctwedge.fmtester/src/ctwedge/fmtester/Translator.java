@@ -15,7 +15,7 @@ import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 
 /**
- * Translator offers static methods for different model conversions:
+ * {@link Translator} gives methods for different model conversions:
  * <ul>
  * <li>From FM (.xml) to CTWedge (.ctw)
  * <li>From CTWedge (.ctw) to medici (.txt)
