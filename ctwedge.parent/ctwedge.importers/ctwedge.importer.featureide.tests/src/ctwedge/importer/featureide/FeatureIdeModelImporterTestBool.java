@@ -53,7 +53,7 @@ public class FeatureIdeModelImporterTestBool {
 	@Test
 	public void readModel1() throws FileNotFoundException,
 			UnsupportedModelException {
-		CitModel cellPhone = readModel(FI_MODELS_DIR +"model1.xml");
+		CitModel cellPhone = readModel(FI_MODELS_DIR +"model_Alt.xml");
 		ModelUtils mu = new ModelUtils(cellPhone);
 		String s = mu.serializeToString();
 		System.out.println(s);
@@ -127,9 +127,7 @@ public class FeatureIdeModelImporterTestBool {
 	@Test
 	public void readModel_Alt_Root() throws FileNotFoundException,
 			UnsupportedModelException {
-		// root is an alternative
-		// [model != NONE]
-		readModel(FI_MODELS_DIR +"model1.xml");
+		CitModel m = readModel(FI_MODELS_DIR +"model_Alt.xml");
 	}
 
 	@Test
@@ -171,9 +169,22 @@ public class FeatureIdeModelImporterTestBool {
 			UnsupportedModelException {
 		// [model != NONE, model = a1 => OR a11 OR a12, a11 = true => model =
 		// a1, a12 = true => model = a1]
-		readModel(FI_MODELS_DIR +"model_Or_Or.xml");
+		CitModel ct = readModel(FI_MODELS_DIR +"model_Or_Or.xml");
+		ModelUtils mu = new ModelUtils(ct);
+		String s = mu.serializeToString();
+		//
+		assertTrue(s.contains("# model == TRUE #"));
 	}
 
+	@Test
+	public void readModel_Opt_Opt() throws FileNotFoundException,
+			UnsupportedModelException {
+		CitModel ct = readModel(FI_MODELS_DIR +"model_Opt_Opt.xml");
+		ModelUtils mu = new ModelUtils(ct);
+		String s = mu.serializeToString();
+		//
+		assertTrue(s.contains("# model == TRUE #"));
+	}
 	
 
 	@Test

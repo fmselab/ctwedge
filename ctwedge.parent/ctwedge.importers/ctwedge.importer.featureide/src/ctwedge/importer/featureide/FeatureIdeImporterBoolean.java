@@ -35,18 +35,26 @@ public class FeatureIdeImporterBoolean extends FeatureIdeImporter {
 		assert currentNode.getStructure().getParent().isAlternative();
 		String currentNodeChoose = choosenExprString.get(currentNode).getSecond();
 		Expression chooseCurrent = choosenExprString.get(currentNode).getFirst();
-		// add current => not the others
+		IFeature parent = currentNode.getStructure().getParent().getFeature();
+		Pair<Expression, String> parentChosen = choosenExprString.get(parent);
+		// add current => not the others and true for parent
 		List<IFeatureStructure> siblings = currentNode.getStructure().getParent().getChildren();
 		for(IFeatureStructure sib: siblings) {
 			// skip itself
 			if (sib == currentNode.getStructure()) continue;
-			Pair<Expression, String> notChosen = getNotChoosen(sib.getFeature(),result);
 			// current => ! sib 
+			Pair<Expression, String> notChosen = getNotChoosen(sib.getFeature(),result);
 			addImpliesConstraint(EcoreUtil2.cloneIfContained(chooseCurrent),
 					ImpliesOperator.IMPL, notChosen.getFirst(), result);
 			addImpliesConstraint(currentNodeChoose,notChosen.getSecond(),ImpliesOperator.IMPL);
 			logger.debug(chooseCurrent + " implies " + notChosen.getFirst());
 			logger.debug(currentNodeChoose + " implies " + notChosen.getFirst());
+			// current => parent			
+			addImpliesConstraint(EcoreUtil2.cloneIfContained(chooseCurrent),
+					ImpliesOperator.IMPL, EcoreUtil2.cloneIfContained(parentChosen.getFirst()), result);
+			addImpliesConstraint(currentNodeChoose,parentChosen.getSecond(),ImpliesOperator.IMPL);
+			logger.debug(chooseCurrent + " implies " + parentChosen.getFirst());
+			logger.debug(currentNodeChoose + " implies " + parentChosen.getFirst());
 		}		
 	}
 

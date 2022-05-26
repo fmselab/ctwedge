@@ -119,7 +119,7 @@ public class FeatureIdeModelImporterTest {
 			UnsupportedModelException {
 		// root is an alternative
 		// [model != NONE]
-		readModel(FI_MODELS_DIR +"model1.xml");
+		readModel(FI_MODELS_DIR +"model_Alt.xml");
 	}
 
 	@Test

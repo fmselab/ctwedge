@@ -10,21 +10,13 @@
 		<graphics key="layoutalgorithm" value="1"/>
 	</properties>
 	<struct>
-		<and mandatory="true" name="E_Portal">
-			<feature mandatory="true" name="Site"/>
-			<feature mandatory="true" name="Elementos"/>
-			<feature mandatory="true" name="Menu"/>
-			<and mandatory="true" name="Box">
+		<and abstract="true" mandatory="true" name="model">
+			<and name="a1">
 				<graphics key="collapsed" value="false"/>
-				<feature mandatory="true" name="Texto"/>
-				<feature name="Foto"/>
-				<or mandatory="true" name="DestaqueWide">
-					<graphics key="collapsed" value="false"/>
-					<feature name="ComFoto"/>
-					<feature name="SemFoto"/>
-				</or>
-				<feature name="DestaqueDuplo"/>
+				<feature name="a11"/>
+				<feature name="a12"/>
 			</and>
+			<feature name="a2"/>
 		</and>
 	</struct>
 </featureModel>
