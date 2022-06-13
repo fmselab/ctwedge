@@ -2,6 +2,7 @@ package ctwedge.fmtester;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -83,13 +84,12 @@ public class DistancesCalculator {
 		final float wortsTestSuitesDist = cardTs * nFeatTs + cardTsp * nFeatTsp;
 		final float greedyTestSuiteDist = DistancesCalculator.testSuitesDist(ts, tsp);
 
-		/*
-		 * Debug printing of various distance info final float ratioDist =
-		 * (greedyTestSuiteDist/wortsTestSuitesDist);
-		 * System.out.println("Worst dist: "+wortsTestSuitesDist);
-		 * System.out.println("Greedy dist: "+greedyTestSuiteDist);
-		 * System.out.println("Perc dist: "+ratioDist);
-		 */
+		/* Debug printing of various distance info */
+//		  final float ratioDist = (greedyTestSuiteDist/wortsTestSuitesDist);
+		  System.out.println("Worst dist: "+wortsTestSuitesDist);
+		  System.out.println("Greedy dist: "+greedyTestSuiteDist);
+//		  System.out.println("Perc dist: "+ratioDist);
+		 
 
 		return (greedyTestSuiteDist / wortsTestSuitesDist) * 100;
 	}
@@ -117,6 +117,9 @@ public class DistancesCalculator {
 		else
 			testSuitesDist = (nCols - nRows) * tsp.getTests().get(0).keySet().size();
 
+		/* Debug printing of tcDist as table and other info */
+		System.out.println("Before loop - tcDist:\n"+Arrays.deepToString(tcDist).replace("], ", "]\n"));
+		
 		for (int i = 0; i < nRows; i++) {
 			int minValue = maxValue;
 			int minIndex = -1;
@@ -134,12 +137,12 @@ public class DistancesCalculator {
 			for (int k = i + 1; k < nRows; k++)
 				tcDist[k][minIndex] = maxValue;
 
-			/*
-			 * Debug printing of tcDist as table and other info System.out.println();
-			 * System.out.println("Iteration: "+(i+1));
-			 * System.out.println("minValue: "+minValue+", minIndex: "+minIndex);
-			 * System.out.println("tcDist:\n"+Arrays.deepToString(tcDist).replace("], ", "]\n"));
-			 */
+			/* Debug printing of tcDist as table and other info */
+			System.out.println("MaxValue: "+maxValue);
+			 System.out.println("Iteration: "+(i+1));
+			 System.out.println("minValue: "+minValue+", minIndex: "+minIndex);
+			 System.out.println("tcDist:\n"+Arrays.deepToString(tcDist).replace("], ", "]\n"));
+			 
 		}
 		return testSuitesDist;
 	}

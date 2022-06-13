@@ -3,6 +3,8 @@ package ctwedge.fmtester;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -188,6 +190,55 @@ public class TestsClass {
 	
 	}
 	
+	// test method used to demnostrate that the algorithm of the distance
+	// is greedy and so it does not always return the lowest value of distance
+	@Test
+	public void test_demonstrationGreedyAlgorithm() {
+		// PPU: V4-V5 = LO TROVA
+		// PPU: V6-V7 = LO TROVA PIU' SIGNIFICATIVO (5.5 vs 8.58)
+//		String fmPath = "evolutionModels\\PPU\\PPUv6.xml";
+//		String fmpPath = "evolutionModels\\PPU\\PPUv7.xml";		
+		String fmPath = "evolutionModels\\LinuxKernel\\LinuxKernelv2.xml";
+		String fmpPath = "evolutionModels\\LinuxKernel\\LinuxKernelv3.xml";		
+		
+		// Getting the test suite ts of the first feature model
+		FeatureIdeImporterBoolean importer = new FeatureIdeImporterBoolean();
+		ACTSTranslator acts = new ACTSTranslator();
+		CitModel model = importer.importModel(fmPath);
+		TestSuite ts = acts.getTestSuite(model, 2, false);
+		
+		// Getting the test suite tsp of the second feature model
+		FeatureIdeImporterBoolean importerp = new FeatureIdeImporterBoolean();
+		ACTSTranslator actsp = new ACTSTranslator();
+		model = importerp.importModel(fmpPath);
+		TestSuite tsp = actsp.getTestSuite(model, 2, false);
+		
+		// |TS| < |TS'| so TS = row in tcDist
+		float originalDistanceValue = DistancesCalculator.percTestSuitesDist(ts, tsp);
+		boolean found = false;
+		
+		List<ctwedge.util.Test> TStestCases = ts.getTests();
+		System.out.println("Tests before shuffle: "+TStestCases.toString());
+		// Let's check if doing a shuffle on the order of test cases
+		// in the List "tests" of TS the value of distance is changing
+		for(int i=0; i<20; i++) {
+			// shuffling the orderd of test cases in TS
+			Collections.shuffle(TStestCases);
+			System.out.println("Tests after shuffle["+i+"]: "+TStestCases.toString());
+			ts.setTests(TStestCases);	
+			float shuffledDistanceValue = DistancesCalculator.percTestSuitesDist(ts, tsp);
+			if(originalDistanceValue!=shuffledDistanceValue) {
+				System.out.println("**************************************************************");
+				System.out.println("I FOUND A VALUE OF DISTANCE WHICH IS DIFFERENT!"+"\noriginal: "+originalDistanceValue+"\nshuffled:"+shuffledDistanceValue);
+				System.out.println("**************************************************************");
+				found = true;
+			}
+			//System.out.println("**"+DistancesCalculator.percTestSuitesDist(ts, tsp)+"% **");
+		}
+		
+		System.out.println("TROVATO? "+ (found? "SI" : "NO"));
+		System.out.println("original: "+originalDistanceValue+"%");
+	}
 	
 	private static TestSuite getTestSuite(String pathToFM) {
 		// import Feature Model .xml
