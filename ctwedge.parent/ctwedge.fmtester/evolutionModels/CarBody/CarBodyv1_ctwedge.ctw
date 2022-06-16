@@ -1,57 +1,16 @@
 Model MCarBodyv1 Parameters :
 CarBody : Boolean
 MultimediaDevices : Boolean
-Radio : { MonochromeRadioDisplay ColorRadioDisplay NONE }
-OtherFeatures : Boolean Constraints :
-# CarBody != TRUE #
-# MultimediaDevices != TRUE => CarBody != TRUE #
-# Radio != NONE => MultimediaDevices != TRUE #
-# OtherFeatures != TRUE <=> CarBody != TRUE #Model MCarBodyv1 Parameters :
-CarBody : Boolean
-MultimediaDevices : Boolean
-Radio : { MonochromeRadioDisplay ColorRadioDisplay NONE }
-OtherFeatures : Boolean Constraints :
-# CarBody != TRUE #
-# MultimediaDevices != TRUE => CarBody != TRUE #
-# Radio != NONE => MultimediaDevices != TRUE #
-# OtherFeatures != TRUE <=> CarBody != TRUE #Model MCarBodyv1 Parameters :
-CarBody : Boolean
-MultimediaDevices : Boolean
-Radio : { MonochromeRadioDisplay ColorRadioDisplay NONE }
-OtherFeatures : Boolean Constraints :
-# CarBody != TRUE #
-# MultimediaDevices != TRUE => CarBody != TRUE #
-# Radio != NONE => MultimediaDevices != TRUE #
-# OtherFeatures != TRUE <=> CarBody != TRUE #Model MCarBodyv1 Parameters :
-CarBody : Boolean
-MultimediaDevices : Boolean
-Radio : { MonochromeRadioDisplay ColorRadioDisplay NONE }
-OtherFeatures : Boolean Constraints :
-# CarBody != TRUE #
-# MultimediaDevices != TRUE => CarBody != TRUE #
-# Radio != NONE => MultimediaDevices != TRUE #
-# OtherFeatures != TRUE <=> CarBody != TRUE #Model MCarBodyv1 Parameters :
-CarBody : Boolean
-MultimediaDevices : Boolean
-Radio : { MonochromeRadioDisplay ColorRadioDisplay NONE }
-OtherFeatures : Boolean Constraints :
-# CarBody != TRUE #
-# MultimediaDevices != TRUE => CarBody != TRUE #
-# Radio != NONE => MultimediaDevices != TRUE #
-# OtherFeatures != TRUE <=> CarBody != TRUE #Model MCarBodyv1 Parameters :
-CarBody : Boolean
-MultimediaDevices : Boolean
-Radio : { MonochromeRadioDisplay ColorRadioDisplay NONE }
+Radio : Boolean
+MonochromeRadioDisplay : Boolean
+ColorRadioDisplay : Boolean
 OtherFeatures : Boolean Constraints :
 # CarBody == TRUE #
 # MultimediaDevices == TRUE => CarBody == TRUE #
-# Radio == NONE => MultimediaDevices == TRUE #
-# OtherFeatures == TRUE <=> CarBody == TRUE #Model MCarBodyv1 Parameters :
-CarBody : Boolean
-MultimediaDevices : Boolean
-Radio : { MonochromeRadioDisplay ColorRadioDisplay NONE }
-OtherFeatures : Boolean Constraints :
-# CarBody == TRUE #
-# MultimediaDevices == TRUE => CarBody == TRUE #
-# Radio == NONE => MultimediaDevices == TRUE #
+# Radio == TRUE => MultimediaDevices == TRUE #
+# Radio == TRUE => MonochromeRadioDisplay == TRUE || ColorRadioDisplay == TRUE #
+# MonochromeRadioDisplay == TRUE => ! ColorRadioDisplay #
+# MonochromeRadioDisplay == TRUE => Radio == TRUE #
+# ColorRadioDisplay == TRUE => ! MonochromeRadioDisplay #
+# ColorRadioDisplay == TRUE => Radio == TRUE #
 # OtherFeatures == TRUE <=> CarBody == TRUE #

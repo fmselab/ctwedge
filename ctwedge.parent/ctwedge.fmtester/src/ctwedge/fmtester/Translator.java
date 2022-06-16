@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.medici.MediciCITGenerator;
 import ctwedge.generator.util.Utility;
+import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 
@@ -36,20 +37,54 @@ public class Translator {
 	static String outputModelPath;
 
 	/**
-	 * Translate the input FM model to the corresponding CTWedge model
+	 * Translate the input FM model to the corresponding CTWedge model considering
+	 * also the possibility of having ENUM parameters
 	 * 
 	 * @param inPath  the path to the input Feature Model .xml file
 	 * @param outPath the path to the output CTWedge .ctw file
 	 * @return a {@link String} with the translated CTWedge model
 	 */
-	static public String fromFMtoCTWedge(String inPath, String outPath) throws IOException {
+	static public String fromFMtoCTWedge_ENUM(String inPath, String outPath) throws IOException {
 
 		// disabilito temporaneamente system.out
 		PrintStream originalStream = System.out;
 		CombinatorialTestGenerator.consolePrintingOff();
 
-		// importo Feature Model .xml
+		// importo Feature Model .xml con Enum importer
 		XmlFeatureModelImporter importer = new XmlFeatureModelImporter();
+		CitModel model = importer.importModel(inPath);
+		ModelUtils utils = new ModelUtils(model);
+
+		// converto e scrivo il modello CTWedge in outPath
+		// AG messo a false l'append
+		FileWriter file = new FileWriter(outPath, false);
+		PrintWriter outputfile = new PrintWriter(file);
+		final String res = utils.serializeToString();
+		outputfile.write(res);
+		outputfile.close();
+
+		// riabilito system out
+		CombinatorialTestGenerator.consolePrintingOn(originalStream);
+
+		return res;
+	}
+	
+	/**
+	 * Translate the input FM model to the corresponding CTWedge model
+	 * forcing all the parameters to be only boolean
+	 * 
+	 * @param inPath  the path to the input Feature Model .xml file
+	 * @param outPath the path to the output CTWedge .ctw file
+	 * @return a {@link String} with the translated CTWedge model
+	 */
+	static public String fromFMtoCTWedge_BOOLEAN(String inPath, String outPath) throws IOException {
+
+		// disabilito temporaneamente system.out
+		PrintStream originalStream = System.out;
+		CombinatorialTestGenerator.consolePrintingOff();
+
+		// importo Feature Model .xml con Boolean importer
+		FeatureIdeImporterBoolean importer = new FeatureIdeImporterBoolean();
 		CitModel model = importer.importModel(inPath);
 		ModelUtils utils = new ModelUtils(model);
 
@@ -100,18 +135,18 @@ public class Translator {
 
 	public static void main(String[] args) throws IOException {
 
-		/* TRADUZIONE MODELLI: da FM a CTWedge */
-		evolutionModels_FMtoCTWedge();
+		/* TRADUZIONE MODELLI: da FM a CTWedge (con parametri solo boolean) */
+		evolutionModels_FMtoCTWedge_BOOLEAN();
 
 		/* TRADUZIONE MODELLI: da CTWedge a medici */
-		evolutionModels_CTWedgeToMedici();
+//		evolutionModels_CTWedgeToMedici();
 
 		/* ESECUZIONE "medici.exe" E GENERAZIONE DATI SULLE CONFIGURAZIONI */
-		evolutionModels_MediciEXE();
+//		evolutionModels_MediciEXE();
 
 	}
 
-	private static void evolutionModels_FMtoCTWedge() throws IOException {
+	private static void evolutionModels_FMtoCTWedge_BOOLEAN() throws IOException {
 
 		System.out.println("###############################################");
 		System.out.println("-- CONVERSION: FROM FEATURE MODEL TO CTWEDGE --");
@@ -129,7 +164,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v2 */
@@ -140,7 +175,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 		// ###########################################################################
 
@@ -156,7 +191,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v2 */
@@ -167,7 +202,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v3 */
@@ -178,7 +213,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 		// ###########################################################################
 
@@ -194,7 +229,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		System.out.println("\n");
@@ -207,7 +242,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		System.out.println("\n");
@@ -220,7 +255,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		System.out.println("\n");
@@ -238,7 +273,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		System.out.println("\n");
@@ -251,7 +286,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		System.out.println("\n");
@@ -264,7 +299,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		System.out.println("\n");
@@ -277,7 +312,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		System.out.println("\n");
@@ -295,7 +330,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v2 */
@@ -306,7 +341,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v3 */
@@ -317,7 +352,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 		// ###########################################################################
 
@@ -333,7 +368,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v2 */
@@ -344,7 +379,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v3 */
@@ -355,7 +390,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v4 */
@@ -366,7 +401,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v5 */
@@ -377,7 +412,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 		// ###########################################################################
 
@@ -393,7 +428,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v2 */
@@ -404,7 +439,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v3 */
@@ -415,7 +450,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v4 */
@@ -426,7 +461,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v5 */
@@ -437,7 +472,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v6 */
@@ -448,7 +483,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v7 */
@@ -459,7 +494,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v8 */
@@ -470,7 +505,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v9 */
@@ -481,7 +516,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 		// ###########################################################################
 
@@ -497,7 +532,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v2 */
@@ -508,7 +543,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		// ###########################################################################
@@ -523,7 +558,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v2 */
@@ -534,7 +569,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 		// ###########################################################################
 
@@ -550,7 +585,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 
 		/* v2 */
@@ -561,7 +596,7 @@ public class Translator {
 		outputModelPath = modelUpperFolder + "/" + modelFolder + "/" + outputModelName;
 
 		System.out.println("----------------------------------------------");
-		fromFMtoCTWedge(inputModelPath, outputModelPath);
+		fromFMtoCTWedge_BOOLEAN(inputModelPath, outputModelPath);
 		System.out.println("** " + inputModelName + " **\n" + "Output: " + outputModelName);
 		// ###########################################################################
 

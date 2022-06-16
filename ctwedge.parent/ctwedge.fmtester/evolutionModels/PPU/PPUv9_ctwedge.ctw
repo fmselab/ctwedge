@@ -1,114 +1,39 @@
 Model MPPUv9 Parameters :
 PPU : Boolean
-Crane : { SRouting ERouting NONE }
-Slide : { Straight Conveyor NONE }
-Conveyor : { SSortation DSortation NONE }
+Crane : Boolean
+SRouting : Boolean
+ERouting : Boolean
+Slide : Boolean
+Straight : Boolean
+Conveyor : Boolean
+SSortation : Boolean
+DSortation : Boolean
 Workpiece : Boolean
 Plastic : Boolean
 Light : Boolean
 Dark : Boolean
 Metal : Boolean
-Stamp : { SPressure APressure NONE } Constraints :
-# PPU != TRUE #
-# Crane != NONE <=> PPU != TRUE #
-# Slide != NONE <=> PPU != TRUE #
-# Conveyor != NONE <=> Slide != Conveyor #
-# Workpiece != TRUE <=> PPU != TRUE #
-# Workpiece != TRUE => Plastic != TRUE || Metal != TRUE #
-# Plastic != TRUE => Workpiece != TRUE #
-# Plastic != TRUE => Light != TRUE || Dark != TRUE #
-# Light != TRUE => Plastic != TRUE #
-# Dark != TRUE => Plastic != TRUE #
-# Metal != TRUE => Workpiece != TRUE #
-# Stamp != NONE => PPU != TRUE #
-# Stamp != NONE => Metal != TRUE #
-# Light != TRUE => Stamp != APressure #Model MPPUv9 Parameters :
-PPU : Boolean
-Crane : { SRouting ERouting NONE }
-Slide : { Straight Conveyor NONE }
-Conveyor : { SSortation DSortation NONE }
-Workpiece : Boolean
-Plastic : Boolean
-Light : Boolean
-Dark : Boolean
-Metal : Boolean
-Stamp : { SPressure APressure NONE } Constraints :
-# PPU != TRUE #
-# Crane != NONE <=> PPU != TRUE #
-# Slide != NONE <=> PPU != TRUE #
-# Conveyor != NONE <=> Slide != Conveyor #
-# Workpiece != TRUE <=> PPU != TRUE #
-# Workpiece != TRUE => Plastic != TRUE || Metal != TRUE #
-# Plastic != TRUE => Workpiece != TRUE #
-# Plastic != TRUE => Light != TRUE || Dark != TRUE #
-# Light != TRUE => Plastic != TRUE #
-# Dark != TRUE => Plastic != TRUE #
-# Metal != TRUE => Workpiece != TRUE #
-# Stamp != NONE => PPU != TRUE #
-# Stamp != NONE => Metal != TRUE #
-# Light != TRUE => Stamp != APressure #Model MPPUv9 Parameters :
-PPU : Boolean
-Crane : { SRouting ERouting NONE }
-Slide : { Straight Conveyor NONE }
-Conveyor : { SSortation DSortation NONE }
-Workpiece : Boolean
-Plastic : Boolean
-Light : Boolean
-Dark : Boolean
-Metal : Boolean
-Stamp : { SPressure APressure NONE } Constraints :
-# PPU != TRUE #
-# Crane != NONE <=> PPU != TRUE #
-# Slide != NONE <=> PPU != TRUE #
-# Conveyor != NONE <=> Slide != Conveyor #
-# Workpiece != TRUE <=> PPU != TRUE #
-# Workpiece != TRUE => Plastic != TRUE || Metal != TRUE #
-# Plastic != TRUE => Workpiece != TRUE #
-# Plastic != TRUE => Light != TRUE || Dark != TRUE #
-# Light != TRUE => Plastic != TRUE #
-# Dark != TRUE => Plastic != TRUE #
-# Metal != TRUE => Workpiece != TRUE #
-# Stamp != NONE => PPU != TRUE #
-# Stamp != NONE => Metal != TRUE #
-# Light != TRUE => Stamp != APressure #Model MPPUv9 Parameters :
-PPU : Boolean
-Crane : { SRouting ERouting NONE }
-Slide : { Straight Conveyor NONE }
-Conveyor : { SSortation DSortation NONE }
-Workpiece : Boolean
-Plastic : Boolean
-Light : Boolean
-Dark : Boolean
-Metal : Boolean
-Stamp : { SPressure APressure NONE } Constraints :
-# PPU != TRUE #
-# Crane != NONE <=> PPU != TRUE #
-# Slide != NONE <=> PPU != TRUE #
-# Conveyor != NONE <=> Slide != Conveyor #
-# Workpiece != TRUE <=> PPU != TRUE #
-# Workpiece != TRUE => Plastic != TRUE || Metal != TRUE #
-# Plastic != TRUE => Workpiece != TRUE #
-# Plastic != TRUE => Light != TRUE || Dark != TRUE #
-# Light != TRUE => Plastic != TRUE #
-# Dark != TRUE => Plastic != TRUE #
-# Metal != TRUE => Workpiece != TRUE #
-# Stamp != NONE => PPU != TRUE #
-# Stamp != NONE => Metal != TRUE #
-# Light != TRUE => Stamp != APressure #Model MPPUv9 Parameters :
-PPU : Boolean
-Crane : { SRouting ERouting NONE }
-Slide : { Straight Conveyor NONE }
-Conveyor : { SSortation DSortation NONE }
-Workpiece : Boolean
-Plastic : Boolean
-Light : Boolean
-Dark : Boolean
-Metal : Boolean
-Stamp : { SPressure APressure NONE } Constraints :
+Stamp : Boolean
+SPressure : Boolean
+APressure : Boolean Constraints :
 # PPU == TRUE #
-# Crane == NONE <=> PPU == TRUE #
-# Slide == NONE <=> PPU == TRUE #
-# Conveyor != NONE <=> Slide == Conveyor #
+# Crane == TRUE <=> PPU == TRUE #
+# Crane == TRUE => SRouting == TRUE || ERouting == TRUE #
+# SRouting == TRUE => ! ERouting #
+# SRouting == TRUE => Crane == TRUE #
+# ERouting == TRUE => ! SRouting #
+# ERouting == TRUE => Crane == TRUE #
+# Slide == TRUE <=> PPU == TRUE #
+# Slide == TRUE => Straight == TRUE || Conveyor == TRUE #
+# Straight == TRUE => ! Conveyor #
+# Straight == TRUE => Slide == TRUE #
+# Conveyor == TRUE => ! Straight #
+# Conveyor == TRUE => Slide == TRUE #
+# Conveyor == TRUE => SSortation == TRUE || DSortation == TRUE #
+# SSortation == TRUE => ! DSortation #
+# SSortation == TRUE => Conveyor == TRUE #
+# DSortation == TRUE => ! SSortation #
+# DSortation == TRUE => Conveyor == TRUE #
 # Workpiece == TRUE <=> PPU == TRUE #
 # Workpiece == TRUE => Plastic == TRUE || Metal == TRUE #
 # Plastic == TRUE => Workpiece == TRUE #
@@ -116,30 +41,11 @@ Stamp : { SPressure APressure NONE } Constraints :
 # Light == TRUE => Plastic == TRUE #
 # Dark == TRUE => Plastic == TRUE #
 # Metal == TRUE => Workpiece == TRUE #
-# Stamp == NONE => PPU == TRUE #
-# Stamp == NONE => Metal == TRUE #
-# Light == TRUE => Stamp == APressure #Model MPPUv9 Parameters :
-PPU : Boolean
-Crane : { SRouting ERouting NONE }
-Slide : { Straight Conveyor NONE }
-Conveyor : { SSortation DSortation NONE }
-Workpiece : Boolean
-Plastic : Boolean
-Light : Boolean
-Dark : Boolean
-Metal : Boolean
-Stamp : { SPressure APressure NONE } Constraints :
-# PPU == TRUE #
-# Crane == NONE <=> PPU == TRUE #
-# Slide == NONE <=> PPU == TRUE #
-# Conveyor != NONE <=> Slide == Conveyor #
-# Workpiece == TRUE <=> PPU == TRUE #
-# Workpiece == TRUE => Plastic == TRUE || Metal == TRUE #
-# Plastic == TRUE => Workpiece == TRUE #
-# Plastic == TRUE => Light == TRUE || Dark == TRUE #
-# Light == TRUE => Plastic == TRUE #
-# Dark == TRUE => Plastic == TRUE #
-# Metal == TRUE => Workpiece == TRUE #
-# Stamp == NONE => PPU == TRUE #
-# Stamp == NONE => Metal == TRUE #
-# Light == TRUE => Stamp == APressure #
+# Stamp == TRUE => PPU == TRUE #
+# Stamp == TRUE => SPressure == TRUE || APressure == TRUE #
+# SPressure == TRUE => ! APressure #
+# SPressure == TRUE => Stamp == TRUE #
+# APressure == TRUE => ! SPressure #
+# APressure == TRUE => Stamp == TRUE #
+# Stamp == TRUE => Metal == TRUE #
+# Light == TRUE => APressure == TRUE #
