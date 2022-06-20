@@ -2,6 +2,7 @@ package ctwedge.fmtester;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -249,6 +250,25 @@ public class TestsClass {
 		// generate boolean TS with ACTS (pair-wise)
 		ACTSTranslator acts = new ACTSTranslator();
 		return acts.getTestSuite(model, 2, false);
+	}
+	
+	@Test
+	public void percTestSuitesDist_FromTestSuites() throws IOException {
+		String fmPath = "../ctwedge.fmtester/evolutionModels/Boeing/Boeingv1.xml";
+		String tsPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_Boeingv1.csv";
+		String fmpPath = "../ctwedge.fmtester/evolutionModels/Boeing/Boeingv2.xml";
+		String tspPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_Boeingv2.csv";
+		
+		float res = DistancesCalculator.percTestSuitesDist_FromTestSuites(fmPath, tsPath, fmpPath, tspPath);
+		System.out.println("Distance Boeing ts v1-v2: "+res+"%");
+		
+		fmPath = "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv3.xml";
+		tsPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_ParkingAssistantv3.csv";
+		fmpPath =  "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv4.xml";
+		tspPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_ParkingAssistantv4.csv";
+		
+		res = DistancesCalculator.percTestSuitesDist_FromTestSuites(fmPath, tsPath, fmpPath, tspPath);
+		System.out.println("Distance ParkingAssistant ts v3-v4: "+res+"%");
 	}
 	
 	// ------------------------------------------------------------------

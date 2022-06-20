@@ -1,7 +1,11 @@
 package ctwedge.fmtester;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
@@ -25,46 +29,86 @@ import ctwedge.util.TestSuite;
 public class DistancesCalculator {
 
 	/*
-	 * Info about implementation:
-	 * - TestSuite is a List of <Test>
-	 * - each Test is a Map<key,value> where
-	 * - Map<feature,value> in particular Map<key,value> is
-	 *   implemented as TreeMap<String,String>
+	 * Info about implementation: - TestSuite is a List of <Test> - each Test is a
+	 * Map<key,value> where - Map<feature,value> in particular Map<key,value> is
+	 * implemented as TreeMap<String,String>
 	 * 
 	 */
-	
+
 	/**
-	 * Get the greedy distance as percentage between the boolean combinatorial
-	 * test suites of the feature models fm and fmp
+	 * Get the greedy distance as percentage between the boolean combinatorial test
+	 * suites of the feature models fm and fmp. This method imports the test suites
+	 * (.csv format) from the parameters and calculates the distance between them.
 	 * 
-	 * @param fmPath the path to the first feature model
-	 * @param fmpPath the path to the second feature model
+	 * @param fmPath the path to the first feature model (.xml)
+	 * @param tsPath the path to the test suite of the first feature model (.csv)
+	 * @param fmpPath the path to the second feature model (.xml)
+	 * @param tspPath the path to the test suite of the second feature model (.csv)
 	 * 
-	 * @return distance% between the test suites of fm and fmp
+	 * @return % distance between the test suites of fm and fmp
+	 * @throws IOException 
 	 */
-	public static float percTestSuitesDist_FromModels(String fmPath, String fmpPath) {
+	public static float percTestSuitesDist_FromTestSuites(String fmPath, String tsPath, String fmpPath, String tspPath) throws IOException {
 		
-		// disabilito stampa a console
+		// Disabling console printing
 		PrintStream originalStream = System.out;
 		consolePrintingOff();
-				
+
+		// Populating the test suite ts (=TS) of the first model
+		// Importing the feature model
+		FeatureIdeImporterBoolean importer = new FeatureIdeImporterBoolean();
+		CitModel model = importer.importModel(fmPath);
+		// Importing the test suite
+		String importedTs = new String(Files.readAllBytes(Paths.get(tsPath)), StandardCharsets.UTF_8);
+		// Populating the test suite of the model
+		TestSuite ts = new TestSuite(importedTs, model, ",");
+		
+		// Populating the test suite tsp (=TS') of the second model
+		FeatureIdeImporterBoolean importerp = new FeatureIdeImporterBoolean();
+		CitModel modelp = importerp.importModel(fmpPath);
+		String importedTsp = new String(Files.readAllBytes(Paths.get(tspPath)), StandardCharsets.UTF_8);
+		TestSuite tsp = new TestSuite(importedTsp, modelp, ",");
+
+		// Enabling console printing
+		consolePrintingOn(originalStream);
+
+		return DistancesCalculator.percTestSuitesDist(ts, tsp);
+
+	}
+
+	/**
+	 * Get the greedy distance as percentage between the boolean combinatorial test
+	 * suites of the feature models fm and fmp. This method generates the test
+	 * suites from the imported models (parameters) before calculating the distance.
+	 * 
+	 * @param fmPath  the path to the first feature model (.xml)
+	 * @param fmpPath the path to the second feature model (.xml)
+	 * 
+	 * @return % distance between the test suites of fm and fmp
+	 */
+	public static float percTestSuitesDist_FromModels(String fmPath, String fmpPath) {
+
+		// Disabling console printing
+		PrintStream originalStream = System.out;
+		consolePrintingOff();
+
 		// Getting the test suite ts of the first feature model
 		FeatureIdeImporterBoolean importer = new FeatureIdeImporterBoolean();
 		ACTSTranslator acts = new ACTSTranslator();
 		CitModel model = importer.importModel(fmPath);
 		TestSuite ts = acts.getTestSuite(model, 2, false);
-		
+
 		// Getting the test suite tsp of the second feature model
 		FeatureIdeImporterBoolean importerp = new FeatureIdeImporterBoolean();
 		ACTSTranslator actsp = new ACTSTranslator();
 		model = importerp.importModel(fmpPath);
 		TestSuite tsp = actsp.getTestSuite(model, 2, false);
-		
-		// riabilito stampa a console
+
+		// Enabling console printing
 		consolePrintingOn(originalStream);
-		
+
 		return DistancesCalculator.percTestSuitesDist(ts, tsp);
-		
+
 	}
 
 	/**
@@ -86,10 +130,9 @@ public class DistancesCalculator {
 
 		/* Debug printing of various distance info */
 //		  final float ratioDist = (greedyTestSuiteDist/wortsTestSuitesDist);
-		  System.out.println("Worst dist: "+wortsTestSuitesDist);
-		  System.out.println("Greedy dist: "+greedyTestSuiteDist);
+		System.out.println("Worst dist: " + wortsTestSuitesDist);
+		System.out.println("Greedy dist: " + greedyTestSuiteDist);
 //		  System.out.println("Perc dist: "+ratioDist);
-		 
 
 		return (greedyTestSuiteDist / wortsTestSuitesDist) * 100;
 	}
@@ -118,8 +161,8 @@ public class DistancesCalculator {
 			testSuitesDist = (nCols - nRows) * tsp.getTests().get(0).keySet().size();
 
 		/* Debug printing of tcDist as table and other info */
-		System.out.println("Before loop - tcDist:\n"+Arrays.deepToString(tcDist).replace("], ", "]\n"));
-		
+		System.out.println("Before loop - tcDist:\n" + Arrays.deepToString(tcDist).replace("], ", "]\n"));
+
 		for (int i = 0; i < nRows; i++) {
 			int minValue = maxValue;
 			int minIndex = -1;
@@ -138,11 +181,11 @@ public class DistancesCalculator {
 				tcDist[k][minIndex] = maxValue;
 
 			/* Debug printing of tcDist as table and other info */
-			System.out.println("MaxValue: "+maxValue);
-			 System.out.println("Iteration: "+(i+1));
-			 System.out.println("minValue: "+minValue+", minIndex: "+minIndex);
-			 System.out.println("tcDist:\n"+Arrays.deepToString(tcDist).replace("], ", "]\n"));
-			 
+			System.out.println("MaxValue: " + maxValue);
+			System.out.println("Iteration: " + (i + 1));
+			System.out.println("minValue: " + minValue + ", minIndex: " + minIndex);
+			System.out.println("tcDist:\n" + Arrays.deepToString(tcDist).replace("], ", "]\n"));
+
 		}
 		return testSuitesDist;
 	}
@@ -182,21 +225,21 @@ public class DistancesCalculator {
 
 		// |TS|>=|TS'|
 		if (cardTs >= cardTsp)
-			tcDist = new int[cardTsp][cardTs]; //ts=cols, tsp=rows
+			tcDist = new int[cardTsp][cardTs]; // ts=cols, tsp=rows
 		// |TS|<|TS'|
 		else
-			tcDist = new int[cardTs][cardTsp]; //ts=rows, tsp=cols
-		
+			tcDist = new int[cardTs][cardTsp]; // ts=rows, tsp=cols
+
 		final int nRows = tcDist.length; // tcDist rows number
 		final int nCols = tcDist[0].length; // tcDist cols number
 
-		for (int i = 0; i<nRows; i++) {
-			for (int j = 0; j<nCols; j++) {
+		for (int i = 0; i < nRows; i++) {
+			for (int j = 0; j < nCols; j++) {
 				// |TS|>=|TS'|
-				if (cardTs >= cardTsp) //i=tsp=rows, j=ts=cols
+				if (cardTs >= cardTsp) // i=tsp=rows, j=ts=cols
 					tcDist[i][j] = DistancesCalculator.testCasesDist(tsp.getTests().get(i), ts.getTests().get(j));
 				// |TS|<|TS'|
-				else //i=ts=rows, j=tsp=cols
+				else // i=ts=rows, j=tsp=cols
 					tcDist[i][j] = DistancesCalculator.testCasesDist(ts.getTests().get(i), tsp.getTests().get(j));
 			}
 		}
@@ -242,7 +285,7 @@ public class DistancesCalculator {
 		else
 			return 0;
 	}
-	
+
 	/**
 	 * Deactivate console printing
 	 */
@@ -263,6 +306,5 @@ public class DistancesCalculator {
 	private static void consolePrintingOn(PrintStream originalStream) {
 		System.setOut(originalStream);
 	}
-
 
 }
