@@ -49,6 +49,17 @@ public class CombinatorialTestGenerator {
 		FMName = "AmbientAssistedLivingv1.xml";
 		FMtime = generateBooleanTestAndExportCSV(FMName, FMInputPath);
 		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		
+		/* v1 */
+		FMName = "AmbientAssistedLivingv1.xml";
+		FMtime = generateBooleanTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		
+		/* v1 */
+		FMName = "AmbientAssistedLivingv1.xml";
+		FMtime = generateBooleanTestAndExportCSV(FMName, FMInputPath);
+		System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+		
 		/* v2 */
 		FMName = "AmbientAssistedLivingv2.xml";
 		FMtime = generateBooleanTestAndExportCSV(FMName, FMInputPath);
