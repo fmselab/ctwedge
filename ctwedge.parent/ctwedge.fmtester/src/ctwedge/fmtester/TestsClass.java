@@ -259,7 +259,7 @@ public class TestsClass {
 		String fmpPath = "../ctwedge.fmtester/evolutionModels/Boeing/Boeingv2.xml";
 		String tspPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_Boeingv2.csv";
 		
-		float res = DistancesCalculator.percTestSuitesDist_FromTestSuites(fmPath, tsPath, fmpPath, tspPath);
+		float res = DistancesCalculator.percTestSuitesDist_FromTestSuites(fmPath, tsPath, ",", fmpPath, tspPath, ",");
 		System.out.println("Distance Boeing ts v1-v2: "+res+"%");
 		
 		fmPath = "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv3.xml";
@@ -267,7 +267,7 @@ public class TestsClass {
 		fmpPath =  "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv4.xml";
 		tspPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_ParkingAssistantv4.csv";
 		
-		res = DistancesCalculator.percTestSuitesDist_FromTestSuites(fmPath, tsPath, fmpPath, tspPath);
+		res = DistancesCalculator.percTestSuitesDist_FromTestSuites(fmPath, tsPath, ",", fmpPath, tspPath, ",");
 		System.out.println("Distance ParkingAssistant ts v3-v4: "+res+"%");
 	}
 	

@@ -27,6 +27,10 @@ import ctwedge.util.TestSuite;
  * 
  */
 public class DistancesCalculator {
+	
+	// when this field is set to "true", debug info are printed
+	// during the execution of this class
+	public static boolean PRINT_DEBUG = false;
 
 	/*
 	 * Info about implementation: - TestSuite is a List of <Test> - each Test is a
@@ -42,13 +46,15 @@ public class DistancesCalculator {
 	 * 
 	 * @param fmPath the path to the first feature model (.xml)
 	 * @param tsPath the path to the test suite of the first feature model (.csv)
+	 * @param tsDelimiter the delimiter {@link String} used to separe values in the .csv file of the first test suite
 	 * @param fmpPath the path to the second feature model (.xml)
 	 * @param tspPath the path to the test suite of the second feature model (.csv)
+	 * @param tspDelimiter the delimiter {@link String} used to separe values in the .csv file of the second test suite
 	 * 
 	 * @return % distance between the test suites of fm and fmp
 	 * @throws IOException 
 	 */
-	public static float percTestSuitesDist_FromTestSuites(String fmPath, String tsPath, String fmpPath, String tspPath) throws IOException {
+	public static float percTestSuitesDist_FromTestSuites(String fmPath, String tsPath, String tsDelimiter,  String fmpPath, String tspPath, String tspDelimiter) throws IOException {
 		
 		// Disabling console printing
 		PrintStream originalStream = System.out;
@@ -61,13 +67,13 @@ public class DistancesCalculator {
 		// Importing the test suite
 		String importedTs = new String(Files.readAllBytes(Paths.get(tsPath)), StandardCharsets.UTF_8);
 		// Populating the test suite of the model
-		TestSuite ts = new TestSuite(importedTs, model, ",");
+		TestSuite ts = new TestSuite(importedTs, model, tsDelimiter);
 		
 		// Populating the test suite tsp (=TS') of the second model
 		FeatureIdeImporterBoolean importerp = new FeatureIdeImporterBoolean();
 		CitModel modelp = importerp.importModel(fmpPath);
 		String importedTsp = new String(Files.readAllBytes(Paths.get(tspPath)), StandardCharsets.UTF_8);
-		TestSuite tsp = new TestSuite(importedTsp, modelp, ",");
+		TestSuite tsp = new TestSuite(importedTsp, modelp, tspDelimiter);
 
 		// Enabling console printing
 		consolePrintingOn(originalStream);
@@ -129,10 +135,12 @@ public class DistancesCalculator {
 		final float greedyTestSuiteDist = DistancesCalculator.testSuitesDist(ts, tsp);
 
 		/* Debug printing of various distance info */
-//		  final float ratioDist = (greedyTestSuiteDist/wortsTestSuitesDist);
+		if(PRINT_DEBUG) {
+		final float ratioDist = (greedyTestSuiteDist/wortsTestSuitesDist);
 		System.out.println("Worst dist: " + wortsTestSuitesDist);
 		System.out.println("Greedy dist: " + greedyTestSuiteDist);
-//		  System.out.println("Perc dist: "+ratioDist);
+		System.out.println("Perc dist: "+ratioDist);
+		}
 
 		return (greedyTestSuiteDist / wortsTestSuitesDist) * 100;
 	}
@@ -161,7 +169,9 @@ public class DistancesCalculator {
 			testSuitesDist = (nCols - nRows) * tsp.getTests().get(0).keySet().size();
 
 		/* Debug printing of tcDist as table and other info */
+		if(PRINT_DEBUG) {
 		System.out.println("Before loop - tcDist:\n" + Arrays.deepToString(tcDist).replace("], ", "]\n"));
+		}
 
 		for (int i = 0; i < nRows; i++) {
 			int minValue = maxValue;
@@ -181,10 +191,12 @@ public class DistancesCalculator {
 				tcDist[k][minIndex] = maxValue;
 
 			/* Debug printing of tcDist as table and other info */
+			if(PRINT_DEBUG) {
 			System.out.println("MaxValue: " + maxValue);
 			System.out.println("Iteration: " + (i + 1));
 			System.out.println("minValue: " + minValue + ", minIndex: " + minIndex);
 			System.out.println("tcDist:\n" + Arrays.deepToString(tcDist).replace("], ", "]\n"));
+			}
 
 		}
 		return testSuitesDist;

@@ -1,19 +1,26 @@
-package ctwedge.fmtester;
+package ctwedge.fmtester.experiments;
 
 import java.io.IOException;
 
+import ctwedge.fmtester.DistancesCalculator;
+
 /**
- * {@link EvolvingModelDistances} calculate the distance between the test suites
- * of evolving feature model
+ * Calculate the distance between the test suites of the evolving feature
+ * models. In particular, the distances are determined between the following
+ * test suites:
+ * <ul>
+ * <li>old test suite = generated from scratch</li>
+ * <li>new test suite = generated from scratch</li>
+ * </ul>
  */
-public class EvolvingModelDistances {
-	
+public class EvolvingModelDistances_FromScratchTS {
+
 	private static final String EVOLUTION_MODELS_INPUT_FOLDER = "evolutionModels/";
 	private static final String FROMSCRATCH_TEST_INPUT_FOLDER = "evolutionModels_TestsCSV/";
 	private static final String INCREMENTAl_TEST_INPUT_FOLDER = "evolutionModels_IncrementalTestsCSV/";
 
 	public static void main(String[] args) throws IOException {
-		
+
 		System.out.println("-- DISTANCES BETWEEN TS CALCULATION --");
 
 		// input folders
@@ -22,8 +29,8 @@ public class EvolvingModelDistances {
 		String FMSubFolder;
 		String FMInputPath;
 		String fmPath;
-		String fmpPath;		
-		
+		String fmpPath;
+
 		/* TECHINQUE 1: GENERATION FROM SCRATCH */
 		System.out.println();
 		System.out.println("-- TECHINQUE 1: GENERATION FROM SCRATCH --");
@@ -459,56 +466,5 @@ public class EvolvingModelDistances {
 		System.out.println("TS: "+ FMName + ", TS': "+FMpName);
 		System.out.println("Distance TS-TS': "+DistancesCalculator.percTestSuitesDist_FromModels(fmPath, fmpPath)+"%");		
 		// ------------------------------------------------------------------
-	
-		//***********************************************************************
-		//***********************************************************************
-		//***********************************************************************
-		
-		
-		String TSName="";
-		String TSpName="";
-		String TSPath="";
-		String TSpPath="";
-		
-		/* TECHINQUE 2: INCREMENTAL GENERATION */
-		System.out.println();
-		System.out.println("-- TECHNIQUE 2: INCREMENTAL GENERATION --");
-		System.out.println();
-		
-		
-		
-		/* EVOLUTION MODEL: AmbientAssistedLiving */
-		FMSubFolder = "AmbientAssistedLiving";
-		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
-		
-		System.out.println();
-		System.out.println("***** " + FMSubFolder+" *****");
-	
-		// ------------------------------------------------------------------
-		System.out.println("----------------------------------------------");
-		
-		// First Model - CTWedge model
-		FMName = "AmbientAssistedLivingv1.xml";
-		fmPath = FMInputPath+FMName;
-		
-		// First Model - TS
-		TSName = "CSVTEST_AmbientAssistedLivingv1.csv";
-		TSPath = FROMSCRATCH_TEST_INPUT_FOLDER+TSName;
-		
-		// Second Model - CTWedge model
-		FMpName = "AmbientAssistedLivingv2.xml";
-		fmpPath = FMInputPath+FMpName;
-		
-		// Second Model - TS
-		TSpName = "CSVIncrementalTest_AmbientAssistedLivingv2.csv";
-		TSpPath = INCREMENTAl_TEST_INPUT_FOLDER+TSName;
-		
-		System.out.println("TS: "+ FMName + ", TS': "+FMpName);
-		System.out.println("Distance TS-TS': "+DistancesCalculator.percTestSuitesDist_FromTestSuites(FMName, TSPath, FMpName, TSpPath)+"%");		
-		// ------------------------------------------------------------------
-
-		
-	
-	
 	}
 }
