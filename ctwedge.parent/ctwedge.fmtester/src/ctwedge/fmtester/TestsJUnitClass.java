@@ -16,7 +16,7 @@ import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.TestSuite;
 
-public class TestsClass {
+public class TestsJUnitClass {
 
 	@Test
 	public void test() {

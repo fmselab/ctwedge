@@ -13,7 +13,7 @@ import ctwedge.fmtester.DistancesCalculator;
  * <li>new test suite = generated in an incremental way</li>
  * </ul>
  */
-public class EvolvingModelDistances_IncrementalTS {
+public class DistancesCalculation_IncrementalTS {
 
 	private static final String EVOLUTION_MODELS_INPUT_FOLDER = "evolutionModels/";
 	private static final String FROMSCRATCH_TEST_INPUT_FOLDER = "evolutionModels_TestsCSV/";

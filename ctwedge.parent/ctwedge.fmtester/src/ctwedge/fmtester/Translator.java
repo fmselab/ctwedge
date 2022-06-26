@@ -16,7 +16,7 @@ import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 
 /**
- * {@link Translator} gives methods for different model conversions:
+ * Gives methods for different model conversions:
  * <ul>
  * <li>From FM (.xml) to CTWedge (.ctw)
  * <li>From CTWedge (.ctw) to medici (.txt)
@@ -48,7 +48,7 @@ public class Translator {
 
 		// disabilito temporaneamente system.out
 		PrintStream originalStream = System.out;
-		CombinatorialTestGenerator.consolePrintingOff();
+		ACTSGeneratorFromFM.consolePrintingOff();
 
 		// importo Feature Model .xml con Enum importer
 		XmlFeatureModelImporter importer = new XmlFeatureModelImporter();
@@ -64,7 +64,7 @@ public class Translator {
 		outputfile.close();
 
 		// riabilito system out
-		CombinatorialTestGenerator.consolePrintingOn(originalStream);
+		ACTSGeneratorFromFM.consolePrintingOn(originalStream);
 
 		return res;
 	}
@@ -81,7 +81,7 @@ public class Translator {
 
 		// disabilito temporaneamente system.out
 		PrintStream originalStream = System.out;
-		CombinatorialTestGenerator.consolePrintingOff();
+		ACTSGeneratorFromFM.consolePrintingOff();
 
 		// importo Feature Model .xml con Boolean importer
 		FeatureIdeImporterBoolean importer = new FeatureIdeImporterBoolean();
@@ -97,7 +97,7 @@ public class Translator {
 		outputfile.close();
 
 		// riabilito system out
-		CombinatorialTestGenerator.consolePrintingOn(originalStream);
+		ACTSGeneratorFromFM.consolePrintingOn(originalStream);
 
 		return res;
 	}
@@ -113,7 +113,7 @@ public class Translator {
 
 		// disabilito temporaneamente system.out
 		PrintStream originalStream = System.out;
-		CombinatorialTestGenerator.consolePrintingOff();
+		ACTSGeneratorFromFM.consolePrintingOff();
 
 		Path file = Paths.get(inPath, "");
 		MediciCITGenerator gen = new MediciCITGenerator();
@@ -128,7 +128,7 @@ public class Translator {
 		wf.close();
 
 		// riabilito system out
-		CombinatorialTestGenerator.consolePrintingOn(originalStream);
+		ACTSGeneratorFromFM.consolePrintingOn(originalStream);
 
 		return translateModel;
 	}
