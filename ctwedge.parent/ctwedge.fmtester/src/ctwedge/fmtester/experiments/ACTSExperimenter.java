@@ -18,7 +18,7 @@ public class ACTSExperimenter {
 
 	public static void main(String[] args) throws IOException {
 		XSSFWorkbook workbook = new XSSFWorkbook();
-		XSSFSheet sheet = workbook.createSheet("ACTS_Generation_from_scratch");
+		XSSFSheet sheet = workbook.createSheet("TIME (ms) for generating TS");
 
 		// Creating arrays with the name of all the models
 		String[] AmbientAssistedLiving = new String[] { "AmbientAssistedLivingv1", "AmbientAssistedLivingv2" };
@@ -63,8 +63,8 @@ public class ACTSExperimenter {
 
 		// The first generations require more time for setting up the environment.
 		// For this reason, I will execute 100 generations at the beginning without
-		// writing
-		// anything in the sheet. The real experiment starts after this 3 generations.
+		// writing anything in the sheet. The real experiment starts after this 100
+		// generations.
 
 		// Input data variables
 		String FMName;
@@ -72,7 +72,7 @@ public class ACTSExperimenter {
 		String FMInputPath;
 		long FMtime;
 
-		/* Environment set up generations */
+		/* INITIAL GENERATIONS FOR ENVIRONMENT SET UP */
 		FMSubFolder = "AmbientAssistedLiving";
 		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
 		FMName = "AmbientAssistedLivingv1.xml";
@@ -87,11 +87,10 @@ public class ACTSExperimenter {
 		System.out.println();
 		System.out.println("-- REAL TEST GENERATION --");
 
-		/* Starting 1000 test generations */
-
+		/* REAL EXPERIMENT 1000 TEST GENERATIONS */
 		for (int i = 0; i < 1000; i++) {
 			System.out.println();
-			System.out.println("ITERATION NUMBER : "+(i+1)+"/1000");
+			System.out.println("ITERATION NUMBER : " + (i + 1) + "/1000");
 			System.out.println();
 
 			// going to a new row on .xlsx file
@@ -450,12 +449,8 @@ public class ACTSExperimenter {
 		// ------------------------------------------------------------------
 
 		// Exporting the data to the .xlsx file
-		try (
-
-				FileOutputStream outputStream = new FileOutputStream(
-						"experimentData/ACTS_Generation_from_scratch.xlsx")) {
-			workbook.write(outputStream);
-		}
+		FileOutputStream outputStream = new FileOutputStream("experimentData/ACTS_Generation_from_scratch.xlsx");
+		workbook.write(outputStream);
 
 		workbook.close();
 	}

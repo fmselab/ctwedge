@@ -93,7 +93,7 @@ public class ACTSGeneratorFromFM {
 		// TestSuite ts = acts.generateTestsAndInfo(result, false, 2);
 		TestSuite ts = acts.getTestSuite(result, 2, false); // 2 = n-wise = 2-wise
 
-		long end1 = System.currentTimeMillis();
+		long end1 = System.currentTimeMillis(); // non includiamo il tempo per l'esportazione
 
 		/* fine generazione caso di test */
 
