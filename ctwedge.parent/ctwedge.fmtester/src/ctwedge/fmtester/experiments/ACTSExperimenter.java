@@ -77,7 +77,7 @@ public class ACTSExperimenter {
 		FMInputPath = EVOLUTION_MODELS_INPUT_FOLDER + FMSubFolder + "/";
 		FMName = "AmbientAssistedLivingv1.xml";
 		System.out.println("------------------- **ENVIRONMENT SET UP GENERATIONS** -------------------");
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 200; i++) {
 			FMtime = ACTSGeneratorFromFM.generateBooleanTestAndExportCSV(FMName, FMInputPath);
 			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
 		}
