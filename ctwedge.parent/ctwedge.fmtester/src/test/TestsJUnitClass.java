@@ -1,4 +1,4 @@
-package ctwedge.fmtester;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,8 @@ import java.util.List;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
+import ctwedge.fmtester.ACTSGenerator;
+import ctwedge.fmtester.DistancesCalculator;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
@@ -46,6 +48,11 @@ public class TestsJUnitClass {
 	public void testBool() {
 		String fm = "evolutionModels\\PPU\\PPUv1.xml";
 		extractBooleanTS(fm);
+	}
+	
+	@Test
+	public void testGenerator() {
+		ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel("../ctwedge.fmtester/evolutionModels/AmbientAssistedLiving/AmbientAssistedLivingv1_ctwedge.ctw", "../ctwedge.fmtester/cancellami/trial.csv");
 	}
 
 	// ------------------------------------------------------------------

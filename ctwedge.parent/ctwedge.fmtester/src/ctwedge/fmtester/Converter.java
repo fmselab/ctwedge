@@ -25,7 +25,7 @@ import ctwedge.util.ModelUtils;
  * The main() translates all models in the <i>evolutionModels</i> folder from FM
  * to CTWedge to medici and then executes medici.
  */
-public class Translator {
+public class Converter {
 
 	// import/export path info
 	static String inputModelName;
@@ -48,7 +48,7 @@ public class Translator {
 
 		// disabilito temporaneamente system.out
 		PrintStream originalStream = System.out;
-		ACTSGeneratorFromFM.consolePrintingOff();
+		ACTSGenerator.consolePrintingOff();
 
 		// importo Feature Model .xml con Enum importer
 		XmlFeatureModelImporter importer = new XmlFeatureModelImporter();
@@ -64,7 +64,7 @@ public class Translator {
 		outputfile.close();
 
 		// riabilito system out
-		ACTSGeneratorFromFM.consolePrintingOn(originalStream);
+		ACTSGenerator.consolePrintingOn(originalStream);
 
 		return res;
 	}
@@ -81,7 +81,7 @@ public class Translator {
 
 		// disabilito temporaneamente system.out
 		PrintStream originalStream = System.out;
-		ACTSGeneratorFromFM.consolePrintingOff();
+		ACTSGenerator.consolePrintingOff();
 
 		// importo Feature Model .xml con Boolean importer
 		FeatureIdeImporterBoolean importer = new FeatureIdeImporterBoolean();
@@ -97,7 +97,7 @@ public class Translator {
 		outputfile.close();
 
 		// riabilito system out
-		ACTSGeneratorFromFM.consolePrintingOn(originalStream);
+		ACTSGenerator.consolePrintingOn(originalStream);
 
 		return res;
 	}
@@ -113,7 +113,7 @@ public class Translator {
 
 		// disabilito temporaneamente system.out
 		PrintStream originalStream = System.out;
-		ACTSGeneratorFromFM.consolePrintingOff();
+		ACTSGenerator.consolePrintingOff();
 
 		Path file = Paths.get(inPath, "");
 		MediciCITGenerator gen = new MediciCITGenerator();
@@ -128,7 +128,7 @@ public class Translator {
 		wf.close();
 
 		// riabilito system out
-		ACTSGeneratorFromFM.consolePrintingOn(originalStream);
+		ACTSGenerator.consolePrintingOn(originalStream);
 
 		return translateModel;
 	}
