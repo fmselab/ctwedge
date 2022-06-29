@@ -5,6 +5,13 @@ import java.io.IOException;
 import ctwedge.fmtester.Converter;
 import ctwedge.fmtester.MediciInvoker;
 
+/**
+ * Class used to convert each model of <i>evolutionModels</i> group from Feature
+ * Model to both CTWedge and MEDICI model.
+ * 
+ * @author Luca Parimbelli
+ *
+ */
 public class ConversionBetweenDifferentModels {
 
 	// import/export path info
@@ -22,10 +29,10 @@ public class ConversionBetweenDifferentModels {
 		evolutionModels_FMtoCTWedge_BOOLEAN();
 
 		/* TRADUZIONE MODELLI: da CTWedge a medici */
-//		evolutionModels_CTWedgeToMedici();
+		evolutionModels_CTWedgeToMedici();
 
 		/* ESECUZIONE "medici.exe" E GENERAZIONE DATI SULLE CONFIGURAZIONI */
-//		evolutionModels_MediciEXE();
+		evolutionModels_MediciEXE();
 
 	}
 

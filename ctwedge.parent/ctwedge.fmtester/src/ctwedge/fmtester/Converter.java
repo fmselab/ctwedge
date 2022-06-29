@@ -15,7 +15,7 @@ import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 
 /**
- * Gives methods for different model conversions:
+ * Converts between different models:
  * <ul>
  * <li>From FM (.xml) to CTWedge (.ctw)
  * <li>From CTWedge (.ctw) to medici (.txt)
@@ -23,6 +23,9 @@ import ctwedge.util.ModelUtils;
  * 
  * The main() translates all models in the <i>evolutionModels</i> folder from FM
  * to CTWedge to medici and then executes medici.
+ * 
+ * @author Luca Parimbelli
+ * 
  */
 public class Converter {
 

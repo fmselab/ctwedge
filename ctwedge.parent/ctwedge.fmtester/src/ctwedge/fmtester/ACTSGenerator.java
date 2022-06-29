@@ -11,14 +11,18 @@ import ctwedge.util.TestSuite;
 
 /**
  * 
- * Offers static methods to generate combinatorial tests in .csv format for the
- * specified input Feature Model using ACTS.
+ * Generate combinatorial tests in .csv format for the specified input model
+ * using ACTS. The input model can be a Feature Model (.xml) or a CTWedge model
+ * (.ctw).
+ * 
+ * @author Luca Parimbelli
  * 
  */
 public class ACTSGenerator {
 
 	/**
-	 * Generate the test suite (not boolean) for the specified input Feature Model using ACTS.
+	 * Generate the test suite (not boolean) for the specified input Feature Model
+	 * using ACTS.
 	 * 
 	 * @param FMName      the name of the Feature Model xml file
 	 * @param FMinputPath the path to the input folder where the xml file is located
@@ -65,7 +69,8 @@ public class ACTSGenerator {
 	}
 
 	/**
-	 * Generate the boolean test suite for the specified input Feature Model using ACTS.
+	 * Generate the boolean test suite for the specified input Feature Model using
+	 * ACTS.
 	 * 
 	 * @param FMName      the name of the Feature Model xml file
 	 * @param FMinputPath the path to the input folder where the xml file is located
@@ -111,17 +116,19 @@ public class ACTSGenerator {
 
 	}
 
-	
 	/**
-	 * Generate the boolean test suite for the specified input CIT Model (.ctw) using ACTS.
+	 * Generate the boolean test suite for the specified input CIT Model (.ctw)
+	 * using ACTS.
 	 * 
 	 * @param CTWedgeModelPath the name of the CIT Model file (.ctw)
-	 * @param outPath the path to the output file where to print the test suite
+	 * @param outPath          the path to the output file where to print the test
+	 *                         suite
 	 * 
 	 * @return the time taken by the generator (in milliseconds) for generating the
 	 *         test suite
 	 */
-	public static long generateBooleanTestAndExportCSV_FromCTWedgeModel(final String CTWedgeModelPath, final String outPath) {
+	public static long generateBooleanTestAndExportCSV_FromCTWedgeModel(final String CTWedgeModelPath,
+			final String outPath) {
 
 		// disabilito temporaneamente system.out a console per evitare di stampare
 		// informazioni aggiuntive sulla test suite durante la sua generazione
@@ -135,7 +142,7 @@ public class ACTSGenerator {
 
 		// importa il modello
 		CitModel result = Utility.loadModelFromPath(CTWedgeModelPath);
-		
+
 		ACTSTranslator acts = new ACTSTranslator();
 		// TestSuite ts = acts.generateTestsAndInfo(result, false, 2);
 		TestSuite ts = acts.getTestSuite(result, 2, false); // 2 = n-wise = 2-wise

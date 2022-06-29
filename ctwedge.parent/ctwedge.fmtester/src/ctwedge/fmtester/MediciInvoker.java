@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* {@link MediciInvoker} allows to call medici.exe and offers a method to get data from the program call
+* Call medici.exe for getting different data from the program call
+* 
+* @author Luca Parimbelli
 */
 public class MediciInvoker {
 	

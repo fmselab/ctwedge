@@ -15,13 +15,14 @@ import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 
 /**
- * {@link DistanceCalculator} gives methods to calculate the distances between
- * boolean:
+ * Calculate the distance between: 
  * <ul>
  * <li>test suites</li>
  * <li>test cases</li>
  * <li>feature values</li>
  * </ul>
+ * 
+ * @author Luca Parimbelli
  * 
  */
 public class DistancesCalculator {

@@ -12,6 +12,8 @@ import ctwedge.fmtester.DistancesCalculator;
  * <li>old test suite = generated from scratch</li>
  * <li>new test suite = generated in an incremental way</li>
  * </ul>
+ * 
+ * @author Luca Parimbelli
  */
 public class DistancesCalculation_IncrementalTS {
 

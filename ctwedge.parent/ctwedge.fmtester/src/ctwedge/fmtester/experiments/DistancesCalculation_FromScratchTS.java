@@ -12,12 +12,12 @@ import ctwedge.fmtester.DistancesCalculator;
  * <li>old test suite = generated from scratch</li>
  * <li>new test suite = generated from scratch</li>
  * </ul>
+ * 
+ * @author Luca Parimbelli
  */
 public class DistancesCalculation_FromScratchTS {
 
 	private static final String EVOLUTION_MODELS_INPUT_FOLDER = "evolutionModels/";
-	private static final String FROMSCRATCH_TEST_INPUT_FOLDER = "evolutionModels_TestsCSV/";
-	private static final String INCREMENTAl_TEST_INPUT_FOLDER = "evolutionModels_IncrementalTestsCSV/";
 
 	public static void main(String[] args) throws IOException {
 
