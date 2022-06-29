@@ -1,8 +1,6 @@
 package ctwedge.fmtester;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -37,7 +35,7 @@ public class DistancesCalculator {
 	 * Map<key,value> where - Map<feature,value> in particular Map<key,value> is
 	 * implemented as TreeMap<String,String>
 	 * 
-	 */
+	 */ 
 
 	/**
 	 * Get the greedy distance as percentage between the boolean combinatorial test
@@ -57,8 +55,8 @@ public class DistancesCalculator {
 	public static float percTestSuitesDist_FromTestSuites(String fmPath, String tsPath, String tsDelimiter,  String fmpPath, String tspPath, String tspDelimiter) throws IOException {
 		
 		// Disabling console printing
-		PrintStream originalStream = System.out;
-		consolePrintingOff();
+		ConsoleManager cm = new ConsoleManager(System.out);
+		cm.consolePrintingOff();
 
 		// Populating the test suite ts (=TS) of the first model
 		// Importing the feature model
@@ -76,7 +74,7 @@ public class DistancesCalculator {
 		TestSuite tsp = new TestSuite(importedTsp, modelp, tspDelimiter);
 
 		// Enabling console printing
-		consolePrintingOn(originalStream);
+		cm.consolePrintingOn();
 
 		return DistancesCalculator.percTestSuitesDist(ts, tsp);
 
@@ -95,8 +93,8 @@ public class DistancesCalculator {
 	public static float percTestSuitesDist_FromModels(String fmPath, String fmpPath) {
 
 		// Disabling console printing
-		PrintStream originalStream = System.out;
-		consolePrintingOff();
+		ConsoleManager cm = new ConsoleManager(System.out);
+		cm.consolePrintingOff();
 
 		// Getting the test suite ts of the first feature model
 		FeatureIdeImporterBoolean importer = new FeatureIdeImporterBoolean();
@@ -111,7 +109,7 @@ public class DistancesCalculator {
 		TestSuite tsp = actsp.getTestSuite(model, 2, false);
 
 		// Enabling console printing
-		consolePrintingOn(originalStream);
+		cm.consolePrintingOn();
 
 		return DistancesCalculator.percTestSuitesDist(ts, tsp);
 
@@ -296,27 +294,6 @@ public class DistancesCalculator {
 			return 1;
 		else
 			return 0;
-	}
-
-	/**
-	 * Deactivate console printing
-	 */
-	private static void consolePrintingOff() {
-
-		PrintStream emptyStream = new PrintStream(new OutputStream() {
-			public void write(int b) {
-				// NO-OP
-			}
-		});
-
-		System.setOut(emptyStream);
-	}
-
-	/**
-	 * Activate console printing
-	 */
-	private static void consolePrintingOn(PrintStream originalStream) {
-		System.setOut(originalStream);
 	}
 
 }

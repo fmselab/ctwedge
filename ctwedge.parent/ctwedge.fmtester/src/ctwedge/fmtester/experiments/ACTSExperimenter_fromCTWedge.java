@@ -86,7 +86,7 @@ public class ACTSExperimenter_fromCTWedge {
 		outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_AmbientAssistedLivingv1.csv";
 
 		System.out.println("------------------- **ENVIRONMENT SET UP GENERATIONS** -------------------");
-		for (int i = 0; i < 200; i++) {
+		for (int i = 0; i < 2; i++) {
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
 			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
 		}
@@ -483,7 +483,7 @@ public class ACTSExperimenter_fromCTWedge {
 
 			// ------------------------------------------------------------------
 			/* EVOLUTION MODEL: WeatherStation */
-			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/SmartWatch/WeatherStationv1_ctwedge.ctw";
+			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/WeatherStation/WeatherStationv1_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_WeatherStationv1.csv";
 			System.out.println("----------------------------------------------");
 			/* v1 */
@@ -495,7 +495,7 @@ public class ACTSExperimenter_fromCTWedge {
 			cell.setCellValue(FMtime);
 
 			/* v2 */
-			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/SmartWatch/WeatherStationv2_ctwedge.ctw";
+			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/WeatherStation/WeatherStationv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_WeatherStationv2.csv";
 			FMName = "WeatherStationv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);

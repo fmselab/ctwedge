@@ -1,8 +1,5 @@
 package ctwedge.fmtester;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
-
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.exporter.CSVExporter;
@@ -32,8 +29,9 @@ public class ACTSGenerator {
 
 		// disabilito temporaneamente system.out a console per evitare di stampare
 		// informazioni aggiuntive sulla test suite durante la sua generazione
-		PrintStream originalStream = System.out;
-		consolePrintingOff();
+		// Disabling console printing
+		ConsoleManager cm = new ConsoleManager(System.out);
+		cm.consolePrintingOff();
 
 		/* inizio generazione caso di test */
 
@@ -59,7 +57,7 @@ public class ACTSGenerator {
 		exporterCSV.generateOutput(ts, exportPath);
 
 		// riabilito system out per poter stampare il tempo impiegato nel main
-		consolePrintingOn(originalStream);
+		cm.consolePrintingOn();
 
 		// ritorno tempo impiegato per generare test suite
 		return (end1 - start1);
@@ -78,8 +76,9 @@ public class ACTSGenerator {
 
 		// disabilito temporaneamente system.out a console per evitare di stampare
 		// informazioni aggiuntive sulla test suite durante la sua generazione
-		PrintStream originalStream = System.out;
-		consolePrintingOff();
+		// Disabling console printing
+		ConsoleManager cm = new ConsoleManager(System.out);
+		cm.consolePrintingOff();
 
 		/* inizio generazione caso di test */
 
@@ -105,7 +104,7 @@ public class ACTSGenerator {
 		exporterCSV.generateOutput(ts, exportPath);
 
 		// riabilito system out per poter stampare il tempo impiegato nel main
-		consolePrintingOn(originalStream);
+		cm.consolePrintingOn();
 
 		// ritorno tempo impiegato per generare test suite
 		return (end1 - start1);
@@ -126,8 +125,8 @@ public class ACTSGenerator {
 
 		// disabilito temporaneamente system.out a console per evitare di stampare
 		// informazioni aggiuntive sulla test suite durante la sua generazione
-		PrintStream originalStream = System.out;
-		consolePrintingOff();
+		ConsoleManager cm = new ConsoleManager(System.out);
+		cm.consolePrintingOff();
 
 		/* inizio generazione caso di test */
 
@@ -152,33 +151,10 @@ public class ACTSGenerator {
 		exporterCSV.generateOutput(ts, exportPath);
 
 		// riabilito system out per poter stampare il tempo impiegato nel main
-		consolePrintingOn(originalStream);
+		cm.consolePrintingOn();
 
 		// ritorno tempo impiegato per generare test suite
 		return (end1 - start1);
 
 	}
-
-	
-	/**
-	 * Deactivate console printing
-	 */
-	static void consolePrintingOff() {
-
-		PrintStream emptyStream = new PrintStream(new OutputStream() {
-			public void write(int b) {
-				// NO-OP
-			}
-		});
-
-		System.setOut(emptyStream);
-	}
-
-	/**
-	 * Activate console printing
-	 */
-	static void consolePrintingOn(PrintStream originalStream) {
-		System.setOut(originalStream);
-	}
-
 }
