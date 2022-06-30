@@ -26,6 +26,7 @@ public class ACTSExperimenter_fromCTWedge {
 	public static void main(String[] args) throws IOException {
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet("TIME (ms) for generating TS");
+		XSSFSheet sheetSize = workbook.createSheet("Size of the generated TS");
 
 		// Creating arrays with the name of all the models
 		String[] AmbientAssistedLiving = new String[] { "AmbientAssistedLivingv1", "AmbientAssistedLivingv2" };
@@ -57,11 +58,18 @@ public class ACTSExperimenter_fromCTWedge {
 		int rowCount = 0;
 		int columnCount = 0;
 		Row row = sheet.createRow(++rowCount);
+		
+		int rowSizeCount= 0;
+		int columnSizeCount = 0;
+		Row rowSize = sheetSize.createRow(++rowSizeCount);
 
 		// First line .xlsx -> model name
 		for (String name : evolutionModels) {
 			Cell cell = row.createCell(++columnCount);
 			cell.setCellValue(name);
+			
+			Cell cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(name);
 		}
 
 		// Other lines -> time required by TS generations
@@ -86,9 +94,9 @@ public class ACTSExperimenter_fromCTWedge {
 		outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_AmbientAssistedLivingv1.csv";
 
 		System.out.println("------------------- **ENVIRONMENT SET UP GENERATIONS** -------------------");
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 200; i++) {
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + "TS size : " + ACTSGenerator.testSuiteSize);
 		}
 		System.out.println();
 		System.out.println("------------------- **END OF ENVIRONMENT SET UP GENERATIONS** -------------------");
@@ -97,7 +105,7 @@ public class ACTSExperimenter_fromCTWedge {
 		System.out.println("-- REAL TEST GENERATION --");
 
 		/* REAL EXPERIMENT 1000 TEST GENERATIONS */
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 1000; i++) {
 			System.out.println();
 			System.out.println("ITERATION NUMBER : " + (i + 1) + "/1000");
 			System.out.println();
@@ -106,6 +114,11 @@ public class ACTSExperimenter_fromCTWedge {
 			row = sheet.createRow(++rowCount);
 			// reset columnCount on the current row
 			columnCount = 0;
+			
+			// going to a new row on .xlsx file
+			rowSize = sheetSize.createRow(++rowSizeCount);
+			// reset columnCount on the current row
+			columnSizeCount = 0;
 
 			// ------------------------------------------------------------------
 			/* EVOLUTION MODEL: AmbientAssistedLiving */
@@ -115,20 +128,27 @@ public class ACTSExperimenter_fromCTWedge {
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_AmbientAssistedLivingv1.csv";
 			FMName = "AmbientAssistedLivingv1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
 
 			Cell cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			Cell cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/AmbientAssistedLiving/AmbientAssistedLivingv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_AmbientAssistedLivingv2.csv";
 			FMName = "AmbientAssistedLivingv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
 
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+
 			// ------------------------------------------------------------------
 
 			// ------------------------------------------------------------------
@@ -139,31 +159,40 @@ public class ACTSExperimenter_fromCTWedge {
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_AutomotiveMultimediav1.csv";
 			FMName = "AutomotiveMultimediav1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
 
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+			
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/AutomotiveMultimedia/AutomotiveMultimediav2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_AutomotiveMultimediav2.csv";
 			FMName = "AutomotiveMultimediav2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v3 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/AutomotiveMultimedia/AutomotiveMultimediav3_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_AutomotiveMultimediav3.csv";
 			FMName = "AutomotiveMultimediav3.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
 
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+			
 			// ------------------------------------------------------------------
 
 			// ------------------------------------------------------------------
@@ -174,30 +203,39 @@ public class ACTSExperimenter_fromCTWedge {
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_Boeingv1.csv";
 			FMName = "Boeingv1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/Boeing/Boeingv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_Boeingv2.csv";
 			FMName = "Boeingv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v3 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/Boeing/Boeingv3_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_Boeingv3.csv";
 			FMName = "Boeingv3.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			// ------------------------------------------------------------------
 
@@ -209,41 +247,53 @@ public class ACTSExperimenter_fromCTWedge {
 			/* v1 */
 			FMName = "CarBodyv1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/CarBody/CarBodyv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_CarBodyv2.csv";
 			FMName = "CarBodyv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v3 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/CarBody/CarBodyv3_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_CarBodyv3.csv";
 			FMName = "CarBodyv3.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v4 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/CarBody/CarBodyv4_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_CarBodyv4.csv";
 			FMName = "CarBodyv4.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
 
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+			
 			// ------------------------------------------------------------------
 
 			// ------------------------------------------------------------------
@@ -254,31 +304,40 @@ public class ACTSExperimenter_fromCTWedge {
 			/* v1 */
 			FMName = "LinuxKernelv1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
 
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+			
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/LinuxKernel/LinuxKernelv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_LinuxKernelv2.csv";
 			FMName = "LinuxKernelv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v3 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/LinuxKernel/LinuxKernelv3_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_LinuxKernelv3.csv";
 			FMName = "LinuxKernelv3.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
 
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+			
 			// ------------------------------------------------------------------
 
 			// ------------------------------------------------------------------
@@ -289,50 +348,65 @@ public class ACTSExperimenter_fromCTWedge {
 			/* v1 */
 			FMName = "ParkingAssistantv1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
 
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+			
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_ParkingAssistantv2.csv";
 			FMName = "ParkingAssistantv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v3 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv3_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_ParkingAssistantv3.csv";
 			FMName = "ParkingAssistantv3.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v4 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv4_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_ParkingAssistantv4.csv";
 			FMName = "ParkingAssistantv4.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v5 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv5_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_ParkingAssistantv5.csv";
 			FMName = "ParkingAssistantv5.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			// ------------------------------------------------------------------
 
@@ -344,90 +418,117 @@ public class ACTSExperimenter_fromCTWedge {
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_PPUv1.csv";
 			FMName = "PPUv1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/PPU/PPUv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_PPUv2.csv";
 			FMName = "PPUv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v3 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/PPU/PPUv3_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_PPUv3.csv";
 			FMName = "PPUv3.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v4 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/PPU/PPUv4_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_PPUv4.csv";
 			FMName = "PPUv4.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
 
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+			
 			/* v5 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/PPU/PPUv5_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_PPUv5.csv";
 			FMName = "PPUv5.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + "TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v6 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/PPU/PPUv6_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_PPUv6.csv";
 			FMName = "PPUv6.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v7 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/PPU/PPUv7_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_PPUv7.csv";
 			FMName = "PPUv7.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
 
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+			
 			/* v8 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/PPU/PPUv8_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_PPUv8.csv";
 			FMName = "PPUv8.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v9 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/PPU/PPUv9_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_PPUv9.csv";
 			FMName = "PPUv9.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			// ------------------------------------------------------------------
 
@@ -439,20 +540,26 @@ public class ACTSExperimenter_fromCTWedge {
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_SmartHotelv1.csv";
 			FMName = "SmartHotelv1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/SmartHotel/SmartHotelv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_SmartHotelv2.csv";
 			FMName = "SmartHotelv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			// ------------------------------------------------------------------
 
@@ -464,20 +571,26 @@ public class ACTSExperimenter_fromCTWedge {
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_SmartWatchv1.csv";
 			FMName = "SmartWatchv1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/SmartWatch/SmartWatchv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_SmartWatchv2.csv";
 			FMName = "SmartWatchv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			// ------------------------------------------------------------------
 
@@ -489,26 +602,32 @@ public class ACTSExperimenter_fromCTWedge {
 			/* v1 */
 			FMName = "WeatherStationv1.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
+			
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
 
 			/* v2 */
 			CTWedgeModelPath = "../ctwedge.fmtester/evolutionModels/WeatherStation/WeatherStationv2_ctwedge.ctw";
 			outPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_WeatherStationv2.csv";
 			FMName = "WeatherStationv2.xml";
 			FMtime = ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel(CTWedgeModelPath, outPath);
-			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms");
-
+			System.out.println("\n ** " + FMName + "**\n" + "Elapsed time: " + FMtime + " ms" + " TS size : " + ACTSGenerator.testSuiteSize);
+			
 			cell = row.createCell(++columnCount);
 			cell.setCellValue(FMtime);
 
+			cellSize = rowSize.createCell(++columnSizeCount);
+			cellSize.setCellValue(ACTSGenerator.testSuiteSize);
+			
 		}
 		// ------------------------------------------------------------------
 
 		// Exporting the data to the .xlsx file
-		FileOutputStream outputStream = new FileOutputStream("experimentData/ACTS_Generation_from_scratch_new.xlsx");
+		FileOutputStream outputStream = new FileOutputStream("experimentData/ACTS_Generation_from_scratch.xlsx");
 		workbook.write(outputStream);
 
 		workbook.close();

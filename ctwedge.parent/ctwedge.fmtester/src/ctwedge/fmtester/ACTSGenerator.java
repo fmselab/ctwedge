@@ -1,8 +1,10 @@
 package ctwedge.fmtester;
 
 import ctwedge.ctWedge.CitModel;
+import ctwedge.fmtester.experiments.ACTSExperimenter_fromCTWedge;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.exporter.CSVExporter;
+import ctwedge.generator.exporter.ToCSV;
 import ctwedge.generator.util.Utility;
 import ctwedge.importer.featureide.FeatureIdeImporter;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
@@ -20,6 +22,12 @@ import ctwedge.util.TestSuite;
  */
 public class ACTSGenerator {
 
+	/**
+	 * Variable used to share the size of the generated test suite with the class
+	 * {@link ACTSExperimenter_fromCTWedge} (only for experimental data generation purpouse)
+	 */
+	public static int testSuiteSize = -1;
+	
 	/**
 	 * Generate the test suite (not boolean) for the specified input Feature Model
 	 * using ACTS.
@@ -155,7 +163,14 @@ public class ACTSGenerator {
 		// esporta il file in CSV
 		CSVExporter exporterCSV = new CSVExporter();
 		final String exportPath = outPath;
+				
 		exporterCSV.generateOutput(ts, exportPath);
+		
+		// the following code is only for experimental data generation
+		ToCSV exporter = new ToCSV();
+		String TestSuiteString = exporter.toCSVcode(ts);
+		testSuiteSize = (TestSuiteString.split("\n").length-1);
+		// end code for experiment
 
 		// riabilito system out per poter stampare il tempo impiegato nel main
 		cm.consolePrintingOn();

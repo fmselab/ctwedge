@@ -10,12 +10,13 @@ import java.util.TreeSet;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.acts.ACTSTranslator;
+import ctwedge.generator.util.Utility;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 
 /**
- * Calculate the distance between: 
+ * Calculate the distance between:
  * <ul>
  * <li>test suites</li>
  * <li>test cases</li>
@@ -26,7 +27,7 @@ import ctwedge.util.TestSuite;
  * 
  */
 public class DistancesCalculator {
-	
+
 	// when this field is set to "true", debug info are printed
 	// during the execution of this class
 	public static boolean PRINT_DEBUG = false;
@@ -36,25 +37,74 @@ public class DistancesCalculator {
 	 * Map<key,value> where - Map<feature,value> in particular Map<key,value> is
 	 * implemented as TreeMap<String,String>
 	 * 
-	 */ 
+	 */
 
 	/**
 	 * Get the greedy distance as percentage between the boolean combinatorial test
-	 * suites of the feature models fm and fmp. This method imports the test suites
-	 * (.csv format) from the parameters and calculates the distance between them.
+	 * suites of the CTWedge Models <i>ctwModelPath</i> and <i>ctwpModelPath</i>.
+	 * This method imports the test suites (.csv) and the related CTWedge Models
+	 * (.xml) and calculates the distance between the two test suites.
 	 * 
-	 * @param fmPath the path to the first feature model (.xml)
-	 * @param tsPath the path to the test suite of the first feature model (.csv)
-	 * @param tsDelimiter the delimiter {@link String} used to separe values in the .csv file of the first test suite
-	 * @param fmpPath the path to the second feature model (.xml)
-	 * @param tspPath the path to the test suite of the second feature model (.csv)
-	 * @param tspDelimiter the delimiter {@link String} used to separe values in the .csv file of the second test suite
+	 * @param ctwModelPath  the path to the first CTWedge Model (.ctw)
+	 * @param tsPath        the path to the test suite of the first model (.csv)
+	 * @param tsDelimiter   the delimiter {@link String} used to separe values in
+	 *                      the .csv file of the first test suite
+	 * @param ctwpModelPath the path to the second CTWedge Model (.ctw)
+	 * @param tspPath       the path to the test suite of the second model (.csv)
+	 * @param tspDelimiter  the delimiter {@link String} used to separe values in
+	 *                      the .csv file of the second test suite
 	 * 
 	 * @return % distance between the test suites of fm and fmp
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public static float percTestSuitesDist_FromTestSuites(String fmPath, String tsPath, String tsDelimiter,  String fmpPath, String tspPath, String tspDelimiter) throws IOException {
-		
+	public static float percTestSuitesDist_FromTestSuites_CTW(String ctwModelPath, String tsPath, String tsDelimiter,
+			String ctwpModelPath, String tspPath, String tspDelimiter) throws IOException {
+
+		// Disabling console printing
+		ConsoleManager cm = new ConsoleManager(System.out);
+		cm.consolePrintingOff();
+
+		// Populating the test suite ts (=TS) of the first model
+		// Importing the CTWedge model
+		CitModel model = Utility.loadModelFromPath(ctwModelPath);
+		// Importing the test suite
+		String importedTs = new String(Files.readAllBytes(Paths.get(tsPath)), StandardCharsets.UTF_8);
+		// Populating the test suite of the model
+		TestSuite ts = new TestSuite(importedTs, model, tsDelimiter);
+
+		// Populating the test suite tsp (=TS') of the second model
+		CitModel modelp = Utility.loadModelFromPath(ctwpModelPath);
+		String importedTsp = new String(Files.readAllBytes(Paths.get(tspPath)), StandardCharsets.UTF_8);
+		TestSuite tsp = new TestSuite(importedTsp, modelp, tspDelimiter);
+
+		// Enabling console printing
+		cm.consolePrintingOn();
+
+		return DistancesCalculator.percTestSuitesDist(ts, tsp);
+
+	}
+
+	/**
+	 * Get the greedy distance as percentage between the boolean combinatorial test
+	 * suites of the Feature Models <i>fmPath</i> and <i>fmpPath</i>. This method
+	 * imports the test suites (.csv) and the related Feature Models (.xml) and
+	 * calculates the distance between the two test suites.
+	 * 
+	 * @param fmPath       the path to the first Feature Model (.xml)
+	 * @param tsPath       the path to the test suite of the first model (.csv)
+	 * @param tsDelimiter  the delimiter {@link String} used to separe values in the
+	 *                     .csv file of the first test suite
+	 * @param fmpPath      the path to the second Feature Model (.xml)
+	 * @param tspPath      the path to the test suite of the second model (.csv)
+	 * @param tspDelimiter the delimiter {@link String} used to separe values in the
+	 *                     .csv file of the second test suite
+	 * 
+	 * @return % distance between the test suites of fm and fmp
+	 * @throws IOException
+	 */
+	public static float percTestSuitesDist_FromTestSuites(String fmPath, String tsPath, String tsDelimiter,
+			String fmpPath, String tspPath, String tspDelimiter) throws IOException {
+
 		// Disabling console printing
 		ConsoleManager cm = new ConsoleManager(System.out);
 		cm.consolePrintingOff();
@@ -67,7 +117,7 @@ public class DistancesCalculator {
 		String importedTs = new String(Files.readAllBytes(Paths.get(tsPath)), StandardCharsets.UTF_8);
 		// Populating the test suite of the model
 		TestSuite ts = new TestSuite(importedTs, model, tsDelimiter);
-		
+
 		// Populating the test suite tsp (=TS') of the second model
 		FeatureIdeImporterBoolean importerp = new FeatureIdeImporterBoolean();
 		CitModel modelp = importerp.importModel(fmpPath);
@@ -134,11 +184,11 @@ public class DistancesCalculator {
 		final float greedyTestSuiteDist = DistancesCalculator.testSuitesDist(ts, tsp);
 
 		/* Debug printing of various distance info */
-		if(PRINT_DEBUG) {
-		final float ratioDist = (greedyTestSuiteDist/wortsTestSuitesDist);
-		System.out.println("Worst dist: " + wortsTestSuitesDist);
-		System.out.println("Greedy dist: " + greedyTestSuiteDist);
-		System.out.println("Perc dist: "+ratioDist);
+		if (PRINT_DEBUG) {
+			final float ratioDist = (greedyTestSuiteDist / wortsTestSuitesDist);
+			System.out.println("Worst dist: " + wortsTestSuitesDist);
+			System.out.println("Greedy dist: " + greedyTestSuiteDist);
+			System.out.println("Perc dist: " + ratioDist);
 		}
 
 		return (greedyTestSuiteDist / wortsTestSuitesDist) * 100;
@@ -168,8 +218,8 @@ public class DistancesCalculator {
 			testSuitesDist = (nCols - nRows) * tsp.getTests().get(0).keySet().size();
 
 		/* Debug printing of tcDist as table and other info */
-		if(PRINT_DEBUG) {
-		System.out.println("Before loop - tcDist:\n" + Arrays.deepToString(tcDist).replace("], ", "]\n"));
+		if (PRINT_DEBUG) {
+			System.out.println("Before loop - tcDist:\n" + Arrays.deepToString(tcDist).replace("], ", "]\n"));
 		}
 
 		for (int i = 0; i < nRows; i++) {
@@ -190,11 +240,11 @@ public class DistancesCalculator {
 				tcDist[k][minIndex] = maxValue;
 
 			/* Debug printing of tcDist as table and other info */
-			if(PRINT_DEBUG) {
-			System.out.println("MaxValue: " + maxValue);
-			System.out.println("Iteration: " + (i + 1));
-			System.out.println("minValue: " + minValue + ", minIndex: " + minIndex);
-			System.out.println("tcDist:\n" + Arrays.deepToString(tcDist).replace("], ", "]\n"));
+			if (PRINT_DEBUG) {
+				System.out.println("MaxValue: " + maxValue);
+				System.out.println("Iteration: " + (i + 1));
+				System.out.println("minValue: " + minValue + ", minIndex: " + minIndex);
+				System.out.println("tcDist:\n" + Arrays.deepToString(tcDist).replace("], ", "]\n"));
 			}
 
 		}
