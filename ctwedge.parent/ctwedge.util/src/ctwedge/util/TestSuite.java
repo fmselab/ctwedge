@@ -26,12 +26,13 @@ public class TestSuite {
 		this.model = model;
 		populateTestSuite();
 	}
-	
+
 	/**
-	 * @param ts    test in csv format (first line param names, other lines param
-	 *              values)
-	 * @param model the model
-	 * @param delimiter the {@link String} to be used to split the test cases of the ts parameter
+	 * @param ts        test in csv format (first line param names, other lines
+	 *                  param values)
+	 * @param model     the model
+	 * @param delimiter the {@link String} to be used to split the test cases of the
+	 *                  ts parameter
 	 */
 	public TestSuite(String ts, CitModel model, String delimiter) {
 		this.ts = ts;
@@ -126,6 +127,11 @@ public class TestSuite {
 		String[] st = ts.split("\n");
 		for (int i = 0; i < st.length; i++) {
 			String[] ps = st[i].split(delimiter);
+			// sometimes when we read a file, it adds '\r' to the last value
+			// -> in that case we need to delete it.
+			if (ps[ps.length - 1].charAt(ps[ps.length - 1].length() - 1) == '\r') {
+				ps[ps.length - 1] = ps[ps.length - 1].substring(0, ps[ps.length - 1].length() - 1);
+			}
 			if (i == 0) {
 				for (String p : ps)
 					params.add(getParamFromName(model, p));
