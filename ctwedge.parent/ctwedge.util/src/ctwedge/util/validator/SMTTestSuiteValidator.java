@@ -128,6 +128,7 @@ public class SMTTestSuiteValidator {
 		for (Constraint rule : constraints) {
 			if (rule.eContainer() instanceof CitModel) {
 				for (Test t : ts.getTests()) {
+					System.out.println("test " + t);
 					RuleEvaluator rl = new RuleEvaluator(t);
 					if (!(Boolean) rl.evaluateConstraint(rule))
 						return false;
