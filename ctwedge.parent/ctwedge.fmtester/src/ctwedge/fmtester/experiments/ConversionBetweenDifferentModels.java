@@ -24,12 +24,12 @@ public class ConversionBetweenDifferentModels {
 	static String outputModelPath;
 
 	public static void main(String[] args) throws IOException {
-
-		/* TRADUZIONE MODELLI: da FM a CTWedge (con parametri solo boolean) */
-		evolutionModels_FMtoCTWedge_BOOLEAN();
-
-		/* TRADUZIONE MODELLI: da CTWedge a medici */
-		evolutionModels_CTWedgeToMedici();
+//
+//		/* TRADUZIONE MODELLI: da FM a CTWedge (con parametri solo boolean) */
+//		evolutionModels_FMtoCTWedge_BOOLEAN();
+//
+//		/* TRADUZIONE MODELLI: da CTWedge a medici */
+//		evolutionModels_CTWedgeToMedici();
 
 		/* ESECUZIONE "medici.exe" E GENERAZIONE DATI SULLE CONFIGURAZIONI */
 		evolutionModels_MediciEXE();
