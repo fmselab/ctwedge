@@ -116,17 +116,17 @@ public class ConstraintToMediciIds extends CtWedgeSwitch<String> {
 		if (impl.getOp() == ImpliesOperator.IMPL) {
 			// convert to not A or B
 			NotExpression notL = CtWedgeFactory.eINSTANCE.createNotExpression();
-			notL.setPredicate(impl.getLeft());
+			notL.setPredicate(EcoreUtil2.clone(impl.getLeft()));
 			OrExpression or = CtWedgeFactory.eINSTANCE.createOrExpression();
 			or.setLeft(notL);
-			or.setRight(impl.getRight());
+			or.setRight(EcoreUtil2.clone(impl.getRight()));
 			return doSwitch(or);
 		} else {
 			// convert to equals 
 			EqualExpression eqE = CtWedgeFactory.eINSTANCE.createEqualExpression();
-			eqE.setLeft(impl.getLeft());
+			eqE.setLeft(EcoreUtil2.clone(impl.getLeft()));
 			eqE.setOp(Operators.EQ);
-			eqE.setRight(impl.getRight());
+			eqE.setRight(EcoreUtil2.clone(impl.getRight()));
 			return doSwitch(eqE);
 		}
 	}
