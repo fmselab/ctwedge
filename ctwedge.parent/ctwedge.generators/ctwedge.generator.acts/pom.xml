@@ -69,6 +69,8 @@
 			<version>3.2</version>
 			<systemPath>${project.basedir}/libs/acts-3.2.jar</systemPath>
 			<scope>system</scope>
+			<type>jar</type>
+  			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
