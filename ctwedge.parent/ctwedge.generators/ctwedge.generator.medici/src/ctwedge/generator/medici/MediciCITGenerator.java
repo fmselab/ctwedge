@@ -14,6 +14,7 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.util.ParameterSize;
+import ctwedge.util.ModelUtils;
 import ctwedge.util.ParameterValuesToInt;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTranslTestGenerator;
@@ -107,6 +108,7 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 	// translation of the model to String
 	@Override
 	public String translateModel(CitModel sm, boolean ignoreConstraints) {
+
 		StringBuffer sb = new StringBuffer();
 		// parameters
 		sb.append("2" + "\n" + sm.getParameters().size() + "\n");
@@ -122,7 +124,7 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 					System.out.println("Converting: " + c.toString());
 				sb.append(translator.doSwitch(c)).append("\n");
 			}
-		} else {
+	} else {
 			// no constraints
 			sb.append("0\n");
 		}
