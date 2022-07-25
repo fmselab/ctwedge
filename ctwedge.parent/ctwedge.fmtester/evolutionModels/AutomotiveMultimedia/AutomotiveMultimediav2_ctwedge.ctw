@@ -2,87 +2,9 @@ Model MAutomotiveMultimediav2 Parameters :
 AutomotiveMultimedia : Boolean
 AudioPlayer : Boolean
 Radio : Boolean
-CDPlayer : { AudioCDPlayer MP3CDPlayer NONE }
-PersonalNavigation : Boolean
-VoiceRecognition : Boolean
-Maps : Boolean
-OnBoardComputer : Boolean Constraints :
-# AutomotiveMultimedia != TRUE #
-# AudioPlayer != TRUE => AutomotiveMultimedia != TRUE #
-# Radio != TRUE <=> AudioPlayer != TRUE #
-# CDPlayer != NONE => AudioPlayer != TRUE #
-# PersonalNavigation != TRUE => AutomotiveMultimedia != TRUE #
-# VoiceRecognition != TRUE => PersonalNavigation != TRUE #
-# Maps != TRUE <=> PersonalNavigation != TRUE #
-# OnBoardComputer != TRUE <=> AutomotiveMultimedia != TRUE #Model MAutomotiveMultimediav2 Parameters :
-AutomotiveMultimedia : Boolean
-AudioPlayer : Boolean
-Radio : Boolean
-CDPlayer : { AudioCDPlayer MP3CDPlayer NONE }
-PersonalNavigation : Boolean
-VoiceRecognition : Boolean
-Maps : Boolean
-OnBoardComputer : Boolean Constraints :
-# AutomotiveMultimedia != TRUE #
-# AudioPlayer != TRUE => AutomotiveMultimedia != TRUE #
-# Radio != TRUE <=> AudioPlayer != TRUE #
-# CDPlayer != NONE => AudioPlayer != TRUE #
-# PersonalNavigation != TRUE => AutomotiveMultimedia != TRUE #
-# VoiceRecognition != TRUE => PersonalNavigation != TRUE #
-# Maps != TRUE <=> PersonalNavigation != TRUE #
-# OnBoardComputer != TRUE <=> AutomotiveMultimedia != TRUE #Model MAutomotiveMultimediav2 Parameters :
-AutomotiveMultimedia : Boolean
-AudioPlayer : Boolean
-Radio : Boolean
-CDPlayer : { AudioCDPlayer MP3CDPlayer NONE }
-PersonalNavigation : Boolean
-VoiceRecognition : Boolean
-Maps : Boolean
-OnBoardComputer : Boolean Constraints :
-# AutomotiveMultimedia != TRUE #
-# AudioPlayer != TRUE => AutomotiveMultimedia != TRUE #
-# Radio != TRUE <=> AudioPlayer != TRUE #
-# CDPlayer != NONE => AudioPlayer != TRUE #
-# PersonalNavigation != TRUE => AutomotiveMultimedia != TRUE #
-# VoiceRecognition != TRUE => PersonalNavigation != TRUE #
-# Maps != TRUE <=> PersonalNavigation != TRUE #
-# OnBoardComputer != TRUE <=> AutomotiveMultimedia != TRUE #Model MAutomotiveMultimediav2 Parameters :
-AutomotiveMultimedia : Boolean
-AudioPlayer : Boolean
-Radio : Boolean
-CDPlayer : { AudioCDPlayer MP3CDPlayer NONE }
-PersonalNavigation : Boolean
-VoiceRecognition : Boolean
-Maps : Boolean
-OnBoardComputer : Boolean Constraints :
-# AutomotiveMultimedia != TRUE #
-# AudioPlayer != TRUE => AutomotiveMultimedia != TRUE #
-# Radio != TRUE <=> AudioPlayer != TRUE #
-# CDPlayer != NONE => AudioPlayer != TRUE #
-# PersonalNavigation != TRUE => AutomotiveMultimedia != TRUE #
-# VoiceRecognition != TRUE => PersonalNavigation != TRUE #
-# Maps != TRUE <=> PersonalNavigation != TRUE #
-# OnBoardComputer != TRUE <=> AutomotiveMultimedia != TRUE #Model MAutomotiveMultimediav2 Parameters :
-AutomotiveMultimedia : Boolean
-AudioPlayer : Boolean
-Radio : Boolean
-CDPlayer : { AudioCDPlayer MP3CDPlayer NONE }
-PersonalNavigation : Boolean
-VoiceRecognition : Boolean
-Maps : Boolean
-OnBoardComputer : Boolean Constraints :
-# AutomotiveMultimedia != TRUE #
-# AudioPlayer != TRUE => AutomotiveMultimedia != TRUE #
-# Radio != TRUE <=> AudioPlayer != TRUE #
-# CDPlayer != NONE => AudioPlayer != TRUE #
-# PersonalNavigation != TRUE => AutomotiveMultimedia != TRUE #
-# VoiceRecognition != TRUE => PersonalNavigation != TRUE #
-# Maps != TRUE <=> PersonalNavigation != TRUE #
-# OnBoardComputer != TRUE <=> AutomotiveMultimedia != TRUE #Model MAutomotiveMultimediav2 Parameters :
-AutomotiveMultimedia : Boolean
-AudioPlayer : Boolean
-Radio : Boolean
-CDPlayer : { AudioCDPlayer MP3CDPlayer NONE }
+CDPlayer : Boolean
+AudioCDPlayer : Boolean
+MP3CDPlayer : Boolean
 PersonalNavigation : Boolean
 VoiceRecognition : Boolean
 Maps : Boolean
@@ -90,7 +12,12 @@ OnBoardComputer : Boolean Constraints :
 # AutomotiveMultimedia == TRUE #
 # AudioPlayer == TRUE => AutomotiveMultimedia == TRUE #
 # Radio == TRUE <=> AudioPlayer == TRUE #
-# CDPlayer == NONE => AudioPlayer == TRUE #
+# CDPlayer == TRUE => AudioPlayer == TRUE #
+# CDPlayer == TRUE => AudioCDPlayer == TRUE || MP3CDPlayer == TRUE #
+# AudioCDPlayer == TRUE => ! MP3CDPlayer #
+# AudioCDPlayer == TRUE => CDPlayer == TRUE #
+# MP3CDPlayer == TRUE => ! AudioCDPlayer #
+# MP3CDPlayer == TRUE => CDPlayer == TRUE #
 # PersonalNavigation == TRUE => AutomotiveMultimedia == TRUE #
 # VoiceRecognition == TRUE => PersonalNavigation == TRUE #
 # Maps == TRUE <=> PersonalNavigation == TRUE #

@@ -20,7 +20,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.importer.featureide.FeatureIdeImporterMultipleLevels;
 import ctwedge.importer.featureide.SxfmFiImporter;
 
 /**
@@ -55,7 +54,7 @@ public class SxfmFiImporterTest{
 	}
 
 	private CitModel readSXFMModel(String origin) {
-		FeatureIdeImporterMultipleLevels importer = new SxfmFiImporter();
+		FeatureIdeImporter importer = new SxfmFiImporter();
 		CitModel result = importer.importModel(origin);
 		// check result
 		return result;

@@ -13,7 +13,7 @@ public class ToCSV {
 		fsa.generateFile(filename,toCSVcode(input));
 	}
 	
-	String toCSVcode(TestSuite input) {
+	public String toCSVcode(TestSuite input) {
 		String s = "";
 		int i=0;
 		for (Entry<String,String> assignment : input.getTests().get(0).entrySet()) {

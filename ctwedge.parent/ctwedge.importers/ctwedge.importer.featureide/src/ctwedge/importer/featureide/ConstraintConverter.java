@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *   Paolo Vavassori - initial API and implementation
  *   Angelo Gargantini - utils and architecture
@@ -15,6 +15,7 @@ import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.eclipse.xtext.EcoreUtil2;
 import org.prop4j.And;
 import org.prop4j.AtLeast;
@@ -26,21 +27,21 @@ import org.prop4j.Literal;
 import org.prop4j.Not;
 import org.prop4j.Or;
 
-import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.CtWedgeFactory;
+import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.ImpliesExpression;
 import ctwedge.ctWedge.ImpliesOperator;
 import ctwedge.ctWedge.NotExpression;
 import ctwedge.ctWedge.OrExpression;
+import ctwedge.util.Pair;
 import de.ovgu.featureide.fm.core.base.IFeature;
-import de.ovgu.featureide.fm.core.base.impl.Feature;
 
 /**
  * converts the constraints from FeatureIde (prop4j) to Citlab
- * 
+ *
  * @author garganti
- * 
+ *
  */
 public class ConstraintConverter extends SwitchNode<Expression> {
 
@@ -49,12 +50,12 @@ public class ConstraintConverter extends SwitchNode<Expression> {
 	    	return Normalizer.normalize(x,Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replace(",", "y");
 	    }
 
-	ConstraintConverter(Map<IFeature, Expression> choosenExpr) {
-		litParams = new HashMap<String, Expression>();
-		for (Entry<IFeature, Expression> c : choosenExpr.entrySet()) {
+	ConstraintConverter(Map<IFeature, Pair<Expression, String>> choosenExpr) {
+		litParams = new HashMap<>();
+		for (Entry<IFeature, Pair<Expression, String>> c : choosenExpr.entrySet()) {
 			String name = normalize(c.getKey().getName());
 			assert litParams.get(name) == null;
-			litParams.put(name, c.getValue());
+			litParams.put(name, c.getValue().getFirst());
 		}
 	}
 
@@ -108,7 +109,7 @@ public class ConstraintConverter extends SwitchNode<Expression> {
 		and.setOp(ImpliesOperator.IMPL);
 		return and;
 	}
-	
+
 	@Override
 	protected Expression visit(Literal n) {
 		// if n is translated as boolean return n = true

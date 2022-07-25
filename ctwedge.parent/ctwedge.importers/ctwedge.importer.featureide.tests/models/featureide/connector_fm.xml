@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-	<featureModel chosenLayoutAlgorithm="1">
-		<struct>
-			<and mandatory="true" name="Connector">
-				<alt mandatory="true" name="Paradigm">
-					<alt mandatory="true" name="Client_Server">
-						<and mandatory="true" name="Synchronous">
-							<feature name="Timeout"/>
-						</and>
-						<alt mandatory="true" name="Asynchronous">
-							<alt mandatory="true" name="Polling">
-								<feature mandatory="true" name="Blocking"/>
-								<feature mandatory="true" name="Non_blocking"/>
-							</alt>
-							<feature mandatory="true" name="Callback"/>
-						</alt>
-					</alt>
-					<and mandatory="true" name="Message_Based">
-						<feature mandatory="true" name="Sender"/>
-						<alt mandatory="true" name="Receiver">
-							<or mandatory="true" name="Pull">
-								<feature mandatory="true" name="Queued"/>
-								<feature mandatory="true" name="Non_Queued"/>
-							</or>
-							<feature mandatory="true" name="Push"/>
-						</alt>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="Connector">
+			<alt mandatory="true" name="Paradigm">
+				<graphics key="collapsed" value="false"/>
+				<alt name="Client_Server">
+					<graphics key="collapsed" value="false"/>
+					<and name="Synchronous">
+						<graphics key="collapsed" value="false"/>
+						<feature name="Timeout"/>
 					</and>
+					<alt name="Asynchronous">
+						<graphics key="collapsed" value="false"/>
+						<alt name="Polling">
+							<graphics key="collapsed" value="false"/>
+							<feature name="Blocking"/>
+							<feature name="Non_blocking"/>
+						</alt>
+						<feature name="Callback"/>
+					</alt>
 				</alt>
-				<alt mandatory="true" name="Technology">
-					<feature mandatory="true" name="CAN"/>
-					<feature mandatory="true" name="Local"/>
-				</alt>
-			</and>
-		</struct>
-		<constraints/>
-		<comments/>
-		<featureOrder userDefined="false"/>
-	</featureModel>
+				<and name="Message_Based">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="Sender"/>
+					<alt mandatory="true" name="Receiver">
+						<graphics key="collapsed" value="false"/>
+						<or name="Pull">
+							<graphics key="collapsed" value="false"/>
+							<feature name="Queued"/>
+							<feature name="Non_Queued"/>
+						</or>
+						<feature name="Push"/>
+					</alt>
+				</and>
+			</alt>
+			<alt mandatory="true" name="Technology">
+				<graphics key="collapsed" value="false"/>
+				<feature name="CAN"/>
+				<feature name="Local"/>
+			</alt>
+		</and>
+	</struct>
+</featureModel>

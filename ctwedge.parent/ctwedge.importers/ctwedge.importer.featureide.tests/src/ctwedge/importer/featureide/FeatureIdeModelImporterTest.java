@@ -28,7 +28,6 @@ import com.google.common.io.PatternFilenameFilter;
 import com.google.inject.Injector;
 import ctwedge.CTWedgeStandaloneSetup;
 import ctwedge.ctWedge.CitModel;
-import ctwedge.importer.featureide.FeatureIdeImporterMultipleLevels;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.ext.NotImportableException;
@@ -120,7 +119,7 @@ public class FeatureIdeModelImporterTest {
 			UnsupportedModelException {
 		// root is an alternative
 		// [model != NONE]
-		readModel(FI_MODELS_DIR +"model1.xml");
+		readModel(FI_MODELS_DIR +"model_Alt.xml");
 	}
 
 	@Test
@@ -162,7 +161,11 @@ public class FeatureIdeModelImporterTest {
 			UnsupportedModelException {
 		// [model != NONE, model = a1 => OR a11 OR a12, a11 = true => model =
 		// a1, a12 = true => model = a1]
-		readModel(FI_MODELS_DIR +"model_Or_Or.xml");
+		CitModel ct = readModel(FI_MODELS_DIR +"model_Or_Or.xml");
+		ModelUtils mu = new ModelUtils(ct);
+		String s = mu.serializeToString();
+		//
+		assertTrue(s.contains("# model == TRUE #"));
 	}
 
 	
@@ -173,7 +176,14 @@ public class FeatureIdeModelImporterTest {
 		// [model = true, model = true => OR a1 OR a2 OR a3 OR a4,
 		// a1 = true => model = true, a2 = true => model = true, a3 = true =>
 		// model = true, a4 = true => model = true]
-		readModel(FI_MODELS_DIR +"model3_OR.xml");
+		CitModel ct = readModel(FI_MODELS_DIR +"model3_OR.xml");
+		ModelUtils mu = new ModelUtils(ct);
+		String s = mu.serializeToString();
+		//
+		assertTrue(s.contains("# model == TRUE #"));
+		assertTrue(s.contains("# model == TRUE => a1 == TRUE || a2 == TRUE || a3 == TRUE || a4 == TRUE #"));
+		assertTrue(s.contains("# a1 == TRUE => model == TRUE #"));
+		//and the others
 	}
 
 	@Test
@@ -213,7 +223,7 @@ public class FeatureIdeModelImporterTest {
 	static public CitModel readModel(String modelPath)
 			throws FileNotFoundException, UnsupportedModelException {
 
-		FeatureIdeImporterMultipleLevels importer = new XmlFeatureModelImporter();
+		FeatureIdeImporter importer = new XmlFeatureModelImporter();
 		CitModel result;
 		try {
 			result = importer.importModel(modelPath);
