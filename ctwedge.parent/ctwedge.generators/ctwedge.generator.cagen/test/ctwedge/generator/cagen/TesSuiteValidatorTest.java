@@ -97,8 +97,8 @@ public class TesSuiteValidatorTest {
 				ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 				
 				// Define the validator
-				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-				tsv.setTestSuite(ts);
+				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
+				//tsv.setTestSuite(ts);
 				
 				// Save the number of tests
 				int numTest = ts.getTests().size();
@@ -122,7 +122,8 @@ public class TesSuiteValidatorTest {
 				// Now remove tests until the covered tuples decreases
 				while (ts.getTests().size() > 0) {
 					ts.getTests().remove(0);
-					tsv.setTestSuite(ts);
+					// ts is modified also for the validator
+					//tsv.setTestSuite(ts);
 					
 					if (tsv.howManyTuplesCovers() < covTuples)
 						break;

@@ -43,56 +43,22 @@ import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.impl.EnumerativeImpl;
 import ctwedge.util.Pair;
 import ctwedge.util.Test;
-import ctwedge.util.TestSuite;;
+import ctwedge.util.TestSuite;
 
-public class SMTTestSuiteValidator {
+public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
+
 
 	private static final Logger logger = Logger.getLogger(SMTTestSuiteValidator.class);
-	private TestSuite ts;
 
-	@SuppressWarnings("unchecked")
-	public void setTestSuite(TestSuite ts) {
+	public SMTTestSuiteValidator(TestSuite ts) {
+		super(ts);
 		List<Logger> loggers = Collections.<Logger>list(org.apache.log4j.LogManager.getCurrentLoggers());
 		loggers.add(org.apache.log4j.LogManager.getRootLogger());
 		for (Logger logger : loggers) {
 			logger.setLevel(Level.OFF);
 		}
-		this.ts = ts;
-	};
-
-	class Mycomp implements Comparator<Map<Parameter, ?>> {
-		private List<Map<Parameter, String>> listMapReq;
-
-		public void setReq(List<Map<Parameter, String>> listMapReq) {
-			this.listMapReq = listMapReq;
-		}
-
-		public Mycomp(List<Map<Parameter, String>> listMapReq) {
-			this.listMapReq = listMapReq;
-		}
-
-		@Override
-		public int compare(Map<Parameter, ?> test1, Map<Parameter, ?> test2) {
-			// System.out.println(test1+" \n"+test2);
-			Integer size1 = 0, size2 = 0;
-			if (!listMapReq.isEmpty()) {
-				Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
-				while (iReq.hasNext()) {
-					Map<Parameter, ?> actual = iReq.next();
-
-					if (covers(test1, actual)) {
-						size1++;
-					}
-					if (covers(test2, actual)) {
-						size2++;
-					}
-
-				}
-
-			}
-			return size2.compareTo(size1);
-		}
 	}
+
 
 	@SuppressWarnings("rawtypes")
 	private boolean covers(Map<Parameter, ?> test, Map<Parameter, ?> requirement) {

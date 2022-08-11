@@ -7,7 +7,7 @@ import java.util.Map;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
-
+/** class for memorizing a test suite*/
 public class TestSuite {
 	String ts;
 	float generatorTime;
@@ -16,6 +16,17 @@ public class TestSuite {
 	CitModel model;
 	List<Test> tests;
 
+	/** copy from an existing test suite, but no test included from the beginning
+	 * 
+	 * @return
+	 */
+	public static TestSuite copyAsEmpty(TestSuite ts) {
+		// TODO copy the informazione like egenratore time and so on.
+		assert false;
+		return null;
+	}
+	
+	
 	/**
 	 * @param ts    test in csv format (first line param names, other lines param
 	 *              values)

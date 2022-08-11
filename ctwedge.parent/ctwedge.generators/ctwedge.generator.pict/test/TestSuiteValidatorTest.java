@@ -68,8 +68,8 @@ public class TestSuiteValidatorTest {
 			e.printStackTrace();
 		}
 
-		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-		tsv.setTestSuite(ts);
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
+		//tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 5);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 		assertEquals(tsv.howManyTuplesCovers(), 11);
@@ -80,7 +80,7 @@ public class TestSuiteValidatorTest {
 				+ "The size should decrease and the test suite must be not complete");
 
 		ts.getTests().remove(0);
-		tsv.setTestSuite(ts);
+		//tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 4);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 		assertEquals(tsv.howManyTuplesCovers(), 10);
@@ -102,8 +102,8 @@ public class TestSuiteValidatorTest {
 			e.printStackTrace();
 		}
 
-		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-		tsv.setTestSuite(ts);
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
+		//tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 14);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 		assertEquals(tsv.howManyTuplesCovers(), 1858);
@@ -114,7 +114,7 @@ public class TestSuiteValidatorTest {
 				+ "The size should decrease and the test suite must be not complete");
 
 		ts.getTests().remove(0);
-		tsv.setTestSuite(ts);
+		//tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 13);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 		assertEquals(tsv.howManyTuplesCovers(), 1849);
@@ -143,8 +143,8 @@ public class TestSuiteValidatorTest {
 			e.printStackTrace();
 		}
 
-		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-		tsv.setTestSuite(ts);
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
+		//tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 6);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 		assertEquals(tsv.howManyTuplesCovers(), 6);
@@ -155,7 +155,7 @@ public class TestSuiteValidatorTest {
 				+ "The size should decrease and the test suite must be not complete");
 
 		ts.getTests().remove(0);
-		tsv.setTestSuite(ts);
+		//tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 5);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 		assertEquals(tsv.howManyTuplesCovers(), 5);
@@ -192,8 +192,8 @@ public class TestSuiteValidatorTest {
 			e.printStackTrace();
 		}
 
-		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-		tsv.setTestSuite(ts);
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
+		//tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 6);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 		assertEquals(tsv.howManyTuplesCovers(), 36);
@@ -205,7 +205,7 @@ public class TestSuiteValidatorTest {
 
 		ts.getTests().remove(0);
 		ts.getTests().remove(0);
-		tsv.setTestSuite(ts);
+		//tsv.setTestSuite(ts);
 		assertEquals(ts.getTests().size(), 4);
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 		assertEquals(tsv.howManyTuplesCovers(), 32);
@@ -257,8 +257,8 @@ public class TestSuiteValidatorTest {
 		
 
 		// Define the validator
-		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-		tsv.setTestSuite(ts);
+		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
+		//tsv.setTestSuite(ts);
 
 		// Save the number of tests
 		int numTest = ts.getTests().size();
@@ -308,8 +308,8 @@ public class TestSuiteValidatorTest {
 				ts = generator.getTestSuite(Utility.loadModel(model), 2, false);
 
 				// Define the validator
-				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator();
-				tsv.setTestSuite(ts);
+				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
+				//tsv.setTestSuite(ts);
 
 				// Save the number of tests
 				int numTest = ts.getTests().size();
@@ -333,7 +333,7 @@ public class TestSuiteValidatorTest {
 				// Now remove tests until the covered tuples decreases
 				while (ts.getTests().size() > 0) {
 					ts.getTests().remove(0);
-					tsv.setTestSuite(ts);
+					//tsv.setTestSuite(ts);
 
 					if (tsv.howManyTuplesCovers() < covTuples)
 						break;
