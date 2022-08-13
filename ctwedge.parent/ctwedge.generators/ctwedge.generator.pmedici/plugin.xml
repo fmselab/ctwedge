@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="MediciGenerator"
+         name="PMedici"
+         point="ctwedge.util.ctwedgeGenerators">
+      <Generator
+            Algorithm="medici"
+            GeneratorPrototype="ctwedge.generator.pmedici.PMediciCITGenerator"
+            Name="pMedici"
+            support_constraints="true">
+      </Generator>
+   </extension>
+
+</plugin>
