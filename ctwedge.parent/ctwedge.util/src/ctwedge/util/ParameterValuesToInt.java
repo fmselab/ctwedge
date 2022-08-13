@@ -40,7 +40,7 @@ public class ParameterValuesToInt {
 	// convert an integer to a couple parameter + its value
 	// example offsets 0,10,12
 	// 1 -> first offset 0
-	public Pair<Parameter, String> convertInt(int n) {
+	public ctwedge.util.Pair<Parameter, String> convertInt(int n) {
 		// get the first offset that is suitable
 		// the greatest offset between the minors or equals to n
 		// init to the first one
