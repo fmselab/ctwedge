@@ -1,6 +1,7 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -13,46 +14,57 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.fmtester.ACTSGenerator;
 import ctwedge.fmtester.DistancesCalculator;
 import ctwedge.generator.acts.ACTSTranslator;
+import ctwedge.importer.featureide.FeatureIdeImporter;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.TestSuite;
 
 public class TestsJUnitClass {
+	
+	static FeatureIdeImporterBoolean importerAsBool = new FeatureIdeImporterBoolean();
+	static XmlFeatureModelImporter importerWithEnum = new XmlFeatureModelImporter();
+
+
 
 	@Test
 	public void test() {
 		String fm = "evolutionModels\\PPU\\PPUv1.xml";
-		extracted(fm);
+		// importo Feature Model .xml
+		generateTestSuite(fm, importerWithEnum);
 	}
 
 	@Test
 	public void test2() {
 		String fm = "fmexamples\\model_Man_Man.xml";
-		extracted(fm);
+		// importo Feature Model .xml
+		generateTestSuite(fm, importerWithEnum);
 	}
 
 	@Test
 	public void test3() {
 		String fm = "fmexamples\\CarBodyv1.xml";
-		extracted(fm);
+		// importo Feature Model .xml
+		generateTestSuite(fm, importerWithEnum);
 	}
 
 	@Test
 	public void test4() {
 		String fm = "fmexamples\\CarBodyv1_man.xml";
-		extracted(fm);
+		// importo Feature Model .xml
+		generateTestSuite(fm, importerWithEnum);
 	}
 
 	@Test
 	public void testBool() {
 		String fm = "evolutionModels\\PPU\\PPUv1.xml";
-		extractBooleanTS(fm);
+		// importo Feature Model .xml
+		generateTestSuite(fm, importerAsBool);
 	}
 	
 	@Test
 	public void testGenerator() {
-		ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel("../ctwedge.fmtester/evolutionModels/AmbientAssistedLiving/AmbientAssistedLivingv1_ctwedge.ctw", "../ctwedge.fmtester/cancellami/trial.csv");
+		ACTSGenerator.generateBooleanTestAndExportCSV_FromCTWedgeModel("evolutionModels/AmbientAssistedLiving/AmbientAssistedLivingv1_ctwedge.ctw", "cancellami/trial.csv");
 	}
 
 	// ------------------------------------------------------------------
@@ -66,9 +78,9 @@ public class TestsJUnitClass {
 		System.out.println("Test suite manipulation da qui:");
 		// ts.getTests() restituisce la Test Suite
 		// ts.getTests().get(0) restituisce il primo Test Case della Test Suite
-		// il test case è una Map<Key,Value> che contiene tutte le coppie
+		// il test case ï¿½ una Map<Key,Value> che contiene tutte le coppie
 		// feature-value relative a quel caso di test
-		// NB: Map<key,value> è stata implementata come TreeMap<>
+		// NB: Map<key,value> ï¿½ stata implementata come TreeMap<>
 		System.out.println(ts.getTests());
 		System.out.println("Dim:" + ts.getTests().size());
 		System.out.println(ts.getTests().get(0));
@@ -260,43 +272,33 @@ public class TestsJUnitClass {
 	}
 	
 	@Test
-	public void percTestSuitesDist_FromTestSuites() throws IOException {
-		String fmPath = "../ctwedge.fmtester/evolutionModels/Boeing/Boeingv1.xml";
-		String tsPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_Boeingv1.csv";
-		String fmpPath = "../ctwedge.fmtester/evolutionModels/Boeing/Boeingv2.xml";
-		String tspPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_Boeingv2.csv";
+	public void percTestSuitesDist_FromTestSuites_Boeing() throws IOException {
+		String fmPath = "evolutionModels/Boeing/Boeingv1.xml";
+		String tsPath = "evolutionModels_TestsCSV/CSVTest_Boeingv1.csv";
+		String fmpPath = "evolutionModels/Boeing/Boeingv2.xml";
+		String tspPath = "evolutionModels_TestsCSV/CSVTest_Boeingv2.csv";
 		
 		float res = DistancesCalculator.percTestSuitesDist_FromTestSuites(fmPath, tsPath, ",", fmpPath, tspPath, ",");
 		System.out.println("Distance Boeing ts v1-v2: "+res+"%");
+	}
+
+	@Test
+	public void percTestSuitesDist_FromTestSuites_parkingAssistant() throws IOException {
+		String fmPath = "evolutionModels/ParkingAssistant/ParkingAssistantv3.xml";
+		String tsPath = "evolutionModels_TestsCSV/CSVTest_ParkingAssistantv3.csv";
+		String fmpPath = "evolutionModels/ParkingAssistant/ParkingAssistantv4.xml";
+		String tspPath = "evolutionModels_TestsCSV/CSVTest_ParkingAssistantv4.csv";
 		
-		fmPath = "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv3.xml";
-		tsPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_ParkingAssistantv3.csv";
-		fmpPath =  "../ctwedge.fmtester/evolutionModels/ParkingAssistant/ParkingAssistantv4.xml";
-		tspPath = "../ctwedge.fmtester/evolutionModels_TestsCSV/CSVTest_ParkingAssistantv4.csv";
-		
-		res = DistancesCalculator.percTestSuitesDist_FromTestSuites(fmPath, tsPath, ",", fmpPath, tspPath, ",");
+		float res = DistancesCalculator.percTestSuitesDist_FromTestSuites(fmPath, tsPath, ",", fmpPath, tspPath, ",");
 		System.out.println("Distance ParkingAssistant ts v3-v4: "+res+"%");
 	}
+
 	
 	// ------------------------------------------------------------------
 	// END TESTS FOR DistancesCalculator class
 	// ------------------------------------------------------------------
 
-	private void extractBooleanTS(String fm) {
-		// importo Feature Model .xml
-		FeatureIdeImporterBoolean importer = new FeatureIdeImporterBoolean();
-		CitModel model = importer.importModel(fm);
-		ModelUtils mu = new ModelUtils(model);
-		System.out.println(mu.serializeToString());
-		// genero con ACTS
-		ACTSTranslator acts = new ACTSTranslator();
-		// TestSuite ts = acts.generateTestsAndInfo(result, false, 2);
-		TestSuite ts = acts.getTestSuite(model, 2, false);
-	}
-
-	private void extracted(String fm) {
-		// importo Feature Model .xml
-		XmlFeatureModelImporter importer = new XmlFeatureModelImporter();
+	private void generateTestSuite(String fm, FeatureIdeImporter importer) {
 		CitModel model = importer.importModel(fm);
 		ModelUtils mu = new ModelUtils(model);
 		System.out.println(mu.serializeToString());
