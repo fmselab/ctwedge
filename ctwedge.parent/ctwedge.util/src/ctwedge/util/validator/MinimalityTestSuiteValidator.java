@@ -33,7 +33,7 @@ import ctwedge.util.TestSuite;
  */
 public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 
-	protected MinimalityTestSuiteValidator(TestSuite ts) {
+	public MinimalityTestSuiteValidator(TestSuite ts) {
 		super(ts);
 	}
 
