@@ -4,29 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
-/** class for memorizing a test suite*/
+
+/** class for memorizing a test suite */
 public class TestSuite {
-	String ts;
+	// string as CSV output
+	private String ts;
 	float generatorTime;
 	String generatorName;
 	int strength;
 	CitModel model;
 	List<Test> tests;
 
-	/** copy from an existing test suite, but no test included from the beginning
-	 * 
-	 * @return
-	 */
-	public static TestSuite copyAsEmpty(TestSuite ts) {
-		// TODO copy the informazione like egenratore time and so on.
-		assert false;
-		return null;
-	}
-	
-	
 	/**
 	 * @param ts    test in csv format (first line param names, other lines param
 	 *              values)
@@ -49,6 +41,28 @@ public class TestSuite {
 		this.ts = ts;
 		this.model = model;
 		populateTestSuite(delimiter);
+	}
+
+	/**
+	 * Instantiates a new test suite.
+	 *
+	 * @param model the model
+	 * @param testSuite the test suite
+	 */
+	public TestSuite(CitModel model, List<Map<Parameter, ?>> testSuite) {
+		this.model = model;
+		tests = new ArrayList<>();
+		for (Map<Parameter, ?> test : testSuite) {
+			// all the paramters ar ein the model
+			assert model.getParameters().containsAll(test.keySet());
+			// convert <Parameter,?> to <String,String>
+			Map<String, String> as = test.entrySet().stream()
+					.collect(Collectors.toMap(
+							e -> e.getKey().getName(), 
+							e -> e.getValue().toString()));
+			tests.add(new Test(as));
+		}
+		// TODO String ts is to be build
 	}
 
 	@Override
@@ -94,10 +108,6 @@ public class TestSuite {
 
 	public float getGeneratorTime() {
 		return generatorTime;
-	}
-
-	public String getTs() {
-		return ts;
 	}
 
 	public void populateTestSuite() {

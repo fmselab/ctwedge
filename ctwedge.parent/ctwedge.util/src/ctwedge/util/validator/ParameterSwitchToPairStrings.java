@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 
 import ctwedge.ctWedge.CitModel;
@@ -21,6 +22,8 @@ import ctwedge.util.Pair;
  */
 public class ParameterSwitchToPairStrings extends
 		CtWedgeSwitch<List<Pair<Parameter, String>>> {
+	
+	private static final Logger logger = Logger.getLogger(ParameterSwitchToPairStrings.class);
 
 	private static ParameterSwitchToPairStrings eInstance = new ParameterSwitchToPairStrings();
 
@@ -58,10 +61,10 @@ public class ParameterSwitchToPairStrings extends
 	 * @param citModel
 	 * @return
 	 */
-	static public List<List<Pair<Parameter, String>>> getListPairsParameterValues(
-			CitModel citModel) {
+	static public List<List<Pair<Parameter, String>>> getListPairsParameterValues(CitModel citModel) {
 		List<List<Pair<Parameter, String>>> elements = new ArrayList<List<Pair<Parameter, String>>>();
 		EList<Parameter> vars = citModel.getParameters();
+		logger.debug("number of parameters = " + vars.size());
 		ParameterSwitchToPairStrings switchP = ParameterSwitchToPairStrings.eInstance;
 		switchP.setModel(citModel);
 		for (Parameter p : vars) {
