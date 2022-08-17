@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
@@ -33,7 +34,7 @@ import ctwedge.util.TestSuite;
  */
 public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 
-	protected MinimalityTestSuiteValidator(TestSuite ts) {
+	public MinimalityTestSuiteValidator(TestSuite ts) {
 		super(ts);
 	}
 
@@ -46,28 +47,19 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	// public void setTestSuite(TestSuite ts) {
 
 	/**
-	 * The Class Mycomp.
+	 * The Class Mycomp. 
 	 */
-	class Mycomp implements Comparator<Map<Parameter, ?>> {
+	class CoversMore implements Comparator<Map<Parameter, ?>> {
 
 		/** The list map req. */
 		private List<Map<Parameter, String>> listMapReq;
-
-		/**
-		 * Sets the req.
-		 *
-		 * @param listMapReq the list map req
-		 */
-		public void setReq(List<Map<Parameter, String>> listMapReq) {
-			this.listMapReq = listMapReq;
-		}
 
 		/**
 		 * Instantiates a new mycomp.
 		 *
 		 * @param listMapReq the list map req
 		 */
-		public Mycomp(List<Map<Parameter, String>> listMapReq) {
+		public CoversMore(List<Map<Parameter, String>> listMapReq) {
 			this.listMapReq = listMapReq;
 		}
 
@@ -81,22 +73,20 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 		@Override
 		public int compare(Map<Parameter, ?> test1, Map<Parameter, ?> test2) {
 			// System.out.println(test1+" \n"+test2);
-			Integer size1 = 0, size2 = 0;
-			if (!listMapReq.isEmpty()) {
-				Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
-				while (iReq.hasNext()) {
-					Map<Parameter, ?> actual = iReq.next();
-
-					if (covers(test1, actual)) {
-						size1++;
-					}
-					if (covers(test2, actual)) {
-						size2++;
-					}
+			int size1 = 0, size2 = 0;
+			assert (!listMapReq.isEmpty());
+			Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
+			while (iReq.hasNext()) {
+				Map<Parameter, ?> actual = iReq.next();
+				if (covers(test1, actual)) {
+					size1++;
+				}
+				if (covers(test2, actual)) {
+					size2++;
 				}
 			}
-			// System.out.println(size2);
-			return size2.compareTo(size1);
+			//System.out.println(size1 + " vs " + size2);
+			return Integer.compare(size1, size2);
 		}
 	}
 
@@ -113,9 +103,7 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 			if (requirement.get(p).equals(test.get(p)))
 				counter++;
 		}
-
 		return counter == requirement.size();
-
 	}
 
 	/**
@@ -125,6 +113,7 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	 */
 	public List<Map<Parameter, String>> getRequirements() {
 		CitModel model = ts.getModel();
+		assert ts.getStrength() > 0;
 		Iterator<List<Pair<Parameter, String>>> reqs = ParameterSwitchToPairStrings.getTuples(model, ts.getStrength());
 
 		List<Map<Parameter, String>> ListMapReq = new ArrayList<Map<Parameter, String>>();
@@ -137,27 +126,31 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 				map.put(e.getFirst(), e.getSecond());
 
 			}
+			logger.debug("adding tuple " + tupleToString(map));
 			ListMapReq.add(map);
-
 		}
-
 		return ListMapReq;
 	}
 
+	private static List<String> tupleToString(Map<Parameter, ?> map) {
+		return map.entrySet().stream().map(x -> (x.getKey().getName() + "=" + x.getValue())).collect(Collectors.toList());
+	}
+
 	/**
-	 * Gets the seeds map.
+	 * it transforms the test suite a a set of maps.
 	 *
 	 * @return the seeds map
 	 */
 	private Set<Map<Parameter, String>> getSeedsMap() {
 		Set<Map<Parameter, String>> testSuiteSet = new HashSet<Map<Parameter, String>>();
-		for(Test t: ts.getTests()) {
+		for (Test t : ts.getTests()) {
 			Map<Parameter, String> map = new HashMap<Parameter, String>();
-			for(Entry<String, String> assignemnt: t.entrySet()) {
+			for (Entry<String, String> assignemnt : t.entrySet()) {
 				String paramName = assignemnt.getKey();
-				Optional<Parameter> p = ts.getModel().getParameters().stream().filter(x -> x.getName().equals(paramName)).findFirst();
+				Optional<Parameter> p = ts.getModel().getParameters().stream()
+						.filter(x -> x.getName().equals(paramName)).findFirst();
 				assert p.isPresent();
-				map.put(p.get(), assignemnt.getValue());				
+				map.put(p.get(), assignemnt.getValue());
 			}
 			testSuiteSet.add(map);
 		}
@@ -167,60 +160,71 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	/**
 	 * Reduce size.
 	 *
-	 * @return the test suite
+	 * @return It returns a reduced test suite that is one of the minimal ones
 	 */
-	// It returns a reduced test suite that can be minimal
 	public TestSuite reduceSize() {
-		ArrayList<Map<Parameter, ?>> testSuiteSet = new ArrayList<Map<Parameter, ?>>();
+		// create a copy that can be modified
+		List<Map<Parameter, ?>> testSuiteSet = new ArrayList<Map<Parameter, ?>>();
 		testSuiteSet.addAll(getSeedsMap());
+		logger.debug("consider all the tests " + testSuiteSet.size());
+		List<Map<Parameter, ?>> reducedTS = new ArrayList<Map<Parameter, ?>>();
+		// get all the requirements
 		List<Map<Parameter, String>> listMapReq = getRequirements();
-		Iterator<Map<Parameter, ?>> iTest = testSuiteSet.iterator();
-		Mycomp m = new Mycomp(listMapReq);
-		Collections.sort(testSuiteSet, m);
-		while (iTest.hasNext()) {
-			Map<Parameter, ?> seed = iTest.next();
+		CoversMore m = new CoversMore(listMapReq);
+		// till al the requirements are not covered by a test
+		while (!listMapReq.isEmpty()) {
+			if (testSuiteSet.isEmpty()) {
+				logger.debug("no more tests");
+				break;
+			}
+			logger.debug("taking the best test that sovers more -  number of requirements " + listMapReq.size());
+			// take the best one (that covering most
+			Map<Parameter, ?> best = Collections.max(testSuiteSet, m);
+			testSuiteSet.remove(best);
+			// count and mark as covered all that are covered by best
 			int coveredTuples = 0;
-			if (!listMapReq.isEmpty()) {
-				Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
-				while (iReq.hasNext()) {
-					if (covers(seed, iReq.next())) {
-						iReq.remove();
-						coveredTuples++;
-					}
+			Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
+			while (iReq.hasNext()) {
+				Map<Parameter, String> next = iReq.next();
+				if (covers(best, next)) {
+					logger.debug("this requirement is covered:" + tupleToString(next) + " remove it");
+					iReq.remove();
+					coveredTuples++;
 				}
 			}
-			if (coveredTuples != 0) {
-				iTest.remove();
-				m.setReq(listMapReq);
-				Collections.sort(testSuiteSet, m);
-			}
-			if (listMapReq.size() <= 0)
+			if (coveredTuples == 0) {
+				logger.debug("all the coverable requirements seem covered, exit - not covered tuples: " + listMapReq.size());
 				break;
-		}
-		// create an empty test suite
-		TestSuite result = TestSuite.copyAsEmpty(ts);
-		// get the old tests
-		Set<Map<Parameter, String>> newTestSuite = getSeedsMap();
-		newTestSuite.removeAll(testSuiteSet);
-		for (Map<Parameter, ?> map : newTestSuite) {
-			Test test = new Test();
-			for (Entry<Parameter, ?> p : map.entrySet()) {
-				test.put(p.getKey().toString(), p.getValue().toString());
 			}
-			result.getTests().add(test);
+			assert coveredTuples > 0;
+			reducedTS.add(best);
+			logger.debug("this test is necessary (" + tupleToString(best) + ") - covers " + coveredTuples);
 		}
-		return result;
+		logger.debug("all necessary tests are removed  - useless tests remaining: " + testSuiteSet.size());
+		// create an empty test suite
+		return new TestSuite(ts.getModel(),reducedTS);
+//		// get the old tests
+//		Set<Map<Parameter, String>> newTestSuite = getSeedsMap();
+//		newTestSuite.removeAll(testSuiteSet);
+//		for (Map<Parameter, ?> map : newTestSuite) {
+//			Test test = new Test();
+//			for (Entry<Parameter, ?> p : map.entrySet()) {
+//				test.put(p.getKey().toString(), p.getValue().toString());
+//			}
+//			result.getTests().add(test);
+//		}
 	}
 
 	/**
-	 * Checks if is minimal.
+	 * Checks if is minimal. It is minimal if each test requirement is covered by one test
 	 *
 	 * @return the boolean
 	 */
 	public Boolean isMinimal() {
-
 		Set<Map<Parameter, String>> testsSet = getSeedsMap();
+		// System.out.println(testsSet);
 		List<Map<Parameter, String>> listMapReq = getRequirements();
+		// System.out.println(listMapReq);
 		// set of tests that cover at least one tp uniqueley
 		Set<Map<Parameter, ?>> necessaryTests = new HashSet<>();
 		// take one tuple at the time
@@ -236,6 +240,8 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 			if (testsCoveringTp.size() == 1)
 				necessaryTests.addAll(testsCoveringTp);
 		}
+		// the necesaary could be not the minimal set
+		System.out.println("sufficent tests " + necessaryTests.size() + " actual size " + testsSet.size());
 		return necessaryTests.size() == testsSet.size();
 	}
 }
