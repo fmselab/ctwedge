@@ -4,6 +4,7 @@ A : Boolean
 B : Boolean
 C : Boolean Constraints :
 # root == TRUE #
+# root == TRUE => A == TRUE || B == TRUE || C == TRUE #
 # A == TRUE => root == TRUE #
 # B == TRUE => root == TRUE #
 # C == TRUE => root == TRUE #

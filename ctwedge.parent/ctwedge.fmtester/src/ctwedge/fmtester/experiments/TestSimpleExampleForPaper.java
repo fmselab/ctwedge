@@ -38,19 +38,18 @@ public class TestSimpleExampleForPaper {
 		// convert to enum ctwedge (could be done only once)
 		Converter.fromFMtoCTWedge_ENUM(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
 		PMedici pMedici = new PMedici();
-		TestSuite mediciTS1 = pMedici.generateTests(fmName + "_ctwedge_enum.ctw", 2, 6);
+		TestSuite mediciTS1 = pMedici.generateTests(fmName + "_ctwedge_enum.ctw", 2, 2);
 		// MODELLO 2
 		String fmName2 = "fmexamples/ex_paper2";
 		// convert to enum ctwedge (could be done only once)
 		Converter.fromFMtoCTWedge_ENUM(fmName2 + ".xml", fmName2 + "_ctwedge_enum.ctw");
-		TestSuite mediciTS2 = pMedici.generateTests(fmName + "_ctwedge_enum.ctw", 2, 6);
+		TestSuite mediciTS2 = pMedici.generateTests(fmName2 + "_ctwedge_enum.ctw", 2, 2);
 		// now compute the distance
 		DistancesCalculator.PRINT_DEBUG = true;
 		float distance = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
 		System.out.println(distance);
 		// tecnica 2
-		
-		String mediciModel = pMedici.buildMediciModel(fmName + "_ctwedge_enum.ctw");
+		String mediciModel = pMedici.buildMediciModel(fmName2 + "_ctwedge_enum.ctw");
 		TestModel m = Operations.readModelFromReader(new BufferedReader(new StringReader(mediciModel)));
 		ToCSV converter = new ToCSV();		
 		String oldTsStr = converter.toCSVcode(mediciTS1);
