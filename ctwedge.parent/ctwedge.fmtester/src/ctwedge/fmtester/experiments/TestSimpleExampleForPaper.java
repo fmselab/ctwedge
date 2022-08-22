@@ -2,7 +2,11 @@ package ctwedge.fmtester.experiments;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
+import java.util.List;
+import java.util.Vector;
 
 import org.junit.Test;
 
@@ -16,6 +20,8 @@ import ctwedge.util.TestSuite;
 import pMedici.main.PMedici;
 import pMedici.main.PMediciPlus;
 import pMedici.safeelements.TestContext;
+import pMedici.util.Operations;
+import pMedici.util.TestModel;
 
 public class TestSimpleExampleForPaper {
 
@@ -41,7 +47,11 @@ public class TestSimpleExampleForPaper {
 		System.out.println(distance);
 		// tecnica 2
 		
-		String newTs = PMediciPlus.genereteTests(pMedici.getModel(), null, null);
+		String mediciModel = pMedici.buildMediciModel(fmName + "_ctwedge_enum.ctw");
+		TestModel m = Operations.readModelFromReader(new BufferedReader(new StringReader(mediciModel)));
+		Vector<ctwedge.util.Test> oldTests = new Vector(mediciTS1.getTests());
+		
+		String newTs = PMediciPlus.generateTests(pMedici.getModel(), m, oldTests);
 		
 		
 	}
