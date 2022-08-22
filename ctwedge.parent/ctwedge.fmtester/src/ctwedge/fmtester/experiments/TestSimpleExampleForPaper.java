@@ -41,7 +41,7 @@ public class TestSimpleExampleForPaper {
 		System.out.println(distance);
 		// tecnica 2
 		
-		PMediciPlus.genereteTests(pMedici.model, null, null)
+		PMediciPlus.genereteTests(pMedici.getModel(), null, null);
 		
 		
 	}
