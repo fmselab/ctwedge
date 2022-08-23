@@ -10,10 +10,12 @@
 		<graphics key="layoutalgorithm" value="1"/>
 	</properties>
 	<struct>
-		<or mandatory="true" name="root">
-			<feature name="A"/>
+		<and mandatory="true" name="root">
+			<and name="A">
+				<feature name="D"/>
+			</and>
 			<feature name="B"/>
 			<feature name="C"/>
-		</or>
+		</and>
 	</struct>
 </featureModel>
