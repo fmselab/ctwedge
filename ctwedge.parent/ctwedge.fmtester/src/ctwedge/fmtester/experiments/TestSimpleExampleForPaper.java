@@ -29,21 +29,33 @@ import pMedici.util.TestModel;
 public class TestSimpleExampleForPaper {
 
 	@Test
-	public void test() throws IOException, InterruptedException {
+	public void test1() throws IOException, InterruptedException {
+		// distance 6 and 5
+		extracted("ex_paper1_AG", "ex_paper2_AG");
+		
+	}
+	@Test
+	public void test2() throws IOException, InterruptedException {
+		// distance 12 and 5
+		extracted("ex_paper1_AB", "ex_paper2_AB");
+		
+	}
+
+	public void extracted(String oldFMname, String newFMname) throws IOException, InterruptedException {
 		TestContext.IN_TEST = true;
 		// genera con tecnica 1 pMedici e calcola distanza
 		FeatureIdeImporter importer = new XmlFeatureModelImporter();
 		// MODELLO 1
-		String fmName = "fmexamples/ex_paper1";
+		String fmName = "fmexamples/"+oldFMname;
 		// convert to enum ctwedge (could be done only once)
 		Converter.fromFMtoCTWedge_ENUM(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
 		PMedici pMedici = new PMedici();
-		TestSuite mediciTS1 = pMedici.generateTests(fmName + "_ctwedge_enum.ctw", 2, 2);
+		TestSuite mediciTS1 = pMedici.generateTests(fmName + "_ctwedge_enum.ctw", 2, 1);
 		// MODELLO 2
-		String fmName2 = "fmexamples/ex_paper2";
+		String fmName2 = "fmexamples/"+newFMname;
 		// convert to enum ctwedge (could be done only once)
 		Converter.fromFMtoCTWedge_ENUM(fmName2 + ".xml", fmName2 + "_ctwedge_enum.ctw");
-		TestSuite mediciTS2 = pMedici.generateTests(fmName2 + "_ctwedge_enum.ctw", 2, 2);
+		TestSuite mediciTS2 = pMedici.generateTests(fmName2 + "_ctwedge_enum.ctw", 2, 1);
 		// now compute the distance
 		DistancesCalculator.PRINT_DEBUG = true;
 		float distance = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
@@ -59,7 +71,6 @@ public class TestSimpleExampleForPaper {
 		TestSuite technique2TS = new TestSuite(newTs, pMedici.getModel());
 		float distance2 = DistancesCalculator.percTestSuitesDist(mediciTS1, technique2TS);
 		System.out.println(distance2);
-		
 	}
 
 }
