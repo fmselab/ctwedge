@@ -44,7 +44,6 @@ public class TestSimpleExampleForPaper {
 	public void extracted(String oldFMname, String newFMname) throws IOException, InterruptedException {
 		TestContext.IN_TEST = true;
 		// genera con tecnica 1 pMedici e calcola distanza
-		FeatureIdeImporter importer = new XmlFeatureModelImporter();
 		// MODELLO 1
 		String fmName = "fmexamples/"+oldFMname;
 		// convert to enum ctwedge (could be done only once)
@@ -72,5 +71,4 @@ public class TestSimpleExampleForPaper {
 		float distance2 = DistancesCalculator.percTestSuitesDist(mediciTS1, technique2TS);
 		System.out.println(distance2);
 	}
-
 }
