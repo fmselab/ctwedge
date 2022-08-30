@@ -21,5 +21,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/pMEDICI"/>
 	<classpathentry kind="src" path="/ctwedge.importer.featureide"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/fmmutation"/>
+	<classpathentry kind="src" path="/fmupdate.models"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
