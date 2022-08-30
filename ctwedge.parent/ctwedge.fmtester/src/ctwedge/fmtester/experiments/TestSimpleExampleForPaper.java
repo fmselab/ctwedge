@@ -45,22 +45,18 @@ public class TestSimpleExampleForPaper {
 		TestContext.IN_TEST = true;
 		// genera con tecnica 1 pMedici e calcola distanza
 		// MODELLO 1
-		String fmName = "fmexamples/"+oldFMname;
-		// convert to enum ctwedge (could be done only once)
-		Converter.fromFMtoCTWedge_ENUM(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
+		String fmName = convertModelFromFMToCTW(oldFMname);
 		PMedici pMedici = new PMedici();
-		TestSuite mediciTS1 = pMedici.generateTests(fmName + "_ctwedge_enum.ctw", 2, 1);
+		TestSuite mediciTS1 = pMedici.generateTests(fmName, 2, 1);
 		// MODELLO 2
-		String fmName2 = "fmexamples/"+newFMname;
-		// convert to enum ctwedge (could be done only once)
-		Converter.fromFMtoCTWedge_ENUM(fmName2 + ".xml", fmName2 + "_ctwedge_enum.ctw");
-		TestSuite mediciTS2 = pMedici.generateTests(fmName2 + "_ctwedge_enum.ctw", 2, 1);
+		String fmName2 = convertModelFromFMToCTW(newFMname);
+		TestSuite mediciTS2 = pMedici.generateTests(fmName2, 2, 1);
 		// now compute the distance
 		DistancesCalculator.PRINT_DEBUG = true;
 		float distance = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
 		System.out.println(distance);
 		// tecnica 2
-		String mediciModel = pMedici.buildMediciModel(fmName2 + "_ctwedge_enum.ctw");
+		String mediciModel = pMedici.buildMediciModel(fmName2);
 		TestModel m = Operations.readModelFromReader(new BufferedReader(new StringReader(mediciModel)));
 		ToCSV converter = new ToCSV();		
 		String oldTsStr = converter.toCSVcode(mediciTS1);
@@ -70,5 +66,22 @@ public class TestSimpleExampleForPaper {
 		TestSuite technique2TS = new TestSuite(newTs, pMedici.getModel());
 		float distance2 = DistancesCalculator.percTestSuitesDist(mediciTS1, technique2TS);
 		System.out.println(distance2);
+	}
+	
+	@Test
+	public void experimentsForPaper() {
+		
+	}
+	
+	public String convertModelFromFMToCTW(String modelName) throws IOException {
+		String fmName = "fmexamples/"+ modelName;
+		// convert to CTWedge (could be done only once)
+		Converter.fromFMtoCTWedge_ENUM(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
+		return fmName + "_ctwedge_enum.ctw";
+	}
+	
+	public void regenerationFromScratch(String oldFMname, String newFMname) {
+		
+		
 	}
 }
