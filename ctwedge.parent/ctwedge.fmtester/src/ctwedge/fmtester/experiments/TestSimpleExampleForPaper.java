@@ -87,13 +87,13 @@ public class TestSimpleExampleForPaper {
 	 */
 	public void launchSingleExperiment(String model1, String model2) throws IOException, InterruptedException {
 		TestContext.IN_TEST = true;
-		
+
 		String oldModel = convertModelFromFMToCTW(model1);
 		String newModel = convertModelFromFMToCTW(model2);
 
 		// Technique 1
 		regenerationFromScratch(oldModel, newModel, 2, 1, "output.csv");
-		
+
 		// Technique 2
 		generateWithPMediciPlus(oldModel, newModel, 2, 1, "output.csv");
 	}
@@ -136,17 +136,19 @@ public class TestSimpleExampleForPaper {
 
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+		// Mutation score
+		float faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
 
 		// Write statistics to file
 		FileWriter fw = new FileWriter(outputPath, true);
 		BufferedWriter bw = new BufferedWriter(fw);
 		bw.write("T1;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";");
+				+ ";" + faultDetectionCapability + ";");
 		bw.newLine();
 		bw.close();
 	}
-	
+
 	/**
 	 * Generates the test suite with pMEDICI+
 	 * 
@@ -170,19 +172,35 @@ public class TestSimpleExampleForPaper {
 		ToCSV converter = new ToCSV();
 		String oldTsStr = converter.toCSVcode(mediciTS1);
 		Vector<Map<String, String>> oldTs = CSVImporter.readFromReader(new StringReader(oldTsStr));
+		long start = System.currentTimeMillis();
 		String newTs = PMediciPlus.generateTests(pMedici.getModel(), m, oldTs);
 		TestSuite mediciTS2 = new TestSuite(newTs, pMedici.getModel());
+		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
 
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+		// Mutation score
+		float faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
 
 		// Write statistics to file
 		FileWriter fw = new FileWriter(outputPath, true);
 		BufferedWriter bw = new BufferedWriter(fw);
 		bw.write("T2;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";");
+				+ ";" + faultDetectionCapability + ";");
 		bw.newLine();
 		bw.close();
+	}
+
+	/**
+	 * Computes the fault detection capability of the evolved test suite
+	 * 
+	 * @param newFMname : the new feature model
+	 * @param mediciTS2 : the new test suite
+	 * @return : the fault detection capability of the evolved test suite
+	 */
+	private float computeFaultDetectionCapability(String newFMname, TestSuite mediciTS2) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
