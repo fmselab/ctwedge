@@ -233,7 +233,7 @@ public class TestSimpleExampleForPaper {
 		float killedMut = 0;
 		
 		// Read the feature model
-		IFeatureModel fm = ExampleTaker.readExample(fmPath);
+		IFeatureModel fm = ExampleTaker.readFeatureModel(fmPath);
 		
 		// Define the mutators
 		List<FMMutator> mutatorList = new ArrayList<FMMutator>();
@@ -247,7 +247,6 @@ public class TestSimpleExampleForPaper {
 		mutatorList.add(OrToAl.instance);
 		mutatorList.add(OrToAnd.instance);
 		mutatorList.add(OrToAndOpt.instance);
-		mutatorList.add(RemoveFeature.instance);
 		
 		// Apply the mutations
 		for (FMMutator mut : mutatorList){
