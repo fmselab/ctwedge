@@ -37,7 +37,7 @@ import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationoperators.features.*;
 import fmautorepair.utils.CollectionsUtil;
-import fmupdate.models.ExampleTaker;
+import fmautorepair.utils.Utils;
 import pMedici.importer.CSVImporter;
 import pMedici.main.PMedici;
 import pMedici.main.PMediciPlus;
@@ -233,18 +233,18 @@ public class TestSimpleExampleForPaper {
 		float killedMut = 0;
 		
 		// Read the feature model
-		IFeatureModel fm = ExampleTaker.readFeatureModel(fmPath);
+		IFeatureModel fm = Utils.readModel(fmPath);
 		
 		// Define the mutators
 		List<FMMutator> mutatorList = new ArrayList<FMMutator>();
-		mutatorList.add(OptToMan.instance);
-		mutatorList.add(ManToOpt.instance);
+		mutatorList.add(OptionalToMandatory.instance);
+		mutatorList.add(MandatoryToOptional.instance);
 		mutatorList.add(AlternativeToAnd.instance);
 		mutatorList.add(AlternativeToAndOpt.instance);
-		mutatorList.add(AlToOr.instance);
-		mutatorList.add(AndToAl.instance);
+		mutatorList.add(AlternativeToOr.instance);
+		mutatorList.add(AndToAlternative.instance);
 		mutatorList.add(AndToOr.instance);
-		mutatorList.add(OrToAl.instance);
+		mutatorList.add(OrToAltenative.instance);
 		mutatorList.add(OrToAnd.instance);
 		mutatorList.add(OrToAndOpt.instance);
 		
