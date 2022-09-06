@@ -33,10 +33,10 @@ import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
 import de.ovgu.featureide.fm.core.init.LibraryManager;
 import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 import de.ovgu.featureide.fm.core.job.LongRunningWrapper;
-import fmmutation.mutationoperators.FMMutation;
-import fmmutation.mutationoperators.FMMutator;
-import fmmutation.mutationoperators.features.AlToAnd;
-import fmmutation.mutationoperators.features.OptToMan;
+import fmautorepair.mutationoperators.FMMutation;
+import fmautorepair.mutationoperators.FMMutator;
+import fmautorepair.mutationoperators.features.AlternativeToAnd;
+import fmautorepair.mutationoperators.features.OptionalToMandatory;
 import pMedici.importer.CSVImporter;
 import pMedici.main.PMedici;
 import pMedici.main.PMediciPlus;
@@ -50,7 +50,7 @@ public class MutationScore {
 		TestContext.IN_TEST = true;
 	}
 
-	static List<FMMutator> mutOperators = Arrays.asList(AlToAnd.instance, OptToMan.instance);
+	static List<FMMutator> mutOperators = Arrays.asList(AlternativeToAnd.instance, OptionalToMandatory.instance);
 
 	@Test
 	public void test1() throws IOException, InterruptedException {

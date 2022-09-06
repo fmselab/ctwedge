@@ -18,9 +18,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fmautorepair.mutation"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pMEDICI"/>
 	<classpathentry kind="src" path="/ctwedge.importer.featureide"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/fmmutation"/>
-	<classpathentry kind="src" path="/fmupdate.models"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fmautorepair.utils"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
