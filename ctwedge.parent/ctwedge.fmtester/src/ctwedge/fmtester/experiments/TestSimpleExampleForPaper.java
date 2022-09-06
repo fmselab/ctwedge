@@ -257,7 +257,8 @@ public class TestSimpleExampleForPaper {
 						String value = assignemnt.getValue();
 						assert value.equals("true") || value.equals("false");
 						Selection sel = value.equals("true")? Selection.SELECTED :Selection.UNSELECTED;
-						conf.setManual(assignemnt.getKey(), sel);
+						if (Utils.getFeatureNames(fmM.getFirst()).contains(assignemnt.getKey()))
+							conf.setManual(assignemnt.getKey(), sel);
 					}
 					
 					ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
