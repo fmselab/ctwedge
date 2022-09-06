@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,7 +134,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		ConstraintConverter converter = new ConstraintConverter(choosenExprString);
 		for (IConstraint c : fm.getConstraints()) {
 			// if the constraint is useless, skip it
-			// TODO questo potrebbe non funzionare perchè adesso è deprecato
+			// TODO questo potrebbe non funzionare perchï¿½ adesso ï¿½ deprecato
 			ConstraintAttribute attribute = FeatureUtils.getConstraintAttribute(c);
 			if ((attribute == ConstraintAttribute.REDUNDANT) || (attribute == ConstraintAttribute.DEAD)
 					|| (attribute == ConstraintAttribute.TAUTOLOGY))

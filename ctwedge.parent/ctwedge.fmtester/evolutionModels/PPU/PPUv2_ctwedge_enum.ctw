@@ -1,0 +1,13 @@
+Model MPPUv2 Parameters :
+PPU : Boolean
+Crane : Boolean
+SRouting : Boolean
+Slide : { Straight Conveyor NONE }
+Conveyor : { SSortation DSortation NONE }
+Workpiece : { Plastic Metal NONE } Constraints :
+# PPU == TRUE #
+# Crane == TRUE <=> PPU == TRUE #
+# SRouting == TRUE <=> Crane == TRUE #
+# Slide != NONE <=> PPU == TRUE #
+# Conveyor != NONE <=> Slide == Conveyor #
+# Workpiece != NONE <=> PPU == TRUE #

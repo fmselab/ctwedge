@@ -1,0 +1,50 @@
+Model MAmbientAssistedLivingv1 Parameters :
+AmbientAssistedLiving : Boolean
+Sensor : Boolean
+LightMonit : Boolean
+TempMonit : Boolean
+Others : Boolean
+Humidity : Boolean
+Accelerometer : Boolean
+Light : Boolean
+Temperature : Boolean
+SenEncryp : Boolean
+Smartphone : Boolean
+SmartphoneType : { Android iPhone NONE }
+Video : Boolean
+PhEncryp : Boolean
+Alarm : Boolean
+Camera : Boolean
+Transmission : Boolean
+Rec : Boolean
+CamEncryp : Boolean
+Services : Boolean
+VideoSurveillance : Boolean
+Encryption : Boolean
+LightControl : Boolean
+HeatControl : Boolean Constraints :
+# AmbientAssistedLiving == TRUE #
+# Sensor == TRUE <=> AmbientAssistedLiving == TRUE #
+# LightMonit == TRUE => Sensor == TRUE #
+# TempMonit == TRUE => Sensor == TRUE #
+# Others == TRUE => Sensor == TRUE #
+# Others == TRUE => Humidity == TRUE || Accelerometer == TRUE || Light == TRUE || Temperature == TRUE #
+# Humidity == TRUE => Others == TRUE #
+# Accelerometer == TRUE => Others == TRUE #
+# Light == TRUE => Others == TRUE #
+# Temperature == TRUE => Others == TRUE #
+# SenEncryp == TRUE => Sensor == TRUE #
+# Smartphone == TRUE <=> AmbientAssistedLiving == TRUE #
+# SmartphoneType != NONE => Smartphone == TRUE #
+# Video == TRUE => Smartphone == TRUE #
+# PhEncryp == TRUE => Smartphone == TRUE #
+# Alarm == TRUE <=> AmbientAssistedLiving == TRUE #
+# Camera == TRUE <=> AmbientAssistedLiving == TRUE #
+# Transmission == TRUE => Camera == TRUE #
+# Rec == TRUE => Camera == TRUE #
+# CamEncryp == TRUE => Camera == TRUE #
+# Services == TRUE <=> AmbientAssistedLiving == TRUE #
+# VideoSurveillance == TRUE => Services == TRUE #
+# Encryption == TRUE <=> Services == TRUE #
+# LightControl == TRUE => Services == TRUE #
+# HeatControl == TRUE => Services == TRUE #
