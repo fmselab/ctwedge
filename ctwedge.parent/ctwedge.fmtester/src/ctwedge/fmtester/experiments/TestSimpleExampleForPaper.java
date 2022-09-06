@@ -36,6 +36,7 @@ import de.ovgu.featureide.fm.core.job.LongRunningWrapper;
 import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationoperators.features.*;
+import fmautorepair.mutationprocess.FMMutationProcess;
 import fmautorepair.utils.CollectionsUtil;
 import fmautorepair.utils.Utils;
 import pMedici.importer.CSVImporter;
@@ -235,18 +236,8 @@ public class TestSimpleExampleForPaper {
 		// Read the feature model
 		IFeatureModel fm = Utils.readModel(fmPath);
 		
-		// Define the mutators
-		List<FMMutator> mutatorList = new ArrayList<FMMutator>();
-		mutatorList.add(OptionalToMandatory.instance);
-		mutatorList.add(MandatoryToOptional.instance);
-		mutatorList.add(AlternativeToAnd.instance);
-		mutatorList.add(AlternativeToAndOpt.instance);
-		mutatorList.add(AlternativeToOr.instance);
-		mutatorList.add(AndToAlternative.instance);
-		mutatorList.add(AndToOr.instance);
-		mutatorList.add(OrToAltenative.instance);
-		mutatorList.add(OrToAnd.instance);
-		mutatorList.add(OrToAndOpt.instance);
+		// Define the mutators	
+		FMMutator[] mutatorList = FMMutationProcess.allMutationOperators();
 		
 		// Apply the mutations
 		for (FMMutator mut : mutatorList){
