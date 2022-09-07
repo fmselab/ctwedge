@@ -2,8 +2,11 @@ Model MPPUv4 Parameters :
 PPU : Boolean
 Crane : Boolean
 SRouting : Boolean
-Slide : { Straight Conveyor NONE }
-Conveyor : { SSortation DSortation NONE }
+Slide : Boolean
+Straight : Boolean
+Conveyor : Boolean
+SSortation : Boolean
+DSortation : Boolean
 Workpiece : Boolean
 Plastic : Boolean
 Light : Boolean
@@ -12,8 +15,17 @@ Metal : Boolean Constraints :
 # PPU == TRUE #
 # Crane == TRUE <=> PPU == TRUE #
 # SRouting == TRUE <=> Crane == TRUE #
-# Slide != NONE <=> PPU == TRUE #
-# Conveyor != NONE <=> Slide == Conveyor #
+# Slide == TRUE <=> PPU == TRUE #
+# Slide == TRUE => Straight == TRUE || Conveyor == TRUE #
+# Straight == TRUE => ! Conveyor #
+# Straight == TRUE => Slide == TRUE #
+# Conveyor == TRUE => ! Straight #
+# Conveyor == TRUE => Slide == TRUE #
+# Conveyor == TRUE => SSortation == TRUE || DSortation == TRUE #
+# SSortation == TRUE => ! DSortation #
+# SSortation == TRUE => Conveyor == TRUE #
+# DSortation == TRUE => ! SSortation #
+# DSortation == TRUE => Conveyor == TRUE #
 # Workpiece == TRUE <=> PPU == TRUE #
 # Workpiece == TRUE => Plastic == TRUE || Metal == TRUE #
 # Plastic == TRUE => Workpiece == TRUE #

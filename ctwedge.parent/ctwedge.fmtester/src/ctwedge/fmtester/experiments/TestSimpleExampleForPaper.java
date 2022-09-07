@@ -68,11 +68,11 @@ public class TestSimpleExampleForPaper {
 		TestContext.IN_TEST = true;
 		// genera con tecnica 1 pMedici e calcola distanza
 		// MODELLO 1
-		String fmName = convertModelFromFMToCTW(oldFMname);
+		String fmName = convertModelFromFMToCTW(oldFMname, "fmexamples/");
 		PMedici pMedici = new PMedici();
 		TestSuite mediciTS1 = pMedici.generateTests(fmName, 2, 1);
 		// MODELLO 2
-		String fmName2 = convertModelFromFMToCTW(newFMname);
+		String fmName2 = convertModelFromFMToCTW(newFMname, "fmexamples/");
 		TestSuite mediciTS2 = pMedici.generateTests(fmName2, 2, 1);
 		// now compute the distance
 		DistancesCalculator.PRINT_DEBUG = true;
@@ -93,7 +93,11 @@ public class TestSimpleExampleForPaper {
 
 	@Test
 	public void experimentsForPaper() throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
-		launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG");
+		launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
+		launchSingleExperiment("PPUv1", "PPUv2", "evolutionModels/PPU/");
+		launchSingleExperiment("PPUv2", "PPUv3", "evolutionModels/PPU/");
+		launchSingleExperiment("PPUv3", "PPUv4", "evolutionModels/PPU/");
+		launchSingleExperiment("PPUv4", "PPUv5", "evolutionModels/PPU/");
 	}
 
 	/**
@@ -101,17 +105,18 @@ public class TestSimpleExampleForPaper {
 	 * 
 	 * @param model1 : the first model
 	 * @param model2 : the evolved model
+	 * @param path : the path in which models are stored
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
 	 * @throws NoSuchExtensionException 
 	 * @throws UnsupportedModelException 
 	 */
-	public void launchSingleExperiment(String model1, String model2) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+	public void launchSingleExperiment(String model1, String model2, String path) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		TestContext.IN_TEST = true;
 
-		String oldModel = convertModelFromFMToCTW(model1);
-		String newModel = convertModelFromFMToCTW(model2);
+		String oldModel = convertModelFromFMToCTW(model1, path);
+		String newModel = convertModelFromFMToCTW(model2, path);
 
 		// Technique 1
 		regenerationFromScratch(oldModel, newModel, 2, 1, "output.csv");
@@ -124,15 +129,16 @@ public class TestSimpleExampleForPaper {
 	 * Converts a FM (in xml format) into a CTW model
 	 * 
 	 * @param modelName : the name of the feature model
+	 * @param path : the path of the feature model
 	 * @return : the path of the CTW model corresponding to the feature model given
 	 *         as input
 	 * 
 	 * @throws IOException
 	 */
-	public String convertModelFromFMToCTW(String modelName) throws IOException {
-		String fmName = "fmexamples/" + modelName;
+	public String convertModelFromFMToCTW(String modelName, String path) throws IOException {
+		String fmName = path + modelName;
 		// convert to CTWedge (could be done only once)
-		Converter.fromFMtoCTWedge_ENUM(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
+		Converter.fromFMtoCTWedge_BOOLEAN(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
 		return fmName + "_ctwedge_enum.ctw";
 	}
 
