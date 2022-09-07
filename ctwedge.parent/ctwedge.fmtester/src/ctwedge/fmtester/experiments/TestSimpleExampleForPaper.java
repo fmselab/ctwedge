@@ -95,6 +95,7 @@ public class TestSimpleExampleForPaper {
 	@Test
 	public void experimentsForPaper()
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {		
+		TestBuilder.KeepPartialOldTests = true;
 		launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
 		launchSingleExperiment("PPUv1", "PPUv2", "evolutionModels/PPU/");
 		launchSingleExperiment("PPUv2", "PPUv3", "evolutionModels/PPU/");
