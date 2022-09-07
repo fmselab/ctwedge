@@ -103,6 +103,17 @@ public class TestSimpleExampleForPaper {
 		launchSingleExperiment("PPUv6", "PPUv7", "evolutionModels/PPU/");
 		launchSingleExperiment("PPUv7", "PPUv8", "evolutionModels/PPU/");
 		launchSingleExperiment("PPUv8", "PPUv9", "evolutionModels/PPU/");
+		launchSingleExperiment("AmbientAssistedLivingv1", "AmbientAssistedLivingv2", "evolutionModels/AmbientAssistedLiving/");
+		launchSingleExperiment("AutomotiveMultimediav1", "AutomotiveMultimediav2", "evolutionModels/AutomotiveMultimedia/");
+		launchSingleExperiment("AutomotiveMultimediav2", "AutomotiveMultimediav3", "evolutionModels/AutomotiveMultimedia/");
+		launchSingleExperiment("Boeingv1", "Boeingv2", "evolutionModels/Boeing/");
+		launchSingleExperiment("Boeingv2", "Boeingv3", "evolutionModels/Boeing/");
+		launchSingleExperiment("CarBodyv1", "CarBodyv2", "evolutionModels/CarBody/");
+		launchSingleExperiment("CarBodyv2", "CarBodyv3", "evolutionModels/CarBody/");
+		launchSingleExperiment("CarBodyv3", "CarBodyv4", "evolutionModels/CarBody/");
+		launchSingleExperiment("LinuxKernelv1", "LinuxKernelv2", "evolutionModels/LinuxKernel/");
+		launchSingleExperiment("LinuxKernelv2", "LinuxKernelv3", "evolutionModels/LinuxKernel/");
+		
 	}
 
 	/**
@@ -144,7 +155,7 @@ public class TestSimpleExampleForPaper {
 	public String convertModelFromFMToCTW(String modelName, String path) throws IOException {
 		String fmName = path + modelName;
 		// convert to CTWedge (could be done only once)
-		Converter.fromFMtoCTWedge_BOOLEAN(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
+		Converter.fromFMtoCTWedge_ENUM(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
 		return fmName + "_ctwedge_enum.ctw";
 	}
 
@@ -275,8 +286,17 @@ public class TestSimpleExampleForPaper {
 					// Set every assignment in the test as feature selected or not
 					for (Entry<String, String> assignemnt : test.entrySet()) {
 						String value = assignemnt.getValue();
-						assert value.equals("true") || value.equals("false");
-						Selection sel = value.equals("true") ? Selection.SELECTED : Selection.UNSELECTED;
+						Selection sel;
+						if (value.equals("true") || value.equals("false"))
+							// Boolean values
+							sel = value.equals("true") ? Selection.SELECTED : Selection.UNSELECTED;
+						else {
+							// Enums
+							if (value.equals("NONE"))
+								sel = Selection.UNDEFINED;
+							else
+								sel = Selection.SELECTED;
+						}
 						if (Utils.getFeatureNames(fmM.getFirst()).contains(assignemnt.getKey()))
 							conf.setManual(assignemnt.getKey(), sel);
 					}
