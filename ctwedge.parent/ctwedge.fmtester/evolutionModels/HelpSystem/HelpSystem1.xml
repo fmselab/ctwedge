@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<calculations key="tautology" value="true"/>
+		<calculations key="auto" value="true"/>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<calculations key="redundant" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<calculations key="constraints" value="true"/>
+		<graphics key="layoutalgorithm" value="1"/>
+		<calculations key="features" value="true"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="HelpSystem">
+			<or mandatory="true" name="Priority">
+				<graphics key="collapsed" value="false"/>
+				<feature name="PL"/>
+				<feature name="PI"/>
+				<feature name="PH"/>
+			</or>
+			<alt mandatory="true" name="Method">
+				<graphics key="collapsed" value="false"/>
+				<feature name="PR"/>
+				<feature name="PB"/>
+			</alt>
+			<alt mandatory="true" name="Level">
+				<graphics key="collapsed" value="false"/>
+				<feature name="IT"/>
+				<feature name="AD"/>
+				<feature name="BG"/>
+			</alt>
+			<alt mandatory="true" name="Activity">
+				<graphics key="collapsed" value="false"/>
+				<feature name="PS"/>
+				<feature name="CT"/>
+			</alt>
+			<alt mandatory="true" name="SensorInput">
+				<graphics key="collapsed" value="false"/>
+				<feature name="S1"/>
+				<feature name="S2"/>
+				<feature name="S3"/>
+				<feature name="S4"/>
+			</alt>
+			<alt mandatory="true" name="SensorPosition">
+				<graphics key="collapsed" value="false"/>
+				<feature name="NotPressed"/>
+				<alt name="Pressed">
+					<graphics key="collapsed" value="false"/>
+					<feature name="Sound1"/>
+					<feature name="Sound2"/>
+				</alt>
+			</alt>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<disj>
+				<not>
+					<var>PH</var>
+				</not>
+				<var>Activity</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>PH</var>
+				</not>
+				<var>Method</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>PL</var>
+				</not>
+				<var>SensorPosition</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>PI</var>
+				</not>
+				<var>SensorInput</var>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>PH</var>
+				</not>
+				<var>Level</var>
+			</disj>
+		</rule>
+	</constraints>
+</featureModel>
