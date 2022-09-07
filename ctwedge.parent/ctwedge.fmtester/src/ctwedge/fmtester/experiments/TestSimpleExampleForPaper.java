@@ -92,12 +92,17 @@ public class TestSimpleExampleForPaper {
 	}
 
 	@Test
-	public void experimentsForPaper() throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+	public void experimentsForPaper()
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
 		launchSingleExperiment("PPUv1", "PPUv2", "evolutionModels/PPU/");
 		launchSingleExperiment("PPUv2", "PPUv3", "evolutionModels/PPU/");
 		launchSingleExperiment("PPUv3", "PPUv4", "evolutionModels/PPU/");
 		launchSingleExperiment("PPUv4", "PPUv5", "evolutionModels/PPU/");
+		launchSingleExperiment("PPUv5", "PPUv6", "evolutionModels/PPU/");
+		launchSingleExperiment("PPUv6", "PPUv7", "evolutionModels/PPU/");
+		launchSingleExperiment("PPUv7", "PPUv8", "evolutionModels/PPU/");
+		launchSingleExperiment("PPUv8", "PPUv9", "evolutionModels/PPU/");
 	}
 
 	/**
@@ -105,31 +110,32 @@ public class TestSimpleExampleForPaper {
 	 * 
 	 * @param model1 : the first model
 	 * @param model2 : the evolved model
-	 * @param path : the path in which models are stored
+	 * @param path   : the path in which models are stored
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
-	 * @throws NoSuchExtensionException 
-	 * @throws UnsupportedModelException 
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
 	 */
-	public void launchSingleExperiment(String model1, String model2, String path) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+	public void launchSingleExperiment(String model1, String model2, String path)
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		TestContext.IN_TEST = true;
 
 		String oldModel = convertModelFromFMToCTW(model1, path);
 		String newModel = convertModelFromFMToCTW(model2, path);
 
 		// Technique 1
-		regenerationFromScratch(oldModel, newModel, 2, 1, "output.csv");
+		TestSuite oldTs = regenerationFromScratch(oldModel, newModel, 2, 1, "output.csv");
 
 		// Technique 2
-		generateWithPMediciPlus(oldModel, newModel, 2, 1, "output.csv");
+		generateWithPMediciPlus(oldModel, newModel, oldTs, 2, 1, "output.csv");
 	}
 
 	/**
 	 * Converts a FM (in xml format) into a CTW model
 	 * 
 	 * @param modelName : the name of the feature model
-	 * @param path : the path of the feature model
+	 * @param path      : the path of the feature model
 	 * @return : the path of the CTW model corresponding to the feature model given
 	 *         as input
 	 * 
@@ -151,13 +157,16 @@ public class TestSimpleExampleForPaper {
 	 * @param nThreads   : the number of threads to be used by pMEDICI
 	 * @param outputPath : the path of the output file where statistics are stored
 	 * 
+	 * @return : the test suite produced by pMEDICI with the original model
+	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
-	 * @throws NoSuchExtensionException 
-	 * @throws UnsupportedModelException 
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
 	 */
-	public void regenerationFromScratch(String oldFMname, String newFMname, int strength, int nThreads,
-			String outputPath) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+	public TestSuite regenerationFromScratch(String oldFMname, String newFMname, int strength, int nThreads,
+			String outputPath)
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		PMedici pMedici = new PMedici();
 		// First model
 		TestSuite mediciTS1 = pMedici.generateTests(oldFMname, strength, nThreads);
@@ -177,6 +186,8 @@ public class TestSimpleExampleForPaper {
 				+ ";" + faultDetectionCapability + ";");
 		bw.newLine();
 		bw.close();
+
+		return mediciTS1;
 	}
 
 	/**
@@ -184,20 +195,22 @@ public class TestSimpleExampleForPaper {
 	 * 
 	 * @param oldFMname  : the path of the old FM
 	 * @param newFMname  : the path of the evolved FM
+	 * @param originaTS	 : the original Test suite
 	 * @param strength   : the strength
 	 * @param nThreads   : the number of threads to be used by pMEDICI
 	 * @param outputPath : the path of the output file where statistics are stored
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
-	 * @throws NoSuchExtensionException 
-	 * @throws UnsupportedModelException 
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
 	 */
-	public void generateWithPMediciPlus(String oldFMname, String newFMname, int strength, int nThreads,
-			String outputPath) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+	public void generateWithPMediciPlus(String oldFMname, String newFMname, TestSuite originalTS, int strength,
+			int nThreads, String outputPath)
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		PMedici pMedici = new PMedici();
 		// First model
-		TestSuite mediciTS1 = pMedici.generateTests(oldFMname, strength, nThreads);
+		TestSuite mediciTS1 = originalTS;
 		// Second model
 		String mediciModel = pMedici.buildMediciModel(newFMname);
 		TestModel m = Operations.readModelFromReader(new BufferedReader(new StringReader(mediciModel)));
@@ -228,55 +241,56 @@ public class TestSimpleExampleForPaper {
 	 * Computes the fault detection capability of the evolved test suite
 	 * 
 	 * @param newFMname : the new feature model
-	 * @param ts : the new test suite
+	 * @param ts        : the new test suite
 	 * @return : the fault detection capability of the evolved test suite
-	 * @throws NoSuchExtensionException 
-	 * @throws UnsupportedModelException 
-	 * @throws FileNotFoundException 
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 * @throws FileNotFoundException
 	 */
-	private float computeFaultDetectionCapability(String newFMname, TestSuite ts) throws FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+	private float computeFaultDetectionCapability(String newFMname, TestSuite ts)
+			throws FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
 		String fmPath = newFMname.split("_ctwedge_enum.ctw")[0] + ".xml";
 		float totMut = 0;
 		float killedMut = 0;
-		
+
 		// Read the feature model
 		IFeatureModel fm = Utils.readModel(fmPath);
-		
-		// Define the mutators	
+
+		// Define the mutators
 		FMMutator[] mutatorList = FMMutationProcess.allMutationOperators();
-		
+
 		// Apply the mutations
-		for (FMMutator mut : mutatorList){
+		for (FMMutator mut : mutatorList) {
 			// Fetch all the obtained mutants
 			Iterator<FMMutation> mutations = mut.mutate(fm);
 			while (mutations.hasNext()) {
 				totMut++;
 				FMMutation fmM = mutations.next();
-				
+
 				// Transform the test to a configuration
 				FeatureModelFormula featureModelFormula = new FeatureModelFormula(fmM.getFirst());
 				for (ctwedge.util.Test test : ts.getTests()) {
 					Configuration conf = new Configuration(featureModelFormula);
-					
+
 					// Set every assignment in the test as feature selected or not
 					for (Entry<String, String> assignemnt : test.entrySet()) {
 						String value = assignemnt.getValue();
 						assert value.equals("true") || value.equals("false");
-						Selection sel = value.equals("true")? Selection.SELECTED :Selection.UNSELECTED;
+						Selection sel = value.equals("true") ? Selection.SELECTED : Selection.UNSELECTED;
 						if (Utils.getFeatureNames(fmM.getFirst()).contains(assignemnt.getKey()))
 							conf.setManual(assignemnt.getKey(), sel);
 					}
-					
+
 					ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
 					Boolean result = LongRunningWrapper.runMethod(cp.isValid());
 					if (!result) {
-						killedMut ++;
+						killedMut++;
 						break;
 					}
 				}
 			}
-		}			
-		
-		return totMut!=0 ? killedMut/totMut : 0;
+		}
+
+		return totMut != 0 ? killedMut / totMut : 0;
 	}
 }
