@@ -43,6 +43,7 @@ import pMedici.importer.CSVImporter;
 import pMedici.main.PMedici;
 import pMedici.main.PMediciPlus;
 import pMedici.safeelements.TestContext;
+import pMedici.threads.TestBuilder;
 import pMedici.util.Operations;
 import pMedici.util.TestModel;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
@@ -93,7 +94,7 @@ public class TestSimpleExampleForPaper {
 
 	@Test
 	public void experimentsForPaper()
-			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {		
 		launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
 		launchSingleExperiment("PPUv1", "PPUv2", "evolutionModels/PPU/");
 		launchSingleExperiment("PPUv2", "PPUv3", "evolutionModels/PPU/");
@@ -113,6 +114,13 @@ public class TestSimpleExampleForPaper {
 		launchSingleExperiment("CarBodyv3", "CarBodyv4", "evolutionModels/CarBody/");
 		launchSingleExperiment("LinuxKernelv1", "LinuxKernelv2", "evolutionModels/LinuxKernel/");
 		launchSingleExperiment("LinuxKernelv2", "LinuxKernelv3", "evolutionModels/LinuxKernel/");
+		launchSingleExperiment("ParkingAssistantv1", "ParkingAssistantv2", "evolutionModels/ParkingAssistant/");
+		launchSingleExperiment("ParkingAssistantv2", "ParkingAssistantv3", "evolutionModels/ParkingAssistant/");
+		launchSingleExperiment("ParkingAssistantv3", "ParkingAssistantv4", "evolutionModels/ParkingAssistant/");
+		launchSingleExperiment("ParkingAssistantv4", "ParkingAssistantv5", "evolutionModels/ParkingAssistant/");
+		launchSingleExperiment("SmartHotelv1", "SmartHotelv2", "evolutionModels/SmartHotel/");
+		launchSingleExperiment("SmartWatchv1", "SmartWatchv2", "evolutionModels/SmartWatch/");
+		launchSingleExperiment("WeatherStationv1", "WeatherStationv2", "evolutionModels/WeatherStation/");
 		
 	}
 
