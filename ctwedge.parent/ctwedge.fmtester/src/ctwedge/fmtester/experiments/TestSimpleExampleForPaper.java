@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -96,40 +97,46 @@ public class TestSimpleExampleForPaper {
 	public void experimentsForPaper()
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {		
 		TestBuilder.KeepPartialOldTests = true;
-		//launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
-		launchSingleExperiment("PPUv1", "PPUv2", "evolutionModels/PPU/");
-		launchSingleExperiment("PPUv2", "PPUv3", "evolutionModels/PPU/");
-		launchSingleExperiment("PPUv3", "PPUv4", "evolutionModels/PPU/");
-		launchSingleExperiment("PPUv4", "PPUv5", "evolutionModels/PPU/");
-		launchSingleExperiment("PPUv5", "PPUv6", "evolutionModels/PPU/");
-		launchSingleExperiment("PPUv6", "PPUv7", "evolutionModels/PPU/");
-		launchSingleExperiment("PPUv7", "PPUv8", "evolutionModels/PPU/");
-		launchSingleExperiment("PPUv8", "PPUv9", "evolutionModels/PPU/");
-		launchSingleExperiment("AmbientAssistedLivingv1", "AmbientAssistedLivingv2", "evolutionModels/AmbientAssistedLiving/");
-		launchSingleExperiment("AutomotiveMultimediav1", "AutomotiveMultimediav2", "evolutionModels/AutomotiveMultimedia/");
-		launchSingleExperiment("AutomotiveMultimediav2", "AutomotiveMultimediav3", "evolutionModels/AutomotiveMultimedia/");
-		launchSingleExperiment("Boeingv1", "Boeingv2", "evolutionModels/Boeing/");
-		launchSingleExperiment("Boeingv2", "Boeingv3", "evolutionModels/Boeing/");
-		launchSingleExperiment("CarBodyv1", "CarBodyv2", "evolutionModels/CarBody/");
-		launchSingleExperiment("CarBodyv2", "CarBodyv3", "evolutionModels/CarBody/");
-		launchSingleExperiment("CarBodyv3", "CarBodyv4", "evolutionModels/CarBody/");
-		launchSingleExperiment("LinuxKernelv1", "LinuxKernelv2", "evolutionModels/LinuxKernel/");
-		launchSingleExperiment("LinuxKernelv2", "LinuxKernelv3", "evolutionModels/LinuxKernel/");
-		launchSingleExperiment("ParkingAssistantv1", "ParkingAssistantv2", "evolutionModels/ParkingAssistant/");
-		launchSingleExperiment("ParkingAssistantv2", "ParkingAssistantv3", "evolutionModels/ParkingAssistant/");
-		launchSingleExperiment("ParkingAssistantv3", "ParkingAssistantv4", "evolutionModels/ParkingAssistant/");
-		launchSingleExperiment("ParkingAssistantv4", "ParkingAssistantv5", "evolutionModels/ParkingAssistant/");
-		launchSingleExperiment("SmartHotelv1", "SmartHotelv2", "evolutionModels/SmartHotel/");
-		launchSingleExperiment("SmartWatchv1", "SmartWatchv2", "evolutionModels/SmartWatch/");
-		launchSingleExperiment("WeatherStationv1", "WeatherStationv2", "evolutionModels/WeatherStation/");
-		launchSingleExperiment("ERP_SPL_s1", "ERP_SPL_s2", "evolutionModels/ERP/");
-		launchSingleExperiment("HelpSystem1", "HelpSystem2", "evolutionModels/HelpSystem/");
-		launchSingleExperiment("MobileMediaV3", "MobileMediaV4", "evolutionModels/MobileMedia/");
-		launchSingleExperiment("MobileMediaV4", "MobileMediaV5", "evolutionModels/MobileMedia/");
-		launchSingleExperiment("MobileMediaV5", "MobileMediaV6", "evolutionModels/MobileMedia/");
-		launchSingleExperiment("MobileMediaV6", "MobileMediaV7", "evolutionModels/MobileMedia/");
-		launchSingleExperiment("MobileMediaV7", "MobileMediaV8", "evolutionModels/MobileMedia/");
-		launchSingleExperiment("SmartHomeV2", "SmartHomeV2.2", "evolutionModels/SmartHome/");
+		int N_REPETITIONS = 10;
+		
+		for (int i=0; i<N_REPETITIONS; i++) {
+			// Example in paper
+			// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
+			
+			launchMultipleExperiment(new String[] {"PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9"}, "evolutionModels/PPU/");
+			launchMultipleExperiment(new String[] {"AmbientAssistedLivingv1", "AmbientAssistedLivingv2"}, "evolutionModels/AmbientAssistedLiving/");
+			launchMultipleExperiment(new String[] {"AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3"}, "evolutionModels/AutomotiveMultimedia/");
+			launchMultipleExperiment(new String[] {"Boeingv1", "Boeingv2", "Boeingv3"}, "evolutionModels/Boeing/");
+			launchMultipleExperiment(new String[] {"CarBodyv1", "CarBodyv2", "CarBodyv3", "CarBodyv4"}, "evolutionModels/CarBody/");
+			launchMultipleExperiment(new String[] {"LinuxKernelv1", "LinuxKernelv2", "LinuxKernelv3"}, "evolutionModels/LinuxKernel/");
+			launchMultipleExperiment(new String[] {"ParkingAssistantv1", "ParkingAssistantv2", "ParkingAssistantv3", "ParkingAssistantv4", "ParkingAssistantv5"}, "evolutionModels/ParkingAssistant/");
+			launchMultipleExperiment(new String[] {"SmartHotelv1", "SmartHotelv2"}, "evolutionModels/SmartHotel/");
+			launchMultipleExperiment(new String[] {"SmartWatchv1", "SmartWatchv2"}, "evolutionModels/SmartWatch/");
+			launchMultipleExperiment(new String[] {"WeatherStationv1", "WeatherStationv2"}, "evolutionModels/WeatherStation/");
+			launchMultipleExperiment(new String[] {"ERP_SPL_s1", "ERP_SPL_s2"}, "evolutionModels/ERP/");
+			launchMultipleExperiment(new String[] {"HelpSystem1", "HelpSystem2"}, "evolutionModels/HelpSystem/");
+			launchMultipleExperiment(new String[] {"MobileMediaV3", "MobileMediaV4", "MobileMediaV5", "MobileMediaV6", "MobileMediaV7", "MobileMediaV8"}, "evolutionModels/MobileMedia/");
+			launchMultipleExperiment(new String[] {"SmartHomeV2", "SmartHomeV2.2"}, "evolutionModels/SmartHome/");
+		}
+	}
+	
+	/**
+	 * Executes the experiments on a set of models
+	 * 
+	 * @param models : the list of models
+	 * @param path   : the path in which models are stored
+	 * 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 */
+	public void launchMultipleExperiment(String[] models, String path) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+		for (int i=0; i<models.length-1; i++) {
+			for (int j=i+1; j<models.length; j++) {
+				launchSingleExperiment(models[i], models[j], path);
+			}
+		}
 	}
 
 	/**
@@ -238,6 +245,7 @@ public class TestSimpleExampleForPaper {
 		PMedici pMedici = new PMedici();
 		// First model
 		TestSuite mediciTS1 = originalTS;
+		Collections.shuffle(mediciTS1.getTests());
 		// Second model
 		String mediciModel = pMedici.buildMediciModel(newFMname);
 		TestModel m = Operations.readModelFromReader(new BufferedReader(new StringReader(mediciModel)));
@@ -330,3 +338,4 @@ public class TestSimpleExampleForPaper {
 		return totMut != 0 ? killedMut / totMut : 0;
 	}
 }
+
