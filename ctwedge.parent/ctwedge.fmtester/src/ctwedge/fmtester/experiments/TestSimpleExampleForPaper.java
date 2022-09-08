@@ -133,9 +133,10 @@ public class TestSimpleExampleForPaper {
 	 */
 	public void launchMultipleExperiment(String[] models, String path) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		for (int i=0; i<models.length-1; i++) {
-			for (int j=i+1; j<models.length; j++) {
+			int j = i+1;
+			//for (int j=i+1; j<models.length; j++) {
 				launchSingleExperiment(models[i], models[j], path);
-			}
+			//}
 		}
 	}
 
