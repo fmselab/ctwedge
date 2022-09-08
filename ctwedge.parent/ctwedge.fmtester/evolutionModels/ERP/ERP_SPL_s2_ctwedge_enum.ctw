@@ -1,0 +1,123 @@
+Model MERP_SPL_s2 Parameters :
+ERP_SPL : Boolean
+Cadastros : Boolean
+Cadastrodecliente : Boolean
+Editarcadastrodecliente : Boolean
+Apagarcadastrodecliente : Boolean
+Cadastrodefornecedor : Boolean
+Editarcadastrodefornecedor : Boolean
+Apagarcadastrodefornecedor : Boolean
+Cadastrodefuncionario : Boolean
+Editarcadastrodefuncionario : Boolean
+Apagarcadastrodefuncionario : Boolean
+Cadastrodeusuario : Boolean
+Editarcadastrodeusuario : Boolean
+Apagarcadastrodeusuario : Boolean
+Cadastroderegrasdeacessodeusuario : Boolean
+Editarregrasdeacessodeusuario : Boolean
+Cadastros_6 : Boolean
+Cadastrodeproduto : Boolean
+Editarcadastrodeproduto : Boolean
+Apagarcadastrodeproduto : Boolean
+Cadastrodeservico : Boolean
+Editarcadastrodeservico : Boolean
+Apagarcadastrodeservico : Boolean
+Login : Boolean
+Controledeacesso : Boolean
+Listagens : Boolean
+Listagemdeitens : Boolean
+Listagemdeprodutos : Boolean
+Listagemdeservicos : Boolean
+Listagemdepessoas : Boolean
+Listagemdeclientes : Boolean
+Listagemdefornecedores : Boolean
+Listagemdefuncionarios : Boolean
+Listagemdeusuarios : Boolean
+Listagemdeestoque : Boolean
+Controledeestoque : Boolean
+Entradadeestoque : Boolean
+Saidadeestoque : Boolean
+Manutencaodeestoque : Boolean
+Controlefinanceiro : Boolean
+Contasapagar : Boolean
+Contasareceber : Boolean
+Manutencaodelancamentos : Boolean
+Operacoes : Boolean
+Entradas : Boolean
+Ordensdecompra : Boolean
+OC_Movimentarestoque : Boolean
+OC_Gerarlancamentosapagar : Boolean
+Entradasdenotafiscal : Boolean
+ENF_Movimentarestoque : Boolean
+ENF_Gerarlancamentosapagar : Boolean
+Saidas : Boolean
+Orcamento : Boolean
+ORC_Movimentarestoque : Boolean
+ORC_Gerarlancamentosareceber : Boolean
+Venda : Boolean
+VEN_Movimentarestoque : Boolean
+VEN_Gerarlancamentosareceber : Boolean Constraints :
+# ERP_SPL == TRUE #
+# Cadastros == TRUE <=> ERP_SPL == TRUE #
+# Cadastrodecliente == TRUE <=> Cadastros == TRUE #
+# Editarcadastrodecliente == TRUE <=> Cadastrodecliente == TRUE #
+# Apagarcadastrodecliente == TRUE <=> Cadastrodecliente == TRUE #
+# Cadastrodefornecedor == TRUE <=> Cadastros == TRUE #
+# Editarcadastrodefornecedor == TRUE <=> Cadastrodefornecedor == TRUE #
+# Apagarcadastrodefornecedor == TRUE <=> Cadastrodefornecedor == TRUE #
+# Cadastrodefuncionario == TRUE => Cadastros == TRUE #
+# Editarcadastrodefuncionario == TRUE <=> Cadastrodefuncionario == TRUE #
+# Apagarcadastrodefuncionario == TRUE <=> Cadastrodefuncionario == TRUE #
+# Cadastrodeusuario == TRUE <=> Cadastros == TRUE #
+# Editarcadastrodeusuario == TRUE <=> Cadastrodeusuario == TRUE #
+# Apagarcadastrodeusuario == TRUE <=> Cadastrodeusuario == TRUE #
+# Cadastroderegrasdeacessodeusuario == TRUE => Cadastros == TRUE #
+# Editarregrasdeacessodeusuario == TRUE <=> Cadastroderegrasdeacessodeusuario == TRUE #
+# Cadastros_6 == TRUE <=> Cadastros == TRUE #
+# Cadastros_6 == TRUE => Cadastrodeproduto == TRUE || Cadastrodeservico == TRUE #
+# Cadastrodeproduto == TRUE => Cadastros_6 == TRUE #
+# Editarcadastrodeproduto == TRUE <=> Cadastrodeproduto == TRUE #
+# Apagarcadastrodeproduto == TRUE <=> Cadastrodeproduto == TRUE #
+# Cadastrodeservico == TRUE => Cadastros_6 == TRUE #
+# Editarcadastrodeservico == TRUE <=> Cadastrodeservico == TRUE #
+# Apagarcadastrodeservico == TRUE <=> Cadastrodeservico == TRUE #
+# Login == TRUE <=> ERP_SPL == TRUE #
+# Controledeacesso == TRUE => Login == TRUE #
+# Listagens == TRUE => ERP_SPL == TRUE #
+# Listagemdeitens == TRUE <=> Listagens == TRUE #
+# Listagemdeprodutos == TRUE => Listagens == TRUE #
+# Listagemdeservicos == TRUE => Listagens == TRUE #
+# Listagemdepessoas == TRUE <=> Listagens == TRUE #
+# Listagemdeclientes == TRUE <=> Listagens == TRUE #
+# Listagemdefornecedores == TRUE <=> Listagens == TRUE #
+# Listagemdefuncionarios == TRUE => Listagens == TRUE #
+# Listagemdeusuarios == TRUE <=> Listagens == TRUE #
+# Listagemdeestoque == TRUE => Listagens == TRUE #
+# Controledeestoque == TRUE => ERP_SPL == TRUE #
+# Controledeestoque == TRUE => Entradadeestoque == TRUE || Saidadeestoque == TRUE || Manutencaodeestoque == TRUE #
+# Entradadeestoque == TRUE => Controledeestoque == TRUE #
+# Saidadeestoque == TRUE => Controledeestoque == TRUE #
+# Manutencaodeestoque == TRUE => Controledeestoque == TRUE #
+# Controlefinanceiro == TRUE => ERP_SPL == TRUE #
+# Controlefinanceiro == TRUE => Contasapagar == TRUE || Contasareceber == TRUE || Manutencaodelancamentos == TRUE #
+# Contasapagar == TRUE => Controlefinanceiro == TRUE #
+# Contasareceber == TRUE => Controlefinanceiro == TRUE #
+# Manutencaodelancamentos == TRUE => Controlefinanceiro == TRUE #
+# Operacoes == TRUE <=> ERP_SPL == TRUE #
+# Operacoes == TRUE => Entradas == TRUE || Saidas == TRUE #
+# Entradas == TRUE => Operacoes == TRUE #
+# Entradas == TRUE => Ordensdecompra == TRUE || Entradasdenotafiscal == TRUE #
+# Ordensdecompra == TRUE => Entradas == TRUE #
+# OC_Movimentarestoque == TRUE => Ordensdecompra == TRUE #
+# OC_Gerarlancamentosapagar == TRUE => Ordensdecompra == TRUE #
+# Entradasdenotafiscal == TRUE => Entradas == TRUE #
+# ENF_Movimentarestoque == TRUE <=> Entradasdenotafiscal == TRUE #
+# ENF_Gerarlancamentosapagar == TRUE <=> Entradasdenotafiscal == TRUE #
+# Saidas == TRUE => Operacoes == TRUE #
+# Saidas == TRUE => Orcamento == TRUE || Venda == TRUE #
+# Orcamento == TRUE => Saidas == TRUE #
+# ORC_Movimentarestoque == TRUE => Orcamento == TRUE #
+# ORC_Gerarlancamentosareceber == TRUE => Orcamento == TRUE #
+# Venda == TRUE => Saidas == TRUE #
+# VEN_Movimentarestoque == TRUE <=> Venda == TRUE #
+# VEN_Gerarlancamentosareceber == TRUE <=> Venda == TRUE #

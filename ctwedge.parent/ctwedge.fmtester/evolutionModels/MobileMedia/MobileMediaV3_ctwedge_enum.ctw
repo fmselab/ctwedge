@@ -1,0 +1,23 @@
+Model MMobileMediaV3 Parameters :
+MobileMedia : Boolean
+AlbumManagement : Boolean
+CreateAlbum : Boolean
+Deletealbum : Boolean
+PhotoManagement : Boolean
+Sorting : Boolean
+PhotoOperation : Boolean
+Createphoto : Boolean
+Deletephoto : Boolean
+Editphotolabel : Boolean
+Viewphoto : Boolean Constraints :
+# MobileMedia == TRUE #
+# AlbumManagement == TRUE <=> MobileMedia == TRUE #
+# CreateAlbum == TRUE <=> AlbumManagement == TRUE #
+# Deletealbum == TRUE <=> AlbumManagement == TRUE #
+# PhotoManagement == TRUE <=> MobileMedia == TRUE #
+# Sorting == TRUE => PhotoManagement == TRUE #
+# PhotoOperation == TRUE <=> PhotoManagement == TRUE #
+# Createphoto == TRUE <=> PhotoOperation == TRUE #
+# Deletephoto == TRUE <=> PhotoOperation == TRUE #
+# Editphotolabel == TRUE <=> PhotoOperation == TRUE #
+# Viewphoto == TRUE <=> PhotoOperation == TRUE #

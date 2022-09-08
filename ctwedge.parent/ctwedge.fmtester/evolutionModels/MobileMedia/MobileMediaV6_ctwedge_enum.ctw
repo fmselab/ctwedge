@@ -1,0 +1,37 @@
+Model MMobileMediaV6 Parameters :
+Mobilemedia : Boolean
+Albummanagement : Boolean
+Createalbum : Boolean
+Deletealbum : Boolean
+Photomanagement : Boolean
+Favorite : Boolean
+Setfavorites : Boolean
+Viewfavorites : Boolean
+Sorting : Boolean
+Photooperation : Boolean
+Createphoto : Boolean
+Deletephoto : Boolean
+Editphotolabel : Boolean
+Viewphoto : Boolean
+Copyphoto : Boolean
+SMStranfer : Boolean
+Receivephoto : Boolean
+Sendphoto : Boolean Constraints :
+# Mobilemedia == TRUE #
+# Albummanagement == TRUE <=> Mobilemedia == TRUE #
+# Createalbum == TRUE <=> Albummanagement == TRUE #
+# Deletealbum == TRUE <=> Albummanagement == TRUE #
+# Photomanagement == TRUE <=> Mobilemedia == TRUE #
+# Favorite == TRUE => Photomanagement == TRUE #
+# Setfavorites == TRUE <=> Favorite == TRUE #
+# Viewfavorites == TRUE <=> Favorite == TRUE #
+# Sorting == TRUE => Photomanagement == TRUE #
+# Photooperation == TRUE <=> Photomanagement == TRUE #
+# Createphoto == TRUE <=> Photooperation == TRUE #
+# Deletephoto == TRUE <=> Photooperation == TRUE #
+# Editphotolabel == TRUE <=> Photooperation == TRUE #
+# Viewphoto == TRUE <=> Photooperation == TRUE #
+# Copyphoto == TRUE => Photomanagement == TRUE #
+# SMStranfer == TRUE => Photomanagement == TRUE #
+# Receivephoto == TRUE <=> SMStranfer == TRUE #
+# Sendphoto == TRUE <=> SMStranfer == TRUE #

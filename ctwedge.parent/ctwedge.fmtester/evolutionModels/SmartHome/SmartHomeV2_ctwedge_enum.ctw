@@ -1,0 +1,84 @@
+Model MSmartHomeV2 Parameters :
+SmartHome : Boolean
+HeatingManagement : Boolean
+ManualHeating : Boolean
+SmartHeating : Boolean
+WindowsManagement : Boolean
+ManualWindows : Boolean
+ElectronicWindows : Boolean
+LightManagement : Boolean
+ManualLight : Boolean
+SmartLight : Boolean
+Pre_definedValues : Boolean
+GUI : Boolean
+TouchScreen : Boolean
+Internet : Boolean
+PresenceSimulator : Boolean
+LightSimulation : Boolean
+BlindSimulation : Boolean
+MusicSimulation : Boolean
+FireControl : Boolean
+FirstAidGroup : Boolean
+FirstAidGroup_1 : Boolean
+FireDepartment : Boolean
+OtherGroup : Boolean
+FireSprinklers : Boolean
+IrrigationSprinklers : Boolean
+SimpleControl : Boolean
+SmartSprinklers : Boolean
+Alarm : Boolean
+Siren : Boolean
+Bell : Boolean
+Lights : Boolean
+Security : Boolean
+AuthenticationDevice : Boolean
+Keypad : Boolean
+RetinaScanner : Boolean
+FingerPrintReader : Boolean
+IntrusionDetectionDevice : Boolean
+GlassbreakSensors : Boolean
+Cameras : Boolean Constraints :
+# SmartHome == TRUE #
+# HeatingManagement == TRUE <=> SmartHome == TRUE #
+# ManualHeating == TRUE <=> HeatingManagement == TRUE #
+# SmartHeating == TRUE => HeatingManagement == TRUE #
+# WindowsManagement == TRUE <=> SmartHome == TRUE #
+# ManualWindows == TRUE <=> WindowsManagement == TRUE #
+# ElectronicWindows == TRUE => WindowsManagement == TRUE #
+# LightManagement == TRUE <=> SmartHome == TRUE #
+# ManualLight == TRUE <=> LightManagement == TRUE #
+# SmartLight == TRUE => LightManagement == TRUE #
+# Pre_definedValues == TRUE => LightManagement == TRUE #
+# GUI == TRUE <=> SmartHome == TRUE #
+# TouchScreen == TRUE <=> GUI == TRUE #
+# Internet == TRUE => GUI == TRUE #
+# PresenceSimulator == TRUE => SmartHome == TRUE #
+# PresenceSimulator == TRUE => LightSimulation == TRUE || BlindSimulation == TRUE || MusicSimulation == TRUE #
+# LightSimulation == TRUE => PresenceSimulator == TRUE #
+# BlindSimulation == TRUE => PresenceSimulator == TRUE #
+# MusicSimulation == TRUE => PresenceSimulator == TRUE #
+# FireControl == TRUE <=> SmartHome == TRUE #
+# FirstAidGroup == TRUE <=> FireControl == TRUE #
+# FirstAidGroup_1 == TRUE <=> FirstAidGroup == TRUE #
+# FirstAidGroup_1 == TRUE => FireDepartment == TRUE || OtherGroup == TRUE #
+# FireDepartment == TRUE => FirstAidGroup_1 == TRUE #
+# OtherGroup == TRUE => FirstAidGroup_1 == TRUE #
+# FireSprinklers == TRUE => FirstAidGroup == TRUE #
+# IrrigationSprinklers == TRUE => SmartHome == TRUE #
+# SimpleControl == TRUE <=> IrrigationSprinklers == TRUE #
+# SmartSprinklers == TRUE => IrrigationSprinklers == TRUE #
+# Alarm == TRUE <=> SmartHome == TRUE #
+# Alarm == TRUE => Siren == TRUE || Bell == TRUE || Lights == TRUE #
+# Siren == TRUE => Alarm == TRUE #
+# Bell == TRUE => Alarm == TRUE #
+# Lights == TRUE => Alarm == TRUE #
+# Security == TRUE <=> SmartHome == TRUE #
+# AuthenticationDevice == TRUE <=> Security == TRUE #
+# AuthenticationDevice == TRUE => Keypad == TRUE || RetinaScanner == TRUE || FingerPrintReader == TRUE #
+# Keypad == TRUE => AuthenticationDevice == TRUE #
+# RetinaScanner == TRUE => AuthenticationDevice == TRUE #
+# FingerPrintReader == TRUE => AuthenticationDevice == TRUE #
+# IntrusionDetectionDevice == TRUE => Security == TRUE #
+# IntrusionDetectionDevice == TRUE => GlassbreakSensors == TRUE || Cameras == TRUE #
+# GlassbreakSensors == TRUE => IntrusionDetectionDevice == TRUE #
+# Cameras == TRUE => IntrusionDetectionDevice == TRUE #

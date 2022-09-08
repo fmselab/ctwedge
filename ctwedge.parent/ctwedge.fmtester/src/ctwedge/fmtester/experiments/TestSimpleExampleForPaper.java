@@ -96,7 +96,7 @@ public class TestSimpleExampleForPaper {
 	public void experimentsForPaper()
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {		
 		TestBuilder.KeepPartialOldTests = true;
-		launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
+		//launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
 		launchSingleExperiment("PPUv1", "PPUv2", "evolutionModels/PPU/");
 		launchSingleExperiment("PPUv2", "PPUv3", "evolutionModels/PPU/");
 		launchSingleExperiment("PPUv3", "PPUv4", "evolutionModels/PPU/");
@@ -122,7 +122,14 @@ public class TestSimpleExampleForPaper {
 		launchSingleExperiment("SmartHotelv1", "SmartHotelv2", "evolutionModels/SmartHotel/");
 		launchSingleExperiment("SmartWatchv1", "SmartWatchv2", "evolutionModels/SmartWatch/");
 		launchSingleExperiment("WeatherStationv1", "WeatherStationv2", "evolutionModels/WeatherStation/");
-		
+		launchSingleExperiment("ERP_SPL_s1", "ERP_SPL_s2", "evolutionModels/ERP/");
+		launchSingleExperiment("HelpSystem1", "HelpSystem2", "evolutionModels/HelpSystem/");
+		launchSingleExperiment("MobileMediaV3", "MobileMediaV4", "evolutionModels/MobileMedia/");
+		launchSingleExperiment("MobileMediaV4", "MobileMediaV5", "evolutionModels/MobileMedia/");
+		launchSingleExperiment("MobileMediaV5", "MobileMediaV6", "evolutionModels/MobileMedia/");
+		launchSingleExperiment("MobileMediaV6", "MobileMediaV7", "evolutionModels/MobileMedia/");
+		launchSingleExperiment("MobileMediaV7", "MobileMediaV8", "evolutionModels/MobileMedia/");
+		launchSingleExperiment("SmartHomeV2", "SmartHomeV2.2", "evolutionModels/SmartHome/");
 	}
 
 	/**
