@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<calculations key="tautology" value="true"/>
+		<calculations key="auto" value="true"/>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<calculations key="redundant" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<calculations key="constraints" value="true"/>
+		<graphics key="layoutalgorithm" value="1"/>
+		<calculations key="features" value="true"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="ERP_SPL">
+			<and mandatory="true" name="Cadastros">
+				<graphics key="collapsed" value="true"/>
+				<and mandatory="true" name="Cadastrodecliente">
+					<graphics key="collapsed" value="true"/>
+					<feature mandatory="true" name="Editarcadastrodecliente"/>
+					<feature mandatory="true" name="Apagarcadastrodecliente"/>
+				</and>
+				<and mandatory="true" name="Cadastrodefornecedor">
+					<graphics key="collapsed" value="true"/>
+					<feature mandatory="true" name="Editarcadastrodefornecedor"/>
+					<feature mandatory="true" name="Apagarcadastrodefornecedor"/>
+				</and>
+				<and name="Cadastrodefuncionario">
+					<graphics key="collapsed" value="true"/>
+					<feature mandatory="true" name="Editarcadastrodefuncionario"/>
+					<feature mandatory="true" name="Apagarcadastrodefuncionario"/>
+				</and>
+				<and mandatory="true" name="Cadastrodeusuario">
+					<graphics key="collapsed" value="true"/>
+					<feature mandatory="true" name="Editarcadastrodeusuario"/>
+					<feature mandatory="true" name="Apagarcadastrodeusuario"/>
+				</and>
+				<and name="Cadastroderegrasdeacessodeusuario">
+					<graphics key="collapsed" value="true"/>
+					<feature mandatory="true" name="Editarregrasdeacessodeusuario"/>
+				</and>
+				<or abstract="true" mandatory="true" name="Cadastros_6">
+					<graphics key="collapsed" value="true"/>
+					<and name="Cadastrodeproduto">
+						<graphics key="collapsed" value="true"/>
+						<feature mandatory="true" name="Editarcadastrodeproduto"/>
+						<feature mandatory="true" name="Apagarcadastrodeproduto"/>
+					</and>
+					<and name="Cadastrodeservico">
+						<graphics key="collapsed" value="true"/>
+						<feature mandatory="true" name="Editarcadastrodeservico"/>
+						<feature mandatory="true" name="Apagarcadastrodeservico"/>
+					</and>
+				</or>
+			</and>
+			<and mandatory="true" name="Login">
+				<graphics key="collapsed" value="true"/>
+				<feature name="Controledeacesso"/>
+			</and>
+			<and name="Listagens">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="Listagemdeitens"/>
+				<feature name="Listagemdeprodutos"/>
+				<feature name="Listagemdeservicos"/>
+				<feature mandatory="true" name="Listagemdepessoas"/>
+				<feature mandatory="true" name="Listagemdeclientes"/>
+				<feature mandatory="true" name="Listagemdefornecedores"/>
+				<feature name="Listagemdefuncionarios"/>
+				<feature mandatory="true" name="Listagemdeusuarios"/>
+				<feature name="Listagemdeestoque"/>
+			</and>
+			<or name="Controledeestoque">
+				<graphics key="collapsed" value="true"/>
+				<feature name="Entradadeestoque"/>
+				<feature name="Saidadeestoque"/>
+				<feature name="Manutencaodeestoque"/>
+			</or>
+			<or name="Controlefinanceiro">
+				<graphics key="collapsed" value="true"/>
+				<feature name="Contasapagar"/>
+				<feature name="Contasareceber"/>
+				<feature name="Manutencaodelancamentos"/>
+			</or>
+		</and>
+	</struct>
+</featureModel>
