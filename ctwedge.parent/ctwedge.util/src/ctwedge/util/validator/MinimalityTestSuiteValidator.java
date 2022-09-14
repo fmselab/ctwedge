@@ -133,7 +133,7 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	}
 
 	private static List<String> tupleToString(Map<Parameter, ?> map) {
-		return map.entrySet().stream().map(x -> (x.getKey().getName() + "=" + x.getValue())).collect(Collectors.toList());
+		return Collections.singletonList(""); //map.entrySet().stream().map(x -> (x.getKey().getName() + "=" + x.getValue())).collect(Collectors.toList());
 	}
 
 	/**
