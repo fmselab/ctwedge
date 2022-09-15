@@ -124,9 +124,10 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 			Map<Parameter, String> map = new HashMap<Parameter, String>();
 			for (Pair<Parameter, String> e : req) {
 				map.put(e.getFirst(), e.getSecond());
-
+				
 			}
-			logger.debug("adding tuple " + tupleToString(map));
+			if (logger.isDebugEnabled())
+				logger.debug("adding tuple " + tupleToString(map));
 			ListMapReq.add(map);
 		}
 		return ListMapReq;

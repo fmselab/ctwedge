@@ -17,6 +17,8 @@ import java.util.Vector;
 import java.util.Map.Entry;
 
 import org.apache.commons.collections4.iterators.ArrayListIterator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
@@ -100,8 +102,9 @@ public class TestSimpleExampleForPaper {
 	public void experimentsForPaper()
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {		
 		TestBuilder.KeepPartialOldTests = true;
+		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		int N_REPETITIONS = 10;
-		int[] nThreadsList = new int[] {1, 2, 4, 6, 8};
+		int[] nThreadsList = new int[] {/*1, 2, 4,*/ 6, 8};
 		
 		for (int i=0; i<N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
@@ -222,6 +225,7 @@ public class TestSimpleExampleForPaper {
 		if (REDUCE_TEST_SUITE) {
 			mediciTS1 = reduceTestSuite(mediciTS1);
 			mediciTS2 = reduceTestSuite(mediciTS2);
+			System.gc();
 		}
 		
 		// Distance
@@ -286,6 +290,7 @@ public class TestSimpleExampleForPaper {
 		Vector<Map<String, String>> oldTs = CSVImporter.readFromReader(new StringReader(oldTsStr));
 		long start = System.currentTimeMillis();
 		String newTs = PMediciPlus.generateTests(pMedici.getModel(), m, oldTs);
+		System.out.println("*****" + newTs);
 		TestSuite mediciTS2 = new TestSuite(newTs, pMedici.getModel());
 		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
 		mediciTS2.setStrength(nThreads);
@@ -304,8 +309,10 @@ public class TestSimpleExampleForPaper {
 		bw.newLine();
 		
 		// Minimize test suite
-		if (REDUCE_TEST_SUITE)
+		if (REDUCE_TEST_SUITE) {
 			mediciTS2 = reduceTestSuite(mediciTS2);
+			System.gc();
+		}
 
 		// Distance
 		distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
