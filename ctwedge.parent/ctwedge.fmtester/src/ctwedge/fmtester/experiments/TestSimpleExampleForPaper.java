@@ -290,7 +290,6 @@ public class TestSimpleExampleForPaper {
 		Vector<Map<String, String>> oldTs = CSVImporter.readFromReader(new StringReader(oldTsStr));
 		long start = System.currentTimeMillis();
 		String newTs = PMediciPlus.generateTests(pMedici.getModel(), m, oldTs);
-		System.out.println("*****" + newTs);
 		TestSuite mediciTS2 = new TestSuite(newTs, pMedici.getModel());
 		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
 		mediciTS2.setStrength(nThreads);
