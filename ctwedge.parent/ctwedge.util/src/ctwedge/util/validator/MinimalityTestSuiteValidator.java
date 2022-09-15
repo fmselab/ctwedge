@@ -114,8 +114,17 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	public List<Map<Parameter, String>> getRequirements() {
 		CitModel model = ts.getModel();
 		assert ts.getStrength() > 0;
-		Iterator<List<Pair<Parameter, String>>> reqs = ParameterSwitchToPairStrings.getTuples(model, ts.getStrength());
+		return getRequirements(model, ts.getStrength());
+	}
 
+	/**
+	 * 
+	 * @param model
+	 * @param strength 
+	 * @return
+	 */
+	static List<Map<Parameter, String>> getRequirements(CitModel model, int strength) {
+		Iterator<List<Pair<Parameter, String>>> reqs = ParameterSwitchToPairStrings.getTuples(model, strength);
 		List<Map<Parameter, String>> ListMapReq = new ArrayList<Map<Parameter, String>>();
 		// Trasformo la lista di liste in una map scindendo i pairelement in key
 		// e value
