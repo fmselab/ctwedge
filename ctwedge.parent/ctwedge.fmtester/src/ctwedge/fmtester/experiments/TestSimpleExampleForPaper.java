@@ -335,7 +335,7 @@ public class TestSimpleExampleForPaper {
 		faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
 
 		// Write statistics to file
-		bw.write("T2Reducted;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
+		bw.write("T2Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
 				+ ";" + faultDetectionCapability + ";" + nThreads + ";");
 		bw.newLine();
