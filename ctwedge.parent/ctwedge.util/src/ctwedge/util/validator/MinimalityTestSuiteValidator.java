@@ -133,17 +133,20 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 			Map<Parameter, String> map = new HashMap<Parameter, String>();
 			for (Pair<Parameter, String> e : req) {
 				map.put(e.getFirst(), e.getSecond());
-				
 			}
-			if (logger.isDebugEnabled())
-				logger.debug("adding tuple " + tupleToString(map));
+			assert map.size() == strength;
+			if (logger.isDebugEnabled()) {
+				List<String> tupleToString = tupleToString(map);
+				assert ! tupleToString.isEmpty();
+				logger.debug("adding tuple " + tupleToString);
+			}
 			ListMapReq.add(map);
 		}
 		return ListMapReq;
 	}
 
 	private static List<String> tupleToString(Map<Parameter, ?> map) {
-		return Collections.singletonList(""); //map.entrySet().stream().map(x -> (x.getKey().getName() + "=" + x.getValue())).collect(Collectors.toList());
+		return map.entrySet().stream().map(x -> (x.getKey().getName() + "=" + x.getValue())).collect(Collectors.toList());
 	}
 
 	/**
@@ -173,6 +176,7 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	 * @return It returns a reduced test suite that is one of the minimal ones
 	 */
 	public TestSuite reduceSize() {
+		long start = System.currentTimeMillis();
 		// create a copy that can be modified
 		List<Map<Parameter, ?>> testSuiteSet = new ArrayList<Map<Parameter, ?>>();
 		testSuiteSet.addAll(getSeedsMap());
@@ -211,18 +215,12 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 			logger.debug("this test is necessary (" + tupleToString(best) + ") - covers " + coveredTuples);
 		}
 		logger.debug("all necessary tests are removed  - useless tests remaining: " + testSuiteSet.size());
-		// create an empty test suite
-		return new TestSuite(ts.getModel(),reducedTS);
-//		// get the old tests
-//		Set<Map<Parameter, String>> newTestSuite = getSeedsMap();
-//		newTestSuite.removeAll(testSuiteSet);
-//		for (Map<Parameter, ?> map : newTestSuite) {
-//			Test test = new Test();
-//			for (Entry<Parameter, ?> p : map.entrySet()) {
-//				test.put(p.getKey().toString(), p.getValue().toString());
-//			}
-//			result.getTests().add(test);
-//		}
+		// create the test suite with the new testa
+		TestSuite testSuite = new TestSuite(ts.getModel(),reducedTS);
+		testSuite.setStrength(ts.getStrength());
+		testSuite.setGeneratorName(ts.getGeneratorName() + "REDUCED");
+		testSuite.setGeneratorTime(System.currentTimeMillis() - start + ts.getGeneratorTime());		
+		return testSuite;
 	}
 
 	/**

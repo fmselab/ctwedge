@@ -102,7 +102,8 @@ public class TestSimpleExampleForPaper {
 	public void experimentsForPaper()
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {		
 		TestBuilder.KeepPartialOldTests = true;
-		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
+		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);		
+		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		int N_REPETITIONS = 10;
 		int[] nThreadsList = new int[] {/*1, 2, 4,*/ 6, 8};
 		
@@ -112,7 +113,7 @@ public class TestSimpleExampleForPaper {
 				// Example in paper
 				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
 				
-				launchMultipleExperiment(new String[] {"PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9"}, "evolutionModels/PPU/", nThreads);
+				//launchMultipleExperiment(new String[] {"PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9"}, "evolutionModels/PPU/", nThreads);
 				launchMultipleExperiment(new String[] {"AmbientAssistedLivingv1", "AmbientAssistedLivingv2"}, "evolutionModels/AmbientAssistedLiving/", nThreads);
 				launchMultipleExperiment(new String[] {"AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3"}, "evolutionModels/AutomotiveMultimedia/", nThreads);
 				launchMultipleExperiment(new String[] {"Boeingv1", "Boeingv2", "Boeingv3"}, "evolutionModels/Boeing/", nThreads);
@@ -174,7 +175,7 @@ public class TestSimpleExampleForPaper {
 
 		// Technique 1
 		TestSuite oldTs = regenerationFromScratch(oldModel, newModel, 2, nThreads, "output.csv");
-
+		assert oldTs.getStrength() == 2;
 		// Technique 2
 		generateWithPMediciPlus(oldModel, newModel, oldTs, 2, nThreads, "output.csv");
 	}
@@ -218,13 +219,16 @@ public class TestSimpleExampleForPaper {
 		PMedici pMedici = new PMedici();
 		// First model
 		TestSuite mediciTS1 = pMedici.generateTests(oldFMname, strength, nThreads);
+		assert mediciTS1.getStrength() == strength;
 		// Second model
 		TestSuite mediciTS2 = pMedici.generateTests(newFMname, strength, nThreads);
-		
+		assert mediciTS2.getStrength() == strength;		
 		// Minimize test suites
 		if (REDUCE_TEST_SUITE) {
 			mediciTS1 = reduceTestSuite(mediciTS1);
+			assert mediciTS1.getStrength() == strength;
 			mediciTS2 = reduceTestSuite(mediciTS2);
+			assert mediciTS2.getStrength() == strength;		
 			System.gc();
 		}
 		
@@ -253,9 +257,8 @@ public class TestSimpleExampleForPaper {
 	 */
 	private TestSuite reduceTestSuite(TestSuite ts) {
 		MinimalityTestSuiteValidator minimality = new MinimalityTestSuiteValidator(ts);
-		long start = System.currentTimeMillis();
 		TestSuite tsReduced = minimality.reduceSize();
-		tsReduced.setGeneratorTime(System.currentTimeMillis() - start + ts.getGeneratorTime());
+		assert tsReduced.getStrength() == ts.getStrength();
 		return tsReduced;
 	}
 
@@ -292,7 +295,7 @@ public class TestSimpleExampleForPaper {
 		String newTs = PMediciPlus.generateTests(pMedici.getModel(), m, oldTs);
 		TestSuite mediciTS2 = new TestSuite(newTs, pMedici.getModel());
 		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
-		mediciTS2.setStrength(nThreads);
+		mediciTS2.setStrength(strength);
 		
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
