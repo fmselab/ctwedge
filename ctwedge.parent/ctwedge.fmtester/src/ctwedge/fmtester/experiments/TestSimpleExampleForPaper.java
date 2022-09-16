@@ -105,7 +105,7 @@ public class TestSimpleExampleForPaper {
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);		
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		int N_REPETITIONS = 10;
-		int[] nThreadsList = new int[] {/*1, 2, 4,*/ 6, 8};
+		int[] nThreadsList = new int[] {1, 2, 4, 6, 8};
 		
 		for (int i=0; i<N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
@@ -113,7 +113,7 @@ public class TestSimpleExampleForPaper {
 				// Example in paper
 				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
 				
-				//launchMultipleExperiment(new String[] {"PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9"}, "evolutionModels/PPU/", nThreads);
+				launchMultipleExperiment(new String[] {"PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9"}, "evolutionModels/PPU/", nThreads);
 				launchMultipleExperiment(new String[] {"AmbientAssistedLivingv1", "AmbientAssistedLivingv2"}, "evolutionModels/AmbientAssistedLiving/", nThreads);
 				launchMultipleExperiment(new String[] {"AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3"}, "evolutionModels/AutomotiveMultimedia/", nThreads);
 				launchMultipleExperiment(new String[] {"Boeingv1", "Boeingv2", "Boeingv3"}, "evolutionModels/Boeing/", nThreads);
@@ -217,12 +217,27 @@ public class TestSimpleExampleForPaper {
 			String outputPath)
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		PMedici pMedici = new PMedici();
+		FileWriter fw = new FileWriter(outputPath, true);
+		BufferedWriter bw = new BufferedWriter(fw);
+		
 		// First model
 		TestSuite mediciTS1 = pMedici.generateTests(oldFMname, strength, nThreads);
 		assert mediciTS1.getStrength() == strength;
 		// Second model
 		TestSuite mediciTS2 = pMedici.generateTests(newFMname, strength, nThreads);
 		assert mediciTS2.getStrength() == strength;		
+		
+		// Distance
+		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+		// Mutation score
+		float faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
+		
+		// Write statistics to file
+		bw.write("T1;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
+				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
+				+ ";" + faultDetectionCapability + ";" + nThreads + ";");
+		bw.newLine();		
+		
 		// Minimize test suites
 		if (REDUCE_TEST_SUITE) {
 			mediciTS1 = reduceTestSuite(mediciTS1);
@@ -233,14 +248,12 @@ public class TestSimpleExampleForPaper {
 		}
 		
 		// Distance
-		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+		distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
 		// Mutation score
-		float faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
+		faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
 
 		// Write statistics to file
-		FileWriter fw = new FileWriter(outputPath, true);
-		BufferedWriter bw = new BufferedWriter(fw);
-		bw.write("T1;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
+		bw.write("T1Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
 				+ ";" + faultDetectionCapability + ";" + nThreads + ";");
 		bw.newLine();
