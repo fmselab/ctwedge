@@ -229,13 +229,14 @@ public class TestSimpleExampleForPaper {
 		
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+		float distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);		
 		// Mutation score
 		float faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
 		
 		// Write statistics to file
 		bw.write("T1;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";" + faultDetectionCapability + ";" + nThreads + ";");
+				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";");
 		bw.newLine();		
 		
 		// Minimize test suites
@@ -249,13 +250,14 @@ public class TestSimpleExampleForPaper {
 		
 		// Distance
 		distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+		distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
 		// Mutation score
 		faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
 
 		// Write statistics to file
 		bw.write("T1Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";" + faultDetectionCapability + ";" + nThreads + ";");
+				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";");
 		bw.newLine();
 		bw.close();
 
@@ -312,6 +314,7 @@ public class TestSimpleExampleForPaper {
 		
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+		float distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
 		// Mutation score
 		float faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
 		
@@ -320,7 +323,7 @@ public class TestSimpleExampleForPaper {
 		BufferedWriter bw = new BufferedWriter(fw);
 		bw.write("T2;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";" + faultDetectionCapability + ";" + nThreads + ";");
+				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";");
 		bw.newLine();
 		
 		// Minimize test suite
@@ -331,13 +334,14 @@ public class TestSimpleExampleForPaper {
 
 		// Distance
 		distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+		distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
 		// Mutation score
 		faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
 
 		// Write statistics to file
 		bw.write("T2Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";" + faultDetectionCapability + ";" + nThreads + ";");
+				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";");
 		bw.newLine();
 		bw.close();
 	}
