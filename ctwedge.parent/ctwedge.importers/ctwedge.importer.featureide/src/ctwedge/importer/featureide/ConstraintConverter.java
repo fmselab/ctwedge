@@ -46,14 +46,11 @@ import de.ovgu.featureide.fm.core.base.IFeature;
 public class ConstraintConverter extends SwitchNode<Expression> {
 
 	Map<String, Expression> litParams;
-	 private String normalize(String x){
-	    	return Normalizer.normalize(x,Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replace(",", "y");
-	    }
 
 	ConstraintConverter(Map<IFeature, Pair<Expression, String>> choosenExpr) {
 		litParams = new HashMap<>();
 		for (Entry<IFeature, Pair<Expression, String>> c : choosenExpr.entrySet()) {
-			String name = normalize(c.getKey().getName());
+			String name = FeatureIdeImporter.normalize(c.getKey().getName());
 			assert litParams.get(name) == null;
 			litParams.put(name, c.getValue().getFirst());
 		}
@@ -61,13 +58,17 @@ public class ConstraintConverter extends SwitchNode<Expression> {
 
 	@Override
 	protected Expression visit(And n) {
-		assert n.getChildren().length == 2;
+		assert n.getChildren().length == 2 || n.getChildren().length == 1 : n.getChildren()[0];
 		Expression n1 = visit(n.getChildren()[0]);
-		Expression n2 = visit(n.getChildren()[1]);
+		Expression n2;
+		if (n.getChildren().length == 2)
+			n2 = visit(n.getChildren()[1]);
+		else
+			return n1;
 		AndExpression and = CtWedgeFactory.eINSTANCE.createAndExpression();
 		and.setLeft(n1);
 		and.setRight(n2);
-		//and.setOp(AndOperators.AND);
+		// and.setOp(AndOperators.AND);
 		return and;
 	}
 
@@ -115,8 +116,8 @@ public class ConstraintConverter extends SwitchNode<Expression> {
 		// if n is translated as boolean return n = true
 		// if its root is an enumerative, and n is an element of the root return
 		// root = n
-		Expression eObject = litParams.get(n.var);
-		assert eObject != null;
+		Expression eObject = litParams.get(FeatureIdeImporter.normalize((String)n.var));
+		assert eObject != null : n.var;
 		Expression p = EcoreUtil2.cloneIfContained(eObject);
 		return p;
 	}
@@ -132,13 +133,19 @@ public class ConstraintConverter extends SwitchNode<Expression> {
 
 	@Override
 	protected Expression visit(Or or) {
-		assert or.getChildren().length == 2;
 		Expression n1 = visit(or.getChildren()[0]);
-		Expression n2 = visit(or.getChildren()[1]);
+		Expression n2;
+		if (or.getChildren().length == 2) {
+			assert or.getChildren().length == 2 : or.getChildren()[0];
+			n2 = visit(or.getChildren()[1]);
+		} else {
+			return n1;
+		}
+
 		OrExpression and = CtWedgeFactory.eINSTANCE.createOrExpression();
 		and.setLeft(n1);
 		and.setRight(n2);
-		//and.setOp(OrOperators.OR);
+		// and.setOp(OrOperators.OR);
 		return and;
 	}
 
