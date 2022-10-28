@@ -88,9 +88,9 @@
 			<version>3.2.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.core</groupId>
+			<groupId>org.eclipse.platform</groupId>
 			<artifactId>org.eclipse.core.runtime</artifactId>
-			<version>3.7.0</version>
+			<version>3.26.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
