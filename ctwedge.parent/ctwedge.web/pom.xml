@@ -11,6 +11,15 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+					<exclude>**/*.xtend</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
@@ -18,7 +27,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.3.2</version>
 				<configuration>
 					<warSourceDirectory>WebRoot</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
@@ -27,7 +36,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.4.22.v20191022</version>
+				<version>9.4.48.v20220622</version>
 				<configuration>
 					<webAppSourceDirectory>WebRoot</webAppSourceDirectory>
 				</configuration>
@@ -35,7 +44,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.3.0</version>
 				<executions>
 					<execution>
 						<id>add-source</id>
@@ -47,17 +56,10 @@
 						<configuration>
 							<sources>
 								<source>src-gen</source>
-								<source>xtend-gen</source>
 							</sources>
 							<resources>
 								<resource>
 									<directory>src-gen</directory>
-									<excludes>
-										<exclude>**/*.java</exclude>
-									</excludes>
-								</resource>
-								<resource>
-									<directory>xtend-gen</directory>
 									<excludes>
 										<exclude>**/*.java</exclude>
 									</excludes>
@@ -97,12 +99,6 @@
 			<version>${xtextVersion}</version>
 		</dependency>
 		<dependency>
-		  	<groupId>org.sakaiproject.webjars</groupId>
-		  	<artifactId>webjars</artifactId>
-		  	<version>22.1</version>
-		  	<type>pom</type>
-		</dependency>
-		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>requirejs</artifactId>
 			<version>2.3.6</version>
@@ -110,23 +106,23 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>3.6.1</version>
+			<version>3.6.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>ace</artifactId>
-			<version>07.31.2013</version>
+			<version>1.3.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-annotations</artifactId>
-			<version>11.0.12</version>
+			<version>9.4.48.v20220622</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>2.0.3</version>
+			<version>1.7.33</version>
 			<scope>provided</scope>
 		</dependency>		
 		<dependency>
