@@ -26,6 +26,7 @@ import ctwedge.fmtester.Converter;
 import ctwedge.fmtester.DistancesCalculator;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.exporter.ToCSV;
+import ctwedge.generator.util.Utility;
 import ctwedge.importer.featureide.FeatureIdeImporter;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
@@ -51,7 +52,6 @@ import pMedici.threads.TestBuilder;
 import pMedici.util.Operations;
 import pMedici.util.TestModel;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
-import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
 
 public class TestSimpleExampleForPaper {
 
@@ -86,13 +86,13 @@ public class TestSimpleExampleForPaper {
 		float distance = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
 		System.out.println(distance);
 		// tecnica 2
-		String mediciModel = pMedici.buildMediciModel(fmName2);
+		String mediciModel = PMedici.buildMediciModel(Utility.loadModel(fmName2));
 		TestModel m = Operations.readModelFromReader(new BufferedReader(new StringReader(mediciModel)));
 		ToCSV converter = new ToCSV();
 		String oldTsStr = converter.toCSVcode(mediciTS1);
 		Vector<Map<String, String>> oldTs = CSVImporter.readFromReader(new StringReader(oldTsStr));
 
-		String newTs = PMediciPlus.generateTests(pMedici.getModel(), m, oldTs);
+		String newTs = PMediciPlus.generateTests(pMedici.getModel(), Utility.loadModel(fmName2), oldTs);
 		TestSuite technique2TS = new TestSuite(newTs, pMedici.getModel());
 		float distance2 = DistancesCalculator.percTestSuitesDist(mediciTS1, technique2TS);
 		System.out.println(distance2);
@@ -301,13 +301,13 @@ public class TestSimpleExampleForPaper {
 		Collections.shuffle(mediciTS1.getTests());
 		
 		// Second model
-		String mediciModel = pMedici.buildMediciModel(newFMname);
+		String mediciModel = PMedici.buildMediciModel(Utility.loadModel(newFMname));
 		TestModel m = Operations.readModelFromReader(new BufferedReader(new StringReader(mediciModel)));
 		ToCSV converter = new ToCSV();
 		String oldTsStr = converter.toCSVcode(mediciTS1);
 		Vector<Map<String, String>> oldTs = CSVImporter.readFromReader(new StringReader(oldTsStr));
 		long start = System.currentTimeMillis();
-		String newTs = PMediciPlus.generateTests(pMedici.getModel(), m, oldTs);
+		String newTs = PMediciPlus.generateTests(pMedici.getModel(), Utility.loadModel(newFMname), oldTs);
 		TestSuite mediciTS2 = new TestSuite(newTs, pMedici.getModel());
 		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
 		mediciTS2.setStrength(strength);
