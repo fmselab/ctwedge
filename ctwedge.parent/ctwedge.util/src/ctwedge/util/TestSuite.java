@@ -10,7 +10,7 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 
 /** class for memorizing a test suite */
-public class TestSuite {
+public class TestSuite{
 	// string as CSV output
 	private String ts;
 	float generatorTime;
