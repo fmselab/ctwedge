@@ -125,8 +125,9 @@ public class TestSuite{
 //				for (int j=0; j<ps.length; j++) as.add(new Assignment(params.get(j), ps[j]));
 //				tests.add(new Test(as));
 				Map<String, String> as = new HashMap<>();
-				for (int j = 0; j < ps.length; j++)
+				for (int j = 0; j < ps.length; j++) {
 					as.put(params.get(j).getName(), ps[j]);
+				}
 				tests.add(new Test(as));
 			}
 		}

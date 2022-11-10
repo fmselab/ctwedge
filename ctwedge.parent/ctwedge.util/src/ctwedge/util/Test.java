@@ -16,9 +16,12 @@ public class Test extends Combination {
 		Test t1 = (Test) t;
 		boolean different = false;
 		for (java.util.Map.Entry<String, String> entry : this.entrySet()) {
-			if (!this.get(entry.getValue()).equals(t1.get(entry.getValue()))) {
-				different = true;
+			for (java.util.Map.Entry<String, String> entry2 : t1.entrySet()) {
+				if (!this.get(entry.getKey()).equals(t1.get(entry2.getKey()))) {
+					different = true;
+				}
 			}
+			
 		}
 		return !different;
 	}
