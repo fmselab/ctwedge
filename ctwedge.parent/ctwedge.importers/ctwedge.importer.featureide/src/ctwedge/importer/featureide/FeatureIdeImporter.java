@@ -93,7 +93,10 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		}
 
 	// normalize the strings in case they contain strange characters
-	protected String normalize(String x) {
+	public static String normalize(String x) {
+		if (Character.isDigit(x.charAt(0))) {
+			x = "_" + x;
+		}
 		return Normalizer.normalize(x, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll(",", "y")
 				.replaceAll("-", "_");
 	}
