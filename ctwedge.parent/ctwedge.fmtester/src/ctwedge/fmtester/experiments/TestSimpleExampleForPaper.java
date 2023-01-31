@@ -1,57 +1,40 @@
 package ctwedge.fmtester.experiments;
 
-import static org.junit.Assert.*;
-
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 import java.util.Map.Entry;
 
-import org.apache.commons.collections4.iterators.ArrayListIterator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import ctwedge.ctWedge.CitModel;
 import ctwedge.fmtester.Converter;
 import ctwedge.fmtester.DistancesCalculator;
-import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.exporter.ToCSV;
-import ctwedge.generator.util.Utility;
-import ctwedge.importer.featureide.FeatureIdeImporter;
-import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
 import ctwedge.util.validator.MinimalityTestSuiteValidator;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
+import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
 import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
 import de.ovgu.featureide.fm.core.job.LongRunningWrapper;
 import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
-import fmautorepair.mutationoperators.features.*;
 import fmautorepair.mutationprocess.FMMutationProcess;
-import fmautorepair.utils.CollectionsUtil;
 import fmautorepair.utils.Utils;
-import pMedici.importer.CSVImporter;
 import pMedici.main.PMedici;
-import pMedici.main.PMediciPlus;
 import pMedici.safeelements.TestContext;
 import pMedici.threads.TestBuilder;
-import pMedici.util.Operations;
-import pMedici.util.TestModel;
-import de.ovgu.featureide.fm.core.configuration.Configuration;
 
 public class TestSimpleExampleForPaper {
 
@@ -86,14 +69,13 @@ public class TestSimpleExampleForPaper {
 		float distance = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
 		System.out.println(distance);
 		// tecnica 2
-		String mediciModel = PMedici.buildMediciModel(Utility.loadModel(fmName2));
-		TestModel m = Operations.readModelFromReader(new BufferedReader(new StringReader(mediciModel)));
 		ToCSV converter = new ToCSV();
 		String oldTsStr = converter.toCSVcode(mediciTS1);
-		Vector<Map<String, String>> oldTs = CSVImporter.readFromReader(new StringReader(oldTsStr));
-
-		String newTs = PMediciPlus.generateTests(pMedici.getModel(), Utility.loadModel(fmName2), oldTs);
-		TestSuite technique2TS = new TestSuite(newTs, pMedici.getModel());
+		Path tempFile = Files.createTempFile(null, null);
+		Files.write(tempFile, oldTsStr.getBytes(StandardCharsets.UTF_8));
+		pMedici = new PMedici();
+		pMedici.setOldTs(tempFile.toString());
+		TestSuite technique2TS = pMedici.generateTests(fmName2, 2, 0);
 		float distance2 = DistancesCalculator.percTestSuitesDist(mediciTS1, technique2TS);
 		System.out.println(distance2);
 	}
@@ -301,14 +283,14 @@ public class TestSimpleExampleForPaper {
 		Collections.shuffle(mediciTS1.getTests());
 		
 		// Second model
-		String mediciModel = PMedici.buildMediciModel(Utility.loadModel(newFMname));
-		TestModel m = Operations.readModelFromReader(new BufferedReader(new StringReader(mediciModel)));
 		ToCSV converter = new ToCSV();
 		String oldTsStr = converter.toCSVcode(mediciTS1);
-		Vector<Map<String, String>> oldTs = CSVImporter.readFromReader(new StringReader(oldTsStr));
+		Path tempFile = Files.createTempFile(null, null);
+		Files.write(tempFile, oldTsStr.getBytes(StandardCharsets.UTF_8));
+		pMedici = new PMedici();
+		pMedici.setOldTs(tempFile.toString());
 		long start = System.currentTimeMillis();
-		String newTs = PMediciPlus.generateTests(pMedici.getModel(), Utility.loadModel(newFMname), oldTs);
-		TestSuite mediciTS2 = new TestSuite(newTs, pMedici.getModel());
+		TestSuite mediciTS2 = pMedici.generateTests(newFMname, 2, 0);	
 		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
 		mediciTS2.setStrength(strength);
 		
