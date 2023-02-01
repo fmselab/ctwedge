@@ -17,10 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.beans.PojoObservables;
-import org.eclipse.core.databinding.observable.list.WritableList;
-import org.eclipse.core.databinding.observable.map.IObservableMap;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -29,9 +25,6 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
-import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
-import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
@@ -192,18 +185,18 @@ public class PrjSelectionDialog extends Dialog {
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
-		ObservableListContentProvider listContentProvider = new ObservableListContentProvider();
-		IObservableMap[] observeMaps = PojoObservables.observeMaps(listContentProvider.getKnownElements(), IProject.class, new String[]{"name", "locationURI.path"});
-		tableViewer.setLabelProvider(new ObservableMapLabelProvider(observeMaps));
-		tableViewer.setContentProvider(listContentProvider);
-		//
-		WritableList writableList = new WritableList(prjs, IProject.class);
-		tableViewer.setInput(writableList);
-		//
-		IObservableValue tableViewerObserveSingleSelection = ViewersObservables.observeSingleSelection(tableViewer);
-		IObservableValue tableViewerAccessibleObserveDetailValue = PojoObservables.observeDetailValue(tableViewerObserveSingleSelection, "name", String.class);
-		IObservableValue textTextObserveValue = PojoObservables.observeValue(text, "text");
-		bindingContext.bindValue(tableViewerAccessibleObserveDetailValue, textTextObserveValue, null, null);
+//		ObservableListContentProvider listContentProvider = new ObservableListContentProvider();
+//		IObservableMap[] observeMaps = PojoObservables.observeMaps(listContentProvider.getKnownElements(), IProject.class, new String[]{"name", "locationURI.path"});
+//		tableViewer.setLabelProvider(new ObservableMapLabelProvider(observeMaps));
+//		tableViewer.setContentProvider(listContentProvider);
+//		//
+//		WritableList writableList = new WritableList(prjs, IProject.class);
+//		tableViewer.setInput(writableList);
+//		//
+//		IObservableValue tableViewerObserveSingleSelection = ViewersObservables.observeSingleSelection(tableViewer);
+//		IObservableValue tableViewerAccessibleObserveDetailValue = PojoObservables.observeDetailValue(tableViewerObserveSingleSelection, "name", String.class);
+//		IObservableValue textTextObserveValue = PojoObservables.observeValue(text, "text");
+//		bindingContext.bindValue(tableViewerAccessibleObserveDetailValue, textTextObserveValue, null, null);
 		//
 		return bindingContext;
 	}
