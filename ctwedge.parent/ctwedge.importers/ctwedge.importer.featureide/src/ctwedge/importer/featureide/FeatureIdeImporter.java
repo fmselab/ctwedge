@@ -124,7 +124,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 	 * @param fm
 	 * @return an equivalent CitModel
 	 */
-	private CitModel transform(IFeatureModel fm) {
+	public CitModel transform(IFeatureModel fm) {
 		CtWedgePackageImpl.init();
 		CitModel result = CtWedgeFactory.eINSTANCE.createCitModel();
 		IFeature root = fm.getStructure().getRoot().getFeature();

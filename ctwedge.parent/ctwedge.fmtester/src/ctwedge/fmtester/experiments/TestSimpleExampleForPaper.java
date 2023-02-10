@@ -1,6 +1,7 @@
 package ctwedge.fmtester.experiments;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,10 +24,16 @@ import ctwedge.util.validator.MinimalityTestSuiteValidator;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
+import de.ovgu.featureide.fm.core.base.event.FeatureIDEEvent;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
 import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
+import de.ovgu.featureide.fm.core.io.manager.FeatureModelIO;
+import de.ovgu.featureide.fm.core.io.manager.FileHandler;
+import de.ovgu.featureide.fm.core.io.manager.SimpleFileHandler;
+import de.ovgu.featureide.fm.core.io.xml.AXMLFormat;
+import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
 import de.ovgu.featureide.fm.core.job.LongRunningWrapper;
 import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
@@ -39,7 +46,7 @@ import pMedici.threads.TestBuilder;
 public class TestSimpleExampleForPaper {
 
 	static boolean REDUCE_TEST_SUITE = true;
-	
+
 	@Test
 	public void test1() throws IOException, InterruptedException {
 		// distance 6 and 5
@@ -82,43 +89,148 @@ public class TestSimpleExampleForPaper {
 
 	@Test
 	public void experimentsForPaper()
-			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {		
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		TestBuilder.KeepPartialOldTests = true;
-		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);		
+		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		int N_REPETITIONS = 10;
-		int[] nThreadsList = new int[] {1, 2, 4, 6, 8};
-		
-		for (int i=0; i<N_REPETITIONS; i++) {
+		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+
+		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
-				
+
 				// Example in paper
 				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
-				
-				launchMultipleExperiment(new String[] {"PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9"}, "evolutionModels/PPU/", nThreads);
-				launchMultipleExperiment(new String[] {"AmbientAssistedLivingv1", "AmbientAssistedLivingv2"}, "evolutionModels/AmbientAssistedLiving/", nThreads);
-				launchMultipleExperiment(new String[] {"AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3"}, "evolutionModels/AutomotiveMultimedia/", nThreads);
-				launchMultipleExperiment(new String[] {"Boeingv1", "Boeingv2", "Boeingv3"}, "evolutionModels/Boeing/", nThreads);
-				launchMultipleExperiment(new String[] {"CarBodyv1", "CarBodyv2", "CarBodyv3", "CarBodyv4"}, "evolutionModels/CarBody/", nThreads);
-				launchMultipleExperiment(new String[] {"LinuxKernelv1", "LinuxKernelv2", "LinuxKernelv3"}, "evolutionModels/LinuxKernel/", nThreads);
-				launchMultipleExperiment(new String[] {"ParkingAssistantv1", "ParkingAssistantv2", "ParkingAssistantv3", "ParkingAssistantv4", "ParkingAssistantv5"}, "evolutionModels/ParkingAssistant/", nThreads);
-				launchMultipleExperiment(new String[] {"SmartHotelv1", "SmartHotelv2"}, "evolutionModels/SmartHotel/", nThreads);
-				launchMultipleExperiment(new String[] {"SmartWatchv1", "SmartWatchv2"}, "evolutionModels/SmartWatch/", nThreads);
-				launchMultipleExperiment(new String[] {"WeatherStationv1", "WeatherStationv2"}, "evolutionModels/WeatherStation/", nThreads);
-				launchMultipleExperiment(new String[] {"ERP_SPL_s1", "ERP_SPL_s2"}, "evolutionModels/ERP/", nThreads);
-				launchMultipleExperiment(new String[] {"HelpSystem1", "HelpSystem2"}, "evolutionModels/HelpSystem/", nThreads);
-				launchMultipleExperiment(new String[] {"MobileMediaV3", "MobileMediaV4", "MobileMediaV5", "MobileMediaV6", "MobileMediaV7", "MobileMediaV8"}, "evolutionModels/MobileMedia/", nThreads);
-				launchMultipleExperiment(new String[] {"SmartHomeV2", "SmartHomeV2.2"}, "evolutionModels/SmartHome/", nThreads);
-				// launchMultipleExperiment(new String[] {"automotive2_1", "automotive2_2", "automotive2_3", "automotive2_4"}, "evolutionModels/Automotive/");
+
+				launchMultipleExperiment(new String[] { "PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7",
+						"PPUv8", "PPUv9" }, "evolutionModels/PPU/", nThreads);
+				launchMultipleExperiment(new String[] { "AmbientAssistedLivingv1", "AmbientAssistedLivingv2" },
+						"evolutionModels/AmbientAssistedLiving/", nThreads);
+				launchMultipleExperiment(
+						new String[] { "AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3" },
+						"evolutionModels/AutomotiveMultimedia/", nThreads);
+				launchMultipleExperiment(new String[] { "Boeingv1", "Boeingv2", "Boeingv3" }, "evolutionModels/Boeing/",
+						nThreads);
+				launchMultipleExperiment(new String[] { "CarBodyv1", "CarBodyv2", "CarBodyv3", "CarBodyv4" },
+						"evolutionModels/CarBody/", nThreads);
+				launchMultipleExperiment(new String[] { "LinuxKernelv1", "LinuxKernelv2", "LinuxKernelv3" },
+						"evolutionModels/LinuxKernel/", nThreads);
+				launchMultipleExperiment(
+						new String[] { "ParkingAssistantv1", "ParkingAssistantv2", "ParkingAssistantv3",
+								"ParkingAssistantv4", "ParkingAssistantv5" },
+						"evolutionModels/ParkingAssistant/", nThreads);
+				launchMultipleExperiment(new String[] { "SmartHotelv1", "SmartHotelv2" }, "evolutionModels/SmartHotel/",
+						nThreads);
+				launchMultipleExperiment(new String[] { "SmartWatchv1", "SmartWatchv2" }, "evolutionModels/SmartWatch/",
+						nThreads);
+				launchMultipleExperiment(new String[] { "WeatherStationv1", "WeatherStationv2" },
+						"evolutionModels/WeatherStation/", nThreads);
+				launchMultipleExperiment(new String[] { "ERP_SPL_s1", "ERP_SPL_s2" }, "evolutionModels/ERP/", nThreads);
+				launchMultipleExperiment(new String[] { "HelpSystem1", "HelpSystem2" }, "evolutionModels/HelpSystem/",
+						nThreads);
+				launchMultipleExperiment(new String[] { "MobileMediaV3", "MobileMediaV4", "MobileMediaV5",
+						"MobileMediaV6", "MobileMediaV7", "MobileMediaV8" }, "evolutionModels/MobileMedia/", nThreads);
+				launchMultipleExperiment(new String[] { "SmartHomeV2", "SmartHomeV2.2" }, "evolutionModels/SmartHome/",
+						nThreads);
 			}
 		}
 	}
-	
+
+	@Test
+	public void experimentsForPaperWithMutations()
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+		TestBuilder.KeepPartialOldTests = true;
+		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
+		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
+//		int N_REPETITIONS = 10;
+//		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+		
+		int N_REPETITIONS = 1;
+		int[] nThreadsList = new int[] {4, 6, 8 };
+
+		for (int i = 0; i < N_REPETITIONS; i++) {
+			for (int nThreads : nThreadsList) {
+
+				// Example in paper
+				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
+
+				if (nThreads > 4) {
+					launchSingleExperimentMutation("PPUv1", "evolutionModels/PPU/", nThreads);
+					launchSingleExperimentMutation("AmbientAssistedLivingv1", "evolutionModels/AmbientAssistedLiving/",
+							nThreads);
+					launchSingleExperimentMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",
+							nThreads);
+					launchSingleExperimentMutation("Boeingv1", "evolutionModels/Boeing/", nThreads);
+					launchSingleExperimentMutation("CarBodyv1", "evolutionModels/CarBody/", nThreads);
+					launchSingleExperimentMutation("LinuxKernelv1", "evolutionModels/LinuxKernel/", nThreads);
+					launchSingleExperimentMutation("ParkingAssistantv1", "evolutionModels/ParkingAssistant/", nThreads);
+					launchSingleExperimentMutation("SmartHotelv1", "evolutionModels/SmartHotel/", nThreads);
+					launchSingleExperimentMutation("SmartWatchv1", "evolutionModels/SmartWatch/", nThreads);
+					launchSingleExperimentMutation("WeatherStationv1", "evolutionModels/WeatherStation/", nThreads);
+				}
+				launchSingleExperimentMutation("ERP_SPL_s1", "evolutionModels/ERP/", nThreads);
+				launchSingleExperimentMutation("HelpSystem1", "evolutionModels/HelpSystem/", nThreads);
+				launchSingleExperimentMutation("MobileMediaV3", "evolutionModels/MobileMedia/", nThreads);
+				launchSingleExperimentMutation("SmartHomeV2", "evolutionModels/SmartHome/", nThreads);
+			}
+		}
+	}
+
+	/**
+	 * Executes the experiments by starting from the model given as parameter and
+	 * compares the results with those obtained when mutations are applied to the
+	 * model
+	 * 
+	 * @param model    : the model
+	 * @param path     : the path in which model is stored
+	 * @param nThreads : the number of threads to be used
+	 * @throws UnsupportedModelException
+	 * @throws IOException
+	 * @throws NoSuchExtensionException
+	 * @throws InterruptedException
+	 */
+	private void launchSingleExperimentMutation(String model, String path, int nThreads)
+			throws UnsupportedModelException, IOException, InterruptedException, NoSuchExtensionException {
+		TestContext.IN_TEST = true;
+
+		String oldModel = convertModelFromFMToCTW(model, path);
+
+		// Read the feature model to be muted
+		IFeatureModel fm = Utils.readModel(path + model + ".xml");
+
+		// Define the mutators
+		FMMutator[] mutatorList = FMMutationProcess.allMutationOperators();
+		int i=0;
+
+		// Apply the mutations
+		for (FMMutator mut : mutatorList) {
+			// Fetch all the obtained mutants
+			Iterator<FMMutation> mutations = mut.mutate(fm);
+			while (mutations.hasNext()) {
+				FMMutation fmM = mutations.next();
+				IFeatureModel muted = fmM.getFirst();
+				String newModel = "";
+				try {
+					newModel = convertModelFromFMToCTW(muted, path, model + "_" + i);
+					SimpleFileHandler.save(new File(newModel + ".xml").toPath(), muted, new XmlFeatureModelFormat());
+					// Technique 1
+					TestSuite oldTs = regenerationFromScratch(oldModel, newModel, 2, nThreads, "outputSynthetic.csv");
+					assert oldTs.getStrength() == 2;
+					// Technique 2
+					generateWithPMediciPlus(oldModel, newModel, oldTs, 2, nThreads, "outputSynthetic.csv");
+				} catch (Exception e) {
+					continue;
+				}
+				i++;
+			}
+		}
+	}
+
 	/**
 	 * Executes the experiments on a set of models
 	 * 
-	 * @param models : the list of models
-	 * @param path   : the path in which models are stored
+	 * @param models   : the list of models
+	 * @param path     : the path in which models are stored
 	 * @param nThreads : the number of threads to be used
 	 * 
 	 * @throws IOException
@@ -126,21 +238,20 @@ public class TestSimpleExampleForPaper {
 	 * @throws NoSuchExtensionException
 	 * @throws UnsupportedModelException
 	 */
-	public void launchMultipleExperiment(String[] models, String path, int nThreads) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
-		for (int i=0; i<models.length-1; i++) {
-			int j = i+1;
-			//for (int j=i+1; j<models.length; j++) {
-				launchSingleExperiment(models[i], models[j], path, nThreads);
-			//}
+	public void launchMultipleExperiment(String[] models, String path, int nThreads)
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+		for (int i = 0; i < models.length - 1; i++) {
+			int j = i + 1;
+			launchSingleExperiment(models[i], models[j], path, nThreads);
 		}
 	}
 
 	/**
 	 * Executes the single experiment
 	 * 
-	 * @param model1 : the first model
-	 * @param model2 : the evolved model
-	 * @param path   : the path in which models are stored
+	 * @param model1   : the first model
+	 * @param model2   : the evolved model
+	 * @param path     : the path in which models are stored
 	 * @param nThreads : the number of threads to be used
 	 * 
 	 * @throws IOException
@@ -180,6 +291,22 @@ public class TestSimpleExampleForPaper {
 	}
 
 	/**
+	 * Converts a FM into a CTW model
+	 * 
+	 * @param model  : the feature model
+	 * @param path   : the path of the feature model
+	 * @param fmName : the name of the feature model
+	 * @return : the path of the CTW model corresponding to the feature model given
+	 *         as input
+	 * 
+	 * @throws IOException
+	 */
+	public String convertModelFromFMToCTW(IFeatureModel model, String path, String fmName) throws IOException {
+		Converter.fromIFeatureModeltoCTWedge_ENUM(model, path + fmName + "_ctwedge_enum_muted.ctw");
+		return path + fmName + "_ctwedge_enum_muted.ctw";
+	}
+
+	/**
 	 * Generates the test suite from scratch
 	 * 
 	 * @param oldFMname  : the path of the old FM
@@ -201,35 +328,35 @@ public class TestSimpleExampleForPaper {
 		PMedici pMedici = new PMedici();
 		FileWriter fw = new FileWriter(outputPath, true);
 		BufferedWriter bw = new BufferedWriter(fw);
-		
+
 		// First model
 		TestSuite mediciTS1 = pMedici.generateTests(oldFMname, strength, nThreads);
 		assert mediciTS1.getStrength() == strength;
 		// Second model
 		TestSuite mediciTS2 = pMedici.generateTests(newFMname, strength, nThreads);
-		assert mediciTS2.getStrength() == strength;		
-		
+		assert mediciTS2.getStrength() == strength;
+
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
-		float distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);		
+		float distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
 		// Mutation score
 		float faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
-		
+
 		// Write statistics to file
 		bw.write("T1;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
 				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";");
-		bw.newLine();		
-		
+		bw.newLine();
+
 		// Minimize test suites
 		if (REDUCE_TEST_SUITE) {
 			mediciTS1 = reduceTestSuite(mediciTS1);
 			assert mediciTS1.getStrength() == strength;
 			mediciTS2 = reduceTestSuite(mediciTS2);
-			assert mediciTS2.getStrength() == strength;		
+			assert mediciTS2.getStrength() == strength;
 			System.gc();
 		}
-		
+
 		// Distance
 		distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
 		distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
@@ -264,7 +391,7 @@ public class TestSimpleExampleForPaper {
 	 * 
 	 * @param oldFMname  : the path of the old FM
 	 * @param newFMname  : the path of the evolved FM
-	 * @param originaTS	 : the original Test suite
+	 * @param originaTS  : the original Test suite
 	 * @param strength   : the strength
 	 * @param nThreads   : the number of threads to be used by pMEDICI
 	 * @param outputPath : the path of the output file where statistics are stored
@@ -281,7 +408,7 @@ public class TestSimpleExampleForPaper {
 		// First model
 		TestSuite mediciTS1 = originalTS;
 		Collections.shuffle(mediciTS1.getTests());
-		
+
 		// Second model
 		ToCSV converter = new ToCSV();
 		String oldTsStr = converter.toCSVcode(mediciTS1);
@@ -290,16 +417,16 @@ public class TestSimpleExampleForPaper {
 		pMedici = new PMedici();
 		pMedici.setOldTs(tempFile.toString());
 		long start = System.currentTimeMillis();
-		TestSuite mediciTS2 = pMedici.generateTests(newFMname, 2, 0);	
+		TestSuite mediciTS2 = pMedici.generateTests(newFMname, 2, 0);
 		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
 		mediciTS2.setStrength(strength);
-		
+
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
 		float distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
 		// Mutation score
 		float faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
-		
+
 		// Write statistics to file before minimization
 		FileWriter fw = new FileWriter(outputPath, true);
 		BufferedWriter bw = new BufferedWriter(fw);
@@ -307,7 +434,7 @@ public class TestSimpleExampleForPaper {
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
 				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";");
 		bw.newLine();
-		
+
 		// Minimize test suite
 		if (REDUCE_TEST_SUITE) {
 			mediciTS2 = reduceTestSuite(mediciTS2);
@@ -394,4 +521,3 @@ public class TestSimpleExampleForPaper {
 		return totMut != 0 ? killedMut / totMut : 0;
 	}
 }
-
