@@ -9,6 +9,8 @@ import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Expression;
+import ctwedge.ctWedge.NotExpression;
+import ctwedge.ctWedge.Operators;
 import ctwedge.ctWedge.OrExpression;
 
 // constraints are forbidden tuples
@@ -29,15 +31,11 @@ public class AllInCNF extends CTWedgeModelAnalyzer{
 			List<Expression> splitAnd = splitAnd(e);		
 			return splitAnd.stream().allMatch(x -> notContainsAnd(x));
 		}
-		/*else if (c instanceof NotExpression) {
-			// !((...) OR (....))
-			List<Expression> splitor = splitOr(((NotExpression) c).getPredicate());
-			
-			
-			
-			
-			return splitor.stream().allMatch(x -> isSimpleEqual(x, Operators.NE));
-		}*/
+//		else if (c instanceof NotExpression) {
+//			// !((...) OR (....))
+//			List<Expression> splitor = splitOr(((NotExpression) c).getPredicate());
+//			return splitor.stream().allMatch(x -> isCNF((Expression) x));
+//		}
 		return false;
 		
 	}
