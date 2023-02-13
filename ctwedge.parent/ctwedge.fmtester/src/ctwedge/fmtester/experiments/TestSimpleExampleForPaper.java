@@ -142,32 +142,25 @@ public class TestSimpleExampleForPaper {
 		TestBuilder.KeepPartialOldTests = true;
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
-//		int N_REPETITIONS = 10;
-//		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
-		
-		int N_REPETITIONS = 1;
-		int[] nThreadsList = new int[] {4, 6, 8 };
+		int N_REPETITIONS = 10;
+		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
-
 				// Example in paper
 				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
-
-				if (nThreads > 4) {
-					launchSingleExperimentMutation("PPUv1", "evolutionModels/PPU/", nThreads);
-					launchSingleExperimentMutation("AmbientAssistedLivingv1", "evolutionModels/AmbientAssistedLiving/",
-							nThreads);
-					launchSingleExperimentMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",
-							nThreads);
-					launchSingleExperimentMutation("Boeingv1", "evolutionModels/Boeing/", nThreads);
-					launchSingleExperimentMutation("CarBodyv1", "evolutionModels/CarBody/", nThreads);
-					launchSingleExperimentMutation("LinuxKernelv1", "evolutionModels/LinuxKernel/", nThreads);
-					launchSingleExperimentMutation("ParkingAssistantv1", "evolutionModels/ParkingAssistant/", nThreads);
-					launchSingleExperimentMutation("SmartHotelv1", "evolutionModels/SmartHotel/", nThreads);
-					launchSingleExperimentMutation("SmartWatchv1", "evolutionModels/SmartWatch/", nThreads);
-					launchSingleExperimentMutation("WeatherStationv1", "evolutionModels/WeatherStation/", nThreads);
-				}
+				launchSingleExperimentMutation("PPUv1", "evolutionModels/PPU/", nThreads);
+				launchSingleExperimentMutation("AmbientAssistedLivingv1", "evolutionModels/AmbientAssistedLiving/",
+						nThreads);
+				launchSingleExperimentMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",
+						nThreads);
+				launchSingleExperimentMutation("Boeingv1", "evolutionModels/Boeing/", nThreads);
+				launchSingleExperimentMutation("CarBodyv1", "evolutionModels/CarBody/", nThreads);
+				launchSingleExperimentMutation("LinuxKernelv1", "evolutionModels/LinuxKernel/", nThreads);
+				launchSingleExperimentMutation("ParkingAssistantv1", "evolutionModels/ParkingAssistant/", nThreads);
+				launchSingleExperimentMutation("SmartHotelv1", "evolutionModels/SmartHotel/", nThreads);
+				launchSingleExperimentMutation("SmartWatchv1", "evolutionModels/SmartWatch/", nThreads);
+				launchSingleExperimentMutation("WeatherStationv1", "evolutionModels/WeatherStation/", nThreads);
 				launchSingleExperimentMutation("ERP_SPL_s1", "evolutionModels/ERP/", nThreads);
 				launchSingleExperimentMutation("HelpSystem1", "evolutionModels/HelpSystem/", nThreads);
 				launchSingleExperimentMutation("MobileMediaV3", "evolutionModels/MobileMedia/", nThreads);
@@ -200,7 +193,7 @@ public class TestSimpleExampleForPaper {
 
 		// Define the mutators
 		FMMutator[] mutatorList = FMMutationProcess.allMutationOperators();
-		int i=0;
+		int i = 0;
 
 		// Apply the mutations
 		for (FMMutator mut : mutatorList) {
