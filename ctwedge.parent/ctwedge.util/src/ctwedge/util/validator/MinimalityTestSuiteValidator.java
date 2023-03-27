@@ -13,15 +13,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.emf.common.util.EList;
-import org.osgi.service.prefs.Preferences;
-
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
@@ -39,7 +32,7 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	}
 
 	/** The Constant logger. */
-	private static final Logger logger = Logger.getLogger(MinimalityTestSuiteValidator.class);
+	private static final Logger logger = LogManager.getLogger(MinimalityTestSuiteValidator.class);
 
 	// in the past this class was used as plugin so no constructor could be defined
 	// and a set methdo was used instead

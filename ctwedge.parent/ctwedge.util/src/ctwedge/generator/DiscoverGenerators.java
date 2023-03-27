@@ -19,6 +19,7 @@ public class DiscoverGenerators {
 	// senza plugins/OSGI?
 	static public ICTWedgeTestGenerator getGenerator(String generatorName) throws CoreException, ClassNotFoundException, InvalidRegistryObjectException {
 		IExtensionRegistry reg = Platform.getExtensionRegistry();
+		assert reg != null;
 		IExtensionPoint ep = reg.getExtensionPoint("ctwedge.util.ctwedgeGenerators");
 		IExtension[] extensions = ep.getExtensions();
 		for (int i = 0; i < extensions.length; i++) {

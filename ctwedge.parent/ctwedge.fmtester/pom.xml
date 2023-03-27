@@ -67,6 +67,10 @@
 			<version>1.7.5</version>
 		</dependency>
 		<!-- End of dependencies for working correctly with Apache POI -->
-
+		<dependency>
+			<groupId>ctwedge</groupId>
+			<artifactId>ctwedge</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
