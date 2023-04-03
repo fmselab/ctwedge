@@ -123,5 +123,49 @@ public class PictTest {
 					}
 				});
 	}
+	
+	@Test
+	public void convertCTCompFollowUp() throws IOException {
+		Path path = Paths.get("E:\\GitHub\\CIT_Benchmark_Generator\\Benchmarks_FollowUp_CITCompetition_2022\\CTWedge\\");
+		Files.walk(path).filter(Files::isRegularFile).map(Path::toFile).filter(x -> x.getName().endsWith(".ctw"))
+				.forEach(x -> {
+					System.out.println(x.getName());
+					ctwedge.ctWedge.CitModel citModel = Utility.loadModelFromPath(x.getAbsolutePath());
+					BufferedWriter out;
+					try {
+						out = new BufferedWriter(new FileWriter(
+								"E:\\GitHub\\CIT_Benchmark_Generator\\Benchmarks_FollowUp_CITCompetition_2022\\PICT\\"
+										+ citModel.getName() + ".txt"));
+						PICTGenerator translator = new PICTGenerator();
+						out.append(translator.translateModel(citModel, false));
+						out.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
+	}
+
+	@Test
+	public void convertCTComp2023() throws IOException {
+		Path path = Paths.get("E:\\GitHub\\CIT_Benchmark_Generator\\Benchmarks_CITCompetition_2023\\CTWedge\\");
+		Files.walk(path).filter(Files::isRegularFile).map(Path::toFile).filter(x -> x.getName().endsWith(".ctw"))
+				.forEach(x -> {
+					System.out.println(x.getName());
+					ctwedge.ctWedge.CitModel citModel = Utility.loadModelFromPath(x.getAbsolutePath());
+					BufferedWriter out;
+					try {
+						out = new BufferedWriter(new FileWriter(
+								"E:\\GitHub\\CIT_Benchmark_Generator\\Benchmarks_CITCompetition_2023\\PICT\\"
+										+ citModel.getName() + ".txt"));
+						PICTGenerator translator = new PICTGenerator();
+						out.append(translator.translateModel(citModel, false));
+						out.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
+	}
 
 }

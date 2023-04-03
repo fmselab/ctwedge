@@ -10,5 +10,20 @@ public class Test extends Combination {
 	}
 	
 	public Test() {}
+
+	@Override
+	public boolean equals(Object t) {
+		Test t1 = (Test) t;
+		boolean different = false;
+		for (java.util.Map.Entry<String, String> entry : this.entrySet()) {
+			for (java.util.Map.Entry<String, String> entry2 : t1.entrySet()) {
+				if (!this.get(entry.getKey()).equals(t1.get(entry2.getKey()))) {
+					different = true;
+				}
+			}
+			
+		}
+		return !different;
+	}
 	
 }

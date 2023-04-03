@@ -78,7 +78,7 @@ public class ParameterValuesToInt {
 	}
 	
 	public Parameter getParamByName(String pn) {
-		assert params.containsKey(pn);
+		assert params.containsKey(pn) : pn;
 		return params.get(pn);
 	}
 	

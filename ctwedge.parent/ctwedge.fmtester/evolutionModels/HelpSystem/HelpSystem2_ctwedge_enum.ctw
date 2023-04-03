@@ -1,0 +1,28 @@
+Model MHelpSystem2 Parameters :
+HelpSystem : Boolean
+Priority : Boolean
+PH : Boolean
+PI : Boolean
+PL : Boolean
+Level : { BG IT AD NONE }
+Method : { PR PB NONE }
+Activity : { PS CT NONE }
+SensorInput : { S1 S2 S3 S4 NONE }
+SensorPosition : Boolean
+NotPressed : Boolean
+Pressed : Boolean
+Sound : { Sound1 Sound2 NONE } Constraints :
+# HelpSystem == TRUE #
+# Priority == TRUE <=> HelpSystem == TRUE #
+# Priority == TRUE => PH == TRUE || PI == TRUE || PL == TRUE #
+# PH == TRUE => Priority == TRUE #
+# PI == TRUE => Priority == TRUE #
+# PL == TRUE => Priority == TRUE #
+# Level != NONE <=> HelpSystem == TRUE #
+# Method != NONE <=> HelpSystem == TRUE #
+# Activity != NONE <=> HelpSystem == TRUE #
+# SensorInput != NONE <=> HelpSystem == TRUE #
+# SensorPosition == TRUE <=> HelpSystem == TRUE #
+# NotPressed == TRUE <=> SensorPosition == TRUE #
+# Pressed == TRUE <=> SensorPosition == TRUE #
+# Sound != NONE <=> HelpSystem == TRUE #

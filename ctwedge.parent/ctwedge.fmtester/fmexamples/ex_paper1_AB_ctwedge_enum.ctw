@@ -1,0 +1,11 @@
+Model Mex_paper1_AB Parameters :
+root : Boolean
+A : Boolean
+D : Boolean
+B : Boolean
+C : Boolean Constraints :
+# root == TRUE #
+# A == TRUE => root == TRUE #
+# D == TRUE => A == TRUE #
+# B == TRUE => root == TRUE #
+# C == TRUE => root == TRUE #

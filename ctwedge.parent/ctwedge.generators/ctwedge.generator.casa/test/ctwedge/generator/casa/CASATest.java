@@ -106,5 +106,43 @@ public class CASATest {
 					}
 				});
 	}
+	
+	@Test
+	public void convertCTCompFollowUp() throws IOException {
+		Logger.getLogger(ConvertToAbstractID.class).setLevel(Level.OFF);
+		Path path = Paths.get("E:\\GitHub\\CIT_Benchmark_Generator\\Benchmarks_FollowUp_CITCompetition_2022\\CTWedge\\");
+		Files.walk(path).filter(Files::isRegularFile).map(Path::toFile).filter(x -> x.getName().endsWith(".ctw"))
+				.forEach(x -> {
+					System.out.print(x.getName());
+					ctwedge.ctWedge.CitModel citModel = Utility.loadModelFromPath(x.getAbsolutePath());
+					// System.out.println(new CASATranslator().getTestSuite(m, 2, false));
+					ToCasaParametersExporter mygen = new ToCasaParametersExporter();
+					BufferedWriter out;
+					try {
+						out = new BufferedWriter(new FileWriter("E:\\GitHub\\CIT_Benchmark_Generator\\Benchmarks_FollowUp_CITCompetition_2022\\CASA\\" + citModel.getName() + ".citmodel"));
+						// get the model in casa
+						CharSequence modelS = mygen.toCasaCode(citModel, 2);
+						out.append(modelS);
+						out.close();
+						assert modelS.length() > 0;
+						ConvertToAbstractID exporter = new ConvertToAbstractID(citModel);
+						CharSequence constraints;
+						try {
+							constraints = exporter.translateConstraints();// can throw exception
+							assert constraints != null;
+							out = new BufferedWriter(new FileWriter("E:\\GitHub\\CIT_Benchmark_Generator\\Benchmarks_FollowUp_CITCompetition_2022\\CASA\\" + citModel.getName() + ".constraints"));
+							out.append(constraints);
+							out.close();
+							System.out.println(" ok");
+						} catch (Throwable e) {
+							// TODO Auto-generated catch block
+							System.out.println(" error " + e.getClass() + " - " + e.getStackTrace());
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				});
+	}
 
 }

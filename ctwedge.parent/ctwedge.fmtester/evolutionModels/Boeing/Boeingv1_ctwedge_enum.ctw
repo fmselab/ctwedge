@@ -1,0 +1,11 @@
+Model MBoeingv1 Parameters :
+Boeing : Boolean
+SeatsConfiguration : Boolean
+Rows3Passengers210 : Boolean
+FuelCapacity : Boolean
+Liters126920 : Boolean Constraints :
+# Boeing == TRUE #
+# SeatsConfiguration == TRUE <=> Boeing == TRUE #
+# Rows3Passengers210 == TRUE <=> SeatsConfiguration == TRUE #
+# FuelCapacity == TRUE <=> Boeing == TRUE #
+# Liters126920 == TRUE <=> FuelCapacity == TRUE #
