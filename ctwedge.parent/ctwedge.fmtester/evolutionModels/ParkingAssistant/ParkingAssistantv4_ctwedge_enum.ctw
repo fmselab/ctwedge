@@ -1,0 +1,29 @@
+Model MParkingAssistantv4 Parameters :
+ParkingAssistant : Boolean
+Sensors : Boolean
+DistanceSensors : Boolean
+SensorFusion : Boolean
+DistanceSensorTypes : Boolean
+InfraredSensor : Boolean
+UltrasonicSensor : Boolean
+DrivenWaySensors : Boolean
+PulseLengthSensorV2 : Boolean
+DirectionSensors : Boolean
+CompassSensors : Boolean
+Controller : { ControllerWithDir ControllerWithoutDir NONE } Constraints :
+# ParkingAssistant == TRUE #
+# Sensors == TRUE <=> ParkingAssistant == TRUE #
+# DistanceSensors == TRUE <=> Sensors == TRUE #
+# SensorFusion == TRUE => DistanceSensors == TRUE #
+# DistanceSensorTypes == TRUE <=> DistanceSensors == TRUE #
+# DistanceSensorTypes == TRUE => InfraredSensor == TRUE || UltrasonicSensor == TRUE #
+# InfraredSensor == TRUE => DistanceSensorTypes == TRUE #
+# UltrasonicSensor == TRUE => DistanceSensorTypes == TRUE #
+# DrivenWaySensors == TRUE <=> Sensors == TRUE #
+# PulseLengthSensorV2 == TRUE <=> DrivenWaySensors == TRUE #
+# DirectionSensors == TRUE => Sensors == TRUE #
+# CompassSensors == TRUE <=> DirectionSensors == TRUE #
+# Controller != NONE <=> ParkingAssistant == TRUE #
+# SensorFusion == TRUE => InfraredSensor == TRUE #
+# SensorFusion == TRUE => UltrasonicSensor == TRUE #
+# Controller == ControllerWithDir => DirectionSensors == TRUE #

@@ -1,0 +1,12 @@
+Model MCarBodyv2 Parameters :
+CarBody : Boolean
+MultimediaDevices : Boolean
+Radio : { MonochromeRadioDisplay ColorRadioDisplay NONE }
+Navigation : Boolean
+OtherFeatures : Boolean Constraints :
+# CarBody == TRUE #
+# MultimediaDevices == TRUE => CarBody == TRUE #
+# Radio != NONE => MultimediaDevices == TRUE #
+# Navigation == TRUE => MultimediaDevices == TRUE #
+# OtherFeatures == TRUE <=> CarBody == TRUE #
+# Navigation == TRUE => Radio != NONE #

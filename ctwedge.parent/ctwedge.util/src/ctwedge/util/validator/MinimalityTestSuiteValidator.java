@@ -13,15 +13,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.emf.common.util.EList;
-import org.osgi.service.prefs.Preferences;
-
-import com.sun.jna.Native;
-import com.sun.jna.Pointer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
@@ -39,7 +32,7 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	}
 
 	/** The Constant logger. */
-	private static final Logger logger = Logger.getLogger(MinimalityTestSuiteValidator.class);
+	private static final Logger logger = LogManager.getLogger(MinimalityTestSuiteValidator.class);
 
 	// in the past this class was used as plugin so no constructor could be defined
 	// and a set methdo was used instead
@@ -114,8 +107,17 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	public List<Map<Parameter, String>> getRequirements() {
 		CitModel model = ts.getModel();
 		assert ts.getStrength() > 0;
-		Iterator<List<Pair<Parameter, String>>> reqs = ParameterSwitchToPairStrings.getTuples(model, ts.getStrength());
+		return getRequirements(model, ts.getStrength());
+	}
 
+	/**
+	 * 
+	 * @param model
+	 * @param strength 
+	 * @return
+	 */
+	static List<Map<Parameter, String>> getRequirements(CitModel model, int strength) {
+		Iterator<List<Pair<Parameter, String>>> reqs = ParameterSwitchToPairStrings.getTuples(model, strength);
 		List<Map<Parameter, String>> ListMapReq = new ArrayList<Map<Parameter, String>>();
 		// Trasformo la lista di liste in una map scindendo i pairelement in key
 		// e value
@@ -124,9 +126,13 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 			Map<Parameter, String> map = new HashMap<Parameter, String>();
 			for (Pair<Parameter, String> e : req) {
 				map.put(e.getFirst(), e.getSecond());
-
 			}
-			logger.debug("adding tuple " + tupleToString(map));
+			assert map.size() == strength;
+			if (logger.isDebugEnabled()) {
+				List<String> tupleToString = tupleToString(map);
+				assert ! tupleToString.isEmpty();
+				logger.debug("adding tuple " + tupleToString);
+			}
 			ListMapReq.add(map);
 		}
 		return ListMapReq;
@@ -163,6 +169,7 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 	 * @return It returns a reduced test suite that is one of the minimal ones
 	 */
 	public TestSuite reduceSize() {
+		long start = System.currentTimeMillis();
 		// create a copy that can be modified
 		List<Map<Parameter, ?>> testSuiteSet = new ArrayList<Map<Parameter, ?>>();
 		testSuiteSet.addAll(getSeedsMap());
@@ -201,18 +208,12 @@ public class MinimalityTestSuiteValidator extends TestSuiteAnalyzer {
 			logger.debug("this test is necessary (" + tupleToString(best) + ") - covers " + coveredTuples);
 		}
 		logger.debug("all necessary tests are removed  - useless tests remaining: " + testSuiteSet.size());
-		// create an empty test suite
-		return new TestSuite(ts.getModel(),reducedTS);
-//		// get the old tests
-//		Set<Map<Parameter, String>> newTestSuite = getSeedsMap();
-//		newTestSuite.removeAll(testSuiteSet);
-//		for (Map<Parameter, ?> map : newTestSuite) {
-//			Test test = new Test();
-//			for (Entry<Parameter, ?> p : map.entrySet()) {
-//				test.put(p.getKey().toString(), p.getValue().toString());
-//			}
-//			result.getTests().add(test);
-//		}
+		// create the test suite with the new testa
+		TestSuite testSuite = new TestSuite(ts.getModel(),reducedTS);
+		testSuite.setStrength(ts.getStrength());
+		testSuite.setGeneratorName(ts.getGeneratorName() + "REDUCED");
+		testSuite.setGeneratorTime(System.currentTimeMillis() - start + ts.getGeneratorTime());		
+		return testSuite;
 	}
 
 	/**

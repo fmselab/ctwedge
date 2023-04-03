@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
@@ -19,17 +18,18 @@ import ctwedge.util.ParameterValuesToInt;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTranslTestGenerator;
 
-public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
+public class MediciCITGenerator extends ICTWedgeTranslTestGenerator {
 
 	private static final boolean READ_STD_OUT = true;
-	
+
 	public static boolean OUTPUT_ON_STD_OUT_DURING_TRANSLATION = true;
-	
+
 	private String path;
 
 	public MediciCITGenerator() {
 		super("Medici");
-		path = MediciCITGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath().split("/target")[0]; 
+		path = MediciCITGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+				.split("/target")[0];
 		if (path.contains(":") && path.startsWith("/"))
 			path = path.substring(1);
 	}
@@ -59,7 +59,7 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 		// run
 		ProcessBuilder pc = new ProcessBuilder(command);
 		pc.command(command);
-		//	error redirect
+		// error redirect
 		File tempError = File.createTempFile("medici_error", ".txt");
 		tempError.deleteOnExit();
 		pc.redirectError(tempError);
@@ -93,7 +93,7 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 		ts.setGeneratorTime(t_end - t_start);
 		return ts;
 	}
-	
+
 	private boolean checkError(File errorFile) throws IOException {
 		BufferedReader fin = new BufferedReader(new FileReader(errorFile));
 		String s = "";
@@ -105,6 +105,7 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 		fin.close();
 		return errorFound;
 	}
+
 	// translation of the model to String
 	@Override
 	public String translateModel(CitModel sm, boolean ignoreConstraints) {
@@ -117,31 +118,32 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 		sb.append("\n");
 		// add all the constraints
 		if (!ignoreConstraints) {
-			sb.append(sm.getConstraints().size() + "\n");			
+			sb.append(sm.getConstraints().size() + "\n");
 			ConstraintToMediciIds translator = new ConstraintToMediciIds(sm);
 			for (Constraint c : sm.getConstraints()) {
 				if (OUTPUT_ON_STD_OUT_DURING_TRANSLATION)
 					System.out.println("Converting: " + c.toString());
 				sb.append(translator.doSwitch(c)).append("\n");
 			}
-	} else {
+		} else {
 			// no constraints
 			sb.append("0\n");
 		}
 		return sb.toString();
 	}
+
 	// format for the output
-	//2 --> number of tests
-	//1 2 4 -> values for test1 
-	//1 2 5 ...
+	// 2 --> number of tests
+	// 1 2 4 -> values for test1
+	// 1 2 5 ...
 	private TestSuite translateOutput(File file, CitModel model) throws IOException {
 		String csv_out = "";
-		//	first row -> param names
+		// first row -> param names
 		for (Parameter param : model.getParameters())
 			csv_out += param.getName() + ";";
 		csv_out = csv_out.substring(0, csv_out.length() - 1);
 		csv_out += "\n";
-		//	other rows -> param values
+		// other rows -> param values
 		ParameterValuesToInt valToInt = new ParameterValuesToInt(model);
 		BufferedReader fin = new BufferedReader(new FileReader(file));
 		String test = "";
@@ -158,7 +160,7 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator{
 			csv_out += "\n";
 		}
 		fin.close();
-		
+
 		TestSuite result = new TestSuite(csv_out, model);
 		return result;
 	}

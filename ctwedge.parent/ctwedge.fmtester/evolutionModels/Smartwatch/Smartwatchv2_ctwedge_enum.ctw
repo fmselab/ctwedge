@@ -1,0 +1,23 @@
+Model MSmartWatchv2 Parameters :
+Smartwatch : Boolean
+SmartPay : Boolean
+SmartKey : Boolean
+CarKey : Boolean
+HomeKey : Boolean
+ManageHealth : Boolean
+HeartBeat : Boolean
+EnergyBurnt : Boolean
+Language : { English Chinese Korean NONE }
+Speaker : { Poly Plain NONE } Constraints :
+# Smartwatch == TRUE #
+# SmartPay == TRUE => Smartwatch == TRUE #
+# SmartKey == TRUE => Smartwatch == TRUE #
+# SmartKey == TRUE => CarKey == TRUE || HomeKey == TRUE #
+# CarKey == TRUE => SmartKey == TRUE #
+# HomeKey == TRUE => SmartKey == TRUE #
+# ManageHealth == TRUE => Smartwatch == TRUE #
+# ManageHealth == TRUE => HeartBeat == TRUE || EnergyBurnt == TRUE #
+# HeartBeat == TRUE => ManageHealth == TRUE #
+# EnergyBurnt == TRUE => ManageHealth == TRUE #
+# Language != NONE <=> Smartwatch == TRUE #
+# Speaker != NONE <=> Smartwatch == TRUE #

@@ -168,6 +168,13 @@ public class FeatureIdeModelImporterTest {
 		assertTrue(s.contains("# model == TRUE #"));
 	}
 
+	@Test
+	public void readModelGraphLibrary() throws FileNotFoundException,
+			UnsupportedModelException {
+		CitModel ct = readModel(FI_MODELS_DIR +"model_GPLTiny.xml");
+		ModelUtils mu = new ModelUtils(ct);
+		String s = mu.serializeToString();
+	}
 	
 
 	@Test

@@ -1,0 +1,13 @@
+Model MParkingAssistantv1 Parameters :
+ParkingAssistant : Boolean
+Sensors : Boolean
+VelocitySensor : Boolean
+DistanceSensors : Boolean
+InfraredSensor : Boolean
+Controller : Boolean Constraints :
+# ParkingAssistant == TRUE #
+# Sensors == TRUE <=> ParkingAssistant == TRUE #
+# VelocitySensor == TRUE <=> Sensors == TRUE #
+# DistanceSensors == TRUE <=> Sensors == TRUE #
+# InfraredSensor == TRUE <=> DistanceSensors == TRUE #
+# Controller == TRUE <=> ParkingAssistant == TRUE #

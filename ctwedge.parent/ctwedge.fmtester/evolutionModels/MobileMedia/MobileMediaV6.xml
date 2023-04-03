@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<calculations key="tautology" value="true"/>
+		<calculations key="auto" value="true"/>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<calculations key="redundant" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<calculations key="constraints" value="true"/>
+		<graphics key="layoutalgorithm" value="1"/>
+		<calculations key="features" value="true"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="Mobilemedia">
+			<and mandatory="true" name="Albummanagement">
+				<graphics key="collapsed" value="false"/>
+				<feature mandatory="true" name="Createalbum"/>
+				<feature mandatory="true" name="Deletealbum"/>
+			</and>
+			<and mandatory="true" name="Photomanagement">
+				<graphics key="collapsed" value="false"/>
+				<and name="Favorite">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="Setfavorites"/>
+					<feature mandatory="true" name="Viewfavorites"/>
+				</and>
+				<feature name="Sorting"/>
+				<and mandatory="true" name="Photooperation">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="Createphoto"/>
+					<feature mandatory="true" name="Deletephoto"/>
+					<feature mandatory="true" name="Editphotolabel"/>
+					<feature mandatory="true" name="Viewphoto"/>
+				</and>
+				<feature name="Copyphoto"/>
+				<and name="SMStranfer">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="Receivephoto"/>
+					<feature mandatory="true" name="Sendphoto"/>
+				</and>
+			</and>
+		</and>
+	</struct>
+</featureModel>

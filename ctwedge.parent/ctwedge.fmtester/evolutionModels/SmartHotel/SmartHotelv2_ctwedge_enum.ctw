@@ -1,0 +1,18 @@
+Model MSmartHotelv2 Parameters :
+SmartHotel : Boolean
+Automatedillumination : Boolean
+Security : Boolean
+Alarm : Boolean
+Siren : Boolean
+VisualAlarm : Boolean
+TemperatureControl : Boolean
+Heating : Boolean Constraints :
+# SmartHotel == TRUE #
+# Automatedillumination == TRUE => SmartHotel == TRUE #
+# Security == TRUE => SmartHotel == TRUE #
+# Alarm == TRUE => Security == TRUE #
+# Alarm == TRUE => Siren == TRUE || VisualAlarm == TRUE #
+# Siren == TRUE => Alarm == TRUE #
+# VisualAlarm == TRUE => Alarm == TRUE #
+# TemperatureControl == TRUE => SmartHotel == TRUE #
+# Heating == TRUE => TemperatureControl == TRUE #

@@ -1,0 +1,25 @@
+Model MPPUv9 Parameters :
+PPU : Boolean
+Crane : { SRouting ERouting NONE }
+Slide : { Straight Conveyor NONE }
+Conveyor : { SSortation DSortation NONE }
+Workpiece : Boolean
+Plastic : Boolean
+Light : Boolean
+Dark : Boolean
+Metal : Boolean
+Stamp : { SPressure APressure NONE } Constraints :
+# PPU == TRUE #
+# Crane != NONE <=> PPU == TRUE #
+# Slide != NONE <=> PPU == TRUE #
+# Conveyor != NONE <=> Slide == Conveyor #
+# Workpiece == TRUE <=> PPU == TRUE #
+# Workpiece == TRUE => Plastic == TRUE || Metal == TRUE #
+# Plastic == TRUE => Workpiece == TRUE #
+# Plastic == TRUE => Light == TRUE || Dark == TRUE #
+# Light == TRUE => Plastic == TRUE #
+# Dark == TRUE => Plastic == TRUE #
+# Metal == TRUE => Workpiece == TRUE #
+# Stamp != NONE => PPU == TRUE #
+# Stamp != NONE => Metal == TRUE #
+# Light == TRUE => Stamp == APressure #

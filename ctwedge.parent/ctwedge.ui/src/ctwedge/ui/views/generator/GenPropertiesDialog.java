@@ -1,19 +1,6 @@
 package ctwedge.ui.views.generator;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.beans.PojoObservables;
-import org.eclipse.core.databinding.beans.PojoProperties;
-import org.eclipse.core.databinding.observable.list.IObservableList;
-import org.eclipse.core.databinding.observable.map.IObservableMap;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.core.databinding.property.Properties;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
-import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
-import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
-import org.eclipse.jface.databinding.viewers.ViewerProperties;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.layout.TableColumnLayout;
@@ -244,33 +231,33 @@ public class GenPropertiesDialog extends Dialog {
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
-		ObservableListContentProvider listContentProvider = new ObservableListContentProvider();
-		IObservableMap[] observeMaps = PojoObservables.observeMaps(listContentProvider.getKnownElements(),
-				CitlabPreference.class, new String[] { "name", "myValue", "isEnabled" });
-		tableViewer.setLabelProvider(new ObservableMapLabelProvider(observeMaps));
-		tableViewer.setContentProvider(listContentProvider);
-		List<Object> a = Collections.emptyList();
-		a.addAll(genProperties);
-		IObservableList selfList = Properties.selfList(CitlabPreference.class).observe(a);
-		tableViewer.setInput(selfList);
-		//
-		IObservableList itemsComboObserveWidget = WidgetProperties.items().observe(combo);
-		IObservableValue observeSingleSelectionTableViewer = ViewerProperties.singleSelection().observe(tableViewer);
-		IObservableList tableViewerDomainObserveDetailList = PojoProperties
-				.list(CitlabPreference.class, "domain", List.class).observeDetail(observeSingleSelectionTableViewer);
-		bindingContext.bindList(itemsComboObserveWidget, tableViewerDomainObserveDetailList, null, null);
-		//
-		IObservableValue observeTextLblNewLabelObserveWidget = WidgetProperties.text().observe(lblNewLabel);
-		IObservableValue observeSingleSelectionTableViewer_1 = ViewerProperties.singleSelection().observe(tableViewer);
-		IObservableValue tableViewerNameObserveDetailValue = PojoProperties
-				.value(CitlabPreference.class, "name", String.class).observeDetail(observeSingleSelectionTableViewer_1);
-		bindingContext.bindValue(observeTextLblNewLabelObserveWidget, tableViewerNameObserveDetailValue, null, null);
-		//
-		IObservableValue observeEnabledComboObserveWidget = WidgetProperties.enabled().observe(combo);
-		IObservableValue observeSelectionBtnCheckButtonObserveWidget = WidgetProperties.selection()
-				.observe(btnCheckButton);
-		bindingContext.bindValue(observeEnabledComboObserveWidget, observeSelectionBtnCheckButtonObserveWidget, null,
-				null);
+//		ObservableListContentProvider listContentProvider = new ObservableListContentProvider();
+//		IObservableMap[] observeMaps = PojoObservables.observeMaps(listContentProvider.getKnownElements(),
+//				CitlabPreference.class, new String[] { "name", "myValue", "isEnabled" });
+//		tableViewer.setLabelProvider(new ObservableMapLabelProvider(observeMaps));
+//		tableViewer.setContentProvider(listContentProvider);
+//		List<Object> a = Collections.emptyList();
+//		a.addAll(genProperties);
+//		IObservableList selfList = Properties.selfList(CitlabPreference.class).observe(a);
+//		tableViewer.setInput(selfList);
+//		//
+//		IObservableList itemsComboObserveWidget = WidgetProperties.items().observe(combo);
+//		IObservableValue observeSingleSelectionTableViewer = ViewerProperties.singleSelection().observe(tableViewer);
+//		IObservableList tableViewerDomainObserveDetailList = PojoProperties
+//				.list(CitlabPreference.class, "domain", List.class).observeDetail(observeSingleSelectionTableViewer);
+//		bindingContext.bindList(itemsComboObserveWidget, tableViewerDomainObserveDetailList, null, null);
+//		//
+//		IObservableValue observeTextLblNewLabelObserveWidget = WidgetProperties.text().observe(lblNewLabel);
+//		IObservableValue observeSingleSelectionTableViewer_1 = ViewerProperties.singleSelection().observe(tableViewer);
+//		IObservableValue tableViewerNameObserveDetailValue = PojoProperties
+//				.value(CitlabPreference.class, "name", String.class).observeDetail(observeSingleSelectionTableViewer_1);
+//		bindingContext.bindValue(observeTextLblNewLabelObserveWidget, tableViewerNameObserveDetailValue, null, null);
+//		//
+//		IObservableValue observeEnabledComboObserveWidget = WidgetProperties.enabled().observe(combo);
+//		IObservableValue observeSelectionBtnCheckButtonObserveWidget = WidgetProperties.selection()
+//				.observe(btnCheckButton);
+//		bindingContext.bindValue(observeEnabledComboObserveWidget, observeSelectionBtnCheckButtonObserveWidget, null,
+//				null);
 		//
 		return bindingContext;
 	}

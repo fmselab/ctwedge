@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,7 +94,10 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		}
 
 	// normalize the strings in case they contain strange characters
-	protected String normalize(String x) {
+	public static String normalize(String x) {
+		if (Character.isDigit(x.charAt(0))) {
+			x = "_" + x;
+		}
 		return Normalizer.normalize(x, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll(",", "y")
 				.replaceAll("-", "_");
 	}
@@ -120,7 +124,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 	 * @param fm
 	 * @return an equivalent CitModel
 	 */
-	private CitModel transform(IFeatureModel fm) {
+	public CitModel transform(IFeatureModel fm) {
 		CtWedgePackageImpl.init();
 		CitModel result = CtWedgeFactory.eINSTANCE.createCitModel();
 		IFeature root = fm.getStructure().getRoot().getFeature();
@@ -133,7 +137,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		ConstraintConverter converter = new ConstraintConverter(choosenExprString);
 		for (IConstraint c : fm.getConstraints()) {
 			// if the constraint is useless, skip it
-			// TODO questo potrebbe non funzionare perchè adesso è deprecato
+			// TODO questo potrebbe non funzionare perchï¿½ adesso ï¿½ deprecato
 			ConstraintAttribute attribute = FeatureUtils.getConstraintAttribute(c);
 			if ((attribute == ConstraintAttribute.REDUNDANT) || (attribute == ConstraintAttribute.DEAD)
 					|| (attribute == ConstraintAttribute.TAUTOLOGY))
