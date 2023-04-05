@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -168,6 +170,95 @@ public class TestSimpleExampleForPaper {
 			}
 		}
 	}
+	
+	@Test
+	public void experimentsForPaperWithHigherMutations()
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+		TestBuilder.KeepPartialOldTests = true;
+		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
+		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
+		int N_REPETITIONS = 10;
+		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+
+		for (int i = 0; i < N_REPETITIONS; i++) {
+			for (int nThreads : nThreadsList) {
+				// Example in paper
+				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
+				launchSingleExperimentHigherMutation("PPUv1", "evolutionModels/PPU/", nThreads);
+				launchSingleExperimentHigherMutation("AmbientAssistedLivingv1", "evolutionModels/AmbientAssistedLiving/",
+						nThreads);
+				launchSingleExperimentHigherMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",
+						nThreads);
+				launchSingleExperimentHigherMutation("Boeingv1", "evolutionModels/Boeing/", nThreads);
+				launchSingleExperimentHigherMutation("CarBodyv1", "evolutionModels/CarBody/", nThreads);
+				launchSingleExperimentHigherMutation("LinuxKernelv1", "evolutionModels/LinuxKernel/", nThreads);
+				launchSingleExperimentHigherMutation("ParkingAssistantv1", "evolutionModels/ParkingAssistant/", nThreads);
+				launchSingleExperimentHigherMutation("SmartHotelv1", "evolutionModels/SmartHotel/", nThreads);
+				launchSingleExperimentHigherMutation("SmartWatchv1", "evolutionModels/SmartWatch/", nThreads);
+				launchSingleExperimentHigherMutation("WeatherStationv1", "evolutionModels/WeatherStation/", nThreads);
+				launchSingleExperimentHigherMutation("ERP_SPL_s1", "evolutionModels/ERP/", nThreads);
+				launchSingleExperimentHigherMutation("HelpSystem1", "evolutionModels/HelpSystem/", nThreads);
+				launchSingleExperimentHigherMutation("MobileMediaV3", "evolutionModels/MobileMedia/", nThreads);
+				launchSingleExperimentHigherMutation("SmartHomeV2", "evolutionModels/SmartHome/", nThreads);
+			}
+		}
+	}
+	
+	/**
+	 * Executes the experiments by starting from the model given as parameter and
+	 * compares the results with those obtained when mutations are applied to the
+	 * model. In this case, more than a single mutation is applied
+	 * 
+	 * @param model    : the model
+	 * @param path     : the path in which model is stored
+	 * @param nThreads : the number of threads to be used
+	 * @throws UnsupportedModelException
+	 * @throws IOException
+	 * @throws NoSuchExtensionException
+	 * @throws InterruptedException
+	 */
+	private void launchSingleExperimentHigherMutation(String model, String path, int nThreads)
+			throws UnsupportedModelException, IOException, InterruptedException, NoSuchExtensionException {
+		TestContext.IN_TEST = true;
+
+		String oldModel = convertModelFromFMToCTW(model, path);
+
+		// Read the feature model to be muted
+		IFeatureModel fm = Utils.readModel(path + model + ".xml");
+
+		// Define the mutators
+		FMMutator[] mutatorList = FMMutationProcess.allMutationOperators();
+		
+		// Repeat the experiments for higher number of mutations
+		int nModel = 0;
+		Random generator = new Random();
+		for (int j = 2; j<=10; j++) {
+			// Extract the index of mutations 
+			ArrayList<Integer> mutationIndex = new ArrayList<>();
+			for (int i=0; i<j; i++) {
+				mutationIndex.add(generator.nextInt(mutatorList.length));
+			}
+			// Now, apply the mutations to the model
+			for (int index : mutationIndex) {
+				Iterator<FMMutation> mutations = mutatorList[index].mutate(fm);
+				fm = mutations.next().getFirst();
+			}
+			// Then, execute the test using the two different techniques
+			String newModel = "";
+			try {
+				newModel = convertModelFromFMToCTW(fm, path, model + "_" + nModel);
+				SimpleFileHandler.save(new File(newModel + ".xml").toPath(), fm, new XmlFeatureModelFormat());
+				// Technique 1
+				TestSuite oldTs = regenerationFromScratch(oldModel, newModel, 2, nThreads, "outputSyntheticHigherMutation.csv", j);
+				assert oldTs.getStrength() == 2;
+				// Technique 2
+				generateWithPMediciPlus(oldModel, newModel, oldTs, 2, nThreads, "outputSyntheticHigherMutation.csv", j);
+			} catch (Exception e) {
+				continue;
+			}
+			nModel++;
+		}
+	}
 
 	/**
 	 * Executes the experiments by starting from the model given as parameter and
@@ -316,7 +407,29 @@ public class TestSimpleExampleForPaper {
 	 * @throws UnsupportedModelException
 	 */
 	public TestSuite regenerationFromScratch(String oldFMname, String newFMname, int strength, int nThreads,
-			String outputPath)
+			String outputPath) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+		return regenerationFromScratch(oldFMname, newFMname, strength, nThreads, outputPath, 0);
+	}
+	
+	/**
+	 * Generates the test suite from scratch
+	 * 
+	 * @param oldFMname  : the path of the old FM
+	 * @param newFMname  : the path of the evolved FM
+	 * @param strength   : the strength
+	 * @param nThreads   : the number of threads to be used by pMEDICI
+	 * @param outputPath : the path of the output file where statistics are stored
+	 * @param nMutations : the number of mutations
+	 * 
+	 * @return : the test suite produced by pMEDICI with the original model
+	 * 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 */
+	public TestSuite regenerationFromScratch(String oldFMname, String newFMname, int strength, int nThreads,
+			String outputPath, int nMutations)
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		PMedici pMedici = new PMedici();
 		FileWriter fw = new FileWriter(outputPath, true);
@@ -359,7 +472,7 @@ public class TestSimpleExampleForPaper {
 		// Write statistics to file
 		bw.write("T1Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";");
+				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
 		bw.newLine();
 		bw.close();
 
@@ -395,7 +508,28 @@ public class TestSimpleExampleForPaper {
 	 * @throws UnsupportedModelException
 	 */
 	public void generateWithPMediciPlus(String oldFMname, String newFMname, TestSuite originalTS, int strength,
-			int nThreads, String outputPath)
+			int nThreads, String outputPath) {
+		generateWithPMediciPlus(oldFMname, newFMname, originalTS, strength, nThreads, outputPath);
+	}
+	
+	/**
+	 * Generates the test suite with pMEDICI+
+	 * 
+	 * @param oldFMname  : the path of the old FM
+	 * @param newFMname  : the path of the evolved FM
+	 * @param originaTS  : the original Test suite
+	 * @param strength   : the strength
+	 * @param nThreads   : the number of threads to be used by pMEDICI
+	 * @param outputPath : the path of the output file where statistics are stored
+	 * @param nMutations : the number of mutations
+	 * 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 */
+	public void generateWithPMediciPlus(String oldFMname, String newFMname, TestSuite originalTS, int strength,
+			int nThreads, String outputPath, int nMutations)
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		PMedici pMedici = new PMedici();
 		// First model
@@ -425,7 +559,7 @@ public class TestSimpleExampleForPaper {
 		BufferedWriter bw = new BufferedWriter(fw);
 		bw.write("T2;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";");
+				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
 		bw.newLine();
 
 		// Minimize test suite
