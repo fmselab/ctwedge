@@ -26,7 +26,11 @@
 			<artifactId>ctwedge.importer.featureide</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.github.dpaukov</groupId>
+			<artifactId>combinatoricslib3</artifactId>
+			<version>3.3.0</version>
+		</dependency>
 		<dependency>
 			<groupId>ctwedge</groupId>
 			<artifactId>ctwedge.generator.medici</artifactId>
@@ -39,7 +43,6 @@
 			<artifactId>ctwedge.generator.medici</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
 		<!-- Start dependecies for Apache POI (working with .xsls Excel files) -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
