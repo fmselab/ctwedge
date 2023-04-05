@@ -186,9 +186,9 @@ public class TestSimpleExampleForPaper {
 			for (int nThreads : nThreadsList) {
 				// Example in paper
 				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
-				launchSingleExperimentHigherMutation("PPUv1", "evolutionModels/PPU/", nThreads);
-//				launchSingleExperimentHigherMutation("AmbientAssistedLivingv1",
-//						"evolutionModels/AmbientAssistedLiving/", nThreads);
+				//launchSingleExperimentHigherMutation("PPUv1", "evolutionModels/PPU/", nThreads);
+				launchSingleExperimentHigherMutation("AmbientAssistedLivingv1",
+						"evolutionModels/AmbientAssistedLiving/", nThreads);
 //				launchSingleExperimentHigherMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",
 //						nThreads);
 //				launchSingleExperimentHigherMutation("Boeingv1", "evolutionModels/Boeing/", nThreads);
@@ -243,12 +243,15 @@ public class TestSimpleExampleForPaper {
 			}
 			// Now, apply the mutations to the model
 			for (int index : mutationIndex) {
+				ArrayList<FMMutation> mutationsList = new ArrayList<>();
 				Iterator<FMMutation> mutations = mutatorList[index].mutate(fm);
 				while (!mutations.hasNext()) {
 					index = generator.nextInt(mutatorList.length);
 					mutations = mutatorList[index].mutate(fm);
 				}
-				fm = mutations.next().getFirst();
+				mutations.forEachRemaining(mutationsList::add);
+				int mutationListIndex = generator.nextInt(mutationsList.size());
+				fm = mutationsList.get(mutationListIndex).getFirst();
 			}
 
 			// Then, execute the test using the two different techniques
