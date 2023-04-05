@@ -53,7 +53,7 @@ public class TestSimpleExampleForPaper {
 		extracted("ex_paper1_AG", "ex_paper2_AG");
 
 	}
-
+	// esempi fatti all'inizio 
 	@Test
 	public void test2() throws IOException, InterruptedException {
 		// distance 12 and 5
