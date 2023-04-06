@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Random;
-import org.paukov.combinatorics3.Generator;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -27,15 +26,11 @@ import ctwedge.util.validator.MinimalityTestSuiteValidator;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
-import de.ovgu.featureide.fm.core.base.event.FeatureIDEEvent;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
 import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
-import de.ovgu.featureide.fm.core.io.manager.FeatureModelIO;
-import de.ovgu.featureide.fm.core.io.manager.FileHandler;
 import de.ovgu.featureide.fm.core.io.manager.SimpleFileHandler;
-import de.ovgu.featureide.fm.core.io.xml.AXMLFormat;
 import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
 import de.ovgu.featureide.fm.core.job.LongRunningWrapper;
 import fmautorepair.mutationoperators.FMMutation;
@@ -48,6 +43,7 @@ import pMedici.threads.TestBuilder;
 
 public class TestSimpleExampleForPaper {
 
+	private static final int MAX_MUTATIONS = 10;
 	static boolean REDUCE_TEST_SUITE = true;
 
 	@Test
@@ -179,30 +175,28 @@ public class TestSimpleExampleForPaper {
 		TestBuilder.KeepPartialOldTests = true;
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
-		int N_REPETITIONS = 10;
+		int N_REPETITIONS = 20;
 		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
-				// Example in paper
-				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
-				//launchSingleExperimentHigherMutation("PPUv1", "evolutionModels/PPU/", nThreads);
+				launchSingleExperimentHigherMutation("PPUv1", "evolutionModels/PPU/", nThreads);
 				launchSingleExperimentHigherMutation("AmbientAssistedLivingv1",
 						"evolutionModels/AmbientAssistedLiving/", nThreads);
-//				launchSingleExperimentHigherMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",
-//						nThreads);
-//				launchSingleExperimentHigherMutation("Boeingv1", "evolutionModels/Boeing/", nThreads);
-//				launchSingleExperimentHigherMutation("CarBodyv1", "evolutionModels/CarBody/", nThreads);
-//				launchSingleExperimentHigherMutation("LinuxKernelv1", "evolutionModels/LinuxKernel/", nThreads);
-//				launchSingleExperimentHigherMutation("ParkingAssistantv1", "evolutionModels/ParkingAssistant/",
-//						nThreads);
-//				launchSingleExperimentHigherMutation("SmartHotelv1", "evolutionModels/SmartHotel/", nThreads);
-//				launchSingleExperimentHigherMutation("SmartWatchv1", "evolutionModels/SmartWatch/", nThreads);
-//				launchSingleExperimentHigherMutation("WeatherStationv1", "evolutionModels/WeatherStation/", nThreads);
-//				launchSingleExperimentHigherMutation("ERP_SPL_s1", "evolutionModels/ERP/", nThreads);
-//				launchSingleExperimentHigherMutation("HelpSystem1", "evolutionModels/HelpSystem/", nThreads);
-//				launchSingleExperimentHigherMutation("MobileMediaV3", "evolutionModels/MobileMedia/", nThreads);
-//				launchSingleExperimentHigherMutation("SmartHomeV2", "evolutionModels/SmartHome/", nThreads);
+				launchSingleExperimentHigherMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",
+						nThreads);
+				launchSingleExperimentHigherMutation("Boeingv1", "evolutionModels/Boeing/", nThreads);
+				launchSingleExperimentHigherMutation("CarBodyv1", "evolutionModels/CarBody/", nThreads);
+				launchSingleExperimentHigherMutation("LinuxKernelv1", "evolutionModels/LinuxKernel/", nThreads);
+				launchSingleExperimentHigherMutation("ParkingAssistantv1", "evolutionModels/ParkingAssistant/",
+						nThreads);
+				launchSingleExperimentHigherMutation("SmartHotelv1", "evolutionModels/SmartHotel/", nThreads);
+				launchSingleExperimentHigherMutation("SmartWatchv1", "evolutionModels/SmartWatch/", nThreads);
+				launchSingleExperimentHigherMutation("WeatherStationv1", "evolutionModels/WeatherStation/", nThreads);
+				launchSingleExperimentHigherMutation("ERP_SPL_s1", "evolutionModels/ERP/", nThreads);
+				launchSingleExperimentHigherMutation("HelpSystem1", "evolutionModels/HelpSystem/", nThreads);
+				launchSingleExperimentHigherMutation("MobileMediaV3", "evolutionModels/MobileMedia/", nThreads);
+				launchSingleExperimentHigherMutation("SmartHomeV2", "evolutionModels/SmartHome/", nThreads);
 			}
 		}
 	}
@@ -235,7 +229,7 @@ public class TestSimpleExampleForPaper {
 		// Repeat the experiments for higher number of mutations
 		int nModel = 0;
 		Random generator = new Random();
-		for (int j = 2; j <= 10; j++) {
+		for (int j = 1; j <= MAX_MUTATIONS; j++) {
 			// Extract the index of mutations
 			ArrayList<Integer> mutationIndex = new ArrayList<>();
 			for (int i = 0; i < j; i++) {
@@ -248,6 +242,7 @@ public class TestSimpleExampleForPaper {
 				while (!mutations.hasNext()) {
 					index = generator.nextInt(mutatorList.length);
 					mutations = mutatorList[index].mutate(fm);
+					System.out.println("New index");
 				}
 				mutations.forEachRemaining(mutationsList::add);
 				int mutationListIndex = generator.nextInt(mutationsList.size());
@@ -257,6 +252,7 @@ public class TestSimpleExampleForPaper {
 			// Then, execute the test using the two different techniques
 			String newModel = "";
 			try {
+				System.out.println("Starting test generation");
 				newModel = convertModelFromFMToCTW(fm, path, model + "_" + nModel);
 				SimpleFileHandler.save(new File(newModel + ".xml").toPath(), fm, new XmlFeatureModelFormat());
 				// Technique 1
