@@ -101,34 +101,34 @@ public class TestSimpleExampleForPaper {
 
 				// Example in paper
 				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
-//				launchMultipleExperiment(new String[] { "PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7",
-//						"PPUv8", "PPUv9" }, "evolutionModels/PPU/", nThreads);
-//				launchMultipleExperiment(new String[] { "AmbientAssistedLivingv1", "AmbientAssistedLivingv2" },
-//						"evolutionModels/AmbientAssistedLiving/", nThreads);
-//				launchMultipleExperiment(
-//						new String[] { "AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3" },
-//						"evolutionModels/AutomotiveMultimedia/", nThreads);
-//				launchMultipleExperiment(new String[] { "Boeingv1", "Boeingv2", "Boeingv3" }, "evolutionModels/Boeing/",
-//						nThreads);
-//				launchMultipleExperiment(new String[] { "CarBodyv1", "CarBodyv2", "CarBodyv3", "CarBodyv4" },
-//						"evolutionModels/CarBody/", nThreads);
-//				launchMultipleExperiment(new String[] { "LinuxKernelv1", "LinuxKernelv2", "LinuxKernelv3" },
-//						"evolutionModels/LinuxKernel/", nThreads);
-//				launchMultipleExperiment(
-//						new String[] { "ParkingAssistantv1", "ParkingAssistantv2", "ParkingAssistantv3",
-//								"ParkingAssistantv4", "ParkingAssistantv5" },
-//						"evolutionModels/ParkingAssistant/", nThreads);
-//				launchMultipleExperiment(new String[] { "SmartHotelv1", "SmartHotelv2" }, "evolutionModels/SmartHotel/",
-//						nThreads);
-//				launchMultipleExperiment(new String[] { "SmartWatchv1", "SmartWatchv2" }, "evolutionModels/SmartWatch/",
-//						nThreads);
-//				launchMultipleExperiment(new String[] { "WeatherStationv1", "WeatherStationv2" },
-//						"evolutionModels/WeatherStation/", nThreads);
+				launchMultipleExperiment(new String[] { "PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7",
+						"PPUv8", "PPUv9" }, "evolutionModels/PPU/", nThreads);
+				launchMultipleExperiment(new String[] { "AmbientAssistedLivingv1", "AmbientAssistedLivingv2" },
+						"evolutionModels/AmbientAssistedLiving/", nThreads);
+				launchMultipleExperiment(
+						new String[] { "AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3" },
+						"evolutionModels/AutomotiveMultimedia/", nThreads);
+				launchMultipleExperiment(new String[] { "Boeingv1", "Boeingv2", "Boeingv3" }, "evolutionModels/Boeing/",
+						nThreads);
+				launchMultipleExperiment(new String[] { "CarBodyv1", "CarBodyv2", "CarBodyv3", "CarBodyv4" },
+						"evolutionModels/CarBody/", nThreads);
+				launchMultipleExperiment(new String[] { "LinuxKernelv1", "LinuxKernelv2", "LinuxKernelv3" },
+						"evolutionModels/LinuxKernel/", nThreads);
+				launchMultipleExperiment(
+						new String[] { "ParkingAssistantv1", "ParkingAssistantv2", "ParkingAssistantv3",
+								"ParkingAssistantv4", "ParkingAssistantv5" },
+						"evolutionModels/ParkingAssistant/", nThreads);
+				launchMultipleExperiment(new String[] { "SmartHotelv1", "SmartHotelv2" }, "evolutionModels/SmartHotel/",
+						nThreads);
+				launchMultipleExperiment(new String[] { "SmartWatchv1", "SmartWatchv2" }, "evolutionModels/SmartWatch/",
+						nThreads);
+				launchMultipleExperiment(new String[] { "WeatherStationv1", "WeatherStationv2" },
+						"evolutionModels/WeatherStation/", nThreads);
 				launchMultipleExperiment(new String[] { "ERP_SPL_s1", "ERP_SPL_s2" }, "evolutionModels/ERP/", nThreads);
-//				launchMultipleExperiment(new String[] { "HelpSystem1", "HelpSystem2" }, "evolutionModels/HelpSystem/",
-//						nThreads);
-//				launchMultipleExperiment(new String[] { "MobileMediaV3", "MobileMediaV4", "MobileMediaV5",
-//						"MobileMediaV6", "MobileMediaV7", "MobileMediaV8" }, "evolutionModels/MobileMedia/", nThreads);
+				launchMultipleExperiment(new String[] { "HelpSystem1", "HelpSystem2" }, "evolutionModels/HelpSystem/",
+						nThreads);
+				launchMultipleExperiment(new String[] { "MobileMediaV3", "MobileMediaV4", "MobileMediaV5",
+						"MobileMediaV6", "MobileMediaV7", "MobileMediaV8" }, "evolutionModels/MobileMedia/", nThreads);
 				launchMultipleExperiment(new String[] { "SmartHomeV2", "SmartHomeV2.2" }, "evolutionModels/SmartHome/",
 						nThreads);
 			}
