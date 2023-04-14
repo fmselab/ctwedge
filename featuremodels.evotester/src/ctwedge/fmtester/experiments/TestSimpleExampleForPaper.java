@@ -1,6 +1,7 @@
 package ctwedge.fmtester.experiments;
 
 import java.io.BufferedWriter;
+import java.text.SimpleDateFormat;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -40,11 +41,18 @@ import fmautorepair.utils.Utils;
 import pMedici.main.PMedici;
 import pMedici.safeelements.TestContext;
 import pMedici.threads.TestBuilder;
+import java.sql.Timestamp;
 
 public class TestSimpleExampleForPaper {
 
 	private static final int MAX_MUTATIONS = 10;
 	static boolean REDUCE_TEST_SUITE = true;
+
+	private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+
+	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+	String outputFile = "output" + sdf1.format(timestamp) + ".csv";
 
 	@Test
 	public void test1() throws IOException, InterruptedException {
@@ -94,7 +102,8 @@ public class TestSimpleExampleForPaper {
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		int N_REPETITIONS = 10;
-		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+		// int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+		int[] nThreadsList = new int[] { 1 };
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
@@ -358,10 +367,10 @@ public class TestSimpleExampleForPaper {
 		String newModel = convertModelFromFMToCTW(model2, path);
 
 		// Technique 1
-		TestSuite oldTs = regenerationFromScratch(oldModel, newModel, 2, nThreads, "output.csv");
+		TestSuite oldTs = regenerationFromScratch(oldModel, newModel, 2, nThreads, outputFile);
 		assert oldTs.getStrength() == 2;
 		// Technique 2
-		generateWithPMediciPlus(oldModel, newModel, oldTs, 2, nThreads, "output.csv");
+		generateWithPMediciPlus(oldModel, newModel, oldTs, 2, nThreads, outputFile);
 	}
 
 	/**
@@ -516,7 +525,8 @@ public class TestSimpleExampleForPaper {
 	 * @throws UnsupportedModelException
 	 */
 	public void generateWithPMediciPlus(String oldFMname, String newFMname, TestSuite originalTS, int strength,
-			int nThreads, String outputPath) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+			int nThreads, String outputPath)
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
 		generateWithPMediciPlus(oldFMname, newFMname, originalTS, strength, nThreads, outputPath, 0);
 	}
 
