@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.stream.Stream;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -189,10 +190,8 @@ public class TestSimpleExampleForPaper {
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
 				launchSingleExperimentHigherMutation("PPUv1", "evolutionModels/PPU/", nThreads);
-				launchSingleExperimentHigherMutation("AmbientAssistedLivingv1",
-						"evolutionModels/AmbientAssistedLiving/", nThreads);
-				launchSingleExperimentHigherMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",
-						nThreads);
+				launchSingleExperimentHigherMutation("AmbientAssistedLivingv1","evolutionModels/AmbientAssistedLiving/", nThreads);
+				launchSingleExperimentHigherMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",	nThreads);
 				launchSingleExperimentHigherMutation("Boeingv1", "evolutionModels/Boeing/", nThreads);
 				launchSingleExperimentHigherMutation("CarBodyv1", "evolutionModels/CarBody/", nThreads);
 				launchSingleExperimentHigherMutation("LinuxKernelv1", "evolutionModels/LinuxKernel/", nThreads);
@@ -208,6 +207,64 @@ public class TestSimpleExampleForPaper {
 			}
 		}
 	}
+
+	// all the files in directory
+	@Test
+	public void experimentsForPaperWithHigherMutationsDir()
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+		TestBuilder.KeepPartialOldTests = true;
+		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
+		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
+		int N_REPETITIONS = 20;
+//		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+		int[] nThreadsList = new int[] { 1};
+		for (int i = 0; i < N_REPETITIONS; i++) {
+			for (int nThreads : nThreadsList) {
+				launchSingleExperimentHigherMutation("evolutionModels/PPU/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/AmbientAssistedLiving/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/AutomotiveMultimedia/",	nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/Boeing/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/CarBody/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/LinuxKernel/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/ParkingAssistant/",nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/SmartHotel/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/SmartWatch/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/WeatherStation/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/ERP/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/HelpSystem/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/MobileMedia/", nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/SmartHome/", nThreads);
+			}
+		}
+	}
+
+	
+	// all models in path
+	private void launchSingleExperimentHigherMutation(String path, int nThreads) throws IOException{
+		Path Ppath = Path.of(path);
+		Stream<Path> walk = Files.walk(Ppath).filter(Files::isRegularFile).filter( x -> x.getFileName().toString().endsWith(".xml"));
+        walk.forEach(x -> {
+        	String modelName = x.getFileName().toString().replace(".xml","");
+        	try {
+				launchSingleExperimentHigherMutation(modelName,path,nThreads);
+			} catch (UnsupportedModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchExtensionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        });        
+	}
+	
+	
+
 
 	/**
 	 * Executes the experiments by starting from the model given as parameter and
@@ -264,11 +321,10 @@ public class TestSimpleExampleForPaper {
 				newModel = convertModelFromFMToCTW(fm, path, model + "_" + nModel);
 				SimpleFileHandler.save(new File(newModel + ".xml").toPath(), fm, new XmlFeatureModelFormat());
 				// Technique 1
-				TestSuite oldTs = regenerationFromScratch(oldModel, newModel, 2, nThreads,
-						"outputSyntheticHigherMutation.csv", j);
+				TestSuite oldTs = regenerationFromScratch(oldModel, newModel, 2, nThreads, outputFile, j);
 				assert oldTs.getStrength() == 2;
 				// Technique 2
-				generateWithPMediciPlus(oldModel, newModel, oldTs, 2, nThreads, "outputSyntheticHigherMutation.csv", j);
+				generateWithPMediciPlus(oldModel, newModel, oldTs, 2, nThreads, outputFile, j);
 			} catch (Exception e) {
 				continue;
 			}
