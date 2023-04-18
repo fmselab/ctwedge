@@ -441,6 +441,20 @@ public class TestSimpleExampleForPaper {
 	 */
 	public String convertModelFromFMToCTW(String modelName, String path) throws IOException {
 		String fmName = path + modelName;
+		return convertModelFromFMToCTW(fmName);
+	}
+	
+	/**
+	 * Converts a FM (in xml format) into a CTW model
+	 * 
+	 * @param modelName : the path of the feature model
+	 * @return : the path of the CTW model corresponding to the feature model given
+	 *         as input
+	 * 
+	 * @throws IOException
+	 */
+	public String convertModelFromFMToCTW(String modelNameAndPath) throws IOException {
+		String fmName = modelNameAndPath;
 		// convert to CTWedge (could be done only once)
 		Converter.fromFMtoCTWedge_ENUM(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
 		return fmName + "_ctwedge_enum.ctw";
@@ -460,6 +474,22 @@ public class TestSimpleExampleForPaper {
 	public String convertModelFromFMToCTW(IFeatureModel model, String path, String fmName) throws IOException {
 		Converter.fromIFeatureModeltoCTWedge_ENUM(model, path + fmName + "_ctwedge_enum_muted.ctw");
 		return path + fmName + "_ctwedge_enum_muted.ctw";
+	}
+	
+	/**
+	 * Converts a FM into a CTW model
+	 * 
+	 * @param model  : the feature model
+	 * @param path   : the path of the feature model
+	 * @param fmName : the name of the feature model
+	 * @return : the path of the CTW model corresponding to the feature model given
+	 *         as input
+	 * 
+	 * @throws IOException
+	 */
+	public String convertModelFromFMToCTW(IFeatureModel model, String path) throws IOException {
+		Converter.fromIFeatureModeltoCTWedge_ENUM(model, path + "_ctwedge_enum_mutated.ctw");
+		return path + "_ctwedge_enum_mutated.ctw";
 	}
 
 	/**
