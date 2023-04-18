@@ -39,7 +39,9 @@ for d in $MODELS_PATH; do
 							for k in $(seq 1 $REPETITIONS); do
 								echo " ---- Running experiments with $j threads and repetition $k";
 								echo "      Models ${array[i]} -> ${array[i+1]}";
-								java -jar SPLC_Experiments_No_Mutations.jar $j $d/${array[i]} $d/${array[i+1]} $OUTPUT_FILE
+								new=$d/${array[i+1]}
+								new="${new/$'\r'/}"
+								java -jar SPLC_Experiments_No_Mutations.jar $j "$d/${array[i]}" $new $OUTPUT_FILE
 							done
 						done
 				    	fi

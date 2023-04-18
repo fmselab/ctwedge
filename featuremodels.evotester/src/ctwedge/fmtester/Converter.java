@@ -46,6 +46,8 @@ public class Converter {
 
 		// importo Feature Model .xml con Enum importer
 		XmlFeatureModelImporter importer = new XmlFeatureModelImporter();
+		if(!inPath.endsWith(".xml"))
+			inPath = inPath + ".xml";
 		CitModel model = importer.importModel(inPath);
 		ModelUtils utils = new ModelUtils(model);
 
