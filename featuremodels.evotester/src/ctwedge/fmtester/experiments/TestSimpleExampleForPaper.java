@@ -456,7 +456,6 @@ public class TestSimpleExampleForPaper {
 	public String convertModelFromFMToCTW(String modelNameAndPath) throws IOException {
 		String fmName = modelNameAndPath;
 		// convert to CTWedge (could be done only once)
-		System.out.println(fmName);
 		Converter.fromFMtoCTWedge_ENUM(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
 		return fmName + "_ctwedge_enum.ctw";
 	}
