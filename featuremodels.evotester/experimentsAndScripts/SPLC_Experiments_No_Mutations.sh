@@ -41,7 +41,7 @@ for d in $MODELS_PATH; do
 								echo "      Models ${array[i]} -> ${array[i+1]}";
 								new=$d/${array[i+1]}
 								new="${new/$'\r'/}"
-								java -jar SPLC_Experiments_No_Mutations.jar $j "$d/${array[i]}" $new $OUTPUT_FILE
+								java -jar SPLC_Experiments_No_Mutations.jar $j "$d/${array[i]}" $new $OUTPUT_FILE $k;
 							done
 						done
 				    	fi
