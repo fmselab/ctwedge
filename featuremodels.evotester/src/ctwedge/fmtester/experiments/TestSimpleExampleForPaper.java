@@ -533,6 +533,7 @@ public class TestSimpleExampleForPaper {
 		TestSuite mediciTS1 = pMedici.generateTests(oldFMname, strength, nThreads);
 		assert mediciTS1.getStrength() == strength;
 		// Second model
+		pMedici = new PMedici();
 		TestSuite mediciTS2 = pMedici.generateTests(newFMname, strength, nThreads);
 		assert mediciTS2.getStrength() == strength;
 
