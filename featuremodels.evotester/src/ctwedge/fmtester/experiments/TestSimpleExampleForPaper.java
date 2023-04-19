@@ -108,7 +108,6 @@ public class TestSimpleExampleForPaper {
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
-
 				// Example in paper
 				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
 				launchMultipleExperiment(new String[] { "PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7",
@@ -237,7 +236,6 @@ public class TestSimpleExampleForPaper {
 			}
 		}
 	}
-
 	
 	// all models in path
 	private void launchSingleExperimentHigherMutation(String path, int nThreads) throws IOException{
@@ -248,23 +246,16 @@ public class TestSimpleExampleForPaper {
         	try {
 				launchSingleExperimentHigherMutation(modelName,path,nThreads);
 			} catch (UnsupportedModelException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (NoSuchExtensionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         });        
 	}
-	
-	
-
 
 	/**
 	 * Executes the experiments by starting from the model given as parameter and
@@ -285,7 +276,7 @@ public class TestSimpleExampleForPaper {
 
 		String oldModel = convertModelFromFMToCTW(model, path);
 
-		// Read the feature model to be muted
+		// Read the feature model to be mutated
 		IFeatureModel fm = Utils.readModel(path + model + ".xml");
 
 		// Define the mutators
@@ -351,7 +342,7 @@ public class TestSimpleExampleForPaper {
 
 		String oldModel = convertModelFromFMToCTW(model, path);
 
-		// Read the feature model to be muted
+		// Read the feature model to be mutated
 		IFeatureModel fm = Utils.readModel(path + model + ".xml");
 
 		// Define the mutators
@@ -472,8 +463,8 @@ public class TestSimpleExampleForPaper {
 	 * @throws IOException
 	 */
 	public String convertModelFromFMToCTW(IFeatureModel model, String path, String fmName) throws IOException {
-		Converter.fromIFeatureModeltoCTWedge_ENUM(model, path + fmName + "_ctwedge_enum_muted.ctw");
-		return path + fmName + "_ctwedge_enum_muted.ctw";
+		Converter.fromIFeatureModeltoCTWedge_ENUM(model, path + fmName + "_ctwedge_enum_mutated.ctw");
+		return path + fmName + "_ctwedge_enum_mutated.ctw";
 	}
 	
 	/**
@@ -577,7 +568,9 @@ public class TestSimpleExampleForPaper {
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
 				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
 		bw.newLine();
+		bw.flush();
 		bw.close();
+		fw.close();
 
 		return mediciTS1;
 	}
@@ -648,7 +641,7 @@ public class TestSimpleExampleForPaper {
 		pMedici = new PMedici();
 		pMedici.setOldTs(tempFile.toString());
 		long start = System.currentTimeMillis();
-		TestSuite mediciTS2 = pMedici.generateTests(newFMname, 2, 0);
+		TestSuite mediciTS2 = pMedici.generateTests(newFMname, 2, nThreads);
 		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
 		mediciTS2.setStrength(strength);
 
@@ -665,6 +658,7 @@ public class TestSimpleExampleForPaper {
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
 				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
 		bw.newLine();
+		bw.flush();
 
 		// Minimize test suite
 		if (REDUCE_TEST_SUITE) {
@@ -683,7 +677,10 @@ public class TestSimpleExampleForPaper {
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
 				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
 		bw.newLine();
+		bw.flush();
 		bw.close();
+		fw.close();
+		tempFile.toFile().delete();
 	}
 
 	/**
