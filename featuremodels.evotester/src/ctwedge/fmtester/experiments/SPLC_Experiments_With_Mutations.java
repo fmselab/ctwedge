@@ -74,7 +74,6 @@ public class SPLC_Experiments_With_Mutations {
 			// Then, execute the test using the two different techniques
 			String newModel = "";
 			try {
-				System.out.println("Starting test generation");
 				newModel = tester.convertModelFromFMToCTW(fm, originalModel + "_" + nModel);
 				SimpleFileHandler.save(new File(newModel + ".xml").toPath(), fm, new XmlFeatureModelFormat());
 				// Technique 1
