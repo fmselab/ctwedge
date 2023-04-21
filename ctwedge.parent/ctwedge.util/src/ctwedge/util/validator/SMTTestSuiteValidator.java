@@ -93,6 +93,12 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 		for (Constraint rule : constraints) {
 			if (rule.eContainer() instanceof CitModel) {
 				for (Test t : ts.getTests()) {
+					// Check the validity of a test in terms of assignments
+					ParametersEvaluator evaluator = new ParametersEvaluator(ts.getModel(), t);
+					if (!evaluator.isTestOk()) {
+						return false;
+					}
+					
 					RuleEvaluator rl = new RuleEvaluator(t);
 					if (!(Boolean) rl.evaluateConstraint(rule))
 						return false;
@@ -108,6 +114,13 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 		for (Constraint rule : constraints) {
 			if (rule.eContainer() instanceof CitModel) {
 				for (Test t : ts.getTests()) {
+					// Check the validity of a test in terms of assignments
+					ParametersEvaluator evaluator = new ParametersEvaluator(ts.getModel(), t);
+					if (!evaluator.isTestOk()) {
+						invalidTests++;
+						break;
+					}
+					
 					RuleEvaluator rl = new RuleEvaluator(t);
 					if (!(Boolean) rl.evaluateConstraint(rule)) {
 						invalidTests++;
