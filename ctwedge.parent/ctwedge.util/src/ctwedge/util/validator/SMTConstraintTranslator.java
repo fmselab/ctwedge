@@ -198,6 +198,9 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 			return nmgr.lessOrEquals((NumeralFormula)leftVal, (NumeralFormula)rightVal);
 		case LT:
 			return nmgr.lessThan((NumeralFormula)leftVal, (NumeralFormula)rightVal);
+		case EQ:
+		case NE:
+			throw new RuntimeException("This should never happen");
 		}
 		
 		throw new RuntimeException("Operator not found in constraint");
