@@ -189,8 +189,12 @@ public class RuleEvaluator extends CtWedgeSwitch<Object> {
 			// If the parent is an EqualExpression, and the element is on the right, then
 			// we should consider the enumerative value instead of the parameter name
 			EqualExpression eq = (EqualExpression) element.eContainer();
-			if (eq.getRight().equals(element))
+			if (eq.getRight().equals(element)) {
+				try {
+					return Double.parseDouble(element.getName());
+				} catch(NumberFormatException ex) {		}
 				return element.getName();
+			}
 		}
 		
 		String val = seed.get(element.getName());
