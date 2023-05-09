@@ -20,7 +20,6 @@ import java.util.List;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.util.ModelUtils;
 import ctwedge.util.ext.Utility;
 
 // use medici to compute the data about the benchmarks

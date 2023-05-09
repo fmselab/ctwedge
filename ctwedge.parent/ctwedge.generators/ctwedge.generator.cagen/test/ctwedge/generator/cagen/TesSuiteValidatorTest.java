@@ -14,8 +14,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.sosy_lab.common.configuration.InvalidConfigurationException;
-import org.sosy_lab.java_smt.api.SolverException;
 
 import org.junit.Test;
 

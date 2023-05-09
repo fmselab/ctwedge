@@ -12,7 +12,6 @@ import java.util.List;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.util.ModelUtils;
 import ctwedge.util.ParameterSize;
 import ctwedge.util.ParameterValuesToInt;
 import ctwedge.util.TestSuite;

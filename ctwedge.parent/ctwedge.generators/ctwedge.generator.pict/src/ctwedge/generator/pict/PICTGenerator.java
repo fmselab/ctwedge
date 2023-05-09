@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.util.TestSuite;
-import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.ext.ICTWedgeTranslTestGenerator;
 
 public class PICTGenerator extends ICTWedgeTranslTestGenerator{

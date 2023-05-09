@@ -29,6 +29,7 @@ import ctwedge.util.ParameterValuesToInt;
  * medici syntax
  * 
  */
+@SuppressWarnings("deprecation")
 public class ConstraintToMediciIds extends CtWedgeSwitch<String> {
 
 	private ParameterValuesToInt valConverter;

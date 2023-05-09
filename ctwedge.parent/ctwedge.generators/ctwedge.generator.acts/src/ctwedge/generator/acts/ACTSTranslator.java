@@ -6,12 +6,9 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
-
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.util.NotConvertableModel;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;

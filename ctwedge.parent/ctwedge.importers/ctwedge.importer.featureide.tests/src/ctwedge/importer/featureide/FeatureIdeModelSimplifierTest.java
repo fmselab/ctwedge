@@ -11,20 +11,17 @@
  ******************************************************************************/
 package ctwedge.importer.featureide;
 
+import static ctwedge.importer.featureide.FeatureIdeModelImporterTest.FI_MODELS_DIR;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.FileNotFoundException;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.importer.featureide.SxfmFiImporter;
-import ctwedge.util.simplifier.ConstraintSimplifier;
 import ctwedge.util.simplifier.Simplificator;
-import ctwedge.util.simplifier.Simplifier;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
-
-import static ctwedge.importer.featureide.FeatureIdeModelImporterTest.FI_MODELS_DIR;
-import static org.junit.Assert.*;
 
 /**
  * test the simplification over the citmodels

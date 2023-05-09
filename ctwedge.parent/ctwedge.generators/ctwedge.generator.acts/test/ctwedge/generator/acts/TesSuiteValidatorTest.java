@@ -1,17 +1,12 @@
 package ctwedge.generator.acts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -22,8 +17,6 @@ import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
-import org.sosy_lab.common.configuration.InvalidConfigurationException;
-import org.sosy_lab.java_smt.api.SolverException;
 
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
