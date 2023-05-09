@@ -37,10 +37,9 @@ import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationoperators.features.AlternativeToAnd;
 import fmautorepair.mutationoperators.features.OptionalToMandatory;
-import pMedici.importer.CSVImporter;
 import pMedici.main.PMedici;
 import pMedici.main.PMediciPlus;
-import pMedici.safeelements.TestContext;
+import pMedici.util.TestContext;
 import pMedici.util.Operations;
 import pMedici.util.TestModel;
 

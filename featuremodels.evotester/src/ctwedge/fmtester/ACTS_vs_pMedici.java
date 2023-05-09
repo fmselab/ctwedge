@@ -18,7 +18,7 @@ import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
 import ctwedge.util.validator.MinimalityTestSuiteValidator;
 import pMedici.main.PMedici;
-import pMedici.safeelements.TestContext;
+import pMedici.util.TestContext;
 import pMedici.threads.TestBuilder;
 
 /**
@@ -31,7 +31,7 @@ public class ACTS_vs_pMedici {
 	@BeforeClass
 	public static void setupEn() {
 		TestContext.IN_TEST = true;
-		TestBuilder.LockTCOnlyOnWriting = true;
+		TestContext.LockTCOnlyOnWriting = true;
 	}
 
 	@Test

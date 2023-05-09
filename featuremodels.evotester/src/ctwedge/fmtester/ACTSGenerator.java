@@ -5,7 +5,7 @@ import ctwedge.fmtester.experiments.ACTSExperimenter_fromCTWedge;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.exporter.CSVExporter;
 import ctwedge.generator.exporter.ToCSV;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 import ctwedge.importer.featureide.FeatureIdeImporter;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
