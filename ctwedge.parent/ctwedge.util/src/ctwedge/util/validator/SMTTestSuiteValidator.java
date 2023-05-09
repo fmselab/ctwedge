@@ -1,5 +1,6 @@
 package ctwedge.util.validator;
 
+import java.security.cert.CertPathValidatorException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -130,41 +131,48 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 		return ts.getTests().size() - invalidTests;
 	}
 
-	public Boolean isComplete() throws SolverException, InterruptedException, InvalidConfigurationException {
-		Configuration config = Configuration.defaultConfiguration();
-		LogManager logger = BasicLogManager.create(config);
-		ShutdownManager shutdown = ShutdownManager.create();
+	// check the completness of a test suite
+	// validator execption if the solver has some errors (to avoid depenency with sosym solver)
+	//
+	public Boolean isComplete() throws InterruptedException, ValidatorException {
+		try {
+			Configuration config = Configuration.defaultConfiguration();
+			LogManager logger = BasicLogManager.create(config);
+			ShutdownManager shutdown = ShutdownManager.create();
 
-		SolverContext ctx = SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(),
-				Solvers.SMTINTERPOL);
-		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
+			SolverContext ctx = SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(),
+					Solvers.SMTINTERPOL);
+			ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
 
-		Set<Map<Parameter, String>> testSuiteSet = getTestMap();
-		List<Map<Parameter, String>> listMapReq = getRequirements();
-		Iterator<Map<Parameter, String>> iSeed = testSuiteSet.iterator();
+			Set<Map<Parameter, String>> testSuiteSet = getTestMap();
+			List<Map<Parameter, String>> listMapReq = getRequirements();
+			Iterator<Map<Parameter, String>> iSeed = testSuiteSet.iterator();
 
-		while (iSeed.hasNext()) {
-			Map<Parameter, ?> seed = iSeed.next();
-			if (!listMapReq.isEmpty()) {
-				Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
-				while (iReq.hasNext()) {
-					if (covers(seed, iReq.next()))
-						iReq.remove();
+			while (iSeed.hasNext()) {
+				Map<Parameter, ?> seed = iSeed.next();
+				if (!listMapReq.isEmpty()) {
+					Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
+					while (iReq.hasNext()) {
+						if (covers(seed, iReq.next()))
+							iReq.remove();
+					}
 				}
 			}
+			Map<String, String> declaredElements = new HashMap<>();
+			Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
+			prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx,
+					declaredElements, variables, prover);
+
+			// Prove
+			if (prover.isUnsat())
+				throw new RuntimeException("The list of constraints is unsatisfiable");
+
+			// Add the n-wise tuple to the context
+			Iterator<Map<Parameter, String>> i = listMapReq.iterator();
+			return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
+		} catch (SolverException|InvalidConfigurationException e) {
+			throw new ValidatorException(e.getMessage());
 		}
-		Map<String, String> declaredElements = new HashMap<>();
-		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
-		prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx,
-				declaredElements, variables, prover);
-
-		// Prove
-		if (prover.isUnsat())
-			throw new RuntimeException("The list of constraints is unsatisfiable");
-
-		// Add the n-wise tuple to the context
-		Iterator<Map<Parameter, String>> i = listMapReq.iterator();
-		return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
 	}
 
 	public BooleanFormula extractFormulaFromTuple(SolverContext ctx, Map<String, String> declaredElements,

@@ -15,9 +15,9 @@ import java.util.stream.Stream;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeModelProcessor;
+import ctwedge.util.ext.Utility;
 import edu.uta.cse.fireeye.common.SUT;
 
 public class ACTSTest {

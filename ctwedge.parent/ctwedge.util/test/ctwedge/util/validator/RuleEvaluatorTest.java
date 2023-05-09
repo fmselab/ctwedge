@@ -3,8 +3,8 @@ package ctwedge.util.validator;
 import java.util.HashMap;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.Test;
+import ctwedge.util.ext.Utility;
 
 /**
  * @author marco radavelli

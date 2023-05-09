@@ -1,4 +1,4 @@
-package ctwedge.generator.util;
+package ctwedge.util;
 
 import java.util.ArrayList;
 import java.util.List;

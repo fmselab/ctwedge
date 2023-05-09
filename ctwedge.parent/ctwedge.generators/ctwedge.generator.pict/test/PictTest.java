@@ -2,8 +2,8 @@
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.pict.PICTGenerator;
 import ctwedge.generator.pict.PICTTranslator;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
+import ctwedge.util.ext.Utility;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

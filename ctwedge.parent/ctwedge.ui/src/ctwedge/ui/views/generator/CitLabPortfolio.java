@@ -25,9 +25,9 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ui.Activator;
 import ctwedge.ui.utils.Statistics;
 import ctwedge.ui.utils.IsStoppedPolling;
+import ctwedge.util.CTWedgeException;
 import ctwedge.util.Pair;
 import ctwedge.util.TestSuite;
-import ctwedge.util.ext.CTWedgeException;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 /**

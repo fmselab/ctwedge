@@ -13,8 +13,8 @@ import java.util.List;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.generator.util.Utility;
-import ctwedge.util.ext.NotConvertableModel;
+import ctwedge.util.NotConvertableModel;
+import ctwedge.util.ext.Utility;
 
 public class MediciTranslatorTest {
 

@@ -36,9 +36,9 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.impl.BoolImpl;
 import ctwedge.ctWedge.impl.EnumerativeImpl;
 import ctwedge.ctWedge.impl.RangeImpl;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 
 public class BenchmarkTest {
 	

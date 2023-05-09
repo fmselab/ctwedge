@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 
 // test for CASA generator
 public class CASATestgeneratorTest {

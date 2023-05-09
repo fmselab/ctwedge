@@ -12,8 +12,8 @@ import org.eclipse.emf.common.util.EList;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.generator.util.ParameterSize;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ParameterSize;
+import ctwedge.util.ext.Utility;
 
 public class BenchmarkSizeReporter {
 	

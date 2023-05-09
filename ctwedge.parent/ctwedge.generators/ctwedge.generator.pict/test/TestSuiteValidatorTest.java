@@ -23,10 +23,11 @@ import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.java_smt.api.SolverException;
 
 import ctwedge.generator.pict.PICTGenerator;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 import ctwedge.util.validator.SMTTestSuiteValidator;
+import ctwedge.util.validator.ValidatorException;
 
 class GeneratorExec implements Callable<TestSuite> {
 	String model;
@@ -48,7 +49,7 @@ public class TestSuiteValidatorTest {
 
 
 	@Test
-	public void simpleBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void simpleBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 
 		TestSuite ts = null;
 
@@ -90,7 +91,7 @@ public class TestSuiteValidatorTest {
 	}
 
 	@Test
-	public void complexBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void complexBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 
 		TestSuite ts = null;
 
@@ -124,7 +125,7 @@ public class TestSuiteValidatorTest {
 	}
 
 	@Test
-	public void simpleRangeTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void simpleRangeTestModel() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 
 		TestSuite ts = null;
 
@@ -164,7 +165,7 @@ public class TestSuiteValidatorTest {
 	}
 
 	@Test
-	public void simpleEnumTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void simpleEnumTestModel() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 
 		TestSuite ts = null;
 
@@ -214,17 +215,17 @@ public class TestSuiteValidatorTest {
 	}
 
 	@Test
-	public void fileTest() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void fileTest() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 		generateAndValidate("../../ctwedge.benchmarks/models_test/ctwedge/Storage3.ctw");
 	}
 	
 	@Test
-	public void fileTest2() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void fileTest2() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 		generateAndValidate("examples/ADD_BOOLC_1.ctw");
 	}
 	
 	@Test
-	public void fileTest3() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void fileTest3() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 		generateAndValidate("examples/ADD_BOOLC_0.ctw");
 	}
 	
@@ -236,14 +237,14 @@ public class TestSuiteValidatorTest {
 					System.err.println(x.getAbsolutePath());
 					try {
 						generateAndValidate(x.getAbsolutePath());
-					} catch (InterruptedException | SolverException | InvalidConfigurationException e) {
+					} catch (InterruptedException | SolverException | InvalidConfigurationException | ValidatorException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				});
 	}
 
-	private void generateAndValidate(String pathString) throws SolverException, InterruptedException, InvalidConfigurationException {
+	private void generateAndValidate(String pathString) throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 		TestSuite ts = null;
 
 		try {

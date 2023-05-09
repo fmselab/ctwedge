@@ -1,5 +1,7 @@
-package ctwedge.util.ext; 
- 
+package ctwedge.util.ext;
+
+import ctwedge.util.CTWedgeException;
+
 /** when a model is read from a file but its contains severe errors (it is not valid 
  */ 
 public class NotValidModelException extends CTWedgeException{ 

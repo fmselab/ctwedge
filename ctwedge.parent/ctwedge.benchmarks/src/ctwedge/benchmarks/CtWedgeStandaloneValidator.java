@@ -3,9 +3,9 @@ package ctwedge.benchmarks;
 import java.io.File;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.Test;
+import ctwedge.util.ext.Utility;
 import ctwedge.util.validator.RuleEvaluator;
 
 /** Standalone validator for CTWedge */

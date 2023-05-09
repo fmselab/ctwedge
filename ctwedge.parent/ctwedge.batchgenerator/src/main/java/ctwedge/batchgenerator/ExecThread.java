@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import ctwedge.generator.DiscoverGenerators;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 
 public class ExecThread extends Thread {
 	private final static String DIR_DONE = "/var/www/foselab_html/ctwedge/done";

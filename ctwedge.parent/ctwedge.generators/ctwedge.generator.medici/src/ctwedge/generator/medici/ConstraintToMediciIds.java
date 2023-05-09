@@ -18,10 +18,10 @@ import ctwedge.ctWedge.OrExpression;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
-import ctwedge.generator.util.ParameterElementsGetterAsStrings;
+import ctwedge.util.NotConvertableModel;
 import ctwedge.util.Pair;
+import ctwedge.util.ParameterElementsGetterAsStrings;
 import ctwedge.util.ParameterValuesToInt;
-import ctwedge.util.ext.NotConvertableModel;
 
 /**
  * 

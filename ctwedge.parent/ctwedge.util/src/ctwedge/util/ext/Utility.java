@@ -1,4 +1,4 @@
-package ctwedge.generator.util;
+package ctwedge.util.ext;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,7 +19,6 @@ import com.google.inject.Injector;
 import ctwedge.CTWedgeStandaloneSetup;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.util.TestSuite;
-import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 public class Utility {
 

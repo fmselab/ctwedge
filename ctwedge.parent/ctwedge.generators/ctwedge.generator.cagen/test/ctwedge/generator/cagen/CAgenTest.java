@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 
 public class CAgenTest {
 	

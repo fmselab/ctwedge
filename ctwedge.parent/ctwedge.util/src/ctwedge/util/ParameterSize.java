@@ -1,4 +1,4 @@
-package ctwedge.generator.util;
+package ctwedge.util;
 
 import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.Enumerative;

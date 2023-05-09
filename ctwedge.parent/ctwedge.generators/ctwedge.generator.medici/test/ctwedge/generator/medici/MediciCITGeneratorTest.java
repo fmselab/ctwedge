@@ -21,10 +21,10 @@ import java.util.concurrent.TimeoutException;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeModelProcessor;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 
 public class MediciCITGeneratorTest {
 

@@ -19,8 +19,8 @@ import ctwedge.ctWedge.OrExpression;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.generator.casa.CNF.Clause;
-import ctwedge.generator.util.ParameterElementsGetterAsStrings;
 import ctwedge.util.Pair;
+import ctwedge.util.ParameterElementsGetterAsStrings;
 import ctwedge.util.ParameterValuesToInt;
 
 /** it converts every expression to a list of numbers (as strings)

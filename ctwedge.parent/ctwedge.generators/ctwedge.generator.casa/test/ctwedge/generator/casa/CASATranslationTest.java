@@ -9,7 +9,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 
 public class CASATranslationTest {
 

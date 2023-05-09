@@ -11,7 +11,8 @@
  ******************************************************************************/ 
 package ctwedge.util.ext; 
  
-import ctwedge.ctWedge.CitModel; 
+import ctwedge.ctWedge.CitModel;
+import ctwedge.util.NotConvertableModel; 
  
 /** exports a combinatorial citlab model into the notation of another tool */  
  

@@ -16,9 +16,9 @@ import java.util.concurrent.TimeoutException;
 
 import org.junit.Test;
 
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 import ctwedge.util.validator.SMTTestSuiteValidator;
 
 class GeneratorExec implements Callable<TestSuite> {
