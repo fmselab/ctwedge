@@ -31,12 +31,12 @@
 		<module>ctwedge.ui</module>
 		<module>ctwedge.web</module>
 		<module>ctwedge.target</module>
-		<module>ctwedge.feature</module>
 		<module>ctwedge.repository</module>
 		<module>ctwedge.tests</module>
 		<module>ctwedge.batchgenerator</module>
 		<module>ctwedge.ui.tests</module>
-		<!-- <module>ctwedge.benchmarks</module> -->
+		<!-- <module>ctwedge.benchmarks</module> 
+		<module>ctwedge.feature</module> -->
 	</modules>
 	<dependencyManagement>
 		<dependencies>
