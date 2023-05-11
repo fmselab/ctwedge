@@ -94,7 +94,6 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 		return ctx.getFormulaManager().getBooleanFormulaManager().makeVariable(boolParam.getName());
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Formula caseRange(Range range) {
 		// The Range object can be seen as an array of values => Get the list of all possible values

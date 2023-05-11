@@ -26,7 +26,6 @@ import edu.uta.cse.fireeye.service.engine.IpoEngine;
  **/
 public class ACTSTranslator extends ICTWedgeTestGenerator {
 
-	private static final int maxLineLength = 500;
 	public static boolean PRINT = true;
 
 	public ACTSTranslator() {
