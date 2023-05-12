@@ -241,6 +241,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 //		return ts;
 //	}
 //	
+	
 	// OTHER UTILS
 	public File saveActsTXTonlyModel(CitModel citModel, String dirPath) throws IOException {
 		SUT sut = new SUT(citModel.getName());
