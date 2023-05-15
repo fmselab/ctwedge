@@ -13,9 +13,8 @@ public class AlsoEnumerativeParameters extends CTWedgeModelAnalyzer{
 	@Override
 	public boolean process(CitModel model) {
 		for (Parameter p: model.getParameters()) {
-			if (p instanceof Enumerative && ((Enumerative)p).getElements().size() != 2) continue;
-			return false;
+			if (p instanceof Enumerative) return true;
 		}		
-		return true;
+		return false;
 	} 
 }
