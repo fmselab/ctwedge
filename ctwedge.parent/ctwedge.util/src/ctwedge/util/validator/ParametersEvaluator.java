@@ -8,6 +8,9 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.util.Pair;
 import ctwedge.util.Test;
 
+//
+// it checks that the test is syntatically correct: every parameter has a value in its domain
+//
 public class ParametersEvaluator {
 	ParameterSwitchToPairStrings evaluator;
 	Test test;

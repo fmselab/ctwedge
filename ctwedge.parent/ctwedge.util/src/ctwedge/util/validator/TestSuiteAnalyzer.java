@@ -3,7 +3,7 @@ package ctwedge.util.validator;
 import ctwedge.util.TestSuite;
 
 /**
- * The Class TestSuiteAnalyzer perfoms the analtysis and returns a result of type T
+ * The Class TestSuiteAnalyzer performs the analysis and returns a result of type T
  *
  * @param <T> the generic type
  */

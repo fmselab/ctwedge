@@ -17,7 +17,7 @@ public class CtWedgeStandaloneValidator {
 			Test test = new Test();
 			int i=0;
 			for (String p : (new ModelUtils(model)).paramValues.keySet()) test.put(p, args[i++]);
-			System.out.println(new RuleEvaluator(test).doSwitch(model));
+			System.out.println(new RuleEvaluator(test).evaluateModel(model));
 		} catch (Exception e) {
 			System.out.println("Error. It takes the CTWedge model file path as first parameter, then the values assigned to each variable in the model");
 			e.printStackTrace();

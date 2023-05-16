@@ -95,7 +95,6 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 			}
 			for (Constraint rule : constraints) {
 				if (rule.eContainer() instanceof CitModel) {
-
 					RuleEvaluator rl = new RuleEvaluator(t);
 					if (!(Boolean) rl.evaluateConstraint(rule))
 						return false;
