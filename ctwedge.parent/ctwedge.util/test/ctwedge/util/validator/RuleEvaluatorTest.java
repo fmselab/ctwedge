@@ -2,7 +2,14 @@ package ctwedge.util.validator;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.util.Test;
@@ -60,5 +67,24 @@ public class RuleEvaluatorTest {
 		Test t3 = new Test(new HashMap<String,String>() {{put("emailViewer","true"); put("textLines","30");}});
 		assertTrue(new RuleEvaluator(t3).evaluateModel(model));
 	}
+	
+	@org.junit.Test
+	public void testRnd() throws IOException {
+		Path path = Paths.get("../ctwedge.benchmarks/models_test");
+		List<File> fileList = Files.walk(path)
+                .filter(Files::isRegularFile)
+                .map(Path::toFile)
+                .filter(x -> x.getName().endsWith(".ctw"))
+                .collect(Collectors.toList());
+		for (File file : fileList) {
+			System.out.println(file);
+		}
+	}
+	
+	
+	
+	
+	
+	
 	
 }
