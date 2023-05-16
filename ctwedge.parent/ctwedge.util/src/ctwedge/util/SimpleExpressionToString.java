@@ -9,7 +9,7 @@
  *   Paolo Vavassori - initial API and implementation
  *   Angelo Gargantini - utils and architecture
  ******************************************************************************/
-package ctwedge.generator.casa;
+package ctwedge.util;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -36,7 +36,7 @@ public class SimpleExpressionToString extends CtWedgeSwitch<String> {
 
 	public static SimpleExpressionToString toStringCoverter = new SimpleExpressionToString();
 
-	SimpleExpressionToString() {
+	protected SimpleExpressionToString() {
 	}
 
 	@Override
@@ -48,11 +48,11 @@ public class SimpleExpressionToString extends CtWedgeSwitch<String> {
 	@Override
 	public String caseOrExpression(OrExpression or) {
 		Expression right = or.getRight();
-		//assert right != null : or.getRight().getClass();
+		assert right != null;
 		String doSwitchRx = this.doSwitch(right);
-		//assert doSwitchRx != null;
+		assert doSwitchRx != null;
 		Expression left = or.getLeft();
-		//assert left != null;
+		assert left != null;
 		return "(" + this.doSwitch(left) + ") or (" + doSwitchRx + ")";
 	}
 
@@ -79,9 +79,13 @@ public class SimpleExpressionToString extends CtWedgeSwitch<String> {
 	@Override
 	public String caseEqualExpression(EqualExpression a) {
 		Expression right = a.getRight();
-		assert right != null : a.getRight().getClass();
-		return "(" + this.doSwitch(a.getLeft()) + ") " + a.getOp().getLiteral()
-				+ " (" + this.doSwitch(right) + ")";
+		String doSwitch2 = this.doSwitch(right);
+		assert right != null;
+		Expression left = a.getLeft();
+		assert left != null : doSwitch2 + "=null???" ;
+		String doSwitch = this.doSwitch(left);
+		return "(" + doSwitch + ") " + a.getOp().getLiteral()
+				+ " (" + doSwitch2 + ")";
 	}
 
 	@Override

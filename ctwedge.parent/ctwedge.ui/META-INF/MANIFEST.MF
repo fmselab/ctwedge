@@ -8,6 +8,7 @@ Bundle-SymbolicName: ctwedge.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: ctwedge,
  ctwedge.ide,
+ ctwedge.util,
  org.eclipse.xtext.ui,
  org.eclipse.xtext.ui.shared,
  org.eclipse.xtext.ui.codetemplates.ui,

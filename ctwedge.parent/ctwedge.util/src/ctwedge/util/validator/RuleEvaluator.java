@@ -19,6 +19,7 @@ import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.EqualExpression;
+import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.ImpliesExpression;
 import ctwedge.ctWedge.ImpliesOperator;
 import ctwedge.ctWedge.ModMultDiv;
@@ -28,6 +29,7 @@ import ctwedge.ctWedge.PlusMinus;
 import ctwedge.ctWedge.PlusMinusOperators;
 import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
+import ctwedge.util.SimpleExpressionToString;
 import ctwedge.util.Test;
 
 /**
@@ -63,9 +65,12 @@ public class RuleEvaluator {
 
 		@Override
 		public Boolean caseCitModel(CitModel m) {
-			for (Constraint c : m.getConstraints())
+			int i = 0;
+			for (Constraint c : m.getConstraints()) {				
+				//System.out.println("eval " + i++ + SimpleExpressionToString.toStringCoverter.doSwitch(c));
 				if (!(Boolean) this.doSwitch(c))
 					return false;
+			}
 			return true;
 		}
 
@@ -106,16 +111,14 @@ public class RuleEvaluator {
 
 		@Override
 		public Boolean caseOrExpression(OrExpression orExpr) {
-			if (orExpr == null || orExpr.getLeft() == null || orExpr.getRight() == null) {
-				return null;
-			}
+			assert ! (orExpr == null || orExpr.getLeft() == null || orExpr.getRight() == null);
 			Boolean leftVal = (Boolean) this.doSwitch(orExpr.getLeft());
 			// if the first one is true, exit
 			if (leftVal)
 				return true;
-
-			assert this.doSwitch(orExpr.getRight()) instanceof Boolean : this.doSwitch(orExpr.getRight()).toString();
-			return (Boolean) this.doSwitch(orExpr.getRight());
+			Object doSwitch = this.doSwitch(orExpr.getRight());
+			assert doSwitch instanceof Boolean : doSwitch.toString();
+			return (Boolean) doSwitch;
 		}
 
 		@Override
@@ -132,7 +135,9 @@ public class RuleEvaluator {
 
 		@Override
 		public Boolean caseEqualExpression(EqualExpression x) {
-			Object left = this.doSwitch(x.getLeft());
+			Expression leftExpr = x.getLeft();
+			assert leftExpr != null; 
+			Object left = this.doSwitch(leftExpr);
 			Object right = this.doSwitch(x.getRight());
 			switch (x.getOp()) {
 			case EQ:

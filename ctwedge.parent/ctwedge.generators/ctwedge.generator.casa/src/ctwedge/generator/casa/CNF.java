@@ -21,6 +21,7 @@ import ctwedge.ctWedge.AtomicPredicate;
 import ctwedge.ctWedge.EqualExpression;
 import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.NotExpression;
+import ctwedge.util.SimpleExpressionToString;
 
 /**
  * From WIKIPEDIA: In Boolean logic, a formula is in conjunctive normal form
@@ -112,6 +113,11 @@ public class CNF {
 	static final LiteralToString lit2String = new LiteralToString();
 
 	static class LiteralToString extends SimpleExpressionToString {
+
+
+		protected LiteralToString() {
+			super();
+		}
 
 		@Override
 		public String doSwitch(EObject eObject) {

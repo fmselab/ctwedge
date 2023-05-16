@@ -12,7 +12,7 @@
 package ctwedge.generator.casa;
 
 import static ctwedge.ctWedge.CtWedgeFactory.eINSTANCE;
-import static ctwedge.generator.casa.SimpleExpressionToString.toStringCoverter;
+import static ctwedge.util.SimpleExpressionToString.toStringCoverter;
 
 import java.util.ArrayList;
 import java.util.Collections;

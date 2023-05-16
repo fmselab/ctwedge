@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ctwedge.ctWedge.CitModel;
+import ctwedge.util.ModelUtils;
 import ctwedge.util.Test;
 import ctwedge.util.ext.Utility;
 
@@ -69,15 +70,35 @@ public class RuleEvaluatorTest {
 	}
 	
 	@org.junit.Test
-	public void testRnd() throws IOException {
+	public void testbenchmarks() throws IOException {
 		Path path = Paths.get("../ctwedge.benchmarks/models_test");
+		extracted(path);
+	}
+	
+	@org.junit.Test
+	public void testComp() throws IOException {
+		Path path = Paths.get("../../../CIT_Benchmark_Generator\\Benchmarks_CITCompetition_2023\\");
+		extracted(path);
+	}
+	
+
+	private void extracted(Path path) throws IOException {
 		List<File> fileList = Files.walk(path)
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .filter(x -> x.getName().endsWith(".ctw"))
+                .filter(x -> x.getName().startsWith("IND"))
                 .collect(Collectors.toList());
 		for (File file : fileList) {
-			System.out.println(file);
+			CitModel model = Utility.loadModelFromPath(file.getCanonicalPath());
+			ModelUtils mu = new ModelUtils(model);
+			for (int i = 0; i < 10; i++) {
+				System.out.print(file.getCanonicalPath());
+				Test test = mu.getRandomTestFromModel();
+				System.out.print(" " + test);
+				Boolean value = new RuleEvaluator(test).evaluateModel(model);
+				System.out.println(" " + value);
+			}
 		}
 	}
 	
