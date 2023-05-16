@@ -102,12 +102,11 @@ public class ModelUtils {
 	/**
 	 * Returns a random test (not necessary a valid one) from a CITModel
 	 * 
-	 * @param m the CIT Model
 	 * @return a random test
 	 */
-	Test getRandomTestFromModel(CitModel m) {
+	public Test getRandomTestFromModel() {
 		Map<String, String> assignments = new HashMap<String, String>();
-		for (Parameter p : m.getParameters()) {
+		for (Parameter p : my.getParameters()) {
 			List<String> values = ParameterElementsGetterAsStrings.instance.doSwitch(p);
 			Random rand = new Random();
 			assignments.put(p.getName(), values.get(rand.nextInt(values.size())));
