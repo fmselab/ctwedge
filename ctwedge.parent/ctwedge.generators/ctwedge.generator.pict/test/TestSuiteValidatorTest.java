@@ -259,11 +259,6 @@ public class TestSuiteValidatorTest {
 		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
 		//tsv.setTestSuite(ts);
 
-		// Save the number of tests
-		int numTest = ts.getTests().size();
-		// Save the number of covered tuples
-		int covTuples = tsv.howManyTuplesCovers();
-
 		// Check all the tests are valid
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
 
@@ -309,9 +304,6 @@ public class TestSuiteValidatorTest {
 				// Define the validator
 				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
 				//tsv.setTestSuite(ts);
-
-				// Save the number of tests
-				int numTest = ts.getTests().size();
 				// Save the number of covered tuples
 				int covTuples = tsv.howManyTuplesCovers();
 

@@ -65,7 +65,6 @@ public class RuleEvaluator {
 
 		@Override
 		public Boolean caseCitModel(CitModel m) {
-			int i = 0;
 			for (Constraint c : m.getConstraints()) {				
 				//System.out.println("eval " + i++ + SimpleExpressionToString.toStringCoverter.doSwitch(c));
 				if (!(Boolean) this.doSwitch(c))

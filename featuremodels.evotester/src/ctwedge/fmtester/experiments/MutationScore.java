@@ -1,28 +1,18 @@
 package ctwedge.fmtester.experiments;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Vector;
 
 import org.junit.Test;
 
-import ctwedge.ctWedge.CitModel;
 import ctwedge.fmtester.Converter;
-import ctwedge.fmtester.DistancesCalculator;
-import ctwedge.generator.acts.ACTSTranslator;
-import ctwedge.generator.exporter.ToCSV;
-import ctwedge.importer.featureide.FeatureIdeImporter;
-import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
@@ -38,10 +28,7 @@ import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationoperators.features.AlternativeToAnd;
 import fmautorepair.mutationoperators.features.OptionalToMandatory;
 import pMedici.main.PMedici;
-import pMedici.main.PMediciPlus;
 import pMedici.util.TestContext;
-import pMedici.util.Operations;
-import pMedici.util.TestModel;
 
 public class MutationScore {
 	static {

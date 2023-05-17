@@ -123,7 +123,6 @@ public class ACTSTest {
 
 	@Test
 	public void testExample3() throws Exception {
-		StringBuilder contentBuilder = new StringBuilder();
 		// String filePath =
 		// "D:\\AgHome\\progettidaSVNGIT\\pMedici\\pMEDICI-z3\\examples\\ctcomp\\MCA_3.ctw";
 		String filePath = "D:\\AgHome\\progettidaSVNGIT\\pMedici\\pMEDICI-z3\\examples\\ctcomp\\ADD_BOOLC_4.ctw";

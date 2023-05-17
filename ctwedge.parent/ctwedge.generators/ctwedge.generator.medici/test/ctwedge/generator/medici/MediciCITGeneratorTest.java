@@ -141,7 +141,6 @@ public class MediciCITGeneratorTest {
 		Path path = Paths.get("../../ctwedge.benchmarks/models_test");
 		listFiles(path.toFile(), fileList);
 		for (File file : fileList) {
-			String model;
 			try {
 				if (generator.getTestSuite(Utility.loadModelFromPath(file.getPath()), 2, false) == null) {
 					errors++;

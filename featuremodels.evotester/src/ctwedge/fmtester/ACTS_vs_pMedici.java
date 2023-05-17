@@ -1,7 +1,5 @@
 package ctwedge.fmtester;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -19,7 +17,6 @@ import ctwedge.util.TestSuite;
 import ctwedge.util.validator.MinimalityTestSuiteValidator;
 import pMedici.main.PMedici;
 import pMedici.util.TestContext;
-import pMedici.threads.TestBuilder;
 
 /**
  * confronta ACTS con pMedici con diverse opzioni
