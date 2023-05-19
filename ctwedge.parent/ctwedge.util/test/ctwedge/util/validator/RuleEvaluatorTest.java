@@ -21,6 +21,7 @@ import ctwedge.util.ext.Utility;
  */
 public class RuleEvaluatorTest {
 	
+
 	@SuppressWarnings("serial")
 	@org.junit.Test
 	public void test1() {
@@ -72,27 +73,27 @@ public class RuleEvaluatorTest {
 	@org.junit.Test
 	public void testbenchmarks() throws IOException {
 		Path path = Paths.get("../ctwedge.benchmarks/models_test");
-		extracted(path);
+		testFile(path);
 	}
 	
 	@org.junit.Test
 	public void testComp() throws IOException {
 		Path path = Paths.get("../../../CIT_Benchmark_Generator\\Benchmarks_CITCompetition_2023\\");
-		extracted(path);
+		testFile(path);
 	}
 	
+	private static final int NUM_TEST = 10;
 
-	private void extracted(Path path) throws IOException {
+	private void testFile(Path path) throws IOException {
 		List<File> fileList = Files.walk(path)
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .filter(x -> x.getName().endsWith(".ctw"))
-                .filter(x -> x.getName().startsWith("IND"))
                 .collect(Collectors.toList());
 		for (File file : fileList) {
 			CitModel model = Utility.loadModelFromPath(file.getCanonicalPath());
 			ModelUtils mu = new ModelUtils(model);
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < NUM_TEST; i++) {
 				System.out.print(file.getCanonicalPath());
 				Test test = mu.getRandomTestFromModel();
 				System.out.print(" " + test);
