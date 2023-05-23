@@ -18,10 +18,10 @@ public class AlsoIntegerParameters extends CTWedgeModelAnalyzer{
 	public boolean process(CitModel model) {
 		for (Parameter p: model.getParameters()) {
 			if (p instanceof Range) return true;
-			if (p instanceof Enumerative) {				
+			/*if (p instanceof Enumerative) {				
 				if (Arrays.stream(((Enumerative)p).getElements().toArray()).allMatch(x -> isInteger((Element)x)))
 					return true;
-			}
+			}*/
 		}		
 		return false;
 	} 
