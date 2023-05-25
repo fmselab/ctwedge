@@ -14,25 +14,15 @@ package ctwedge.importer.featureide;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
-import java.util.List;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.osgi.resource.Resource;
 
-import com.google.common.io.PatternFilenameFilter;
-import com.google.inject.Injector;
-import ctwedge.CTWedgeStandaloneSetup;
 import ctwedge.ctWedge.CitModel;
-import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.ext.NotImportableException;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
@@ -127,7 +117,7 @@ public class FeatureIdeModelImporterTestBool {
 	@Test
 	public void readModel_Alt_Root() throws FileNotFoundException,
 			UnsupportedModelException {
-		CitModel m = readModel(FI_MODELS_DIR +"model_Alt.xml");
+		readModel(FI_MODELS_DIR +"model_Alt.xml");
 	}
 
 	@Test
@@ -135,7 +125,7 @@ public class FeatureIdeModelImporterTestBool {
 			UnsupportedModelException {
 		// [model = true, A != NONE IFF model = true, B != NONE IFF model =
 		// true]
-		CitModel m = readModel(FI_MODELS_DIR +"model2.xml");
+		readModel(FI_MODELS_DIR +"model2.xml");
 	}
 
 	@Test

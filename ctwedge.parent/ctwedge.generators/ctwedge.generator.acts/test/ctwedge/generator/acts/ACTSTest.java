@@ -3,21 +3,13 @@ package ctwedge.generator.acts;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.stream.Stream;
 
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.generator.util.Utility;
-import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeModelProcessor;
+import ctwedge.util.ext.Utility;
 import edu.uta.cse.fireeye.common.SUT;
 
 public class ACTSTest {
@@ -131,7 +123,6 @@ public class ACTSTest {
 
 	@Test
 	public void testExample3() throws Exception {
-		StringBuilder contentBuilder = new StringBuilder();
 		// String filePath =
 		// "D:\\AgHome\\progettidaSVNGIT\\pMedici\\pMEDICI-z3\\examples\\ctcomp\\MCA_3.ctw";
 		String filePath = "D:\\AgHome\\progettidaSVNGIT\\pMedici\\pMEDICI-z3\\examples\\ctcomp\\ADD_BOOLC_4.ctw";

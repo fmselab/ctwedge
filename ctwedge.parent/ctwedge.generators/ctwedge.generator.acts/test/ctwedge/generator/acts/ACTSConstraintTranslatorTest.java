@@ -11,8 +11,7 @@ import org.junit.Test;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.NotExpression;
-import ctwedge.generator.util.Utility;
-import edu.uta.cse.fireeye.common.SUT;
+import ctwedge.util.ext.Utility;
 
 public class ACTSConstraintTranslatorTest {
 

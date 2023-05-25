@@ -14,14 +14,13 @@ Require-Bundle: ctwedge,
  org.eclipse.equinox.registry,
  org.eclipse.core.runtime,
  org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: ctwedge.generator,
  ctwedge.generator.exporter;
   uses:="org.eclipse.xtext.generator,
    ctwedge.util,
    jxl.write,
    ctwedge.util.ext",
- ctwedge.generator.util;uses:="ctwedge.util,ctwedge.ctWedge,ctwedge.ctWedge.util",
  ctwedge.util,
  ctwedge.util.ext,
  ctwedge.util.genprefs,

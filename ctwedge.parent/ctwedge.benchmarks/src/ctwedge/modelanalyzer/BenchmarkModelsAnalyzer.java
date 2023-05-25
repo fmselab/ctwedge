@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 
 public class BenchmarkModelsAnalyzer {
 

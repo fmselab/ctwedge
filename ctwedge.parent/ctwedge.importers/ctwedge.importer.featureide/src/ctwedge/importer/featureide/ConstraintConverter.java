@@ -11,7 +11,6 @@
  ******************************************************************************/
 package ctwedge.importer.featureide;
 
-import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;

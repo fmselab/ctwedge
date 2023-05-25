@@ -17,7 +17,7 @@ import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
-import ctwedge.generator.util.ParameterElementsGetterAsStrings;
+import ctwedge.util.ParameterElementsGetterAsStrings;
 import ctwedge.util.StaticUtils;
 import edu.uta.cse.fireeye.common.Parameter;
 import edu.uta.cse.fireeye.common.SUT;

@@ -5,6 +5,8 @@ import java.util.Map;
 /** class representing a single test as a map from string (parameters' names) to their values (as strings)**/
 public class Test extends Combination {
 	
+	private static final long serialVersionUID = 1L;
+
 	public Test(Map<String,String> assignments) {
 		super(assignments);
 	}

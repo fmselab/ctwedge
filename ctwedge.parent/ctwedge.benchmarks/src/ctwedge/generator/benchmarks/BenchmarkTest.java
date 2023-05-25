@@ -1,7 +1,5 @@
 package ctwedge.generator.benchmarks;
 
-import static org.junit.Assert.fail;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -31,14 +29,15 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
+
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.impl.BoolImpl;
 import ctwedge.ctWedge.impl.EnumerativeImpl;
 import ctwedge.ctWedge.impl.RangeImpl;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 
 public class BenchmarkTest {
 	

@@ -10,7 +10,7 @@ import java.util.TreeSet;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.acts.ACTSTranslator;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;

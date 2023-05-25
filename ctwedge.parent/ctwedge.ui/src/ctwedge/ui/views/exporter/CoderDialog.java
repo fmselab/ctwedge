@@ -53,7 +53,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import com.google.inject.Inject;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.util.ext.CTWedgeException;
+import ctwedge.util.CTWedgeException;
 import ctwedge.util.ext.ICTWedgeExporter;
 
 public class CoderDialog extends Dialog {

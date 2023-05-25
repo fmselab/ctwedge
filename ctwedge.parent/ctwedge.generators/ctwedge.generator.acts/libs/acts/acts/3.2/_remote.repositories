@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu May 11 14:31:05 CEST 2023
+acts-3.2.jar>=
+acts-3.2.pom>=

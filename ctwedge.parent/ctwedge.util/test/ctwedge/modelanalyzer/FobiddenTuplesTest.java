@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 
 public class FobiddenTuplesTest {
 

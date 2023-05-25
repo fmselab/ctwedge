@@ -22,9 +22,9 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.casa.CASAConstraintException;
 import ctwedge.generator.casa.CASATestGenerator;
-import ctwedge.generator.util.ParameterSize;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ParameterSize;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 import ctwedge.web.generator.ipapi.Ipapi;
 
 

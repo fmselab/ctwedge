@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.medici.MediciCITGenerator;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;

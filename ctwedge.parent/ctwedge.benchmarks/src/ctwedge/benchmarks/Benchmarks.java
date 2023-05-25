@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 
 /**
  * Servlet implementation class for the benchmark table

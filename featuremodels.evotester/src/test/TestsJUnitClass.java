@@ -35,6 +35,13 @@ public class TestsJUnitClass {
 	}
 
 	@Test
+	public void testBG() {
+		String fm = "E:\\WorkSpaces\\CTWedgeWorkspace\\BenchmarkGeneratorConfiguration\\model.xml";
+		// importo Feature Model .xml
+		generateTestSuite(fm, importerWithEnum);
+	}
+	
+	@Test
 	public void test2() {
 		String fm = "fmexamples\\model_Man_Man.xml";
 		// importo Feature Model .xml

@@ -9,8 +9,10 @@
  *   Paolo Vavassori - initial API and implementation 
  *   Angelo Gargantini - utils and architecture 
  ******************************************************************************/ 
-package ctwedge.util.ext; 
- 
+package ctwedge.util.ext;
+
+import ctwedge.util.CTWedgeException;
+
 /** the model is not importable into citlab (when importing from another language) 
  */ 
 public class NotImportableException extends CTWedgeException { 

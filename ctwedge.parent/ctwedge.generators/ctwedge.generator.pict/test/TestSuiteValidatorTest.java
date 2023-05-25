@@ -2,9 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,10 +21,11 @@ import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.java_smt.api.SolverException;
 
 import ctwedge.generator.pict.PICTGenerator;
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 import ctwedge.util.validator.SMTTestSuiteValidator;
+import ctwedge.util.validator.ValidatorException;
 
 class GeneratorExec implements Callable<TestSuite> {
 	String model;
@@ -48,7 +47,7 @@ public class TestSuiteValidatorTest {
 
 
 	@Test
-	public void simpleBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void simpleBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 
 		TestSuite ts = null;
 
@@ -90,7 +89,7 @@ public class TestSuiteValidatorTest {
 	}
 
 	@Test
-	public void complexBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void complexBooleanTestModel() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 
 		TestSuite ts = null;
 
@@ -124,7 +123,7 @@ public class TestSuiteValidatorTest {
 	}
 
 	@Test
-	public void simpleRangeTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void simpleRangeTestModel() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 
 		TestSuite ts = null;
 
@@ -164,7 +163,7 @@ public class TestSuiteValidatorTest {
 	}
 
 	@Test
-	public void simpleEnumTestModel() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void simpleEnumTestModel() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 
 		TestSuite ts = null;
 
@@ -214,17 +213,17 @@ public class TestSuiteValidatorTest {
 	}
 
 	@Test
-	public void fileTest() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void fileTest() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 		generateAndValidate("../../ctwedge.benchmarks/models_test/ctwedge/Storage3.ctw");
 	}
 	
 	@Test
-	public void fileTest2() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void fileTest2() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 		generateAndValidate("examples/ADD_BOOLC_1.ctw");
 	}
 	
 	@Test
-	public void fileTest3() throws SolverException, InterruptedException, InvalidConfigurationException {
+	public void fileTest3() throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 		generateAndValidate("examples/ADD_BOOLC_0.ctw");
 	}
 	
@@ -236,14 +235,14 @@ public class TestSuiteValidatorTest {
 					System.err.println(x.getAbsolutePath());
 					try {
 						generateAndValidate(x.getAbsolutePath());
-					} catch (InterruptedException | SolverException | InvalidConfigurationException e) {
+					} catch (InterruptedException | SolverException | InvalidConfigurationException | ValidatorException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				});
 	}
 
-	private void generateAndValidate(String pathString) throws SolverException, InterruptedException, InvalidConfigurationException {
+	private void generateAndValidate(String pathString) throws SolverException, InterruptedException, InvalidConfigurationException, ValidatorException {
 		TestSuite ts = null;
 
 		try {
@@ -259,11 +258,6 @@ public class TestSuiteValidatorTest {
 		// Define the validator
 		SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
 		//tsv.setTestSuite(ts);
-
-		// Save the number of tests
-		int numTest = ts.getTests().size();
-		// Save the number of covered tuples
-		int covTuples = tsv.howManyTuplesCovers();
 
 		// Check all the tests are valid
 		assertTrue(tsv.howManyTestAreValid() == ts.getTests().size());
@@ -310,9 +304,6 @@ public class TestSuiteValidatorTest {
 				// Define the validator
 				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
 				//tsv.setTestSuite(ts);
-
-				// Save the number of tests
-				int numTest = ts.getTests().size();
 				// Save the number of covered tuples
 				int covTuples = tsv.howManyTuplesCovers();
 

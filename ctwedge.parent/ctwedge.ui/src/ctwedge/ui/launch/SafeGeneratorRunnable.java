@@ -22,8 +22,8 @@ import org.eclipse.ui.PlatformUI;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ui.views.generator.TestSuiteView;
 import ctwedge.ui.utils.IsStoppedPolling;
+import ctwedge.util.CTWedgeException;
 import ctwedge.util.TestSuite;
-import ctwedge.util.ext.CTWedgeException;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 public class SafeGeneratorRunnable extends Job {

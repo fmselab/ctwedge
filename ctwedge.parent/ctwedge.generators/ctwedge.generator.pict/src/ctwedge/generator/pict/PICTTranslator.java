@@ -3,7 +3,7 @@ package ctwedge.generator.pict;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.generator.util.ParameterElementsGetterAsStrings;
+import ctwedge.util.ParameterElementsGetterAsStrings;
 
 public class PICTTranslator{
 	

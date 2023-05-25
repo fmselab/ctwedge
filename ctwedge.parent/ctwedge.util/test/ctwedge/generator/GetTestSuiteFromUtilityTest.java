@@ -2,8 +2,8 @@ package ctwedge.generator;
 
 import org.junit.Test;
 
-import ctwedge.generator.util.Utility;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 
 public class GetTestSuiteFromUtilityTest {
 

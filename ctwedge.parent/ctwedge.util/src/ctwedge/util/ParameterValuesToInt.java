@@ -10,10 +10,6 @@ import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Operators;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.generator.util.IndexOutOfBoundException;
-import ctwedge.generator.util.ParameterElementsGetterAsStrings;
-import ctwedge.generator.util.ParameterSize;
-import ctwedge.util.ext.NotConvertableModel;
 
 /** converts any value of a parameter to unique integers */
 public class ParameterValuesToInt {

@@ -14,14 +14,12 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.sosy_lab.common.configuration.InvalidConfigurationException;
-import org.sosy_lab.java_smt.api.SolverException;
 
 import org.junit.Test;
 
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 import ctwedge.util.validator.SMTTestSuiteValidator;
 
 class GeneratorExec implements Callable<TestSuite> {
@@ -100,8 +98,6 @@ public class TesSuiteValidatorTest {
 				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
 				//tsv.setTestSuite(ts);
 				
-				// Save the number of tests
-				int numTest = ts.getTests().size();
 				// Save the number of covered tuples
 				int covTuples = tsv.howManyTuplesCovers();
 				

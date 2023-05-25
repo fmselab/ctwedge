@@ -3,7 +3,6 @@ package ctwedge.util.validator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -45,8 +44,7 @@ import ctwedge.util.Pair;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 
-public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
-
+public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
 	private static final Logger logger = Logger.getLogger(SMTTestSuiteValidator.class);
 
@@ -58,7 +56,6 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 			logger.setLevel(Level.OFF);
 		}
 	}
-
 
 	@SuppressWarnings("rawtypes")
 	private boolean covers(Map<Parameter, ?> test, Map<Parameter, ?> requirement) {
@@ -90,9 +87,14 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 	 */
 	public Boolean isValid() {
 		EList<Constraint> constraints = ts.getModel().getConstraints();
-		for (Constraint rule : constraints) {
-			if (rule.eContainer() instanceof CitModel) {
-				for (Test t : ts.getTests()) {
+		for (Test t : ts.getTests()) {
+			// Check the validity of a test in terms of assignments
+			ParametersEvaluator evaluator = new ParametersEvaluator(ts.getModel(), t);
+			if (!evaluator.isTestOk()) {
+				return false;
+			}
+			for (Constraint rule : constraints) {
+				if (rule.eContainer() instanceof CitModel) {
 					RuleEvaluator rl = new RuleEvaluator(t);
 					if (!(Boolean) rl.evaluateConstraint(rule))
 						return false;
@@ -105,9 +107,16 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 	public Integer howManyTestAreValid() {
 		int invalidTests = 0;
 		EList<Constraint> constraints = ts.getModel().getConstraints();
-		for (Constraint rule : constraints) {
-			if (rule.eContainer() instanceof CitModel) {
-				for (Test t : ts.getTests()) {
+		for (Test t : ts.getTests()) {
+			// Check the validity of a test in terms of assignments
+			ParametersEvaluator evaluator = new ParametersEvaluator(ts.getModel(), t);
+			if (!evaluator.isTestOk()) {
+				invalidTests++;
+				continue;
+			}
+			for (Constraint rule : constraints) {
+				if (rule.eContainer() instanceof CitModel) {
+
 					RuleEvaluator rl = new RuleEvaluator(t);
 					if (!(Boolean) rl.evaluateConstraint(rule)) {
 						invalidTests++;
@@ -119,47 +128,54 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 		return ts.getTests().size() - invalidTests;
 	}
 
-	public Boolean isComplete() throws SolverException, InterruptedException, InvalidConfigurationException {
-		Configuration config = Configuration.defaultConfiguration();
-		LogManager logger = BasicLogManager.create(config);
-		ShutdownManager shutdown = ShutdownManager.create();
+	// check the completness of a test suite
+	// validator execption if the solver has some errors (to avoid depenency with sosym solver)
+	//
+	public Boolean isComplete() throws InterruptedException, ValidatorException {
+		try {
+			Configuration config = Configuration.defaultConfiguration();
+			LogManager logger = BasicLogManager.create(config);
+			ShutdownManager shutdown = ShutdownManager.create();
 
-		SolverContext ctx = SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(),
-				Solvers.SMTINTERPOL);
-		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
+			SolverContext ctx = SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(),
+					Solvers.SMTINTERPOL);
+			ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
 
-		Set<Map<Parameter, String>> testSuiteSet = getTestMap();
-		List<Map<Parameter, String>> listMapReq = getRequirements();
-		Iterator<Map<Parameter, String>> iSeed = testSuiteSet.iterator();
+			Set<Map<Parameter, String>> testSuiteSet = getTestMap();
+			List<Map<Parameter, String>> listMapReq = getRequirements();
+			Iterator<Map<Parameter, String>> iSeed = testSuiteSet.iterator();
 
-		while (iSeed.hasNext()) {
-			Map<Parameter, ?> seed = iSeed.next();
-			if (!listMapReq.isEmpty()) {
-				Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
-				while (iReq.hasNext()) {
-					if (covers(seed, iReq.next()))
-						iReq.remove();
+			while (iSeed.hasNext()) {
+				Map<Parameter, ?> seed = iSeed.next();
+				if (!listMapReq.isEmpty()) {
+					Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
+					while (iReq.hasNext()) {
+						if (covers(seed, iReq.next()))
+							iReq.remove();
+					}
 				}
 			}
+			Map<String, String> declaredElements = new HashMap<>();
+			Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
+			prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx,
+					declaredElements, variables, prover);
+
+			// Prove
+			if (prover.isUnsat())
+				throw new RuntimeException("The list of constraints is unsatisfiable");
+
+			// Add the n-wise tuple to the context
+			Iterator<Map<Parameter, String>> i = listMapReq.iterator();
+			return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
+		} catch (SolverException|InvalidConfigurationException e) {
+			throw new ValidatorException(e.getMessage());
 		}
-		Map<String, String> declaredElements = new HashMap<>();
-		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
-		prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx,
-				declaredElements, variables, prover);
-
-		// Prove
-		if (prover.isUnsat())
-			throw new RuntimeException("The list of constraints is unsatisfiable");
-
-		// Add the n-wise tuple to the context
-		Iterator<Map<Parameter, String>> i = listMapReq.iterator();
-		return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
 	}
 
 	public BooleanFormula extractFormulaFromTuple(SolverContext ctx, Map<String, String> declaredElements,
 			Map<Parameter, Formula> variables, Map<Parameter, String> requirement) {
 		BooleanFormula t = ctx.getFormulaManager().getBooleanFormulaManager().makeTrue();
-		
+
 		for (Parameter p : requirement.keySet()) {
 			BooleanFormula tNew = null;
 			Formula varPointer = variables.get(p);
@@ -181,16 +197,15 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 				int counter = 0;
 				for (Entry<String, String> e : declaredElements.entrySet()) {
 					if (e.getKey().equals(valueName)) {
-						rightSide = ctx.getFormulaManager().getIntegerFormulaManager()
-								.makeNumber(counter);
+						rightSide = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(counter);
 						break;
 					}
 					counter++;
 				}
-				
+
 				tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
-						(IntegerFormula) rightSide);			
-				
+						(IntegerFormula) rightSide);
+
 			} else if (p instanceof Bool) {
 				if (requirement.get(p).toLowerCase().equals("true"))
 					tNew = (BooleanFormula) varPointer;
@@ -216,8 +231,8 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 				Formula lBoundFormula = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(lBound);
 				Formula uBoundFormula = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(uBound);
 				tNew = ctx.getFormulaManager().getBooleanFormulaManager().and(tNew,
-						ctx.getFormulaManager().getIntegerFormulaManager()
-								.greaterOrEquals((IntegerFormula) leftSide, (IntegerFormula) lBoundFormula));
+						ctx.getFormulaManager().getIntegerFormulaManager().greaterOrEquals((IntegerFormula) leftSide,
+								(IntegerFormula) lBoundFormula));
 				tNew = ctx.getFormulaManager().getBooleanFormulaManager().and(tNew,
 						ctx.getFormulaManager().getIntegerFormulaManager().lessOrEquals((IntegerFormula) leftSide,
 								(IntegerFormula) uBoundFormula));
@@ -257,38 +272,38 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 	private Boolean checkRequirementsConsistency(SolverContext ctx, List<Map<Parameter, String>> listMapReq,
 			Map<String, String> declaredElements, Map<Parameter, Formula> variables, Iterator<Map<Parameter, String>> i,
 			ProverEnvironment prover) throws InterruptedException, SolverException {
-		
+
 		ArrayList<Formula> notComplete = new ArrayList<Formula>();
 
 		prover.push();
-		
+
 		// Add all the constraints related to the bounds of the enums
 		for (Entry<Parameter, Formula> type : variables.entrySet()) {
 			if (type.getKey() instanceof EnumerativeImpl) {
 				BooleanFormula tBound = ctx.getFormulaManager().getBooleanFormulaManager().makeFalse();
 				int counter = 0;
-				
+
 				for (Entry<String, String> e : declaredElements.entrySet()) {
-					if (Arrays.stream(e.getValue().split("")).
-							filter(x -> x.equals(type.getKey().getName())).count()>0) {
-						tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound, 
-								ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula)type.getValue(),
-								ctx.getFormulaManager().getIntegerFormulaManager()
-								.makeNumber(counter)));
+					if (Arrays.stream(e.getValue().split("")).filter(x -> x.equals(type.getKey().getName()))
+							.count() > 0) {
+						tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound,
+								ctx.getFormulaManager().getIntegerFormulaManager().equal(
+										(IntegerFormula) type.getValue(),
+										ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(counter)));
 					}
-					
-					counter ++;
+
+					counter++;
 				}
-				
+
 				// Add the bound constraint
 				prover.addConstraint(tBound);
-			}			
-		}	
-		
+			}
+		}
+
 		while (i.hasNext()) {
 			Map<Parameter, String> requirement = i.next();
 			logger.debug("checking requirment " + requirement);
-			
+
 			BooleanFormula t = ctx.getFormulaManager().getBooleanFormulaManager().makeTrue();
 
 			prover.push();
@@ -314,16 +329,15 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 					int counter = 0;
 					for (Entry<String, String> e : declaredElements.entrySet()) {
 						if (e.getKey().equals(valueName)) {
-							rightSide = ctx.getFormulaManager().getIntegerFormulaManager()
-									.makeNumber(counter);
+							rightSide = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(counter);
 							break;
 						}
 						counter++;
 					}
-					
+
 					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
-							(IntegerFormula) rightSide);			
-					
+							(IntegerFormula) rightSide);
+
 				} else if (p instanceof Bool) {
 					if (requirement.get(p).toLowerCase().equals("true"))
 						tNew = (BooleanFormula) varPointer;
@@ -375,12 +389,12 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer{
 
 		// Terminate the context
 		ctx.close();
-		
+
 		// Print all the formulas that have not been satisfied
 		notComplete.forEach(x -> System.out.println(x));
-		
+
 		// If no return has been executed before, the requirements are consistent
-		return notComplete.size()==0;
+		return notComplete.size() == 0;
 	}
 
 	private List<Map<Parameter, String>> getRequirements() {

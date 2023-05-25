@@ -55,8 +55,8 @@ import com.google.inject.Inject;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.util.CtWedgeAdapterFactory;
 import ctwedge.ui.utils.IsStoppedPolling;
+import ctwedge.util.CTWedgeException;
 import ctwedge.util.TestSuite;
-import ctwedge.util.ext.CTWedgeException;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 
 public class GeneratorDialog extends Dialog {

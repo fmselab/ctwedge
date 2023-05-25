@@ -11,6 +11,7 @@
 package ctwedge.util.ext;
 
 import ctwedge.ctWedge.CitModel;
+import ctwedge.util.NotConvertableModel;
 
 /**
  * The Class ICTWedgeTranslTestGenerator: abstract class for test generators based on the translation of the model to a single String (CASA not suitable for now).

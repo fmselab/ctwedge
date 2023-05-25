@@ -18,6 +18,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import ctwedge.ctWedge.CitModel;
+import ctwedge.util.CTWedgeException;
+import ctwedge.util.NotConvertableModel;
 import ctwedge.util.TestSuite;
 import ctwedge.util.genprefs.CitlabPreferncesSet;
 

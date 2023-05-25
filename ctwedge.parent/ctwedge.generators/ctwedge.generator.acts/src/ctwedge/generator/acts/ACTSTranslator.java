@@ -6,15 +6,12 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
-
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
-import ctwedge.ctWedge.util.CtWedgeSwitch;
+import ctwedge.util.NotConvertableModel;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
-import ctwedge.util.ext.NotConvertableModel;
 //import edu.uta.cse.fireeye.common.Constraint;
 //import edu.uta.cse.fireeye.common.Parameter;
 import edu.uta.cse.fireeye.common.Relation;
@@ -29,7 +26,6 @@ import edu.uta.cse.fireeye.service.engine.IpoEngine;
  **/
 public class ACTSTranslator extends ICTWedgeTestGenerator {
 
-	private static final int maxLineLength = 500;
 	public static boolean PRINT = true;
 
 	public ACTSTranslator() {
@@ -245,6 +241,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 //		return ts;
 //	}
 //	
+	
 	// OTHER UTILS
 	public File saveActsTXTonlyModel(CitModel citModel, String dirPath) throws IOException {
 		SUT sut = new SUT(citModel.getName());

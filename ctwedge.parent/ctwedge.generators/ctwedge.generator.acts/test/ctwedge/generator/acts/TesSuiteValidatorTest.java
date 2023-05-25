@@ -1,17 +1,12 @@
 package ctwedge.generator.acts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -22,12 +17,10 @@ import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
-import org.sosy_lab.common.configuration.InvalidConfigurationException;
-import org.sosy_lab.java_smt.api.SolverException;
 
-import ctwedge.generator.util.Utility;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
+import ctwedge.util.ext.Utility;
 import ctwedge.util.validator.SMTTestSuiteValidator;
 
 class GeneratorExec implements Callable<TestSuite> {
@@ -100,8 +93,6 @@ public class TesSuiteValidatorTest {
 				SMTTestSuiteValidator tsv = new SMTTestSuiteValidator(ts);
 				//tsv.setTestSuite(ts);
 				
-				// Save the number of tests
-				int numTest = ts.getTests().size();
 				// Save the number of covered tuples
 				int covTuples = tsv.howManyTuplesCovers();
 				
