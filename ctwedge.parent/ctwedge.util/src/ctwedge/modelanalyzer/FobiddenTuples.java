@@ -52,8 +52,8 @@ public class FobiddenTuples extends CTWedgeModelAnalyzer{
 	private List<Expression> splitOr(Expression e){
 		if (e instanceof OrExpression) {
 			List<Expression> results = new ArrayList<>();
-			results.addAll(splitAnd(((OrExpression) e).getLeft()));			
-			results.addAll(splitAnd(((OrExpression) e).getRight()));
+			results.addAll(splitOr(((OrExpression) e).getLeft()));			
+			results.addAll(splitOr(((OrExpression) e).getRight()));
 			return results;
 		} else {
 			return Collections.singletonList(e);
