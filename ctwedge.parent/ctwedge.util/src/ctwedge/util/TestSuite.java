@@ -10,7 +10,7 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 
 /** class for memorizing a test suite */
-public class TestSuite{
+public class TestSuite {
 	// string as CSV output
 	private String ts;
 	float generatorTime;
@@ -46,21 +46,21 @@ public class TestSuite{
 	/**
 	 * Instantiates a new test suite.
 	 *
-	 * @param model the model
+	 * @param model     the model
 	 * @param testSuite the test suite
 	 */
 	public TestSuite(CitModel model, List<Map<Parameter, ?>> testSuite) {
 		this.model = model;
 		tests = new ArrayList<>();
-		for (Map<Parameter, ?> test : testSuite) {
-			// all the paramters ar ein the model
-			assert model.getParameters().containsAll(test.keySet());
-			// convert <Parameter,?> to <String,String>
-			Map<String, String> as = test.entrySet().stream()
-					.collect(Collectors.toMap(
-							e -> e.getKey().getName(), 
-							e -> e.getValue().toString()));
-			tests.add(new Test(as));
+		if (testSuite != null) {
+			for (Map<Parameter, ?> test : testSuite) {
+				// all the paramters ar ein the model
+				assert model.getParameters().containsAll(test.keySet());
+				// convert <Parameter,?> to <String,String>
+				Map<String, String> as = test.entrySet().stream()
+						.collect(Collectors.toMap(e -> e.getKey().getName(), e -> e.getValue().toString()));
+				tests.add(new Test(as));
+			}
 		}
 		// TODO String ts is to be build
 	}
