@@ -32,6 +32,11 @@ public class DistancesCalculator {
 	// during the execution of this class
 	public static boolean PRINT_DEBUG = false;
 
+	// When the distance is computed considering only changeable features, it is
+	// possible to
+	// set the cardinality of this set a-priori
+	public static int changeableCardinality = -1;
+
 	/*
 	 * Info about implementation: - TestSuite is a List of <Test> - each Test is a
 	 * Map<key,value> where - Map<feature,value> in particular Map<key,value> is
@@ -180,18 +185,27 @@ public class DistancesCalculator {
 		final int nFeatTs = ts.getTests().get(0).keySet().size();
 		final int nFeatTsp = tsp.getTests().get(0).keySet().size();
 
-		final float wortsTestSuitesDist = cardTs * nFeatTs + cardTsp * nFeatTsp;
+		// final float wortsTestSuitesDist = cardTs * nFeatTs + cardTsp * nFeatTsp;
+		float worstTestSuitesDist = 0;
+		if (changeableCardinality != -1) {
+			if (cardTs > cardTsp)
+				worstTestSuitesDist = cardTs * changeableCardinality;
+			else
+				worstTestSuitesDist = cardTsp * changeableCardinality;
+		} else {
+			worstTestSuitesDist = cardTs * nFeatTs + cardTsp * nFeatTsp;
+		}
 		final float greedyTestSuiteDist = DistancesCalculator.testSuitesDist(ts, tsp);
 
 		/* Debug printing of various distance info */
 		if (PRINT_DEBUG) {
-			final float ratioDist = (greedyTestSuiteDist / wortsTestSuitesDist);
-			System.out.println("Worst dist: " + wortsTestSuitesDist);
+			final float ratioDist = (greedyTestSuiteDist / worstTestSuitesDist);
+			System.out.println("Worst dist: " + worstTestSuitesDist);
 			System.out.println("Greedy dist: " + greedyTestSuiteDist);
 			System.out.println("Perc dist: " + ratioDist);
 		}
 
-		return (greedyTestSuiteDist / wortsTestSuitesDist) * 100;
+		return (greedyTestSuiteDist / worstTestSuitesDist) * 100;
 	}
 
 	/**

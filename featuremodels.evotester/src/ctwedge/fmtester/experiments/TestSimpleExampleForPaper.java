@@ -10,10 +10,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.log4j.Level;
@@ -25,16 +29,20 @@ import ctwedge.fmtester.DistancesCalculator;
 import ctwedge.generator.exporter.ToCSV;
 import ctwedge.util.TestSuite;
 import ctwedge.util.validator.MinimalityTestSuiteValidator;
+import de.ovgu.featureide.fm.core.FeatureModelAnalyzer;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
+import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
 import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
+import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 import de.ovgu.featureide.fm.core.io.manager.SimpleFileHandler;
 import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
 import de.ovgu.featureide.fm.core.job.LongRunningWrapper;
+import de.ovgu.featureide.fm.core.job.monitor.NullMonitor;
 import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationprocess.FMMutationProcess;
@@ -103,8 +111,8 @@ public class TestSimpleExampleForPaper {
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		int N_REPETITIONS = 10;
-		// int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
-		int[] nThreadsList = new int[] { 1 };
+		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+		//int[] nThreadsList = new int[] { 1 };
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
@@ -189,8 +197,10 @@ public class TestSimpleExampleForPaper {
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
 				launchSingleExperimentHigherMutation("PPUv1", "evolutionModels/PPU/", nThreads);
-				launchSingleExperimentHigherMutation("AmbientAssistedLivingv1","evolutionModels/AmbientAssistedLiving/", nThreads);
-				launchSingleExperimentHigherMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",	nThreads);
+				launchSingleExperimentHigherMutation("AmbientAssistedLivingv1",
+						"evolutionModels/AmbientAssistedLiving/", nThreads);
+				launchSingleExperimentHigherMutation("AutomotiveMultimediav1", "evolutionModels/AutomotiveMultimedia/",
+						nThreads);
 				launchSingleExperimentHigherMutation("Boeingv1", "evolutionModels/Boeing/", nThreads);
 				launchSingleExperimentHigherMutation("CarBodyv1", "evolutionModels/CarBody/", nThreads);
 				launchSingleExperimentHigherMutation("LinuxKernelv1", "evolutionModels/LinuxKernel/", nThreads);
@@ -216,16 +226,16 @@ public class TestSimpleExampleForPaper {
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		int N_REPETITIONS = 20;
 //		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
-		int[] nThreadsList = new int[] { 1};
+		int[] nThreadsList = new int[] { 1 };
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
 				launchSingleExperimentHigherMutation("evolutionModels/PPU/", nThreads);
 				launchSingleExperimentHigherMutation("evolutionModels/AmbientAssistedLiving/", nThreads);
-				launchSingleExperimentHigherMutation("evolutionModels/AutomotiveMultimedia/",	nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/AutomotiveMultimedia/", nThreads);
 				launchSingleExperimentHigherMutation("evolutionModels/Boeing/", nThreads);
 				launchSingleExperimentHigherMutation("evolutionModels/CarBody/", nThreads);
 				launchSingleExperimentHigherMutation("evolutionModels/LinuxKernel/", nThreads);
-				launchSingleExperimentHigherMutation("evolutionModels/ParkingAssistant/",nThreads);
+				launchSingleExperimentHigherMutation("evolutionModels/ParkingAssistant/", nThreads);
 				launchSingleExperimentHigherMutation("evolutionModels/SmartHotel/", nThreads);
 				launchSingleExperimentHigherMutation("evolutionModels/SmartWatch/", nThreads);
 				launchSingleExperimentHigherMutation("evolutionModels/WeatherStation/", nThreads);
@@ -236,15 +246,16 @@ public class TestSimpleExampleForPaper {
 			}
 		}
 	}
-	
+
 	// all models in path
-	private void launchSingleExperimentHigherMutation(String path, int nThreads) throws IOException{
+	private void launchSingleExperimentHigherMutation(String path, int nThreads) throws IOException {
 		Path Ppath = Path.of(path);
-		Stream<Path> walk = Files.walk(Ppath).filter(Files::isRegularFile).filter( x -> x.getFileName().toString().endsWith(".xml"));
-        walk.forEach(x -> {
-        	String modelName = x.getFileName().toString().replace(".xml","");
-        	try {
-				launchSingleExperimentHigherMutation(modelName,path,nThreads);
+		Stream<Path> walk = Files.walk(Ppath).filter(Files::isRegularFile)
+				.filter(x -> x.getFileName().toString().endsWith(".xml"));
+		walk.forEach(x -> {
+			String modelName = x.getFileName().toString().replace(".xml", "");
+			try {
+				launchSingleExperimentHigherMutation(modelName, path, nThreads);
 			} catch (UnsupportedModelException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -254,7 +265,7 @@ public class TestSimpleExampleForPaper {
 			} catch (NoSuchExtensionException e) {
 				e.printStackTrace();
 			}
-        });        
+		});
 	}
 
 	/**
@@ -413,11 +424,55 @@ public class TestSimpleExampleForPaper {
 		String oldModel = convertModelFromFMToCTW(model1, path);
 		String newModel = convertModelFromFMToCTW(model2, path);
 
+		DistancesCalculator.changeableCardinality = getChangeableFeaturesCardinality(model1, model2, path);
+
 		// Technique 1
 		TestSuite oldTs = regenerationFromScratch(oldModel, newModel, 2, nThreads, outputFile);
 		assert oldTs.getStrength() == 2;
 		// Technique 2
 		generateWithPMediciPlus(oldModel, newModel, oldTs, 2, nThreads, outputFile);
+	}
+
+	/**
+	 * @param model1
+	 * @param model2
+	 * @param path
+	 */
+	private int getChangeableFeaturesCardinality(String model1, String model2, String path) {
+		// Extract info from the first feature model
+		IFeatureModel rootModel1 = FeatureModelManager.load(Path.of(path + model1 + ".xml"));
+		FeatureModelAnalyzer analyzer = new FeatureModelAnalyzer(rootModel1);
+		Set<String> dead1 = analyzer.getDeadFeatures(new NullMonitor<>()).stream().map(x -> x.getName())
+				.collect(Collectors.toSet());
+		Set<String> core1 = analyzer.getCoreFeatures(new NullMonitor<>()).stream().map(x -> x.getName())
+				.collect(Collectors.toSet());
+		Set<String> feature1 = rootModel1.getFeatures().stream().map(x -> x.getName()).collect(Collectors.toSet());
+
+		// Extract info from the second feature model
+		IFeatureModel rootModel2 = FeatureModelManager.load(Path.of(path + model2 + ".xml"));
+		analyzer = new FeatureModelAnalyzer(rootModel2);
+		Set<String> dead2 = analyzer.getDeadFeatures(new NullMonitor<>()).stream().map(x -> x.getName())
+				.collect(Collectors.toSet());
+		Set<String> core2 = analyzer.getCoreFeatures(new NullMonitor<>()).stream().map(x -> x.getName())
+				.collect(Collectors.toSet());
+		Set<String> feature2 = rootModel2.getFeatures().stream().map(x -> x.getName()).collect(Collectors.toSet());
+
+		// Compute the cardinality of the changeable features
+		feature1.addAll(feature2);
+
+		// Compute the features dead in both models
+		List<String> deadBoth = dead1.stream().filter(x -> dead2.contains(x)).collect(Collectors.toList());
+		// Remove them from the list of features
+		feature1.removeAll(deadBoth);
+
+		// Compute the features core in both models
+		List<String> coreBoth = core1.stream().filter(x -> core2.contains(x)).collect(Collectors.toList());
+		// Remove them from the list of features
+		feature1.removeAll(coreBoth);
+
+		// Now, the number of features to be considered for the distance is the size of
+		// the list feature1
+		return feature1.size();
 	}
 
 	/**
@@ -434,7 +489,7 @@ public class TestSimpleExampleForPaper {
 		String fmName = path + modelName;
 		return convertModelFromFMToCTW(fmName);
 	}
-	
+
 	/**
 	 * Converts a FM (in xml format) into a CTW model
 	 * 
@@ -466,7 +521,7 @@ public class TestSimpleExampleForPaper {
 		Converter.fromIFeatureModeltoCTWedge_ENUM(model, path + fmName + "_ctwedge_enum_mutated.ctw");
 		return path + fmName + "_ctwedge_enum_mutated.ctw";
 	}
-	
+
 	/**
 	 * Converts a FM into a CTW model
 	 * 
