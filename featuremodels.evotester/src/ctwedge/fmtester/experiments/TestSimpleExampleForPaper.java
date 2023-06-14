@@ -1,7 +1,6 @@
 package ctwedge.fmtester.experiments;
 
 import java.io.BufferedWriter;
-import java.text.SimpleDateFormat;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,8 +8,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -29,10 +29,9 @@ import ctwedge.fmtester.DistancesCalculator;
 import ctwedge.generator.exporter.ToCSV;
 import ctwedge.util.TestSuite;
 import ctwedge.util.validator.MinimalityTestSuiteValidator;
-import de.ovgu.featureide.fm.core.FeatureModelAnalyzer;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
+import de.ovgu.featureide.fm.core.FeatureModelAnalyzer;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
-import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
@@ -48,9 +47,8 @@ import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationprocess.FMMutationProcess;
 import fmautorepair.utils.Utils;
 import pMedici.main.PMedici;
-import pMedici.util.TestContext;
 import pMedici.threads.TestBuilder;
-import java.sql.Timestamp;
+import pMedici.util.TestContext;
 
 public class TestSimpleExampleForPaper {
 
@@ -110,9 +108,9 @@ public class TestSimpleExampleForPaper {
 		TestBuilder.KeepPartialOldTests = true;
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
-		int N_REPETITIONS = 10;
-		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
-		//int[] nThreadsList = new int[] { 1 };
+		int N_REPETITIONS = 50;
+		//int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+		int[] nThreadsList = new int[] { 1 };
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
@@ -158,7 +156,7 @@ public class TestSimpleExampleForPaper {
 		TestBuilder.KeepPartialOldTests = true;
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
-		int N_REPETITIONS = 10;
+		int N_REPETITIONS = 20;
 		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
@@ -684,18 +682,13 @@ public class TestSimpleExampleForPaper {
 	public void generateWithPMediciPlus(String oldFMname, String newFMname, TestSuite originalTS, int strength,
 			int nThreads, String outputPath, int nMutations)
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
-		PMedici pMedici = new PMedici();
 		// First model
 		TestSuite mediciTS1 = originalTS;
 		Collections.shuffle(mediciTS1.getTests());
 
 		// Second model
-		ToCSV converter = new ToCSV();
-		String oldTsStr = converter.toCSVcode(mediciTS1);
-		Path tempFile = Files.createTempFile(null, null);
-		Files.write(tempFile, oldTsStr.getBytes(StandardCharsets.UTF_8));
-		pMedici = new PMedici();
-		pMedici.setOldTs(tempFile.toString());
+		PMedici pMedici = new PMedici();
+		pMedici.setSeeds(mediciTS1.getTests());
 		long start = System.currentTimeMillis();
 		TestSuite mediciTS2 = pMedici.generateTests(newFMname, 2, nThreads);
 		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
@@ -736,7 +729,6 @@ public class TestSimpleExampleForPaper {
 		bw.flush();
 		bw.close();
 		fw.close();
-		tempFile.toFile().delete();
 	}
 
 	/**
