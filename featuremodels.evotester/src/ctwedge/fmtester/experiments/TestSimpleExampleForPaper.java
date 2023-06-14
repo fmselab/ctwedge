@@ -148,6 +148,8 @@ public class TestSimpleExampleForPaper {
 						"MobileMediaV6", "MobileMediaV7", "MobileMediaV8" }, "evolutionModels/MobileMedia/", nThreads);
 				launchMultipleExperiment(new String[] { "SmartHomeV2", "SmartHomeV2.2" }, "evolutionModels/SmartHome/",
 						nThreads);
+				launchMultipleExperiment(new String[] { "BCS1", "BCS2", "BCS3" }, "evolutionModels/BCS/",
+						nThreads);
 			}
 		}
 	}
