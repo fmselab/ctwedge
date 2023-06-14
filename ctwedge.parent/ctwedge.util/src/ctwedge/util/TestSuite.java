@@ -28,6 +28,7 @@ public class TestSuite {
 		this.ts = ts;
 		this.model = model;
 		populateTestSuite();
+		generatorTime = Float.NaN;
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package ctwedge.fmtester.experiments;
 
+import static org.junit.Assert.*;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -108,8 +110,8 @@ public class TestSimpleExampleForPaper {
 		TestBuilder.KeepPartialOldTests = true;
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
-		int N_REPETITIONS = 50;
-		//int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+		int N_REPETITIONS = 2;
+		// int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
 		int[] nThreadsList = new int[] { 1 };
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
@@ -609,23 +611,23 @@ public class TestSimpleExampleForPaper {
 			mediciTS2 = reduceTestSuite(mediciTS2);
 			assert mediciTS2.getStrength() == strength;
 			System.gc();
+
+			// Distance
+			distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+			distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
+			// Mutation score
+			faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
+
+			// Write statistics to file
+			bw.write("T1Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime()
+					+ ";" + newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";"
+					+ distance + ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations
+					+ ";");
+			bw.newLine();
 		}
-
-		// Distance
-		distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
-		distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
-		// Mutation score
-		faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
-
-		// Write statistics to file
-		bw.write("T1Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
-				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
-		bw.newLine();
 		bw.flush();
 		bw.close();
 		fw.close();
-
 		return mediciTS1;
 	}
 
@@ -689,10 +691,9 @@ public class TestSimpleExampleForPaper {
 		// Second model
 		PMedici pMedici = new PMedici();
 		pMedici.setSeeds(mediciTS1.getTests());
-		long start = System.currentTimeMillis();
 		TestSuite mediciTS2 = pMedici.generateTests(newFMname, 2, nThreads);
-		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
-		mediciTS2.setStrength(strength);
+		assert mediciTS2.getGeneratorTime()  >= 0;
+		assert mediciTS2.getStrength()  >= 0;
 
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
@@ -713,19 +714,17 @@ public class TestSimpleExampleForPaper {
 		if (REDUCE_TEST_SUITE) {
 			mediciTS2 = reduceTestSuite(mediciTS2);
 			System.gc();
-		}
-
-		// Distance
-		distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
-		distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
-		// Mutation score
-		faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
-
-		// Write statistics to file
-		bw.write("T2Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
+			// Distance
+			distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+			distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
+			// Mutation score
+			faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
+			// Write statistics to file
+			bw.write("T2Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
 				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
-		bw.newLine();
+			bw.newLine();
+		}
 		bw.flush();
 		bw.close();
 		fw.close();
@@ -796,4 +795,15 @@ public class TestSimpleExampleForPaper {
 
 		return totMut != 0 ? killedMut / totMut : 0;
 	}
+
+	// caso di test per cercare di migliroare i tempi
+	@Test
+	public void testName() throws Exception {
+		PMedici.verb = false;
+		// for(int i = 0; i < 10; i++) {
+		launchSingleExperiment("AutomotiveMultimediav1", "AutomotiveMultimediav2",
+				"evolutionModels/AutomotiveMultimedia/", 1);
+		// }
+	}
+
 }
