@@ -110,7 +110,7 @@ public class TestSimpleExampleForPaper {
 		TestBuilder.KeepPartialOldTests = true;
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
-		int N_REPETITIONS = 2;
+		int N_REPETITIONS = 10;
 		// int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
 		int[] nThreadsList = new int[] { 1 };
 
