@@ -1,6 +1,6 @@
 package ctwedge.util.validator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 
 import java.util.Arrays;
 import java.util.List;

@@ -45,7 +45,7 @@ public class Combination extends TreeMap<String,String> {
 	public boolean contains(Combination c) {
 		if (c.size()>size()) return false;
 		for (Entry<String,String> a : c.entrySet()) {
-			if (!containsKey(a.getKey()) || get(a.getKey())!=a.getValue()) return false;
+			if (!containsKey(a.getKey()) || !get(a.getKey()).equals(a.getValue())) return false;
 		}
 		return true;
 	}

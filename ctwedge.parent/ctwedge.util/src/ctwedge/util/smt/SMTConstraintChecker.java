@@ -1,4 +1,4 @@
-package ctwedge.util.validator;
+package ctwedge.util.smt;
 
 /*******************************************************************************
  * Copyright (c) 2020 University of Bergamo - Italy
@@ -36,6 +36,7 @@ import org.sosy_lab.java_smt.api.SolverException;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
+import ctwedge.util.validator.SubSetMaker;
 
 public class SMTConstraintChecker {
 

@@ -1,4 +1,4 @@
- package ctwedge.util.validator;
+ package ctwedge.util.smt;
 
 /*******************************************************************************
  * Copyright (c) 2020 University of Bergamo - Italy
@@ -27,6 +27,7 @@ import ctwedge.ctWedge.Element;
 import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
+import ctwedge.util.ParameterElementsGetterAsStrings;
 
 public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 	
@@ -97,7 +98,7 @@ public class SMTParameterAdder extends CtWedgeSwitch<Formula> {
 	@Override
 	public Formula caseRange(Range range) {
 		// The Range object can be seen as an array of values => Get the list of all possible values
-		ArrayList<String> values = new ArrayList<String>(ParameterElementsGetterAsStrings.eInstance.caseRange(range));
+		ArrayList<String> values = new ArrayList<String>(ParameterElementsGetterAsStrings.instance.caseRange(range));
 		if (values.size() >= 1) {
 			for (String v : values) {
 				addElement(v, range.getName());

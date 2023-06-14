@@ -1,4 +1,4 @@
-package ctwedge.util.validator;
+package ctwedge.util.smt;
 
 /*******************************************************************************
  * Copyright (c) 2020 University of Bergamo - Italy

@@ -20,7 +20,7 @@ import org.junit.Test;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.ext.Utility;
-import ctwedge.util.validator.SMTTestSuiteValidator;
+import ctwedge.util.smt.SMTTestSuiteValidator;
 
 class GeneratorExec implements Callable<TestSuite> {
 	String model;

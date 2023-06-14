@@ -1,10 +1,7 @@
 package ctwedge.modelanalyzer;
 
-import java.util.Arrays;
-
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Element;
-import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.Range;
 

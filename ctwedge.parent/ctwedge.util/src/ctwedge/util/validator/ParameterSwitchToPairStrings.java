@@ -12,6 +12,7 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 import ctwedge.util.ModelUtils;
 import ctwedge.util.Pair;
+import ctwedge.util.ParameterElementsGetterAsStrings;
 
 /**
  * Given a parameter returns the list of pairs <paramter,value> with values as
@@ -44,8 +45,8 @@ public class ParameterSwitchToPairStrings extends
 
 	private List<Pair<Parameter, String>> buildList(Parameter parameter) {
 		List<Pair<Parameter, String>> elements = new ArrayList<Pair<Parameter, String>>();
-		ParameterElementsGetterAsStrings getter = ParameterElementsGetterAsStrings.eInstance;
-		getter.setModel(model);
+		ParameterElementsGetterAsStrings getter = ParameterElementsGetterAsStrings.instance;
+		//getter.setModel(model);
 		List<String> values = getter.doSwitch(parameter);
 		for (String v : values) {
 			elements.add(new Pair<Parameter, String>(parameter, v));

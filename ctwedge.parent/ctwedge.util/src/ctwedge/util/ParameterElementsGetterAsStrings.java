@@ -11,14 +11,26 @@ import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
 
 
-/** @Deprecated for constraints, because there is no reference anymore */
+/** given a parameter returns the list of elements as strings */
 public class ParameterElementsGetterAsStrings extends CtWedgeSwitch<List<String>> {
 	
 	public static final String TRUE_AS_STRING = "true";
 	public static final String FALSE_AS_STRING = "false";
 	
-	public static ParameterElementsGetterAsStrings instance = new ParameterElementsGetterAsStrings();
-		
+	// standard order among booleans (false, true)
+	public static ParameterElementsGetterAsStrings instance = new ParameterElementsGetterAsStrings(false);
+	
+	// order for CASA (true,false)
+	public static ParameterElementsGetterAsStrings eInstanceCasa = new ParameterElementsGetterAsStrings(true);
+
+	
+	boolean casaOrder; 
+
+	private ParameterElementsGetterAsStrings(boolean casaOrder) {
+		this.casaOrder = casaOrder;
+	}
+
+	
 	@Override
 	public List<String> caseParameter(Parameter parameter) {
 		return this.doSwitch(parameter);
@@ -30,6 +42,12 @@ public class ParameterElementsGetterAsStrings extends CtWedgeSwitch<List<String>
 		for (Element e : enumerative.getElements()) {
 			elements.add(e.getName());
 		}
+		/* 
+*  		ModelUtils mu = new ModelUtils(model);		
+		for (String e : mu.enums.get(enumerative.getName())) {
+			elements.add(e);
+		}
+		 */
 		return elements;
 
 	}
@@ -50,8 +68,15 @@ public class ParameterElementsGetterAsStrings extends CtWedgeSwitch<List<String>
 				throw new RuntimeException("not implemented yet");
 			}
 		};
-		boolValues.add(FALSE_AS_STRING);			
-		boolValues.add(TRUE_AS_STRING);
+		if (casaOrder){
+			// useful when using Casa Like translation (true = 0, false = 1)
+			boolValues.add(TRUE_AS_STRING);
+			boolValues.add(FALSE_AS_STRING);			
+		} else{
+			// use false , true (as declared in the grammar)
+			boolValues.add(FALSE_AS_STRING);			
+			boolValues.add(TRUE_AS_STRING);
+		}
 		return boolValues;
 	}
 

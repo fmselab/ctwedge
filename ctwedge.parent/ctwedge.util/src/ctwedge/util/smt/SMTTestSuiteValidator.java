@@ -1,4 +1,4 @@
-package ctwedge.util.validator;
+package ctwedge.util.smt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,8 +41,14 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.ctWedge.Range;
 import ctwedge.ctWedge.impl.EnumerativeImpl;
 import ctwedge.util.Pair;
+import ctwedge.util.ParameterElementsGetterAsStrings;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
+import ctwedge.util.validator.ParameterSwitchToPairStrings;
+import ctwedge.util.validator.ParametersEvaluator;
+import ctwedge.util.validator.RuleEvaluator;
+import ctwedge.util.validator.TestSuiteAnalyzer;
+import ctwedge.util.validator.ValidatorException;
 
 public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
@@ -255,7 +261,7 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 				new FormulaType.ArrayFormulaType<>(FormulaType.IntegerType, FormulaType.IntegerType));
 
 		// Get the list of all possible values
-		ArrayList<String> values = new ArrayList<String>(ParameterElementsGetterAsStrings.eInstance.caseRange(range));
+		ArrayList<String> values = new ArrayList<String>(ParameterElementsGetterAsStrings.instance.caseRange(range));
 		if (values.size() > 1) {
 			for (String v : values) {
 				afmgr.store(rangeFormula, ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(counter),
