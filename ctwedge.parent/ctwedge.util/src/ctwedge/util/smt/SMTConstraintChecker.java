@@ -45,7 +45,7 @@ public class SMTConstraintChecker {
 	public SMTConstraintChecker() {
 	}
 
-	private SolverContext createCtx() throws InvalidConfigurationException {
+	SolverContext createCtx() throws InvalidConfigurationException {
 		Configuration config = Configuration.defaultConfiguration();
 		LogManager logger = BasicLogManager.create(config);
 		ShutdownManager shutdown = ShutdownManager.create();
@@ -53,7 +53,14 @@ public class SMTConstraintChecker {
 		return SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(), Solvers.SMTINTERPOL);
 	}
 
-	public static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx,
+	public static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx, ProverEnvironment prover) {
+		Map<String, String> declaredElements = new HashMap<>();
+		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
+		return createCtxFromModel(model, model.getConstraints(), ctx, declaredElements, variables, prover);
+	}
+	
+	
+	static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx,
 			Map<String, String> declaredElements, Map<Parameter, Formula> variables, ProverEnvironment prover) {
 		// Add all the parameters to the new CTX
 		addParameters(model, ctx, declaredElements, variables);
@@ -102,9 +109,7 @@ public class SMTConstraintChecker {
 		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
 
 		// Add all the parameters, and their types
-		Map<String, String> declaredElements = new HashMap<>();
-		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
-		prover = createCtxFromModel(model, model.getConstraints(), ctx, declaredElements, variables, prover);
+		prover = createCtxFromModel(model, model.getConstraints(), ctx, prover);
 		Boolean result = prover.isUnsat();
 
 		// Delete the existing context

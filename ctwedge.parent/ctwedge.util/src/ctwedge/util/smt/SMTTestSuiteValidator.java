@@ -15,8 +15,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.sosy_lab.common.ShutdownManager;
-import org.sosy_lab.common.configuration.Configuration;
-import org.sosy_lab.common.configuration.InvalidConfigurationException;
+import org.sosy_lab.common.configuration.*;
 import org.sosy_lab.common.log.BasicLogManager;
 import org.sosy_lab.common.log.LogManager;
 import org.sosy_lab.java_smt.SolverContextFactory;
@@ -26,6 +25,7 @@ import org.sosy_lab.java_smt.api.ArrayFormulaManager;
 import org.sosy_lab.java_smt.api.BooleanFormula;
 import org.sosy_lab.java_smt.api.Formula;
 import org.sosy_lab.java_smt.api.FormulaType;
+import org.sosy_lab.java_smt.api.FormulaType.ArrayFormulaType;
 import org.sosy_lab.java_smt.api.NumeralFormula.IntegerFormula;
 import org.sosy_lab.java_smt.api.ProverEnvironment;
 import org.sosy_lab.java_smt.api.SolverContext;
@@ -255,10 +255,9 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 		ArrayFormulaManager afmgr = ctx.getFormulaManager().getArrayFormulaManager();
 		ArrayFormula rangeFormula = null;
 		int counter = 0;
-
-		String typeName = range.getName();
-		rangeFormula = afmgr.makeArray(typeName,
-				new FormulaType.ArrayFormulaType<>(FormulaType.IntegerType, FormulaType.IntegerType));
+		String typeName = range.getName();		
+		ArrayFormulaType type = FormulaType.getArrayType(FormulaType.IntegerType, FormulaType.IntegerType);
+		rangeFormula = afmgr.makeArray(typeName,type );
 
 		// Get the list of all possible values
 		ArrayList<String> values = new ArrayList<String>(ParameterElementsGetterAsStrings.instance.caseRange(range));

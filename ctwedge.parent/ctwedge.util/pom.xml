@@ -49,11 +49,6 @@
 			<version>5.12.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.sosy-lab</groupId>
-			<artifactId>java-smt</artifactId>
-			<version>3.11.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>5.2.3</version>
@@ -71,7 +66,11 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
-		</dependency>
+			</dependency>
+<dependency>
+    <groupId>org.sosy-lab</groupId>
+    <artifactId>java-smt</artifactId>
+    <version>4.0.2</version>
+</dependency>
 	</dependencies>
 </project>
