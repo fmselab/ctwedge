@@ -76,7 +76,7 @@ public class SMTConstraintChecker {
 		return prover;
 	}
 
-	public static void addParameters(CitModel model, SolverContext ctx, Map<String, String> declaredElements,
+	static void addParameters(CitModel model, SolverContext ctx, Map<String, String> declaredElements,
 			Map<Parameter, Formula> variables) {
 		// Add all the parameters to the
 		SMTParameterAdder pa = new SMTParameterAdder(ctx, declaredElements);
