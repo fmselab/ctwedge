@@ -25,5 +25,6 @@ Export-Package: ctwedge.generator,
  ctwedge.util.ext,
  ctwedge.util.genprefs,
  ctwedge.util.simplifier,
+ ctwedge.util.smt,
  ctwedge.util.validator
 Import-Package: org.eclipse.swt.internal

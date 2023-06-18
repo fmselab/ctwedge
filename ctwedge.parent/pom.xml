@@ -68,22 +68,14 @@
 							<goal>plugin-source</goal>
 						</goals>
 					</execution>
-				</executions>
-			</plugin>
-<!--			<plugin>
-				<groupId>org.eclipse.tycho.extras</groupId>
-				<artifactId>tycho-source-feature-plugin</artifactId>
-				<version></version>
-				<executions>
 					<execution>
-						<id>source-feature</id>
-						<phase>package</phase>
+						<id>feature-source</id>
 						<goals>
-							<goal>source-feature</goal>
+							<goal>feature-source</goal>
 						</goals>
 					</execution>
 				</executions>
-			</plugin>-->
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-p2-plugin</artifactId>
@@ -132,9 +124,10 @@
 							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.eclipse.xtext.logging</id>
-								<versionRange>1.2.19</versionRange>
+								<versionRange>1.2.24</versionRange>
 							</requirement>
-							<!-- to get the org.eclipse.osgi.compatibility.state plugin if the 
+							<!-- to get the org.eclipse.osgi.compatibility.state
+							plugin if the 
 								target platform is Luna or later. (backward compatible with kepler and previous 
 								versions) see https://bugs.eclipse.org/bugs/show_bug.cgi?id=492149 -->
 							<requirement>
@@ -142,9 +135,10 @@
 								<id>org.eclipse.rcp</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
-							<!-- to force the same version of jdt.compiler.apt and jdt.core
+							<!-- to force the same version of jdt.compiler.apt
+							and jdt.core
 								(for xtext-maven-plugin)
-								see https://github.com/eclipse/xtext-maven/issues/146 -->
+								see https://github.com/eclipse/xtext-maven/issues/146 
 							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.eclipse.jdt.compiler.apt</id>
@@ -154,7 +148,7 @@
 								<type>eclipse-plugin</type>
 								<id>org.eclipse.jdt.compiler.tool</id>
 								<versionRange>0.0.0</versionRange>
-							</requirement>
+							</requirement>-->
 						</extraRequirements>
 					</dependency-resolution>
 				</configuration>
@@ -271,7 +265,8 @@
 					</configuration>
 				</plugin>
 				<plugin>
-					<!-- Can be removed after first generator execution https://bugs.eclipse.org/bugs/show_bug.cgi?id=480097 -->
+					<!-- Can be removed after first generator execution
+					https://bugs.eclipse.org/bugs/show_bug.cgi?id=480097 -->
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho-version}</version>
@@ -280,7 +275,8 @@
 						<useProjectSettings>false</useProjectSettings>
 					</configuration>
 				</plugin>
-				<!-- to skip running (and compiling) tests use commandline flag: -Dmaven.test.skip 
+				<!-- to skip running (and compiling) tests use commandline flag:
+				-Dmaven.test.skip 
 					To skip tests, but still compile them, use: -DskipTests To allow all tests 
 					in a pom to pass/fail, use commandline flag: -fae (fail at end) -->
 				<plugin>
@@ -288,7 +284,8 @@
 					<artifactId>tycho-surefire-plugin</artifactId>
 					<version>${tycho-version}</version>
 					<configuration>
-						<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+						<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY
+						AUTOFORMATTING -->
 						<argLine>${platformSystemProperties} ${systemProperties}
 							${moduleProperties} ${additionalTestArguments}</argLine>
 						<failIfNoTests>false</failIfNoTests>
@@ -301,7 +298,8 @@
 	<repositories>
 		<repository>
 			<id>codehaus-snapshots</id>
-			<name>disable dead 'Codehaus Snapshots' repository, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478</name>
+			<name>disable dead 'Codehaus Snapshots' repository, see
+				https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478</name>
 			<url>http://nexus.codehaus.org/snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
@@ -314,7 +312,8 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>codehaus-snapshots</id>
-			<name>disable dead 'Codehaus Snapshots' repository, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478</name>
+			<name>disable dead 'Codehaus Snapshots' repository, see
+				https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478</name>
 			<url>http://nexus.codehaus.org/snapshots/</url>
 			<releases>
 				<enabled>false</enabled>

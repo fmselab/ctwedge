@@ -1,17 +1,23 @@
 package ctwedge.util.smt;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.java_smt.api.ProverEnvironment;
 import org.sosy_lab.java_smt.api.SolverContext;
 import org.sosy_lab.java_smt.api.SolverContext.ProverOptions;
 
+import com.google.common.collect.ImmutableMap;
+
 import ctwedge.ctWedge.CitModel;
 import ctwedge.util.ext.Utility;
 
 public class SMTConstraintCheckerTest {
+	
+	
+	static {
+		ImmutableMap.Builder<Class<? extends Iterable<?>>, Class<? extends Iterable<?>>> builder =
+		        ImmutableMap.builder();
+	}
 
 	@Test
 	public void testCreateCtx() throws InvalidConfigurationException {
