@@ -24,7 +24,7 @@ import ctwedge.generator.pict.PICTGenerator;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.ext.Utility;
-import ctwedge.util.validator.SMTTestSuiteValidator;
+import ctwedge.util.smt.SMTTestSuiteValidator;
 import ctwedge.util.validator.ValidatorException;
 
 class GeneratorExec implements Callable<TestSuite> {

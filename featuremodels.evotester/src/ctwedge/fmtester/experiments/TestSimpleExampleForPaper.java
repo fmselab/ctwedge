@@ -1,7 +1,8 @@
 package ctwedge.fmtester.experiments;
 
+import static org.junit.Assert.*;
+
 import java.io.BufferedWriter;
-import java.text.SimpleDateFormat;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,8 +10,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -29,10 +31,9 @@ import ctwedge.fmtester.DistancesCalculator;
 import ctwedge.generator.exporter.ToCSV;
 import ctwedge.util.TestSuite;
 import ctwedge.util.validator.MinimalityTestSuiteValidator;
-import de.ovgu.featureide.fm.core.FeatureModelAnalyzer;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
+import de.ovgu.featureide.fm.core.FeatureModelAnalyzer;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
-import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
@@ -48,9 +49,8 @@ import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationprocess.FMMutationProcess;
 import fmautorepair.utils.Utils;
 import pMedici.main.PMedici;
-import pMedici.util.TestContext;
 import pMedici.threads.TestBuilder;
-import java.sql.Timestamp;
+import pMedici.util.TestContext;
 
 public class TestSimpleExampleForPaper {
 
@@ -111,8 +111,8 @@ public class TestSimpleExampleForPaper {
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		int N_REPETITIONS = 10;
-		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
-		//int[] nThreadsList = new int[] { 1 };
+		// int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
+		int[] nThreadsList = new int[] { 1 };
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
 			for (int nThreads : nThreadsList) {
@@ -148,6 +148,8 @@ public class TestSimpleExampleForPaper {
 						"MobileMediaV6", "MobileMediaV7", "MobileMediaV8" }, "evolutionModels/MobileMedia/", nThreads);
 				launchMultipleExperiment(new String[] { "SmartHomeV2", "SmartHomeV2.2" }, "evolutionModels/SmartHome/",
 						nThreads);
+				launchMultipleExperiment(new String[] { "BCS1", "BCS2", "BCS3" }, "evolutionModels/BCS/",
+						nThreads);
 			}
 		}
 	}
@@ -158,7 +160,7 @@ public class TestSimpleExampleForPaper {
 		TestBuilder.KeepPartialOldTests = true;
 		Logger.getLogger(MinimalityTestSuiteValidator.class).setLevel(Level.OFF);
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
-		int N_REPETITIONS = 10;
+		int N_REPETITIONS = 20;
 		int[] nThreadsList = new int[] { 1, 2, 4, 6, 8 };
 
 		for (int i = 0; i < N_REPETITIONS; i++) {
@@ -611,23 +613,23 @@ public class TestSimpleExampleForPaper {
 			mediciTS2 = reduceTestSuite(mediciTS2);
 			assert mediciTS2.getStrength() == strength;
 			System.gc();
+
+			// Distance
+			distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+			distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
+			// Mutation score
+			faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
+
+			// Write statistics to file
+			bw.write("T1Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime()
+					+ ";" + newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";"
+					+ distance + ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations
+					+ ";");
+			bw.newLine();
 		}
-
-		// Distance
-		distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
-		distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
-		// Mutation score
-		faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
-
-		// Write statistics to file
-		bw.write("T1Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
-				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
-		bw.newLine();
 		bw.flush();
 		bw.close();
 		fw.close();
-
 		return mediciTS1;
 	}
 
@@ -684,22 +686,16 @@ public class TestSimpleExampleForPaper {
 	public void generateWithPMediciPlus(String oldFMname, String newFMname, TestSuite originalTS, int strength,
 			int nThreads, String outputPath, int nMutations)
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
-		PMedici pMedici = new PMedici();
 		// First model
 		TestSuite mediciTS1 = originalTS;
 		Collections.shuffle(mediciTS1.getTests());
 
 		// Second model
-		ToCSV converter = new ToCSV();
-		String oldTsStr = converter.toCSVcode(mediciTS1);
-		Path tempFile = Files.createTempFile(null, null);
-		Files.write(tempFile, oldTsStr.getBytes(StandardCharsets.UTF_8));
-		pMedici = new PMedici();
-		pMedici.setOldTs(tempFile.toString());
-		long start = System.currentTimeMillis();
+		PMedici pMedici = new PMedici();
+		pMedici.setSeeds(mediciTS1.getTests());
 		TestSuite mediciTS2 = pMedici.generateTests(newFMname, 2, nThreads);
-		mediciTS2.setGeneratorTime(System.currentTimeMillis() - start);
-		mediciTS2.setStrength(strength);
+		assert mediciTS2.getGeneratorTime()  >= 0;
+		assert mediciTS2.getStrength()  >= 0;
 
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
@@ -720,23 +716,20 @@ public class TestSimpleExampleForPaper {
 		if (REDUCE_TEST_SUITE) {
 			mediciTS2 = reduceTestSuite(mediciTS2);
 			System.gc();
-		}
-
-		// Distance
-		distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
-		distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
-		// Mutation score
-		faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
-
-		// Write statistics to file
-		bw.write("T2Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
+			// Distance
+			distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
+			distancePerc = DistancesCalculator.percTestSuitesDist(mediciTS1, mediciTS2);
+			// Mutation score
+			faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
+			// Write statistics to file
+			bw.write("T2Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
 				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
 				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
-		bw.newLine();
+			bw.newLine();
+		}
 		bw.flush();
 		bw.close();
 		fw.close();
-		tempFile.toFile().delete();
 	}
 
 	/**
@@ -804,4 +797,15 @@ public class TestSimpleExampleForPaper {
 
 		return totMut != 0 ? killedMut / totMut : 0;
 	}
+
+	// caso di test per cercare di migliroare i tempi
+	@Test
+	public void testName() throws Exception {
+		PMedici.verb = false;
+		// for(int i = 0; i < 10; i++) {
+		launchSingleExperiment("AutomotiveMultimediav1", "AutomotiveMultimediav2",
+				"evolutionModels/AutomotiveMultimedia/", 1);
+		// }
+	}
+
 }

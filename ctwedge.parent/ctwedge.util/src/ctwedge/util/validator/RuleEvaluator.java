@@ -29,7 +29,6 @@ import ctwedge.ctWedge.PlusMinus;
 import ctwedge.ctWedge.PlusMinusOperators;
 import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
-import ctwedge.util.SimpleExpressionToString;
 import ctwedge.util.Test;
 
 /**
