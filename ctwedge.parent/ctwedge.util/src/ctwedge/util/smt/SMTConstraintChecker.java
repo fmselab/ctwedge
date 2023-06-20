@@ -60,7 +60,7 @@ public class SMTConstraintChecker {
 	}
 	
 	
-	static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx,
+	public static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx,
 			Map<String, String> declaredElements, Map<Parameter, Formula> variables, ProverEnvironment prover) {
 		// Add all the parameters to the new CTX
 		addParameters(model, ctx, declaredElements, variables);

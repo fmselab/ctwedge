@@ -31,6 +31,8 @@ public class SMTConstraintCheckerTest {
 		// read a model
 		// Add all the parameters, and their types
 		prover = SMTConstraintChecker.createCtxFromModel(model, model.getConstraints(), ctx, prover);
+		
+		
 	}
 
 }
