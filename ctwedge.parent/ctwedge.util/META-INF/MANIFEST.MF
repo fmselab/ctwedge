@@ -5,13 +5,7 @@ Bundle-Name: ctwedge.util
 Bundle-Vendor: University of Bergamo, Italy
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: ctwedge.util;singleton:=true
-Require-Bundle: ctwedge,
- org.eclipse.emf.ecore,
- org.eclipse.xtext.util,
- org.eclipse.xtext,
- org.junit,
- org.eclipse.equinox.preferences,
- org.eclipse.equinox.registry,
+Require-Bundle: org.junit,
  org.eclipse.core.runtime,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-11
@@ -27,4 +21,3 @@ Export-Package: ctwedge.generator,
  ctwedge.util.simplifier,
  ctwedge.util.smt,
  ctwedge.util.validator
-Import-Package: org.eclipse.swt.internal
