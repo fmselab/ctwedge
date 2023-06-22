@@ -5,6 +5,7 @@ import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.java_smt.api.ProverEnvironment;
 import org.sosy_lab.java_smt.api.SolverContext;
 import org.sosy_lab.java_smt.api.SolverContext.ProverOptions;
+import org.sosy_lab.java_smt.api.SolverException;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -20,7 +21,7 @@ public class SMTConstraintCheckerTest {
 	}
 
 	@Test
-	public void testCreateCtx() throws InvalidConfigurationException {
+	public void testCreateCtx() throws InvalidConfigurationException, SolverException, InterruptedException {
 		SMTConstraintChecker cc = new SMTConstraintChecker();
 		// Create a new Context
 		SolverContext ctx = cc.createCtx();
@@ -31,8 +32,7 @@ public class SMTConstraintCheckerTest {
 		// read a model
 		// Add all the parameters, and their types
 		prover = SMTConstraintChecker.createCtxFromModel(model, model.getConstraints(), ctx, prover);
-		
-		
+		System.out.println(prover.isUnsat());
 	}
 
 }
