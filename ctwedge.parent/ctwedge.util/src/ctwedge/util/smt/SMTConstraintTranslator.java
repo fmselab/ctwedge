@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
 import org.sosy_lab.java_smt.api.BooleanFormula;
@@ -30,9 +29,10 @@ import org.sosy_lab.java_smt.api.NumeralFormula.RationalFormula;
 import org.sosy_lab.java_smt.api.RationalFormulaManager;
 import org.sosy_lab.java_smt.api.SolverContext;
 
+import com.google.common.primitives.Booleans;
+
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
-import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.EqualExpression;
 import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.ImpliesExpression;
@@ -72,11 +72,11 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 	public Formula caseNotExpression(NotExpression not) {
 		FormulaManager fmgr = ctx.getFormulaManager();
 		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
-		
+
 		Formula predicate = this.doSwitch(not.getPredicate());
-		
+
 		assert predicate instanceof BooleanFormula : "NotExpression predicate must be a boolean term";
-		
+
 		return bmgr.not((BooleanFormula) predicate);
 	}
 
@@ -84,18 +84,19 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 	public Formula caseImpliesExpression(ImpliesExpression ruleExpr) {
 		FormulaManager fmgr = ctx.getFormulaManager();
 		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
-		
+
 		Formula leftVal = this.doSwitch(ruleExpr.getLeft());
 		Formula rightVal = this.doSwitch(ruleExpr.getRight());
 
-		assert leftVal instanceof BooleanFormula && rightVal instanceof BooleanFormula: "ImpliesExpression terms must be boolean";
-		
+		assert leftVal instanceof BooleanFormula && rightVal instanceof BooleanFormula
+				: "ImpliesExpression terms must be boolean";
+
 		switch (ruleExpr.getOp()) {
 		case IMPL:
 			// left => right
-			return bmgr.implication((BooleanFormula)leftVal, (BooleanFormula)rightVal);
+			return bmgr.implication((BooleanFormula) leftVal, (BooleanFormula) rightVal);
 		case IFF:
-			return bmgr.equivalence((BooleanFormula)leftVal, (BooleanFormula)rightVal);
+			return bmgr.equivalence((BooleanFormula) leftVal, (BooleanFormula) rightVal);
 		}
 		throw new RuntimeException("Operator not found");
 	}
@@ -104,55 +105,57 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 	public Formula caseOrExpression(OrExpression orExpr) {
 		FormulaManager fmgr = ctx.getFormulaManager();
 		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
-		
+
 		Formula leftVal = this.doSwitch(orExpr.getLeft());
 		Formula rightVal = this.doSwitch(orExpr.getRight());
-		
-		assert leftVal instanceof BooleanFormula && rightVal instanceof BooleanFormula: "OrExpression terms must be boolean";
-		
-		return bmgr.or((BooleanFormula)leftVal, (BooleanFormula)rightVal);
+
+		assert leftVal instanceof BooleanFormula && rightVal instanceof BooleanFormula
+				: "OrExpression terms must be boolean";
+
+		return bmgr.or((BooleanFormula) leftVal, (BooleanFormula) rightVal);
 	}
 
 	@Override
 	public Formula caseAndExpression(AndExpression andExpr) {
 		FormulaManager fmgr = ctx.getFormulaManager();
 		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
-		
+
 		Formula leftVal = this.doSwitch(andExpr.getLeft());
 		Formula rightVal = this.doSwitch(andExpr.getRight());
-		
-		assert leftVal instanceof BooleanFormula && rightVal instanceof BooleanFormula: "AndExpression terms must be boolean";
-		
-		return bmgr.and((BooleanFormula)leftVal, (BooleanFormula)rightVal);
+
+		assert leftVal instanceof BooleanFormula && rightVal instanceof BooleanFormula
+				: "AndExpression terms must be boolean";
+
+		return bmgr.and((BooleanFormula) leftVal, (BooleanFormula) rightVal);
 	}
-	
+
 	private Formula areEqual(Formula leftVal, Formula rightVal) {
 		FormulaManager fmgr = ctx.getFormulaManager();
 		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
 		IntegerFormulaManager imgr = fmgr.getIntegerFormulaManager();
 		RationalFormulaManager rfmgr = fmgr.getRationalFormulaManager();
-		
-		if (leftVal == null || rightVal==null)
+
+		if (leftVal == null || rightVal == null)
 			return bmgr.makeBoolean(false);
-			
+
 		// Different classed -> Cannot be equals
 		if (!leftVal.getClass().equals(rightVal.getClass()))
 			return bmgr.makeBoolean(false);
-		
+
 		if (leftVal instanceof BooleanFormula && rightVal instanceof BooleanFormula) {
-			return bmgr.equivalence((BooleanFormula)leftVal, (BooleanFormula)rightVal);
+			return bmgr.equivalence((BooleanFormula) leftVal, (BooleanFormula) rightVal);
 		}
-		
+
 		if (leftVal instanceof IntegerFormula && rightVal instanceof IntegerFormula) {
-			return imgr.equal((IntegerFormula)leftVal, (IntegerFormula)rightVal);
+			return imgr.equal((IntegerFormula) leftVal, (IntegerFormula) rightVal);
 		}
-		
+
 		if (leftVal instanceof RationalFormula && rightVal instanceof RationalFormula) {
-			return rfmgr.equal((RationalFormula)leftVal, (RationalFormula)rightVal);
+			return rfmgr.equal((RationalFormula) leftVal, (RationalFormula) rightVal);
 		}
-				
-		// TODO: Other possibilities?		
-		
+
+		// TODO: Other possibilities?
+
 		// None of the previous applicable -> Cannot be equals
 		return bmgr.makeBoolean(false);
 	}
@@ -163,36 +166,48 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		FormulaManager fmgr = ctx.getFormulaManager();
 		Expression left = object.getLeft();
 		Expression right = object.getRight();
-		// case in which left = right with atomic predicates 
+		// case in which left = right with atomic predicates
 		if (left instanceof AtomicPredicate && right instanceof AtomicPredicate) {
 			// if left is enum
-			String leftName = ((AtomicPredicate)left).getName();
-			Optional<String> var = variables.keySet().stream().map( x -> x.getName()).filter(x -> x.equals(leftName)).findFirst();
+			String leftName = ((AtomicPredicate) left).getName();
+			Optional<String> var = variables.keySet().stream().map(x -> x.getName()).filter(x -> x.equals(leftName))
+					.findFirst();
 			if (var.isPresent()) {
-				String rightName = ((AtomicPredicate)right).getName();
-				// take right (enum const) FIXMe what of it is a number
+				String rightName = ((AtomicPredicate) right).getName();
 				List<String> enums = declaredElements.get(leftName);
-				assert enums.contains(rightName) : rightName + " not found in "+ enums;
-				assert SMTParameterAdder.enumTreatment == EnumTreatment.INTEGER;
-				IntegerFormulaManager imgr = ctx.getFormulaManager().getIntegerFormulaManager();
-				IntegerFormulaManager ifmgr = fmgr.getIntegerFormulaManager();
-				int index = enums.indexOf(rightName);
-				IntegerFormula rightFormula = ifmgr.makeNumber(index);
-				// return X = 1 ... or similar
-				Formula leftFormula = getParameterFormulaFromName(((AtomicPredicate)left));
-				logger.debug(" equal expression " + leftName + "=" + rightName + " --> = " + index);
-				return imgr.equal((IntegerFormula)leftFormula, (IntegerFormula)rightFormula);
-			} 
+				if (enums != null) {
+					// take right (enum const) FIXMe what of it is a number
+					assert enums.contains(rightName) : rightName + " not found in " + enums;
+					assert SMTParameterAdder.enumTreatment == EnumTreatment.INTEGER;
+					IntegerFormulaManager imgr = ctx.getFormulaManager().getIntegerFormulaManager();
+					IntegerFormulaManager ifmgr = fmgr.getIntegerFormulaManager();
+					int index = enums.indexOf(rightName);
+					IntegerFormula rightFormula = ifmgr.makeNumber(index);
+					// return X = 1 ... or similar
+					Formula leftFormula = getParameterFormulaFromName(((AtomicPredicate) left));
+					logger.debug(" equal expression " + leftName + "=" + rightName + " --> = " + index);
+					return imgr.equal((IntegerFormula) leftFormula, (IntegerFormula) rightFormula);
+				} else {
+					// It is a comparison among booleans
+					BooleanFormula rightFormula = ctx.getFormulaManager().getBooleanFormulaManager()
+							.makeBoolean(Boolean.valueOf(((AtomicPredicate) right).getBoolConst()));
+					Formula leftFormula = getParameterFormulaFromName(((AtomicPredicate) left));
+					logger.debug(" equal expression " + leftName + "="
+							+ Boolean.valueOf(((AtomicPredicate) right).getBoolConst()));
+					return ctx.getFormulaManager().getBooleanFormulaManager().equivalence((BooleanFormula) leftFormula,
+							(BooleanFormula) rightFormula);
+				}
+			}
 		}
-		// not two atomic predicates OR not ENUM 
+		// not two atomic predicates OR not ENUM
 		logger.debug("Parsing left");
 		Formula leftVal = this.doSwitch(left);
 		logger.debug(leftVal);
-		
+
 		logger.debug("Parsing Right");
 		Formula rightVal = this.doSwitch(right);
 		logger.debug(rightVal);
-		
+
 		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
 		switch (object.getOp()) {
 		case EQ:
@@ -200,7 +215,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		case NE:
 			return bmgr.not((BooleanFormula) areEqual(leftVal, rightVal));
 		}
-		
+
 		throw new RuntimeException("Operator not found in constraint");
 	}
 
@@ -208,29 +223,29 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 	public Formula caseRelationalExpression(RelationalExpression ineqExpr) {
 		FormulaManager fmgr = ctx.getFormulaManager();
 		RationalFormulaManager nmgr = fmgr.getRationalFormulaManager();
-		
+
 		logger.debug("Parsing left");
 		Formula leftVal = this.doSwitch(ineqExpr.getLeft());
 		logger.debug(leftVal);
-		
+
 		logger.debug("Parsing Right");
 		Formula rightVal = this.doSwitch(ineqExpr.getRight());
 		logger.debug(rightVal);
-		
+
 		switch (ineqExpr.getOp()) {
 		case GE:
-			return nmgr.greaterOrEquals((NumeralFormula)leftVal, (NumeralFormula)rightVal);
-		case GT:			
-			return nmgr.greaterThan((NumeralFormula)leftVal, (NumeralFormula)rightVal);
+			return nmgr.greaterOrEquals((NumeralFormula) leftVal, (NumeralFormula) rightVal);
+		case GT:
+			return nmgr.greaterThan((NumeralFormula) leftVal, (NumeralFormula) rightVal);
 		case LE:
-			return nmgr.lessOrEquals((NumeralFormula)leftVal, (NumeralFormula)rightVal);
+			return nmgr.lessOrEquals((NumeralFormula) leftVal, (NumeralFormula) rightVal);
 		case LT:
-			return nmgr.lessThan((NumeralFormula)leftVal, (NumeralFormula)rightVal);
+			return nmgr.lessThan((NumeralFormula) leftVal, (NumeralFormula) rightVal);
 		case EQ:
 		case NE:
 			throw new RuntimeException("This should never happen");
 		}
-		
+
 		throw new RuntimeException("Operator not found in constraint");
 	}
 
@@ -288,17 +303,19 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		// Boolean value
 		if (atom.getBoolConst() != null)
 			return bmgr.makeBoolean(atom.getBoolConst().equalsIgnoreCase("true") ? true : false);
-				
+
 		// Numeric value - integer
 		try {
 			int num = Integer.parseInt(atom.getName().toString());
 			return ifmgr.makeNumber(num);
-		} catch (NumberFormatException ex) {}
+		} catch (NumberFormatException ex) {
+		}
 		// Numeric value - real
 		try {
 			double num = Double.parseDouble(atom.getName().toString());
 			return rfmgr.makeNumber(num);
-		} catch (NumberFormatException ex) {}
+		} catch (NumberFormatException ex) {
+		}
 		// atomic
 		//
 		// Variable name (for instance a boolean variable)
@@ -310,8 +327,8 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		String varName = atom.getName().replace("\"", "");
 		// search in variables
 		for (Entry<Parameter, List<Formula>> p : variables.entrySet()) {
-			if (((Parameter)p.getKey()).getName().toString().equalsIgnoreCase(varName)) {
-				assert p.getValue().size() == 1 ;
+			if (((Parameter) p.getKey()).getName().toString().equalsIgnoreCase(varName)) {
+				assert p.getValue().size() == 1;
 				return p.getValue().get(0);
 			}
 		}

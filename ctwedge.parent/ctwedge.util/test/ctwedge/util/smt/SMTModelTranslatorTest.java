@@ -3,9 +3,6 @@ package ctwedge.util.smt;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.apache.log4j.Level;
@@ -20,9 +17,6 @@ import org.sosy_lab.java_smt.api.ProverEnvironment;
 import org.sosy_lab.java_smt.api.SolverContext;
 import org.sosy_lab.java_smt.api.SolverContext.ProverOptions;
 import org.sosy_lab.java_smt.api.SolverException;
-import org.sosy_lab.java_smt.utils.SolverUtils;
-
-import com.google.common.collect.ImmutableMap;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
