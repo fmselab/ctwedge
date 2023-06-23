@@ -55,7 +55,7 @@ import ctwedge.util.validator.ValidatorException;
 
 public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
-	private static final Logger logger = Logger.getLogger(SMTTestSuiteValidator.class);
+	static final Logger logger = Logger.getLogger(SMTTestSuiteValidator.class);
 
 	public SMTTestSuiteValidator(TestSuite ts) {
 		super(ts);
@@ -164,10 +164,9 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 					}
 				}
 			}
-			Map<String, List<String>> declaredElements = new HashMap<>();
-			Map<Parameter, List<Formula>> variables = new HashMap<Parameter, List<Formula>>();
-			prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx,
-					declaredElements, variables, prover);
+			
+			SMTModelTranslator smtrans = new SMTModelTranslator();
+			prover = smtrans.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx, prover);
 
 			// Prove
 			if (prover.isUnsat())
@@ -175,7 +174,7 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
 			// Add the n-wise tuple to the context
 			Iterator<Map<Parameter, String>> i = listMapReq.iterator();
-			return checkRequirementsConsistency(ctx, listMapReq, declaredElements, variables, i, prover);
+			return checkRequirementsConsistency(ctx, listMapReq, smtrans.declaredElements , smtrans.variables, i, prover);
 		} catch (SolverException|InvalidConfigurationException e) {
 			throw new ValidatorException(e.getMessage());
 		}
@@ -284,10 +283,6 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 		ArrayList<Formula> notComplete = new ArrayList<Formula>();
 
 		prover.push();
-		// add the constraints for the parameter
-		
-		addConstraintsForSMTParam(ctx, declaredElements, variables, prover);
-
 		while (i.hasNext()) {
 			Map<Parameter, String> requirement = i.next();
 			logger.debug("checking requirment " + requirement);
@@ -310,8 +305,8 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 					Formula leftSide = variables.get(p).get(0);					
 					// Get the right side of the comparison
 					String valueName = requirement.get(p);
-					assert declaredElements.get(p).contains(valueName);
-					int index = declaredElements.get(p).indexOf(valueName);					
+					assert declaredElements.get(p.getName()).contains(valueName);
+					int index = declaredElements.get(p.getName()).indexOf(valueName);					
 					Formula rightSide = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(index);
 					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
 							(IntegerFormula) rightSide);
@@ -378,42 +373,6 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 	}
 
 	
-	// 
-	private void addConstraintsForSMTParam(SolverContext ctx, Map<String, List<String>> declaredElements,
-			Map<Parameter, List<Formula>> variables, ProverEnvironment prover) throws InterruptedException {
-		switch (SMTParameterAdder.enumTreatment) {
-		// Create the new EnumType
-		case INTEGER:
-		// Add all the constraints related to the bounds of the enums
-		for (Entry<Parameter, List<Formula>> type: variables.entrySet()) {
-			Parameter key = type.getKey();
-			if (key instanceof Enumerative) {				
-				List<String> elements = declaredElements.get(key.getName());
-				// only one formula for it
-				assert type.getValue().size() == 1;
-				IntegerFormula smtvar = (IntegerFormula) type.getValue().get(0);
-				BooleanFormula tBound = null;
-				logger.debug("adding contraints for enum " + key.getName() + " --> " + elements);
-				for (int i = 0; i < elements.size(); i++) {
-					// enum = i
-					// for "i"
-					IntegerFormula ith = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(i);
-					BooleanFormula eq = ctx.getFormulaManager().getIntegerFormulaManager().equal(smtvar,ith);
-					if (tBound == null) tBound = eq;
-					else tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound,eq);
-					
-				}
-				// is that possible to have an enum without constants ? is quela to false?
-				assert tBound != null;
-				// Add the bound constraint
-				prover.addConstraint(tBound);
-			}
-		}
-		default:
-			throw new RuntimeException();
-		}
-	}
-
 	private List<Map<Parameter, String>> getRequirements() {
 		CitModel model = ts.getModel();
 		Iterator<List<Pair<Parameter, String>>> reqs = ParameterSwitchToPairStrings.getTuples(model, ts.getStrength());

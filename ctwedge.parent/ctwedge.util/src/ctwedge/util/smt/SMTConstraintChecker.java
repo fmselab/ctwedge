@@ -45,50 +45,6 @@ public class SMTConstraintChecker {
 	public SMTConstraintChecker() {
 	}
 
-	SolverContext createCtx() throws InvalidConfigurationException {
-		Configuration config = Configuration.defaultConfiguration();
-		LogManager logger = BasicLogManager.create(config);
-		ShutdownManager shutdown = ShutdownManager.create();
-
-		return SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(), Solvers.SMTINTERPOL);
-	}
-
-	public static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx, ProverEnvironment prover) {
-		Map<String, List<String>> declaredElements = new HashMap<>();
-		Map<Parameter, List<Formula>> variables = new HashMap<Parameter, List<Formula>>();
-		return createCtxFromModel(model, model.getConstraints(), ctx, declaredElements, variables, prover);
-	}
-	
-	
-	public static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx,
-			Map<String, List<String>> declaredElements, Map<Parameter, List<Formula>> variables, ProverEnvironment prover) {
-		// Add all the parameters to the new CTX
-		addParameters(model, ctx, declaredElements, variables);
-		// Translate all the constraints and add them to the context
-		for (Constraint r : list) {
-			SMTConstraintTranslator translator = new SMTConstraintTranslator(ctx, variables, declaredElements);
-			Formula constraint = translator.doSwitch(r);
-			assert constraint instanceof BooleanFormula : "Constraints must be boolean";
-			// Add this constraint
-			try {
-				prover.addConstraint((BooleanFormula) constraint);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return prover;
-	}
-
-	static void addParameters(CitModel model, SolverContext ctx, Map<String, List<String>> declaredElements,
-			Map<Parameter, List<Formula>> variables) {
-		// Add all the parameters to the
-		SMTParameterAdder pa = new SMTParameterAdder(ctx, declaredElements);
-		for (Parameter nt : model.getParameters()) {
-			List<Formula> variable = pa.doSwitch(nt);
-			variables.put(nt, variable);
-		}
-	}
 
 	/**
 	 * return true if consistent
@@ -100,28 +56,29 @@ public class SMTConstraintChecker {
 	boolean checkConsistency(CitModel model, Boolean deleteCtx)
 			throws InvalidConfigurationException, SolverException, InterruptedException {
 
+		SMTModelTranslator trans = new SMTModelTranslator();
 		// Create a new Context
-		SolverContext ctx = createCtx();
+		SolverContext ctx = trans.createCtx();
 		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
 
 		// Add all the parameters, and their types
-		prover = createCtxFromModel(model, model.getConstraints(), ctx, prover);
+		prover = trans.createCtxFromModel(model, model.getConstraints(), ctx, prover);
 		Boolean result = prover.isUnsat();
 
 		// Delete the existing context
 		if (deleteCtx) {
 			ctx.close();
-			ctx = createCtx();
+			ctx = trans.createCtx();
 		}
-
 		return !result;
 	}
 
 	ArrayList<Constraint> findMaxConstraintsSet(CitModel model, Boolean deleteCtx)
 			throws InvalidConfigurationException, SolverException, InterruptedException {
 
+		SMTModelTranslator trans = new SMTModelTranslator();
 		// Create a new Context
-		SolverContext ctx = createCtx();
+		SolverContext ctx = trans.createCtx();
 
 		// If all the constraints are satisfiable, then return the whole list of
 		// constraints
@@ -147,11 +104,9 @@ public class SMTConstraintChecker {
 			if (constraints.size() == 0)
 				return null;
 
-			ctx = createCtx();
+			ctx = trans.createCtx();
 			ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
-			HashMap<String, List<String>> declaredElements = new HashMap<>();
-			HashMap<Parameter, List<Formula>> variables = new HashMap<Parameter, List<Formula>>();
-			prover = createCtxFromModel(model, constraints, ctx, declaredElements, variables, prover);
+			prover = trans.createCtxFromModel(model, constraints, ctx, prover);
 
 			if (prover.isUnsat()) {
 				System.out.println(" non soddisfa ");
