@@ -33,6 +33,7 @@ import com.google.common.primitives.Booleans;
 
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
+import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.EqualExpression;
 import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.ImpliesExpression;
@@ -170,7 +171,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		if (left instanceof AtomicPredicate && right instanceof AtomicPredicate) {
 			// if left is enum
 			String leftName = ((AtomicPredicate) left).getName();
-			Optional<String> var = variables.keySet().stream().map(x -> x.getName()).filter(x -> x.equals(leftName))
+			Optional<String> var = variables.keySet().stream().filter(x -> x instanceof Enumerative).map(x -> x.getName()).filter(x -> x.equals(leftName))
 					.findFirst();
 			if (var.isPresent()) {
 				String rightName = ((AtomicPredicate) right).getName();
@@ -187,15 +188,6 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 					Formula leftFormula = getParameterFormulaFromName(((AtomicPredicate) left));
 					logger.debug(" equal expression " + leftName + "=" + rightName + " --> = " + index);
 					return imgr.equal((IntegerFormula) leftFormula, (IntegerFormula) rightFormula);
-				} else {
-					// It is a comparison among booleans
-					BooleanFormula rightFormula = ctx.getFormulaManager().getBooleanFormulaManager()
-							.makeBoolean(Boolean.valueOf(((AtomicPredicate) right).getBoolConst()));
-					Formula leftFormula = getParameterFormulaFromName(((AtomicPredicate) left));
-					logger.debug(" equal expression " + leftName + "="
-							+ Boolean.valueOf(((AtomicPredicate) right).getBoolConst()));
-					return ctx.getFormulaManager().getBooleanFormulaManager().equivalence((BooleanFormula) leftFormula,
-							(BooleanFormula) rightFormula);
 				}
 			}
 		}

@@ -38,7 +38,7 @@ public class SMTModelTranslatorTest {
 		SolverContext ctx = smtrans.createCtx();
 		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);		
 		CitModel model = Utility.loadModel(
-				"Model prova\nParameters:\n a: Boolean; b: Boolean; c: Boolean;\nConstraints:\n # a -> b #\n");
+				"Model prova\nParameters:\n a: Boolean; b: Boolean; c: Boolean;\nConstraints:\n # a -> b #\n \n # a = true #\n");
 		// read a model
 		// Add all the parameters, and their types
 		prover = smtrans.createCtxFromModel(model, model.getConstraints(), ctx, prover);
