@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.management.RuntimeErrorException;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
@@ -44,6 +46,7 @@ import ctwedge.util.Pair;
 import ctwedge.util.ParameterElementsGetterAsStrings;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
+import ctwedge.util.smt.SMTParameterAdder.EnumTreatment;
 import ctwedge.util.validator.ParameterSwitchToPairStrings;
 import ctwedge.util.validator.ParametersEvaluator;
 import ctwedge.util.validator.RuleEvaluator;
@@ -161,8 +164,8 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 					}
 				}
 			}
-			Map<String, String> declaredElements = new HashMap<>();
-			Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
+			Map<String, List<String>> declaredElements = new HashMap<>();
+			Map<Parameter, List<Formula>> variables = new HashMap<Parameter, List<Formula>>();
 			prover = SMTConstraintChecker.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx,
 					declaredElements, variables, prover);
 
@@ -275,35 +278,15 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
 	@SuppressWarnings("unused")
 	private Boolean checkRequirementsConsistency(SolverContext ctx, List<Map<Parameter, String>> listMapReq,
-			Map<String, String> declaredElements, Map<Parameter, Formula> variables, Iterator<Map<Parameter, String>> i,
+			Map<String, List<String>> declaredElements, Map<Parameter, List<Formula>> variables, Iterator<Map<Parameter, String>> i,
 			ProverEnvironment prover) throws InterruptedException, SolverException {
 
 		ArrayList<Formula> notComplete = new ArrayList<Formula>();
 
 		prover.push();
-
-		// Add all the constraints related to the bounds of the enums
-		for (Entry<Parameter, Formula> type : variables.entrySet()) {
-			if (type.getKey() instanceof EnumerativeImpl) {
-				BooleanFormula tBound = ctx.getFormulaManager().getBooleanFormulaManager().makeFalse();
-				int counter = 0;
-
-				for (Entry<String, String> e : declaredElements.entrySet()) {
-					if (Arrays.stream(e.getValue().split("")).filter(x -> x.equals(type.getKey().getName()))
-							.count() > 0) {
-						tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound,
-								ctx.getFormulaManager().getIntegerFormulaManager().equal(
-										(IntegerFormula) type.getValue(),
-										ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(counter)));
-					}
-
-					counter++;
-				}
-
-				// Add the bound constraint
-				prover.addConstraint(tBound);
-			}
-		}
+		// add the constraints for the parameter
+		
+		addConstraintsForSMTParam(ctx, declaredElements, variables, prover);
 
 		while (i.hasNext()) {
 			Map<Parameter, String> requirement = i.next();
@@ -315,31 +298,21 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 			for (Parameter p : requirement.keySet()) {
 
 				BooleanFormula tNew = null;
-				Formula varPointer = variables.get(p);
+				assert variables.size() == 1;
+				Formula varPointer = variables.get(p).get(0);
 				assert varPointer != null;
 
 				// Check the type of the parameter
 				if (p instanceof Enumerative) {
+					assert SMTParameterAdder.enumTreatment == EnumTreatment.INTEGER; 
 					// Get the left side of the comparison
-					Formula leftSide = null;
-					for (Entry<Parameter, Formula> e : variables.entrySet()) {
-						if (e.getKey().getName().equals(p.getName())) {
-							leftSide = e.getValue();
-							break;
-						}
-					}
+					assert  variables.get(p).size() == 1;
+					Formula leftSide = variables.get(p).get(0);					
 					// Get the right side of the comparison
 					String valueName = requirement.get(p);
-					Formula rightSide = null;
-					int counter = 0;
-					for (Entry<String, String> e : declaredElements.entrySet()) {
-						if (e.getKey().equals(valueName)) {
-							rightSide = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(counter);
-							break;
-						}
-						counter++;
-					}
-
+					assert declaredElements.get(p).contains(valueName);
+					int index = declaredElements.get(p).indexOf(valueName);					
+					Formula rightSide = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(index);
 					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
 							(IntegerFormula) rightSide);
 
@@ -351,9 +324,11 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 				} else if (p instanceof Range) {
 					// Get the left side of the comparison
 					Formula leftSide = null;
-					for (Entry<Parameter, Formula> e : variables.entrySet()) {
-						if (e.getKey().getName().equals(p.getName()))
-							leftSide = e.getValue();
+					for (Entry<Parameter, List<Formula>> e : variables.entrySet()) {
+						if (e.getKey().getName().equals(p.getName())) {
+							assert e.getValue().size() == 1;
+							leftSide = e.getValue().get(0);
+						}
 					}
 					// Get the right side of the comparison
 					Formula rightSide = ctx.getFormulaManager().getIntegerFormulaManager()
@@ -400,6 +375,43 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
 		// If no return has been executed before, the requirements are consistent
 		return notComplete.size() == 0;
+	}
+
+	
+	// 
+	private void addConstraintsForSMTParam(SolverContext ctx, Map<String, List<String>> declaredElements,
+			Map<Parameter, List<Formula>> variables, ProverEnvironment prover) throws InterruptedException {
+		switch (SMTParameterAdder.enumTreatment) {
+		// Create the new EnumType
+		case INTEGER:
+		// Add all the constraints related to the bounds of the enums
+		for (Entry<Parameter, List<Formula>> type: variables.entrySet()) {
+			Parameter key = type.getKey();
+			if (key instanceof Enumerative) {				
+				List<String> elements = declaredElements.get(key.getName());
+				// only one formula for it
+				assert type.getValue().size() == 1;
+				IntegerFormula smtvar = (IntegerFormula) type.getValue().get(0);
+				BooleanFormula tBound = null;
+				logger.debug("adding contraints for enum " + key.getName() + " --> " + elements);
+				for (int i = 0; i < elements.size(); i++) {
+					// enum = i
+					// for "i"
+					IntegerFormula ith = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(i);
+					BooleanFormula eq = ctx.getFormulaManager().getIntegerFormulaManager().equal(smtvar,ith);
+					if (tBound == null) tBound = eq;
+					else tBound = ctx.getFormulaManager().getBooleanFormulaManager().or(tBound,eq);
+					
+				}
+				// is that possible to have an enum without constants ? is quela to false?
+				assert tBound != null;
+				// Add the bound constraint
+				prover.addConstraint(tBound);
+			}
+		}
+		default:
+			throw new RuntimeException();
+		}
 	}
 
 	private List<Map<Parameter, String>> getRequirements() {

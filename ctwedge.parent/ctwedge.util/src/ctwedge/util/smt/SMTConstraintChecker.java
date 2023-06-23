@@ -54,24 +54,21 @@ public class SMTConstraintChecker {
 	}
 
 	public static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx, ProverEnvironment prover) {
-		Map<String, String> declaredElements = new HashMap<>();
-		Map<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
+		Map<String, List<String>> declaredElements = new HashMap<>();
+		Map<Parameter, List<Formula>> variables = new HashMap<Parameter, List<Formula>>();
 		return createCtxFromModel(model, model.getConstraints(), ctx, declaredElements, variables, prover);
 	}
 	
 	
 	public static ProverEnvironment createCtxFromModel(CitModel model, List<Constraint> list, SolverContext ctx,
-			Map<String, String> declaredElements, Map<Parameter, Formula> variables, ProverEnvironment prover) {
+			Map<String, List<String>> declaredElements, Map<Parameter, List<Formula>> variables, ProverEnvironment prover) {
 		// Add all the parameters to the new CTX
 		addParameters(model, ctx, declaredElements, variables);
-
 		// Translate all the constraints and add them to the context
 		for (Constraint r : list) {
 			SMTConstraintTranslator translator = new SMTConstraintTranslator(ctx, variables, declaredElements);
 			Formula constraint = translator.doSwitch(r);
-
 			assert constraint instanceof BooleanFormula : "Constraints must be boolean";
-
 			// Add this constraint
 			try {
 				prover.addConstraint((BooleanFormula) constraint);
@@ -83,13 +80,12 @@ public class SMTConstraintChecker {
 		return prover;
 	}
 
-	static void addParameters(CitModel model, SolverContext ctx, Map<String, String> declaredElements,
-			Map<Parameter, Formula> variables) {
+	static void addParameters(CitModel model, SolverContext ctx, Map<String, List<String>> declaredElements,
+			Map<Parameter, List<Formula>> variables) {
 		// Add all the parameters to the
 		SMTParameterAdder pa = new SMTParameterAdder(ctx, declaredElements);
-
 		for (Parameter nt : model.getParameters()) {
-			Formula variable = pa.doSwitch(nt);
+			List<Formula> variable = pa.doSwitch(nt);
 			variables.put(nt, variable);
 		}
 	}
@@ -153,8 +149,8 @@ public class SMTConstraintChecker {
 
 			ctx = createCtx();
 			ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
-			HashMap<String, String> declaredElements = new HashMap<>();
-			HashMap<Parameter, Formula> variables = new HashMap<Parameter, Formula>();
+			HashMap<String, List<String>> declaredElements = new HashMap<>();
+			HashMap<Parameter, List<Formula>> variables = new HashMap<Parameter, List<Formula>>();
 			prover = createCtxFromModel(model, constraints, ctx, declaredElements, variables, prover);
 
 			if (prover.isUnsat()) {

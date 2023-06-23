@@ -1,5 +1,7 @@
 package ctwedge.util.smt;
 
+import java.util.List;
+
 /*******************************************************************************
  * Copyright (c) 2020 University of Bergamo - Italy
  * All rights reserved. This program and the accompanying materials
@@ -13,6 +15,8 @@ package ctwedge.util.smt;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
 import org.sosy_lab.java_smt.api.BooleanFormula;
@@ -28,6 +32,7 @@ import org.sosy_lab.java_smt.api.SolverContext;
 
 import ctwedge.ctWedge.AndExpression;
 import ctwedge.ctWedge.AtomicPredicate;
+import ctwedge.ctWedge.Bool;
 import ctwedge.ctWedge.EqualExpression;
 import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.ImpliesExpression;
@@ -40,6 +45,7 @@ import ctwedge.ctWedge.PlusMinusOperators;
 import ctwedge.ctWedge.RelationalExpression;
 import ctwedge.ctWedge.impl.ExpressionImpl;
 import ctwedge.ctWedge.util.CtWedgeSwitch;
+import ctwedge.util.smt.SMTParameterAdder.EnumTreatment;
 
 /**
  * translates a constraints in SMT expressions
@@ -52,11 +58,11 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 	private static final Logger logger = Logger.getLogger(SMTConstraintTranslator.class);
 
 	SolverContext ctx;
-	Map<Parameter, Formula> variables;
-	Map<String, String> declaredElements;
+	Map<Parameter, List<Formula>> variables;
+	Map<String, List<String>> declaredElements;
 
-	public SMTConstraintTranslator(SolverContext ctx, Map<Parameter, Formula> variables,
-			Map<String, String> declaredElements) {
+	public SMTConstraintTranslator(SolverContext ctx, Map<Parameter, List<Formula>> variables,
+			Map<String, List<String>> declaredElements) {
 		this.ctx = ctx;
 		this.variables = variables;
 		this.declaredElements = declaredElements;
@@ -155,16 +161,39 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 	@Override
 	public Formula caseEqualExpression(EqualExpression object) {
 		FormulaManager fmgr = ctx.getFormulaManager();
-		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
-		
+		Expression left = object.getLeft();
+		Expression right = object.getRight();
+		// case in which left = right with atomic predicates 
+		if (left instanceof AtomicPredicate && right instanceof AtomicPredicate) {
+			// if left is enum
+			String leftName = ((AtomicPredicate)left).getName();
+			Optional<String> var = variables.keySet().stream().map( x -> x.getName()).filter(x -> x.equals(leftName)).findFirst();
+			if (var.isPresent()) {
+				String rightName = ((AtomicPredicate)right).getName();
+				// take right (enum const) FIXMe what of it is a number
+				List<String> enums = declaredElements.get(leftName);
+				assert enums.contains(rightName) : rightName + " not found in "+ enums;
+				assert SMTParameterAdder.enumTreatment == EnumTreatment.INTEGER;
+				IntegerFormulaManager imgr = ctx.getFormulaManager().getIntegerFormulaManager();
+				IntegerFormulaManager ifmgr = fmgr.getIntegerFormulaManager();
+				int index = enums.indexOf(rightName);
+				IntegerFormula rightFormula = ifmgr.makeNumber(index);
+				// return X = 1 ... or similar
+				Formula leftFormula = getParameterFormulaFromName(((AtomicPredicate)left));
+				logger.debug(" equal expression " + leftName + "=" + rightName + " --> = " + index);
+				return imgr.equal((IntegerFormula)leftFormula, (IntegerFormula)rightFormula);
+			} 
+		}
+		// not two atomic predicates OR not ENUM 
 		logger.debug("Parsing left");
-		Formula leftVal = this.doSwitch(object.getLeft());
+		Formula leftVal = this.doSwitch(left);
 		logger.debug(leftVal);
 		
 		logger.debug("Parsing Right");
-		Formula rightVal = this.doSwitch(object.getRight());
+		Formula rightVal = this.doSwitch(right);
 		logger.debug(rightVal);
 		
+		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
 		switch (object.getOp()) {
 		case EQ:
 			return areEqual(leftVal, rightVal);
@@ -175,7 +204,6 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		throw new RuntimeException("Operator not found in constraint");
 	}
 
-	@SuppressWarnings("incomplete-switch")
 	@Override
 	public Formula caseRelationalExpression(RelationalExpression ineqExpr) {
 		FormulaManager fmgr = ctx.getFormulaManager();
@@ -260,32 +288,37 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		// Boolean value
 		if (atom.getBoolConst() != null)
 			return bmgr.makeBoolean(atom.getBoolConst().equalsIgnoreCase("true") ? true : false);
-		
-		// Enumerative value
-		String varName = atom.getName().replace("\"", "");
-		int counter = 0;
-		for (Entry<String, String> p: declaredElements.entrySet()) {
-			Expression e = (ExpressionImpl) atom.eContainer();
-			if (e instanceof EqualExpression) {
-				if (p.getKey().equals(varName))
-					return ifmgr.makeNumber(counter);
-			}	
-			counter++;
-		}
-		
-		// Numeric value
+				
+		// Numeric value - integer
+		try {
+			int num = Integer.parseInt(atom.getName().toString());
+			return ifmgr.makeNumber(num);
+		} catch (NumberFormatException ex) {}
+		// Numeric value - real
 		try {
 			double num = Double.parseDouble(atom.getName().toString());
 			return rfmgr.makeNumber(num);
 		} catch (NumberFormatException ex) {}
-		
-		// Variable name
-		for (Entry p : variables.entrySet())
-			if (((Parameter)p.getKey()).getName().toString().equalsIgnoreCase(varName)) {
-				return (Formula)p.getValue();
-			}
-		
-		return null;
+		// atomic
+		//
+		// Variable name (for instance a boolean variable)
+		return getParameterFormulaFromName(atom);
 	}
 
+	private Formula getParameterFormulaFromName(AtomicPredicate atom) {
+		// possono contenere delle virgolette????
+		String varName = atom.getName().replace("\"", "");
+		// search in variables
+		for (Entry<Parameter, List<Formula>> p : variables.entrySet()) {
+			if (((Parameter)p.getKey()).getName().toString().equalsIgnoreCase(varName)) {
+				assert p.getValue().size() == 1 ;
+				return p.getValue().get(0);
+			}
+		}
+		Expression e = (ExpressionImpl) atom.eContainer();
+		if (e instanceof EqualExpression) {
+			throw new RuntimeException("equal must be converted before");
+		}
+		throw new RuntimeException(varName + "not found");
+	}
 }
