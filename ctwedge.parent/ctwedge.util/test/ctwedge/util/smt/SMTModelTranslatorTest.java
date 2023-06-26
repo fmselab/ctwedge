@@ -56,6 +56,12 @@ public class SMTModelTranslatorTest {
 		testEnum(EnumTreatment.ENUM);
 	}
 
+	@Test
+	public void testEnumBool() throws InvalidConfigurationException, SolverException, InterruptedException {
+		testEnum(EnumTreatment.BOOLEAN);
+	}
+
+	
 	
 	private void testEnum(EnumTreatment integer)
 			throws InvalidConfigurationException, SolverException, InterruptedException {

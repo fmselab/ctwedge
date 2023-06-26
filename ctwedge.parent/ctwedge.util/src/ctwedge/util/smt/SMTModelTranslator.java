@@ -30,8 +30,8 @@ import ctwedge.util.smt.SMTParameterAdder.EnumTreatment;
  */
 public class SMTModelTranslator {
 	
-	//private static final Solvers SMTINTERPOL = Solvers.SMTINTERPOL;
-	private static final Solvers SMTINTERPOL = Solvers.MATHSAT5;
+	private static final Solvers SMTINTERPOL = Solvers.SMTINTERPOL;
+	//private static final Solvers SMTINTERPOL = Solvers.MATHSAT5;
 	
 	EnumTreatment enumTreatment;
 
