@@ -56,6 +56,10 @@ import ctwedge.util.validator.ValidatorException;
 public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
 	static final Logger logger = Logger.getLogger(SMTTestSuiteValidator.class);
+	
+	
+	final static EnumTreatment ENUM_TREAT_VALIDATION = EnumTreatment.INTEGER;
+	
 
 	public SMTTestSuiteValidator(TestSuite ts) {
 		super(ts);
@@ -165,7 +169,7 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 				}
 			}
 			
-			SMTModelTranslator smtrans = new SMTModelTranslator();
+			SMTModelTranslator smtrans = new SMTModelTranslator(ENUM_TREAT_VALIDATION);
 			prover = smtrans.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx, prover);
 
 			// Prove
@@ -299,7 +303,7 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
 				// Check the type of the parameter
 				if (p instanceof Enumerative) {
-					assert SMTParameterAdder.enumTreatment == EnumTreatment.INTEGER; 
+					assert ENUM_TREAT_VALIDATION == EnumTreatment.INTEGER; 
 					// Get the left side of the comparison
 					assert  variables.get(p).size() == 1;
 					Formula leftSide = variables.get(p).get(0);					

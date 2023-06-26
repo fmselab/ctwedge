@@ -52,7 +52,7 @@ public class SMTParameterAdder extends CtWedgeSwitch<List<Formula>> {
 		INTEGER, BOOLEAN, ENUM;
 	}
 	
-	static  EnumTreatment enumTreatment = EnumTreatment.INTEGER;
+	private  EnumTreatment enumTreatment;
 	
 	/**
 	 * Instantiates a new SMT parameter adder.
@@ -60,9 +60,10 @@ public class SMTParameterAdder extends CtWedgeSwitch<List<Formula>> {
 	 * @param ctx the ctx
 	 * @param declaredElements the declared elements param ---> values that it can take (for enum and integers)
 	 */
-	SMTParameterAdder(SolverContext ctx, Map<String, List<String>> declaredElements) {
+	SMTParameterAdder(SolverContext ctx, Map<String, List<String>> declaredElements, EnumTreatment enumTreatment) {
 		this.ctx = ctx;
 		this.declaredElements = declaredElements;
+		this.enumTreatment = enumTreatment;
 	}
 	
 	private void addElement(String prameter, String element) {

@@ -58,15 +58,18 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 
 	private static final Logger logger = Logger.getLogger(SMTConstraintTranslator.class);
 
-	SolverContext ctx;
-	Map<Parameter, List<Formula>> variables;
-	Map<String, List<String>> declaredElements;
+	private SolverContext ctx;
+	private Map<Parameter, List<Formula>> variables;
+	private Map<String, List<String>> declaredElements;
+
+	private EnumTreatment enumTreatment;
 
 	public SMTConstraintTranslator(SolverContext ctx, Map<Parameter, List<Formula>> variables,
-			Map<String, List<String>> declaredElements) {
+			Map<String, List<String>> declaredElements, EnumTreatment enumTreatment) {
 		this.ctx = ctx;
 		this.variables = variables;
 		this.declaredElements = declaredElements;
+		this.enumTreatment = enumTreatment;
 	}
 
 	@Override
@@ -179,7 +182,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 				if (enums != null) {
 					// take right (enum const) FIXMe what of it is a number
 					assert enums.contains(rightName) : rightName + " not found in " + enums;
-					assert SMTParameterAdder.enumTreatment == EnumTreatment.INTEGER;
+					assert enumTreatment == EnumTreatment.INTEGER;
 					IntegerFormulaManager imgr = ctx.getFormulaManager().getIntegerFormulaManager();
 					IntegerFormulaManager ifmgr = fmgr.getIntegerFormulaManager();
 					int index = enums.indexOf(rightName);

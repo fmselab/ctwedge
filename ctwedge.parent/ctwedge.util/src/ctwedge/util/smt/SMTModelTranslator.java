@@ -22,14 +22,21 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Enumerative;
 import ctwedge.ctWedge.Parameter;
+import ctwedge.util.smt.SMTParameterAdder.EnumTreatment;
 
 /**
  * tarslates a CT model to a SMT problem
  * 
  */
 public class SMTModelTranslator {
+	
+	//private static final Solvers SMTINTERPOL = Solvers.SMTINTERPOL;
+	private static final Solvers SMTINTERPOL = Solvers.MATHSAT5;
+	
+	EnumTreatment enumTreatment;
 
-	public SMTModelTranslator() {
+	public SMTModelTranslator(EnumTreatment enumTreatment) {
+		this.enumTreatment = enumTreatment;
 	}
 
 	SolverContext createCtx() throws InvalidConfigurationException {
@@ -37,7 +44,7 @@ public class SMTModelTranslator {
 		LogManager logger = BasicLogManager.create(config);
 		ShutdownManager shutdown = ShutdownManager.create();
 
-		return SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(), Solvers.SMTINTERPOL);
+		return SolverContextFactory.createSolverContext(config, logger, shutdown.getNotifier(), SMTINTERPOL);
 	}
 
 	Map<String, List<String>> declaredElements;
@@ -48,12 +55,12 @@ public class SMTModelTranslator {
 		declaredElements = new HashMap<>();
 		variables = new HashMap<Parameter, List<Formula>>();
 		// Add all the parameters to the new CTX
-		SMTModelTranslator.addParameters(model, ctx, declaredElements, variables);
+		addParameters(model, ctx, enumTreatment);
 		// add the constrainst due to the parameters
 		addConstraintsForSMTParam(ctx, prover);
 		// Translate all the constraints and add them to the context
 		for (Constraint r : list) {
-			SMTConstraintTranslator translator = new SMTConstraintTranslator(ctx, variables, declaredElements);
+			SMTConstraintTranslator translator = new SMTConstraintTranslator(ctx, variables, declaredElements, enumTreatment);
 			Formula constraint = translator.doSwitch(r);
 			assert constraint instanceof BooleanFormula : "Constraints must be boolean";
 			// Add this constraint
@@ -69,7 +76,7 @@ public class SMTModelTranslator {
 
 	//
 	private void addConstraintsForSMTParam(SolverContext ctx, ProverEnvironment prover) {
-		switch (SMTParameterAdder.enumTreatment) {
+		switch (enumTreatment) {
 		// Create the new EnumType
 		case INTEGER:
 			// Add all the constraints related to the bounds of the enums
@@ -107,14 +114,13 @@ public class SMTModelTranslator {
 			}
 			return;
 		default:
-			throw new RuntimeException("enums as " + SMTParameterAdder.enumTreatment);
+			throw new RuntimeException("enums as " + enumTreatment);
 		}
 	}
 
-	private static void addParameters(CitModel model, SolverContext ctx, Map<String, List<String>> declaredElements,
-			Map<Parameter, List<Formula>> variables) {
+	private void addParameters(CitModel model, SolverContext ctx, EnumTreatment enumTreatment) {
 		// Add all the parameters to the
-		SMTParameterAdder pa = new SMTParameterAdder(ctx, declaredElements);
+		SMTParameterAdder pa = new SMTParameterAdder(ctx, declaredElements, enumTreatment);
 		for (Parameter nt : model.getParameters()) {
 			List<Formula> variable = pa.doSwitch(nt);
 			variables.put(nt, variable);

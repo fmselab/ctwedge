@@ -36,6 +36,7 @@ import org.sosy_lab.java_smt.api.SolverException;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
+import ctwedge.util.smt.SMTParameterAdder.EnumTreatment;
 import ctwedge.util.validator.SubSetMaker;
 
 public class SMTConstraintChecker {
@@ -56,7 +57,7 @@ public class SMTConstraintChecker {
 	boolean checkConsistency(CitModel model, Boolean deleteCtx)
 			throws InvalidConfigurationException, SolverException, InterruptedException {
 
-		SMTModelTranslator trans = new SMTModelTranslator();
+		SMTModelTranslator trans = new SMTModelTranslator(EnumTreatment.INTEGER);
 		// Create a new Context
 		SolverContext ctx = trans.createCtx();
 		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
@@ -76,7 +77,7 @@ public class SMTConstraintChecker {
 	ArrayList<Constraint> findMaxConstraintsSet(CitModel model, Boolean deleteCtx)
 			throws InvalidConfigurationException, SolverException, InterruptedException {
 
-		SMTModelTranslator trans = new SMTModelTranslator();
+		SMTModelTranslator trans = new SMTModelTranslator(EnumTreatment.INTEGER);
 		// Create a new Context
 		SolverContext ctx = trans.createCtx();
 

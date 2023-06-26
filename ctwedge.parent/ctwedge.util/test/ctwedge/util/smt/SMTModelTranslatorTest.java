@@ -21,6 +21,7 @@ import org.sosy_lab.java_smt.api.SolverException;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.util.ext.Utility;
+import ctwedge.util.smt.SMTParameterAdder.EnumTreatment;
 
 public class SMTModelTranslatorTest {
 
@@ -33,7 +34,7 @@ public class SMTModelTranslatorTest {
 
 	@Test
 	public void testBoolean() throws InvalidConfigurationException, SolverException, InterruptedException {
-		SMTModelTranslator smtrans = new SMTModelTranslator();
+		SMTModelTranslator smtrans = new SMTModelTranslator(EnumTreatment.INTEGER);
 		// Create a new Context
 		SolverContext ctx = smtrans.createCtx();
 		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);		
@@ -46,13 +47,23 @@ public class SMTModelTranslatorTest {
 	}
 
 	@Test
-	public void testEnum() throws InvalidConfigurationException, SolverException, InterruptedException {
-		SMTModelTranslator smtrans = new SMTModelTranslator();
+	public void testEnumInt() throws InvalidConfigurationException, SolverException, InterruptedException {
+		testEnum(EnumTreatment.INTEGER);
+	}
+
+	@Test
+	public void testEnumEnum() throws InvalidConfigurationException, SolverException, InterruptedException {
+		testEnum(EnumTreatment.ENUM);
+	}
+
+	
+	private void testEnum(EnumTreatment integer)
+			throws InvalidConfigurationException, SolverException, InterruptedException {
+		SMTModelTranslator smtrans = new SMTModelTranslator(integer);
 		// Create a new Context
 		SolverContext ctx = smtrans.createCtx();
 		ProverEnvironment prover = ctx.newProverEnvironment(ProverOptions.GENERATE_MODELS);
 
-		SMTParameterAdder.enumTreatment = SMTParameterAdder.EnumTreatment.INTEGER;
 		// read a model
 		CitModel model = Utility.loadModel(
 					"Model prova\nParameters:\na: {16MC, 8MC, BW}; b: {WIN , MAC, LINUX};\nConstraints:\n # a = 16MC -> b = WIN#\n");			

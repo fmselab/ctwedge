@@ -88,5 +88,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.sosy-lab</groupId>
+			<artifactId>javasmt-solver-mathsat5</artifactId>
+			<version>5.6.10</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 </project>
