@@ -12,6 +12,7 @@ import ctwedge.ctWedge.EqualExpression;
 import ctwedge.ctWedge.Expression;
 import ctwedge.ctWedge.NotExpression;
 import ctwedge.ctWedge.OrExpression;
+import ctwedge.ctWedge.RelationalExpression;
 
 // constraints are forbidden tuples
 public class AllInCNF extends CTWedgeModelAnalyzer{
@@ -76,7 +77,7 @@ public class AllInCNF extends CTWedgeModelAnalyzer{
 		}
 		
 		// CNF can be seen as an AND of Atomic Predicates
-		if (e instanceof AtomicPredicate || e instanceof EqualExpression) 
+		if (e instanceof AtomicPredicate || e instanceof EqualExpression || e instanceof RelationalExpression) 
 			return true;
 		
 		if (e instanceof NotExpression)
