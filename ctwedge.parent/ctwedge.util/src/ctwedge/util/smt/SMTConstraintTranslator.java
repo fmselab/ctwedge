@@ -74,7 +74,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 
 	@Override
 	public Formula caseNotExpression(NotExpression not) {
-		FormulaManager fmgr = ctx.getFormulaManager();
+		FormulaManager fmgr = ctx.getFormulaManager(); 
 		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
 
 		Formula predicate = this.doSwitch(not.getPredicate());
@@ -168,6 +168,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 	@Override
 	public Formula caseEqualExpression(EqualExpression object) {
 		FormulaManager fmgr = ctx.getFormulaManager();
+		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
 		Expression left = object.getLeft();
 		Expression right = object.getRight();
 		// case in which left = right with atomic predicates
@@ -189,8 +190,14 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 					IntegerFormula rightFormula = ifmgr.makeNumber(index);
 					// return X = 1 ... or similar
 					Formula leftFormula = getParameterFormulaFromName(((AtomicPredicate) left));
-					logger.debug(" equal expression " + leftName + "=" + rightName + " --> = " + index);
-					return imgr.equal((IntegerFormula) leftFormula, (IntegerFormula) rightFormula);
+					switch (object.getOp()) {
+					case EQ:
+						logger.debug(" equal expression " + leftName + "=" + rightName + " --> = " + index);
+						return imgr.equal((IntegerFormula) leftFormula, (IntegerFormula) rightFormula);
+					case NE:
+						logger.debug(" equal expression " + leftName + "=" + rightName + " --> = " + index);
+						return bmgr.not(imgr.equal((IntegerFormula) leftFormula, (IntegerFormula) rightFormula));
+					}
 				}
 			}
 		}
@@ -203,7 +210,6 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		Formula rightVal = this.doSwitch(right);
 		logger.debug(rightVal);
 
-		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
 		switch (object.getOp()) {
 		case EQ:
 			return areEqual(leftVal, rightVal);

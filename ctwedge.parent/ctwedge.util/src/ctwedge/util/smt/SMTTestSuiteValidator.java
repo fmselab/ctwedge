@@ -11,13 +11,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.management.RuntimeErrorException;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.sosy_lab.common.ShutdownManager;
-import org.sosy_lab.common.configuration.*;
+import org.sosy_lab.common.configuration.Configuration;
+import org.sosy_lab.common.configuration.InvalidConfigurationException;
 import org.sosy_lab.common.log.BasicLogManager;
 import org.sosy_lab.common.log.LogManager;
 import org.sosy_lab.java_smt.SolverContextFactory;
@@ -61,6 +60,7 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 	final static EnumTreatment ENUM_TREAT_VALIDATION = EnumTreatment.INTEGER;
 	
 
+	@SuppressWarnings("unchecked")
 	public SMTTestSuiteValidator(TestSuite ts) {
 		super(ts);
 		List<Logger> loggers = Collections.<Logger>list(org.apache.log4j.LogManager.getCurrentLoggers());
@@ -279,7 +279,6 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 		return rangeFormula;
 	}
 
-	@SuppressWarnings("unused")
 	private Boolean checkRequirementsConsistency(SolverContext ctx, List<Map<Parameter, String>> listMapReq,
 			Map<String, List<String>> declaredElements, Map<Parameter, List<Formula>> variables, Iterator<Map<Parameter, String>> i,
 			ProverEnvironment prover) throws InterruptedException, SolverException {
@@ -294,15 +293,16 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 			BooleanFormula t = ctx.getFormulaManager().getBooleanFormulaManager().makeTrue();
 
 			prover.push();
+			
 			for (Parameter p : requirement.keySet()) {
 
 				BooleanFormula tNew = null;
-				assert variables.size() == 1;
+				//assert variables.size() == 1;
 				Formula varPointer = variables.get(p).get(0);
 				assert varPointer != null;
 
 				// Check the type of the parameter
-				if (p instanceof Enumerative) {
+				if (p instanceof Enumerative) { 
 					assert ENUM_TREAT_VALIDATION == EnumTreatment.INTEGER; 
 					// Get the left side of the comparison
 					assert  variables.get(p).size() == 1;
@@ -375,7 +375,6 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 		// If no return has been executed before, the requirements are consistent
 		return notComplete.size() == 0;
 	}
-
 	
 	private List<Map<Parameter, String>> getRequirements() {
 		CitModel model = ts.getModel();
