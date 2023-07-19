@@ -227,4 +227,10 @@ public class CASATestGenerator extends ICTWedgeTestGenerator{
 		sc.close();
 		return sb.toString();
 	}
+
+	@Override
+	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, TestSuite ts)
+			throws Exception {
+		return getTestSuite(model, strength, ignoreConstraints);
+	}
 }

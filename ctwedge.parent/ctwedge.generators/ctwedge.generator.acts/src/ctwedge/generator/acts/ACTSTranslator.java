@@ -131,6 +131,34 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 
 	@Override
 	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints) {
+		try {
+			SUT sut = buildSUT(model, ignoreConstraints, strength);
+			return getTestSuite(model, strength, ignoreConstraints, sut);
+		} catch (Exception e) {
+			if (PRINT)
+				System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, TestSuite ts) {
+		try {
+			SUT sut = buildSUT(model, ignoreConstraints, strength);
+			TestSet testSet = new TestSet(sut.getParameters());
+			// TODO: Convert the TestSuite ts into a TestSet
+			// sut.setExistingTestSet();
+			return getTestSuite(model, strength, ignoreConstraints, sut);
+		} catch (Exception e) {
+			if (PRINT)
+				System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, SUT sut) {
 		String res = "";
 		long t_end = 0;
 		long t_start = 0;
@@ -138,7 +166,6 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			System.out.println(
 					"ACTS sto chiamando ACTS... on " + model.getName() + " " + strength + " " + ignoreConstraints);
 		try {
-			SUT sut = buildSUT(model, ignoreConstraints, strength);
 			if (PRINT)
 				System.out.println("1. ACTS sto chiamando ACTS... - building engine");
 			// Create an IPO engine object
@@ -160,7 +187,6 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			t_end = System.currentTimeMillis();
 			if (ts != null)
 				res = serializeTestSet(model, ts);
-			
 
 		} catch (Exception e) {
 			if (PRINT)
@@ -241,7 +267,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 //		return ts;
 //	}
 //	
-	
+
 	// OTHER UTILS
 	public File saveActsTXTonlyModel(CitModel citModel, String dirPath) throws IOException {
 		SUT sut = new SUT(citModel.getName());

@@ -131,4 +131,10 @@ public class CAgenGenerator extends ICTWedgeTranslTestGenerator{
 		fin.close();
 		return errorFound;
 	}
+
+	@Override
+	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, TestSuite ts)
+			throws Exception {
+		return getTestSuite(model, strength, ignoreConstraints);
+	}
 }

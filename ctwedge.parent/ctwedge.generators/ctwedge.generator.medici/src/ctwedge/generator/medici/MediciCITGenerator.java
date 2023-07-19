@@ -163,4 +163,11 @@ public class MediciCITGenerator extends ICTWedgeTranslTestGenerator {
 		TestSuite result = new TestSuite(csv_out, model);
 		return result;
 	}
+
+	@Override
+	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, TestSuite ts)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return getTestSuite(model, strength, ignoreConstraints);
+	}
 }

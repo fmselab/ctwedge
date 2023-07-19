@@ -127,6 +127,8 @@ public abstract class ICTWedgeTestGenerator extends ICTWedgeModelProcessor imple
 	 * 
 	 */
 	public abstract TestSuite getTestSuite(CitModel loadModel, int t, boolean ignoreC) throws Exception;
+	
+	public abstract TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, TestSuite ts) throws Exception;
 
 	
 	public CitlabPreferncesSet getGenProperties() {

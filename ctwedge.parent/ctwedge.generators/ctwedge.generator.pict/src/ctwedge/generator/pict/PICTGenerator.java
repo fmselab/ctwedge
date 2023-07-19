@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import ctwedge.ctWedge.CitModel;
+import ctwedge.ctWedge.Parameter;
+import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTranslTestGenerator;
 
@@ -33,6 +35,10 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 	}
 	
 	public TestSuite getTestSuite(CitModel citModel, int nWise, boolean ignoreConstraints) throws Exception {
+		return getTS(citModel, nWise, ignoreConstraints, "");
+	}
+
+	private TestSuite getTS(CitModel citModel, int nWise, boolean ignoreConstraints, String seedFileName) throws IOException {
 		File tempModel = File.createTempFile("pictmodel_" + citModel.getName(), ".txt");
 		System.out.println(tempModel.getAbsolutePath());
 		//tempModel.deleteOnExit();
@@ -44,7 +50,7 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 		System.out.println("\n------- MODELLO PICT -------\n");
 		System.out.println(pictModel);
 		long t_start = System.currentTimeMillis();
-		String output = runTool(tempModel);
+		String output = runTool(tempModel, seedFileName);
 		long t_end = System.currentTimeMillis();
 		if (output == null)
 			return null;
@@ -62,12 +68,17 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 	 * @return the file containing the test suite
 	 * @throws IOException
 	 */
-	private String runTool(File model) throws IOException {
+	private String runTool(File model, String seedFileName) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		List<String> command = new ArrayList<String>();
 		String pictExecutable = path + "/pict.exe";
 		command.add(pictExecutable);
 		command.add(model.getAbsolutePath());
+		
+		// If seeds are used
+		if (!seedFileName.equals("")) 
+			command.add("/e:" + seedFileName);
+		
 		ProcessBuilder pc = new ProcessBuilder(command);
 		pc.command(command);
 		File tempError = File.createTempFile("pict_error", ".txt");
@@ -116,5 +127,36 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 		}
 		fin.close();
 		return errorFound;
+	}
+
+	@Override
+	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, TestSuite ts)
+			throws Exception {
+		// First, translate the test suite into a format readable by PICT
+		File tempModel = File.createTempFile("seedrows_" + model.getName(), ".txt");
+		BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
+		// Write param names
+		int counter = 0;
+		for (Parameter p : model.getParameters()) {
+			if (counter > 0)
+				out.append("\t");
+			out.append(p.getName());
+			counter++;
+		}
+		out.append("\n");
+		// Write values
+		for(Test t : ts.getTests()) {
+			counter = 0;
+			for (Parameter p : model.getParameters()) { 
+				if (counter > 0)
+					out.append("\t");
+				out.append(t.get(p.getName()));
+				counter++;
+			}
+			out.append("\n");
+		}
+		out.close();
+		// Execute the tool
+		return getTS(model, strength, ignoreConstraints, tempModel.getAbsolutePath());
 	}
 }
