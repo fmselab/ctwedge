@@ -150,11 +150,13 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, TestSuite ts) {
 		try {
 			SUT sut = buildSUT(model, ignoreConstraints, strength);
-			File f = saveSeedsToFile(model, ts, ",");
-			TestSetWrapper wrapper = new TestSetWrapper(sut);
-			TestSet tsOld = wrapper.readTestSet(f.getAbsolutePath(), "CSV Format");
-			sut.setExistingTestSet(tsOld);
-			f.delete();
+			if (ts != null) {
+				File f = saveSeedsToFile(model, ts, ",");
+				TestSetWrapper wrapper = new TestSetWrapper(sut);
+				TestSet tsOld = wrapper.readTestSet(f.getAbsolutePath(), "CSV Format");
+				sut.setExistingTestSet(tsOld);
+				f.delete();
+			}
 			return getTestSuite(model, strength, ignoreConstraints, sut);
 		} catch (Exception e) {
 			if (PRINT)

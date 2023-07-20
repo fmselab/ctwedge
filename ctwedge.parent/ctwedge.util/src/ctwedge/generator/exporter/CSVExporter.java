@@ -21,22 +21,24 @@ import ctwedge.util.ext.ICTWedgeTestSuiteExporter;
 public class CSVExporter extends ICTWedgeTestSuiteExporter {
 
 	@Override
-	public void generateOutput(TestSuite input, String fileName) { 
-		
+	public void generateOutput(TestSuite input, String fileName) {
+
 		ToCSV exporter = new ToCSV();
 		File file = new File(fileName);
 		FileWriter fw;
 		try {
 			fw = new FileWriter(file);
-			System.out.println(exporter.toCSVcode(input).toString());
-			fw.append(exporter.toCSVcode(input));
-				fw.close();
-	
+			if (input.getTests().size() > 0) {
+				System.out.println(exporter.toCSVcode(input).toString());
+				fw.append(exporter.toCSVcode(input));
+			}
+			fw.close();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 }
