@@ -1,6 +1,8 @@
 package ctwedge.generator.acts;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
@@ -10,6 +12,7 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.util.NotConvertableModel;
+import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 //import edu.uta.cse.fireeye.common.Constraint;
@@ -18,6 +21,7 @@ import edu.uta.cse.fireeye.common.Relation;
 import edu.uta.cse.fireeye.common.SUT;
 import edu.uta.cse.fireeye.common.TestGenProfile.Algorithm;
 import edu.uta.cse.fireeye.common.TestSet;
+import edu.uta.cse.fireeye.common.TestSetWrapper;
 import edu.uta.cse.fireeye.service.engine.IpoEngine;
 
 /**
@@ -146,9 +150,11 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, TestSuite ts) {
 		try {
 			SUT sut = buildSUT(model, ignoreConstraints, strength);
-			TestSet testSet = new TestSet(sut.getParameters());
-			// TODO: Convert the TestSuite ts into a TestSet
-			// sut.setExistingTestSet();
+			File f = saveSeedsToFile(model, ts, ",");
+			TestSetWrapper wrapper = new TestSetWrapper(sut);
+			TestSet tsOld = wrapper.readTestSet(f.getAbsolutePath(), "CSV Format");
+			sut.setExistingTestSet(tsOld);
+			f.delete();
 			return getTestSuite(model, strength, ignoreConstraints, sut);
 		} catch (Exception e) {
 			if (PRINT)
@@ -156,6 +162,34 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	private File saveSeedsToFile(CitModel model, TestSuite ts, String separator) throws IOException {
+		// First, translate the test suite into a format readable by PICT
+		File tempModel = File.createTempFile("seedrows_" + model.getName(), ".txt");
+		BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
+		// Write param names
+		int counter = 0;
+		for (Parameter p : model.getParameters()) {
+			if (counter > 0)
+				out.append(separator);
+			out.append(p.getName());
+			counter++;
+		}
+		out.append("\n");
+		// Write values
+		for(Test t : ts.getTests()) {
+			counter = 0;
+			for (Parameter p : model.getParameters()) { 
+				if (counter > 0)
+					out.append(separator);
+				out.append(t.get(p.getName()));
+				counter++;
+			}
+			out.append("\n");
+		}
+		out.close();
+		return tempModel;
 	}
 
 	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, SUT sut) {
