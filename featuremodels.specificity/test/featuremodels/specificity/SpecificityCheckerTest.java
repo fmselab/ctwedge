@@ -9,6 +9,7 @@ import org.junit.Test;
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.importer.featureide.FeatureIdeImporter;
+import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
@@ -21,11 +22,11 @@ public class SpecificityCheckerTest {
 
 	@Test
 	public void testSpecificityCheckerEnum() {
-		testSpec(false);
+		testSpec(true);
 	}
 	@Test
 	public void testSpecificityCheckerBool() {
-		testSpec(true);
+		testSpec(false);
 	}
 
 	private void testSpec(boolean useEnum) {
@@ -38,7 +39,8 @@ public class SpecificityCheckerTest {
 		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, useEnum);
 		
 		// generate from the new one to see how may are specific
-		FeatureIdeImporter importer = new XmlFeatureModelImporter();		
+		FeatureIdeImporter importer = useEnum? new XmlFeatureModelImporter() : new FeatureIdeImporterBoolean();	
+		
 		CitModel result = importer.importModel(newFMPath.toString());
 		ACTSTranslator acts = new ACTSTranslator();
 		TestSuite ts = acts.getTestSuite(result, 2, false); // 2 = n-wise = 2-wise
