@@ -63,9 +63,8 @@ public class MutationScore {
 				FMMutation fmM = mutations.next();
 				System.out.println(fmM.getSecond());
 				// transform the test to a configuration
-				FeatureModelFormula featureModelFormula = new FeatureModelFormula(fmM.getFirst());
 				for (ctwedge.util.Test test : ts.getTests()) {
-					Boolean result = isTestValid(featureModelFormula, test);
+					Boolean result = isTestValidBool(fmM.getFirst(), test);
 					System.out.println("killed?" + !result);
 					if (! result) {
 						killed ++;
@@ -77,37 +76,45 @@ public class MutationScore {
 		System.out.println("mutation score " + killed + "/" + mutation);
 	}
 
-	// for enum transaation	
-	public static Boolean isValid2(IFeatureModel featureModel, ctwedge.util.Test test) {
+	//
+	// for enum translation
+	// it trasforms the test in a configuration an then it checks that it valid in the FM
+	// 
+	public static Boolean isTestValidEnum(IFeatureModel featureModel, ctwedge.util.Test test) {
 		FeatureModelFormula featureModelFormula = new FeatureModelFormula(featureModel);
-		Configuration conf = new Configuration(featureModelFormula);
-	
+		Configuration conf = new Configuration(featureModelFormula);	
 		// Set every assignment in the test as feature selected or not
+		System.out.println(test.entrySet());
 		for (Entry<String, String> assignemnt : test.entrySet()) {
 			String value = assignemnt.getValue();
+			// is feature present
+			String featurename = assignemnt.getKey();
+			assert Utils.getFeatureNames(featureModel).contains(featurename);
 			Selection sel;
 			if (value.equals("true") || value.equals("false"))
 				// Boolean values
 				sel = value.equals("true") ? Selection.SELECTED : Selection.UNSELECTED;
 			else {
 				// Enums
-				if (value.equals("NONE"))
-					sel = Selection.UNDEFINED;
-				else
+				if (value.equals("NONE")) {
+					sel = Selection.UNSELECTED;
+					// non dovremmo a questo punto dire che quelle sotto sono tutte unslected???
+				} else {
 					sel = Selection.SELECTED;
+					// di quelle sotto dire quali sono quelle selected e euqlle no?????
+				}
 			}
-			// is feature present
-			assert Utils.getFeatureNames(featureModel).contains(assignemnt.getKey());
-			conf.setManual(assignemnt.getKey(), sel);
-		}
-	
+			System.out.println("setting " + featurename + " to " + sel);
+			conf.setManual(featurename, sel);
+		}	
 		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
 		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
 		return result;
 	}
 
-	// for boolean tranlsation (true or false)
-	static public Boolean isTestValid(FeatureModelFormula featureModelFormula, ctwedge.util.Test test) {
+	// for boolean translation (only true or false for each feature)
+	static public Boolean isTestValidBool(IFeatureModel featureModel, ctwedge.util.Test test) {
+		FeatureModelFormula featureModelFormula = new FeatureModelFormula(featureModel);
 		Configuration conf = new Configuration(featureModelFormula);
 		// set every assignement in the test as feature selected or not
 		for (Entry<String, String> assignemnt : test.entrySet()) {

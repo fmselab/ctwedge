@@ -759,7 +759,7 @@ public class TestSimpleExampleForPaper {
 				// Transform the test to a configuration
 				IFeatureModel featureModel = fmM.getFirst();
 				for (ctwedge.util.Test test : ts.getTests()) {
-					Boolean result = MutationScore.isValid2(featureModel, test);
+					Boolean result = MutationScore.isTestValidEnum(featureModel, test);
 					if (!result) {
 						killedMut++;
 						break;

@@ -17,15 +17,25 @@ import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 
 public class SpecificityCheckerTest {
 
+	
+
 	@Test
-	public void testSpecificityChecker() {
+	public void testSpecificityCheckerEnum() {
+		testSpec(false);
+	}
+	@Test
+	public void testSpecificityCheckerBool() {
+		testSpec(true);
+	}
+
+	private void testSpec(boolean useEnum) {
 		FMCoreLibrary.getInstance().install();
 		Path oldFMPath = Path.of("..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv1.xml");
 		IFeatureModel oldFM = FeatureModelManager.load(oldFMPath);
 		Path newFMPath = Path.of("..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv2.xml");
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
 		
-		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM);
+		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, useEnum);
 		
 		// generate from the new one to see how may are specific
 		FeatureIdeImporter importer = new XmlFeatureModelImporter();		
@@ -42,9 +52,6 @@ public class SpecificityCheckerTest {
 				countNotSpec++;
 		}
 		System.out.println("spec " + countSpec + " vs not spec " + countNotSpec);
-		
-		
-		
 	}
 
 }
