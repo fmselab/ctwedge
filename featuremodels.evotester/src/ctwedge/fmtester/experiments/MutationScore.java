@@ -27,6 +27,7 @@ import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationoperators.features.AlternativeToAnd;
 import fmautorepair.mutationoperators.features.OptionalToMandatory;
+import fmautorepair.utils.Utils;
 import pMedici.main.PMedici;
 import pMedici.util.TestContext;
 
@@ -64,16 +65,7 @@ public class MutationScore {
 				// transform the test to a configuration
 				FeatureModelFormula featureModelFormula = new FeatureModelFormula(fmM.getFirst());
 				for (ctwedge.util.Test test : ts.getTests()) {
-					Configuration conf = new Configuration(featureModelFormula);
-					// set every assignement in the test as feature selected or not
-					for (Entry<String, String> assignemnt : test.entrySet()) {
-						String value = assignemnt.getValue();
-						assert value.equals("true") || value.equals("false");
-						Selection sel = value.equals("true")? Selection.SELECTED :Selection.UNSELECTED;
-						conf.setManual(assignemnt.getKey(), sel);
-					}
-					ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
-					Boolean result = LongRunningWrapper.runMethod(cp.isValid());
+					Boolean result = isTestValid(featureModelFormula, test);
 					System.out.println("killed?" + !result);
 					if (! result) {
 						killed ++;
@@ -83,5 +75,49 @@ public class MutationScore {
 			}
 		}
 		System.out.println("mutation score " + killed + "/" + mutation);
+	}
+
+	// for enum transaation	
+	public static Boolean isValid2(IFeatureModel featureModel, ctwedge.util.Test test) {
+		FeatureModelFormula featureModelFormula = new FeatureModelFormula(featureModel);
+		Configuration conf = new Configuration(featureModelFormula);
+	
+		// Set every assignment in the test as feature selected or not
+		for (Entry<String, String> assignemnt : test.entrySet()) {
+			String value = assignemnt.getValue();
+			Selection sel;
+			if (value.equals("true") || value.equals("false"))
+				// Boolean values
+				sel = value.equals("true") ? Selection.SELECTED : Selection.UNSELECTED;
+			else {
+				// Enums
+				if (value.equals("NONE"))
+					sel = Selection.UNDEFINED;
+				else
+					sel = Selection.SELECTED;
+			}
+			// is feature present
+			assert Utils.getFeatureNames(featureModel).contains(assignemnt.getKey());
+			conf.setManual(assignemnt.getKey(), sel);
+		}
+	
+		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
+		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
+		return result;
+	}
+
+	// for boolean tranlsation (true or false)
+	static public Boolean isTestValid(FeatureModelFormula featureModelFormula, ctwedge.util.Test test) {
+		Configuration conf = new Configuration(featureModelFormula);
+		// set every assignement in the test as feature selected or not
+		for (Entry<String, String> assignemnt : test.entrySet()) {
+			String value = assignemnt.getValue();
+			assert value.equals("true") || value.equals("false");
+			Selection sel = value.equals("true")? Selection.SELECTED :Selection.UNSELECTED;
+			conf.setManual(assignemnt.getKey(), sel);
+		}
+		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
+		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
+		return result;
 	}
 }

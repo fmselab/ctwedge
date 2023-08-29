@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,16 +32,11 @@ import ctwedge.util.TestSuite;
 import ctwedge.util.validator.MinimalityTestSuiteValidator;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.FeatureModelAnalyzer;
-import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
-import de.ovgu.featureide.fm.core.configuration.Configuration;
-import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
-import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
 import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 import de.ovgu.featureide.fm.core.io.manager.SimpleFileHandler;
 import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
-import de.ovgu.featureide.fm.core.job.LongRunningWrapper;
 import de.ovgu.featureide.fm.core.job.monitor.NullMonitor;
 import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
@@ -763,30 +757,9 @@ public class TestSimpleExampleForPaper {
 				FMMutation fmM = mutations.next();
 
 				// Transform the test to a configuration
-				FeatureModelFormula featureModelFormula = new FeatureModelFormula(fmM.getFirst());
+				IFeatureModel featureModel = fmM.getFirst();
 				for (ctwedge.util.Test test : ts.getTests()) {
-					Configuration conf = new Configuration(featureModelFormula);
-
-					// Set every assignment in the test as feature selected or not
-					for (Entry<String, String> assignemnt : test.entrySet()) {
-						String value = assignemnt.getValue();
-						Selection sel;
-						if (value.equals("true") || value.equals("false"))
-							// Boolean values
-							sel = value.equals("true") ? Selection.SELECTED : Selection.UNSELECTED;
-						else {
-							// Enums
-							if (value.equals("NONE"))
-								sel = Selection.UNDEFINED;
-							else
-								sel = Selection.SELECTED;
-						}
-						if (Utils.getFeatureNames(fmM.getFirst()).contains(assignemnt.getKey()))
-							conf.setManual(assignemnt.getKey(), sel);
-					}
-
-					ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
-					Boolean result = LongRunningWrapper.runMethod(cp.isValid());
+					Boolean result = MutationScore.isValid2(featureModel, test);
 					if (!result) {
 						killedMut++;
 						break;
