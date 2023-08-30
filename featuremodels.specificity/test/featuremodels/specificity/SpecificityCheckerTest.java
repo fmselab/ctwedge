@@ -18,22 +18,27 @@ import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 
 public class SpecificityCheckerTest {
 
-	
+	static {
+		FMCoreLibrary.getInstance().install();		
+	}
 
 	@Test
 	public void testSpecificityCheckerEnum() {
-		testSpec(true);
+		testSpec(true, 
+				"..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv1.xml", 
+				"..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv2.xml");
 	}
 	@Test
 	public void testSpecificityCheckerBool() {
-		testSpec(false);
+		testSpec(false, 
+				"..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv1.xml", 
+				"..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv2.xml");
 	}
 
-	private void testSpec(boolean useEnum) {
-		FMCoreLibrary.getInstance().install();
-		Path oldFMPath = Path.of("..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv1.xml");
+	private void testSpec(boolean useEnum, String oldFMPathStr, String newFMPathStr) {
+		Path oldFMPath = Path.of(oldFMPathStr);
 		IFeatureModel oldFM = FeatureModelManager.load(oldFMPath);
-		Path newFMPath = Path.of("..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv2.xml");
+		Path newFMPath = Path.of(newFMPathStr);
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
 		
 		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, useEnum);

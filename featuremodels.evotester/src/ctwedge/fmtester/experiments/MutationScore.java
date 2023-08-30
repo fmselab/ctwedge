@@ -9,9 +9,12 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import aima.core.search.csp.Assignment;
 import ctwedge.fmtester.Converter;
 import ctwedge.util.TestSuite;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
@@ -42,7 +45,7 @@ public class MutationScore {
 	@Test
 	public void test1() throws IOException, InterruptedException {
 		String fmName = "fmexamples/ex_paper1_AG";
-		Converter.fromFMtoCTWedge_ENUM(fmName  + ".xml", fmName + "_ctwedge_enum.ctw");
+		Converter.fromFMtoCTWedge_ENUM(fmName + ".xml", fmName + "_ctwedge_enum.ctw");
 		PMedici pMedici = new PMedici();
 		TestSuite mediciTS1 = pMedici.generateTests(fmName + "_ctwedge_enum.ctw", 2, 1);
 		extracted(fmName + ".xml", mediciTS1);
@@ -54,20 +57,20 @@ public class MutationScore {
 		IFeatureModel fm = FeatureModelManager.load(path);
 		assertNotNull(fm);
 		// facciamo le mutazioni
-		int mutation = 0 ,killed = 0;
+		int mutation = 0, killed = 0;
 		for (FMMutator fmmut : mutOperators) {
 			System.out.println("operator " + fmmut.toString());
 			Iterator<FMMutation> mutations = fmmut.mutate(fm);
 			while (mutations.hasNext()) {
-				mutation ++;
+				mutation++;
 				FMMutation fmM = mutations.next();
 				System.out.println(fmM.getSecond());
 				// transform the test to a configuration
 				for (ctwedge.util.Test test : ts.getTests()) {
 					Boolean result = isTestValidBool(fmM.getFirst(), test);
 					System.out.println("killed?" + !result);
-					if (! result) {
-						killed ++;
+					if (!result) {
+						killed++;
 						break;
 					}
 				}
@@ -78,17 +81,19 @@ public class MutationScore {
 
 	//
 	// for enum translation
-	// it trasforms the test in a configuration an then it checks that it valid in the FM
-	// 
+	// it trasforms the test in a configuration an then it checks that it valid in
+	// the FM
+	//
 	public static Boolean isTestValidEnum(IFeatureModel featureModel, ctwedge.util.Test test) {
 		FeatureModelFormula featureModelFormula = new FeatureModelFormula(featureModel);
-		Configuration conf = new Configuration(featureModelFormula);	
+		Configuration conf = new Configuration(featureModelFormula);
 		// Set every assignment in the test as feature selected or not
 		System.out.println(test.entrySet());
 		for (Entry<String, String> assignemnt : test.entrySet()) {
 			String value = assignemnt.getValue();
 			// is feature present
 			String featurename = assignemnt.getKey();
+			// TODO see below how to treat missing feature
 			assert Utils.getFeatureNames(featureModel).contains(featurename);
 			Selection sel;
 			if (value.equals("true") || value.equals("false"))
@@ -106,13 +111,35 @@ public class MutationScore {
 			}
 			System.out.println("setting " + featurename + " to " + sel);
 			conf.setManual(featurename, sel);
-		}	
+		}
+		// check completeness of the configuration (partial tests are not allowed??)
+		if (true) {
+			// features that are actually selected or unslected explicitly by this method 
+			Set<String> settedFeatures = conf.getSelectedFeatures().stream().map(x->x.getName()).collect(Collectors.toSet());
+			settedFeatures.addAll(conf.getUnSelectedFeatures().stream().map(x->x.getName()).collect(Collectors.toSet()));
+			// features in the test
+			Set<String> featuresInTest = test.keySet();
+			// features not setted but that are in the test:
+			//Set<String> feeaturesInTest
+			//if (!settedFeatures.equals(featuresInTest)) {
+				System.out.println("features in configuration setted by the test: " + settedFeatures);
+				System.out.println("features in the test: " + featuresInTest);
+			//	assert false;
+			//}
+		}
 		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
 		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
 		return result;
 	}
 
+	public enum MissingFeatureTreatment {
+		ERROR, SKIP
+	};
+
+	static public MissingFeatureTreatment treat_missing_feature_as = MissingFeatureTreatment.SKIP;
+
 	// for boolean translation (only true or false for each feature)
+	// forse si può fondere con il precedente, cioè chi lo chiama può ignorare
 	static public Boolean isTestValidBool(IFeatureModel featureModel, ctwedge.util.Test test) {
 		FeatureModelFormula featureModelFormula = new FeatureModelFormula(featureModel);
 		Configuration conf = new Configuration(featureModelFormula);
@@ -120,8 +147,20 @@ public class MutationScore {
 		for (Entry<String, String> assignemnt : test.entrySet()) {
 			String value = assignemnt.getValue();
 			assert value.equals("true") || value.equals("false");
-			Selection sel = value.equals("true")? Selection.SELECTED :Selection.UNSELECTED;
-			conf.setManual(assignemnt.getKey(), sel);
+			String featurename = assignemnt.getKey();
+			Selection sel;
+			if (!Utils.getFeatureNames(featureModel).contains(featurename)) {
+				switch (treat_missing_feature_as) {
+				case ERROR:
+					throw new RuntimeException(featurename + " not found");
+				case SKIP:
+					continue;
+				default:
+					throw new RuntimeException();
+				}
+			} else
+				sel = value.equals("true") ? Selection.SELECTED : Selection.UNSELECTED;
+			conf.setManual(featurename, sel);
 		}
 		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
 		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
