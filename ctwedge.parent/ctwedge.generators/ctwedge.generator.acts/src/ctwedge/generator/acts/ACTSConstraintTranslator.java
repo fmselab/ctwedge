@@ -100,8 +100,14 @@ public class ACTSConstraintTranslator extends CtWedgeSwitch<String> {
 		if (PRINT) System.out.println("caseImpliesExpression: "+ruleExpr);
 		switch (ruleExpr.getOp()) {
 		case IMPL:
+			if (ruleExpr.getLeft() == null && ruleExpr.getRight() == null) {
+				throw new RuntimeException("Left or right expression is null in IMPL seed");
+			}
 			return parathesis(ruleExpr.getLeft(), ACTS_OP_IMPLIES, ruleExpr.getRight());
 		case IFF:
+			if (ruleExpr.getLeft() == null && ruleExpr.getRight() == null) {
+				throw new RuntimeException("Left or right expression is null in IIF seed");
+			}
 			return parathesis(parathesis(ruleExpr.getLeft(), ACTS_OP_IMPLIES, ruleExpr.getRight()),
 					ACTS_OP_AND, parathesis(ruleExpr.getRight(), ACTS_OP_IMPLIES, ruleExpr.getLeft()));
 		}
