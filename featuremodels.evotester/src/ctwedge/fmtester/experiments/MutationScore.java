@@ -19,8 +19,10 @@ import ctwedge.fmtester.Converter;
 import ctwedge.util.TestSuite;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
+import de.ovgu.featureide.fm.core.base.IFeatureStructure;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
+import de.ovgu.featureide.fm.core.configuration.SelectableFeature;
 import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
 import de.ovgu.featureide.fm.core.init.LibraryManager;
@@ -103,10 +105,25 @@ public class MutationScore {
 				// Enums
 				if (value.equals("NONE")) {
 					sel = Selection.UNSELECTED;
-					// non dovremmo a questo punto dire che quelle sotto sono tutte unslected???
+					// quelle sotto sono tutte unselected
+					List<IFeatureStructure> children = featureModel.getFeature(featurename).getStructure().getChildren();
+					for(IFeatureStructure child:children) {
+						System.out.println("setting " + child.getFeature().getName() + " to " + Selection.UNSELECTED);
+						conf.setManual(child.getFeature().getName(), Selection.UNSELECTED);
+					}
 				} else {
 					sel = Selection.SELECTED;
 					// di quelle sotto dire quali sono quelle selected e euqlle no?????
+					List<IFeatureStructure> children = featureModel.getFeature(featurename).getStructure().getChildren();
+					for(IFeatureStructure child:children) {
+						Selection childsel;
+						if (child.getFeature().getName().equals(value))
+							childsel = Selection.SELECTED;
+						else
+							childsel = Selection.UNSELECTED;
+						System.out.println("setting " + child.getFeature().getName() + " to " +childsel);
+						conf.setManual(child.getFeature().getName(), childsel);
+					}
 				}
 			}
 			System.out.println("setting " + featurename + " to " + sel);
@@ -126,6 +143,8 @@ public class MutationScore {
 				System.out.println("features in the test: " + featuresInTest);
 			//	assert false;
 			//}
+			// features in the feature model however are:
+			System.out.println("features in the feature model: " + Utils.getFeatureNames(featureModel));	
 		}
 		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
 		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
