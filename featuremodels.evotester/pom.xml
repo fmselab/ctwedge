@@ -83,15 +83,5 @@
 			<artifactId>pMEDICI</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>fmautorepair.mutation</groupId>
-			<artifactId>fmautorepair.mutation</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>fmautorepair.utils</groupId>
-			<artifactId>fmautorepair.utils</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 </project>
