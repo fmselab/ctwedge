@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import ctwedge.util.TestSuite;
@@ -46,7 +47,7 @@ public class SPLC_Experiments_With_Mutations {
 		String oldModel = tester.convertModelFromFMToCTW(originalModel);
 
 		// Define the mutators
-		FMMutator[] mutatorList = FMMutationProcess.allMutationOperators();
+		List<FMMutator> mutatorList = FMMutationProcess.allMutationOperatorsAsList();
 
 		// Repeat the experiments for higher number of mutations
 		int nModel = 0;
@@ -55,15 +56,15 @@ public class SPLC_Experiments_With_Mutations {
 			// Extract the index of mutations
 			ArrayList<Integer> mutationIndex = new ArrayList<>();
 			for (int i = 0; i < j; i++) {
-				mutationIndex.add(generator.nextInt(mutatorList.length));
+				mutationIndex.add(generator.nextInt(mutatorList.size()));
 			}
 			// Now, apply the mutations to the model
 			for (int index : mutationIndex) {
 				ArrayList<FMMutation> mutationsList = new ArrayList<>();
-				Iterator<FMMutation> mutations = mutatorList[index].mutate(fm);
+				Iterator<FMMutation> mutations = mutatorList.get(index).mutate(fm);
 				while (!mutations.hasNext()) {
-					index = generator.nextInt(mutatorList.length);
-					mutations = mutatorList[index].mutate(fm);
+					index = generator.nextInt(mutatorList.size());
+					mutations = mutatorList.get(index).mutate(fm);
 					System.out.println("New index");
 				}
 				mutations.forEachRemaining(mutationsList::add);

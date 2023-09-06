@@ -17,5 +17,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.importer.featureide"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.util"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/fmautorepair.utils"/>
+	<classpathentry kind="lib" path="/fmautorepair.libs/log4j.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

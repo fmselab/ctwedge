@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import aima.core.search.csp.Assignment;
@@ -37,6 +38,9 @@ import pMedici.main.PMedici;
 import pMedici.util.TestContext;
 
 public class MutationScore {
+	
+	static Logger LOG = Logger.getLogger(MutationScore.class);
+	
 	static {
 		LibraryManager.registerLibrary(FMCoreLibrary.getInstance());
 		TestContext.IN_TEST = true;
@@ -83,14 +87,13 @@ public class MutationScore {
 
 	//
 	// for enum translation
-	// it trasforms the test in a configuration an then it checks that it valid in
+	// it transforms the test in a configuration an then it checks that it valid in
 	// the FM
-	//
 	public static Boolean isTestValidEnum(IFeatureModel featureModel, ctwedge.util.Test test) {
 		FeatureModelFormula featureModelFormula = new FeatureModelFormula(featureModel);
 		Configuration conf = new Configuration(featureModelFormula);
 		// Set every assignment in the test as feature selected or not
-		System.out.println(test.entrySet());
+		LOG.debug("test (ctwedge) " + test.entrySet());
 		for (Entry<String, String> assignemnt : test.entrySet()) {
 			String value = assignemnt.getValue();
 			// is feature present
@@ -108,7 +111,7 @@ public class MutationScore {
 					// quelle sotto sono tutte unselected
 					List<IFeatureStructure> children = featureModel.getFeature(featurename).getStructure().getChildren();
 					for(IFeatureStructure child:children) {
-						System.out.println("setting " + child.getFeature().getName() + " to " + Selection.UNSELECTED);
+						LOG.debug("setting " + child.getFeature().getName() + " to " + Selection.UNSELECTED);
 						conf.setManual(child.getFeature().getName(), Selection.UNSELECTED);
 					}
 				} else {
@@ -121,12 +124,12 @@ public class MutationScore {
 							childsel = Selection.SELECTED;
 						else
 							childsel = Selection.UNSELECTED;
-						System.out.println("setting " + child.getFeature().getName() + " to " +childsel);
+						LOG.debug("setting " + child.getFeature().getName() + " to " +childsel);
 						conf.setManual(child.getFeature().getName(), childsel);
 					}
 				}
 			}
-			System.out.println("setting " + featurename + " to " + sel);
+			LOG.debug("setting " + featurename + " to " + sel);
 			conf.setManual(featurename, sel);
 		}
 		// check completeness of the configuration (partial tests are not allowed??)
@@ -139,12 +142,12 @@ public class MutationScore {
 			// features not setted but that are in the test:
 			//Set<String> feeaturesInTest
 			//if (!settedFeatures.equals(featuresInTest)) {
-				System.out.println("features in configuration setted by the test: " + settedFeatures);
-				System.out.println("features in the test: " + featuresInTest);
+				LOG.debug("features in configuration setted by the test: " + settedFeatures);
+				LOG.debug("features in the test: " + featuresInTest);
 			//	assert false;
 			//}
 			// features in the feature model however are:
-			System.out.println("features in the feature model: " + Utils.getFeatureNames(featureModel));	
+			LOG.debug("features in the feature model: " + Utils.getFeatureNames(featureModel));	
 		}
 		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
 		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
@@ -159,6 +162,7 @@ public class MutationScore {
 
 	// for boolean translation (only true or false for each feature)
 	// forse si può fondere con il precedente, cioè chi lo chiama può ignorare
+	// questo ha in piu' il trattamento di cose succede se non è presente
 	static public Boolean isTestValidBool(IFeatureModel featureModel, ctwedge.util.Test test) {
 		FeatureModelFormula featureModelFormula = new FeatureModelFormula(featureModel);
 		Configuration conf = new Configuration(featureModelFormula);
