@@ -71,7 +71,13 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 	private String runTool(File model, String seedFileName) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		List<String> command = new ArrayList<String>();
-		String pictExecutable = path + "/pict.exe";
+		String pictExecutable;
+		if (System.getProperty("os.name").startsWith("Windows")) {
+			pictExecutable = path + "/pict.exe";
+		}
+		else {
+			pictExecutable = path + "/pict";
+		}
 		command.add(pictExecutable);
 		command.add(model.getAbsolutePath());
 		
