@@ -8,6 +8,10 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
+import org.jfree.util.Log;
+
 import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Constraint;
 import ctwedge.ctWedge.Parameter;
@@ -30,7 +34,7 @@ import edu.uta.cse.fireeye.service.engine.IpoEngine;
  **/
 public class ACTSTranslator extends ICTWedgeTestGenerator {
 
-	public static boolean PRINT = true;
+	static Logger LOG = Logger.getLogger(ACTSTranslator.class);
 
 	public ACTSTranslator() {
 		super("ACTS");
@@ -63,15 +67,13 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 	public SUT buildSUT(CitModel citModel, boolean ignoreConstraints, int nWise) {
 		SUT sut = new SUT(citModel.getName());
 		try {
-			if (PRINT)
-				System.out.println("Building SUT...");
+			Log.debug("Building SUT...");
 			// build a system configuration
 			// it is recommended to create a new parameter from the SUT object
 			// doing so will assign the parameter with an ID automatically
 			ACTSParameterAdder paramBuilder = new ACTSParameterAdder(sut);
 			tanslateParameter(citModel, paramBuilder);
-			if (PRINT)
-				System.out.println("Building SUT...");
+			Log.debug("adding relations ... ");
 			//
 			// create relation
 			Relation r = new Relation(nWise);
@@ -83,11 +85,9 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 
 			// add the default relation
 			// sut.addDefaultRelation(nWise);
-
-			if (PRINT)
-				System.out.println("Building SUT...");
 			// create constraints
 			if (!ignoreConstraints) {
+				Log.debug("adding constraints ... ");
 				translateConstraints(citModel, sut);
 			}
 			// ConstraintManager cm = new ConstraintManager(sut);
@@ -99,20 +99,16 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 
 	private void translateConstraints(CitModel citModel, SUT sut) {
 		ACTSConstraintTranslator trans = new ACTSConstraintTranslator(citModel);
-
-		if (PRINT)
-			System.out.println(ACTSConstraintTranslator.dump(citModel, ""));
+		Log.debug(ACTSConstraintTranslator.dump(citModel, ""));
 		for (Constraint c : citModel.getConstraints()) {
 			// to String
 			String casString = trans.doSwitch(c);
-			if (PRINT)
-				System.out.println("casString: " + casString);
+			Log.debug("casString: " + casString);
 			assert casString != null;
 			// to list of parameters
 			// TODO it works if if null, not clear what method to use to get the parameters
 			ArrayList<edu.uta.cse.fireeye.common.Parameter> pInC = sut.getParams();
-			if (PRINT)
-				System.out.println(pInC);
+			Log.debug("paramters in constraints" + pInC);
 			edu.uta.cse.fireeye.common.Constraint constraint = new edu.uta.cse.fireeye.common.Constraint(casString,
 					pInC);
 			assert constraint != null : "Constraint null";
@@ -139,13 +135,11 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			SUT sut = buildSUT(model, ignoreConstraints, strength);
 			return getTestSuite(model, strength, ignoreConstraints, sut);
 		} catch (Exception e) {
-			if (PRINT)
-				System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	@Override
 	public TestSuite getTestSuite(CitModel model, int strength, boolean ignoreConstraints, TestSuite ts) {
 		try {
@@ -159,8 +153,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 			}
 			return getTestSuite(model, strength, ignoreConstraints, sut);
 		} catch (Exception e) {
-			if (PRINT)
-				System.out.println("Error: " + e.getMessage());
+			Log.debug("adding relations ... ");
 			e.printStackTrace();
 		}
 		return null;
@@ -180,9 +173,9 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 		}
 		out.append("\n");
 		// Write values
-		for(Test t : ts.getTests()) {
+		for (Test t : ts.getTests()) {
 			counter = 0;
-			for (Parameter p : model.getParameters()) { 
+			for (Parameter p : model.getParameters()) {
 				if (counter > 0)
 					out.append(separator);
 				out.append(t.get(p.getName()));
@@ -198,40 +191,30 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 		String res = "";
 		long t_end = 0;
 		long t_start = 0;
-		if (PRINT)
-			System.out.println(
-					"ACTS sto chiamando ACTS... on " + model.getName() + " " + strength + " " + ignoreConstraints);
+		Log.debug("ACTS sto chiamando ACTS... on " + model.getName() + " " + strength + " " + ignoreConstraints);
 		try {
-			if (PRINT)
-				System.out.println("1. ACTS sto chiamando ACTS... - building engine");
+			Log.debug("1. ACTS sto chiamando ACTS... - building engine");
 			// Create an IPO engine object
 			t_start = System.currentTimeMillis();
 			IpoEngine engine = new IpoEngine(sut);
-			if (PRINT)
-				System.out.println("2. ACTS sto chiamando ACTS... - printing sut");
-			if (PRINT)
-				System.out.println(sut.toString());
-			if (PRINT)
-				System.out.println("3. ACTS sto chiamando ACTS... . calling build");
+			Log.debug("2. ACTS sto chiamando ACTS... - printing sut");
+			Log.debug(sut.toString());
+			Log.debug("3. ACTS sto chiamando ACTS... . calling build");
 			engine.buildOnlyPT(Algorithm.ipog);
 			// get the resulting test set
-			if (PRINT)
-				System.out.println("4. ACTS sto chiamando ACTS... - get the TS");
+			Log.debug("4. ACTS sto chiamando ACTS... - get the TS");
 			TestSet ts = engine.getTestSet();
-			if (PRINT)
-				System.out.println("5. ACTS sto chiamando ACTS... - saving tests");
+			Log.debug("5. ACTS sto chiamando ACTS... - saving tests");
 			t_end = System.currentTimeMillis();
 			if (ts != null)
 				res = serializeTestSet(model, ts);
 
 		} catch (Exception e) {
-			if (PRINT)
-				System.out.println("Error: " + e.getMessage());
+			Log.debug("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 
-		if (PRINT)
-			System.out.println("Obtained res: " + res);
+		Log.debug("Obtained res: " + res);
 
 		/*
 		 * CitModel m = ModelsFromStringsTester.loadModel(model); try { TestPolicy tp =
@@ -410,8 +393,7 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 				}
 			}
 			p.println();
-			if (PRINT)
-				System.out.println("IGNORING TSs");
+			Log.debug("IGNORING TSs");
 			p.close();
 		} catch (Exception e) {
 			e.printStackTrace();

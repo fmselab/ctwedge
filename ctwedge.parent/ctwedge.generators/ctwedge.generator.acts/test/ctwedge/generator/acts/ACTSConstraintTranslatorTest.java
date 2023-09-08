@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
@@ -43,7 +45,7 @@ public class ACTSConstraintTranslatorTest {
 		CitModel ctmodel = Utility.loadModelFromPath(filePath);
 		assertEquals(1, ctmodel.getConstraints().size());
 		Constraint constraint = ctmodel.getConstraints().get(0);
-		ACTSTranslator.PRINT = false;
+		Logger.getLogger(ACTSTranslator.class).setLevel(Level.OFF);
 		ACTSConstraintTranslator trans = new ACTSConstraintTranslator(ctmodel);
 		ACTSConstraintTranslator.PRINT = false;
 		String res = trans.doSwitch(constraint);

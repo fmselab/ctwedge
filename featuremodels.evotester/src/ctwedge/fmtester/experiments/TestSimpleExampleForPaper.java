@@ -287,7 +287,7 @@ public class TestSimpleExampleForPaper {
 		IFeatureModel fm = Utils.readModel(path + model + ".xml");
 
 		// Define the mutators
-		FMMutator[] mutatorList = FMMutationProcess.allMutationOperators();
+		List<FMMutator> mutatorList = FMMutationProcess.allMutationOperatorsAsList();
 
 		// Repeat the experiments for higher number of mutations
 		int nModel = 0;
@@ -296,15 +296,15 @@ public class TestSimpleExampleForPaper {
 			// Extract the index of mutations
 			ArrayList<Integer> mutationIndex = new ArrayList<>();
 			for (int i = 0; i < j; i++) {
-				mutationIndex.add(generator.nextInt(mutatorList.length));
+				mutationIndex.add(generator.nextInt(mutatorList.size()));
 			}
 			// Now, apply the mutations to the model
 			for (int index : mutationIndex) {
 				ArrayList<FMMutation> mutationsList = new ArrayList<>();
-				Iterator<FMMutation> mutations = mutatorList[index].mutate(fm);
+				Iterator<FMMutation> mutations = mutatorList.get(index).mutate(fm);
 				while (!mutations.hasNext()) {
-					index = generator.nextInt(mutatorList.length);
-					mutations = mutatorList[index].mutate(fm);
+					index = generator.nextInt(mutatorList.size());
+					mutations = mutatorList.get(index).mutate(fm);
 					System.out.println("New index");
 				}
 				mutations.forEachRemaining(mutationsList::add);
@@ -353,7 +353,7 @@ public class TestSimpleExampleForPaper {
 		IFeatureModel fm = Utils.readModel(path + model + ".xml");
 
 		// Define the mutators
-		FMMutator[] mutatorList = FMMutationProcess.allMutationOperators();
+		List<FMMutator> mutatorList = FMMutationProcess.allMutationOperatorsAsList();
 		int i = 0;
 
 		// Apply the mutations
@@ -746,7 +746,7 @@ public class TestSimpleExampleForPaper {
 		IFeatureModel fm = Utils.readModel(fmPath);
 
 		// Define the mutators
-		FMMutator[] mutatorList = FMMutationProcess.allMutationOperators();
+		List<FMMutator> mutatorList = FMMutationProcess.allMutationOperatorsAsList();
 
 		// Apply the mutations
 		for (FMMutator mut : mutatorList) {
