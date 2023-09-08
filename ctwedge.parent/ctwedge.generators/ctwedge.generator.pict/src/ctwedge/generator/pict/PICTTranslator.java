@@ -24,7 +24,11 @@ public class PICTTranslator{
 		String s = "";
 		PICTConstraintTranslator constraintTranslator = new PICTConstraintTranslator(citModel);
 		for (Constraint constr : citModel.getConstraints()) {
-			s += constraintTranslator.doSwitch(constr) + ";\n";
+			try {
+				s += constraintTranslator.doSwitch(constr) + ";\n"; 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return s;
 	}

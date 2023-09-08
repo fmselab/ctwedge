@@ -16,8 +16,7 @@ public class SpecificityChecker {
 	SpecificityChecker(IFeatureModel oldFm,IFeatureModel newFm, boolean useEnum){
 		this.oldFm = oldFm;
 		this.newFm = newFm;		
-		this.useEnum  = useEnum;
-		
+		this.useEnum  = useEnum;	
 	}
 
 	public boolean isSpecific(Test t) {

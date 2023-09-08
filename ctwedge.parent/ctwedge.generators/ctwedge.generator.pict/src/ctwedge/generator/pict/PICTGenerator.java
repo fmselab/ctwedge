@@ -41,10 +41,9 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 	private TestSuite getTS(CitModel citModel, int nWise, boolean ignoreConstraints, String seedFileName) throws IOException {
 		File tempModel = File.createTempFile("pictmodel_" + citModel.getName(), ".txt");
 		System.out.println(tempModel.getAbsolutePath());
-		//tempModel.deleteOnExit();
-		System.out.println(tempModel.getAbsolutePath());
 		BufferedWriter out = new BufferedWriter(new FileWriter(tempModel));
 		String pictModel = translateModel(citModel, ignoreConstraints);
+		assert pictModel != null && !pictModel.equals("");
 		out.append(pictModel);
 		out.close();
 		System.out.println("\n------- MODELLO PICT -------\n");
@@ -71,7 +70,7 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 	private String runTool(File model, String seedFileName) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		List<String> command = new ArrayList<String>();
-		String pictExecutable;
+		String pictExecutable = "";
 		if (System.getProperty("os.name").startsWith("Windows")) {
 			pictExecutable = path + "/pict.exe";
 		}
@@ -165,6 +164,7 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 			out.append("\n");
 		}
 		out.close();
+		System.out.println(tempModel.getAbsolutePath());
 		// Execute the tool
 		return getTS(model, strength, ignoreConstraints, tempModel.getAbsolutePath());
 	}
