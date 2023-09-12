@@ -150,18 +150,20 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 		}
 		out.append("\n");
 		// Write values
-		for(Test t : ts.getTests()) {
-			counter = 0;
-			for (Parameter p : model.getParameters()) { 
-				if (counter > 0)
-					out.append("\t");
-				if (t.get(p.getName()).equals("*"))
-					out.append("");
-				else
-					out.append(t.get(p.getName()));
-				counter++;
+		if (ts != null) {
+			for(Test t : ts.getTests()) {
+				counter = 0;
+				for (Parameter p : model.getParameters()) { 
+					if (counter > 0)
+						out.append("\t");
+					if (t.get(p.getName()).equals("*"))
+						out.append("");
+					else
+						out.append(t.get(p.getName()));
+					counter++;
+				}
+				out.append("\n");
 			}
-			out.append("\n");
 		}
 		out.close();
 		System.out.println(tempModel.getAbsolutePath());
