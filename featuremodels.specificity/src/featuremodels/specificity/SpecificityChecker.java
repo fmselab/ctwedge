@@ -4,7 +4,6 @@ import ctwedge.fmtester.experiments.MutationScore;
 import ctwedge.fmtester.experiments.MutationScore.MissingFeatureTreatment;
 import ctwedge.util.Test;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
-import fmautorepair.utils.Utils;
 
 // check the specificity of a test
 public class SpecificityChecker {
