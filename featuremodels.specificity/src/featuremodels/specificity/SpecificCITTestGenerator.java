@@ -83,7 +83,8 @@ public class SpecificCITTestGenerator {
 		return getTestSuiteFromTests(specificTests, nonSpecificTests);
 	}
 
-	private TestSuite getTestSuiteFromTests(ArrayList<BDD> specificTests2, ArrayList<BDD> nonSpecificTests2) {
+	private TestSuite getTestSuiteFromTests(ArrayList<BDD> specificTests, ArrayList<BDD> nonSpecificTests) {
+		System.out.println(specificTests.get(0).satOne().toStringWithDomains());
 		// TODO Return a real test suite
 		return null;
 	}
@@ -122,7 +123,7 @@ public class SpecificCITTestGenerator {
 	 */
 	private BDD getBDDFromFM(IFeatureModel fm) {
 		// Create an FMToBDD object based on the list of features of the model
-		FMToBDD bdd_builder = new FMToBDD(fm.getFeatures().stream().map(t -> t.getName()).toList());
+		FMToBDD bdd_builder = new FMToBDD(fm.getFeatureOrderList());
 		// Convert the FM into the corresponding BDD
 		return bdd_builder.nodeToBDD(NodeCreator.createNodes(fm));
 	}
