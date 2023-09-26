@@ -33,7 +33,8 @@ public class SpecificityCITTestGeneratorTest {
 		Path newFMPath = Path.of(PP_UV2_XML);
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
 		
-		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, false, 2);
+		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
+		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
 		TestSuite ts = gen.generateSpecificTestSuite();
 	}
 	

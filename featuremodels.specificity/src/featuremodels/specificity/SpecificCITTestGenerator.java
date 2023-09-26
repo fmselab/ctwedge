@@ -2,42 +2,43 @@ package featuremodels.specificity;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.prop4j.And;
 import org.prop4j.FMToBDD;
+import org.prop4j.Literal;
+import org.prop4j.Node;
+import org.prop4j.Not;
 
-import ctwedge.fmtester.experiments.TestSimpleExampleForPaper;
 import ctwedge.util.TestSuite;
-import ctwedge.util.ext.Utility;
+import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.editing.NodeCreator;
 import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
 import net.sf.javabdd.BDD;
-import pMedici.util.Operations;
-import pMedici.util.Order;
+import net.sf.javabdd.BDD.AllSatIterator;
 import pMedici.util.Pair;
 import pMedici.util.TupleGenerator;
 
 // it generates specific tests if possible
 public class SpecificCITTestGenerator {
-
+	
+	private Logger logger = Logger.getLogger(SpecificCITTestGenerator.class);
 	private IFeatureModel oldFm;
 	private IFeatureModel newFm;
-	// TODO do we really need it?
-	private boolean useEnum;
 	private int strength;
 	private ArrayList<BDD> specificTests;
 	private ArrayList<BDD> nonSpecificTests;
 
-	SpecificCITTestGenerator(IFeatureModel oldFm, IFeatureModel newFm, boolean useEnum, int strength) {
+	SpecificCITTestGenerator(IFeatureModel oldFm, IFeatureModel newFm, int strength) {
 		FMCoreLibrary.getInstance().install();
 		this.oldFm = oldFm;
 		this.newFm = newFm;
-		this.useEnum = useEnum;
 		this.strength = strength;
 		this.specificTests = new ArrayList<BDD>();
 		this.nonSpecificTests = new ArrayList<BDD>();
@@ -51,18 +52,24 @@ public class SpecificCITTestGenerator {
 	 */
 	public TestSuite generateSpecificTestSuite() throws IOException {
 		// Get all the tuples for this feature model
-		Iterator<List<Pair<Integer, Integer>>> tg = getTuplesFromFM(newFm, strength);
+		Iterator<List<Pair<String, Integer>>> tg = getTuplesFromFM(newFm, strength);
 		// BDD Builder. It must be used for creating all BDDs in order to maintain the
 		// same origin structure
-		FMToBDD bdd_builder = new FMToBDD(newFm.getFeatures().stream().map(t -> t.getName()).toList());
+		List<String> featureList = newFm.getFeatures().stream().map(t -> t.getName()).toList();
+		FMToBDD bdd_builder = new FMToBDD(featureList);
 		// Convert the two FMs into their corresponding BDDs
 		BDD bddNew = getBDDFromFM(newFm, bdd_builder);
 		BDD bddOld = getBDDFromFM(oldFm, bdd_builder);
+
+		// Just for debug purposes, print the list of satisfying products
+		printBDDSat(featureList, bddNew);
+		printBDDSat(featureList, bddOld);
 
 		// Initial BDD. All possible assignments satisfying this BDD are those that are
 		// SPECIFIC for the test evolution
 		BDD bddInitial = bddOld.not();
 		bddInitial = bddInitial.and(bddNew);
+		printBDDSat(featureList, bddInitial);
 		boolean skipSpecific = (bddInitial.satCount() == 0);
 
 		// List of specific and non specific tests
@@ -71,10 +78,18 @@ public class SpecificCITTestGenerator {
 
 		// Fetch all tuples
 		while (tg.hasNext()) {
-			List<Pair<Integer, Integer>> tp = tg.next();
-			// TODO how to map tuples (i.e., pairs of integers) into a BDD? It depends on
-			// the structure of the BDD itself
-			BDD bddTuple = null;
+			List<Pair<String, Integer>> tp = tg.next();
+			String tpAsString = tp.stream().map(x -> "[" + x.getFirst() + "," + x.getSecond() + "]").collect(Collectors.joining(","));
+			logger.debug("Checking " + tpAsString);
+			
+			// Build the node for the tuple under consideration
+			Node newBDDNode = NodeCreator.createNodes(newFm);
+			for (Pair<String, Integer> elem : tp) {
+				IFeature feature = newFm.getFeature(elem.getFirst());
+				newBDDNode = new And((elem.getSecond() == 1 ? new Literal(feature) : new Not(new Literal(feature))),newBDDNode);
+			}			
+			BDD bddTuple = bdd_builder.nodeToBDD(newBDDNode);
+			
 			// The tuple cannot be covered
 			if (bddNew.and(bddTuple).satCount() == 0)
 				continue;
@@ -88,11 +103,34 @@ public class SpecificCITTestGenerator {
 		}
 
 		// Return the test suite
-		return getTestSuiteFromTests(specificTests, nonSpecificTests);
+		return getTestSuiteFromTests(specificTests, nonSpecificTests, featureList);
 	}
 
-	private TestSuite getTestSuiteFromTests(ArrayList<BDD> specificTests, ArrayList<BDD> nonSpecificTests) {
-		System.out.println(specificTests.get(0).satOne().toStringWithDomains());
+	/**
+	 * Prints the assignments satisfying the BDD
+	 * 
+	 * @param featureList the list of features
+	 * @param bdd         the bdd
+	 */
+	private void printBDDSat(List<String> featureList, BDD bdd) {
+		AllSatIterator it = bdd.allsat();
+		while (it.hasNext()) {
+			byte[] thisSat = (byte[]) it.next();
+			for (int i = 0; i < featureList.size(); i++) {
+				logger.debug(
+						featureList.get(i) + " -> " + (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*")));
+			}
+			logger.debug("---------");
+		}
+	}
+
+	private TestSuite getTestSuiteFromTests(ArrayList<BDD> specificTests, ArrayList<BDD> nonSpecificTests,
+			List<String> featureList) {
+		// Header
+		String ts = featureList.stream().collect(Collectors.joining(";"));
+		// Specific tests
+		logger.debug("Generated " + specificTests.size() + " specific tests");
+		logger.debug("Generated " + nonSpecificTests.size() + " non specific tests");
 		// TODO Return a real test suite
 		return null;
 	}
@@ -138,17 +176,19 @@ public class SpecificCITTestGenerator {
 	/**
 	 * Given the feature model, it returns the iterator over all the tuples
 	 * 
-	 * @param newFm2 the feature model
+	 * @param fm the feature model
 	 * @return the iterator over all tuples derived from the feature model newFM2
-	 * @throws IOException
 	 */
-	private Iterator<List<Pair<Integer, Integer>>> getTuplesFromFM(IFeatureModel newFm2, int strength)
-			throws IOException {
-		TestSimpleExampleForPaper tester = new TestSimpleExampleForPaper();
-		String oldModel = tester.convertModelFromFMToCTW(newFm2, "temp");
-		LinkedHashMap<Integer, List<Integer>> elements = Operations.getElementsMap(Utility.loadModelFromPath(oldModel),
-				Order.AS_DECLARED);
-		return TupleGenerator.getAllKWiseCombination(elements, strength);
+	private Iterator<List<Pair<String, Integer>>> getTuplesFromFM(IFeatureModel fm, int strength) {
+		List<String> features = newFm.getFeatures().stream().map(t -> t.getName()).toList();
+		HashMap<String, List<Integer>> values = new HashMap<>();
+		ArrayList<Integer> featureValues = new ArrayList<Integer>();
+		featureValues.add(0);
+		featureValues.add(1);
+		for (String s : features) {
+			values.put(s, featureValues);
+		}
+		return TupleGenerator.getAllKWiseCombination(values, strength);
 	}
 
 }
