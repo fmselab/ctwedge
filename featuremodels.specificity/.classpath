@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry combineaccessrules="false" kind="src" path="/fmautorepair.utils"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
@@ -16,7 +17,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.importer.featureide"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.util"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/fmautorepair.utils"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/log4j.jar"/>
+	<classpathentry kind="src" path="/pMEDICI"/>
+	<classpathentry kind="lib" path="/fmautorepair.libs/javabdd.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

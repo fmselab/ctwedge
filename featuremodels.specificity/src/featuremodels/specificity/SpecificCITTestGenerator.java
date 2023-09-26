@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 import org.prop4j.FMToBDD;
 
 import ctwedge.fmtester.experiments.TestSimpleExampleForPaper;
@@ -13,6 +15,7 @@ import ctwedge.util.TestSuite;
 import ctwedge.util.ext.Utility;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.editing.NodeCreator;
+import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
 import net.sf.javabdd.BDD;
 import pMedici.util.Operations;
 import pMedici.util.Order;
@@ -31,6 +34,7 @@ public class SpecificCITTestGenerator {
 	private ArrayList<BDD> nonSpecificTests;
 
 	SpecificCITTestGenerator(IFeatureModel oldFm, IFeatureModel newFm, boolean useEnum, int strength) {
+		FMCoreLibrary.getInstance().install();
 		this.oldFm = oldFm;
 		this.newFm = newFm;
 		this.useEnum = useEnum;
@@ -48,13 +52,17 @@ public class SpecificCITTestGenerator {
 	public TestSuite generateSpecificTestSuite() throws IOException {
 		// Get all the tuples for this feature model
 		Iterator<List<Pair<Integer, Integer>>> tg = getTuplesFromFM(newFm, strength);
+		// BDD Builder. It must be used for creating all BDDs in order to maintain the
+		// same origin structure
+		FMToBDD bdd_builder = new FMToBDD(newFm.getFeatures().stream().map(t -> t.getName()).toList());
 		// Convert the two FMs into their corresponding BDDs
-		BDD bddNew = getBDDFromFM(newFm);
-		BDD bddOld = getBDDFromFM(oldFm);
+		BDD bddNew = getBDDFromFM(newFm, bdd_builder);
+		BDD bddOld = getBDDFromFM(oldFm, bdd_builder);
 
 		// Initial BDD. All possible assignments satisfying this BDD are those that are
 		// SPECIFIC for the test evolution
-		BDD bddInitial = bddOld.not().and(bddNew);
+		BDD bddInitial = bddOld.not();
+		bddInitial = bddInitial.and(bddNew);
 		boolean skipSpecific = (bddInitial.satCount() == 0);
 
 		// List of specific and non specific tests
@@ -99,7 +107,7 @@ public class SpecificCITTestGenerator {
 	 * @return
 	 */
 	private boolean tryToCover(BDD tp, ArrayList<BDD> testSet, BDD bddNoTp) {
-		for(BDD bdd : testSet) {
+		for (BDD bdd : testSet) {
 			// If the tuple can be covered with the considered test-BDD
 			if (bdd.and(bddNoTp).satCount() > 0) {
 				bdd = bdd.and(bddNoTp);
@@ -118,12 +126,11 @@ public class SpecificCITTestGenerator {
 	/**
 	 * Given the FM of interest, the method returns the corresponding BDD
 	 * 
-	 * @param fm the feature model
+	 * @param fm          the feature model
+	 * @param bdd_builder the bdd builder
 	 * @return the bdd
 	 */
-	private BDD getBDDFromFM(IFeatureModel fm) {
-		// Create an FMToBDD object based on the list of features of the model
-		FMToBDD bdd_builder = new FMToBDD(fm.getFeatureOrderList());
+	private BDD getBDDFromFM(IFeatureModel fm, FMToBDD bdd_builder) {
 		// Convert the FM into the corresponding BDD
 		return bdd_builder.nodeToBDD(NodeCreator.createNodes(fm));
 	}
