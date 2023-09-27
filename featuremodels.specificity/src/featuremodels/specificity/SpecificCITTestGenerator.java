@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.prop4j.And;
 import org.prop4j.FMToBDD;
@@ -27,7 +27,7 @@ import pMedici.util.TupleGenerator;
 
 // it generates specific tests if possible
 public class SpecificCITTestGenerator {
-	
+
 	private Logger logger = Logger.getLogger(SpecificCITTestGenerator.class);
 	private IFeatureModel oldFm;
 	private IFeatureModel newFm;
@@ -53,13 +53,21 @@ public class SpecificCITTestGenerator {
 	public TestSuite generateSpecificTestSuite() throws IOException {
 		// Get all the tuples for this feature model
 		Iterator<List<Pair<String, Integer>>> tg = getTuplesFromFM(newFm, strength);
+		// The set of features is the union between those from the old model and those
+		// from the new one
+		LinkedHashSet<String> featureSet = newFm.getFeatures().stream().map(t -> t.getName())
+				.collect(Collectors.toCollection(LinkedHashSet::new));
+		featureSet.addAll(oldFm.getFeatures().stream().map(t -> t.getName()).toList());
+		List<String> featureList = new ArrayList<String>(featureSet);
 		// BDD Builder. It must be used for creating all BDDs in order to maintain the
 		// same origin structure
-		List<String> featureList = newFm.getFeatures().stream().map(t -> t.getName()).toList();
 		FMToBDD bdd_builder = new FMToBDD(featureList);
 		// Convert the two FMs into their corresponding BDDs
 		BDD bddNew = getBDDFromFM(newFm, bdd_builder);
 		BDD bddOld = getBDDFromFM(oldFm, bdd_builder);
+
+		// Set in bddNew the deleted features
+		bddNew = setDeletedFeatures(bddNew, newFm, featureList, bdd_builder);
 
 		// Just for debug purposes, print the list of satisfying products
 		printBDDSat(featureList, bddNew);
@@ -79,17 +87,19 @@ public class SpecificCITTestGenerator {
 		// Fetch all tuples
 		while (tg.hasNext()) {
 			List<Pair<String, Integer>> tp = tg.next();
-			String tpAsString = tp.stream().map(x -> "[" + x.getFirst() + "," + x.getSecond() + "]").collect(Collectors.joining(","));
+			String tpAsString = tp.stream().map(x -> "[" + x.getFirst() + "," + x.getSecond() + "]")
+					.collect(Collectors.joining(","));
 			logger.debug("Checking " + tpAsString);
-			
+
 			// Build the node for the tuple under consideration
 			Node newBDDNode = NodeCreator.createNodes(newFm);
 			for (Pair<String, Integer> elem : tp) {
 				IFeature feature = newFm.getFeature(elem.getFirst());
-				newBDDNode = new And((elem.getSecond() == 1 ? new Literal(feature) : new Not(new Literal(feature))),newBDDNode);
-			}			
+				newBDDNode = new And((elem.getSecond() == 1 ? new Literal(feature) : new Not(new Literal(feature))),
+						newBDDNode);
+			}
 			BDD bddTuple = bdd_builder.nodeToBDD(newBDDNode);
-			
+
 			// The tuple cannot be covered
 			if (bddNew.and(bddTuple).satCount() == 0)
 				continue;
@@ -104,6 +114,24 @@ public class SpecificCITTestGenerator {
 
 		// Return the test suite
 		return getTestSuiteFromTests(specificTests, nonSpecificTests, featureList);
+	}
+
+	/**
+	 * Removes the features deleted in the new Feature model (if any)
+	 * 
+	 * @param bddNew the bdd of the new fm
+	 * @param fm the feature model
+	 * @param featureList the list of all the features
+	 * @param bdd_builder the BDD Builder
+	 * @return the updated bdd
+	 */
+	private BDD setDeletedFeatures(BDD bddNew, IFeatureModel fm, List<String> featureList, FMToBDD bdd_builder) {
+		for (String feature : featureList) {
+			if (fm.getFeature(feature) == null) {
+				bddNew.andWith(bdd_builder.nodeToBDD(new Not(new Literal(feature))));
+			}
+		}
+		return bddNew;
 	}
 
 	/**
@@ -145,7 +173,7 @@ public class SpecificCITTestGenerator {
 	 * @return
 	 */
 	private boolean tryToCover(BDD tp, ArrayList<BDD> testSet, BDD bddNoTp) {
-		for (int i=0; i<testSet.size(); i++) {
+		for (int i = 0; i < testSet.size(); i++) {
 			// If the tuple can be covered with the considered test-BDD
 			if (testSet.get(i).and(bddNoTp).satCount() > 0) {
 				testSet.set(i, testSet.get(i).and(bddNoTp));
