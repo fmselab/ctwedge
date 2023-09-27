@@ -15,6 +15,8 @@ import org.prop4j.Literal;
 import org.prop4j.Node;
 import org.prop4j.Not;
 
+import ctwedge.ctWedge.CitModel;
+import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
@@ -113,14 +115,15 @@ public class SpecificCITTestGenerator {
 		}
 
 		// Return the test suite
-		return getTestSuiteFromTests(specificTests, nonSpecificTests, featureList);
+		return getTestSuiteFromTests(specificTests, nonSpecificTests, featureList,
+				new XmlFeatureModelImporter().importModel(newFm));
 	}
 
 	/**
 	 * Removes the features deleted in the new Feature model (if any)
 	 * 
-	 * @param bddNew the bdd of the new fm
-	 * @param fm the feature model
+	 * @param bddNew      the bdd of the new fm
+	 * @param fm          the feature model
 	 * @param featureList the list of all the features
 	 * @param bdd_builder the BDD Builder
 	 * @return the updated bdd
@@ -152,15 +155,48 @@ public class SpecificCITTestGenerator {
 		}
 	}
 
+	/**
+	 * Returns a TestSuite object starting from the two sets of specific and non
+	 * specific tests
+	 * 
+	 * @param specificTests    the set of specific tests
+	 * @param nonSpecificTests the set of non specific tests
+	 * @param featureList      the list of features
+	 * @param modelNew         the new CITModel
+	 * @return
+	 */
 	private TestSuite getTestSuiteFromTests(ArrayList<BDD> specificTests, ArrayList<BDD> nonSpecificTests,
-			List<String> featureList) {
+			List<String> featureList, CitModel modelNew) {
 		// Header
-		String ts = featureList.stream().collect(Collectors.joining(";"));
+		String ts = featureList.stream().collect(Collectors.joining(";")) + ";\n";
 		// Specific tests
 		logger.debug("Generated " + specificTests.size() + " specific tests");
+		for (BDD st : specificTests) {
+			AllSatIterator it = st.allsat();
+			while (it.hasNext()) {
+				byte[] thisSat = (byte[]) it.next();
+				for (int i = 0; i < featureList.size(); i++) {
+					ts = ts + (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*"));
+				}
+				ts = ts + "\n";
+			}
+		}
+		// Not specific tests
 		logger.debug("Generated " + nonSpecificTests.size() + " non specific tests");
-		// TODO Return a real test suite
-		return null;
+		for (BDD st : nonSpecificTests) {
+			AllSatIterator it = st.allsat();
+			while (it.hasNext()) {
+				byte[] thisSat = (byte[]) it.next();
+				for (int i = 0; i < featureList.size(); i++) {
+					ts = ts + (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*")) + ";";
+				}
+				ts = ts + "\n";
+			}
+		}
+		System.out.println(ts);
+
+		// Return a real test suite
+		return new TestSuite(ts, modelNew, ";");
 	}
 
 	/**
