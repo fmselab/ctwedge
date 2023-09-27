@@ -170,7 +170,7 @@ public class SpecificCITTestGenerator {
 		// Header
 		String ts = featureList.stream().collect(Collectors.joining(";")) + ";\n";
 		// Specific tests
-		logger.debug("Generated " + specificTests.size() + " specific tests");
+		logger.debug("Generated " + specificTests.size() + " specific BDDs");
 		for (BDD st : specificTests) {
 			AllSatIterator it = st.allsat();
 			while (it.hasNext()) {
@@ -182,7 +182,7 @@ public class SpecificCITTestGenerator {
 			}
 		}
 		// Not specific tests
-		logger.debug("Generated " + nonSpecificTests.size() + " non specific tests");
+		logger.debug("Generated " + nonSpecificTests.size() + " non specific BDDs");
 		for (BDD st : nonSpecificTests) {
 			AllSatIterator it = st.allsat();
 			while (it.hasNext()) {
