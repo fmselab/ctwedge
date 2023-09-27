@@ -211,8 +211,8 @@ public class SpecificCITTestGenerator {
 	private boolean tryToCover(BDD tp, ArrayList<BDD> testSet, BDD bddNoTp) {
 		for (int i = 0; i < testSet.size(); i++) {
 			// If the tuple can be covered with the considered test-BDD
-			if (testSet.get(i).and(bddNoTp).satCount() > 0) {
-				testSet.set(i, testSet.get(i).and(bddNoTp));
+			if (testSet.get(i).and(tp).satCount() > 0) {
+				testSet.set(i, testSet.get(i).and(tp));
 				return true;
 			}
 		}
