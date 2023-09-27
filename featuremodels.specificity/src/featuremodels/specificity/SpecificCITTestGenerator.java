@@ -176,7 +176,7 @@ public class SpecificCITTestGenerator {
 			while (it.hasNext()) {
 				byte[] thisSat = (byte[]) it.next();
 				for (int i = 0; i < featureList.size(); i++) {
-					ts = ts + (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*"));
+					ts = ts + (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*")) + ";";
 				}
 				ts = ts + "\n";
 			}

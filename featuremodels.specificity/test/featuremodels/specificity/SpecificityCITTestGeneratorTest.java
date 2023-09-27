@@ -38,5 +38,17 @@ public class SpecificityCITTestGeneratorTest {
 		TestSuite ts = gen.generateSpecificTestSuite();
 	}
 	
+	@Test
+	public void test2() throws IOException {
+		Path oldFMPath = Path.of(PP_UV2_XML);
+		IFeatureModel  oldFM = FeatureModelManager.load(oldFMPath);
+		Path newFMPath = Path.of(PP_UV1_XML);
+		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
+		
+		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
+		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
+		TestSuite ts = gen.generateSpecificTestSuite();
+	}
+	
 }
 
