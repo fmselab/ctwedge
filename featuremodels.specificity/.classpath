@@ -8,7 +8,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/fmautorepair.libs/de.ovgu.featureide.lib.fm-v3.9.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/antlr-3.4.jar"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/uvl-parser.jar"/>
@@ -20,5 +19,6 @@
 	<classpathentry kind="lib" path="/fmautorepair.libs/log4j.jar"/>
 	<classpathentry kind="src" path="/pMEDICI"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/javabdd.jar"/>
+	<classpathentry kind="lib" path="/fmautorepair.libs/de.ovgu.featureide.lib.fm-v3.10.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
