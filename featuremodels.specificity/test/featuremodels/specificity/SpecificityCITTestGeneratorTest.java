@@ -18,6 +18,10 @@ public class SpecificityCITTestGeneratorTest {
 	
 	private static final String PP_UV2_XML = "..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv2.xml";
 	private static final String PP_UV1_XML = "..\\featuremodels.evotester\\evolutionModels\\PPU\\PPUv1.xml";
+	private static final String ERP_V2_XML = "..\\featuremodels.evotester\\evolutionModels\\ERP\\ERP_SPL_s2.xml";
+	private static final String ERP_V1_XML = "..\\featuremodels.evotester\\evolutionModels\\ERP\\ERP_SPL_s1.xml";
+	private static final String BOEING_V2_XML = "..\\featuremodels.evotester\\evolutionModels\\Boeing\\Boeingv2.xml";
+	private static final String BOEING_V1_XML = "..\\featuremodels.evotester\\evolutionModels\\Boeing\\Boeingv1.xml";
 
 	static {
 		FMCoreLibrary.getInstance().install();
@@ -28,27 +32,56 @@ public class SpecificityCITTestGeneratorTest {
 	
 	@Test
 	public void test1() throws IOException {
-		Path oldFMPath = Path.of(PP_UV1_XML);
-		IFeatureModel  oldFM = FeatureModelManager.load(oldFMPath);
-		Path newFMPath = Path.of(PP_UV2_XML);
-		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
-		
-		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
-		TestSuite ts = gen.generateSpecificTestSuite();
+		executeTest(PP_UV2_XML, PP_UV1_XML);
 	}
 	
 	@Test
 	public void test2() throws IOException {
-		Path oldFMPath = Path.of(PP_UV2_XML);
+		executeTest(PP_UV1_XML, PP_UV2_XML);
+	}
+	
+	@Test
+	public void test3() throws IOException {
+		executeTest(ERP_V2_XML, ERP_V1_XML);
+	}
+	
+	@Test
+	public void test4() throws IOException {
+		executeTest(ERP_V1_XML, ERP_V2_XML);
+	}
+	
+	@Test
+	public void test5() throws IOException {
+		executeTest(BOEING_V2_XML, BOEING_V1_XML);
+	}
+	
+	@Test
+	public void test6() throws IOException {
+		executeTest(BOEING_V1_XML, BOEING_V2_XML);
+	}
+	
+	private TestSuite executeTest(String oldFm, String newFm) throws IOException {
+		Path oldFMPath = Path.of(oldFm);
 		IFeatureModel  oldFM = FeatureModelManager.load(oldFMPath);
-		Path newFMPath = Path.of(PP_UV1_XML);
+		Path newFMPath = Path.of(oldFm);
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
 		
 		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
 		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
 		TestSuite ts = gen.generateSpecificTestSuite();
+		
+		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, false);
+		int countSpec = 0;
+		int countNotSpec = 0;
+		for (ctwedge.util.Test t : ts.getTests()) {
+			if (spcheck.isSpecific(t))
+				countSpec++;
+			else
+				countNotSpec++;
+		}
+		System.out.println("spec " + countSpec + " vs not spec " + countNotSpec);
+		
+		return ts;
 	}
-	
 }
 

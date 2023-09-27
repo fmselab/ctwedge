@@ -173,7 +173,7 @@ public class SpecificCITTestGenerator {
 		logger.debug("Generated " + specificTests.size() + " specific BDDs");
 		for (BDD st : specificTests) {
 			AllSatIterator it = st.allsat();
-			while (it.hasNext()) {
+			if (it.hasNext()) {
 				byte[] thisSat = (byte[]) it.next();
 				for (int i = 0; i < featureList.size(); i++) {
 					ts = ts + (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*")) + ";";
@@ -185,7 +185,7 @@ public class SpecificCITTestGenerator {
 		logger.debug("Generated " + nonSpecificTests.size() + " non specific BDDs");
 		for (BDD st : nonSpecificTests) {
 			AllSatIterator it = st.allsat();
-			while (it.hasNext()) {
+			if (it.hasNext()) {
 				byte[] thisSat = (byte[]) it.next();
 				for (int i = 0; i < featureList.size(); i++) {
 					ts = ts + (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*")) + ";";
@@ -193,7 +193,7 @@ public class SpecificCITTestGenerator {
 				ts = ts + "\n";
 			}
 		}
-		System.out.println(ts);
+//		System.out.println(ts);
 
 		// Return a real test suite
 		return new TestSuite(ts, modelNew, ";");
