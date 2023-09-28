@@ -48,10 +48,14 @@ import pMedici.util.TestContext;
 
 public class TestSimpleExampleForPaper {
 
-	public static final String[] EV_ALIV = new String[] { "evolutionModels/AmbientAssistedLiving/",
-			"AmbientAssistedLivingv1", "AmbientAssistedLivingv2" };
-	public static final String[] EV_PPU = new String[] { "evolutionModels/PPU/", "PPUv1", "PPUv2", "PPUv3", "PPUv4",
-			"PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9" };
+	public static final String[] EV_BOING = new String[] { "evolutionModels/Boeing/", "Boeingv1", "Boeingv2", "Boeingv3" };
+	public static final String[] EV_AUTOM = new String[] { "evolutionModels/AutomotiveMultimedia/",
+			"AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3" };
+	public static final String[] EV_ALIV = 
+			new String[] { "evolutionModels/AmbientAssistedLiving/",
+						   "AmbientAssistedLivingv1", "AmbientAssistedLivingv2" };
+	public static final String[] EV_PPU = new String[] { "evolutionModels/PPU/", 
+			"PPUv1", "PPUv2", "PPUv3", "PPUv4","PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9" };
 	private static final int MAX_MUTATIONS = 10;
 	static boolean REDUCE_TEST_SUITE = true;
 
@@ -118,10 +122,8 @@ public class TestSimpleExampleForPaper {
 				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
 				launchMultipleExperiment(EV_PPU, nThreads);
 				launchMultipleExperiment(EV_ALIV, nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/AutomotiveMultimedia/",
-						"AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3" }, nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/Boeing/", "Boeingv1", "Boeingv2", "Boeingv3" }, 
-						nThreads);
+				launchMultipleExperiment(EV_AUTOM, nThreads);
+				launchMultipleExperiment(EV_BOING, nThreads);
 				launchMultipleExperiment(new String[] { "evolutionModels/CarBody/", "CarBodyv1", "CarBodyv2", "CarBodyv3", "CarBodyv4" },
 						 nThreads);
 				launchMultipleExperiment(new String[] { "evolutionModels/LinuxKernel/", "LinuxKernelv1", "LinuxKernelv2", "LinuxKernelv3" }	, nThreads);

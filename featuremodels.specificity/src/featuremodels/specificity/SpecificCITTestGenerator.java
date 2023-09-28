@@ -16,6 +16,7 @@ import org.prop4j.Node;
 import org.prop4j.Not;
 
 import ctwedge.ctWedge.CitModel;
+import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
 import de.ovgu.featureide.fm.core.base.IFeature;
@@ -116,7 +117,7 @@ public class SpecificCITTestGenerator {
 
 		// Return the test suite
 		return getTestSuiteFromTests(specificTests, nonSpecificTests, featureList,
-				new XmlFeatureModelImporter().importModel(newFm));
+				new FeatureIdeImporterBoolean().importModel(newFm));
 	}
 
 	/**

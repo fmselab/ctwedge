@@ -29,6 +29,7 @@ public class SpecificityCITTestGeneratorTest {
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		Logger.getLogger(FeatureIdeImporter.class).setLevel(Level.OFF);
 		Logger.getLogger(MutationScore.class).setLevel(Level.OFF);
+		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
 	}
 
 	@Test
@@ -62,12 +63,23 @@ public class SpecificityCITTestGeneratorTest {
 	}
 
 	@Test
+	public void testAlternative() throws IOException {
+		executeTest("fmodels/Alternative.xml", "fmodels/Alternative.xml");
+	}
+
+	
+	
+	@Test
 	public void testExperiments() throws IOException {
+		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.OFF);
 		testEvo(TestSimpleExampleForPaper.EV_ALIV);
+		testEvo(TestSimpleExampleForPaper.EV_PPU);
+		testEvo(TestSimpleExampleForPaper.EV_AUTOM);
+		testEvo(TestSimpleExampleForPaper.EV_BOING);
 	}
 
 	private void testEvo(String[] evo) throws IOException {
-		for (int i = 1; i < evo.length; i++) {
+		for (int i = 1; i < evo.length - 1 ; i++) {
 			executeTest(
 					"../featuremodels.evotester/" +evo[0] + "/" +evo[i] + ".xml",
 					"../featuremodels.evotester/" +evo[0] + "/" + evo[i + 1] + ".xml");
@@ -82,13 +94,13 @@ public class SpecificityCITTestGeneratorTest {
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
 
 		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
 		TestSuite ts = gen.generateSpecificTestSuite();
-
+		//System.out.println("test suite\n" + ts);
 		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, false);
 		int countSpec = 0;
 		int countNotSpec = 0;
 		for (ctwedge.util.Test t : ts.getTests()) {
+			//System.out.println(t);
 			if (spcheck.isSpecific(t))
 				countSpec++;
 			else
@@ -99,3 +111,4 @@ public class SpecificityCITTestGeneratorTest {
 		return ts;
 	}
 }
+

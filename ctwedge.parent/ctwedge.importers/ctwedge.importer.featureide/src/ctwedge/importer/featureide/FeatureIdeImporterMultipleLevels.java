@@ -30,7 +30,7 @@ import de.ovgu.featureide.fm.core.base.IFeatureStructure;
 
 /**
  * general importer for Feature Models by using the code from featureide. It
- * uses the approach presented in IWCT13.
+ * uses the approach presented in IWCT13 - uses enumerations
  *
  * @author garganti
  *

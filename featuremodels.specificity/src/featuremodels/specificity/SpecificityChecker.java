@@ -27,7 +27,7 @@ public class SpecificityChecker {
 		// this assumption could be retracted
 		MutationScore.treat_missing_feature_as = MissingFeatureTreatment.ERROR;
 		Boolean validInNew =  useEnum ? MutationScore.isTestValidEnum(newFm, t) : MutationScore.isTestValidBool(newFm, t);
-		assert validInNew : fmautorepair.utils.Utils.getFeatureNames(newFm);
+		assert validInNew : fmautorepair.utils.Utils.getFeatureNames(newFm) + "\n" + t;
 		
 		return validInNew != validInOld;
 	}

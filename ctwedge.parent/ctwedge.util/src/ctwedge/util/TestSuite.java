@@ -25,11 +25,8 @@ public class TestSuite {
 	 * @param model the model
 	 */
 	public TestSuite(String ts, CitModel model) {
-		this.ts = ts;
-		this.model = model;
-		populateTestSuite();
-		generatorTime = Float.NaN;
-	}
+		this(ts,model,";");
+	}		
 
 	/**
 	 * @param ts        test in csv format (first line param names, other lines
@@ -42,6 +39,7 @@ public class TestSuite {
 		this.ts = ts;
 		this.model = model;
 		populateTestSuite(delimiter);
+		generatorTime = Float.NaN;
 	}
 
 	/**
@@ -109,30 +107,6 @@ public class TestSuite {
 
 	public float getGeneratorTime() {
 		return generatorTime;
-	}
-
-	public void populateTestSuite() {
-		setModel(model);
-		List<Parameter> params = new ArrayList<>();
-		List<Test> tests = new ArrayList<>();
-		String[] st = ts.split("\n");
-		for (int i = 0; i < st.length; i++) {
-			String[] ps = st[i].split(";");
-			if (i == 0) {
-				for (String p : ps)
-					params.add(getParamFromName(model, p));
-			} else {
-//				List<Assignment> as = new ArrayList<>();
-//				for (int j=0; j<ps.length; j++) as.add(new Assignment(params.get(j), ps[j]));
-//				tests.add(new Test(as));
-				Map<String, String> as = new HashMap<>();
-				for (int j = 0; j < ps.length; j++) {
-					as.put(params.get(j).getName(), ps[j]);
-				}
-				tests.add(new Test(as));
-			}
-		}
-		setTests(tests);
 	}
 
 	/**
