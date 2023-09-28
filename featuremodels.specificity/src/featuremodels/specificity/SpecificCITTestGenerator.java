@@ -67,6 +67,9 @@ public class SpecificCITTestGenerator {
 				.collect(Collectors.toCollection(LinkedHashSet::new));
 		featureSet.addAll(oldFm.getFeatures().stream().map(t -> t.getName()).toList());
 		List<String> featureList = new ArrayList<String>(featureSet);
+		
+		long initialTime = System.currentTimeMillis();
+		
 		// BDD Builder. It must be used for creating all BDDs in order to maintain the
 		// same origin structure
 		FMToBDD bdd_builder = new FMToBDD(featureList);
@@ -125,7 +128,7 @@ public class SpecificCITTestGenerator {
 
 		// Return the test suite
 		return getTestSuiteFromTests(specificTests, nonSpecificTests, featureList,
-				new FeatureIdeImporterBoolean().importModel(newFm));
+				new FeatureIdeImporterBoolean().importModel(newFm), System.currentTimeMillis()-initialTime);
 	}
 
 	/**
@@ -197,10 +200,11 @@ public class SpecificCITTestGenerator {
 	 * @param nonSpecificTests the set of non specific tests
 	 * @param featureList      the list of features
 	 * @param modelNew         the new CITModel
+	 * @param time	  		   the time required for test generation
 	 * @return
 	 */
 	private TestSuite getTestSuiteFromTests(ArrayList<BDD> specificTests, ArrayList<BDD> nonSpecificTests,
-			List<String> featureList, CitModel modelNew) {
+			List<String> featureList, CitModel modelNew, long time) {
 		// Header
 		String ts = featureList.stream().collect(Collectors.joining(";")) + ";\n";
 		// Specific tests
@@ -229,7 +233,10 @@ public class SpecificCITTestGenerator {
 		}
 
 		// Return a real test suite
-		return new TestSuite(ts, modelNew, ";");
+		TestSuite res = new TestSuite(ts, modelNew, ";");
+		res.setGeneratorName("SPECIFICITY_FM");
+		res.setGeneratorTime(time);
+		return res;
 	}
 
 	/**
