@@ -17,9 +17,7 @@ import org.prop4j.Not;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
-import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
-import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.editing.NodeCreator;
 import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
@@ -38,6 +36,13 @@ public class SpecificCITTestGenerator {
 	private ArrayList<BDD> specificTests;
 	private ArrayList<BDD> nonSpecificTests;
 
+	/**
+	 * Builds a new SpecificCITTestGenerator
+	 * 
+	 * @param oldFm    the old feature model
+	 * @param newFm    the new feature model
+	 * @param strength the strength for CIT generation
+	 */
 	SpecificCITTestGenerator(IFeatureModel oldFm, IFeatureModel newFm, int strength) {
 		FMCoreLibrary.getInstance().install();
 		this.oldFm = oldFm;
@@ -73,15 +78,18 @@ public class SpecificCITTestGenerator {
 		bddNew = setDeletedFeatures(bddNew, newFm, featureList, bdd_builder);
 
 		// Just for debug purposes, print the list of satisfying products
-		printBDDSat(featureList, bddNew);
-		printBDDSat(featureList, bddOld);
+		printBDDSat(featureList, bddNew, true, "BDDNew");
+		printBDDSat(featureList, bddOld, true, "BDDOld");
 
 		// Initial BDD. All possible assignments satisfying this BDD are those that are
 		// SPECIFIC for the test evolution
 		BDD bddInitial = bddOld.not();
+		printBDDSat(featureList, bddInitial, true, "BDDOldWithNot");
 		bddInitial = bddInitial.and(bddNew);
-		printBDDSat(featureList, bddInitial);
+		printBDDSat(featureList, bddInitial, true, "BDDInitial");
 		boolean skipSpecific = (bddInitial.satCount() == 0);
+		if (skipSpecific)
+			logger.debug("Skipping specific tests check");
 
 		// List of specific and non specific tests
 		this.specificTests = new ArrayList<BDD>();
@@ -95,10 +103,10 @@ public class SpecificCITTestGenerator {
 			logger.debug("Checking " + tpAsString);
 
 			// Build the node for the tuple under consideration
-			Node newBDDNode = NodeCreator.createNodes(newFm);
+			Node newBDDNode = NodeCreator.createNodes(newFm, false);
 			for (Pair<String, Integer> elem : tp) {
-				IFeature feature = newFm.getFeature(elem.getFirst());
-				newBDDNode = new And((elem.getSecond() == 1 ? new Literal(feature) : new Not(new Literal(feature))),
+				newBDDNode = new And(
+						(elem.getSecond() == 1 ? new Literal(elem.getFirst()) : new Not(new Literal(elem.getFirst()))),
 						newBDDNode);
 			}
 			BDD bddTuple = bdd_builder.nodeToBDD(newBDDNode);
@@ -143,16 +151,41 @@ public class SpecificCITTestGenerator {
 	 * 
 	 * @param featureList the list of features
 	 * @param bdd         the bdd
+	 * @param useLogger   use the logger or not (i.e., standard output)
 	 */
-	private void printBDDSat(List<String> featureList, BDD bdd) {
+	private void printBDDSat(List<String> featureList, BDD bdd, boolean useLogger) {
+		printBDDSat(featureList, bdd, useLogger, "");
+	}
+	
+	/**
+	 * Prints the assignments satisfying the BDD
+	 * 
+	 * @param featureList the list of features
+	 * @param bdd         the bdd
+	 * @param useLogger   use the logger or not (i.e., standard output)
+	 * @param prefix	  the text to be printed before each BDD
+	 */
+	private void printBDDSat(List<String> featureList, BDD bdd, boolean useLogger, String prefix) {
 		AllSatIterator it = bdd.allsat();
 		while (it.hasNext()) {
+			if (useLogger)
+				logger.debug(prefix);
+			else
+				System.out.println(prefix);
+			
 			byte[] thisSat = (byte[]) it.next();
 			for (int i = 0; i < featureList.size(); i++) {
-				logger.debug(
-						featureList.get(i) + " -> " + (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*")));
+				if (useLogger)
+					logger.debug(featureList.get(i) + " -> "
+							+ (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*")));
+				else
+					System.out.println(featureList.get(i) + " -> "
+							+ (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*")));
 			}
-			logger.debug("---------");
+			if (useLogger)
+				logger.debug("---------");
+			else
+				System.out.println("---------");
 		}
 	}
 
@@ -194,7 +227,6 @@ public class SpecificCITTestGenerator {
 				ts = ts + "\n";
 			}
 		}
-//		System.out.println(ts);
 
 		// Return a real test suite
 		return new TestSuite(ts, modelNew, ";");
@@ -235,7 +267,7 @@ public class SpecificCITTestGenerator {
 	 */
 	private BDD getBDDFromFM(IFeatureModel fm, FMToBDD bdd_builder) {
 		// Convert the FM into the corresponding BDD
-		return bdd_builder.nodeToBDD(NodeCreator.createNodes(fm));
+		return bdd_builder.nodeToBDD(NodeCreator.createNodes(fm, false));
 	}
 
 	/**
