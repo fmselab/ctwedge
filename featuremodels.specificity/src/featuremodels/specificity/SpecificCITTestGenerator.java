@@ -103,7 +103,7 @@ public class SpecificCITTestGenerator {
 			logger.debug("Checking " + tpAsString);
 
 			// Build the node for the tuple under consideration
-			Node newBDDNode = NodeCreator.createNodes(newFm, false);
+			Node newBDDNode = NodeCreator.createNodes(newFm);
 			for (Pair<String, Integer> elem : tp) {
 				newBDDNode = new And(
 						(elem.getSecond() == 1 ? new Literal(elem.getFirst()) : new Not(new Literal(elem.getFirst()))),
@@ -204,7 +204,7 @@ public class SpecificCITTestGenerator {
 		// Header
 		String ts = featureList.stream().collect(Collectors.joining(";")) + ";\n";
 		// Specific tests
-		logger.debug("Generated " + specificTests.size() + " specific BDDs");
+		logger.info("Generated " + specificTests.size() + " specific BDDs");
 		for (BDD st : specificTests) {
 			AllSatIterator it = st.allsat();
 			if (it.hasNext()) {
@@ -216,7 +216,7 @@ public class SpecificCITTestGenerator {
 			}
 		}
 		// Not specific tests
-		logger.debug("Generated " + nonSpecificTests.size() + " non specific BDDs");
+		logger.info("Generated " + nonSpecificTests.size() + " non specific BDDs");
 		for (BDD st : nonSpecificTests) {
 			AllSatIterator it = st.allsat();
 			if (it.hasNext()) {
@@ -267,7 +267,7 @@ public class SpecificCITTestGenerator {
 	 */
 	private BDD getBDDFromFM(IFeatureModel fm, FMToBDD bdd_builder) {
 		// Convert the FM into the corresponding BDD
-		return bdd_builder.nodeToBDD(NodeCreator.createNodes(fm, false));
+		return bdd_builder.nodeToBDD(NodeCreator.createNodes(fm));
 	}
 
 	/**

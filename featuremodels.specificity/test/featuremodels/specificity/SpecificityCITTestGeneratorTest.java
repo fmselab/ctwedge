@@ -41,6 +41,7 @@ public class SpecificityCITTestGeneratorTest {
 
 	@Test
 	public void test2() throws IOException {
+		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.INFO);
 		executeTest(PP_UV1_XML, PP_UV2_XML);
 	}
 
@@ -71,7 +72,7 @@ public class SpecificityCITTestGeneratorTest {
 
 	@Test
 	public void testSpecificity() throws IOException {
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.OFF);
+		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
 		executeTest("fmodels/fm1.xml", "fmodels/fm2.xml");
 	}
 	
@@ -112,6 +113,9 @@ public class SpecificityCITTestGeneratorTest {
 
 		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
 		TestSuite ts = gen.generateSpecificTestSuite();
+		
+		System.out.println(ts.toString());
+		
 		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, false);
 		int countSpec = 0;
 		int countNotSpec = 0;
