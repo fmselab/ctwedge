@@ -6,10 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -71,7 +69,7 @@ public class ICSTExperiments {
 
 	private void testEvo(String[] evo) throws IOException, UnsupportedModelException, NoSuchExtensionException {
 		for (int i = 1; i < evo.length - 1; i++) {
-			for (int j = 1; j < evo.length - 1; j++)
+			for (int j = 2; j < evo.length - 1; j++)
 				if (i != j) {
 					// Execute the experiments on the original model
 					executeTest("../featuremodels.evotester/" + evo[0] + "/" + evo[i] + ".xml",
@@ -82,19 +80,27 @@ public class ICSTExperiments {
 
 	private void executeTest(String oldFm, String newFm)
 			throws IOException, UnsupportedModelException, NoSuchExtensionException {
-		// Output files
-		String output_file = "resultsSPECIFICITY.csv";
-		BufferedWriter fw = new BufferedWriter(new FileWriter(new File(output_file), true));
-
 		// Load the two feature models
 		Path oldFMPath = Path.of(oldFm);
 		IFeatureModel oldFM = FeatureModelManager.load(oldFMPath);
 		Path newFMPath = Path.of(newFm);
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
+
+		// Generate test suites
+		generateMultipleTestSuites(oldFm, newFm, oldFM, newFMPath, newFM);
+	}
+
+	private void generateMultipleTestSuites(String oldFm, String newFm, IFeatureModel oldFM, Path newFMPath,
+			IFeatureModel newFM)
+			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+		// Output files
+		String output_file = "resultsSPECIFICITY.csv";
+		BufferedWriter fw = new BufferedWriter(new FileWriter(new File(output_file), true));
+
 		FeatureIdeImporter importer = new FeatureIdeImporterBoolean();
 		CitModel result = importer.importModel(newFMPath.toString());
 		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, false);
-		
+
 		// Generate using SPECIFICITY
 		generateWithSpecificity(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
 
@@ -102,7 +108,7 @@ public class ICSTExperiments {
 		generateWithACTS(oldFm, newFm, fw, newFMPath, result, spcheck);
 
 		// Generate with BDD without specificity
-		generateWithBDDs(oldFm, newFm, fw, oldFM, newFMPath, newFM);
+		generateWithBDDs(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
 
 		fw.close();
 	}
@@ -132,12 +138,11 @@ public class ICSTExperiments {
 	}
 
 	private void generateWithBDDs(String oldFm, String newFm, BufferedWriter fw, IFeatureModel oldFM, Path newFMPath,
-			IFeatureModel newFM)
+			IFeatureModel newFM, SpecificityChecker spcheck)
 			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
 		TestSuite ts;
 		MinimalityTestSuiteValidator minimality;
 		TestSuite tsReduced;
-		SpecificityChecker spcheck;
 		int countSpec;
 		int countNotSpec;
 		BDDCITTestGenerator genBDD = new BDDCITTestGenerator(newFM, 2);
@@ -145,7 +150,6 @@ public class ICSTExperiments {
 		ts.setStrength(2);
 		minimality = new MinimalityTestSuiteValidator(ts);
 		tsReduced = minimality.reduceSize();
-		spcheck = new SpecificityChecker(oldFM, newFM, false);
 		countSpec = 0;
 		countNotSpec = 0;
 		for (ctwedge.util.Test t : tsReduced.getTests()) {
