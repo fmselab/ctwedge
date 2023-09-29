@@ -36,18 +36,18 @@ public class SpecificityCITTestGeneratorTest {
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		Logger.getLogger(FeatureIdeImporter.class).setLevel(Level.OFF);
 		Logger.getLogger(MutationScore.class).setLevel(Level.OFF);
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.DEBUG);
 	}
 
 	@Test
 	public void test1() throws IOException {
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.OFF);
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.OFF);
 		executeTest(PP_UV2_XML, PP_UV1_XML);
 	}
 
 	@Test
 	public void test2() throws IOException {
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.INFO);
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.INFO);
 		executeTest(PP_UV1_XML, PP_UV2_XML);
 	}
 
@@ -78,13 +78,13 @@ public class SpecificityCITTestGeneratorTest {
 
 	@Test
 	public void testSpecificity() throws IOException {
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.DEBUG);
 		executeTest("fmodels/fm1.xml", "fmodels/fm2.xml");
 	}
 
 	@Test
 	public void testExperiments() throws IOException {
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.OFF);
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.OFF);
 		testEvo(TestSimpleExampleForPaper.EV_ALIV);
 		testEvo(TestSimpleExampleForPaper.EV_PPU);
 		testEvo(TestSimpleExampleForPaper.EV_AUTOM);
@@ -117,7 +117,7 @@ public class SpecificityCITTestGeneratorTest {
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
 
 		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
-		TestSuite ts = gen.generateSpecificTestSuite();
+		TestSuite ts = gen.generateTestSuite();
 
 		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, false);
 		int countSpec = 0;

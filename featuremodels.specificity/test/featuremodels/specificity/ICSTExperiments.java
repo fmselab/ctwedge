@@ -29,7 +29,7 @@ public class ICSTExperiments {
 
 	@Test
 	public void testExperiments() throws IOException {
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.OFF);
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.OFF);
 		testEvo(TestSimpleExampleForPaper.EV_ALIV);
 		testEvo(TestSimpleExampleForPaper.EV_PPU);
 		testEvo(TestSimpleExampleForPaper.EV_AUTOM);
@@ -71,7 +71,7 @@ public class ICSTExperiments {
 
 		// Generate using SPECIFICITY
 		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
-		TestSuite ts = gen.generateSpecificTestSuite();
+		TestSuite ts = gen.generateTestSuite();
 		ts.setStrength(2);
 		MinimalityTestSuiteValidator minimality = new MinimalityTestSuiteValidator(ts);
 		TestSuite tsReduced = minimality.reduceSize();
