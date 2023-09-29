@@ -29,7 +29,7 @@ import pMedici.util.Pair;
 import pMedici.util.TupleGenerator;
 
 // it generates specific tests if possible
-public class SpecificCITTestGenerator {
+public class SpecificCITTestGenerator extends BDDTestGenerator{
 
 	private Logger logger = Logger.getLogger(SpecificCITTestGenerator.class);
 	private IFeatureModel oldFm;
