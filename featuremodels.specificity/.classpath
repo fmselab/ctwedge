@@ -11,14 +11,15 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/antlr-3.4.jar"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/uvl-parser.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/featuremodels.evotester"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.generator.acts"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.importer.featureide"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.util"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/log4j.jar"/>
-	<classpathentry kind="src" path="/pMEDICI"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/javabdd.jar"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/de.ovgu.featureide.lib.fm-v3.10.0.jar"/>
+	<classpathentry kind="src" path="/pMEDICI"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.util"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.importer.featureide"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.generator.acts"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/featuremodels.evotester"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fmautorepair.mutation"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

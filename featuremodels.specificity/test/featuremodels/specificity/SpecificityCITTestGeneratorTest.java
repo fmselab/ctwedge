@@ -1,11 +1,18 @@
 package featuremodels.specificity;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.prop4j.FMToBDD;
 
 import ctwedge.fmtester.experiments.MutationScore;
 import ctwedge.fmtester.experiments.TestSimpleExampleForPaper;
@@ -29,16 +36,18 @@ public class SpecificityCITTestGeneratorTest {
 		Logger.getLogger("fmautorepair.mutationoperators").setLevel(Level.OFF);
 		Logger.getLogger(FeatureIdeImporter.class).setLevel(Level.OFF);
 		Logger.getLogger(MutationScore.class).setLevel(Level.OFF);
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.DEBUG);
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.DEBUG);
 	}
 
 	@Test
 	public void test1() throws IOException {
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.OFF);
 		executeTest(PP_UV2_XML, PP_UV1_XML);
 	}
 
 	@Test
 	public void test2() throws IOException {
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.INFO);
 		executeTest(PP_UV1_XML, PP_UV2_XML);
 	}
 
@@ -67,22 +76,36 @@ public class SpecificityCITTestGeneratorTest {
 		executeTest("fmodels/Alternative.xml", "fmodels/Alternative.xml");
 	}
 
-	
-	
+	@Test
+	public void testSpecificity() throws IOException {
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.DEBUG);
+		executeTest("fmodels/fm1.xml", "fmodels/fm2.xml");
+	}
+
 	@Test
 	public void testExperiments() throws IOException {
-		Logger.getLogger(SpecificCITTestGenerator.class).setLevel(Level.OFF);
+		Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.OFF);
 		testEvo(TestSimpleExampleForPaper.EV_ALIV);
 		testEvo(TestSimpleExampleForPaper.EV_PPU);
 		testEvo(TestSimpleExampleForPaper.EV_AUTOM);
 		testEvo(TestSimpleExampleForPaper.EV_BOING);
+		testEvo(TestSimpleExampleForPaper.EV_CARBODY);
+		testEvo(TestSimpleExampleForPaper.EV_LINUX);
+		testEvo(TestSimpleExampleForPaper.EV_PARKING);
+		testEvo(TestSimpleExampleForPaper.EV_BCS);
+		testEvo(TestSimpleExampleForPaper.EV_ERP);
+		testEvo(TestSimpleExampleForPaper.EV_HSYS);
+		testEvo(TestSimpleExampleForPaper.EV_MOBMEDIA);
+		testEvo(TestSimpleExampleForPaper.EV_SHOME);
+		testEvo(TestSimpleExampleForPaper.EV_SMARTH);
+		testEvo(TestSimpleExampleForPaper.EV_SMARTW);
+		testEvo(TestSimpleExampleForPaper.EV_WSTAT);
 	}
 
 	private void testEvo(String[] evo) throws IOException {
-		for (int i = 1; i < evo.length - 1 ; i++) {
-			executeTest(
-					"../featuremodels.evotester/" +evo[0] + "/" +evo[i] + ".xml",
-					"../featuremodels.evotester/" +evo[0] + "/" + evo[i + 1] + ".xml");
+		for (int i = 1; i < evo.length - 1; i++) {
+			executeTest("../featuremodels.evotester/" + evo[0] + "/" + evo[i] + ".xml",
+					"../featuremodels.evotester/" + evo[0] + "/" + evo[i + 1] + ".xml");
 		}
 
 	}
@@ -90,17 +113,16 @@ public class SpecificityCITTestGeneratorTest {
 	private TestSuite executeTest(String oldFm, String newFm) throws IOException {
 		Path oldFMPath = Path.of(oldFm);
 		IFeatureModel oldFM = FeatureModelManager.load(oldFMPath);
-		Path newFMPath = Path.of(oldFm);
+		Path newFMPath = Path.of(newFm);
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
 
 		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
-		TestSuite ts = gen.generateSpecificTestSuite();
-		//System.out.println("test suite\n" + ts);
+		TestSuite ts = gen.generateTestSuite();
+
 		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, false);
 		int countSpec = 0;
 		int countNotSpec = 0;
 		for (ctwedge.util.Test t : ts.getTests()) {
-			//System.out.println(t);
 			if (spcheck.isSpecific(t))
 				countSpec++;
 			else
@@ -110,5 +132,5 @@ public class SpecificityCITTestGeneratorTest {
 
 		return ts;
 	}
-}
 
+}

@@ -48,14 +48,34 @@ import pMedici.util.TestContext;
 
 public class TestSimpleExampleForPaper {
 
-	public static final String[] EV_BOING = new String[] { "evolutionModels/Boeing/", "Boeingv1", "Boeingv2", "Boeingv3" };
+	public static final String[] EV_MOBMEDIA = new String[] { "evolutionModels/MobileMedia/", "MobileMediaV3",
+			"MobileMediaV4", "MobileMediaV5", "MobileMediaV6", "MobileMediaV7", "MobileMediaV8" };
+	public static final String[] EV_SHOME = new String[] { "evolutionModels/SmartHome/", "SmartHomeV2",
+			"SmartHomeV2.2" };
+	public static final String[] EV_BCS = new String[] { "evolutionModels/BCS/", "BCS1", "BCS2", "BCS3" };
+	public static final String[] EV_HSYS = new String[] { "evolutionModels/HelpSystem/", "HelpSystem1",
+			"HelpSystem2" };
+	public static final String[] EV_ERP = new String[] { "evolutionModels/ERP/", "ERP_SPL_s1", "ERP_SPL_s2" };
+	public static final String[] EV_WSTAT = new String[] { "evolutionModels/WeatherStation/", "WeatherStationv1",
+			"WeatherStationv2" };
+	public static final String[] EV_SMARTW = new String[] { "evolutionModels/SmartWatch/", "SmartWatchv1",
+			"SmartWatchv2" };
+	public static final String[] EV_SMARTH = new String[] { "evolutionModels/SmartHotel/", "SmartHotelv1",
+			"SmartHotelv2" };
+	public static final String[] EV_PARKING = new String[] { "evolutionModels/ParkingAssistant/", "ParkingAssistantv1",
+			"ParkingAssistantv2", "ParkingAssistantv3", "ParkingAssistantv4", "ParkingAssistantv5" };
+	public static final String[] EV_LINUX = new String[] { "evolutionModels/LinuxKernel/", "LinuxKernelv1",
+			"LinuxKernelv2", "LinuxKernelv3" };
+	public static final String[] EV_CARBODY = new String[] { "evolutionModels/CarBody/", "CarBodyv1", "CarBodyv2",
+			"CarBodyv3", "CarBodyv4" };
+	public static final String[] EV_BOING = new String[] { "evolutionModels/Boeing/", "Boeingv1", "Boeingv2",
+			"Boeingv3" };
 	public static final String[] EV_AUTOM = new String[] { "evolutionModels/AutomotiveMultimedia/",
 			"AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3" };
-	public static final String[] EV_ALIV = 
-			new String[] { "evolutionModels/AmbientAssistedLiving/",
-						   "AmbientAssistedLivingv1", "AmbientAssistedLivingv2" };
-	public static final String[] EV_PPU = new String[] { "evolutionModels/PPU/", 
-			"PPUv1", "PPUv2", "PPUv3", "PPUv4","PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9" };
+	public static final String[] EV_ALIV = new String[] { "evolutionModels/AmbientAssistedLiving/",
+			"AmbientAssistedLivingv1", "AmbientAssistedLivingv2" };
+	public static final String[] EV_PPU = new String[] { "evolutionModels/PPU/", "PPUv1", "PPUv2", "PPUv3", "PPUv4",
+			"PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9" };
 	private static final int MAX_MUTATIONS = 10;
 	static boolean REDUCE_TEST_SUITE = true;
 
@@ -124,27 +144,17 @@ public class TestSimpleExampleForPaper {
 				launchMultipleExperiment(EV_ALIV, nThreads);
 				launchMultipleExperiment(EV_AUTOM, nThreads);
 				launchMultipleExperiment(EV_BOING, nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/CarBody/", "CarBodyv1", "CarBodyv2", "CarBodyv3", "CarBodyv4" },
-						 nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/LinuxKernel/", "LinuxKernelv1", "LinuxKernelv2", "LinuxKernelv3" }	, nThreads);
-				launchMultipleExperiment(
-						new String[] { "evolutionModels/ParkingAssistant/","ParkingAssistantv1", "ParkingAssistantv2", "ParkingAssistantv3",
-								"ParkingAssistantv4", "ParkingAssistantv5" },
-						 nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/SmartHotel/","SmartHotelv1", "SmartHotelv2" }, 
-						nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/SmartWatch/","SmartWatchv1", "SmartWatchv2" }, 
-						nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/WeatherStation/","WeatherStationv1", "WeatherStationv2" },
-						 nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/ERP/", "ERP_SPL_s1", "ERP_SPL_s2" },  nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/HelpSystem/", "HelpSystem1", "HelpSystem2" }, 
-						nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/MobileMedia/", "MobileMediaV3", "MobileMediaV4", "MobileMediaV5",
-						"MobileMediaV6", "MobileMediaV7", "MobileMediaV8" }, nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/SmartHome/", "SmartHomeV2", "SmartHomeV2.2" }, 
-						nThreads);
-				launchMultipleExperiment(new String[] { "evolutionModels/BCS/",  "BCS1", "BCS2", "BCS3" }, nThreads);
+				launchMultipleExperiment(EV_CARBODY, nThreads);
+				launchMultipleExperiment(EV_LINUX, nThreads);
+				launchMultipleExperiment(EV_PARKING, nThreads);
+				launchMultipleExperiment(EV_SMARTH, nThreads);
+				launchMultipleExperiment(EV_SMARTW, nThreads);
+				launchMultipleExperiment(EV_WSTAT, nThreads);
+				launchMultipleExperiment(EV_ERP, nThreads);
+				launchMultipleExperiment(EV_HSYS, nThreads);
+				launchMultipleExperiment(EV_MOBMEDIA, nThreads);
+				launchMultipleExperiment(EV_SHOME, nThreads);
+				launchMultipleExperiment(EV_BCS, nThreads);
 			}
 		}
 	}

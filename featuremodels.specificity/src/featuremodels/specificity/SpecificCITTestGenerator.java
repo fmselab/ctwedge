@@ -2,13 +2,11 @@ package featuremodels.specificity;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
 import org.prop4j.And;
 import org.prop4j.FMToBDD;
 import org.prop4j.Literal;
@@ -17,32 +15,33 @@ import org.prop4j.Not;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
-import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.TestSuite;
-import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.editing.NodeCreator;
-import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
 import net.sf.javabdd.BDD;
 import net.sf.javabdd.BDD.AllSatIterator;
 import pMedici.util.Pair;
-import pMedici.util.TupleGenerator;
 
-// it generates specific tests if possible
-public class SpecificCITTestGenerator extends BDDTestGenerator{
+/**
+ * This generator generates combinatorial test cases specific to test the
+ * evolution from an old feature model to its new version
+ */
+public class SpecificCITTestGenerator extends BDDCITTestGenerator {
 
-	private Logger logger = Logger.getLogger(SpecificCITTestGenerator.class);
-	private IFeatureModel oldFm;
-	private IFeatureModel newFm;
-	private int strength;
+	private IFeatureModel oldFm;	
 	private ArrayList<BDD> specificTests;
 	private ArrayList<BDD> nonSpecificTests;
 
+	/**
+	 * Builds a new SpecificCITTestGenerator
+	 * 
+	 * @param oldFm    the old feature model
+	 * @param newFm    the new feature model
+	 * @param strength the strength for CIT generation
+	 */
 	SpecificCITTestGenerator(IFeatureModel oldFm, IFeatureModel newFm, int strength) {
-		FMCoreLibrary.getInstance().install();
+		super(newFm, strength);
 		this.oldFm = oldFm;
-		this.newFm = newFm;
-		this.strength = strength;
 		this.specificTests = new ArrayList<BDD>();
 		this.nonSpecificTests = new ArrayList<BDD>();
 	}
@@ -53,35 +52,42 @@ public class SpecificCITTestGenerator extends BDDTestGenerator{
 	 * @return a specific test suite
 	 * @throws IOException
 	 */
-	public TestSuite generateSpecificTestSuite() throws IOException {
+	@Override
+	public TestSuite generateTestSuite() throws IOException {
 		// Get all the tuples for this feature model
-		Iterator<List<Pair<String, Integer>>> tg = getTuplesFromFM(newFm, strength);
+		Iterator<List<Pair<String, Integer>>> tg = getTuplesFromFM(fm, strength);
 		// The set of features is the union between those from the old model and those
 		// from the new one
-		LinkedHashSet<String> featureSet = newFm.getFeatures().stream().map(t -> t.getName())
+		LinkedHashSet<String> featureSet = fm.getFeatures().stream().map(t -> t.getName())
 				.collect(Collectors.toCollection(LinkedHashSet::new));
 		featureSet.addAll(oldFm.getFeatures().stream().map(t -> t.getName()).toList());
 		List<String> featureList = new ArrayList<String>(featureSet);
+
+		long initialTime = System.currentTimeMillis();
+
 		// BDD Builder. It must be used for creating all BDDs in order to maintain the
 		// same origin structure
 		FMToBDD bdd_builder = new FMToBDD(featureList);
 		// Convert the two FMs into their corresponding BDDs
-		BDD bddNew = getBDDFromFM(newFm, bdd_builder);
+		BDD bddNew = getBDDFromFM(fm, bdd_builder);
 		BDD bddOld = getBDDFromFM(oldFm, bdd_builder);
 
 		// Set in bddNew the deleted features
-		bddNew = setDeletedFeatures(bddNew, newFm, featureList, bdd_builder);
+		bddNew = setDeletedFeatures(bddNew, fm, featureList, bdd_builder);
 
 		// Just for debug purposes, print the list of satisfying products
-		printBDDSat(featureList, bddNew);
-		printBDDSat(featureList, bddOld);
+		printBDDSat(featureList, bddNew, true, "BDDNew");
+		printBDDSat(featureList, bddOld, true, "BDDOld");
 
 		// Initial BDD. All possible assignments satisfying this BDD are those that are
 		// SPECIFIC for the test evolution
 		BDD bddInitial = bddOld.not();
+		printBDDSat(featureList, bddInitial, true, "BDDOldWithNot");
 		bddInitial = bddInitial.and(bddNew);
-		printBDDSat(featureList, bddInitial);
+		printBDDSat(featureList, bddInitial, true, "BDDInitial");
 		boolean skipSpecific = (bddInitial.satCount() == 0);
+		if (skipSpecific)
+			logger.debug("Skipping specific tests check");
 
 		// List of specific and non specific tests
 		this.specificTests = new ArrayList<BDD>();
@@ -95,10 +101,10 @@ public class SpecificCITTestGenerator extends BDDTestGenerator{
 			logger.debug("Checking " + tpAsString);
 
 			// Build the node for the tuple under consideration
-			Node newBDDNode = NodeCreator.createNodes(newFm);
+			Node newBDDNode = NodeCreator.createNodes(fm);
 			for (Pair<String, Integer> elem : tp) {
-				IFeature feature = newFm.getFeature(elem.getFirst());
-				newBDDNode = new And((elem.getSecond() == 1 ? new Literal(feature) : new Not(new Literal(feature))),
+				newBDDNode = new And(
+						(elem.getSecond() == 1 ? new Literal(elem.getFirst()) : new Not(new Literal(elem.getFirst()))),
 						newBDDNode);
 			}
 			BDD bddTuple = bdd_builder.nodeToBDD(newBDDNode);
@@ -116,8 +122,8 @@ public class SpecificCITTestGenerator extends BDDTestGenerator{
 		}
 
 		// Return the test suite
-		return getTestSuiteFromTests(specificTests, nonSpecificTests, featureList,
-				new FeatureIdeImporterBoolean().importModel(newFm));
+		return getTestSuiteFromTests(featureList, new FeatureIdeImporterBoolean().importModel(fm),
+				System.currentTimeMillis() - initialTime);
 	}
 
 	/**
@@ -139,39 +145,19 @@ public class SpecificCITTestGenerator extends BDDTestGenerator{
 	}
 
 	/**
-	 * Prints the assignments satisfying the BDD
-	 * 
-	 * @param featureList the list of features
-	 * @param bdd         the bdd
-	 */
-	private void printBDDSat(List<String> featureList, BDD bdd) {
-		AllSatIterator it = bdd.allsat();
-		while (it.hasNext()) {
-			byte[] thisSat = (byte[]) it.next();
-			for (int i = 0; i < featureList.size(); i++) {
-				logger.debug(
-						featureList.get(i) + " -> " + (thisSat[i] == 1 ? "true" : (thisSat[i] == 0 ? "false" : "*")));
-			}
-			logger.debug("---------");
-		}
-	}
-
-	/**
 	 * Returns a TestSuite object starting from the two sets of specific and non
 	 * specific tests
 	 * 
-	 * @param specificTests    the set of specific tests
-	 * @param nonSpecificTests the set of non specific tests
 	 * @param featureList      the list of features
 	 * @param modelNew         the new CITModel
+	 * @param time             the time required for test generation
 	 * @return
 	 */
-	private TestSuite getTestSuiteFromTests(ArrayList<BDD> specificTests, ArrayList<BDD> nonSpecificTests,
-			List<String> featureList, CitModel modelNew) {
+	private TestSuite getTestSuiteFromTests(List<String> featureList, CitModel modelNew, long time) {
 		// Header
 		String ts = featureList.stream().collect(Collectors.joining(";")) + ";\n";
 		// Specific tests
-		logger.debug("Generated " + specificTests.size() + " specific BDDs");
+		logger.info("Generated " + specificTests.size() + " specific BDDs");
 		for (BDD st : specificTests) {
 			AllSatIterator it = st.allsat();
 			if (it.hasNext()) {
@@ -183,7 +169,7 @@ public class SpecificCITTestGenerator extends BDDTestGenerator{
 			}
 		}
 		// Not specific tests
-		logger.debug("Generated " + nonSpecificTests.size() + " non specific BDDs");
+		logger.info("Generated " + nonSpecificTests.size() + " non specific BDDs");
 		for (BDD st : nonSpecificTests) {
 			AllSatIterator it = st.allsat();
 			if (it.hasNext()) {
@@ -194,66 +180,12 @@ public class SpecificCITTestGenerator extends BDDTestGenerator{
 				ts = ts + "\n";
 			}
 		}
-//		System.out.println(ts);
 
 		// Return a real test suite
-		return new TestSuite(ts, modelNew, ";");
-	}
-
-	/**
-	 * Tries to cover a tuple with one of the test in the test set, if possible, or
-	 * creates a new one
-	 * 
-	 * @param tp      the BDD of the tuple
-	 * @param testSet the test set
-	 * @param bddNoTp the bdd without any tuple commited
-	 * @return
-	 */
-	private boolean tryToCover(BDD tp, ArrayList<BDD> testSet, BDD bddNoTp) {
-		for (int i = 0; i < testSet.size(); i++) {
-			// If the tuple can be covered with the considered test-BDD
-			if (testSet.get(i).and(tp).satCount() > 0) {
-				testSet.set(i, testSet.get(i).and(tp));
-				return true;
-			}
-		}
-		// Try to cover the tuple with a new BDD
-		if (bddNoTp.and(tp).satCount() > 0) {
-			testSet.add(bddNoTp.and(tp));
-			return true;
-		}
-		// The tuple cannot be covered
-		return false;
-	}
-
-	/**
-	 * Given the FM of interest, the method returns the corresponding BDD
-	 * 
-	 * @param fm          the feature model
-	 * @param bdd_builder the bdd builder
-	 * @return the bdd
-	 */
-	private BDD getBDDFromFM(IFeatureModel fm, FMToBDD bdd_builder) {
-		// Convert the FM into the corresponding BDD
-		return bdd_builder.nodeToBDD(NodeCreator.createNodes(fm));
-	}
-
-	/**
-	 * Given the feature model, it returns the iterator over all the tuples
-	 * 
-	 * @param fm the feature model
-	 * @return the iterator over all tuples derived from the feature model newFM2
-	 */
-	private Iterator<List<Pair<String, Integer>>> getTuplesFromFM(IFeatureModel fm, int strength) {
-		List<String> features = newFm.getFeatures().stream().map(t -> t.getName()).toList();
-		HashMap<String, List<Integer>> values = new HashMap<>();
-		ArrayList<Integer> featureValues = new ArrayList<Integer>();
-		featureValues.add(0);
-		featureValues.add(1);
-		for (String s : features) {
-			values.put(s, featureValues);
-		}
-		return TupleGenerator.getAllKWiseCombination(values, strength);
+		TestSuite res = new TestSuite(ts, modelNew, ";");
+		res.setGeneratorName("SPECIFICITY_FM");
+		res.setGeneratorTime(time);
+		return res;
 	}
 
 }
