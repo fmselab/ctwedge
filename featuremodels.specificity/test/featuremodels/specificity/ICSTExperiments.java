@@ -6,8 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -34,6 +36,7 @@ import fmautorepair.mutationprocess.FMMutationProcess;
 public class ICSTExperiments {
 
 	public static int N_REP = 10;
+	public static int MAX_MUTATIONS = 10;
 
 	static {
 		FMCoreLibrary.getInstance().install();
@@ -69,9 +72,11 @@ public class ICSTExperiments {
 	private void testEvo(String[] evo) throws IOException, UnsupportedModelException, NoSuchExtensionException {
 		for (int i = 1; i < evo.length - 1; i++) {
 			for (int j = 1; j < evo.length - 1; j++)
-				if (i != j)
+				if (i != j) {
+					// Execute the experiments on the original model
 					executeTest("../featuremodels.evotester/" + evo[0] + "/" + evo[i] + ".xml",
 							"../featuremodels.evotester/" + evo[0] + "/" + evo[j] + ".xml");
+				}
 		}
 	}
 
@@ -88,14 +93,28 @@ public class ICSTExperiments {
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
 		FeatureIdeImporter importer = new FeatureIdeImporterBoolean();
 		CitModel result = importer.importModel(newFMPath.toString());
-
+		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, false);
+		
 		// Generate using SPECIFICITY
+		generateWithSpecificity(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
+
+		// Generate with ACTS
+		generateWithACTS(oldFm, newFm, fw, newFMPath, result, spcheck);
+
+		// Generate with BDD without specificity
+		generateWithBDDs(oldFm, newFm, fw, oldFM, newFMPath, newFM);
+
+		fw.close();
+	}
+
+	private void generateWithSpecificity(String oldFm, String newFm, BufferedWriter fw, IFeatureModel oldFM,
+			Path newFMPath, IFeatureModel newFM, SpecificityChecker spcheck)
+			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
 		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
 		TestSuite ts = gen.generateTestSuite();
 		ts.setStrength(2);
 		MinimalityTestSuiteValidator minimality = new MinimalityTestSuiteValidator(ts);
 		TestSuite tsReduced = minimality.reduceSize();
-		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, false);
 		int countSpec = 0;
 		int countNotSpec = 0;
 		for (ctwedge.util.Test t : tsReduced.getTests()) {
@@ -110,27 +129,17 @@ public class ICSTExperiments {
 				+ tsReduced.getTests().size() + ";" + tsReduced.getGeneratorTime() + ";" + countSpec + ";"
 				+ countNotSpec + ";" + (float) countSpec / tsReduced.getTests().size() + ";"
 				+ computeFaultDetectionCapability(newFMPath, tsReduced) + "\n");
+	}
 
-		// Generate with ACTS
-		ACTSTranslator acts = new ACTSTranslator();
-		TestSuite tsACTS = acts.getTestSuite(result, 2, false);
-		tsACTS.setGeneratorName("ACTS");
-		countSpec = 0;
-		countNotSpec = 0;
-		for (ctwedge.util.Test t : tsACTS.getTests()) {
-			if (spcheck.isSpecific(t))
-				countSpec++;
-			else
-				countNotSpec++;
-		}
-
-		// ACTS output
-		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";" + tsACTS.getGeneratorName() + ";"
-				+ tsACTS.getTests().size() + ";" + tsACTS.getGeneratorTime() + ";" + countSpec + ";" + countNotSpec
-				+ ";" + (float) countSpec / tsACTS.getTests().size() + ";"
-				+ computeFaultDetectionCapability(newFMPath, tsACTS) + "\n");
-
-		// Generate with BDD without specificity
+	private void generateWithBDDs(String oldFm, String newFm, BufferedWriter fw, IFeatureModel oldFM, Path newFMPath,
+			IFeatureModel newFM)
+			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+		TestSuite ts;
+		MinimalityTestSuiteValidator minimality;
+		TestSuite tsReduced;
+		SpecificityChecker spcheck;
+		int countSpec;
+		int countNotSpec;
 		BDDCITTestGenerator genBDD = new BDDCITTestGenerator(newFM, 2);
 		ts = genBDD.generateTestSuite();
 		ts.setStrength(2);
@@ -151,8 +160,30 @@ public class ICSTExperiments {
 				+ tsReduced.getTests().size() + ";" + tsReduced.getGeneratorTime() + ";" + countSpec + ";"
 				+ countNotSpec + ";" + (float) countSpec / tsReduced.getTests().size() + ";"
 				+ computeFaultDetectionCapability(newFMPath, tsReduced) + "\n");
+	}
 
-		fw.close();
+	private void generateWithACTS(String oldFm, String newFm, BufferedWriter fw, Path newFMPath, CitModel result,
+			SpecificityChecker spcheck)
+			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+		int countSpec;
+		int countNotSpec;
+		ACTSTranslator acts = new ACTSTranslator();
+		TestSuite tsACTS = acts.getTestSuite(result, 2, false);
+		tsACTS.setGeneratorName("ACTS");
+		countSpec = 0;
+		countNotSpec = 0;
+		for (ctwedge.util.Test t : tsACTS.getTests()) {
+			if (spcheck.isSpecific(t))
+				countSpec++;
+			else
+				countNotSpec++;
+		}
+
+		// ACTS output
+		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";" + tsACTS.getGeneratorName() + ";"
+				+ tsACTS.getTests().size() + ";" + tsACTS.getGeneratorTime() + ";" + countSpec + ";" + countNotSpec
+				+ ";" + (float) countSpec / tsACTS.getTests().size() + ";"
+				+ computeFaultDetectionCapability(newFMPath, tsACTS) + "\n");
 	}
 
 	/**
