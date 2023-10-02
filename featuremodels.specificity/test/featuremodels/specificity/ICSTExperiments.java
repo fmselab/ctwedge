@@ -20,7 +20,9 @@ import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.importer.featureide.FeatureIdeImporter;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.util.TestSuite;
+import ctwedge.util.smt.SMTTestSuiteValidator;
 import ctwedge.util.validator.MinimalityTestSuiteValidator;
+import ctwedge.util.validator.ValidatorException;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
@@ -39,10 +41,12 @@ public class ICSTExperiments {
 	}
 
 	@Test
-	public void testExperiments() throws IOException, UnsupportedModelException, NoSuchExtensionException {
+	public void testExperiments() throws IOException, UnsupportedModelException, NoSuchExtensionException,
+			InterruptedException, ValidatorException {
 		String output_file = "resultsSPECIFICITY.csv";
 		BufferedWriter fw = new BufferedWriter(new FileWriter(new File(output_file), false));
-		fw.write("OldFM;NewFM;Generator;Size;Time;NSpecificTests;NNotSpecificTests;Specificity;FaultDetection\n");
+		fw.write(
+				"OldFM;NewFM;Generator;Size;Time;NSpecificTests;NNotSpecificTests;Specificity;FaultDetection;CombinatorialCoverage\n");
 		fw.close();
 
 		for (int i = 0; i < N_REP; i++) {
@@ -66,7 +70,8 @@ public class ICSTExperiments {
 		}
 	}
 
-	private void testEvo(String[] evo) throws IOException, UnsupportedModelException, NoSuchExtensionException {
+	private void testEvo(String[] evo) throws IOException, UnsupportedModelException, NoSuchExtensionException,
+			InterruptedException, ValidatorException {
 		for (int i = 1; i < evo.length - 1; i++) {
 			for (int j = 2; j < evo.length - 1; j++)
 				if (i != j) {
@@ -77,8 +82,8 @@ public class ICSTExperiments {
 		}
 	}
 
-	private void executeTest(String oldFm, String newFm)
-			throws IOException, UnsupportedModelException, NoSuchExtensionException {
+	private void executeTest(String oldFm, String newFm) throws IOException, UnsupportedModelException,
+			NoSuchExtensionException, InterruptedException, ValidatorException {
 		// Load the two feature models
 		Path oldFMPath = Path.of(oldFm);
 		IFeatureModel oldFM = FeatureModelManager.load(oldFMPath);
@@ -90,8 +95,8 @@ public class ICSTExperiments {
 	}
 
 	private void generateMultipleTestSuites(String oldFm, String newFm, IFeatureModel oldFM, Path newFMPath,
-			IFeatureModel newFM)
-			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+			IFeatureModel newFM) throws IOException, FileNotFoundException, UnsupportedModelException,
+			NoSuchExtensionException, InterruptedException, ValidatorException {
 		// Output files
 		String output_file = "resultsSPECIFICITY.csv";
 		BufferedWriter fw = new BufferedWriter(new FileWriter(new File(output_file), true));
@@ -111,22 +116,24 @@ public class ICSTExperiments {
 		// Generate with MutTest
 		generateWithMutTestGenerator(oldFm, newFm, fw, newFMPath, result, spcheck);
 		fw.flush();
-		
+
 		// Generate with BDD without specificity
 		generateWithBDDs(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
 		fw.flush();
-		
+
 		fw.close();
 	}
 
 	private void generateWithSpecificity(String oldFm, String newFm, BufferedWriter fw, IFeatureModel oldFM,
-			Path newFMPath, IFeatureModel newFM, SpecificityChecker spcheck)
-			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+			Path newFMPath, IFeatureModel newFM, SpecificityChecker spcheck) throws IOException, FileNotFoundException,
+			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
 		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
 		TestSuite ts = gen.generateTestSuite();
 		ts.setStrength(2);
 		MinimalityTestSuiteValidator minimality = new MinimalityTestSuiteValidator(ts);
 		TestSuite tsReduced = minimality.reduceSize();
+		SMTTestSuiteValidator validator = new SMTTestSuiteValidator(tsReduced);
+		assert (validator.isComplete());
 		int countSpec = 0;
 		int countNotSpec = 0;
 		for (ctwedge.util.Test t : tsReduced.getTests()) {
@@ -140,12 +147,12 @@ public class ICSTExperiments {
 		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";" + tsReduced.getGeneratorName() + ";"
 				+ tsReduced.getTests().size() + ";" + tsReduced.getGeneratorTime() + ";" + countSpec + ";"
 				+ countNotSpec + ";" + (float) countSpec / tsReduced.getTests().size() + ";"
-				+ computeFaultDetectionCapability(newFMPath, tsReduced) + "\n");
+				+ computeFaultDetectionCapability(newFMPath, tsReduced) + ";1.0\n");
 	}
 
 	private void generateWithBDDs(String oldFm, String newFm, BufferedWriter fw, IFeatureModel oldFM, Path newFMPath,
-			IFeatureModel newFM, SpecificityChecker spcheck)
-			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+			IFeatureModel newFM, SpecificityChecker spcheck) throws IOException, FileNotFoundException,
+			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
 		TestSuite ts;
 		MinimalityTestSuiteValidator minimality;
 		TestSuite tsReduced;
@@ -156,6 +163,8 @@ public class ICSTExperiments {
 		ts.setStrength(2);
 		minimality = new MinimalityTestSuiteValidator(ts);
 		tsReduced = minimality.reduceSize();
+		SMTTestSuiteValidator validator = new SMTTestSuiteValidator(tsReduced);
+		assert (validator.isComplete());
 		countSpec = 0;
 		countNotSpec = 0;
 		for (ctwedge.util.Test t : tsReduced.getTests()) {
@@ -169,17 +178,19 @@ public class ICSTExperiments {
 		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";" + tsReduced.getGeneratorName() + ";"
 				+ tsReduced.getTests().size() + ";" + tsReduced.getGeneratorTime() + ";" + countSpec + ";"
 				+ countNotSpec + ";" + (float) countSpec / tsReduced.getTests().size() + ";"
-				+ computeFaultDetectionCapability(newFMPath, tsReduced) + "\n");
+				+ computeFaultDetectionCapability(newFMPath, tsReduced) + ";1.0\n");
 	}
 
 	private void generateWithACTS(String oldFm, String newFm, BufferedWriter fw, Path newFMPath, CitModel result,
-			SpecificityChecker spcheck)
-			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+			SpecificityChecker spcheck) throws IOException, FileNotFoundException, UnsupportedModelException,
+			NoSuchExtensionException, InterruptedException, ValidatorException {
 		int countSpec;
 		int countNotSpec;
 		ACTSTranslator acts = new ACTSTranslator();
 		TestSuite tsACTS = acts.getTestSuite(result, 2, false);
 		tsACTS.setGeneratorName("ACTS");
+		SMTTestSuiteValidator validator = new SMTTestSuiteValidator(tsACTS);
+		assert (validator.isComplete());
 		countSpec = 0;
 		countNotSpec = 0;
 		for (ctwedge.util.Test t : tsACTS.getTests()) {
@@ -193,17 +204,18 @@ public class ICSTExperiments {
 		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";" + tsACTS.getGeneratorName() + ";"
 				+ tsACTS.getTests().size() + ";" + tsACTS.getGeneratorTime() + ";" + countSpec + ";" + countNotSpec
 				+ ";" + (float) countSpec / tsACTS.getTests().size() + ";"
-				+ computeFaultDetectionCapability(newFMPath, tsACTS) + "\n");
+				+ computeFaultDetectionCapability(newFMPath, tsACTS) + ";1.0\n");
 	}
 
 	private void generateWithMutTestGenerator(String oldFm, String newFm, BufferedWriter fw, Path newFMPath,
 			CitModel result, SpecificityChecker spcheck)
-			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
 		int countSpec;
 		int countNotSpec;
 		MutationBasedTestgenerator gen = new MutationBasedTestgenerator();
 		TestSuite tsACTS = gen.generate(newFm, true);
 		tsACTS.setGeneratorName("MUTTESTGENERATOR");
+		SMTTestSuiteValidator validator = new SMTTestSuiteValidator(tsACTS);
 		countSpec = 0;
 		countNotSpec = 0;
 		for (ctwedge.util.Test t : tsACTS.getTests()) {
@@ -217,7 +229,8 @@ public class ICSTExperiments {
 		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";" + tsACTS.getGeneratorName() + ";"
 				+ tsACTS.getTests().size() + ";" + tsACTS.getGeneratorTime() + ";" + countSpec + ";" + countNotSpec
 				+ ";" + (float) countSpec / tsACTS.getTests().size() + ";"
-				+ computeFaultDetectionCapability(newFMPath, tsACTS) + "\n");
+				+ computeFaultDetectionCapability(newFMPath, tsACTS) + ";"
+				+ (float) validator.howManyTuplesCovers() / validator.howManyTuplesHas() + "\n");
 	}
 
 	/**

@@ -304,6 +304,12 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 		// Boolean value
 		if (atom.getBoolConst() != null)
 			return bmgr.makeBoolean(atom.getBoolConst().equalsIgnoreCase("true") ? true : false);
+		
+		if (atom.getName() != null)
+			if (atom.getName().equalsIgnoreCase("true"))
+				return bmgr.makeBoolean(true);
+			if (atom.getName().equalsIgnoreCase("false"))
+				return bmgr.makeBoolean(false);
 
 		// Numeric value - integer
 		try {

@@ -188,6 +188,9 @@ public class BDDCITTestGenerator {
 
 		// Fetch all tuples
 		while (tg.hasNext()) {
+			// Convert the FM into its corresponding BDD
+			bddNew = getBDDFromFM(fm, bdd_builder);
+			
 			List<Pair<String, Integer>> tp = tg.next();
 			String tpAsString = tp.stream().map(x -> "[" + x.getFirst() + "," + x.getSecond() + "]")
 					.collect(Collectors.joining(","));
