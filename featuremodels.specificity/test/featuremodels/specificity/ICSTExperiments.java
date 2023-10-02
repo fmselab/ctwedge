@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
-import java.util.List;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -15,8 +14,8 @@ import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.fmtester.experiments.MutationScore;
-import ctwedge.fmtester.experiments.TestSimpleExampleForPaper;
 import ctwedge.fmtester.experiments.MutationScore.MissingFeatureTreatment;
+import ctwedge.fmtester.experiments.TestSimpleExampleForPaper;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.importer.featureide.FeatureIdeImporter;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
@@ -27,14 +26,13 @@ import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
 import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
+import featuremodels.muttestgenerator.MutationBasedTestgenerator;
 import fmautorepair.mutationoperators.FMMutation;
-import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationprocess.FMMutationProcess;
 
 public class ICSTExperiments {
 
 	public static int N_REP = 10;
-	public static int MAX_MUTATIONS = 10;
 
 	static {
 		FMCoreLibrary.getInstance().install();
@@ -49,6 +47,7 @@ public class ICSTExperiments {
 
 		for (int i = 0; i < N_REP; i++) {
 			Logger.getLogger(BDDCITTestGenerator.class).setLevel(Level.OFF);
+			Logger.getLogger(MutationBasedTestgenerator.class).setLevel(Level.OFF);
 			testEvo(TestSimpleExampleForPaper.EV_ALIV);
 			testEvo(TestSimpleExampleForPaper.EV_PPU);
 			testEvo(TestSimpleExampleForPaper.EV_AUTOM);
@@ -103,13 +102,20 @@ public class ICSTExperiments {
 
 		// Generate using SPECIFICITY
 		generateWithSpecificity(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
+		fw.flush();
 
 		// Generate with ACTS
 		generateWithACTS(oldFm, newFm, fw, newFMPath, result, spcheck);
+		fw.flush();
 
+		// Generate with MutTest
+		generateWithMutTestGenerator(oldFm, newFm, fw, newFMPath, result, spcheck);
+		fw.flush();
+		
 		// Generate with BDD without specificity
 		generateWithBDDs(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
-
+		fw.flush();
+		
 		fw.close();
 	}
 
@@ -190,6 +196,30 @@ public class ICSTExperiments {
 				+ computeFaultDetectionCapability(newFMPath, tsACTS) + "\n");
 	}
 
+	private void generateWithMutTestGenerator(String oldFm, String newFm, BufferedWriter fw, Path newFMPath,
+			CitModel result, SpecificityChecker spcheck)
+			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+		int countSpec;
+		int countNotSpec;
+		MutationBasedTestgenerator gen = new MutationBasedTestgenerator();
+		TestSuite tsACTS = gen.generate(newFm, true);
+		tsACTS.setGeneratorName("MUTTESTGENERATOR");
+		countSpec = 0;
+		countNotSpec = 0;
+		for (ctwedge.util.Test t : tsACTS.getTests()) {
+			if (spcheck.isSpecific(t))
+				countSpec++;
+			else
+				countNotSpec++;
+		}
+
+		// MutTestGenerator output
+		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";" + tsACTS.getGeneratorName() + ";"
+				+ tsACTS.getTests().size() + ";" + tsACTS.getGeneratorTime() + ";" + countSpec + ";" + countNotSpec
+				+ ";" + (float) countSpec / tsACTS.getTests().size() + ";"
+				+ computeFaultDetectionCapability(newFMPath, tsACTS) + "\n");
+	}
+
 	/**
 	 * Computes the fault detection capability of the evolved test suite
 	 * 
@@ -208,28 +238,27 @@ public class ICSTExperiments {
 		IFeatureModel fm2 = FeatureModelManager.load(fm);
 
 		// Define the mutators
-		@SuppressWarnings("deprecation")
-		List<FMMutator> mutatorList = FMMutationProcess.allMutationOperatorsAsList();
+		Iterator<FMMutation> mutants = FMMutationProcess.getAllMutants(fm2);
 
 		// Apply the mutations
-		for (FMMutator mut : mutatorList) {
-			// Fetch all the obtained mutants
-			Iterator<FMMutation> mutations = mut.mutate(fm2);
-			while (mutations.hasNext()) {
-				totMut++;
-				FMMutation fmM = mutations.next();
+		while (mutants.hasNext()) {
+			FMMutation next = mutants.next();
+			if (next == null)
+				continue;
 
-				// Transform the test to a configuration
-				IFeatureModel featureModel = fmM.getFirst();
-				for (ctwedge.util.Test test : ts.getTests()) {
-					MutationScore.treat_missing_feature_as = MissingFeatureTreatment.SKIP;
-					Boolean result = MutationScore.isTestValidBool(featureModel, test);
-					if (!result) {
-						killedMut++;
-						break;
-					}
+			totMut++;
+
+			// Transform the test to a configuration
+			IFeatureModel featureModel = next.getFirst();
+			for (ctwedge.util.Test test : ts.getTests()) {
+				MutationScore.treat_missing_feature_as = MissingFeatureTreatment.SKIP;
+				Boolean result = MutationScore.isTestValidBool(featureModel, test);
+				if (!result) {
+					killedMut++;
+					break;
 				}
 			}
+
 		}
 
 		return totMut != 0 ? killedMut / totMut : 0;

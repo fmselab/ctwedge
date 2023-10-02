@@ -100,7 +100,7 @@ public class BDDCITTestGenerator {
 		for (int i = 0; i < testSet.size(); i++) {
 			// If the tuple can be covered with the considered test-BDD
 			if (testSet.get(i).and(tp).satCount() > 0) {
-				testSet.set(i, testSet.get(i).and(tp));
+				testSet.set(i, testSet.get(i).andWith(tp));
 				return true;
 			}
 		}
