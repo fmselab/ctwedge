@@ -15,12 +15,9 @@ public class FeatureIdeTestGenerator {
 	
 	@Test
 	public String generaTest() throws FileNotFoundException {
-		FMCoreLibrary.getInstance().install();
-		
-		ConfigurationGenerator  gen = new ConfigurationGenerator();
-	
-		return extracted(gen, "fmodels/Alternative.xml");
-		
+		FMCoreLibrary.getInstance().install();		
+		ConfigurationGenerator  gen = new ConfigurationGenerator();	
+		return extracted(gen, "fmodels/Alternative.xml");		
 	}
 
 	private String extracted(ConfigurationGenerator gen, String fmmodel) throws FileNotFoundException {
