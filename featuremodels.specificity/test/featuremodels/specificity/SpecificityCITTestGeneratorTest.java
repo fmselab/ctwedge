@@ -1,18 +1,11 @@
 package featuremodels.specificity;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Comparator;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.prop4j.FMToBDD;
 
 import ctwedge.fmtester.experiments.MutationScore;
 import ctwedge.fmtester.experiments.TestSimpleExampleForPaper;

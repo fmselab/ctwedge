@@ -1,7 +1,5 @@
 package featuremodels.specificity;
 
-import static org.junit.Assert.*;
-
 import java.nio.file.Path;
 
 import org.apache.log4j.Level;

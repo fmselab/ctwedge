@@ -55,10 +55,8 @@ import ctwedge.util.validator.ValidatorException;
 public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
 	static final Logger logger = Logger.getLogger(SMTTestSuiteValidator.class);
-	
-	
+
 	final static EnumTreatment ENUM_TREAT_VALIDATION = EnumTreatment.INTEGER;
-	
 
 	@SuppressWarnings("unchecked")
 	public SMTTestSuiteValidator(TestSuite ts) {
@@ -142,7 +140,8 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 	}
 
 	// check the completness of a test suite
-	// validator execption if the solver has some errors (to avoid depenency with sosym solver)
+	// validator execption if the solver has some errors (to avoid depenency with
+	// sosym solver)
 	//
 	public Boolean isComplete() throws InterruptedException, ValidatorException {
 		try {
@@ -168,7 +167,7 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 					}
 				}
 			}
-			
+
 			SMTModelTranslator smtrans = new SMTModelTranslator(ENUM_TREAT_VALIDATION);
 			prover = smtrans.createCtxFromModel(ts.getModel(), ts.getModel().getConstraints(), ctx, prover);
 
@@ -178,8 +177,9 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 
 			// Add the n-wise tuple to the context
 			Iterator<Map<Parameter, String>> i = listMapReq.iterator();
-			return checkRequirementsConsistency(ctx, listMapReq, smtrans.declaredElements , smtrans.variables, i, prover);
-		} catch (SolverException|InvalidConfigurationException e) {
+			return checkRequirementsConsistency(ctx, listMapReq, smtrans.declaredElements, smtrans.variables, i,
+					prover);
+		} catch (SolverException | InvalidConfigurationException e) {
 			throw new ValidatorException(e.getMessage());
 		}
 	}
@@ -261,9 +261,9 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 		ArrayFormulaManager afmgr = ctx.getFormulaManager().getArrayFormulaManager();
 		ArrayFormula rangeFormula = null;
 		int counter = 0;
-		String typeName = range.getName();		
+		String typeName = range.getName();
 		ArrayFormulaType type = FormulaType.getArrayType(FormulaType.IntegerType, FormulaType.IntegerType);
-		rangeFormula = afmgr.makeArray(typeName,type );
+		rangeFormula = afmgr.makeArray(typeName, type);
 
 		// Get the list of all possible values
 		ArrayList<String> values = new ArrayList<String>(ParameterElementsGetterAsStrings.instance.caseRange(range));
@@ -280,8 +280,8 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 	}
 
 	private Boolean checkRequirementsConsistency(SolverContext ctx, List<Map<Parameter, String>> listMapReq,
-			Map<String, List<String>> declaredElements, Map<Parameter, List<Formula>> variables, Iterator<Map<Parameter, String>> i,
-			ProverEnvironment prover) throws InterruptedException, SolverException {
+			Map<String, List<String>> declaredElements, Map<Parameter, List<Formula>> variables,
+			Iterator<Map<Parameter, String>> i, ProverEnvironment prover) throws InterruptedException, SolverException {
 
 		ArrayList<Formula> notComplete = new ArrayList<Formula>();
 
@@ -293,24 +293,24 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 			BooleanFormula t = ctx.getFormulaManager().getBooleanFormulaManager().makeTrue();
 
 			prover.push();
-			
+
 			for (Parameter p : requirement.keySet()) {
 
 				BooleanFormula tNew = null;
-				//assert variables.size() == 1;
+				// assert variables.size() == 1;
 				Formula varPointer = variables.get(p).get(0);
 				assert varPointer != null;
 
 				// Check the type of the parameter
-				if (p instanceof Enumerative) { 
-					assert ENUM_TREAT_VALIDATION == EnumTreatment.INTEGER; 
+				if (p instanceof Enumerative) {
+					assert ENUM_TREAT_VALIDATION == EnumTreatment.INTEGER;
 					// Get the left side of the comparison
-					assert  variables.get(p).size() == 1;
-					Formula leftSide = variables.get(p).get(0);					
+					assert variables.get(p).size() == 1;
+					Formula leftSide = variables.get(p).get(0);
 					// Get the right side of the comparison
 					String valueName = requirement.get(p);
 					assert declaredElements.get(p.getName()).contains(valueName);
-					int index = declaredElements.get(p.getName()).indexOf(valueName);					
+					int index = declaredElements.get(p.getName()).indexOf(valueName);
 					Formula rightSide = ctx.getFormulaManager().getIntegerFormulaManager().makeNumber(index);
 					tNew = ctx.getFormulaManager().getIntegerFormulaManager().equal((IntegerFormula) leftSide,
 							(IntegerFormula) rightSide);
@@ -375,7 +375,7 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 		// If no return has been executed before, the requirements are consistent
 		return notComplete.size() == 0;
 	}
-	
+
 	private List<Map<Parameter, String>> getRequirements() {
 		CitModel model = ts.getModel();
 		Iterator<List<Pair<Parameter, String>>> reqs = ParameterSwitchToPairStrings.getTuples(model, ts.getStrength());
@@ -430,6 +430,23 @@ public class SMTTestSuiteValidator extends TestSuiteAnalyzer {
 				}
 			}
 		}
+		return covered;
+	}
+
+	public int howManyTuplesHas() {
+		Set<Map<Parameter, String>> testSuiteSet = getTestMap();
+		List<Map<Parameter, String>> listMapReq = getRequirements();
+		Iterator<Map<Parameter, String>> iSeed = testSuiteSet.iterator();
+		int covered = 0;
+		if (!listMapReq.isEmpty()) {
+			Iterator<Map<Parameter, String>> iReq = listMapReq.iterator();
+			while (iReq.hasNext()) {
+				iReq.next();
+				covered = covered + 1;
+				iReq.remove();
+			}
+		}
+
 		return covered;
 	}
 }

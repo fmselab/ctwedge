@@ -100,7 +100,7 @@ public class BDDCITTestGenerator {
 		for (int i = 0; i < testSet.size(); i++) {
 			// If the tuple can be covered with the considered test-BDD
 			if (testSet.get(i).and(tp).satCount() > 0) {
-				testSet.set(i, testSet.get(i).and(tp));
+				testSet.set(i, testSet.get(i).andWith(tp));
 				return true;
 			}
 		}
@@ -188,6 +188,9 @@ public class BDDCITTestGenerator {
 
 		// Fetch all tuples
 		while (tg.hasNext()) {
+			// Convert the FM into its corresponding BDD
+			bddNew = getBDDFromFM(fm, bdd_builder);
+			
 			List<Pair<String, Integer>> tp = tg.next();
 			String tpAsString = tp.stream().map(x -> "[" + x.getFirst() + "," + x.getSecond() + "]")
 					.collect(Collectors.joining(","));

@@ -193,7 +193,8 @@ public class MutationScore {
 			conf.setManual(featurename, sel);
 		}
 		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
-		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
+		Boolean result = false;
+		result = LongRunningWrapper.runMethod(cp.isValid());
 		return result;
 	}
 }
