@@ -17,6 +17,10 @@ import de.ovgu.featureide.fm.core.cli.ConfigurationGenerator;
 public class FeatureIdeTestGenerator {
 
 	/**
+	 * The name of the temporary file containing the test suite
+	 */
+	private static final String TEMPTS_TXT = "tempts.txt";
+	/**
 	 * The path of the feature model which we want to generate the test suite for
 	 */
 	String fmPath;
@@ -30,14 +34,26 @@ public class FeatureIdeTestGenerator {
 		this.fmPath = fmPath;
 	}
 
-	public TestSuite generateTestSuite(ConfigurationGenerator gen) throws FileNotFoundException {
-		String string = "tempts.txt";
-		String[] args = { "-a", "incling", "-fm", fmmodel, "-o", string };
+	/**
+	 * Generates the test suites
+	 * 
+	 * @return the test suite
+	 * @throws FileNotFoundException
+	 */
+	public TestSuite generateTestSuite() throws FileNotFoundException {
+		long startTime = System.currentTimeMillis();
+
+		// Generate the test suite and store it into a file
+		ConfigurationGenerator gen = new ConfigurationGenerator();
+		String[] args = { "-a", "incling", "-fm", fmPath, "-o", TEMPTS_TXT };
 		CitModel model = new FeatureIdeImporterBoolean().importModel(fmPath);
 		gen.run(Arrays.asList(args));
-		File text = new File(string);
 
-		// Creating Scanner instance to read File in Java
+		// Generation time
+		startTime = System.currentTimeMillis() - startTime;
+
+		// Read the test suite into a CSV string
+		File text = new File(TEMPTS_TXT);
 		Scanner scnr = new Scanner(text);
 		String testSuiteCSV = "";
 		while (scnr.hasNextLine()) {
@@ -45,11 +61,15 @@ public class FeatureIdeTestGenerator {
 			line = line.substring(line.indexOf(";") + 1);
 			line = line.replaceAll("\\+", "true");
 			line = line.replaceAll("\\-", "false");
-			System.out.println("line " + " :" + line);
 			testSuiteCSV += line + "\n";
 		}
 		scnr.close();
-		return testSuiteCSV;
+
+		// Convert the test suite into a CTWedge Test suite
+		TestSuite res = new TestSuite(testSuiteCSV, model, ";");
+		res.setGeneratorName("INCLING");
+		res.setGeneratorTime(startTime);
+		return res;
 	}
 
 }

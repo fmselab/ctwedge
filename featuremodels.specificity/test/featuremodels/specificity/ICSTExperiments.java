@@ -120,8 +120,38 @@ public class ICSTExperiments {
 		// Generate with BDD without specificity
 		generateWithBDDs(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
 		fw.flush();
+		
+		// Generate with Feature IDE generator
+		generateWithINCLING(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
+		fw.flush();
 
 		fw.close();
+	}
+
+	private void generateWithINCLING(String oldFm, String newFm, BufferedWriter fw, IFeatureModel oldFM2,
+			Path newFMPath, IFeatureModel newFM2, SpecificityChecker spcheck) throws FileNotFoundException, IOException, UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
+		TestSuite ts;
+		int countSpec;
+		int countNotSpec;
+		FeatureIdeTestGenerator genFIDE = new FeatureIdeTestGenerator(newFm);
+		ts = genFIDE.generateTestSuite();
+		ts.setStrength(2);
+		SMTTestSuiteValidator validator = new SMTTestSuiteValidator(ts);
+		assert (validator.isComplete());
+		countSpec = 0;
+		countNotSpec = 0;
+		for (ctwedge.util.Test t : ts.getTests()) {
+			if (spcheck.isSpecific(t))
+				countSpec++;
+			else
+				countNotSpec++;
+		}
+
+		// Feature IDE output
+		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";" + ts.getGeneratorName() + ";"
+				+ ts.getTests().size() + ";" + ts.getGeneratorTime() + ";" + countSpec + ";"
+				+ countNotSpec + ";" + (float) countSpec / ts.getTests().size() + ";"
+				+ computeFaultDetectionCapability(newFMPath, ts) + ";1.0\n");
 	}
 
 	private void generateWithSpecificity(String oldFm, String newFm, BufferedWriter fw, IFeatureModel oldFM,
