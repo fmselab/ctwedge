@@ -31,6 +31,8 @@ import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 import featuremodels.muttestgenerator.MutationBasedTestgenerator;
 import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationprocess.FMMutationProcess;
+import pMedici.main.PMedici;
+import pMedici.util.TestContext;
 
 public class ICSTExperiments {
 
@@ -91,10 +93,10 @@ public class ICSTExperiments {
 		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
 
 		// Generate test suites
-		generateMultipleTestSuites(oldFm, newFm, oldFM, newFMPath, newFM);
+		generateMultipleTestSuites(oldFm, newFm, oldFMPath, oldFM, newFMPath, newFM);
 	}
 
-	private void generateMultipleTestSuites(String oldFm, String newFm, IFeatureModel oldFM, Path newFMPath,
+	private void generateMultipleTestSuites(String oldFm, String newFm, Path oldFMPath, IFeatureModel oldFM, Path newFMPath,
 			IFeatureModel newFM) throws IOException, FileNotFoundException, UnsupportedModelException,
 			NoSuchExtensionException, InterruptedException, ValidatorException {
 		// Output files
@@ -102,7 +104,9 @@ public class ICSTExperiments {
 		BufferedWriter fw = new BufferedWriter(new FileWriter(new File(output_file), true));
 
 		FeatureIdeImporter importer = new FeatureIdeImporterBoolean();
-		CitModel result = importer.importModel(newFMPath.toString());
+		CitModel resultNew = importer.importModel(newFMPath.toString());
+		importer = new FeatureIdeImporterBoolean();
+		CitModel resultOld = importer.importModel(oldFMPath.toString());
 		SpecificityChecker spcheck = new SpecificityChecker(oldFM, newFM, false);
 
 		// Generate using SPECIFICITY
@@ -110,26 +114,31 @@ public class ICSTExperiments {
 		fw.flush();
 
 		// Generate with ACTS
-		generateWithACTS(oldFm, newFm, fw, newFMPath, result, spcheck);
+		generateWithACTS(oldFm, newFm, fw, newFMPath, resultNew, spcheck);
 		fw.flush();
 
 		// Generate with MutTest
-		generateWithMutTestGenerator(oldFm, newFm, fw, newFMPath, result, spcheck);
+		generateWithMutTestGenerator(oldFm, newFm, fw, newFMPath, resultNew, spcheck);
 		fw.flush();
 
 		// Generate with BDD without specificity
 		generateWithBDDs(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
 		fw.flush();
-		
+
 		// Generate with Feature IDE generator
 		generateWithINCLING(oldFm, newFm, fw, oldFM, newFMPath, newFM, spcheck);
+		fw.flush();
+		
+		// Generate with GFE
+		generateWithGFE(oldFm, newFm, fw, newFMPath, resultNew, resultOld, spcheck);
 		fw.flush();
 
 		fw.close();
 	}
 
 	private void generateWithINCLING(String oldFm, String newFm, BufferedWriter fw, IFeatureModel oldFM2,
-			Path newFMPath, IFeatureModel newFM2, SpecificityChecker spcheck) throws FileNotFoundException, IOException, UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
+			Path newFMPath, IFeatureModel newFM2, SpecificityChecker spcheck) throws FileNotFoundException, IOException,
+			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
 		TestSuite ts;
 		int countSpec;
 		int countNotSpec;
@@ -149,9 +158,9 @@ public class ICSTExperiments {
 
 		// Feature IDE output
 		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";" + ts.getGeneratorName() + ";"
-				+ ts.getTests().size() + ";" + ts.getGeneratorTime() + ";" + countSpec + ";"
-				+ countNotSpec + ";" + (float) countSpec / ts.getTests().size() + ";"
-				+ computeFaultDetectionCapability(newFMPath, ts) + ";1.0\n");
+				+ ts.getTests().size() + ";" + ts.getGeneratorTime() + ";" + countSpec + ";" + countNotSpec + ";"
+				+ (float) countSpec / ts.getTests().size() + ";" + computeFaultDetectionCapability(newFMPath, ts)
+				+ ";1.0\n");
 	}
 
 	private void generateWithSpecificity(String oldFm, String newFm, BufferedWriter fw, IFeatureModel oldFM,
@@ -238,8 +247,8 @@ public class ICSTExperiments {
 	}
 
 	private void generateWithMutTestGenerator(String oldFm, String newFm, BufferedWriter fw, Path newFMPath,
-			CitModel result, SpecificityChecker spcheck)
-			throws IOException, FileNotFoundException, UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
+			CitModel result, SpecificityChecker spcheck) throws IOException, FileNotFoundException,
+			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
 		int countSpec;
 		int countNotSpec;
 		MutationBasedTestgenerator gen = new MutationBasedTestgenerator();
@@ -261,6 +270,45 @@ public class ICSTExperiments {
 				+ ";" + (float) countSpec / tsACTS.getTests().size() + ";"
 				+ computeFaultDetectionCapability(newFMPath, tsACTS) + ";"
 				+ (float) validator.howManyTuplesCovers() / validator.howManyTuplesHas() + "\n");
+	}
+
+	private void generateWithGFE(String oldFm, String newFm, BufferedWriter fw, Path newFMPath, CitModel evolvedModel, CitModel originalModel,
+			SpecificityChecker spcheck) throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+
+		TestContext.IN_TEST = true;
+		int countSpec = 0;
+		int countNotSpec = 0;
+
+		// Get the first test suite with ACTS
+		ACTSTranslator acts = new ACTSTranslator();
+		TestSuite tsACTS = acts.getTestSuite(originalModel, 2, false);
+		tsACTS.setGeneratorName("ACTS");
+
+		// Second model
+		PMedici pMedici = new PMedici();
+		pMedici.setSeeds(tsACTS.getTests());
+		TestSuite gfeTS = pMedici.generateTests(evolvedModel, 2, 1);
+		assert gfeTS.getGeneratorTime() >= 0;
+		assert gfeTS.getStrength() >= 0;
+
+		// Minimize test suite
+		MinimalityTestSuiteValidator minimality = new MinimalityTestSuiteValidator(gfeTS);
+		gfeTS = minimality.reduceSize();
+		System.gc();
+
+		// Analyze the specificity
+		for (ctwedge.util.Test t : gfeTS.getTests()) {
+			if (spcheck.isSpecific(t))
+				countSpec++;
+			else
+				countNotSpec++;
+		}
+
+		// GFE output
+		fw.write(new File(oldFm).getName() + ";" + new File(newFm).getName() + ";GFE;" + gfeTS.getTests().size() + ";"
+				+ gfeTS.getGeneratorTime() + ";" + countSpec + ";" + countNotSpec + ";"
+				+ (float) countSpec / gfeTS.getTests().size() + ";" + computeFaultDetectionCapability(newFMPath, gfeTS)
+				+ ";1.0\n");
 	}
 
 	/**

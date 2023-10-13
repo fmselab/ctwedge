@@ -1,0 +1,7 @@
+Configuration;Mobilemedia;Albummanagement;Createalbum;Deletealbum;Photomanagement;Favorite;Setfavorites;Viewfavorites;Sorting;Photooperation;Createphoto;Deletephoto;Editphotolabel;Viewphoto;Copyphoto;SMStranfer;Receivephoto;Sendphoto
+0;+;+;+;+;+;+;+;+;+;+;+;+;+;+;+;+;+;+
+1;+;+;+;+;+;-;-;-;-;+;+;+;+;+;-;-;-;-
+2;+;+;+;+;+;-;-;-;-;+;+;+;+;+;+;+;+;+
+3;+;+;+;+;+;+;+;+;+;+;+;+;+;+;-;-;-;-
+4;+;+;+;+;+;+;+;+;-;+;+;+;+;+;-;+;+;+
+5;+;+;+;+;+;-;-;-;+;+;+;+;+;+;+;-;-;-
