@@ -65,7 +65,8 @@ Require-Bundle: ctwedge.importer.featureide;bundle-version="1.0.0",
  com.google.inject;bundle-version="5.0.1",
  org.eclipse.xtext.ecore;bundle-version="2.26.0",
  org.junit,
- org.eclipse.xtext.testing
+ org.eclipse.xtext.testing,
+ de.ovgu.featureide.fm.core
 Import-Package: de.ovgu.featureide.fm.core.configuration,
  org.eclipse.xtext.junit4
 Automatic-Module-Name: ctwedge.importer.featureide.tests

@@ -16,9 +16,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/fmautorepair.mutation"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pMEDICI"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/fmautorepair.utils"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
 		<attributes>
-			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -28,6 +27,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/fmautorepair.libs/de.ovgu.featureide.lib.fm-v3.9.2.jar"/>
+	<classpathentry kind="lib" path="/fmautorepair.libs/de.ovgu.featureide.lib.fm-v3.10.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
