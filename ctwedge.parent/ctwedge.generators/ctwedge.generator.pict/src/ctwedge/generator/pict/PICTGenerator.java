@@ -49,7 +49,7 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 		System.out.println("\n------- MODELLO PICT -------\n");
 		System.out.println(pictModel);
 		long t_start = System.currentTimeMillis();
-		String output = runTool(tempModel, seedFileName);
+		String output = runTool(tempModel, seedFileName, nWise);
 		long t_end = System.currentTimeMillis();
 		if (output == null)
 			return null;
@@ -68,6 +68,18 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 	 * @throws IOException
 	 */
 	private String runTool(File model, String seedFileName) throws IOException {
+		return runTool(model, seedFileName, 2);
+	}
+	
+	/**
+	 * run PICT as external tool
+	 * 
+	 * @param model
+	 *            file for the model
+	 * @return the file containing the test suite
+	 * @throws IOException
+	 */
+	private String runTool(File model, String seedFileName, int strength) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		List<String> command = new ArrayList<String>();
 		String pictExecutable = "";
@@ -83,6 +95,9 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 		// If seeds are used
 		if (!seedFileName.equals("")) 
 			command.add("/e:" + seedFileName);
+		
+		// Strength
+		command.add("/o:" + strength);
 		
 		ProcessBuilder pc = new ProcessBuilder(command);
 		pc.command(command);
