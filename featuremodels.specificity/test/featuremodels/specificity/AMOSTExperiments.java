@@ -34,7 +34,7 @@ import fmautorepair.mutationprocess.FMMutationProcess;
 import pMedici.main.PMedici;
 import pMedici.util.TestContext;
 
-public class ICSTExperiments {
+public class AMOSTExperiments {
 
 	public static int N_REP = 10;
 
