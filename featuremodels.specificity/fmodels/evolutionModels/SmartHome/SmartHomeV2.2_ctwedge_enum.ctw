@@ -1,0 +1,124 @@
+Model MSmartHomeV2 Parameters :
+SmartHome : Boolean
+HVACManagement : Boolean
+HeatingControl : Boolean
+ManualHeating1 : Boolean
+AutomatedHeating : Boolean
+RemoteHeatingControl : Boolean
+AirConditioningControl : Boolean
+ManualAirConditioningControl : Boolean
+AutomatedAirConditioningControl : Boolean
+RemoteAirConditioningControl : Boolean
+VentilationControl : Boolean
+ManualVentilationControl : Boolean
+AutomatedVentilationControl : Boolean
+FullAutomatedHVACControl : Boolean
+FullManualHVACControl : Boolean
+WindowsManagement : Boolean
+ManualWindows : Boolean
+AutomatedWindows : Boolean
+LightManagement : Boolean
+AutomatedIlumination : Boolean
+AutomatedPerimeterIllumination : Boolean
+AutomatedIn_houseIllumination : Boolean
+ManualIlumination : Boolean
+UI : Boolean
+TouchScreen : Boolean
+Internet : Boolean
+Privacy : Boolean
+EncryptionAlgorithm : { RSA DES NONE }
+PresenceSimulation : Boolean
+LightSimulation : Boolean
+BlindsSimulation : Boolean
+AVSimulation : Boolean
+FireControl : Boolean
+FirstAidGroup : Boolean
+FireDepartment : Boolean
+OtherGroup : Boolean
+FireSprinklers : Boolean
+IrrigationSprinklers : Boolean
+SimpleControl : Boolean
+AutomatedSprinklers : Boolean
+Alarm : Boolean
+Siren : Boolean
+Bell : Boolean
+Lights : Boolean
+Security : Boolean
+AuthenticationDevice : Boolean
+Keypad : Boolean
+RetinaScanner : Boolean
+FingerprintReader : Boolean
+IntrusionDetectionDevice : Boolean
+GlassbreakSensors : Boolean
+Cameras : Boolean
+BlindsManagement : Boolean
+ManualBlinds : Boolean
+AutomatedBlinds : Boolean
+AVManagement : Boolean
+AutomatedAV : Boolean
+Moods : Boolean Constraints :
+# SmartHome == TRUE #
+# HVACManagement == TRUE => SmartHome == TRUE #
+# HeatingControl == TRUE => HVACManagement == TRUE #
+# ManualHeating1 == TRUE <=> HeatingControl == TRUE #
+# AutomatedHeating == TRUE => HeatingControl == TRUE #
+# RemoteHeatingControl == TRUE => AutomatedHeating == TRUE #
+# AirConditioningControl == TRUE => HVACManagement == TRUE #
+# ManualAirConditioningControl == TRUE <=> AirConditioningControl == TRUE #
+# AutomatedAirConditioningControl == TRUE => AirConditioningControl == TRUE #
+# RemoteAirConditioningControl == TRUE => AutomatedAirConditioningControl == TRUE #
+# VentilationControl == TRUE => HVACManagement == TRUE #
+# ManualVentilationControl == TRUE <=> VentilationControl == TRUE #
+# AutomatedVentilationControl == TRUE => VentilationControl == TRUE #
+# FullAutomatedHVACControl == TRUE => HVACManagement == TRUE #
+# FullManualHVACControl == TRUE => HVACManagement == TRUE #
+# WindowsManagement == TRUE <=> SmartHome == TRUE #
+# ManualWindows == TRUE <=> WindowsManagement == TRUE #
+# AutomatedWindows == TRUE => WindowsManagement == TRUE #
+# LightManagement == TRUE <=> SmartHome == TRUE #
+# AutomatedIlumination == TRUE => LightManagement == TRUE #
+# AutomatedIlumination == TRUE => AutomatedPerimeterIllumination == TRUE || AutomatedIn_houseIllumination == TRUE #
+# AutomatedPerimeterIllumination == TRUE => AutomatedIlumination == TRUE #
+# AutomatedIn_houseIllumination == TRUE => AutomatedIlumination == TRUE #
+# ManualIlumination == TRUE <=> LightManagement == TRUE #
+# UI == TRUE <=> SmartHome == TRUE #
+# TouchScreen == TRUE <=> UI == TRUE #
+# Internet == TRUE => UI == TRUE #
+# Privacy == TRUE => Internet == TRUE #
+# EncryptionAlgorithm != NONE => Privacy == TRUE #
+# PresenceSimulation == TRUE => SmartHome == TRUE #
+# PresenceSimulation == TRUE => LightSimulation == TRUE || BlindsSimulation == TRUE || AVSimulation == TRUE #
+# LightSimulation == TRUE => PresenceSimulation == TRUE #
+# BlindsSimulation == TRUE => PresenceSimulation == TRUE #
+# AVSimulation == TRUE => PresenceSimulation == TRUE #
+# FireControl == TRUE => SmartHome == TRUE #
+# FirstAidGroup == TRUE <=> FireControl == TRUE #
+# FireDepartment == TRUE <=> FirstAidGroup == TRUE #
+# OtherGroup == TRUE => FirstAidGroup == TRUE #
+# FireSprinklers == TRUE => FireControl == TRUE #
+# IrrigationSprinklers == TRUE => SmartHome == TRUE #
+# SimpleControl == TRUE <=> IrrigationSprinklers == TRUE #
+# AutomatedSprinklers == TRUE => IrrigationSprinklers == TRUE #
+# Alarm == TRUE => SmartHome == TRUE #
+# Alarm == TRUE => Siren == TRUE || Bell == TRUE || Lights == TRUE #
+# Siren == TRUE => Alarm == TRUE #
+# Bell == TRUE => Alarm == TRUE #
+# Lights == TRUE => Alarm == TRUE #
+# Security == TRUE => SmartHome == TRUE #
+# AuthenticationDevice == TRUE <=> Security == TRUE #
+# AuthenticationDevice == TRUE => Keypad == TRUE || RetinaScanner == TRUE || FingerprintReader == TRUE #
+# Keypad == TRUE => AuthenticationDevice == TRUE #
+# RetinaScanner == TRUE => AuthenticationDevice == TRUE #
+# FingerprintReader == TRUE => AuthenticationDevice == TRUE #
+# IntrusionDetectionDevice == TRUE => Security == TRUE #
+# IntrusionDetectionDevice == TRUE => GlassbreakSensors == TRUE || Cameras == TRUE #
+# GlassbreakSensors == TRUE => IntrusionDetectionDevice == TRUE #
+# Cameras == TRUE => IntrusionDetectionDevice == TRUE #
+# BlindsManagement == TRUE => SmartHome == TRUE #
+# ManualBlinds == TRUE <=> BlindsManagement == TRUE #
+# AutomatedBlinds == TRUE => BlindsManagement == TRUE #
+# AVManagement == TRUE => SmartHome == TRUE #
+# AutomatedAV == TRUE => AVManagement == TRUE #
+# Moods == TRUE => SmartHome == TRUE #
+# ! ( EncryptionAlgorithm == RSA ) || ! ( EncryptionAlgorithm == DES ) #
+# ! ( HeatingControl == TRUE ) || HVACManagement == TRUE #

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="SmartHotel">
+			<feature name="Automatedillumination"/>
+			<and name="Security">
+				<or name="Alarm">
+					<feature name="Siren"/>
+					<feature name="VisualAlarm"/>
+				</or>
+			</and>
+			<and name="TemperatureControl">
+				<feature name="Heating"/>
+			</and>
+		</and>
+	</struct>
+</featureModel>

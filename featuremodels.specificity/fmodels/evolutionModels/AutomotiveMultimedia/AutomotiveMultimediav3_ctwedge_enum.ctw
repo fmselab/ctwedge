@@ -1,0 +1,28 @@
+Model MAutomotiveMultimediav3 Parameters :
+AutomotiveMultimedia : Boolean
+AudioPlayer : Boolean
+Radio : Boolean
+CDPlayer : Boolean
+VoiceRecognition : Boolean
+PersonalNavigation : Boolean
+Maps : Boolean
+Europe : Boolean
+NorthAmerica : Boolean
+CentralAmerica : Boolean
+SouthAmerica : Boolean
+Asia : Boolean
+OnBoardComputer : Boolean Constraints :
+# AutomotiveMultimedia == TRUE #
+# AudioPlayer == TRUE => AutomotiveMultimedia == TRUE #
+# Radio == TRUE <=> AudioPlayer == TRUE #
+# CDPlayer == TRUE => AudioPlayer == TRUE #
+# VoiceRecognition == TRUE => AutomotiveMultimedia == TRUE #
+# PersonalNavigation == TRUE => AutomotiveMultimedia == TRUE #
+# Maps == TRUE <=> PersonalNavigation == TRUE #
+# Maps == TRUE => Europe == TRUE || NorthAmerica == TRUE || CentralAmerica == TRUE || SouthAmerica == TRUE || Asia == TRUE #
+# Europe == TRUE => Maps == TRUE #
+# NorthAmerica == TRUE => Maps == TRUE #
+# CentralAmerica == TRUE => Maps == TRUE #
+# SouthAmerica == TRUE => Maps == TRUE #
+# Asia == TRUE => Maps == TRUE #
+# OnBoardComputer == TRUE <=> AutomotiveMultimedia == TRUE #

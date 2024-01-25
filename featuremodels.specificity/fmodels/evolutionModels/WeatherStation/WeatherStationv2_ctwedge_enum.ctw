@@ -1,0 +1,31 @@
+Model MWeatherStationv2 Parameters :
+WeatherStation : Boolean
+Measurements : Boolean
+WindSpeed : Boolean
+Temperature : Boolean
+Pressure : Boolean
+DataSource : { ExternalSensors Demo Internet NONE }
+OutFormAndLanguage : Boolean
+OutputFormat : { File WebServer Text NONE }
+Format : { HTML XML Plaintext NONE }
+Language : { English German NONE }
+Alarm : Boolean
+FreezePoint : Boolean
+StormAlert : Boolean Constraints :
+# WeatherStation == TRUE #
+# Measurements == TRUE <=> WeatherStation == TRUE #
+# Measurements == TRUE => WindSpeed == TRUE || Temperature == TRUE || Pressure == TRUE #
+# WindSpeed == TRUE => Measurements == TRUE #
+# Temperature == TRUE => Measurements == TRUE #
+# Pressure == TRUE => Measurements == TRUE #
+# DataSource != NONE <=> WeatherStation == TRUE #
+# OutFormAndLanguage == TRUE <=> WeatherStation == TRUE #
+# OutputFormat != NONE <=> OutFormAndLanguage == TRUE #
+# Format != NONE <=> OutFormAndLanguage == TRUE #
+# Language != NONE <=> OutFormAndLanguage == TRUE #
+# Alarm == TRUE => WeatherStation == TRUE #
+# Alarm == TRUE => FreezePoint == TRUE || StormAlert == TRUE #
+# FreezePoint == TRUE => Alarm == TRUE #
+# StormAlert == TRUE => Alarm == TRUE #
+# FreezePoint == TRUE => Temperature == TRUE #
+# Format == XML || OutputFormat == Text #

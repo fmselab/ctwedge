@@ -1,0 +1,54 @@
+Model MMobileMediaV8 Parameters :
+MobileMedia : Boolean
+Albummanagement : Boolean
+CreateAlbum : Boolean
+DeleteAlbum : Boolean
+Mediamanagement : Boolean
+Favorites : Boolean
+Setfavorites : Boolean
+Viewfavorites : Boolean
+Sorting : Boolean
+Basicmediaoperation : Boolean
+Createmedia : Boolean
+Deletemedia : Boolean
+Editmedialabel : Boolean
+Copymedia : Boolean
+SMStransfer : Boolean
+Receivephoto : Boolean
+Sendphoto : Boolean
+Mediaselection : Boolean
+Photo : Boolean
+Viewphoto : Boolean
+Capturephoto : Boolean
+Music : Boolean
+Playmusic : Boolean
+Video : Boolean
+Playvideo : Boolean
+Capturevideo : Boolean Constraints :
+# MobileMedia == TRUE #
+# Albummanagement == TRUE <=> MobileMedia == TRUE #
+# CreateAlbum == TRUE <=> Albummanagement == TRUE #
+# DeleteAlbum == TRUE <=> Albummanagement == TRUE #
+# Mediamanagement == TRUE <=> MobileMedia == TRUE #
+# Favorites == TRUE => Mediamanagement == TRUE #
+# Setfavorites == TRUE <=> Favorites == TRUE #
+# Viewfavorites == TRUE <=> Favorites == TRUE #
+# Sorting == TRUE => Mediamanagement == TRUE #
+# Basicmediaoperation == TRUE <=> Mediamanagement == TRUE #
+# Createmedia == TRUE <=> Basicmediaoperation == TRUE #
+# Deletemedia == TRUE <=> Basicmediaoperation == TRUE #
+# Editmedialabel == TRUE <=> Basicmediaoperation == TRUE #
+# Copymedia == TRUE => Mediamanagement == TRUE #
+# SMStransfer == TRUE => Mediamanagement == TRUE #
+# Receivephoto == TRUE <=> SMStransfer == TRUE #
+# Sendphoto == TRUE <=> SMStransfer == TRUE #
+# Mediaselection == TRUE <=> MobileMedia == TRUE #
+# Mediaselection == TRUE => Photo == TRUE || Music == TRUE || Video == TRUE #
+# Photo == TRUE => Mediaselection == TRUE #
+# Viewphoto == TRUE <=> Photo == TRUE #
+# Capturephoto == TRUE => Photo == TRUE #
+# Music == TRUE => Mediaselection == TRUE #
+# Playmusic == TRUE <=> Music == TRUE #
+# Video == TRUE => Mediaselection == TRUE #
+# Playvideo == TRUE <=> Video == TRUE #
+# Capturevideo == TRUE => Video == TRUE #

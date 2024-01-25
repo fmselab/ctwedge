@@ -1,0 +1,46 @@
+Model MSmartWatchv2 Parameters :
+Smartwatch : Boolean
+SmartPay : Boolean
+SmartKey : Boolean
+CarKey : Boolean
+HomeKey : Boolean
+ManageHealth : Boolean
+HeartBeat : Boolean
+EnergyBurnt : Boolean
+Language : Boolean
+English : Boolean
+Chinese : Boolean
+Korean : Boolean
+Speaker : Boolean
+Poly : Boolean
+Plain : Boolean Constraints :
+# Smartwatch == TRUE #
+# SmartPay == TRUE => Smartwatch == TRUE #
+# SmartKey == TRUE => Smartwatch == TRUE #
+# SmartKey == TRUE => CarKey == TRUE || HomeKey == TRUE #
+# CarKey == TRUE => SmartKey == TRUE #
+# HomeKey == TRUE => SmartKey == TRUE #
+# ManageHealth == TRUE => Smartwatch == TRUE #
+# ManageHealth == TRUE => HeartBeat == TRUE || EnergyBurnt == TRUE #
+# HeartBeat == TRUE => ManageHealth == TRUE #
+# EnergyBurnt == TRUE => ManageHealth == TRUE #
+# Language == TRUE <=> Smartwatch == TRUE #
+# Language == TRUE => English == TRUE || Chinese == TRUE || Korean == TRUE #
+# English == TRUE => ! Chinese #
+# English == TRUE => Language == TRUE #
+# English == TRUE => ! Korean #
+# English == TRUE => Language == TRUE #
+# Chinese == TRUE => ! English #
+# Chinese == TRUE => Language == TRUE #
+# Chinese == TRUE => ! Korean #
+# Chinese == TRUE => Language == TRUE #
+# Korean == TRUE => ! English #
+# Korean == TRUE => Language == TRUE #
+# Korean == TRUE => ! Chinese #
+# Korean == TRUE => Language == TRUE #
+# Speaker == TRUE <=> Smartwatch == TRUE #
+# Speaker == TRUE => Poly == TRUE || Plain == TRUE #
+# Poly == TRUE => ! Plain #
+# Poly == TRUE => Speaker == TRUE #
+# Plain == TRUE => ! Poly #
+# Plain == TRUE => Speaker == TRUE #

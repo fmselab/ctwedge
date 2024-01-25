@@ -1,0 +1,19 @@
+Model MLinuxKernelv2 Parameters :
+Linux : Boolean
+FileSystem : Boolean
+ext3 : Boolean
+ext4 : Boolean
+goCrypt : Boolean
+IP : Boolean
+v4 : Boolean
+v6 : Boolean Constraints :
+# Linux == TRUE #
+# FileSystem == TRUE <=> Linux == TRUE #
+# FileSystem == TRUE => ext3 == TRUE || ext4 == TRUE || goCrypt == TRUE #
+# ext3 == TRUE => FileSystem == TRUE #
+# ext4 == TRUE => FileSystem == TRUE #
+# goCrypt == TRUE => FileSystem == TRUE #
+# IP == TRUE <=> Linux == TRUE #
+# IP == TRUE => v4 == TRUE || v6 == TRUE #
+# v4 == TRUE => IP == TRUE #
+# v6 == TRUE => IP == TRUE #

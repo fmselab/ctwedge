@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="AmbientAssistedLiving">
+			<and mandatory="true" name="Sensor">
+				<feature name="LightMonit"/>
+				<feature name="TempMonit"/>
+				<or abstract="true" name="Others">
+					<feature name="Humidity"/>
+					<feature name="Accelerometer"/>
+					<feature name="Light"/>
+					<feature name="Temperature"/>
+				</or>
+				<feature name="SenEncryp"/>
+			</and>
+			<and mandatory="true" name="Smartphone">
+				<alt abstract="true" name="SmartphoneType">
+					<feature name="Android"/>
+					<feature name="iPhone"/>
+				</alt>
+				<feature name="Video"/>
+				<feature name="PhEncryp"/>
+			</and>
+			<feature mandatory="true" name="Alarm"/>
+			<and mandatory="true" name="Camera">
+				<feature name="Transmission"/>
+				<feature name="Rec"/>
+				<feature name="CamEncryp"/>
+			</and>
+			<and mandatory="true" name="Services">
+				<feature name="VideoSurveillance"/>
+				<feature mandatory="true" name="Encryption"/>
+				<feature name="LightControl"/>
+				<feature name="HeatControl"/>
+			</and>
+		</and>
+	</struct>
+</featureModel>

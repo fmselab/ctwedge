@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="vertical"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="4"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="ParkingAssistant">
+			<and mandatory="true" name="Sensors">
+				<and mandatory="true" name="DistanceSensors">
+					<feature name="SensorFusion"/>
+					<or abstract="true" mandatory="true" name="DistanceSensorTypes">
+						<feature name="InfraredSensor"/>
+						<feature name="UltrasonicSensor"/>
+					</or>
+				</and>
+				<and mandatory="true" name="DrivenWaySensors">
+					<feature mandatory="true" name="PulseLengthSensorV2"/>
+				</and>
+				<and name="DirectionSensors">
+					<feature mandatory="true" name="CompassSensors"/>
+				</and>
+			</and>
+			<alt mandatory="true" name="Controller">
+				<feature name="ControllerWithDir"/>
+				<feature name="ControllerWithoutDir"/>
+			</alt>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>SensorFusion</var>
+				<var>InfraredSensor</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>SensorFusion</var>
+				<var>UltrasonicSensor</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>ControllerWithDir</var>
+				<var>DirectionSensors</var>
+			</imp>
+		</rule>
+	</constraints>
+</featureModel>

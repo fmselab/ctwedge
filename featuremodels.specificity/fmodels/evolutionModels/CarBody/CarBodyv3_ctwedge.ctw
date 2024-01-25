@@ -1,0 +1,20 @@
+Model MCarBodyv3 Parameters :
+CarBody : Boolean
+MultimediaDevices : Boolean
+Radio : Boolean
+MonochromeRadioDisplay : Boolean
+Navigation : Boolean
+MonochromeNavDisplay : Boolean
+ColorNavDisplay : Boolean
+OtherFeatures : Boolean Constraints :
+# CarBody == TRUE #
+# MultimediaDevices == TRUE => CarBody == TRUE #
+# Radio == TRUE => MultimediaDevices == TRUE #
+# MonochromeRadioDisplay == TRUE <=> Radio == TRUE #
+# Navigation == TRUE => MultimediaDevices == TRUE #
+# Navigation == TRUE => MonochromeNavDisplay == TRUE || ColorNavDisplay == TRUE #
+# MonochromeNavDisplay == TRUE => ! ColorNavDisplay #
+# MonochromeNavDisplay == TRUE => Navigation == TRUE #
+# ColorNavDisplay == TRUE => ! MonochromeNavDisplay #
+# ColorNavDisplay == TRUE => Navigation == TRUE #
+# OtherFeatures == TRUE <=> CarBody == TRUE #

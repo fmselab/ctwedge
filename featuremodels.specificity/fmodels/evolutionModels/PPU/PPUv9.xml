@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="PPU">
+			<alt abstract="true" mandatory="true" name="Crane">
+				<feature name="SRouting"/>
+				<feature name="ERouting"/>
+			</alt>
+			<alt abstract="true" mandatory="true" name="Slide">
+				<feature name="Straight"/>
+				<alt abstract="true" name="Conveyor">
+					<feature name="SSortation"/>
+					<feature name="DSortation"/>
+				</alt>
+			</alt>
+			<or abstract="true" mandatory="true" name="Workpiece">
+				<or name="Plastic">
+					<feature name="Light"/>
+					<feature name="Dark"/>
+				</or>
+				<feature name="Metal"/>
+			</or>
+			<alt abstract="true" name="Stamp">
+				<feature name="SPressure"/>
+				<feature name="APressure"/>
+			</alt>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>Stamp</var>
+				<var>Metal</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Light</var>
+				<var>APressure</var>
+			</imp>
+		</rule>
+	</constraints>
+</featureModel>

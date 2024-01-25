@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="AutomotiveMultimedia">
+			<and name="AudioPlayer">
+				<feature mandatory="true" name="Radio"/>
+				<feature name="CDPlayer"/>
+			</and>
+			<feature name="VoiceRecognition"/>
+			<and name="PersonalNavigation">
+				<or mandatory="true" name="Maps">
+					<feature name="Europe"/>
+					<feature name="NorthAmerica"/>
+					<feature name="CentralAmerica"/>
+					<feature name="SouthAmerica"/>
+					<feature name="Asia"/>
+				</or>
+			</and>
+			<feature mandatory="true" name="OnBoardComputer"/>
+		</and>
+	</struct>
+</featureModel>
