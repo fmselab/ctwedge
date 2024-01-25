@@ -156,5 +156,27 @@ public class PictTest {
 					}
 				});
 	}
+	
+	@Test
+	public void convertCTComp2024() throws IOException {
+		Path path = Paths.get("C:\\Users\\Andrea_PC\\Desktop\\CTCompetition2024\\CTWedge");
+		Files.walk(path).filter(Files::isRegularFile).map(Path::toFile).filter(x -> x.getName().endsWith(".ctw") && x.getName().startsWith("INDUSTRIAL_"))
+				.forEach(x -> {
+					System.out.println(x.getName());
+					ctwedge.ctWedge.CitModel citModel = Utility.loadModelFromPath(x.getAbsolutePath());
+					BufferedWriter out;
+					try {
+						out = new BufferedWriter(new FileWriter(
+								"C:\\Users\\Andrea_PC\\Desktop\\CTCompetition2024\\PICT\\"
+										+ citModel.getName() + "_pict.txt"));
+						PICTGenerator translator = new PICTGenerator();
+						out.append(translator.translateModel(citModel, false));
+						out.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
+	}
 
 }
