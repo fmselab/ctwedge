@@ -27,7 +27,7 @@ Require-Bundle: ctwedge,
  org.eclipse.core.runtime
 Import-Package: com.google.inject;version="1.4.0",
  org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: ctwedge.ui.contentassist,
  ctwedge.ui.quickfix,
  ctwedge.ui.internal

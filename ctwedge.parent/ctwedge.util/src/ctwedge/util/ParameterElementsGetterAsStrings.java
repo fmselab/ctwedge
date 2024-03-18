@@ -54,7 +54,7 @@ public class ParameterElementsGetterAsStrings extends CtWedgeSwitch<List<String>
 
 	@Override
 	public List<String> caseBool(Bool bool) {
-		ArrayList<String> boolValues = new ArrayList<String>() {
+		ArrayList<String> boolValues = new ArrayList<>() {
 			// in case of boolean values, it must be consider the case (ignoring it)
 			@Override
 			public int indexOf(Object o) {
