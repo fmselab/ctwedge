@@ -9,18 +9,18 @@
       <import plugin="org.eclipse.xtext"/>
       <import plugin="org.eclipse.xtext.xbase"/>
       <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.xtext.xbase.lib" version="2.14.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.xbase.lib"/>
       <import plugin="org.eclipse.xtext.util"/>
       <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.xtend.lib" version="2.14.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtend.lib"/>
       <import plugin="org.apache.log4j"/>
       <import plugin="org.eclipse.xtext.ide"/>
       <import plugin="org.eclipse.xtext.xbase.ide"/>
       <import plugin="org.eclipse.xtext.ui"/>
       <import plugin="org.eclipse.xtext.ui.shared"/>
       <import plugin="org.eclipse.xtext.ui.codetemplates.ui"/>
-      <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.compare"/>
       <import plugin="org.eclipse.xtext.builder"/>
@@ -32,49 +32,33 @@
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.junit"/>
       <import plugin="ctwedge" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.13.0" match="greaterOrEqual"/>
-      <import plugin="com.google.guava" version="21.0.0" match="greaterOrEqual"/>
-      <import plugin="com.google.inject" version="3.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="com.google.guava"/>
+      <import plugin="com.google.inject"/>
    </requires>
 
    <plugin
          id="ctwedge"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
+         version="1.0.0.qualifier"/>
 
    <plugin
          id="ctwedge.ide"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
+         version="1.0.0.qualifier"/>
 
    <plugin
          id="ctwedge.ui"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
+         version="1.0.0.qualifier"/>
 
    <plugin
          id="ctwedge.generator.acts"
-         download-size="0"
-         install-size="0"
          version="1.0.0.qualifier"/>
 
    <plugin
          id="ctwedge.generator.casa"
-         download-size="0"
-         install-size="0"
          version="1.0.0.qualifier"/>
 
    <plugin
          id="ctwedge.util"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
+         version="1.0.0.qualifier"/>
 
 </feature>

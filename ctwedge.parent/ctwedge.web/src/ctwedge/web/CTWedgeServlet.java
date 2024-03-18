@@ -20,7 +20,7 @@ public class CTWedgeServlet extends XtextServlet {
 	DisposableRegistry disposableRegistry;
 	
 	@Override
-	public void init() throws ServletException {
+	public void init() throws jakarta.servlet.ServletException {
 		super.init();
 		Injector injector = new CTWedgeWebSetup().createInjectorAndDoEMFRegistration();
 		this.disposableRegistry = injector.getInstance(DisposableRegistry.class);
