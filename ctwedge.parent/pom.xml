@@ -11,8 +11,8 @@
 		<xtextVersion>2.34.0</xtextVersion>
 		<mwe2Version>2.17.0</mwe2Version>
 		<project.build.sourceEncoding>windows-1252</project.build.sourceEncoding>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<!-- Tycho settings -->
 		<tycho-version>3.0.4</tycho-version>
 		<!-- Define overridable properties for tycho-surefire-plugin -->
