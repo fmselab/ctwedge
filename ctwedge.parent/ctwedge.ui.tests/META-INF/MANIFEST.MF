@@ -15,5 +15,4 @@ Require-Bundle: ctwedge.ui,
  org.eclipse.ui.workbench;resolution:=optional,
  org.eclipse.xtext.ui.testing,
  org.eclipse.xtext.xbase.ui.testing
-Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: ctwedge.ui.tests;x-internal=true

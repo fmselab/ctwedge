@@ -105,6 +105,12 @@
 			<version>2.3.6</version>
 		</dependency>
 		<dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-client</artifactId>
+            <version>${jettyVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
 			<version>3.6.0</version>
@@ -117,8 +123,14 @@
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-annotations</artifactId>
-			<version>9.4.48.v20220622</version>
+			<version>${jettyVersion}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>jetty-webapp</artifactId>
+		    <version>${jettyVersion}</version>
+		    <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -155,6 +167,12 @@
 			<groupId>jakarta.servlet.jsp</groupId>
 			<artifactId>jakarta.servlet.jsp-api</artifactId>
 			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>jetty-util</artifactId>
+		    <version>${jettyVersion}</version>
+		    <scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>
