@@ -174,5 +174,10 @@
 		    <version>${jettyVersion}</version>
 		    <scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ctwedge.generator.pmedici</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

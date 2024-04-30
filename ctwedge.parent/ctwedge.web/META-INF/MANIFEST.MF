@@ -9,6 +9,7 @@ Export-Package: ctwedge.web,
 Bundle-Vendor: University of Bergamo
 Require-Bundle: org.eclipse.core.runtime,
  ctwedge.generator.acts,
- ctwedge.generator.casa
+ ctwedge.generator.casa,
+ ctwedge.generator.pmedici;bundle-version="1.0.0"
 Automatic-Module-Name: ctwedge.web
 Import-Package: ctwedge.util.ext
