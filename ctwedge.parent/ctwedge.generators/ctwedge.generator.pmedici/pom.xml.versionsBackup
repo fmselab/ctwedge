@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>5.2.2</version>
+			<version>5.2.1</version>
 			<type>pom.sha512</type>
 		</dependency>
 		<dependency>
