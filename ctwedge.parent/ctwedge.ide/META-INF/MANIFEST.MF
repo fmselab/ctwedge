@@ -10,7 +10,6 @@ Require-Bundle: ctwedge,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide,
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-20
 Export-Package: ctwedge.ide.contentassist.antlr.internal,
  ctwedge.ide.contentassist.antlr
 

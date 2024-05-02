@@ -4,7 +4,6 @@ Bundle-Name: Pict
 Bundle-SymbolicName: ctwedge.generator.pict;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: ctwedge.generator.pict
-Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: org.junit,
  ctwedge.util;bundle-version="1.0.0",
  ctwedge,
