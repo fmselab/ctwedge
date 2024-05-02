@@ -10,6 +10,13 @@
 	<artifactId>ctwedge.web</artifactId>
 	<packaging>war</packaging>
 
+	<distributionManagement>
+		<repository>
+			<id>ssh-repository</id>
+			<url>scpexe://foselab.unibg.it/</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -21,6 +28,14 @@
 				</excludes>
 			</resource>
 		</resources>
+		<extensions>
+			<!-- Enabling the use of SSH -->
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh-external</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
