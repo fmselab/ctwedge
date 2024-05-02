@@ -128,12 +128,12 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>3.6.1</version>
+			<version>3.6.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>ace</artifactId>
-			<version>01.08.2014</version>
+			<version>1.3.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -176,12 +176,12 @@
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-			<version>6.1.0-M1</version>
+			<version>6.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.servlet.jsp</groupId>
 			<artifactId>jakarta.servlet.jsp-api</artifactId>
-			<version>4.0.0-M1</version>
+			<version>3.1.1</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.eclipse.jetty</groupId>

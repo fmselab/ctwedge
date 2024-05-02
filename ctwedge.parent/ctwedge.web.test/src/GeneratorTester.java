@@ -18,7 +18,7 @@ public class GeneratorTester {
 	public void testWorking() throws IOException {
 		String model = "Model prova Parameters: a: Boolean; b: Boolean; c: Boolean; Constraints: # a -> b#";
 		model = model.replaceAll(" ","%20");
-		URL oracle = new URL("http://localhost:8080/ctwedge.generator?model=" + model);
+		URL oracle = new URL("http://localhost:8080/generator/?model=" + model);
 		URLConnection yc = oracle.openConnection();
 		BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
 		String inputLine;
@@ -32,7 +32,7 @@ public class GeneratorTester {
 		//model = model.replaceAll(" ","%20");
 		HttpClient client = HttpClientBuilder.create().build();
         
-		URIBuilder builder = new URIBuilder("http://localhost:8080/ctwedge.generator");
+		URIBuilder builder = new URIBuilder("http://localhost:8080/generator/");
 		builder.setParameter("model", model).setParameter("strength", ""+strength).setParameter("generator", generator).setParameter("ignConstr", ""+ignoreConstraints);
 		
 		HttpGet post = new HttpGet(builder.build());
@@ -84,7 +84,7 @@ public class GeneratorTester {
 	
 	@Test
 	public void testACTS2() throws Exception {
-		URL oracle = new URL("http://localhost:8080/ctwedge.generator/?model=Model%20Phone%0A%20Parameters%3A%0A%20%20%20emailViewer%20%3A%20Boolean%0A%20%20%20textLines%3A%20%20%5B%2025%20..%2030%20%5D%0A%20%20%20display%20%3A%20%7B16MC%2C%208MC%2C%20BW%7D%0A%0A%20Constraints%3A%0A%20%20%20%23%20emailViewer%20%3D%3E%20textLines%20%3E%2028%20%23%0A&strength=3&generator=ACTS&ignConstr=true");
+		URL oracle = new URL("http://localhost:8080/generator/?model=Model%20Phone%0A%20Parameters%3A%0A%20%20%20emailViewer%20%3A%20Boolean%0A%20%20%20textLines%3A%20%20%5B%2025%20..%2030%20%5D%0A%20%20%20display%20%3A%20%7B16MC%2C%208MC%2C%20BW%7D%0A%0A%20Constraints%3A%0A%20%20%20%23%20emailViewer%20%3D%3E%20textLines%20%3E%2028%20%23%0A&strength=3&generator=ACTS&ignConstr=true");
 		URLConnection yc = oracle.openConnection();
 		BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
 		String inputLine;
