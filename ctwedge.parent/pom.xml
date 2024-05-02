@@ -8,18 +8,20 @@
 	<packaging>pom</packaging>
 
 	<properties>
+		<executionEnvironment>JavaSE-17</executionEnvironment>
 		<xtextVersion>2.34.0</xtextVersion>
 		<mwe2Version>2.17.0</mwe2Version>
 		<project.build.sourceEncoding>windows-1252</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<!-- Tycho settings -->
-		<tycho-version>3.0.4</tycho-version>
+		<tycho-version>4.0.4</tycho-version>
 		<!-- Define overridable properties for tycho-surefire-plugin -->
 		<platformSystemProperties></platformSystemProperties>
 		<moduleProperties></moduleProperties>
 		<systemProperties></systemProperties>
 		<additionalTestArguments></additionalTestArguments>
+		<jettyVersion>9.4.54.v20240208</jettyVersion>
 	</properties>
 	<modules>
 		<module>ctwedge</module>
@@ -28,12 +30,13 @@
 		<module>ctwedge.generators/ctwedge.generator.acts</module>
 		<module>ctwedge.generators/ctwedge.generator.casa</module>
 		<module>ctwedge.generators/ctwedge.generator.pict</module>
-		<!--<module>ctwedge.ui</module>
-		<module>ctwedge.web</module>-->
+		<module>ctwedge.generators/ctwedge.generator.pmedici</module>
+		<!--<module>ctwedge.ui</module>-->
 		<module>ctwedge.target</module>
 		<module>ctwedge.repository</module>
-		<module>ctwedge.tests</module>
+		<!--<module>ctwedge.tests</module>-->
 		<module>ctwedge.batchgenerator</module>
+		<module>ctwedge.web</module>
 		<!--<module>ctwedge.ui.tests</module>
 		<module>ctwedge.benchmarks</module> 
 		<module>ctwedge.feature</module> -->
@@ -56,6 +59,9 @@
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
+				<configuration>
+					<executionEnvironment>${executionEnvironment}</executionEnvironment>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>

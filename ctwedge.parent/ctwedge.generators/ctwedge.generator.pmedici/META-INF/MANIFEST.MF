@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: pMedici
+Bundle-SymbolicName: ctwedge.generator.pmedici;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: ctwedge.util;bundle-version="1.0.0",
+ org.eclipse.emf.ecore,
+ ctwedge,
+ org.junit,
+ org.eclipse.xtext
+Automatic-Module-Name: ctwedge.generator.pmedici

@@ -21,6 +21,7 @@ import ctwedge.ctWedge.CitModel;
 import ctwedge.ctWedge.Parameter;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.casa.CASAConstraintException;
+import ctwedge.generator.pmedici.*;
 import ctwedge.generator.casa.CASATestGenerator;
 import ctwedge.util.ParameterSize;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
@@ -95,8 +96,10 @@ public class Generator extends HttpServlet {
 					ICTWedgeTestGenerator gen;
 					if (generator.equalsIgnoreCase("casa"))
 						gen = new CASATestGenerator();
-					else
+					else if (generator.equalsIgnoreCase("acts"))
 						gen = new ACTSTranslator();
+					else
+						gen = new PMediciCITGenerator();
 					
 					ts = Utility.getTestSuite(model, gen, t, ignoreC, context.getRealPath("/")).toString();
 					if (ts == null || ts.isEmpty()) {
