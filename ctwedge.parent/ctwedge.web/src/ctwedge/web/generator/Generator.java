@@ -5,12 +5,12 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -27,8 +27,6 @@ import ctwedge.util.ParameterSize;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.ext.Utility;
 import ctwedge.web.generator.ipapi.Ipapi;
-
-
 
 /**
  * Servlet implementation class Generator It is the REST Service module of the
@@ -69,7 +67,7 @@ public class Generator extends HttpServlet {
 				e.printStackTrace();
 				response.getWriter().append(Throwables.getStackTraceAsString(e));
 			}
-			if (modelName==null || modelName.isEmpty()) {
+			if (modelName == null || modelName.isEmpty()) {
 				response.getWriter().append("Syntax Error: missing model name");
 			}
 			int t = 2;
@@ -87,9 +85,9 @@ public class Generator extends HttpServlet {
 				response.getWriter().append(Throwables.getStackTraceAsString(e));
 			}
 			String res = "Input parameters:\n" + model + "\n" + generator + "\n" + t + "\n" + ignoreC + "\n";
-			String ts ="";
+			String ts = "";
 			JsonObject obj = new JsonObject();
-			
+
 			if (isSmall(model)) {
 				try {
 					// find the right generator
@@ -100,10 +98,11 @@ public class Generator extends HttpServlet {
 						gen = new ACTSTranslator();
 					else
 						gen = new PMediciCITGenerator();
-					
+
 					ts = Utility.getTestSuite(model, gen, t, ignoreC, context.getRealPath("/")).toString();
 					if (ts == null || ts.isEmpty()) {
-						response.getWriter().append("Empty test suite. There may be a syntax error in the input model.");
+						response.getWriter()
+								.append("Empty test suite. There may be a syntax error in the input model.");
 					}
 					obj.addProperty("isSmall", true);
 					obj.addProperty("result", ts);
@@ -118,18 +117,18 @@ public class Generator extends HttpServlet {
 				// response.getWriter().append(res);
 				String timestamp = new SimpleDateFormat("yyyyMMddkkmmssSSS")
 						.format(new Timestamp(System.currentTimeMillis()));
-				PrintWriter todo = new PrintWriter(
-						DIR_TODO + "/" + timestamp + "_" + generator + "_" + strength + "_" + ignoreConstraints + "_" + modelName +".ctw");
+				PrintWriter todo = new PrintWriter(DIR_TODO + "/" + timestamp + "_" + generator + "_" + strength + "_"
+						+ ignoreConstraints + "_" + modelName + ".ctw");
 				todo.write(model);
 				todo.close();
 				ts = timestamp + ".csv";
 				if (ts == null || ts.isEmpty()) {
 					response.getWriter().append("Empty test suite. There may be a syntax error in the input model.");
-				}				
+				}
 				obj.addProperty("isSmall", false);
 				obj.addProperty("result", ts);
 			}
-			
+
 			res = obj.toString();
 			response.getWriter().append(res);
 		} catch (Exception e) {
@@ -167,7 +166,7 @@ public class Generator extends HttpServlet {
 		}
 		return ip;
 	}
-	
+
 	public boolean isSmall(String model) {
 		int size = 1;
 		CitModel citModel = Utility.loadModel(model);
@@ -175,13 +174,11 @@ public class Generator extends HttpServlet {
 		for (Parameter p : parameters) {
 			size = size * ParameterSize.eInstance.doSwitch(p);
 		}
-		
-		if (size > 100 )
+
+		if (size > 100)
 			return false;
-		else 
+		else
 			return true;
 	}
 
 }
-
-

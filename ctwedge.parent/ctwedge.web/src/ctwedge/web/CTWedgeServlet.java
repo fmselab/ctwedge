@@ -4,8 +4,8 @@
 package ctwedge.web;
 
 import com.google.inject.Injector;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import org.eclipse.xtext.util.DisposableRegistry;
 import org.eclipse.xtext.web.servlet.XtextServlet;
 
@@ -14,18 +14,18 @@ import org.eclipse.xtext.web.servlet.XtextServlet;
  */
 @WebServlet(name = "XtextServices", urlPatterns = "/xtext-service/*")
 public class CTWedgeServlet extends XtextServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	DisposableRegistry disposableRegistry;
-	
+
 	@Override
 	public void init() throws jakarta.servlet.ServletException {
 		super.init();
 		Injector injector = new CTWedgeWebSetup().createInjectorAndDoEMFRegistration();
 		this.disposableRegistry = injector.getInstance(DisposableRegistry.class);
 	}
-	
+
 	@Override
 	public void destroy() {
 		if (disposableRegistry != null) {
@@ -34,5 +34,5 @@ public class CTWedgeServlet extends XtextServlet {
 		}
 		super.destroy();
 	}
-	
+
 }
