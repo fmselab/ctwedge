@@ -4,7 +4,6 @@
 package ctwedge.web;
 
 import com.google.inject.Injector;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import org.eclipse.xtext.util.DisposableRegistry;
 import org.eclipse.xtext.web.servlet.XtextServlet;
