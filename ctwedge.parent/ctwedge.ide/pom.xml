@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -37,6 +38,9 @@
 										<versionRange>
 											[4.0.4,)
 										</versionRange>
+										<goals>
+											<goal>build</goal>
+										</goals>
 									</pluginExecutionFilter>
 									<action>
 										<ignore></ignore>
@@ -60,6 +64,11 @@
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.ide</artifactId>
 			<version>${xtextVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.tycho</groupId>
+			<artifactId>tycho-bnd-plugin</artifactId>
+			<version>4.0.7</version>
 		</dependency>
 	</dependencies>
 </project>
