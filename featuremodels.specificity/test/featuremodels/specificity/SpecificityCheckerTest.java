@@ -1,7 +1,5 @@
 package featuremodels.specificity;
 
-import static org.junit.Assert.*;
-
 import java.nio.file.Path;
 
 import org.apache.log4j.Level;
@@ -41,11 +39,18 @@ public class SpecificityCheckerTest {
 		testSpec(false, PP_UV1_XML, PP_UV2_XML);
 	}
 	@Test
-
 	public void testSpecificityCheckerInvBool() {
 		testSpec(false, PP_UV2_XML, PP_UV1_XML);
 	}
 
+	@Test
+	public void testALIV() {
+		testSpec(false, PP_UV2_XML, PP_UV1_XML);
+	}
+
+	
+	
+	// generate using ACTS
 	// generate some tests and check how many are specific
 	private void testSpec(boolean useEnum, String oldFMPathStr, String newFMPathStr) {
 		Path oldFMPath = Path.of(oldFMPathStr);

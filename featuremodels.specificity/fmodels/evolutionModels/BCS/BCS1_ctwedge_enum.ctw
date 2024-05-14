@@ -1,0 +1,25 @@
+Model MBCS1 Parameters :
+BCS : Boolean
+Wiper : { Budget Premium NONE }
+Door_System : Boolean
+Power_window : Boolean
+Heatable_Mirrors : Boolean
+Security : Boolean
+CLS : Boolean
+RCK : Boolean
+Infotainment : Boolean
+Bluetooth : Boolean
+USB : Boolean Constraints :
+# BCS == TRUE #
+# Wiper != NONE <=> BCS == TRUE #
+# Door_System == TRUE <=> BCS == TRUE #
+# Power_window == TRUE => Door_System == TRUE #
+# Heatable_Mirrors == TRUE => Door_System == TRUE #
+# Security == TRUE => BCS == TRUE #
+# CLS == TRUE => Security == TRUE #
+# RCK == TRUE => Security == TRUE #
+# Infotainment == TRUE => BCS == TRUE #
+# Infotainment == TRUE => Bluetooth == TRUE || USB == TRUE #
+# Bluetooth == TRUE => Infotainment == TRUE #
+# USB == TRUE => Infotainment == TRUE #
+# RCK == TRUE => CLS == TRUE #

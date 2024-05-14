@@ -1,0 +1,37 @@
+Model MCarBodyv4 Parameters :
+CarBody : Boolean
+MultimediaDevices : Boolean
+Radio : Boolean
+MonochromeRadioDisplay : Boolean
+ColorRadioDisplay : Boolean
+Navigation : Boolean
+DisplayType : Boolean
+MonochromeNavDisplay : Boolean
+ColorNavDisplay : Boolean
+DataStorage : Boolean
+HardDiskDrive : Boolean
+DVDDrive : Boolean
+DVDEntertainment : Boolean
+OtherFeatures : Boolean Constraints :
+# CarBody == TRUE #
+# MultimediaDevices == TRUE => CarBody == TRUE #
+# Radio == TRUE => MultimediaDevices == TRUE #
+# Radio == TRUE => MonochromeRadioDisplay == TRUE || ColorRadioDisplay == TRUE #
+# MonochromeRadioDisplay == TRUE => ! ColorRadioDisplay #
+# MonochromeRadioDisplay == TRUE => Radio == TRUE #
+# ColorRadioDisplay == TRUE => ! MonochromeRadioDisplay #
+# ColorRadioDisplay == TRUE => Radio == TRUE #
+# Navigation == TRUE => MultimediaDevices == TRUE #
+# DisplayType == TRUE <=> Navigation == TRUE #
+# DisplayType == TRUE => MonochromeNavDisplay == TRUE || ColorNavDisplay == TRUE #
+# MonochromeNavDisplay == TRUE => ! ColorNavDisplay #
+# MonochromeNavDisplay == TRUE => DisplayType == TRUE #
+# ColorNavDisplay == TRUE => ! MonochromeNavDisplay #
+# ColorNavDisplay == TRUE => DisplayType == TRUE #
+# DataStorage == TRUE => Navigation == TRUE #
+# DataStorage == TRUE => HardDiskDrive == TRUE || DVDDrive == TRUE #
+# HardDiskDrive == TRUE => DataStorage == TRUE #
+# DVDDrive == TRUE => DataStorage == TRUE #
+# DVDEntertainment == TRUE => MultimediaDevices == TRUE #
+# OtherFeatures == TRUE <=> CarBody == TRUE #
+# DVDEntertainment == TRUE => DVDDrive == TRUE #

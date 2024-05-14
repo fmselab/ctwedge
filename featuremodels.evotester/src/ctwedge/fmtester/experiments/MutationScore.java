@@ -160,16 +160,16 @@ public class MutationScore {
 
 	static public MissingFeatureTreatment treat_missing_feature_as = MissingFeatureTreatment.SKIP;
 
-	// for boolean translation (only true or false for each feature)
+	// for boolean translation (only true or false for each feature, plus '*' to allow undefined)
 	// forse si può fondere con il precedente, cioè chi lo chiama può ignorare
 	// questo ha in piu' il trattamento di cose succede se non è presente
 	static public Boolean isTestValidBool(IFeatureModel featureModel, ctwedge.util.Test test) {
 		FeatureModelFormula featureModelFormula = new FeatureModelFormula(featureModel);
 		Configuration conf = new Configuration(featureModelFormula);
-		// set every assignement in the test as feature selected or not
+		// set every assignment in the test as feature selected or not
 		for (Entry<String, String> assignemnt : test.entrySet()) {
 			String value = assignemnt.getValue();
-			assert value.equals("true") || value.equals("false");
+			assert value.equals("true") || value.equals("false") || value.equals("*"): "only boolean: this is " + value;
 			String featurename = assignemnt.getKey();
 			Selection sel;
 			if (!Utils.getFeatureNames(featureModel).contains(featurename)) {
@@ -181,12 +181,20 @@ public class MutationScore {
 				default:
 					throw new RuntimeException();
 				}
-			} else
-				sel = value.equals("true") ? Selection.SELECTED : Selection.UNSELECTED;
+			} else {
+				sel = switch (value) {
+					case "true" -> Selection.SELECTED;
+					case "false" -> Selection.UNSELECTED;
+					// feature is undefined in the tests
+					//case "*" 
+					default -> Selection.UNDEFINED;
+				};
+			}
 			conf.setManual(featurename, sel);
 		}
 		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
-		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
+		Boolean result = false;
+		result = LongRunningWrapper.runMethod(cp.isValid());
 		return result;
 	}
 }

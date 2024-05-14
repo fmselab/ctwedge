@@ -48,6 +48,34 @@ import pMedici.util.TestContext;
 
 public class TestSimpleExampleForPaper {
 
+	public static final String[] EV_MOBMEDIA = new String[] { "evolutionModels/MobileMedia/", "MobileMediaV3",
+			"MobileMediaV4", "MobileMediaV5", "MobileMediaV6", "MobileMediaV7", "MobileMediaV8" };
+	public static final String[] EV_SHOME = new String[] { "evolutionModels/SmartHome/", "SmartHomeV2",
+			"SmartHomeV2.2" };
+	public static final String[] EV_BCS = new String[] { "evolutionModels/BCS/", "BCS1", "BCS2", "BCS3" };
+	public static final String[] EV_HSYS = new String[] { "evolutionModels/HelpSystem/", "HelpSystem1",
+			"HelpSystem2" };
+	public static final String[] EV_ERP = new String[] { "evolutionModels/ERP/", "ERP_SPL_s1", "ERP_SPL_s2" };
+	public static final String[] EV_WSTAT = new String[] { "evolutionModels/WeatherStation/", "WeatherStationv1",
+			"WeatherStationv2" };
+	public static final String[] EV_SMARTW = new String[] { "evolutionModels/SmartWatch/", "SmartWatchv1",
+			"SmartWatchv2" };
+	public static final String[] EV_SMARTH = new String[] { "evolutionModels/SmartHotel/", "SmartHotelv1",
+			"SmartHotelv2" };
+	public static final String[] EV_PARKING = new String[] { "evolutionModels/ParkingAssistant/", "ParkingAssistantv1",
+			"ParkingAssistantv2", "ParkingAssistantv3", "ParkingAssistantv4", "ParkingAssistantv5" };
+	public static final String[] EV_LINUX = new String[] { "evolutionModels/LinuxKernel/", "LinuxKernelv1",
+			"LinuxKernelv2", "LinuxKernelv3" };
+	public static final String[] EV_CARBODY = new String[] { "evolutionModels/CarBody/", "CarBodyv1", "CarBodyv2",
+			"CarBodyv3", "CarBodyv4" };
+	public static final String[] EV_BOING = new String[] { "evolutionModels/Boeing/", "Boeingv1", "Boeingv2",
+			"Boeingv3" };
+	public static final String[] EV_AUTOM = new String[] { "evolutionModels/AutomotiveMultimedia/",
+			"AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3" };
+	public static final String[] EV_ALIV = new String[] { "evolutionModels/AmbientAssistedLiving/",
+			"AmbientAssistedLivingv1", "AmbientAssistedLivingv2" };
+	public static final String[] EV_PPU = new String[] { "evolutionModels/PPU/", "PPUv1", "PPUv2", "PPUv3", "PPUv4",
+			"PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9" };
 	private static final int MAX_MUTATIONS = 10;
 	static boolean REDUCE_TEST_SUITE = true;
 
@@ -112,38 +140,21 @@ public class TestSimpleExampleForPaper {
 			for (int nThreads : nThreadsList) {
 				// Example in paper
 				// launchSingleExperiment("ex_paper1_AG", "ex_paper2_AG", "fmexamples/");
-				launchMultipleExperiment(new String[] { "PPUv1", "PPUv2", "PPUv3", "PPUv4", "PPUv5", "PPUv6", "PPUv7",
-						"PPUv8", "PPUv9" }, "evolutionModels/PPU/", nThreads);
-				launchMultipleExperiment(new String[] { "AmbientAssistedLivingv1", "AmbientAssistedLivingv2" },
-						"evolutionModels/AmbientAssistedLiving/", nThreads);
-				launchMultipleExperiment(
-						new String[] { "AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3" },
-						"evolutionModels/AutomotiveMultimedia/", nThreads);
-				launchMultipleExperiment(new String[] { "Boeingv1", "Boeingv2", "Boeingv3" }, "evolutionModels/Boeing/",
-						nThreads);
-				launchMultipleExperiment(new String[] { "CarBodyv1", "CarBodyv2", "CarBodyv3", "CarBodyv4" },
-						"evolutionModels/CarBody/", nThreads);
-				launchMultipleExperiment(new String[] { "LinuxKernelv1", "LinuxKernelv2", "LinuxKernelv3" },
-						"evolutionModels/LinuxKernel/", nThreads);
-				launchMultipleExperiment(
-						new String[] { "ParkingAssistantv1", "ParkingAssistantv2", "ParkingAssistantv3",
-								"ParkingAssistantv4", "ParkingAssistantv5" },
-						"evolutionModels/ParkingAssistant/", nThreads);
-				launchMultipleExperiment(new String[] { "SmartHotelv1", "SmartHotelv2" }, "evolutionModels/SmartHotel/",
-						nThreads);
-				launchMultipleExperiment(new String[] { "SmartWatchv1", "SmartWatchv2" }, "evolutionModels/SmartWatch/",
-						nThreads);
-				launchMultipleExperiment(new String[] { "WeatherStationv1", "WeatherStationv2" },
-						"evolutionModels/WeatherStation/", nThreads);
-				launchMultipleExperiment(new String[] { "ERP_SPL_s1", "ERP_SPL_s2" }, "evolutionModels/ERP/", nThreads);
-				launchMultipleExperiment(new String[] { "HelpSystem1", "HelpSystem2" }, "evolutionModels/HelpSystem/",
-						nThreads);
-				launchMultipleExperiment(new String[] { "MobileMediaV3", "MobileMediaV4", "MobileMediaV5",
-						"MobileMediaV6", "MobileMediaV7", "MobileMediaV8" }, "evolutionModels/MobileMedia/", nThreads);
-				launchMultipleExperiment(new String[] { "SmartHomeV2", "SmartHomeV2.2" }, "evolutionModels/SmartHome/",
-						nThreads);
-				launchMultipleExperiment(new String[] { "BCS1", "BCS2", "BCS3" }, "evolutionModels/BCS/",
-						nThreads);
+				launchMultipleExperiment(EV_PPU, nThreads);
+				launchMultipleExperiment(EV_ALIV, nThreads);
+				launchMultipleExperiment(EV_AUTOM, nThreads);
+				launchMultipleExperiment(EV_BOING, nThreads);
+				launchMultipleExperiment(EV_CARBODY, nThreads);
+				launchMultipleExperiment(EV_LINUX, nThreads);
+				launchMultipleExperiment(EV_PARKING, nThreads);
+				launchMultipleExperiment(EV_SMARTH, nThreads);
+				launchMultipleExperiment(EV_SMARTW, nThreads);
+				launchMultipleExperiment(EV_WSTAT, nThreads);
+				launchMultipleExperiment(EV_ERP, nThreads);
+				launchMultipleExperiment(EV_HSYS, nThreads);
+				launchMultipleExperiment(EV_MOBMEDIA, nThreads);
+				launchMultipleExperiment(EV_SHOME, nThreads);
+				launchMultipleExperiment(EV_BCS, nThreads);
 			}
 		}
 	}
@@ -392,11 +403,11 @@ public class TestSimpleExampleForPaper {
 	 * @throws NoSuchExtensionException
 	 * @throws UnsupportedModelException
 	 */
-	public void launchMultipleExperiment(String[] models, String path, int nThreads)
+	public void launchMultipleExperiment(String[] pathAndmodels, int nThreads)
 			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
-		for (int i = 0; i < models.length - 1; i++) {
+		for (int i = 1; i < pathAndmodels.length - 1; i++) {
 			int j = i + 1;
-			launchSingleExperiment(models[i], models[j], path, nThreads);
+			launchSingleExperiment(pathAndmodels[i], pathAndmodels[j], pathAndmodels[0], nThreads);
 		}
 	}
 
@@ -688,8 +699,8 @@ public class TestSimpleExampleForPaper {
 		PMedici pMedici = new PMedici();
 		pMedici.setSeeds(mediciTS1.getTests());
 		TestSuite mediciTS2 = pMedici.generateTests(newFMname, 2, nThreads);
-		assert mediciTS2.getGeneratorTime()  >= 0;
-		assert mediciTS2.getStrength()  >= 0;
+		assert mediciTS2.getGeneratorTime() >= 0;
+		assert mediciTS2.getStrength() >= 0;
 
 		// Distance
 		float distance = DistancesCalculator.testSuitesDist(mediciTS1, mediciTS2);
@@ -716,9 +727,10 @@ public class TestSimpleExampleForPaper {
 			// Mutation score
 			faultDetectionCapability = computeFaultDetectionCapability(newFMname, mediciTS2);
 			// Write statistics to file
-			bw.write("T2Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime() + ";"
-				+ newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";" + distance
-				+ ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations + ";");
+			bw.write("T2Reduced;" + oldFMname + ";" + mediciTS1.getTests().size() + ";" + mediciTS1.getGeneratorTime()
+					+ ";" + newFMname + ";" + mediciTS2.getTests().size() + ";" + mediciTS2.getGeneratorTime() + ";"
+					+ distance + ";" + faultDetectionCapability + ";" + nThreads + ";" + distancePerc + ";" + nMutations
+					+ ";");
 			bw.newLine();
 		}
 		bw.flush();

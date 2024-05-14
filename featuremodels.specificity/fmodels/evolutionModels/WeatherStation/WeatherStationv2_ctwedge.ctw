@@ -1,0 +1,86 @@
+Model MWeatherStationv2 Parameters :
+WeatherStation : Boolean
+Measurements : Boolean
+WindSpeed : Boolean
+Temperature : Boolean
+Pressure : Boolean
+DataSource : Boolean
+ExternalSensors : Boolean
+Demo : Boolean
+Internet : Boolean
+OutFormAndLanguage : Boolean
+OutputFormat : Boolean
+File : Boolean
+WebServer : Boolean
+Text : Boolean
+Format : Boolean
+HTML : Boolean
+XML : Boolean
+Plaintext : Boolean
+Language : Boolean
+English : Boolean
+German : Boolean
+Alarm : Boolean
+FreezePoint : Boolean
+StormAlert : Boolean Constraints :
+# WeatherStation == TRUE #
+# Measurements == TRUE <=> WeatherStation == TRUE #
+# Measurements == TRUE => WindSpeed == TRUE || Temperature == TRUE || Pressure == TRUE #
+# WindSpeed == TRUE => Measurements == TRUE #
+# Temperature == TRUE => Measurements == TRUE #
+# Pressure == TRUE => Measurements == TRUE #
+# DataSource == TRUE <=> WeatherStation == TRUE #
+# DataSource == TRUE => ExternalSensors == TRUE || Demo == TRUE || Internet == TRUE #
+# ExternalSensors == TRUE => ! Demo #
+# ExternalSensors == TRUE => DataSource == TRUE #
+# ExternalSensors == TRUE => ! Internet #
+# ExternalSensors == TRUE => DataSource == TRUE #
+# Demo == TRUE => ! ExternalSensors #
+# Demo == TRUE => DataSource == TRUE #
+# Demo == TRUE => ! Internet #
+# Demo == TRUE => DataSource == TRUE #
+# Internet == TRUE => ! ExternalSensors #
+# Internet == TRUE => DataSource == TRUE #
+# Internet == TRUE => ! Demo #
+# Internet == TRUE => DataSource == TRUE #
+# OutFormAndLanguage == TRUE <=> WeatherStation == TRUE #
+# OutputFormat == TRUE <=> OutFormAndLanguage == TRUE #
+# OutputFormat == TRUE => File == TRUE || WebServer == TRUE || Text == TRUE #
+# File == TRUE => ! WebServer #
+# File == TRUE => OutputFormat == TRUE #
+# File == TRUE => ! Text #
+# File == TRUE => OutputFormat == TRUE #
+# WebServer == TRUE => ! File #
+# WebServer == TRUE => OutputFormat == TRUE #
+# WebServer == TRUE => ! Text #
+# WebServer == TRUE => OutputFormat == TRUE #
+# Text == TRUE => ! File #
+# Text == TRUE => OutputFormat == TRUE #
+# Text == TRUE => ! WebServer #
+# Text == TRUE => OutputFormat == TRUE #
+# Format == TRUE <=> OutFormAndLanguage == TRUE #
+# Format == TRUE => HTML == TRUE || XML == TRUE || Plaintext == TRUE #
+# HTML == TRUE => ! XML #
+# HTML == TRUE => Format == TRUE #
+# HTML == TRUE => ! Plaintext #
+# HTML == TRUE => Format == TRUE #
+# XML == TRUE => ! HTML #
+# XML == TRUE => Format == TRUE #
+# XML == TRUE => ! Plaintext #
+# XML == TRUE => Format == TRUE #
+# Plaintext == TRUE => ! HTML #
+# Plaintext == TRUE => Format == TRUE #
+# Plaintext == TRUE => ! XML #
+# Plaintext == TRUE => Format == TRUE #
+# Language == TRUE <=> OutFormAndLanguage == TRUE #
+# Language == TRUE => English == TRUE || German == TRUE #
+# English == TRUE => ! German #
+# English == TRUE => Language == TRUE #
+# German == TRUE => ! English #
+# German == TRUE => Language == TRUE #
+# Alarm == TRUE => WeatherStation == TRUE #
+# Alarm == TRUE => FreezePoint == TRUE || StormAlert == TRUE #
+# FreezePoint == TRUE => Alarm == TRUE #
+# StormAlert == TRUE => Alarm == TRUE #
+# FreezePoint == TRUE => Temperature == TRUE #
+# XML == TRUE || Text == TRUE #

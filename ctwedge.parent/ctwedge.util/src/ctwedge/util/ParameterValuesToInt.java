@@ -100,10 +100,12 @@ public class ParameterValuesToInt {
 			value = base + ParameterElementsGetterAsStrings.instance.doSwitch(params.get(right)).indexOf(left);
 		}
 		// a = true/false
-		else if (left != null && params.get(left) instanceof Bool && rightPred.getBoolConst()!=null) {
+		else if (left != null && params.get(left) instanceof Bool && (rightPred.getBoolConst()!=null || rightPred.getName().equalsIgnoreCase("true") || rightPred.getName().equalsIgnoreCase("false"))) {
 			int base = offsets.get(params.get(left));
 			List<String> doSwitch = ParameterElementsGetterAsStrings.instance.doSwitch(params.get(left));
-			value = base + doSwitch.indexOf(rightPred.getBoolConst());
+			String boolValue = rightPred.getBoolConst();
+			if (boolValue == null) boolValue = rightPred.getName();
+			value = base + doSwitch.indexOf(boolValue);
 		}
 		else if (right!= null && leftPred.getBoolConst()!=null && params.get(right) instanceof Bool) {
 			int base = offsets.get(params.get(right));

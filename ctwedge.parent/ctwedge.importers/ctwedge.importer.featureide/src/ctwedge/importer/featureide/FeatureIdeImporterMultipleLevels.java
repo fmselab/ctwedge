@@ -30,7 +30,7 @@ import de.ovgu.featureide.fm.core.base.IFeatureStructure;
 
 /**
  * general importer for Feature Models by using the code from featureide. It
- * uses the approach presented in IWCT13.
+ * uses the approach presented in IWCT13 - uses enumerations
  *
  * @author garganti
  *
@@ -100,9 +100,8 @@ public abstract class FeatureIdeImporterMultipleLevels extends FeatureIdeImporte
 				// set chosen for the currentNode
 				EqualExpression eq = createEqExpression(en, Operators.NE, NONE);
 				setChosen(currentNode.getFeature(), eq, normalize(currentNode.getFeature().getName()) + " !=" + NONE);
-
 			}
-			// get newphews
+			// get nephews
 			for (IFeatureStructure sonStr : currentNode.getChildren()) {
 				// update choosen for son ???
 				EqualExpression eq = createEqExpression(en, Operators.EQ, sonStr.getFeature().getName());

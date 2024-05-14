@@ -4,7 +4,6 @@ import ctwedge.fmtester.experiments.MutationScore;
 import ctwedge.fmtester.experiments.MutationScore.MissingFeatureTreatment;
 import ctwedge.util.Test;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
-import fmautorepair.utils.Utils;
 
 // check the specificity of a test
 public class SpecificityChecker {
@@ -28,7 +27,7 @@ public class SpecificityChecker {
 		// this assumption could be retracted
 		MutationScore.treat_missing_feature_as = MissingFeatureTreatment.ERROR;
 		Boolean validInNew =  useEnum ? MutationScore.isTestValidEnum(newFm, t) : MutationScore.isTestValidBool(newFm, t);
-		assert validInNew : fmautorepair.utils.Utils.getFeatureNames(newFm);
+		assert validInNew : fmautorepair.utils.Utils.getFeatureNames(newFm) + "\n" + t;
 		
 		return validInNew != validInOld;
 	}

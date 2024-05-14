@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<calculations key="tautology" value="true"/>
+		<calculations key="auto" value="true"/>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<calculations key="redundant" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<calculations key="constraints" value="true"/>
+		<graphics key="layoutalgorithm" value="1"/>
+		<calculations key="features" value="true"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="SmartHome">
+			<and name="HVACManagement">
+				<graphics key="collapsed" value="true"/>
+				<and name="HeatingControl">
+					<graphics key="collapsed" value="true"/>
+					<feature mandatory="true" name="ManualHeating1"/>
+					<and name="AutomatedHeating">
+						<graphics key="collapsed" value="true"/>
+						<feature name="RemoteHeatingControl"/>
+					</and>
+				</and>
+				<and name="AirConditioningControl">
+					<graphics key="collapsed" value="true"/>
+					<feature mandatory="true" name="ManualAirConditioningControl"/>
+					<and name="AutomatedAirConditioningControl">
+						<graphics key="collapsed" value="true"/>
+						<feature name="RemoteAirConditioningControl"/>
+					</and>
+				</and>
+				<and name="VentilationControl">
+					<graphics key="collapsed" value="true"/>
+					<feature mandatory="true" name="ManualVentilationControl"/>
+					<feature name="AutomatedVentilationControl"/>
+				</and>
+				<feature name="FullAutomatedHVACControl"/>
+				<feature name="FullManualHVACControl"/>
+			</and>
+			<and mandatory="true" name="WindowsManagement">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="ManualWindows"/>
+				<feature name="AutomatedWindows"/>
+			</and>
+			<and mandatory="true" name="LightManagement">
+				<graphics key="collapsed" value="true"/>
+				<or name="AutomatedIlumination">
+					<graphics key="collapsed" value="true"/>
+					<feature name="AutomatedPerimeterIllumination"/>
+					<feature name="AutomatedIn_houseIllumination"/>
+				</or>
+				<feature mandatory="true" name="ManualIlumination"/>
+			</and>
+			<and mandatory="true" name="UI">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="TouchScreen"/>
+				<and name="Internet">
+					<graphics key="collapsed" value="true"/>
+					<and name="Privacy">
+						<graphics key="collapsed" value="true"/>
+						<alt name="EncryptionAlgorithm">
+							<graphics key="collapsed" value="true"/>
+							<feature name="RSA"/>
+							<feature name="DES"/>
+						</alt>
+					</and>
+				</and>
+			</and>
+			<or name="PresenceSimulation">
+				<graphics key="collapsed" value="true"/>
+				<feature name="LightSimulation"/>
+				<feature name="BlindsSimulation"/>
+				<feature name="AVSimulation"/>
+			</or>
+			<and name="FireControl">
+				<graphics key="collapsed" value="true"/>
+				<and mandatory="true" name="FirstAidGroup">
+					<graphics key="collapsed" value="true"/>
+					<feature mandatory="true" name="FireDepartment"/>
+					<feature name="OtherGroup"/>
+				</and>
+				<feature name="FireSprinklers"/>
+			</and>
+			<and name="IrrigationSprinklers">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="SimpleControl"/>
+				<feature name="AutomatedSprinklers"/>
+			</and>
+			<or name="Alarm">
+				<graphics key="collapsed" value="true"/>
+				<feature name="Siren"/>
+				<feature name="Bell"/>
+				<feature name="Lights"/>
+			</or>
+			<and name="Security">
+				<graphics key="collapsed" value="true"/>
+				<or mandatory="true" name="AuthenticationDevice">
+					<graphics key="collapsed" value="true"/>
+					<feature name="Keypad"/>
+					<feature name="RetinaScanner"/>
+					<feature name="FingerprintReader"/>
+				</or>
+				<or name="IntrusionDetectionDevice">
+					<graphics key="collapsed" value="true"/>
+					<feature name="GlassbreakSensors"/>
+					<feature name="Cameras"/>
+				</or>
+			</and>
+			<and name="BlindsManagement">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="ManualBlinds"/>
+				<feature name="AutomatedBlinds"/>
+			</and>
+			<and name="AVManagement">
+				<graphics key="collapsed" value="true"/>
+				<feature name="AutomatedAV"/>
+			</and>
+			<feature name="Moods"/>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<disj>
+				<not>
+					<var>RSA</var>
+				</not>
+				<not>
+					<var>DES</var>
+				</not>
+			</disj>
+		</rule>
+		<rule>
+			<disj>
+				<not>
+					<var>HeatingControl</var>
+				</not>
+				<var>HVACManagement</var>
+			</disj>
+		</rule>
+	</constraints>
+</featureModel>

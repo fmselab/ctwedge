@@ -1,0 +1,29 @@
+Model MMobileMediaV4 Parameters :
+Mobilemedia : Boolean
+Albummanagement : Boolean
+Createalbum : Boolean
+Deletealbum : Boolean
+Photomanagement : Boolean
+Favorites : Boolean
+Setfavorites : Boolean
+Viewfavorites : Boolean
+Photooperation : Boolean
+Createphoto : Boolean
+Deletephoto : Boolean
+Editphotolabel : Boolean
+Viewphoto : Boolean
+Sorting : Boolean Constraints :
+# Mobilemedia == TRUE #
+# Albummanagement == TRUE <=> Mobilemedia == TRUE #
+# Createalbum == TRUE <=> Albummanagement == TRUE #
+# Deletealbum == TRUE <=> Albummanagement == TRUE #
+# Photomanagement == TRUE <=> Mobilemedia == TRUE #
+# Favorites == TRUE => Photomanagement == TRUE #
+# Setfavorites == TRUE <=> Favorites == TRUE #
+# Viewfavorites == TRUE <=> Favorites == TRUE #
+# Photooperation == TRUE <=> Photomanagement == TRUE #
+# Createphoto == TRUE <=> Photooperation == TRUE #
+# Deletephoto == TRUE <=> Photooperation == TRUE #
+# Editphotolabel == TRUE <=> Photooperation == TRUE #
+# Viewphoto == TRUE <=> Photooperation == TRUE #
+# Sorting == TRUE => Photomanagement == TRUE #

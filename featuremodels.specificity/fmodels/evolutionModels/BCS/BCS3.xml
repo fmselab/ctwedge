@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendposition" value="833,48"/>
+		<graphics key="legendautolayout" value="false"/>
+		<graphics key="showconstraints" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="BCS">
+			<graphics key="collapsed" value="false"/>
+			<alt mandatory="true" name="Wiper">
+				<feature name="Budget"/>
+				<feature name="Premium"/>
+			</alt>
+			<and mandatory="true" name="Door_System">
+				<feature name="Power_window"/>
+				<feature name="Heatable_Mirrors"/>
+			</and>
+			<and name="Security">
+				<feature name="CLS"/>
+				<feature name="RCK"/>
+			</and>
+			<or name="Infotainment">
+				<feature name="Bluetooth"/>
+				<feature name="USB"/>
+				<feature name="Voice_Control"/>
+			</or>
+			<and name="Automatic_Driving">
+				<feature name="CruiseControl"/>
+				<feature name="ACC"/>
+			</and>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>RCK</var>
+				<var>CLS</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>ACC</var>
+				<var>CruiseControl</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Voice_Control</var>
+				<var>Bluetooth</var>
+			</imp>
+		</rule>
+	</constraints>
+</featureModel>

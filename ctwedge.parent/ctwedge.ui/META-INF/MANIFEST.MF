@@ -6,10 +6,7 @@ Bundle-Vendor: University of Bergamo, Italy
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: ctwedge.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: ctwedge,
- ctwedge.ide,
- ctwedge.util,
- org.eclipse.xtext.ui,
+Require-Bundle: org.eclipse.xtext.ui,
  org.eclipse.xtext.ui.shared,
  org.eclipse.xtext.ui.codetemplates.ui,
  org.eclipse.ui.editors,
@@ -25,8 +22,8 @@ Require-Bundle: ctwedge,
  org.eclipse.core.databinding.property,
  org.eclipse.core.resources,
  org.eclipse.core.runtime
-Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Import-Package: com.google.inject;version="1.4.0",
+ org.apache.log4j
 Export-Package: ctwedge.ui.contentassist,
  ctwedge.ui.quickfix,
  ctwedge.ui.internal

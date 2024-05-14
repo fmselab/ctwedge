@@ -1,0 +1,48 @@
+Model MPPUv5 Parameters :
+PPU : Boolean
+Crane : Boolean
+SRouting : Boolean
+Slide : Boolean
+Straight : Boolean
+Conveyor : Boolean
+SSortation : Boolean
+DSortation : Boolean
+Workpiece : Boolean
+Type : Boolean
+Plastic : Boolean
+Light : Boolean
+Dark : Boolean
+Metal : Boolean
+Stamp : Boolean
+SPressure : Boolean
+APressure : Boolean Constraints :
+# PPU == TRUE #
+# Crane == TRUE <=> PPU == TRUE #
+# SRouting == TRUE <=> Crane == TRUE #
+# Slide == TRUE <=> PPU == TRUE #
+# Slide == TRUE => Straight == TRUE || Conveyor == TRUE #
+# Straight == TRUE => ! Conveyor #
+# Straight == TRUE => Slide == TRUE #
+# Conveyor == TRUE => ! Straight #
+# Conveyor == TRUE => Slide == TRUE #
+# Conveyor == TRUE => SSortation == TRUE || DSortation == TRUE #
+# SSortation == TRUE => ! DSortation #
+# SSortation == TRUE => Conveyor == TRUE #
+# DSortation == TRUE => ! SSortation #
+# DSortation == TRUE => Conveyor == TRUE #
+# Workpiece == TRUE <=> PPU == TRUE #
+# Type == TRUE <=> Workpiece == TRUE #
+# Type == TRUE => Plastic == TRUE || Metal == TRUE #
+# Plastic == TRUE => Type == TRUE #
+# Plastic == TRUE => Light == TRUE || Dark == TRUE #
+# Light == TRUE => Plastic == TRUE #
+# Dark == TRUE => Plastic == TRUE #
+# Metal == TRUE => Type == TRUE #
+# Stamp == TRUE => Workpiece == TRUE #
+# Stamp == TRUE => SPressure == TRUE || APressure == TRUE #
+# SPressure == TRUE => ! APressure #
+# SPressure == TRUE => Stamp == TRUE #
+# APressure == TRUE => ! SPressure #
+# APressure == TRUE => Stamp == TRUE #
+# Stamp == TRUE => Metal == TRUE #
+# Light == TRUE => APressure == TRUE #

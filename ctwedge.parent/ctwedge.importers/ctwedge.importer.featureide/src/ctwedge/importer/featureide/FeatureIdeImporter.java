@@ -92,6 +92,16 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 			return transformed;
 		}
 
+	public CitModel importModel(IFeatureModel fm) throws NotImportableException {
+			// transform to citlab
+			CitModel transformed = transform(fm);
+			if (startsWithANumber(fm.getFactoryID()))
+				transformed.setName("M" + fm.getFactoryID());
+			else
+				transformed.setName("M" + fm.getFactoryID());
+			return transformed;
+		}
+	
 	// normalize the strings in case they contain strange characters
 	public static String normalize(String x) {
 		if (Character.isDigit(x.charAt(0))) {

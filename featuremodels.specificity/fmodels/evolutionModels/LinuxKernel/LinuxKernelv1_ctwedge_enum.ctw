@@ -1,0 +1,12 @@
+Model MLinuxKernelv1 Parameters :
+Linux : Boolean
+FileSystem : Boolean
+ext3 : Boolean
+ext4 : Boolean
+Encfs : Boolean Constraints :
+# Linux == TRUE #
+# FileSystem == TRUE <=> Linux == TRUE #
+# FileSystem == TRUE => ext3 == TRUE || ext4 == TRUE || Encfs == TRUE #
+# ext3 == TRUE => FileSystem == TRUE #
+# ext4 == TRUE => FileSystem == TRUE #
+# Encfs == TRUE => FileSystem == TRUE #
