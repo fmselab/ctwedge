@@ -23,6 +23,7 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 		path = PICTGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath().split("/target")[0]; 
 		if (path.contains(":") && path.startsWith("/"))
 			path = path.substring(1);
+		path = "/home/bombarda/Desktop";
 	}
 	
 	public String translateModel(CitModel model, boolean ignoreConstraints){
@@ -149,19 +150,21 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 			counter++;
 		}
 		out.append("\n");
-		// Write values
-		for(Test t : ts.getTests()) {
-			counter = 0;
-			for (Parameter p : model.getParameters()) { 
-				if (counter > 0)
-					out.append("\t");
-				if (t.get(p.getName()).equals("*"))
-					out.append("");
-				else
-					out.append(t.get(p.getName()));
-				counter++;
+		if (ts != null) {
+			// Write values
+			for(Test t : ts.getTests()) {
+				counter = 0;
+				for (Parameter p : model.getParameters()) { 
+					if (counter > 0)
+						out.append("\t");
+					if (t.get(p.getName()).equals("*"))
+						out.append("");
+					else
+						out.append(t.get(p.getName()));
+					counter++;
+				}
+				out.append("\n");
 			}
-			out.append("\n");
 		}
 		out.close();
 		System.out.println(tempModel.getAbsolutePath());
