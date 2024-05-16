@@ -23,6 +23,7 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 		path = PICTGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath().split("/target")[0]; 
 		if (path.contains(":") && path.startsWith("/"))
 			path = path.substring(1);
+		path = "/home/bombarda/Desktop";
 	}
 	
 	public String translateModel(CitModel model, boolean ignoreConstraints){
