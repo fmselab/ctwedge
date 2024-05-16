@@ -19,13 +19,25 @@ public class Test extends Combination {
 		boolean different = false;
 		for (java.util.Map.Entry<String, String> entry : this.entrySet()) {
 			for (java.util.Map.Entry<String, String> entry2 : t1.entrySet()) {
-				if (!this.get(entry.getKey()).equals(t1.get(entry2.getKey()))) {
+				if (entry.getKey().equals(entry2.getKey()) && !this.get(entry.getKey()).equals(t1.get(entry2.getKey()))) {
 					different = true;
 				}
 			}
 			
 		}
 		return !different;
+	}
+	
+	public boolean contains(Test t) {
+		for (java.util.Map.Entry<String, String> entry : this.entrySet()) {
+			for (java.util.Map.Entry<String, String> entry2 : t.entrySet()) {
+				if (entry.getKey().equals(entry2.getKey()) && !this.get(entry.getKey()).equals(t.get(entry2.getKey())) && !t.get(entry2.getKey()).equals("*")) {
+					return false;
+				}
+			}
+			
+		}
+		return true;
 	}
 	
 }
