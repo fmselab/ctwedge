@@ -1,18 +1,8 @@
 package ctwedge.importer.featureide;
 
-import java.nio.file.Path;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
-//import ctwedge.fmtester.experiments.MutationScore;
-import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
-import de.ovgu.featureide.fm.core.base.IFeatureModel;
-import de.ovgu.featureide.fm.core.configuration.Configuration;
-import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
-import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 
 // come gestire le configurazioni
 

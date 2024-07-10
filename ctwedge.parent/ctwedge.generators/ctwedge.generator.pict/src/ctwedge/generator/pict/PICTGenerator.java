@@ -23,7 +23,6 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 		path = PICTGenerator.class.getProtectionDomain().getCodeSource().getLocation().getPath().split("/target")[0]; 
 		if (path.contains(":") && path.startsWith("/"))
 			path = path.substring(1);
-		path = "/home/bombarda/Desktop";
 	}
 	
 	public String translateModel(CitModel model, boolean ignoreConstraints){
@@ -88,7 +87,12 @@ public class PICTGenerator extends ICTWedgeTranslTestGenerator{
 			pictExecutable = path + "/pict.exe";
 		}
 		else {
-			pictExecutable = path + "/pict";
+			if (System.getProperty("os.name").contains("Mac")) {
+				pictExecutable = path + "/pictMac";
+			}
+			else {
+				pictExecutable = path + "/pict";
+			}
 		}
 		command.add(pictExecutable);
 		command.add(model.getAbsolutePath());
