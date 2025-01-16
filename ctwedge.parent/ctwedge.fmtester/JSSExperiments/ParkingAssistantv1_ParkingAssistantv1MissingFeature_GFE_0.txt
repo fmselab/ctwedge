@@ -1,2 +1,0 @@
-ParkingAssistant;Sensors;VelocitySensor;DistanceSensors;InfraredSensor
-true;true;true;true;true
