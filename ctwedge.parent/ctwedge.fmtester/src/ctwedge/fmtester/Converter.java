@@ -9,7 +9,7 @@ import java.nio.file.Path;
 
 import ctwedge.ctWedge.CitModel;
 import ctwedge.generator.medici.MediciCITGenerator;
-import ctwedge.generator.util.Utility;
+import ctwedge.util.ext.Utility;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.importer.featureide.XmlFeatureModelImporter;
 import ctwedge.util.ModelUtils;
@@ -61,10 +61,10 @@ public class Converter {
 
 		return res;
 	}
-	
+
 	/**
-	 * Translate the input FM model to the corresponding CTWedge model
-	 * forcing all the parameters to be only boolean
+	 * Translate the input FM model to the corresponding CTWedge model forcing all
+	 * the parameters to be only boolean
 	 * 
 	 * @param inPath  the path to the input Feature Model .xml file
 	 * @param outPath the path to the output CTWedge .ctw file
