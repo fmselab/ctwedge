@@ -1,0 +1,2 @@
+PPU;Crane;SRouting;ERouting;Slide;Straight;Conveyor;SSortation;DSortation;Workpiece;Plastic;Light;Dark;Metal;Stamp;APressure;SPressure
+false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false
