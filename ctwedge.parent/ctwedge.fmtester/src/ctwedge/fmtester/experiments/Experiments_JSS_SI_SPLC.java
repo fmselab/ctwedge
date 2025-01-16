@@ -75,10 +75,10 @@ public class Experiments_JSS_SI_SPLC {
 	/**
 	 * Generators settings
 	 */
-	public static final Boolean USE_SPECGEN = false;
-	public static final Boolean USE_GFE = true;
-	public static final Boolean USE_GFS = true;
-	public static final Boolean USE_Original = true;
+	public static final Boolean USE_SPECGEN = true;
+	public static final Boolean USE_GFE = false;
+	public static final Boolean USE_GFS = false;
+	public static final Boolean USE_Original = false;
 
 	/**
 	 * Tests the evolution with industrial models
@@ -275,7 +275,7 @@ public class Experiments_JSS_SI_SPLC {
 				+ newFmName.substring(newFmName.lastIndexOf("/") + 1).replace(".xml", "") + "_SPECGEN_" + repCount
 				+ ".txt");
 		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
-		fw.write(tsReduced.toString());
+		fw.write(ts.toString());
 		fw.close();
 		
 		f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_"

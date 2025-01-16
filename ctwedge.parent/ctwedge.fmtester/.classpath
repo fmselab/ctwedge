@@ -18,8 +18,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="src" path="/ctwedge.importer.featureide"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/featuremodels.specificity"/>
-	<classpathentry kind="lib" path="lib/de.ovgu.featureide.lib.fm-v3.11.1.jar"/>
+	<classpathentry kind="lib" path="/ctwedge.importer.featureide/libs/de.ovgu.featureide.lib.fm-v3.11.1.jar"/>
+	<classpathentry kind="src" path="/ctwedge.importer.featureide"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
