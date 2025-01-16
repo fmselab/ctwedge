@@ -72,7 +72,6 @@ public abstract class Node {
 
 	public void setChildren(Node[] newChildren) {
 		children = newChildren;
-		assert children.getClass() == Node.class.arrayType();
 	}
 
 	public Node[] getChildren() {
