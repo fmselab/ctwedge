@@ -1,0 +1,13 @@
+Model MSmartHotelv1 Parameters :
+SmartHotel : Boolean
+Automatedillumination : Boolean
+Security : Boolean
+Alarm : Boolean
+Siren : Boolean
+BlinkingLight : Boolean Constraints :
+# SmartHotel == TRUE #
+# Automatedillumination == TRUE <=> SmartHotel == TRUE #
+# Security == TRUE => SmartHotel == TRUE #
+# Alarm == TRUE => Security == TRUE #
+# Siren == TRUE => Alarm == TRUE #
+# BlinkingLight == TRUE => Alarm == TRUE #

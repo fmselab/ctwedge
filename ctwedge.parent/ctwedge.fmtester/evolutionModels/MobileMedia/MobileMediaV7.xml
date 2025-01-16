@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<calculations key="tautology" value="true"/>
+		<calculations key="auto" value="true"/>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<calculations key="redundant" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<calculations key="constraints" value="true"/>
+		<graphics key="layoutalgorithm" value="1"/>
+		<calculations key="features" value="true"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="MobileMedia">
+			<and mandatory="true" name="AlbumManagement">
+				<graphics key="collapsed" value="false"/>
+				<feature mandatory="true" name="CreateAlbum"/>
+				<feature mandatory="true" name="DeleteAlbum"/>
+			</and>
+			<and mandatory="true" name="MediaManagement">
+				<graphics key="collapsed" value="false"/>
+				<and name="Favorites">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="SetFavorites"/>
+					<feature mandatory="true" name="ViewFavorites"/>
+				</and>
+				<feature name="Sorting"/>
+				<feature name="CopyMedia"/>
+				<and name="SMSTransfer">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="ReceivePhoto"/>
+					<feature mandatory="true" name="SendPhoto"/>
+				</and>
+				<and mandatory="true" name="BasicMediaOperation">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="EraseMedia"/>
+					<feature mandatory="true" name="DeleteMedia"/>
+					<feature mandatory="true" name="EditMediaLabel"/>
+				</and>
+			</and>
+			<or mandatory="true" name="MediaSelection">
+				<graphics key="collapsed" value="false"/>
+				<and name="Photo">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="ViewPhoto"/>
+					<feature name="CapturePhoto"/>
+				</and>
+				<and name="Music">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="PlayMusic"/>
+				</and>
+			</or>
+		</and>
+	</struct>
+</featureModel>

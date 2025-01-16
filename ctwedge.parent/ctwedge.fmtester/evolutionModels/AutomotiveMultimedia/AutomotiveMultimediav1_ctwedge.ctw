@@ -1,0 +1,13 @@
+Model MAutomotiveMultimediav1 Parameters :
+AutomotiveMultimedia : Boolean
+AudioPlayer : Boolean
+Radio : Boolean
+CassettePlayer : Boolean
+CDPlayer : Boolean
+OnBoardComputer : Boolean Constraints :
+# AutomotiveMultimedia == TRUE #
+# AudioPlayer == TRUE => AutomotiveMultimedia == TRUE #
+# Radio == TRUE <=> AudioPlayer == TRUE #
+# CassettePlayer == TRUE => AudioPlayer == TRUE #
+# CDPlayer == TRUE => AudioPlayer == TRUE #
+# OnBoardComputer == TRUE <=> AutomotiveMultimedia == TRUE #

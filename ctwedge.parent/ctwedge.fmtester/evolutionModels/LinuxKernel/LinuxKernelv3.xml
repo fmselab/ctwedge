@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="Linux">
+			<or mandatory="true" name="FileSystem">
+				<feature name="ext3"/>
+				<feature name="ext4"/>
+				<alt name="goCrypt">
+					<feature name="AES"/>
+					<feature name="Twofish"/>
+				</alt>
+			</or>
+			<or mandatory="true" name="IP">
+				<feature name="v4"/>
+				<feature name="v6"/>
+			</or>
+		</and>
+	</struct>
+</featureModel>

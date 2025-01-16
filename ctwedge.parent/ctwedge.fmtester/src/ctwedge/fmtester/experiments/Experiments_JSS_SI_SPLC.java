@@ -1,0 +1,346 @@
+package ctwedge.fmtester.experiments;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+
+import org.junit.Test;
+
+import ctwedge.ctWedge.CitModel;
+import ctwedge.generator.acts.ACTSTranslator;
+import ctwedge.importer.featureide.FeatureIdeImporter;
+import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
+import ctwedge.util.TestSuite;
+import ctwedge.util.validator.MinimalityTestSuiteValidator;
+import ctwedge.util.validator.ValidatorException;
+import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
+import de.ovgu.featureide.fm.core.base.IFeatureModel;
+import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
+import de.ovgu.featureide.fm.core.init.LibraryManager;
+import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
+import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
+import featuremodels.specificity.SpecificCITTestGenerator;
+import pMedici.main.PMedici;
+import pMedici.util.TestContext;
+
+public class Experiments_JSS_SI_SPLC {
+
+	/**
+	 * The available evolutions
+	 */
+	public static final String[] EV_MOBMEDIA = new String[] { "evolutionModels/MobileMedia/", "MobileMediaV3",
+			"MobileMediaV4", "MobileMediaV5", "MobileMediaV6", "MobileMediaV7", "MobileMediaV8" };
+	public static final String[] EV_SHOME = new String[] { "evolutionModels/SmartHome/", "SmartHomeV2",
+			"SmartHomeV2.2" };
+	public static final String[] EV_BCS = new String[] { "evolutionModels/BCS/", "BCS1", "BCS2", "BCS3" };
+	public static final String[] EV_HSYS = new String[] { "evolutionModels/HelpSystem/", "HelpSystem1", "HelpSystem2" };
+	public static final String[] EV_ERP = new String[] { "evolutionModels/ERP/", "ERP_SPL_s1", "ERP_SPL_s2" };
+	public static final String[] EV_WSTAT = new String[] { "evolutionModels/WeatherStation/", "WeatherStationv1",
+			"WeatherStationv2" };
+	public static final String[] EV_SMARTW = new String[] { "evolutionModels/SmartWatch/", "SmartWatchv1",
+			"SmartWatchv2" };
+	public static final String[] EV_SMARTH = new String[] { "evolutionModels/SmartHotel/", "SmartHotelv1",
+			"SmartHotelv2" };
+	public static final String[] EV_PARKING = new String[] { "evolutionModels/ParkingAssistant/", "ParkingAssistantv1",
+			"ParkingAssistantv2", "ParkingAssistantv3", "ParkingAssistantv4", "ParkingAssistantv5" };
+	public static final String[] EV_LINUX = new String[] { "evolutionModels/LinuxKernel/", "LinuxKernelv1",
+			"LinuxKernelv2", "LinuxKernelv3" };
+	public static final String[] EV_CARBODY = new String[] { "evolutionModels/CarBody/", "CarBodyv1", "CarBodyv2",
+			"CarBodyv3", "CarBodyv4" };
+	public static final String[] EV_BOING = new String[] { "evolutionModels/Boeing/", "Boeingv1", "Boeingv2",
+			"Boeingv3" };
+	public static final String[] EV_AUTOM = new String[] { "evolutionModels/AutomotiveMultimedia/",
+			"AutomotiveMultimediav1", "AutomotiveMultimediav2", "AutomotiveMultimediav3" };
+	public static final String[] EV_ALIV = new String[] { "evolutionModels/AmbientAssistedLiving/",
+			"AmbientAssistedLivingv1", "AmbientAssistedLivingv2" };
+	public static final String[] EV_PPU = new String[] { "evolutionModels/PPU/", "PPUv1", "PPUv2", "PPUv3", "PPUv4",
+			"PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9" };
+
+	/**
+	 * The path where the resulting test suites are stored
+	 */
+	public static final String PATH = "./JSSExperiments";
+
+	/**
+	 * The number of repetitions
+	 */
+	public static final int N_REP = 10;
+
+	/**
+	 * Generators settings
+	 */
+	public static final Boolean USE_SPECGEN = true;
+	public static final Boolean USE_GFE = false;
+	public static final Boolean USE_GFS = false;
+	public static final Boolean USE_Original = false;
+
+	/**
+	 * Tests the evolution with industrial models
+	 * 
+	 * @throws ValidatorException
+	 * @throws InterruptedException
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	@Test
+	public void testEvolutionIndustrial() throws FileNotFoundException, IOException, UnsupportedModelException,
+			NoSuchExtensionException, InterruptedException, ValidatorException {
+		LibraryManager.registerLibrary(FMCoreLibrary.getInstance());
+		for (int i = 0; i < N_REP; i++) {
+			testEvo(EV_ALIV, i);
+			testEvo(EV_PPU, i);
+			testEvo(EV_AUTOM, i);
+			testEvo(EV_BOING, i);
+			testEvo(EV_CARBODY, i);
+			testEvo(EV_LINUX, i);
+			testEvo(EV_PARKING, i);
+			testEvo(EV_BCS, i);
+			testEvo(EV_ERP, i);
+			testEvo(EV_HSYS, i);
+			testEvo(EV_MOBMEDIA, i);
+			testEvo(EV_SHOME, i);
+			testEvo(EV_SMARTH, i);
+			testEvo(EV_SMARTW, i);
+			testEvo(EV_WSTAT, i);
+		}
+	}
+	
+	@Test
+	public void testEvolutionMutations() {
+		LibraryManager.registerLibrary(FMCoreLibrary.getInstance());
+		
+	}
+
+	/**
+	 * Tests the evolution for the given models and the specific repetition count
+	 * 
+	 * @param modelsList the models list
+	 * @param repCount   the current repetition
+	 * @throws ValidatorException
+	 * @throws InterruptedException
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	public void testEvo(String[] modelsList, int repCount) throws FileNotFoundException, IOException,
+			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
+		for (int i = 1; i < modelsList.length - 1; i++) {
+			for (int j = 2; j < modelsList.length; j++)
+				if (i != j) {
+					// Execute the experiments on the original model
+					executeTest("../../featuremodels.evotester/" + modelsList[0] + "/" + modelsList[i] + ".xml",
+							"../../featuremodels.evotester/" + modelsList[0] + "/" + modelsList[j] + ".xml", repCount);
+				}
+		}
+	}
+
+	/**
+	 * Executes test
+	 * 
+	 * @param oldFm    old feature model
+	 * @param newFm    new feature model
+	 * @param repCount the repetition count
+	 * @throws ValidatorException
+	 * @throws InterruptedException
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	private void executeTest(String oldFm, String newFm, int repCount) throws FileNotFoundException, IOException,
+			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
+		// TODO Auto-generated method stub
+		// Load the two feature models
+		Path oldFMPath = Path.of(oldFm);
+		IFeatureModel oldFM = FeatureModelManager.load(oldFMPath);
+		Path newFMPath = Path.of(newFm);
+		IFeatureModel newFM = FeatureModelManager.load(newFMPath);
+
+		// Generate test suites
+		generateMultipleTestSuites(oldFm, newFm, oldFMPath, oldFM, newFMPath, newFM, repCount);
+	}
+
+	/**
+	 * Generates a test suite with SPECGEN
+	 * 
+	 * @param oldFm     the old feature model name
+	 * @param newFm     the new feature model name
+	 * @param oldFM     the old feature model object
+	 * @param newFMPath the new feature model path
+	 * @param newFM     the new feature model object
+	 * @param repCount  the counter for the current repetition
+	 * 
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedModelException
+	 * @throws NoSuchExtensionException
+	 * @throws InterruptedException
+	 * @throws ValidatorException
+	 */
+	private void generateWithSpecgen(String oldFm, String newFm, IFeatureModel oldFM, Path newFMPath,
+			IFeatureModel newFM, int repCount) throws IOException, FileNotFoundException, UnsupportedModelException,
+			NoSuchExtensionException, InterruptedException, ValidatorException {
+		System.out.println("Generating with SPECGEN");
+		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
+		TestSuite ts = gen.generateTestSuite();
+		ts.setStrength(2);
+		MinimalityTestSuiteValidator minimality = new MinimalityTestSuiteValidator(ts);
+		TestSuite tsReduced = minimality.reduceSize();
+
+		File f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_"
+				+ newFm.substring(newFm.lastIndexOf("/") + 1).replace(".xml", "") + "_SPECGEN_" + repCount + ".txt");
+		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
+		fw.write(tsReduced.toString());
+		fw.close();
+	}
+
+	/**
+	 * Generates tests with GFE
+	 * 
+	 * @param oldFm
+	 * @param newFm
+	 * @param newFMPath
+	 * @param evolvedModel
+	 * @param originalModel
+	 * @param repCount
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws UnsupportedModelException
+	 * @throws NoSuchExtensionException
+	 */
+	private void generateWithGFE(String oldFm, String newFm, Path newFMPath, CitModel evolvedModel,
+			CitModel originalModel, int repCount)
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+		TestContext.IN_TEST = true;
+
+		// Get the first test suite with ACTS
+		ACTSTranslator acts = new ACTSTranslator();
+		TestSuite tsACTS = acts.getTestSuite(originalModel, 2, false);
+		tsACTS.setGeneratorName("ACTS");
+
+		// Second model
+		PMedici pMedici = new PMedici();
+		pMedici.setSeeds(tsACTS.getTests());
+		TestSuite gfeTS = pMedici.generateTests(evolvedModel, 2, 1);
+		assert gfeTS.getGeneratorTime() >= 0;
+		assert gfeTS.getStrength() >= 0;
+
+		File f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_"
+				+ newFm.substring(newFm.lastIndexOf("/") + 1).replace(".xml", "") + "_GFE_" + repCount + ".txt");
+		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
+		fw.write(gfeTS.toString());
+		fw.close();
+	}
+
+	/**
+	 * Generates tests with GFS
+	 * 
+	 * @param oldFm
+	 * @param newFm
+	 * @param newFMPath
+	 * @param evolvedModel
+	 * @param originalModel
+	 * @param repCount
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws UnsupportedModelException
+	 * @throws NoSuchExtensionException
+	 */
+	private void generateWithGFS(String oldFm, String newFm, Path newFMPath, CitModel evolvedModel,
+			CitModel originalModel, int repCount)
+			throws IOException, InterruptedException, UnsupportedModelException, NoSuchExtensionException {
+		TestContext.IN_TEST = true;
+
+		// Second model
+		PMedici pMedici = new PMedici();
+		TestSuite gfeTS = pMedici.generateTests(evolvedModel, 2, 1);
+		assert gfeTS.getGeneratorTime() >= 0;
+		assert gfeTS.getStrength() >= 0;
+
+		File f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_"
+				+ newFm.substring(newFm.lastIndexOf("/") + 1).replace(".xml", "") + "_GFS_" + repCount + ".txt");
+		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
+		fw.write(gfeTS.toString());
+		fw.close();
+	}
+
+	/**
+	 * @param oldFm
+	 * @param newFm
+	 * @param oldFMPath * @param oldFM2
+	 * @param newFMPath
+	 * @param newFM2
+	 * @param repCount
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws UnsupportedModelException
+	 * @throws NoSuchExtensionException
+	 * @throws InterruptedException
+	 * @throws ValidatorException
+	 */
+	private void generateMultipleTestSuites(String oldFm, String newFm, Path oldFMPath, IFeatureModel oldFM2,
+			Path newFMPath, IFeatureModel newFM2, int repCount) throws FileNotFoundException, IOException,
+			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
+
+		FeatureIdeImporter importer;
+		CitModel resultNew, resultOld;
+
+		// SPECGEN
+		if (USE_SPECGEN)
+			generateWithSpecgen(oldFm, newFm, oldFM2, newFMPath, newFM2, repCount);
+
+		// GFE
+		if (USE_GFE) {
+			importer = new FeatureIdeImporterBoolean();
+			resultNew = importer.importModel(newFMPath.toString());
+			importer = new FeatureIdeImporterBoolean();
+			resultOld = importer.importModel(oldFMPath.toString());
+			generateWithGFE(oldFm, newFm, newFMPath, resultNew, resultOld, repCount);
+		}
+
+		// TS for FM
+		if (USE_Original) {
+			importer = new FeatureIdeImporterBoolean();
+			resultOld = importer.importModel(oldFMPath.toString());
+			generateTSFM(oldFm, resultOld, repCount);
+		}
+
+		// GFS
+		if (USE_GFS) {
+			importer = new FeatureIdeImporterBoolean();
+			resultNew = importer.importModel(newFMPath.toString());
+			importer = new FeatureIdeImporterBoolean();
+			resultOld = importer.importModel(oldFMPath.toString());
+			generateWithGFS(oldFm, newFm, newFMPath, resultNew, resultOld, repCount);
+		}
+	}
+
+	/**
+	 * Generates the TS for FM
+	 * 
+	 * @param oldFm
+	 * @param resultOld
+	 * @param repCount
+	 * @throws IOException
+	 */
+	private void generateTSFM(String oldFm, CitModel resultOld, int repCount) throws IOException {
+		// Get the first test suite with ACTS
+		ACTSTranslator acts = new ACTSTranslator();
+		TestSuite tsACTS = acts.getTestSuite(resultOld, 2, false);
+		tsACTS.setGeneratorName("ACTS");
+
+		File f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_ORIGINAL_"
+				+ repCount + ".txt");
+		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
+		fw.write(tsACTS.toString());
+		fw.close();
+
+	}
+
+}

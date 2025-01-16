@@ -56,11 +56,6 @@
 		</dependency>
 		<dependency>
 			<groupId>ctwedge</groupId>
-			<artifactId>ctwedge.fmtester</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>ctwedge</groupId>
 			<artifactId>ctwedge.importer.featureide</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

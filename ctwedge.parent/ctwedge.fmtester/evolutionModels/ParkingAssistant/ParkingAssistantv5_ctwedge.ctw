@@ -1,0 +1,48 @@
+Model MParkingAssistantv5 Parameters :
+ParkingAssistant : Boolean
+Sensors : Boolean
+DistanceSensors : Boolean
+SensorFusion : Boolean
+DistanceSensorTypes : Boolean
+InfraredSensor : Boolean
+UltrasonicSensor : Boolean
+DrivenWaySensors : Boolean
+PulseLengthSensorV2 : Boolean
+DirectionPositionSensors : Boolean
+DirectionSensors : Boolean
+CompassSensors : Boolean
+PositionSensors : Boolean
+GPSSensor : Boolean
+Controller : Boolean
+ControllerDir : Boolean
+ControllerWithDir : Boolean
+ControllerWithoutDir : Boolean
+LocationBasedServ : Boolean Constraints :
+# ParkingAssistant == TRUE #
+# Sensors == TRUE <=> ParkingAssistant == TRUE #
+# DistanceSensors == TRUE <=> Sensors == TRUE #
+# SensorFusion == TRUE => DistanceSensors == TRUE #
+# DistanceSensorTypes == TRUE <=> DistanceSensors == TRUE #
+# DistanceSensorTypes == TRUE => InfraredSensor == TRUE || UltrasonicSensor == TRUE #
+# InfraredSensor == TRUE => DistanceSensorTypes == TRUE #
+# UltrasonicSensor == TRUE => DistanceSensorTypes == TRUE #
+# DrivenWaySensors == TRUE <=> Sensors == TRUE #
+# PulseLengthSensorV2 == TRUE <=> DrivenWaySensors == TRUE #
+# DirectionPositionSensors == TRUE <=> Sensors == TRUE #
+# DirectionPositionSensors == TRUE => DirectionSensors == TRUE || PositionSensors == TRUE #
+# DirectionSensors == TRUE => DirectionPositionSensors == TRUE #
+# CompassSensors == TRUE <=> DirectionSensors == TRUE #
+# PositionSensors == TRUE => DirectionPositionSensors == TRUE #
+# GPSSensor == TRUE <=> PositionSensors == TRUE #
+# Controller == TRUE <=> ParkingAssistant == TRUE #
+# ControllerDir == TRUE <=> Controller == TRUE #
+# ControllerDir == TRUE => ControllerWithDir == TRUE || ControllerWithoutDir == TRUE #
+# ControllerWithDir == TRUE => ! ControllerWithoutDir #
+# ControllerWithDir == TRUE => ControllerDir == TRUE #
+# ControllerWithoutDir == TRUE => ! ControllerWithDir #
+# ControllerWithoutDir == TRUE => ControllerDir == TRUE #
+# LocationBasedServ == TRUE => Controller == TRUE #
+# SensorFusion == TRUE => InfraredSensor == TRUE #
+# SensorFusion == TRUE => UltrasonicSensor == TRUE #
+# ControllerWithDir == TRUE => DirectionSensors == TRUE #
+# LocationBasedServ == TRUE => PositionSensors == TRUE #

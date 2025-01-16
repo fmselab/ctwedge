@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<calculations key="tautology" value="true"/>
+		<calculations key="auto" value="true"/>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<calculations key="redundant" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<calculations key="constraints" value="true"/>
+		<graphics key="layoutalgorithm" value="1"/>
+		<calculations key="features" value="true"/>
+	</properties>
+	<struct>
+		<and mandatory="true" name="SmartHome">
+			<and mandatory="true" name="HeatingManagement">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="ManualHeating"/>
+				<feature name="SmartHeating"/>
+			</and>
+			<and mandatory="true" name="WindowsManagement">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="ManualWindows"/>
+				<feature name="ElectronicWindows"/>
+			</and>
+			<and mandatory="true" name="LightManagement">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="ManualLight"/>
+				<feature name="SmartLight"/>
+				<feature name="Pre_definedValues"/>
+			</and>
+			<and mandatory="true" name="GUI">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="TouchScreen"/>
+				<feature name="Internet"/>
+			</and>
+			<or name="PresenceSimulator">
+				<graphics key="collapsed" value="true"/>
+				<feature name="LightSimulation"/>
+				<feature name="BlindSimulation"/>
+				<feature name="MusicSimulation"/>
+			</or>
+			<and mandatory="true" name="FireControl">
+				<graphics key="collapsed" value="true"/>
+				<and mandatory="true" name="FirstAidGroup">
+					<graphics key="collapsed" value="true"/>
+					<or abstract="true" mandatory="true" name="FirstAidGroup_1">
+						<graphics key="collapsed" value="true"/>
+						<feature name="FireDepartment"/>
+						<feature name="OtherGroup"/>
+					</or>
+					<feature name="FireSprinklers"/>
+				</and>
+			</and>
+			<and name="IrrigationSprinklers">
+				<graphics key="collapsed" value="true"/>
+				<feature mandatory="true" name="SimpleControl"/>
+				<feature name="SmartSprinklers"/>
+			</and>
+			<or mandatory="true" name="Alarm">
+				<graphics key="collapsed" value="true"/>
+				<feature name="Siren"/>
+				<feature name="Bell"/>
+				<feature name="Lights"/>
+			</or>
+			<and mandatory="true" name="Security">
+				<graphics key="collapsed" value="true"/>
+				<or mandatory="true" name="AuthenticationDevice">
+					<graphics key="collapsed" value="true"/>
+					<feature name="Keypad"/>
+					<feature name="RetinaScanner"/>
+					<feature name="FingerPrintReader"/>
+				</or>
+				<or name="IntrusionDetectionDevice">
+					<graphics key="collapsed" value="true"/>
+					<feature name="GlassbreakSensors"/>
+					<feature name="Cameras"/>
+				</or>
+			</and>
+		</and>
+	</struct>
+</featureModel>

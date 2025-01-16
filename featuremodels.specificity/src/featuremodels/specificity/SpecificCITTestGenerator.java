@@ -39,7 +39,7 @@ public class SpecificCITTestGenerator extends BDDCITTestGenerator {
 	 * @param newFm    the new feature model
 	 * @param strength the strength for CIT generation
 	 */
-	SpecificCITTestGenerator(IFeatureModel oldFm, IFeatureModel newFm, int strength) {
+	public SpecificCITTestGenerator(IFeatureModel oldFm, IFeatureModel newFm, int strength) {
 		super(newFm, strength);
 		this.oldFm = oldFm;
 		this.specificTests = new ArrayList<BDD>();

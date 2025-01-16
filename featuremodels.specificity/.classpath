@@ -28,7 +28,7 @@
 	<classpathentry kind="lib" path="/fmautorepair.libs/antlr-3.4.jar"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/uvl-parser.jar"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/log4j.jar"/>
-	<classpathentry kind="lib" path="/fmautorepair.libs/de.ovgu.featureide.lib.fm-v3.10.0.jar"/>
+	<classpathentry kind="lib" path="/fmautorepair.libs/de.ovgu.featureide.lib.fm-v3.11.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/featuremodels.evotester"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ctwedge.importer.featureide"/>
 	<classpathentry kind="lib" path="/fmautorepair.libs/javabdd.jar"/>

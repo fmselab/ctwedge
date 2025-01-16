@@ -84,7 +84,8 @@ public class BDDCITTestGenerator {
 	 */
 	protected BDD getBDDFromFM(IFeatureModel fm, FMToBDD bdd_builder) {
 		// Convert the FM into the corresponding BDD
-		return bdd_builder.nodeToBDD(NodeCreator.createNodes(fm));
+		Node nodes = NodeCreator.createNodes(fm);
+		return bdd_builder.nodeToBDD(nodes);
 	}
 
 	/**

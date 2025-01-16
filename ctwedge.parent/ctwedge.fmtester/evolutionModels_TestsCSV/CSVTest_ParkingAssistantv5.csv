@@ -1,0 +1,9 @@
+CompassSensors,Controller,ControllerDir,ControllerWithDir,ControllerWithoutDir,DirectionPositionSensors,DirectionSensors,DistanceSensorTypes,DistanceSensors,DrivenWaySensors,GPSSensor,InfraredSensor,LocationBasedServ,ParkingAssistant,PositionSensors,PulseLengthSensorV2,SensorFusion,Sensors,UltrasonicSensor
+false,true,true,false,true,true,false,true,true,true,true,false,false,true,true,true,false,true,true
+true,true,true,true,false,true,true,true,true,true,false,true,false,true,false,true,true,true,true
+false,true,true,false,true,true,false,true,true,true,true,true,true,true,true,true,false,true,false
+true,true,true,false,true,true,true,true,true,true,false,true,false,true,false,true,false,true,false
+true,true,true,true,false,true,true,true,true,true,true,false,true,true,true,true,false,true,true
+false,true,true,false,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true
+true,true,true,true,false,true,true,true,true,true,false,false,false,true,false,true,false,true,true
+true,true,true,true,false,true,true,true,true,true,true,true,false,true,true,true,false,true,false
