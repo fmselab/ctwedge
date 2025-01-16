@@ -1,4 +1,0 @@
-Boeing;SeatsConfiguration;Rows3Passengers210;Rows3Passengers290;FuelCapacity;Liters138700
-true;true;false;true;true;true
-true;true;true;false;true;true
-true;true;true;true;true;true
