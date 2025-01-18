@@ -1,0 +1,13 @@
+AmbientAssistedLiving;Sensor;LightMonit;TempMonit;Others;Humidity;Accelerometer;Temperature;SenEncryp;Light;Smartphone;SmartphoneType;Android;iPhone;Video;PhEncryp;Alarm;Camera;Transmission;Rec;CamEncryp;Services;VideoSurveillance;Encryption;LightControl;HeatControl
+true;true;false;false;false;false;false;false;false;false;true;false;false;false;false;false;true;true;false;false;false;true;false;true;false;false
+true;true;true;true;true;true;true;true;true;true;true;true;true;false;true;true;true;true;true;true;true;true;true;true;true;true
+true;true;false;true;false;false;false;false;true;false;true;true;true;false;true;true;true;true;false;true;false;true;true;true;false;true
+true;true;true;false;true;false;true;true;false;false;true;false;false;false;false;true;true;true;true;false;true;true;false;true;true;false
+true;true;false;false;true;true;false;false;false;true;true;true;false;true;true;false;true;true;true;true;false;true;false;true;true;true
+true;true;true;false;false;false;false;false;true;false;true;false;false;false;false;false;true;true;false;true;true;true;true;true;false;false
+true;true;false;true;true;false;true;true;false;true;true;false;false;false;false;false;true;true;false;false;false;true;true;true;false;true
+true;true;false;true;true;true;false;true;true;false;true;false;false;false;true;false;true;true;false;false;true;true;true;true;true;false
+true;true;true;false;true;true;true;false;false;true;true;true;true;false;false;false;true;true;true;false;false;true;false;true;false;false
+true;true;true;true;true;false;true;true;true;false;true;true;false;true;false;true;true;true;false;false;true;true;false;true;false;false
+true;true;false;false;false;false;false;false;false;false;true;true;false;true;false;true;true;true;true;false;false;true;true;true;true;true
+true;true;true;false;false;false;false;false;true;true;true;true;true;false;false;true;true;true;true;true;true;true;true;true;true;false

@@ -1,0 +1,9 @@
+Linux;IP;v4;v6;FileSystem;ext3;ext4;goCrypt
+true;true;false;true;true;false;false;true
+true;true;true;false;true;true;true;false
+true;true;false;true;true;true;true;false
+true;true;true;false;true;false;false;true
+true;true;true;true;true;true;false;true
+true;true;true;false;true;true;false;false
+true;true;true;true;true;false;true;false
+true;true;true;false;true;false;true;true

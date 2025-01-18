@@ -1,0 +1,9 @@
+MobileMedia;AlbumManagement;CreateAlbum;DeleteAlbum;DeleteMedia;MediaManagement;Favorites;SetFavorites;ViewFavorites;Sorting;CopyMedia;SMSTransfer;ReceivePhoto;SendPhoto;BasicMediaOperation;EraseMedia;EditMediaLabel;MediaSelection;Photo;ViewPhoto;CapturePhoto;Music;PlayMusic
+true;true;true;true;true;true;false;false;false;false;false;false;false;false;true;true;true;true;false;false;false;true;true
+true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;false;false
+true;true;true;true;true;true;false;false;false;true;true;true;true;true;true;true;true;true;false;false;false;true;true
+true;true;true;true;true;true;true;true;true;false;false;false;false;false;true;true;true;true;true;true;true;true;true
+true;true;true;true;true;true;false;false;false;false;true;true;true;true;true;true;true;true;true;true;true;false;false
+true;true;true;true;true;true;true;true;true;true;false;false;false;false;true;true;true;true;false;false;false;true;true
+true;true;true;true;true;true;true;true;true;false;false;true;true;true;true;true;true;true;true;true;false;false;false
+true;true;true;true;true;true;false;false;false;true;true;false;false;false;true;true;true;true;true;true;false;false;false

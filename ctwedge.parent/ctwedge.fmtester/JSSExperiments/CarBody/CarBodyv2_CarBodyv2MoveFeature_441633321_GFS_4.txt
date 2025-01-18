@@ -1,0 +1,2 @@
+CarBody;OtherFeatures;MultimediaDevices;Radio;MonochromeRadioDisplay;ColorRadioDisplay;Navigation
+true;true;true;false;false;false;true

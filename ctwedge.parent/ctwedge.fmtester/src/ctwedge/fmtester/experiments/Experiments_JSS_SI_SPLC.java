@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.junit.Test;
@@ -25,6 +26,7 @@ import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
 import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 import featuremodels.specificity.SpecificCITTestGenerator;
 import fmautorepair.mutationoperators.FMMutation;
+import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationprocess.FMMutationProcess;
 import pMedici.main.PMedici;
 import pMedici.util.TestContext;
@@ -68,6 +70,16 @@ public class Experiments_JSS_SI_SPLC {
 	public static final String PATH = "./JSSExperiments";
 
 	/**
+	 * Maximum number of FMMutation obtained from each mutator
+	 */
+	public static final int N_MAX_PER_MUTATION = 50;
+
+	/**
+	 * The number of mutations applied
+	 */
+	public static HashMap<Class<? extends FMMutator>, Integer> mutations;
+
+	/**
 	 * The number of repetitions
 	 */
 	public static final int N_REP = 10;
@@ -76,9 +88,9 @@ public class Experiments_JSS_SI_SPLC {
 	 * Generators settings
 	 */
 	public static final Boolean USE_SPECGEN = true;
-	public static final Boolean USE_GFE = false;
-	public static final Boolean USE_GFS = false;
-	public static final Boolean USE_Original = false;
+	public static final Boolean USE_GFE = true;
+	public static final Boolean USE_GFS = true;
+	public static final Boolean USE_Original = true;
 
 	/**
 	 * Tests the evolution with industrial models
@@ -118,21 +130,21 @@ public class Experiments_JSS_SI_SPLC {
 			NoSuchExtensionException, InterruptedException, ValidatorException {
 		LibraryManager.registerLibrary(FMCoreLibrary.getInstance());
 		for (int i = 0; i < N_REP; i++) {
-			testEvoMutation(EV_ALIV, i);
-			testEvoMutation(EV_PPU, i);
-			testEvoMutation(EV_AUTOM, i);
-			testEvoMutation(EV_BOING, i);
-			testEvoMutation(EV_CARBODY, i);
-			testEvoMutation(EV_LINUX, i);
-			testEvoMutation(EV_PARKING, i);
-			testEvoMutation(EV_BCS, i);
-			testEvoMutation(EV_ERP, i);
-			testEvoMutation(EV_HSYS, i);
-			testEvoMutation(EV_MOBMEDIA, i);
+//			testEvoMutation(EV_ALIV, i);
+//			testEvoMutation(EV_PPU, i);
+//			testEvoMutation(EV_AUTOM, i);
+//			testEvoMutation(EV_BOING, i);
+//			testEvoMutation(EV_CARBODY, i);
+//			testEvoMutation(EV_LINUX, i);
+//			testEvoMutation(EV_PARKING, i);
+//			testEvoMutation(EV_BCS, i);
+//			testEvoMutation(EV_ERP, i);
+//			testEvoMutation(EV_HSYS, i);
+//			testEvoMutation(EV_MOBMEDIA, i);
 			testEvoMutation(EV_SHOME, i);
-			testEvoMutation(EV_SMARTH, i);
-			testEvoMutation(EV_SMARTW, i);
-			testEvoMutation(EV_WSTAT, i);
+//			testEvoMutation(EV_SMARTH, i);
+//			testEvoMutation(EV_SMARTW, i);
+//			testEvoMutation(EV_WSTAT, i);
 		}
 	}
 
@@ -176,6 +188,7 @@ public class Experiments_JSS_SI_SPLC {
 			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
 		for (int i = 1; i < modelsList.length; i++) {
 			// Execute the experiments on the original model
+			mutations = new HashMap<>();
 			executeTest("../../featuremodels.evotester/" + modelsList[0] + "/" + modelsList[i] + ".xml", repCount);
 		}
 	}
@@ -201,13 +214,22 @@ public class Experiments_JSS_SI_SPLC {
 		IFeatureModel oldFM = FeatureModelManager.load(oldFMPath);
 
 		// Define the mutators
-		Iterator<FMMutation> mutants = FMMutationProcess.getAllMutants(oldFM);
+		Iterator<FMMutation> mutants = FMMutationProcess.getAllMutantsRndOrderFOM(oldFM);
 
 		// Apply the mutations
 		while (mutants.hasNext()) {
 			FMMutation next = mutants.next();
 			if (next == null)
 				continue;
+
+			if (mutations.get(next.getMutationClass()) != null) {
+				if (mutations.get(next.getMutationClass()) > N_MAX_PER_MUTATION)
+					continue;
+
+				mutations.put(next.getMutationClass(), mutations.get(next.getMutationClass()) + 1);
+			} else {
+				mutations.put(next.getMutationClass(), 1);
+			}
 
 			// Transform the test to a configuration
 			IFeatureModel mutatedFeatureModel = next.getFirst();
@@ -259,16 +281,16 @@ public class Experiments_JSS_SI_SPLC {
 	 * @throws InterruptedException
 	 * @throws ValidatorException
 	 */
-	private void generateWithSpecgen(String oldFm, String newFmName, IFeatureModel oldFM, 
-			IFeatureModel newFM, int repCount) throws IOException, FileNotFoundException, UnsupportedModelException,
+	private void generateWithSpecgen(String oldFm, String newFmName, IFeatureModel oldFM, IFeatureModel newFM,
+			int repCount) throws IOException, FileNotFoundException, UnsupportedModelException,
 			NoSuchExtensionException, InterruptedException, ValidatorException {
 		System.out.println("Generating with SPECGEN");
 		SpecificCITTestGenerator gen = new SpecificCITTestGenerator(oldFM, newFM, 2);
 		TestSuite ts = gen.generateTestSuite();
+		if (ts == null)
+			return;
 		ts.setStrength(2);
-		MinimalityTestSuiteValidator minimality = new MinimalityTestSuiteValidator(ts);
-		TestSuite tsReduced = minimality.reduceSize();
-		
+
 		ts.getGeneratorTime();
 
 		File f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_"
@@ -277,12 +299,12 @@ public class Experiments_JSS_SI_SPLC {
 		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
 		fw.write(ts.toString());
 		fw.close();
-		
+
 		f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_"
 				+ newFmName.substring(newFmName.lastIndexOf("/") + 1).replace(".xml", "") + "_SPECGEN_" + repCount
 				+ ".time");
 		fw = new BufferedWriter(new FileWriter(f));
-		fw.write(String.valueOf(tsReduced.getGeneratorTime()));
+		fw.write(String.valueOf(ts.getGeneratorTime()));
 		fw.close();
 	}
 
@@ -312,7 +334,14 @@ public class Experiments_JSS_SI_SPLC {
 		// Second model
 		PMedici pMedici = new PMedici();
 		pMedici.setSeeds(tsACTS.getTests());
-		TestSuite gfeTS = pMedici.generateTests(evolvedModel, 2, 1);
+		TestSuite gfeTS = null;
+		try {
+			gfeTS = pMedici.generateTests(evolvedModel, 2, 1);
+		} catch (NullPointerException ex) {
+		}
+		if (gfeTS == null)
+			return;
+
 		assert gfeTS.getGeneratorTime() >= 0;
 		assert gfeTS.getStrength() >= 0;
 
@@ -322,7 +351,7 @@ public class Experiments_JSS_SI_SPLC {
 		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
 		fw.write(gfeTS.toString());
 		fw.close();
-		
+
 		f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_"
 				+ newFmName.substring(newFmName.lastIndexOf("/") + 1).replace(".xml", "") + "_GFE_" + repCount
 				+ ".time");
@@ -351,7 +380,14 @@ public class Experiments_JSS_SI_SPLC {
 
 		// Second model
 		PMedici pMedici = new PMedici();
-		TestSuite gfeTS = pMedici.generateTests(evolvedModel, 2, 1);
+		TestSuite gfeTS = null;
+		try {
+			gfeTS = pMedici.generateTests(evolvedModel, 2, 1);
+		} catch (NullPointerException ex) {
+		}
+		if (gfeTS == null)
+			return;
+
 		assert gfeTS.getGeneratorTime() >= 0;
 		assert gfeTS.getStrength() >= 0;
 
@@ -361,7 +397,7 @@ public class Experiments_JSS_SI_SPLC {
 		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
 		fw.write(gfeTS.toString());
 		fw.close();
-		
+
 		f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_"
 				+ newFmName.substring(newFmName.lastIndexOf("/") + 1).replace(".xml", "") + "_GFS_" + repCount
 				+ ".time");
@@ -440,7 +476,8 @@ public class Experiments_JSS_SI_SPLC {
 
 		FeatureIdeImporter importer;
 		CitModel resultNew, resultOld;
-		String newFmName = oldFm.substring(oldFm.lastIndexOf("/")+1).replace(".xml", "") + mutationName.substring(mutationName.lastIndexOf(".")+1);
+		String newFmName = oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "")
+				+ mutationName.substring(mutationName.lastIndexOf(".") + 1) + "_" + System.identityHashCode(newFM2);
 
 		// SPECGEN
 		if (USE_SPECGEN)
@@ -481,17 +518,23 @@ public class Experiments_JSS_SI_SPLC {
 	 * @throws IOException
 	 */
 	private void generateTSFM(String oldFm, CitModel resultOld, int repCount) throws IOException {
+		// Check whether the file for the original test suite already exists
+		String fileName = PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_ORIGINAL_"
+				+ repCount + ".txt";
+		File file = new File(fileName);
+		if (file.exists())
+			return;
+		
 		// Get the first test suite with ACTS
 		ACTSTranslator acts = new ACTSTranslator();
 		TestSuite tsACTS = acts.getTestSuite(resultOld, 2, false);
 		tsACTS.setGeneratorName("ACTS");
 
-		File f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_ORIGINAL_"
-				+ repCount + ".txt");
+		File f = new File(fileName);
 		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
 		fw.write(tsACTS.toString());
 		fw.close();
-		
+
 		f = new File(PATH + "/" + oldFm.substring(oldFm.lastIndexOf("/") + 1).replace(".xml", "") + "_ORIGINAL_"
 				+ repCount + ".time");
 		fw = new BufferedWriter(new FileWriter(f));

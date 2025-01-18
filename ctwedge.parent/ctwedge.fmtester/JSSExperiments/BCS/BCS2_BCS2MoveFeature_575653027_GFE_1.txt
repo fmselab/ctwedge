@@ -1,0 +1,2 @@
+BCS;Wiper;Budget;Premium;Door_System;Power_window;Heatable_Mirrors;Security;CLS;RCK;Infotainment;Bluetooth;USB;Automatic_Driving;ACC;CruiseControl
+false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false

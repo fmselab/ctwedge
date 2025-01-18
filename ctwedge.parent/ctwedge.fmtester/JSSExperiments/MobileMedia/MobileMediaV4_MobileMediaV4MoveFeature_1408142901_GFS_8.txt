@@ -1,0 +1,5 @@
+Mobilemedia;Albummanagement;Createalbum;Viewfavorites;Deletealbum;Photomanagement;Favorites;Setfavorites;Photooperation;Createphoto;Deletephoto;Editphotolabel;Viewphoto;Sorting
+true;true;true;true;true;true;false;false;true;true;true;true;true;false
+true;true;true;true;true;true;true;true;true;true;true;true;true;true
+true;true;true;true;true;true;true;true;true;true;true;true;true;false
+true;true;true;true;true;true;false;false;true;true;true;true;true;true

@@ -1,0 +1,1 @@
+WeatherStation;Measurements;WindSpeed;Internet;Temperature;Pressure;DataSource;ExternalSensors;Demo;OutFormAndLanguage;OutputFormat;File;WebServer;Text;Format;HTML;XML;Plaintext;Language;English;German;Alarm;FreezePoint;StormAlert

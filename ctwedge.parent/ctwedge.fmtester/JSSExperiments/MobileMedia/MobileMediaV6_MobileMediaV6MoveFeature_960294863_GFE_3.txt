@@ -1,0 +1,8 @@
+Mobilemedia;Albummanagement;Createalbum;Deletealbum;Sendphoto;Photomanagement;Favorite;Setfavorites;Viewfavorites;Sorting;Photooperation;Createphoto;Deletephoto;Editphotolabel;Viewphoto;Copyphoto;SMStranfer;Receivephoto
+true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;false;false;false
+true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true
+true;true;true;true;true;true;false;false;false;true;true;true;true;true;true;true;true;true
+true;true;true;true;true;true;false;false;false;false;true;true;true;true;true;true;false;false
+true;true;true;true;true;true;true;true;true;false;true;true;true;true;true;true;true;true
+true;true;true;true;true;true;true;true;true;false;true;true;true;true;true;false;true;true
+true;true;true;true;true;true;false;false;false;false;true;true;true;true;true;false;true;true

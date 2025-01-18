@@ -1,0 +1,3 @@
+MobileMedia;PhotoManagement;Sorting;AlbumManagement;CreateAlbum;Deletealbum;PhotoOperation;Createphoto;Deletephoto;Editphotolabel;Viewphoto
+true;true;false;false;false;false;true;true;true;true;true
+true;true;true;true;true;true;true;true;true;true;true

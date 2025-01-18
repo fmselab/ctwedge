@@ -28,7 +28,7 @@ import pMedici.util.Pair;
  */
 public class SpecificCITTestGenerator extends BDDCITTestGenerator {
 
-	private IFeatureModel oldFm;	
+	private IFeatureModel oldFm;
 	private ArrayList<BDD> specificTests;
 	private ArrayList<BDD> nonSpecificTests;
 
@@ -122,8 +122,11 @@ public class SpecificCITTestGenerator extends BDDCITTestGenerator {
 		}
 
 		// Return the test suite
-		return getTestSuiteFromTests(featureList, new FeatureIdeImporterBoolean().importModel(fm),
-				System.currentTimeMillis() - initialTime);
+		CitModel importModel = new FeatureIdeImporterBoolean().importModel(fm);
+		if (importModel != null)
+			return getTestSuiteFromTests(featureList, importModel, System.currentTimeMillis() - initialTime);
+		else
+			return null;
 	}
 
 	/**
@@ -148,9 +151,9 @@ public class SpecificCITTestGenerator extends BDDCITTestGenerator {
 	 * Returns a TestSuite object starting from the two sets of specific and non
 	 * specific tests
 	 * 
-	 * @param featureList      the list of features
-	 * @param modelNew         the new CITModel
-	 * @param time             the time required for test generation
+	 * @param featureList the list of features
+	 * @param modelNew    the new CITModel
+	 * @param time        the time required for test generation
 	 * @return
 	 */
 	private TestSuite getTestSuiteFromTests(List<String> featureList, CitModel modelNew, long time) {

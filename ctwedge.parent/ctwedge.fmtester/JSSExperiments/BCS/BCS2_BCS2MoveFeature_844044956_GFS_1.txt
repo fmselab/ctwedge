@@ -1,0 +1,1 @@
+BCS;Wiper;Budget;Automatic_Driving;CruiseControl;ACC;Premium;Door_System;Power_window;Heatable_Mirrors;Security;CLS;RCK;Infotainment;Bluetooth;USB

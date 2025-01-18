@@ -1,0 +1,11 @@
+WeatherStation;Measurements;WindSpeed;Temperature;Pressure;OutputFormat;File;WebServer;Text;DataSource;ExternalSensors;Demo;Internet;OutFormAndLanguage;Format;HTML;XML;Plaintext;Language;English;German;Alarm;FreezePoint;StormAlert
+true;true;false;false;false;true;false;false;true;true;false;false;true;true;true;false;false;true;true;false;true;false;false;false
+true;true;true;true;true;true;false;false;true;true;true;false;false;true;true;false;false;true;true;true;false;true;true;true
+true;true;false;true;true;true;false;false;true;true;false;true;false;true;true;false;false;true;true;true;false;true;true;true
+true;true;true;false;false;true;false;false;true;true;false;true;false;true;true;false;false;true;true;false;true;false;false;false
+true;true;true;false;true;true;false;false;true;true;false;false;true;true;true;false;false;true;true;true;false;true;false;true
+true;true;false;false;false;true;false;false;true;true;true;false;false;true;true;false;false;true;true;true;false;true;false;true
+true;true;true;true;false;true;false;false;true;true;false;false;true;true;true;false;false;true;true;false;true;true;true;false
+true;true;true;false;true;true;false;false;true;true;true;false;false;true;true;false;false;true;true;false;true;false;false;false
+true;true;true;true;false;true;false;false;true;true;true;false;false;true;true;false;false;true;true;false;true;true;true;true
+true;true;false;false;true;true;false;false;true;true;true;false;false;true;true;false;false;true;true;true;false;false;false;false

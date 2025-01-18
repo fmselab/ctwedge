@@ -1,0 +1,3 @@
+ParkingAssistant;Sensors;VelocitySensor;Controller;DistanceSensors;InfraredSensor;UltrasonicSensor
+true;true;true;true;true;false;true
+true;true;true;true;true;true;false

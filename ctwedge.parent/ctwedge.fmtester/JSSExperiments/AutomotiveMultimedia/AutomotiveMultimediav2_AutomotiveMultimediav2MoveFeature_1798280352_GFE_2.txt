@@ -1,0 +1,9 @@
+AutomotiveMultimedia;AudioPlayer;Radio;CDPlayer;AudioCDPlayer;MP3CDPlayer;OnBoardComputer;PersonalNavigation;VoiceRecognition;Maps
+true;true;true;false;false;false;true;false;false;false
+true;false;false;false;false;false;true;true;true;true
+true;true;true;true;true;false;true;true;true;true
+true;true;true;true;false;true;true;false;false;false
+true;true;true;true;false;true;true;true;true;true
+true;true;true;true;true;false;true;false;false;false
+true;false;false;false;false;false;true;false;false;false
+true;false;false;false;false;false;true;true;false;true

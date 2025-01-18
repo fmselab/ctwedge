@@ -1,0 +1,2 @@
+ParkingAssistant;Sensors;DistanceSensors;SensorFusion;DistanceSensorTypes;InfraredSensor;UltrasonicSensor;ControllerWithDir;DrivenWaySensors;PulseLengthSensorV2;DirectionSensors;CompassSensors;Controller;ControllerWithoutDir
+false;false;false;false;false;false;false;false;false;false;false;false;false;false

@@ -1,0 +1,12 @@
+Mobilemedia;Albummanagement;Createalbum;Deletealbum;Photomanagement;Favorite;Setfavorites;Viewfavorites;Sorting;Photooperation;Createphoto;Deletephoto;Editphotolabel;Viewphoto;Copyphoto;SMStranfer;Receivephoto;Sendphoto;
+true;true;true;true;true;false;false;false;false;true;true;true;true;true;false;true;false;true;
+true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;false;
+true;true;true;true;true;false;false;false;true;true;true;true;true;true;true;true;true;false;
+true;true;true;true;true;true;true;true;false;true;true;true;true;true;false;true;false;true;
+true;true;true;true;true;false;false;false;true;true;true;true;true;true;false;true;true;false;
+true;true;true;true;true;false;false;false;false;true;true;true;true;true;true;true;false;true;
+true;true;true;true;true;false;false;false;false;true;true;true;true;true;*;true;true;false;
+true;true;true;true;true;false;false;false;true;true;true;true;true;true;*;true;false;true;
+true;true;true;true;true;false;false;false;false;true;true;true;true;true;false;false;false;false;
+true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;false;false;false;
+true;true;true;true;true;false;false;false;*;true;true;true;true;true;*;true;true;true;

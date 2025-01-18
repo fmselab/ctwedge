@@ -1,0 +1,2 @@
+HelpSystem;Priority;PL;PI;PH;S2;Method;PR;PB;Level;IT;AD;BG;Activity;PS;CT;SensorInput;S1;S3;S4;SensorPosition;NotPressed;Pressed;Sound1;Sound2
+false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false

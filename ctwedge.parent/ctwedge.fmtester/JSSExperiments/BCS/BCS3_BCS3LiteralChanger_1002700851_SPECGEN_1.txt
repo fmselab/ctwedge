@@ -1,0 +1,16 @@
+BCS;Wiper;Budget;Premium;Door_System;Power_window;Heatable_Mirrors;Security;CLS;RCK;Infotainment;Bluetooth;USB;Voice_Control;Automatic_Driving;CruiseControl;ACC;
+true;true;true;false;true;false;false;true;false;true;false;false;false;false;false;false;false;
+true;true;false;true;true;true;true;true;false;true;true;true;true;false;true;false;false;
+true;true;true;false;true;false;false;true;false;true;true;false;false;true;true;true;true;
+true;true;false;true;true;true;true;true;false;true;true;false;true;true;true;true;true;
+true;true;true;false;true;false;false;true;false;true;true;true;false;false;false;false;false;
+true;true;false;true;true;true;true;true;false;true;true;*;true;false;false;false;false;
+true;true;false;true;true;true;true;true;false;true;false;false;false;false;true;false;false;
+true;true;true;false;true;false;false;true;false;true;true;false;true;false;*;false;false;
+true;true;true;false;true;true;true;true;false;true;false;false;false;false;*;false;false;
+true;true;false;true;true;false;false;true;false;true;false;false;false;false;*;false;false;
+true;true;false;true;true;true;false;true;false;true;false;false;false;false;*;false;false;
+true;true;false;true;true;false;true;true;false;true;false;false;false;false;*;false;false;
+true;true;false;true;true;*;*;true;false;true;true;true;*;false;true;true;true;
+true;true;false;true;true;*;*;true;false;true;true;false;*;true;false;false;false;
+true;true;false;true;true;*;*;true;false;true;false;false;false;false;true;true;true;

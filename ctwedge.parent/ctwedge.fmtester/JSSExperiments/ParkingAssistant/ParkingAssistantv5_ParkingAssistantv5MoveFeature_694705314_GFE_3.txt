@@ -1,0 +1,10 @@
+ParkingAssistant;Sensors;DistanceSensors;DistanceSensorTypes;InfraredSensor;UltrasonicSensor;DrivenWaySensors;PulseLengthSensorV2;DirectionPositionSensors;DirectionSensors;CompassSensors;PositionSensors;GPSSensor;SensorFusion;Controller;ControllerDir;ControllerWithDir;ControllerWithoutDir;LocationBasedServ
+true;true;true;true;false;true;true;true;true;false;false;true;true;false;true;true;false;true;false
+true;true;true;true;true;true;true;true;true;false;false;true;true;false;true;true;true;false;false
+true;true;true;true;true;false;true;true;true;false;false;true;true;false;true;true;false;true;true
+true;true;true;true;true;false;true;true;true;false;false;true;true;false;true;true;true;false;false
+true;true;true;true;false;true;true;true;true;false;false;true;true;true;true;true;false;true;true
+true;true;true;true;true;true;true;true;true;false;false;true;true;false;true;true;true;false;true
+true;true;true;true;false;true;true;true;true;false;false;true;true;false;true;true;true;false;true
+true;true;true;true;true;false;true;true;true;false;false;true;true;false;true;true;true;false;true
+true;true;true;true;false;true;true;true;true;false;false;true;true;true;true;true;false;true;false

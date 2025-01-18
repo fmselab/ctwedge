@@ -1,0 +1,16 @@
+HelpSystem;Priority;PH;PI;PL;Level;BG;IT;AD;Method;PR;PB;Activity;PS;CT;SensorInput;S1;S2;S3;S4;SensorPosition;NotPressed;Pressed;Sound;Sound1;Sound2
+true;true;false;false;true;true;false;false;true;true;false;true;true;false;true;true;false;false;false;true;true;true;true;true;false;true
+true;true;true;true;false;true;true;false;false;true;true;false;true;true;false;true;true;false;false;false;true;true;true;true;true;false
+true;true;false;true;false;true;false;true;false;true;true;false;true;true;false;true;false;true;false;false;true;true;true;true;true;false
+true;true;true;false;true;true;false;true;false;true;false;true;true;false;true;true;false;false;true;false;true;true;true;true;false;true
+true;true;true;false;false;true;false;false;true;true;true;false;true;true;false;true;false;true;false;false;true;true;true;true;true;false
+true;true;false;true;true;true;false;false;true;true;false;true;true;false;true;true;false;false;true;false;true;true;true;true;false;true
+true;true;false;false;true;true;true;false;false;true;true;false;true;true;false;true;true;false;false;false;true;true;true;true;true;false
+true;true;true;true;false;true;true;false;false;true;false;true;true;false;true;true;false;false;false;true;true;true;true;true;false;true
+true;true;true;false;false;true;true;false;false;true;false;true;true;true;false;true;false;false;true;false;true;true;true;true;true;false
+true;true;true;false;false;true;false;true;false;true;true;false;true;false;true;true;true;false;false;false;true;true;true;true;false;true
+true;true;false;true;true;true;true;false;false;true;false;true;true;false;true;true;false;true;false;false;true;true;true;true;true;false
+true;true;true;true;true;true;false;false;true;true;false;true;true;true;false;true;true;false;false;false;true;true;true;true;false;true
+true;true;true;true;false;true;true;false;false;true;true;false;true;true;false;true;false;false;true;false;true;true;true;true;true;false
+true;true;true;true;false;true;false;true;false;true;true;false;true;true;false;true;false;false;false;true;true;true;true;true;true;false
+true;true;true;false;true;true;true;false;false;true;true;false;true;true;false;true;false;true;false;false;true;true;true;true;false;true

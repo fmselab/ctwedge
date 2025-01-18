@@ -1,0 +1,11 @@
+AutomotiveMultimedia;AudioPlayer;Radio;Maps;Europe;NorthAmerica;CentralAmerica;SouthAmerica;Asia;CDPlayer;VoiceRecognition;PersonalNavigation;OnBoardComputer
+true;true;true;true;false;false;false;false;true;false;false;false;true
+true;false;false;false;false;false;false;false;false;false;true;true;true
+true;true;true;true;true;true;true;true;false;true;true;true;true
+true;false;false;false;false;false;false;false;false;false;false;false;true
+true;true;true;true;true;false;false;false;true;false;false;false;true
+true;true;true;true;false;false;true;true;true;true;false;false;true
+true;true;true;true;false;true;true;false;true;false;false;false;true
+true;true;true;true;true;true;false;false;true;true;true;true;true
+true;true;true;true;true;false;false;true;false;false;false;true;true
+true;true;true;true;true;false;false;true;false;false;true;false;true

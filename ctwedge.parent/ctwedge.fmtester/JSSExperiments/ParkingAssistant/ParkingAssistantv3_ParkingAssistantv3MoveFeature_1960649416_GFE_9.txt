@@ -1,0 +1,3 @@
+ParkingAssistant;Sensors;DistanceSensors;SensorFusion;DistanceSensorTypes;UltrasonicSensor;DrivenWaySensors;PulseLengthSensor;VelocitySensor;InfraredSensor;Controller
+true;true;true;true;true;true;true;true;true;true;true
+true;true;true;true;true;true;true;false;true;true;true

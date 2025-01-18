@@ -1,0 +1,4 @@
+Linux;FileSystem;ext3;Encfs;ext4;
+true;true;true;false;false;
+true;true;false;true;false;
+true;true;true;true;false;

@@ -47,61 +47,64 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 
 	static final Logger logger = Logger.getLogger(FeatureIdeImporter.class);
 
-	
 	// at every feature maps its constraint that means that that feature is chosen
 	// it depends how the feature are represented
 	protected Map<IFeature, Pair<Expression, String>> choosenExprString = new HashMap<>();
-	
+
 	// all the constraints as strings
 	List<String> constraintStrings = new ArrayList<>();
 
-
 	@Override
 	public CitModel importModel(String path) throws NotImportableException {
-			FeatureModel fm = null;
-			try {
-				fm = readModel(Paths.get(path));
-				//TODO Analyze the model
-	//			FeatureModelAnalyzer featureModelAnalyzer = fm.getAnalyser();
-	//			if (!featureModelAnalyzer.isValid())
-	//				throw new NotImportableException(path + "\n NOT VALID MODEL");
-	//			// analyze the model in order to find problems, useless features and
-	//			// so on
-	//			featureModelAnalyzer.analyzeFeatureModel(new NullProgressMonitor());
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new NotImportableException(path + "\n FILE NOT FOUND");
-			} catch (UnsupportedModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new NotImportableException(path + "\n UNSUPPORTED EXCEPTION");
-	//		} catch (TimeoutException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//			throw new NotImportableException(path + "\n TIMEOUT");
-			}
-			// transform to citlab
-			File file = new File(path);
-			String newname = normalize(file.getName().substring(0, file.getName().indexOf(".")));
-			CitModel transformed = transform(fm);
-			if (startsWithANumber(newname))
-				transformed.setName("M" + newname);
-			else
-				transformed.setName("M" + newname);
-			return transformed;
+		FeatureModel fm = null;
+		try {
+			fm = readModel(Paths.get(path));
+			// TODO Analyze the model
+			// FeatureModelAnalyzer featureModelAnalyzer = fm.getAnalyser();
+			// if (!featureModelAnalyzer.isValid())
+			// throw new NotImportableException(path + "\n NOT VALID MODEL");
+			// // analyze the model in order to find problems, useless features and
+			// // so on
+			// featureModelAnalyzer.analyzeFeatureModel(new NullProgressMonitor());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NotImportableException(path + "\n FILE NOT FOUND");
+		} catch (UnsupportedModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NotImportableException(path + "\n UNSUPPORTED EXCEPTION");
+			// } catch (TimeoutException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// throw new NotImportableException(path + "\n TIMEOUT");
 		}
+		// transform to citlab
+		File file = new File(path);
+		String newname = normalize(file.getName().substring(0, file.getName().indexOf(".")));
+		CitModel transformed = transform(fm);
+		if (startsWithANumber(newname))
+			transformed.setName("M" + newname);
+		else
+			transformed.setName("M" + newname);
+		return transformed;
+	}
 
 	public CitModel importModel(IFeatureModel fm) throws NotImportableException {
-			// transform to citlab
-			CitModel transformed = transform(fm);
-			if (startsWithANumber(fm.getFactoryID()))
-				transformed.setName("M" + fm.getFactoryID());
-			else
-				transformed.setName("M" + fm.getFactoryID());
-			return transformed;
+		// transform to citlab
+		CitModel transformed;
+		try {
+			transformed = transform(fm);
+		} catch (AssertionError err) {
+			return null;
 		}
-	
+		if (startsWithANumber(fm.getFactoryID()))
+			transformed.setName("M" + fm.getFactoryID());
+		else
+			transformed.setName("M" + fm.getFactoryID());
+		return transformed;
+	}
+
 	// normalize the strings in case they contain strange characters
 	public static String normalize(String x) {
 		if (Character.isDigit(x.charAt(0))) {
@@ -110,24 +113,28 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		return Normalizer.normalize(x, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll(",", "y")
 				.replaceAll("-", "_");
 	}
+
 	// subclasses can introduce their own reader for feature models (FeatureModel)
 	// changed the way models are supported
-	// abstract protected FeatureModelManager getFeatureModelReader(FeatureModel fm);
+	// abstract protected FeatureModelManager getFeatureModelReader(FeatureModel
+	// fm);
 	FeatureModel readModel(Path path) throws FileNotFoundException, UnsupportedModelException {
-			if (path.toString().toLowerCase().endsWith(".xml")) {
-				//FeatureModelManager reader = getFeatureModelReader(fm);
-				IFeatureModel root = FeatureModelManager.load(path);
-				assert root != null : "errors reading " + path;
-				System.out.println(root);
-				System.out.println(root.getFeatureOrderList());
-				return (FeatureModel) root;
-			} else {
-	//			GuidslReader guidslReader = new GuidslReader(fm);
-	//			FeatureModelReaderIFileWrapper reader = new FeatureModelReaderIFileWrapper(guidslReader);
-	//			reader.readFromFile(new File(path));
-				throw new RuntimeException("only .xml files are supported by this importer");
-			}
+		if (path.toString().toLowerCase().endsWith(".xml")) {
+			// FeatureModelManager reader = getFeatureModelReader(fm);
+			IFeatureModel root = FeatureModelManager.load(path);
+			assert root != null : "errors reading " + path;
+			System.out.println(root);
+			System.out.println(root.getFeatureOrderList());
+			return (FeatureModel) root;
+		} else {
+			// GuidslReader guidslReader = new GuidslReader(fm);
+			// FeatureModelReaderIFileWrapper reader = new
+			// FeatureModelReaderIFileWrapper(guidslReader);
+			// reader.readFromFile(new File(path));
+			throw new RuntimeException("only .xml files are supported by this importer");
 		}
+	}
+
 	/**
 	 *
 	 * @param fm
@@ -159,7 +166,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 	}
 
 	protected abstract void addParameterFor(IFeature root, CitModel result);
-	
+
 	// add current node as boolean and add its subnodes
 	protected void addCurrentNodeAsBoolean(CitModel result, IFeatureStructure currentNode) {
 		// current node is not an alternative
@@ -169,17 +176,18 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		//
 		EqualExpression eq = createEqExpression(bool, Operators.EQ, "TRUE");
 		setChosen(currentNode.getFeature(), eq, normalize(currentNode.getFeature().getName()) + " = true");
-	
+
 		logger.debug("boolean " + currentNode);
 		for (IFeatureStructure son : currentNode.getChildren()) {
 			addParameterFor(son.getFeature(), result);
 		}
 	}
-	// set the expression to be used when the iFeature is selected chosen 
+
+	// set the expression to be used when the iFeature is selected chosen
 	protected void setChosen(IFeature iFeature, EqualExpression eq, String string) {
 		assert choosenExprString.get(iFeature) == null
 				: "current value " + choosenExprString.get(iFeature).getSecond() + "->" + eq.toString();
-		choosenExprString.put(iFeature, new Pair<Expression, String>(eq,string));
+		choosenExprString.put(iFeature, new Pair<Expression, String>(eq, string));
 	}
 
 	protected EqualExpression createEqExpression(Parameter en, Operators eq, String name) {
@@ -187,8 +195,9 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		AtomicPredicate paramExpr = CtWedgeFactory.eINSTANCE.createAtomicPredicate();
 		paramExpr.setName(en.getName());
 		enumAssign.setLeft(paramExpr);
-		// 06/05/2022 Andrea - It is wrong to always assign != if the operator is given as parameter
-		//enumAssign.setOp(Operators.NE);
+		// 06/05/2022 Andrea - It is wrong to always assign != if the operator is given
+		// as parameter
+		// enumAssign.setOp(Operators.NE);
 		enumAssign.setOp(eq);
 		AtomicPredicate rExpr = CtWedgeFactory.eINSTANCE.createAtomicPredicate();
 		rExpr.setName(name);
@@ -207,7 +216,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		IFeatureStructure parentS = currentNode.getStructure().getParent();
 		if (parentS == null) {
 			// assume that currentNode is the root
-			addConstraintIsChosen(currentNode,result);
+			addConstraintIsChosen(currentNode, result);
 		} else {
 			IFeature parentF = parentS.getFeature();
 			if (parentS.isAlternative()) {
@@ -215,11 +224,11 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 			} else if (currentNode.getStructure().isMandatory() && !parentS.isOr()) {
 				// mandatory (but leaf in not OR)
 				// choose current IFF choose parent
-				addImpliesConstraint(currentNode, parentF,ImpliesOperator.IFF, result);
+				addImpliesConstraint(currentNode, parentF, ImpliesOperator.IFF, result);
 			} else {
 				// not mandatory of not in or => OPTIONAL
 				// son => parent
-				addImpliesConstraint(currentNode, parentF,ImpliesOperator.IMPL, result);	
+				addImpliesConstraint(currentNode, parentF, ImpliesOperator.IMPL, result);
 				// NOT POSSIBLE OPTIMIZATION; se currentNodeChoose � gi� nei
 				// constraints posso otttimizzare.
 				// if constraints.contains(currentNodeChoose) add only
@@ -239,20 +248,21 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 			Pair<Expression, String> or = getOr(currentNode.getStructure().getChildren());
 			addImpliesConstraint(EcoreUtil2.cloneIfContained(chooseCurrent), ImpliesOperator.IMPL,
 					EcoreUtil2.cloneIfContained(or.getFirst()), result);
-			addImpliesConstraint(currentNodeChoose,or.getSecond(), ImpliesOperator.IMPL);
+			addImpliesConstraint(currentNodeChoose, or.getSecond(), ImpliesOperator.IMPL);
 		}
 		// recurse down the children
 		addConstraints(currentNode.getStructure().getChildren(), result);
 	}
-	// currentNode implies its parent 
+
+	// currentNode implies its parent
 	private void addImpliesConstraint(IFeature currentNode, IFeature parentF, ImpliesOperator iff, CitModel result) {
 		String currentNodeChoose = choosenExprString.get(currentNode).getSecond();
 		Expression chooseCurrent = choosenExprString.get(currentNode).getFirst();
 
 		String parentNodeChoose = choosenExprString.get(parentF).getSecond();
-		Expression chooseParent = choosenExprString.get(parentF).getFirst();		
-		addImpliesConstraint(EcoreUtil2.cloneIfContained(chooseCurrent), iff,
-				EcoreUtil2.cloneIfContained(chooseParent), result);
+		Expression chooseParent = choosenExprString.get(parentF).getFirst();
+		addImpliesConstraint(EcoreUtil2.cloneIfContained(chooseCurrent), iff, EcoreUtil2.cloneIfContained(chooseParent),
+				result);
 		addImpliesConstraint(currentNodeChoose, parentNodeChoose, iff);
 	}
 
@@ -261,7 +271,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		String currentNodeChoose = choosenExprString.get(currentNode).getSecond();
 		Expression chooseCurrent = choosenExprString.get(currentNode).getFirst();
 		result.getConstraints().add(chooseCurrent);
-		constraintStrings.add(currentNodeChoose);		
+		constraintStrings.add(currentNodeChoose);
 	}
 
 	// current node is a parent in an alternative
@@ -273,7 +283,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 	private static boolean startsWithANumber(String s) {
 		return !(s.charAt(0) >= 'a' || s.charAt(0) >= 'A');
 	}
-	
+
 	// add the constraint ifPart op thenPart, where op is => or IFF AS EXPRESSION
 	protected void addImpliesConstraint(Expression left, ImpliesOperator impl, Expression right, CitModel result) {
 		if (impl == ImpliesOperator.IMPL) {
@@ -291,6 +301,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 			result.getConstraints().add(iffs);
 		}
 	}
+
 	// add the constraint ifPart op thenPart, where op is => or IFF AS STRING
 	protected void addImpliesConstraint(String ifPart, String thenPart, ImpliesOperator impl) {
 		if (impl == ImpliesOperator.IMPL) {
@@ -301,16 +312,14 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 		}
 	}
 
-
-	
-	protected  Pair<Expression,String> getOr(List<IFeatureStructure> list) {
+	protected Pair<Expression, String> getOr(List<IFeatureStructure> list) {
 		ArrayList<Expression> bList = new ArrayList<>();
 		String result = "";
 		for (IFeatureStructure f : list) {
 			bList.add(EcoreUtil2.cloneIfContained(choosenExprString.get(f.getFeature()).getFirst()));
 			result += " OR " + choosenExprString.get(f.getFeature()).getSecond();
 		}
-		return new Pair<>(createOrExpression(bList),result);
+		return new Pair<>(createOrExpression(bList), result);
 	}
 
 	private void addConstraints(List<IFeatureStructure> list, CitModel result) {
@@ -334,7 +343,7 @@ abstract public class FeatureIdeImporter extends ctwedge.util.ext.ICTWedgeImport
 				result = resultP;
 			}
 		}
-	
+
 		return result;
 	}
 

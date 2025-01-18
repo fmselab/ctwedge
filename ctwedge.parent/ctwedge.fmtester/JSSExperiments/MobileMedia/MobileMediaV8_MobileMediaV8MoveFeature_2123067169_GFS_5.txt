@@ -1,0 +1,14 @@
+MobileMedia;Albummanagement;CreateAlbum;DeleteAlbum;Copymedia;Mediamanagement;Favorites;Setfavorites;Viewfavorites;Sorting;Basicmediaoperation;Createmedia;Deletemedia;Editmedialabel;SMStransfer;Receivephoto;Sendphoto;Mediaselection;Photo;Viewphoto;Capturephoto;Music;Playmusic;Video;Playvideo;Capturevideo
+true;true;true;true;false;true;false;false;false;false;true;true;true;true;false;false;false;true;false;false;false;false;false;true;true;false
+true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;false;false;false
+true;true;true;true;false;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true
+true;true;true;true;true;true;false;false;false;false;true;true;true;true;false;false;false;true;false;false;false;false;false;true;true;true
+true;true;true;true;false;true;false;false;false;true;true;true;true;true;true;true;true;true;true;true;true;true;true;false;false;false
+true;true;true;true;true;true;true;true;true;false;true;true;true;true;false;false;false;true;false;false;false;false;false;true;true;true
+true;true;true;true;true;true;true;true;true;true;true;true;true;true;false;false;false;true;false;false;false;false;false;true;true;false
+true;true;true;true;false;true;true;true;true;false;true;true;true;true;true;true;true;true;true;true;true;true;true;false;false;false
+true;true;true;true;false;true;true;true;true;false;true;true;true;true;true;true;true;true;false;false;false;false;false;true;true;false
+true;true;true;true;false;true;true;true;true;false;true;true;true;true;false;false;false;true;true;true;true;true;true;false;false;false
+true;true;true;true;false;true;true;true;true;true;true;true;true;true;true;true;true;true;false;false;false;true;true;false;false;false
+true;true;true;true;false;true;true;true;true;true;true;true;true;true;true;true;true;true;true;true;false;false;false;false;false;false
+true;true;true;true;true;true;true;true;true;false;true;true;true;true;true;true;true;true;true;true;true;false;false;true;true;true
