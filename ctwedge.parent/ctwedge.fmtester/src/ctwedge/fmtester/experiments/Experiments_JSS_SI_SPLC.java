@@ -5,10 +5,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Stream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
@@ -16,7 +21,6 @@ import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.importer.featureide.FeatureIdeImporter;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
 import ctwedge.util.TestSuite;
-import ctwedge.util.validator.MinimalityTestSuiteValidator;
 import ctwedge.util.validator.ValidatorException;
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
@@ -68,6 +72,7 @@ public class Experiments_JSS_SI_SPLC {
 	 * The path where the resulting test suites are stored
 	 */
 	public static final String PATH = "./JSSExperiments";
+	public static final String FILE_NAME = "JSSExperiments.txt";
 
 	/**
 	 * Maximum number of FMMutation obtained from each mutator
@@ -87,9 +92,9 @@ public class Experiments_JSS_SI_SPLC {
 	/**
 	 * Generators settings
 	 */
-	public static final Boolean USE_SPECGEN = true;
-	public static final Boolean USE_GFE = true;
-	public static final Boolean USE_GFS = true;
+	public static final Boolean USE_SPECGEN = false;
+	public static final Boolean USE_GFE = false;
+	public static final Boolean USE_GFS = false;
 	public static final Boolean USE_Original = true;
 
 	/**
@@ -125,27 +130,151 @@ public class Experiments_JSS_SI_SPLC {
 		}
 	}
 
+	/**
+	 * Tests the evolution with mutations
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws UnsupportedModelException
+	 * @throws NoSuchExtensionException
+	 * @throws InterruptedException
+	 * @throws ValidatorException
+	 */
 	@Test
 	public void testEvolutionMutations() throws FileNotFoundException, IOException, UnsupportedModelException,
 			NoSuchExtensionException, InterruptedException, ValidatorException {
 		LibraryManager.registerLibrary(FMCoreLibrary.getInstance());
 		for (int i = 0; i < N_REP; i++) {
-//			testEvoMutation(EV_ALIV, i);
-//			testEvoMutation(EV_PPU, i);
-//			testEvoMutation(EV_AUTOM, i);
-//			testEvoMutation(EV_BOING, i);
-//			testEvoMutation(EV_CARBODY, i);
-//			testEvoMutation(EV_LINUX, i);
-//			testEvoMutation(EV_PARKING, i);
-//			testEvoMutation(EV_BCS, i);
-//			testEvoMutation(EV_ERP, i);
-//			testEvoMutation(EV_HSYS, i);
-//			testEvoMutation(EV_MOBMEDIA, i);
+			testEvoMutation(EV_ALIV, i);
+			testEvoMutation(EV_PPU, i);
+			testEvoMutation(EV_AUTOM, i);
+			testEvoMutation(EV_BOING, i);
+			testEvoMutation(EV_CARBODY, i);
+			testEvoMutation(EV_LINUX, i);
+			testEvoMutation(EV_PARKING, i);
+			testEvoMutation(EV_BCS, i);
+			testEvoMutation(EV_ERP, i);
+			testEvoMutation(EV_HSYS, i);
+			testEvoMutation(EV_MOBMEDIA, i);
 			testEvoMutation(EV_SHOME, i);
-//			testEvoMutation(EV_SMARTH, i);
-//			testEvoMutation(EV_SMARTW, i);
-//			testEvoMutation(EV_WSTAT, i);
+			testEvoMutation(EV_SMARTH, i);
+			testEvoMutation(EV_SMARTW, i);
+			testEvoMutation(EV_WSTAT, i);
 		}
+	}
+
+	/**
+	 * Starting from data produced with the two previous test cases, it produces
+	 * summary data
+	 * 
+	 * @throws IOException
+	 */
+	@SuppressWarnings("deprecation")
+	@Test
+	public void getSummaryData() throws IOException {
+		// Write the header in the file
+		File f = new File(PATH + "/" + FILE_NAME);
+		BufferedWriter fw = new BufferedWriter(new FileWriter(f));
+		List<String> mutationsList = FMMutationProcess.allMutationOperatorsAsList().stream()
+				.map(x -> x.getClass().getSimpleName()).toList();
+		fw.write("FM1,FM2,Mutation,Generator,RepCount,Time,Size,Dissimilarity,Specificity,MutationScore\n");
+
+		Files.walk(Paths.get(PATH)).forEach(x -> {
+			// Filter only test suites
+			if (x.toString().endsWith(".txt") && !x.toString().contains("JSSExperiments.txt")) {
+				try {
+					String fmName = null, fm2Name = null, mutationName = null, generatorName = null;
+					long repCount = 0, size;
+					float dissimilarity = 0, specificity = 0, mutationScore = 0, time;
+					Stream<String> lines = null;
+
+					lines = Files.lines(x);
+					size = lines.count() - 1;
+					lines.close();
+
+					// Get the file name, excluding the path
+					String fileName = x.toString().substring(x.toString().lastIndexOf("/") + 1);
+					int countUnderscore = StringUtils.countMatches(fileName, "_");
+					String[] parts = fileName.split("_");
+					time = Float.parseFloat(
+							Files.readAllLines(Paths.get(x.toString().replace(".txt", ".time"))).getFirst());
+
+					if (fileName.contains("ORIGINAL")) {
+						// TS generated only for the original model
+						if (countUnderscore == 2) {
+							// Any model
+							fmName = parts[0];
+							fm2Name = "";
+							mutationName = "";
+							generatorName = parts[1];
+							repCount = Long.parseLong(parts[2].replace(".txt", ""));
+						} else {
+							// ERP SPL Model
+							// Any model
+							fmName = parts[0] + "_" + parts[1] + "_" + parts[2];
+							fm2Name = "";
+							mutationName = "";
+							generatorName = parts[3];
+							repCount = Long.parseLong(parts[4].replace(".txt", ""));
+						}
+						dissimilarity = 0;
+						specificity = 0;
+						mutationScore = 0;
+					} else if (fileName.contains("ERP_SPL_")) {
+						// TS generated for ERP SPL, which has a different number of underscores in name
+						fmName = parts[0] + "_" + parts[1] + "_" + parts[2];
+						fm2Name = parts[3] + "_" + parts[4] + "_" + parts[5];
+						if (countUnderscore == 7) {
+							// Basic industrial version
+							mutationName = "";
+							generatorName = parts[6];
+							repCount = Long.parseLong(parts[7].replace(".txt", ""));
+						} else {
+							// Version obtained by mutation
+							mutationName = "";
+							for (String mut : mutationsList) {
+								if (mut.equals(fm2Name.replace(fmName, "")))
+									mutationName = mut;
+							}
+							generatorName = parts[7];
+							repCount = Long.parseLong(parts[8].replace(".txt", ""));
+						}
+						dissimilarity = 0;
+						specificity = 0;
+						mutationScore = 0;
+					} else {
+						// TS generated for the other models
+						fmName = parts[0];
+						fm2Name = parts[1];
+						if (countUnderscore == 3) {
+							// Basic industrial version
+							mutationName = "";
+							generatorName = parts[2];
+							repCount = Long.parseLong(parts[3].replace(".txt", ""));
+						} else {
+							// Version obtained by mutation
+							mutationName = "";
+							for (String mut : mutationsList) {
+								if (mut.equals(fm2Name.replace(fmName, "")))
+									mutationName = mut;
+							}
+							generatorName = parts[3];
+							repCount = Long.parseLong(parts[4].replace(".txt", ""));
+						}
+						dissimilarity = 0;
+						specificity = 0;
+						mutationScore = 0;
+					}
+					fw.write(fmName + "," + fm2Name + "," + mutationName + "," + generatorName + "," + repCount + ","
+							+ time + "," + size + "," + dissimilarity + "," + specificity + "," + mutationScore + "\n");
+				} catch (IOException e) {
+					e.printStackTrace();
+					return;
+				}
+			}
+		});
+
+		fw.close();
 	}
 
 	/**
@@ -254,7 +383,6 @@ public class Experiments_JSS_SI_SPLC {
 	 */
 	private void executeTest(String oldFm, String newFm, int repCount) throws FileNotFoundException, IOException,
 			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
-		// TODO Auto-generated method stub
 		// Load the two feature models
 		Path oldFMPath = Path.of(oldFm);
 		IFeatureModel oldFM = FeatureModelManager.load(oldFMPath);
@@ -524,7 +652,7 @@ public class Experiments_JSS_SI_SPLC {
 		File file = new File(fileName);
 		if (file.exists())
 			return;
-		
+
 		// Get the first test suite with ACTS
 		ACTSTranslator acts = new ACTSTranslator();
 		TestSuite tsACTS = acts.getTestSuite(resultOld, 2, false);
