@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -17,6 +19,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
+import ctwedge.fmtester.DistancesCalculator;
+import ctwedge.fmtester.experiments.MutationScore.MissingFeatureTreatment;
 import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.importer.featureide.FeatureIdeImporter;
 import ctwedge.importer.featureide.FeatureIdeImporterBoolean;
@@ -67,6 +71,9 @@ public class Experiments_JSS_SI_SPLC {
 			"AmbientAssistedLivingv1", "AmbientAssistedLivingv2" };
 	public static final String[] EV_PPU = new String[] { "evolutionModels/PPU/", "PPUv1", "PPUv2", "PPUv3", "PPUv4",
 			"PPUv5", "PPUv6", "PPUv7", "PPUv8", "PPUv9" };
+	public static final ArrayList<String[]> FMLIST = new ArrayList<String[]>(
+			Arrays.asList(EV_MOBMEDIA, EV_SHOME, EV_BCS, EV_HSYS, EV_ERP, EV_WSTAT, EV_SMARTW, EV_SMARTH, EV_PARKING,
+					EV_LINUX, EV_CARBODY, EV_BOING, EV_AUTOM, EV_ALIV, EV_PPU));
 
 	/**
 	 * The path where the resulting test suites are stored
@@ -187,9 +194,9 @@ public class Experiments_JSS_SI_SPLC {
 					long repCount = 0, size;
 					float dissimilarity = 0, specificity = 0, mutationScore = 0, time;
 					Stream<String> lines = null;
-
 					lines = Files.lines(x);
-					size = lines.count() - 1;
+					List<String> ts = lines.toList();
+					size = ts.size() - 1;
 					lines.close();
 
 					// Get the file name, excluding the path
@@ -239,9 +246,9 @@ public class Experiments_JSS_SI_SPLC {
 							generatorName = parts[7];
 							repCount = Long.parseLong(parts[8].replace(".txt", ""));
 						}
-						dissimilarity = 0;
+						dissimilarity = getDissimilarity(x, fmName, fm2Name, generatorName, repCount, ts);
 						specificity = 0;
-						mutationScore = 0;
+						mutationScore = getMutationScoreFromPath(fm2Name, ts);
 					} else {
 						// TS generated for the other models
 						fmName = parts[0];
@@ -261,12 +268,14 @@ public class Experiments_JSS_SI_SPLC {
 							generatorName = parts[3];
 							repCount = Long.parseLong(parts[4].replace(".txt", ""));
 						}
-						dissimilarity = 0;
+
+						dissimilarity = getDissimilarity(x, fmName, fm2Name, generatorName, repCount, ts);
 						specificity = 0;
-						mutationScore = 0;
+						mutationScore = getMutationScoreFromPath(fm2Name, ts);
 					}
 					fw.write(fmName + "," + fm2Name + "," + mutationName + "," + generatorName + "," + repCount + ","
 							+ time + "," + size + "," + dissimilarity + "," + specificity + "," + mutationScore + "\n");
+					fw.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
 					return;
@@ -275,6 +284,44 @@ public class Experiments_JSS_SI_SPLC {
 		});
 
 		fw.close();
+	}
+
+	private float getDissimilarity(Path x, String fmName, String fm2Name, String generatorName, long repCount,
+			List<String> ts) throws IOException {
+		float dissimilarity;
+		String oldModelPath = getModelPathFromModelName(fmName);
+		String newModelPath = getModelPathFromModelName(fm2Name);
+		FeatureIdeImporter importer = new FeatureIdeImporterBoolean();
+		CitModel newModel = importer.importModel(newModelPath);
+		FeatureIdeImporter importer2 = new FeatureIdeImporterBoolean();
+		CitModel oldModel = importer2.importModel(oldModelPath);
+		String oldTsOriginalFileName = fmName + "_ORIGINAL_" + repCount + ".txt";
+		TestSuite tsNew = new TestSuite(String.join("\n", ts), newModel);
+		tsNew.populateTestSuite(";");
+		List<String> oldTs = Files.lines(Path.of(x.getParent() + "/" + oldTsOriginalFileName)).toList();
+		TestSuite tsOld = new TestSuite(String.join("\n", oldTs), oldModel);
+		if (tsOld.getTests().size() == 0 || tsNew.getTests().size() == 0)
+			return 100;
+		dissimilarity = DistancesCalculator.percTestSuitesDist(tsOld, tsNew);
+		return dissimilarity;
+	}
+
+	private float getMutationScoreFromPath(String fm2Name, List<String> ts) throws FileNotFoundException {
+		float mutationScore;
+		String modelPath;
+		modelPath = getModelPathFromModelName(fm2Name);
+		FeatureIdeImporter importer = new FeatureIdeImporterBoolean();
+		CitModel model = importer.importModel(modelPath);
+		TestSuite tsNew = new TestSuite(String.join("\n", ts), model);
+		tsNew.populateTestSuite(";");
+		try {
+			mutationScore = computeFaultDetectionCapability(Path.of(modelPath), tsNew);
+		} catch (UnsupportedModelException | NoSuchExtensionException e) {
+			// TODO Auto-generated catch block
+			mutationScore = 0;
+			e.printStackTrace();
+		}
+		return mutationScore;
 	}
 
 	/**
@@ -668,6 +715,65 @@ public class Experiments_JSS_SI_SPLC {
 		fw = new BufferedWriter(new FileWriter(f));
 		fw.write(String.valueOf(tsACTS.getGeneratorTime()));
 		fw.close();
+	}
+
+	/**
+	 * Computes the fault detection capability of the evolved test suite
+	 * 
+	 * @param fm : the new feature model path
+	 * @param ts : the new test suite
+	 * @return : the fault detection capability of the evolved test suite
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 * @throws FileNotFoundException
+	 */
+	private float computeFaultDetectionCapability(Path fm, TestSuite ts)
+			throws FileNotFoundException, UnsupportedModelException, NoSuchExtensionException {
+		float totMut = 0;
+		float killedMut = 0;
+
+		IFeatureModel fm2 = FeatureModelManager.load(fm);
+
+		// Define the mutators
+		Iterator<FMMutation> mutants = FMMutationProcess.getAllMutants(fm2);
+
+		// Apply the mutations
+		while (mutants.hasNext()) {
+			FMMutation next = mutants.next();
+			if (next == null)
+				continue;
+
+			totMut++;
+
+			// Transform the test to a configuration
+			IFeatureModel featureModel = next.getFirst();
+			for (ctwedge.util.Test test : ts.getTests()) {
+				MutationScore.treat_missing_feature_as = MissingFeatureTreatment.SKIP;
+				Boolean result = MutationScore.isTestValidBool(featureModel, test);
+				if (!result) {
+					killedMut++;
+					break;
+				}
+			}
+		}
+
+		return totMut != 0 ? killedMut / totMut : 0;
+	}
+
+	/**
+	 * Given the model name, it computes the path of the model
+	 * 
+	 * @param modelName
+	 * @return
+	 */
+	private String getModelPathFromModelName(String modelName) {
+		for (int i = 0; i < FMLIST.size(); i++) {
+			for (int j = 1; j < FMLIST.get(i).length; j++) {
+				if (modelName.startsWith(FMLIST.get(i)[j]))
+					return FMLIST.get(i)[0] + "/" + FMLIST.get(i)[j] + ".xml";
+			}
+		}
+		return null;
 	}
 
 }

@@ -21,5 +21,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/featuremodels.specificity"/>
 	<classpathentry kind="lib" path="/ctwedge.importer.featureide/libs/de.ovgu.featureide.lib.fm-v3.11.1.jar"/>
 	<classpathentry kind="src" path="/ctwedge.importer.featureide"/>
+	<classpathentry kind="src" path="/featuremodels.evotester"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
