@@ -33,6 +33,7 @@ import de.ovgu.featureide.fm.core.init.LibraryManager;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
 import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 import featuremodels.specificity.SpecificCITTestGenerator;
+import featuremodels.specificity.SpecificityChecker;
 import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
 import fmautorepair.mutationprocess.FMMutationProcess;
@@ -247,7 +248,7 @@ public class Experiments_JSS_SI_SPLC {
 							repCount = Long.parseLong(parts[8].replace(".txt", ""));
 						}
 						dissimilarity = getDissimilarity(x, fmName, fm2Name, generatorName, repCount, ts);
-						specificity = 0;
+						specificity = getSpecificity(x, fmName, fm2Name, ts);
 						mutationScore = getMutationScoreFromPath(fm2Name, ts);
 					} else {
 						// TS generated for the other models
@@ -270,7 +271,7 @@ public class Experiments_JSS_SI_SPLC {
 						}
 
 						dissimilarity = getDissimilarity(x, fmName, fm2Name, generatorName, repCount, ts);
-						specificity = 0;
+						specificity = getSpecificity(x, fmName, fm2Name, ts);
 						mutationScore = getMutationScoreFromPath(fm2Name, ts);
 					}
 					fw.write(fmName + "," + fm2Name + "," + mutationName + "," + generatorName + "," + repCount + ","
@@ -284,6 +285,30 @@ public class Experiments_JSS_SI_SPLC {
 		});
 
 		fw.close();
+	}
+
+	private float getSpecificity(Path x, String fmName, String fm2Name, List<String> ts) {
+		float specificity = 0;
+		float nTests = ts.size();
+		String oldModelPath = getModelPathFromModelName(fmName);
+		String newModelPath = getModelPathFromModelName(fm2Name);
+		FeatureIdeImporter importer = new FeatureIdeImporterBoolean();
+		CitModel newModel = importer.importModel(newModelPath);
+
+		IFeatureModel oldFM = FeatureModelManager.load(Path.of(oldModelPath));
+		IFeatureModel newFM = FeatureModelManager.load(Path.of(newModelPath));
+
+		SpecificityChecker checker = new SpecificityChecker(oldFM, newFM, false);
+
+		TestSuite tsNew = new TestSuite(String.join("\n", ts), newModel);
+
+		for (ctwedge.util.Test t : tsNew.getTests()) {
+			if (checker.isSpecificWithBooleans(t)) {
+				specificity++;
+			}
+		}
+
+		return specificity / nTests;
 	}
 
 	private float getDissimilarity(Path x, String fmName, String fm2Name, String generatorName, long repCount,

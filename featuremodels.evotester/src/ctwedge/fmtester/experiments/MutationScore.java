@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import aima.core.search.csp.Assignment;
 import ctwedge.fmtester.Converter;
 import ctwedge.util.TestSuite;
 import de.ovgu.featureide.fm.core.analysis.cnf.formula.FeatureModelFormula;
@@ -23,7 +22,6 @@ import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.base.IFeatureStructure;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.configuration.ConfigurationPropagator;
-import de.ovgu.featureide.fm.core.configuration.SelectableFeature;
 import de.ovgu.featureide.fm.core.configuration.Selection;
 import de.ovgu.featureide.fm.core.init.FMCoreLibrary;
 import de.ovgu.featureide.fm.core.init.LibraryManager;
@@ -38,9 +36,9 @@ import pMedici.main.PMedici;
 import pMedici.util.TestContext;
 
 public class MutationScore {
-	
+
 	static Logger LOG = Logger.getLogger(MutationScore.class);
-	
+
 	static {
 		LibraryManager.registerLibrary(FMCoreLibrary.getInstance());
 		TestContext.IN_TEST = true;
@@ -109,22 +107,24 @@ public class MutationScore {
 				if (value.equals("NONE")) {
 					sel = Selection.UNSELECTED;
 					// quelle sotto sono tutte unselected
-					List<IFeatureStructure> children = featureModel.getFeature(featurename).getStructure().getChildren();
-					for(IFeatureStructure child:children) {
+					List<IFeatureStructure> children = featureModel.getFeature(featurename).getStructure()
+							.getChildren();
+					for (IFeatureStructure child : children) {
 						LOG.debug("setting " + child.getFeature().getName() + " to " + Selection.UNSELECTED);
 						conf.setManual(child.getFeature().getName(), Selection.UNSELECTED);
 					}
 				} else {
 					sel = Selection.SELECTED;
 					// di quelle sotto dire quali sono quelle selected e euqlle no?????
-					List<IFeatureStructure> children = featureModel.getFeature(featurename).getStructure().getChildren();
-					for(IFeatureStructure child:children) {
+					List<IFeatureStructure> children = featureModel.getFeature(featurename).getStructure()
+							.getChildren();
+					for (IFeatureStructure child : children) {
 						Selection childsel;
 						if (child.getFeature().getName().equals(value))
 							childsel = Selection.SELECTED;
 						else
 							childsel = Selection.UNSELECTED;
-						LOG.debug("setting " + child.getFeature().getName() + " to " +childsel);
+						LOG.debug("setting " + child.getFeature().getName() + " to " + childsel);
 						conf.setManual(child.getFeature().getName(), childsel);
 					}
 				}
@@ -134,20 +134,22 @@ public class MutationScore {
 		}
 		// check completeness of the configuration (partial tests are not allowed??)
 		if (true) {
-			// features that are actually selected or unslected explicitly by this method 
-			Set<String> settedFeatures = conf.getSelectedFeatures().stream().map(x->x.getName()).collect(Collectors.toSet());
-			settedFeatures.addAll(conf.getUnSelectedFeatures().stream().map(x->x.getName()).collect(Collectors.toSet()));
+			// features that are actually selected or unslected explicitly by this method
+			Set<String> settedFeatures = conf.getSelectedFeatures().stream().map(x -> x.getName())
+					.collect(Collectors.toSet());
+			settedFeatures
+					.addAll(conf.getUnSelectedFeatures().stream().map(x -> x.getName()).collect(Collectors.toSet()));
 			// features in the test
 			Set<String> featuresInTest = test.keySet();
 			// features not setted but that are in the test:
-			//Set<String> feeaturesInTest
-			//if (!settedFeatures.equals(featuresInTest)) {
-				LOG.debug("features in configuration setted by the test: " + settedFeatures);
-				LOG.debug("features in the test: " + featuresInTest);
-			//	assert false;
-			//}
+			// Set<String> feeaturesInTest
+			// if (!settedFeatures.equals(featuresInTest)) {
+			LOG.debug("features in configuration setted by the test: " + settedFeatures);
+			LOG.debug("features in the test: " + featuresInTest);
+			// assert false;
+			// }
 			// features in the feature model however are:
-			LOG.debug("features in the feature model: " + Utils.getFeatureNames(featureModel));	
+			LOG.debug("features in the feature model: " + Utils.getFeatureNames(featureModel));
 		}
 		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
 		Boolean result = LongRunningWrapper.runMethod(cp.isValid());
@@ -155,12 +157,18 @@ public class MutationScore {
 	}
 
 	public enum MissingFeatureTreatment {
-		ERROR, SKIP
+		ERROR, SKIP, UNSELECTED
 	};
 
-	static public MissingFeatureTreatment treat_missing_feature_as = MissingFeatureTreatment.SKIP;
+	public enum AddedFeatureTreatment {
+		ERROR, UNSELECTED
+	}
 
-	// for boolean translation (only true or false for each feature, plus '*' to allow undefined)
+	static public MissingFeatureTreatment treat_missing_feature_as = MissingFeatureTreatment.SKIP;
+	static public AddedFeatureTreatment treat_added_feature_as = AddedFeatureTreatment.UNSELECTED;
+
+	// for boolean translation (only true or false for each feature, plus '*' to
+	// allow undefined)
 	// forse si può fondere con il precedente, cioè chi lo chiama può ignorare
 	// questo ha in piu' il trattamento di cose succede se non è presente
 	static public Boolean isTestValidBool(IFeatureModel featureModel, ctwedge.util.Test test) {
@@ -169,7 +177,8 @@ public class MutationScore {
 		// set every assignment in the test as feature selected or not
 		for (Entry<String, String> assignemnt : test.entrySet()) {
 			String value = assignemnt.getValue();
-			assert value.equals("true") || value.equals("false") || value.equals("*"): "only boolean: this is " + value;
+			assert value.equals("true") || value.equals("false") || value.equals("*")
+					: "only boolean: this is " + value;
 			String featurename = assignemnt.getKey();
 			Selection sel;
 			if (!Utils.getFeatureNames(featureModel).contains(featurename)) {
@@ -183,14 +192,21 @@ public class MutationScore {
 				}
 			} else {
 				sel = switch (value) {
-					case "true" -> Selection.SELECTED;
-					case "false" -> Selection.UNSELECTED;
-					// feature is undefined in the tests
-					//case "*" 
-					default -> Selection.UNDEFINED;
+				case "true" -> Selection.SELECTED;
+				case "false" -> Selection.UNSELECTED;
+				// feature is undefined in the tests
+				// case "*"
+				default -> Selection.UNDEFINED;
 				};
 			}
 			conf.setManual(featurename, sel);
+		}
+		if (treat_added_feature_as == AddedFeatureTreatment.UNSELECTED) {
+			for (String featurename : Utils.getFeatureNames(featureModel)) {
+				if (!test.containsKey(featurename)) {
+					conf.setManual(featurename, Selection.UNSELECTED);
+				}
+			}
 		}
 		ConfigurationPropagator cp = new ConfigurationPropagator(featureModelFormula, conf);
 		Boolean result = false;
