@@ -23,6 +23,7 @@ import ctwedge.generator.acts.ACTSTranslator;
 import ctwedge.generator.casa.CASAConstraintException;
 import ctwedge.generator.pmedici.*;
 import ctwedge.generator.casa.CASATestGenerator;
+import ctwedge.util.NotConvertableModel;
 import ctwedge.util.ParameterSize;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 import ctwedge.util.ext.Utility;

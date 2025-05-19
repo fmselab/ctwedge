@@ -37,7 +37,7 @@ public class ServerLauncher {
 			new WebAppConfiguration()
 		});
 		ctx.setAttribute(MetaInfConfiguration.CONTAINER_JAR_PATTERN,
-			".*/ctwedge\\.web/.*,.*\\.jar");
+			".*/ctwedge\\.web/.*,.*\\.jar,./target/*");
 		ctx.setInitParameter("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "false");
 		server.setHandler(ctx);
 		try {
