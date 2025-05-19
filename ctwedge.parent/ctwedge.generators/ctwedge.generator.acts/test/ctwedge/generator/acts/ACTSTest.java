@@ -30,6 +30,26 @@ public class ACTSTest {
 				"Model prova\nParameters:\n a: Boolean; b: Boolean; c: {x, y}; \nConstraints:\n # a -> b #\n", acts, 3,
 				true, null));
 	}
+	
+	@Test
+	public void testSWT() throws Exception {
+		String model = "Model Tickets\n"
+				+ "\n"
+				+ "Parameters:\n"
+				+ "nbiglietti: [1 .. 10]\n"
+				+ "eta: {SENIOR, ADULTO, BAMBINI, INFANTI}\n"
+				+ "tipo: {SINGLE, WHOLE}\n"
+				+ "date: Boolean\n"
+				+ "canTravelAlone: Boolean\n"
+				+ "discount: {NO, DISCOUNT, FREE}\n"
+				+ "\n"
+				+ "Constraints:\n"
+				+ "    # tipo==SINGLE <=> !date #\n"
+				+ "    # (eta==SENIOR OR eta==BAMBINI) <=> discount == DISCOUNT#\n"
+				+ "    # (eta==INFANTI <=> discount == FREE) #\n"
+				+ "    # (eta==INFANTI OR eta==BAMBINI) <=> !canTravelAlone #\n";
+		System.out.println(Utility.getTestSuite(model, acts, 0, false, model));
+	}
 
 	@Test
 	public void test3() throws Exception {
@@ -120,6 +140,16 @@ public class ACTSTest {
 		stream.close();
 		System.out.println(Utility.getTestSuite(contentBuilder.toString(), acts, 2, false, null));
 	}
+	
+	@Test
+	public void testExampleHPO() throws Exception {
+		StringBuilder contentBuilder = new StringBuilder();
+		String filePath = "examples/hpo2.ctw";
+		Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8);
+		stream.forEach(s -> contentBuilder.append(s).append("\n"));
+		stream.close();
+		System.out.println(Utility.getTestSuite(contentBuilder.toString(), acts, 2, false, null));
+	}
 
 	@Test
 	public void testExample3() throws Exception {
@@ -144,6 +174,15 @@ public class ACTSTest {
 		CitModel model = ICTWedgeModelProcessor.getModel(filePath);
 		ACTSTranslator trans = new ACTSTranslator();
 		trans.convertModel(model, true, 2, "C:\\Users\\Andrea_PC\\Desktop\\FM\\");
+	}
+	
+	@Test
+	public void translateCTHPO() {
+		// Convert the file in ACTS
+		String filePath = "./examples/depth4_4phenotypes.ctw";
+		CitModel model = ICTWedgeModelProcessor.getModel(filePath);
+		ACTSTranslator trans = new ACTSTranslator();
+		trans.convertModel(model, true, 2, "./examples/");
 	}
 	
 	@Test

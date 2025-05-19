@@ -18,6 +18,7 @@ import ctwedge.ctWedge.Parameter;
 import ctwedge.util.NotConvertableModel;
 import ctwedge.util.Test;
 import ctwedge.util.TestSuite;
+import ctwedge.util.ext.ICTWedgeModelProcessor;
 import ctwedge.util.ext.ICTWedgeTestGenerator;
 //import edu.uta.cse.fireeye.common.Constraint;
 //import edu.uta.cse.fireeye.common.Parameter;
@@ -400,5 +401,16 @@ public class ACTSTranslator extends ICTWedgeTestGenerator {
 
 		}
 		return txtFile;
+	}
+	
+	public static void main(String[] args) {
+		if (args.length < 1) {
+			System.out.println("Usage: ACTSTranslator <CTWedgeModelPath>");
+			System.exit(1);
+		}
+		String modelPath = args[0];
+		CitModel model = ICTWedgeModelProcessor.getModel(modelPath);
+		ACTSTranslator trans = new ACTSTranslator();
+		trans.convertModel(model, true, 2, ".");
 	}
 }
