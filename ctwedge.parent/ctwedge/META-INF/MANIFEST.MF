@@ -8,13 +8,14 @@ Bundle-SymbolicName: ctwedge; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
  org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.16.0",
  org.eclipse.emf.ecore,
- org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
- org.eclipse.xtext.util,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.34.0",
  org.eclipse.emf.common,
- org.eclipse.xtend.lib,
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
-Export-Package: ctwedge,
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Export-Package: ctwedge.formatting2,
+ ctwedge,
  ctwedge.ctWedge.impl,
  ctwedge.validation,
  ctwedge.services,
@@ -24,6 +25,5 @@ Export-Package: ctwedge,
  ctwedge.ctWedge.util,
  ctwedge.parser.antlr.internal,
  ctwedge.parser.antlr,
- ctwedge.generator,
- ctwedge.formatting2
+ ctwedge.generator
 Import-Package: org.apache.log4j
