@@ -32,15 +32,15 @@
 		<module>ctwedge.generators/ctwedge.generator.pict</module>
 		<module>ctwedge.generators/ctwedge.generator.pmedici</module>
 		<module>ctwedge.generators/ctwedge.generator.medici</module>
-		<!--<module>ctwedge.ui</module>-->
+		<module>ctwedge.ui</module>
 		<module>ctwedge.target</module>
 		<module>ctwedge.repository</module>
-		<!--<module>ctwedge.tests</module>-->
+		<module>ctwedge.tests</module>
 		<module>ctwedge.batchgenerator</module>
-		<!--<module>ctwedge.web</module>-->
-		<!--<module>ctwedge.ui.tests</module>
+		<module>ctwedge.web</module>
+		<module>ctwedge.ui.tests</module>
 		<module>ctwedge.benchmarks</module> 
-		<module>ctwedge.feature</module> -->
+		<module>ctwedge.feature</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

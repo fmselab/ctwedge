@@ -189,5 +189,14 @@
 			<artifactId>ctwedge.generator.pmedici</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>acts</groupId>
+			<artifactId>acts</artifactId>
+			<version>3.2</version>
+			<systemPath>${project.basedir}/../ctwedge.generators/ctwedge.generator.acts/libs/acts-3.2.jar</systemPath>
+			<scope>system</scope>
+			<type>jar</type>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 </project>

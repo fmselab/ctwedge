@@ -169,6 +169,7 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 	public Formula caseEqualExpression(EqualExpression object) {
 		FormulaManager fmgr = ctx.getFormulaManager();
 		BooleanFormulaManager bmgr = fmgr.getBooleanFormulaManager();
+		RationalFormulaManager nmgr = fmgr.getRationalFormulaManager();
 		Expression left = object.getLeft();
 		Expression right = object.getRight();
 		// case in which left = right with atomic predicates
@@ -215,9 +216,17 @@ public class SMTConstraintTranslator extends CtWedgeSwitch<Formula> {
 			return areEqual(leftVal, rightVal);
 		case NE:
 			return bmgr.not((BooleanFormula) areEqual(leftVal, rightVal));
+		case GT:
+			return nmgr.greaterThan((NumeralFormula) leftVal, (NumeralFormula) rightVal);
+		case LT:
+			return nmgr.lessThan((NumeralFormula) leftVal, (NumeralFormula) rightVal);
+		case GE:
+			return nmgr.greaterOrEquals((NumeralFormula) leftVal, (NumeralFormula) rightVal);
+		case LE:
+			return nmgr.lessOrEquals((NumeralFormula) leftVal, (NumeralFormula) rightVal);
 		}
 
-		throw new RuntimeException("Operator not found in constraint");
+		throw new RuntimeException("Operator not found in constraint: " + object.getOp());
 	}
 
 	@Override

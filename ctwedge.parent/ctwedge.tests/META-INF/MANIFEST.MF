@@ -7,8 +7,9 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: ctwedge.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: ctwedge,
+ org.junit;bundle-version="4.13.2",
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
- org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
- org.junit
+ org.eclipse.xtext.xbase.lib;bundle-version="2.34.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: ctwedge.tests;x-internal=true

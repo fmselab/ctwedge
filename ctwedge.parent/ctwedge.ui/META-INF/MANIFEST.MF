@@ -21,7 +21,9 @@ Require-Bundle: org.eclipse.xtext.ui,
  org.eclipse.core.databinding.beans,
  org.eclipse.core.databinding.property,
  org.eclipse.core.resources,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ ctwedge,
+ ctwedge.ide
 Import-Package: com.google.inject;version="1.4.0",
  org.apache.log4j
 Export-Package: ctwedge.ui.contentassist,

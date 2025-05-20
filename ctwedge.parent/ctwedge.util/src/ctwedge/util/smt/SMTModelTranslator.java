@@ -60,8 +60,7 @@ public class SMTModelTranslator {
 		addConstraintsForSMTParam(ctx, prover);
 		// Translate all the constraints and add them to the context
 		for (Constraint r : list) {
-			SMTConstraintTranslator translator = new SMTConstraintTranslator(ctx, variables, declaredElements, enumTreatment);
-			Formula constraint = translator.doSwitch(r);
+			Formula constraint = getSMTFormulaFromConstraint(ctx, r);
 			assert constraint instanceof BooleanFormula : "Constraints must be boolean";
 			// Add this constraint
 			try {
@@ -71,6 +70,23 @@ public class SMTModelTranslator {
 			}
 		}
 
+		return prover;
+	}
+
+	public Formula getSMTFormulaFromConstraint(SolverContext ctx, Constraint r) {
+		SMTConstraintTranslator translator = new SMTConstraintTranslator(ctx, variables, declaredElements, enumTreatment);
+		Formula constraint = translator.doSwitch(r);
+		return constraint;
+	}
+	
+	public ProverEnvironment createCtxFromModelWithoutConstraints(CitModel model, List<Constraint> list, SolverContext ctx,
+			ProverEnvironment prover) {
+		declaredElements = new HashMap<>();
+		variables = new HashMap<Parameter, List<Formula>>();
+		// Add all the parameters to the new CTX
+		addParameters(model, ctx, enumTreatment);
+		// add the constraints due to the parameters
+		addConstraintsForSMTParam(ctx, prover);
 		return prover;
 	}
 

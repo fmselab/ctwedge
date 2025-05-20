@@ -42,7 +42,7 @@ public class CASATestGenerator extends ICTWedgeTestGenerator{
 	
 	public CASATestGenerator(String path) {
 		this();
-		if (path!=null) this.path = path;
+		if (path!=null) this.path = path + "/";
 	}
 
 	@Override
