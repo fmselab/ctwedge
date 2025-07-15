@@ -11,28 +11,25 @@
 		<graphics key="layoutalgorithm" value="1"/>
 	</properties>
 	<struct>
-		<and abstract="true" mandatory="true" name="root">
+		<and abstract="true" mandatory="true" name="MobilePhone">
 			<graphics key="collapsed" value="false"/>
-			<or name="A">
-				<feature name="C"/>
-				<feature name="D"/>
-			</or>
-			<alt name="B">
-				<feature name="E"/>
-				<feature name="F"/>
+			<alt name="Screen" mandatory="true">
+				<feature name="Basic"/>
+				<feature name="Color"/>
 			</alt>
-			<feature mandatory="true" name="G"/>
-			<feature name="H"/>
+			<or name="Media">
+				<feature name="Camera"/>
+				<feature name="MP3"/>
+			</or>
+			<feature mandatory="true" name="Calls"/>
+			<feature name="GPS"/>
 		</and>
 	</struct>
 	<constraints>
 		<rule>
 			<imp>
-				<disj>
-					<var>A</var>
-					<var>B</var>
-				</disj>
-				<var>E</var>
+				<var>Camera</var>
+				<var>Color</var>
 			</imp>
 		</rule>
 	</constraints>

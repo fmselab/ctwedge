@@ -67,7 +67,6 @@
 			<version>1.7.5</version>
 		</dependency>
 		<!-- End of dependencies for working correctly with Apache POI -->
-
 		<dependency>
 			<groupId>featuremodels.specificity</groupId>
 			<artifactId>featuremodels.specificity</artifactId>

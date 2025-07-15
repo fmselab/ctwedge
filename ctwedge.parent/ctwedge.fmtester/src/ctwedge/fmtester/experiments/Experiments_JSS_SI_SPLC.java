@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import ctwedge.ctWedge.CitModel;
@@ -36,6 +38,8 @@ import featuremodels.specificity.SpecificCITTestGenerator;
 import featuremodels.specificity.SpecificityChecker;
 import fmautorepair.mutationoperators.FMMutation;
 import fmautorepair.mutationoperators.FMMutator;
+import fmautorepair.mutationoperators.features.AlternativeToAnd;
+import fmautorepair.mutationoperators.features.AlternativeToAndOpt;
 import fmautorepair.mutationprocess.FMMutationProcess;
 import pMedici.main.PMedici;
 import pMedici.util.TestContext;
@@ -152,6 +156,7 @@ public class Experiments_JSS_SI_SPLC {
 	public void testEvolutionMutations() throws FileNotFoundException, IOException, UnsupportedModelException,
 			NoSuchExtensionException, InterruptedException, ValidatorException {
 		LibraryManager.registerLibrary(FMCoreLibrary.getInstance());
+		mutations = new HashMap<>();
 		for (int i = 0; i < N_REP; i++) {
 			testEvoMutation(EV_ALIV, i);
 			testEvoMutation(EV_PPU, i);
@@ -169,6 +174,40 @@ public class Experiments_JSS_SI_SPLC {
 			testEvoMutation(EV_SMARTW, i);
 			testEvoMutation(EV_WSTAT, i);
 		}
+	}
+
+	/**
+	 * Tests the evolution with mutations
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws UnsupportedModelException
+	 * @throws NoSuchExtensionException
+	 * @throws InterruptedException
+	 * @throws ValidatorException
+	 */
+	@Test
+	public void testCountMutations() throws FileNotFoundException, IOException, UnsupportedModelException,
+			NoSuchExtensionException, InterruptedException, ValidatorException {
+		LibraryManager.registerLibrary(FMCoreLibrary.getInstance());
+		Logger.getLogger(AlternativeToAnd.class).getRoot().setLevel(Level.OFF);
+		mutations = new HashMap<>();
+		countEvoMutations(EV_PPU);
+		countEvoMutations(EV_AUTOM);
+		countEvoMutations(EV_BOING);
+		countEvoMutations(EV_CARBODY);
+		countEvoMutations(EV_LINUX);
+		countEvoMutations(EV_PARKING);
+		countEvoMutations(EV_BCS);
+		countEvoMutations(EV_ERP);
+		countEvoMutations(EV_HSYS);
+		countEvoMutations(EV_MOBMEDIA);
+		countEvoMutations(EV_SHOME);
+		countEvoMutations(EV_SMARTH);
+		countEvoMutations(EV_SMARTW);
+		countEvoMutations(EV_WSTAT);
+		countEvoMutations(EV_ALIV);
+
 	}
 
 	/**
@@ -204,8 +243,8 @@ public class Experiments_JSS_SI_SPLC {
 					String fileName = x.toString().substring(x.toString().lastIndexOf("/") + 1);
 					int countUnderscore = StringUtils.countMatches(fileName, "_");
 					String[] parts = fileName.split("_");
-					time = Float.parseFloat(
-							Files.readAllLines(Paths.get(x.toString().replace(".txt", ".time"))).getFirst());
+					time = Float
+							.parseFloat(Files.readAllLines(Paths.get(x.toString().replace(".txt", ".time"))).get(0));
 
 					if (fileName.contains("ORIGINAL")) {
 						// TS generated only for the original model
@@ -391,6 +430,72 @@ public class Experiments_JSS_SI_SPLC {
 			// Execute the experiments on the original model
 			mutations = new HashMap<>();
 			executeTest("../../featuremodels.evotester/" + modelsList[0] + "/" + modelsList[i] + ".xml", repCount);
+		}
+	}
+
+	/**
+	 * Tests the evolution for the given models and the specific repetition count
+	 * 
+	 * @param modelsList the models list
+	 * @param repCount   the current repetition
+	 * @throws ValidatorException
+	 * @throws InterruptedException
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	public void countEvoMutations(String[] modelsList) throws FileNotFoundException, IOException,
+			UnsupportedModelException, NoSuchExtensionException, InterruptedException, ValidatorException {
+		for (int i = 1; i < modelsList.length; i++) {
+			mutations = new HashMap<>();
+			System.out.println(modelsList[0]);
+			countMutants("../../featuremodels.evotester/" + modelsList[0] + "/" + modelsList[i] + ".xml");
+			int nMutants = 0;
+			for (Object m : mutations.keySet()) {
+				nMutants += mutations.get(m);
+			}
+			System.out.println(nMutants);
+		}
+	}
+
+	/**
+	 * Counts how many mutants are generated for each mutation operator
+	 * 
+	 * @param oldFm    old feature model
+	 * @param newFm    new feature model
+	 * @param repCount the repetition count
+	 * @throws ValidatorException
+	 * @throws InterruptedException
+	 * @throws NoSuchExtensionException
+	 * @throws UnsupportedModelException
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	private void countMutants(String oldFm) throws FileNotFoundException, IOException, UnsupportedModelException,
+			NoSuchExtensionException, InterruptedException, ValidatorException {
+		// Load the two feature models. One is the original one, the other is the
+		// mutated one
+		Path oldFMPath = Path.of(oldFm);
+		IFeatureModel oldFM = FeatureModelManager.load(oldFMPath);
+
+		// Define the mutators
+		Iterator<FMMutation> mutants = FMMutationProcess.getAllMutantsRndOrderFOM(oldFM);
+
+		// Apply the mutations
+		while (mutants.hasNext()) {
+			FMMutation next = mutants.next();
+			if (next == null)
+				continue;
+
+			if (mutations.get(next.getMutationClass()) != null) {
+				if (mutations.get(next.getMutationClass()) > N_MAX_PER_MUTATION)
+					continue;
+
+				mutations.put(next.getMutationClass(), mutations.get(next.getMutationClass()) + 1);
+			} else {
+				mutations.put(next.getMutationClass(), 1);
+			}
 		}
 	}
 
