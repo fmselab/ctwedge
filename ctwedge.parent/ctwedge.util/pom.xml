@@ -98,5 +98,10 @@
 			<version>5.6.10</version>
 			<type>pom</type>
 		</dependency>
+		<dependency>
+			<groupId>args4j</groupId>
+			<artifactId>args4j</artifactId>
+			<version>2.33</version>
+		</dependency>
 	</dependencies>
 </project>
